@@ -1635,7 +1635,9 @@
 				Object.assign(kids[0].style, boxOf(bb), { borderRadius: px(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0), opacity: '' });
 				var ms = 280, m = kids[1].animate([Object.assign({ easing: EASE }, f.seed), Object.assign({ offset: 0.3, easing: SNAPPY }, f.drop), f.panel], { duration: ms, easing: 'linear', fill: 'forwards' });
 				tint(m, solid(face(d)), fill, 0.12, 0.55, true);
-				kids[0].animate([{ opacity: 1 }, { opacity: 1, offset: 0.75 }, { opacity: 0 }], { duration: ms, fill: 'forwards' });
+				var gx = Math.max(0, p.left - bb.right, bb.left - p.right), gy = Math.max(0, p.top - bb.bottom, bb.top - p.bottom), gap = Math.sqrt(gx * gx + gy * gy);
+				var far = Math.max(0, Math.min(1, (gap - 40) / 200)), gone = 1 - 0.65 * far, small = 'scale(' + (1 - 0.45 * far).toFixed(2) + ')'; 
+				kids[0].animate([{ opacity: 1, transform: 'scale(1)' }, { opacity: 1, transform: 'scale(1)', offset: gone - 0.25 }, { opacity: 0, transform: small, offset: gone }].concat(gone < 1 ? [{ opacity: 0, transform: small }] : []), { duration: ms, fill: 'forwards' });
 				d.animate([{ opacity: 1 }, { opacity: 1, offset: 0.15 }, { opacity: 0, offset: 0.45 }, { opacity: 0 }], { duration: ms, fill: 'forwards' });
 				m.finished.then(function () {
 					if (!live || !open) return;

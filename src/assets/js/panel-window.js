@@ -1782,7 +1782,13 @@
 				Object.assign(kids[0].style, boxOf(bb), { borderRadius: px(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0), opacity: '' });
 				var ms = 280, m = kids[1].animate([Object.assign({ easing: EASE }, f.seed), Object.assign({ offset: 0.3, easing: SNAPPY }, f.drop), f.panel], { duration: ms, easing: 'linear', fill: 'forwards' });
 				tint(m, solid(face(d)), fill, 0.12, 0.55, true);
-				kids[0].animate([{ opacity: 1 }, { opacity: 1, offset: 0.75 }, { opacity: 0 }], { duration: ms, fill: 'forwards' });
+				/* THE BUTTON'S SHAPE GOES AS FAR AS THE WINDOW IS (2026-09-28): close by, the two merge like a drop and it may
+				   stay to 75%; far off, it stood alone for most of the run while the window formed elsewhere. The gap between
+				   the button and the window sets when it has gone (held to 75% and out at the end at 40 px or less, as it
+				   always was; gone by 35% at 240 px or more) and, far off, it shrinks as it fades, drawn into the blob. */
+				var gx = Math.max(0, p.left - bb.right, bb.left - p.right), gy = Math.max(0, p.top - bb.bottom, bb.top - p.bottom), gap = Math.sqrt(gx * gx + gy * gy);
+				var far = Math.max(0, Math.min(1, (gap - 40) / 200)), gone = 1 - 0.65 * far, small = 'scale(' + (1 - 0.45 * far).toFixed(2) + ')'; /* close by exactly as before: held to 75%, out at the end */
+				kids[0].animate([{ opacity: 1, transform: 'scale(1)' }, { opacity: 1, transform: 'scale(1)', offset: gone - 0.25 }, { opacity: 0, transform: small, offset: gone }].concat(gone < 1 ? [{ opacity: 0, transform: small }] : []), { duration: ms, fill: 'forwards' });
 				d.animate([{ opacity: 1 }, { opacity: 1, offset: 0.15 }, { opacity: 0, offset: 0.45 }, { opacity: 0 }], { duration: ms, fill: 'forwards' });
 				m.finished.then(function () {
 					if (!live || !open) return;
