@@ -387,7 +387,7 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window.is-reader .ldpw-detail { flex: 1 1 auto; min-height: 0; }
 #ldp-window.is-reader .ldpw-scroll { padding-bottom: 16px; }
 #ldp-window .ldpw-aa { display: flex; align-items: center; gap: 6px; }
-#ldp-window .ldpw-aa button { width: 38px; height: 30px; border-radius: 9px; border: 0; background: var(--ldpw-row); color: var(--ldpw-ink); font: 13px/1 Georgia, serif; cursor: pointer; }
+#ldp-window .ldpw-aa button { width: 38px; height: 30px; border-radius: 9px; border: 0; background: var(--ldpw-row2); color: var(--ldpw-ink); font: 13px/1 Georgia, serif; cursor: pointer; }
 #ldp-window .ldpw-aa button.is-big { font-size: 19px; }
 #ldp-window .ldpw-aa button:disabled { opacity: .35; cursor: default; }
 #ldp-window .ldpw-rdots { display: flex; gap: 5px; align-items: center; padding: 0 4px; }

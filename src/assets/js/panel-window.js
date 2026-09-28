@@ -1548,7 +1548,11 @@
 	}
 	function readerClick(b) {
 		var r = host.reader;
-		if (b.getAttribute('data-act') === 'endpreview') { var u = new URL(window.location.href); u.searchParams.delete('ldp-as-reader'); window.location.href = u.toString(); return true; } /* Done: the page again, as the owner */
+		/* DONE (2026-09-28): the preview opened in a tab of its own, so Done closes it and the owner is back where they
+		   were; if the browser keeps the tab (it was not opened by the panel), the page loads again as the owner.
+		   Going to the same page looked like nothing had happened. */
+		if (b.getAttribute('data-act') === 'endpreview') { try { window.close(); } catch (e) { /* kept */ }
+			setTimeout(function () { var u = new URL(window.location.href); u.searchParams.delete('ldp-as-reader'); window.location.href = u.toString(); }, 150); return true; }
 		if (b.hasAttribute('data-rsize')) { var ids = r.sizes(), i = ids.indexOf(r.size()) + (+b.getAttribute('data-rsize')); if (ids[i]) r.setSize(ids[i]); render('[data-f="' + b.getAttribute('data-f') + '"]'); return true; }
 		if (b.getAttribute('data-seg') === 'rside') { r.setSide(b.getAttribute('data-v')); render('[data-seg="rside"][data-v="' + b.getAttribute('data-v') + '"]'); return true; }
 		if (b.hasAttribute('data-rstyle')) { St().choose(b.getAttribute('data-rstyle')); render('[data-rstyle="' + b.getAttribute('data-rstyle') + '"]'); return true; }
@@ -1595,7 +1599,12 @@
 		if (RD()) {
 			var had0 = document.activeElement && win.contains(document.activeElement) ? document.activeElement.getAttribute('data-f') : null;
 			win.classList.add('is-reader'); win.classList.toggle('is-phone', phone()); win.classList.remove('is-list'); applyPrefs(); win.classList.add('is-noside');
-			win.innerHTML = readerHTML() + (phone() ? '<div class="ldpw-grab" aria-hidden="true"></div>' : '');
+			/* patched in place, as the owner's window, so the Appearance pill slides from where it stood (2026-09-28:
+			   it was drawn anew and jumped) */
+			var rWas = {}; win.querySelectorAll('.ldpw-seg').forEach(function (g) { var k = g.querySelector('[data-seg]'); if (k) rWas[k.getAttribute('data-seg')] = g.style.getPropertyValue('--i'); });
+			patchInto(win, readerHTML() + (phone() ? '<div class="ldpw-grab" aria-hidden="true"></div>' : ''));
+			var rMoved = []; win.querySelectorAll('.ldpw-seg').forEach(function (g) { var k = g.querySelector('[data-seg]'), now = g.style.getPropertyValue('--i'), was = k ? rWas[k.getAttribute('data-seg')] : undefined; if (was !== undefined && was !== now) { g.style.setProperty('--i', was); rMoved.push(function () { g.style.setProperty('--i', now); }); } });
+			if (rMoved.length) { void win.offsetWidth; rMoved.forEach(function (f) { f(); }); }
 			var f0 = focus ? win.querySelector(focus) : had0 ? win.querySelector('[data-f="' + had0 + '"]') : null;
 			if (f0) f0.focus({ preventScroll: true });
 			return;
