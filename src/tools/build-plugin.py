@@ -29,6 +29,8 @@ import zipfile
 from pathlib import Path
 
 THEME = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(THEME / "tools"))
+import php_strip  # noqa: E402  (the shipped PHP without its notes)
 SLUG = "live-design-panel"
 OWN = "plugin"
 COPIED = [
@@ -135,67 +137,14 @@ def stripper():
     return mod.strip_comments
 
 
-PHP_STRIP = r"""<?php
-/* Strip a PHP file's comments the way build-dist.py strips a stylesheet's:
-   ship the code, keep the reasoning at home. Survivors: the file's opening
-   docblock (the plugin header, the @package line) and every comment a machine
-   reads — translators (i18n scanners) and phpcs (the review). Tokenised, not
-   regexed: a string holding a slash-star must never be touched. */
-$src   = file_get_contents( $argv[1] );
-$out   = '';
-$first = true;
-foreach ( token_get_all( $src ) as $t ) {
-	if ( ! is_array( $t ) ) {
-		$out .= $t;
-		continue;
-	}
-	if ( T_DOC_COMMENT === $t[0] || T_COMMENT === $t[0] ) {
-		if ( $first && T_DOC_COMMENT === $t[0] ) {
-			$out  .= $t[1];
-			$first = false;
-			continue;
-		}
-		if ( preg_match( '/translators\s*:|phpcs:/i', $t[1] ) ) {
-			$out .= $t[1];
-		}
-		continue;
-	}
-	$out .= $t[1];
-}
-echo $out;
-"""
-
-
 def php_stripped(p: Path) -> bytes:
     """The shipped PHP without its working notes (2026-09-25, for wordpress.org:
     the comments quote private conversations and name files only this
-    repository has). PHP's own tokenizer does the reading, the stripped result
-    is linted before it ships, and without a PHP binary the file ships whole,
-    which is only ever a local build."""
+    repository has). tools/php_strip.py does it, for the theme and Extras too;
+    without a PHP binary the file ships whole, which is only ever a local build."""
     if not Path(PHP).is_file():
         return p.read_bytes()
-    import tempfile
-
-    with tempfile.NamedTemporaryFile("w", suffix=".php", delete=False) as f:
-        f.write(PHP_STRIP)
-        script = f.name
-    try:
-        r = subprocess.run([PHP, script, str(p)], capture_output=True)
-        if r.returncode:
-            raise SystemExit(f"php comment strip failed on {p}: {r.stderr.decode()}")
-        text = r.stdout.decode("utf-8")
-        text = re.sub(r"(?m)[ \t]+$", "", text)
-        text = re.sub(r"\n[ \t]*\n[ \t]*\n+", "\n\n", text)
-        with tempfile.NamedTemporaryFile("w", suffix=".php", delete=False) as f:
-            f.write(text)
-            check = f.name
-        lint = subprocess.run([PHP, "-l", check], capture_output=True)
-        Path(check).unlink()
-        if lint.returncode:
-            raise SystemExit(f"stripped {p} no longer parses:\n" + lint.stdout.decode() + lint.stderr.decode())
-        return text.encode("utf-8")
-    finally:
-        Path(script).unlink()
+    return php_strip.php(p)
 
 
 def fonts() -> list[tuple[Path, str]]:

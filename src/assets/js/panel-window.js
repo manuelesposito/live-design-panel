@@ -1526,23 +1526,29 @@
 			var x = s.tile(id); if (!x) return '';
 			return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"><button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-rstyle="' + esc(id) + '" data-f="rstyle:' + esc(id) + '">' +
 				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(x.face) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
-				'<span class="ldpw-nm">' + esc(t(x.label)) + '</span>' + (id === def ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') +
+				'<span class="ldpw-nm">' + esc(t(x.label)) + (id === def ? ' <em class="ldpw-def">' + esc(t('Default')) + '</em>' : '') + '</span>' + /* the lab's: Default beside the name */
 			'</button></div>';
 		}).join('');
 		var stepper = '<span class="ldpw-aa"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +
 			'<span class="ldpw-rdots" aria-hidden="true">' + ids.map(function (id, i) { return '<i' + (i === at ? ' class="is-on"' : '') + '></i>'; }).join('') + '</span>' +
 			'<button type="button" class="is-big" data-rsize="1" data-f="rsize:1" aria-label="' + esc(t('Larger')) + '"' + (at >= ids.length - 1 ? ' disabled' : '') + '>A</button></span>';
 		var shut = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>';
+		/* THE LAB'S READER WINDOW (2026-09-28): in the owner's Preview as Reader the bar says so under the name and ends
+		   with a blue Done (back to the page as the owner), and a line at the foot says what a visitor sees */
+		var pv = !!r.preview;
 		return '<div class="ldpw-detail"><div class="ldpw-bar">' + (phone() ? '' : shut) +
-				'<div class="ldpw-ttl"><b id="ldpw-title">' + esc(t('Live Design')) + '</b></div>' + (phone() ? shut : '') + '</div>' + /* on a phone the × at the right, as the owner's sheet */
+				'<div class="ldpw-ttl"><b id="ldpw-title">' + esc(t('Live Design')) + '</b>' + (pv ? '<small>' + esc(t('Preview as Reader')) + '</small>' : '') + '</div>' +
+				(pv ? '<button type="button" class="ldpw-blue" data-act="endpreview" data-f="act:endpreview">' + esc(t('Done')) + '</button>' : '') + (phone() ? shut : '') + '</div>' + /* on a phone the × at the right, as the owner's sheet */
 			'<div class="ldpw-scroll">' +
 				box(row(t('Text size'), stepper) + row(t('Appearance'), seg('rside', r.side(), [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')))) +
 				(list.length > 1 ? '<div class="ldpw-tiles ldpw-styles" role="radiogroup" aria-label="' + esc(t('Styles')) + '">' + tiles + '</div>' : '') +
 				(r.canCopy() ? box('<button type="button" class="ldpw-r ldpw-rlink" data-rcopy data-f="rcopy">' + esc(t(readerCopied ? 'Style Copied' : 'Copy Style')) + '</button>') : '') +
+				(pv ? '<p class="ldpw-hint">' + esc(t('What a visitor sees: the site default first, no styles of your own, no unsaved changes. It closes when they click the page.')) + '</p>' : '') +
 			'</div></div>';
 	}
 	function readerClick(b) {
 		var r = host.reader;
+		if (b.getAttribute('data-act') === 'endpreview') { var u = new URL(window.location.href); u.searchParams.delete('ldp-as-reader'); window.location.href = u.toString(); return true; } /* Done: the page again, as the owner */
 		if (b.hasAttribute('data-rsize')) { var ids = r.sizes(), i = ids.indexOf(r.size()) + (+b.getAttribute('data-rsize')); if (ids[i]) r.setSize(ids[i]); render('[data-f="' + b.getAttribute('data-f') + '"]'); return true; }
 		if (b.getAttribute('data-seg') === 'rside') { r.setSide(b.getAttribute('data-v')); render('[data-seg="rside"][data-v="' + b.getAttribute('data-v') + '"]'); return true; }
 		if (b.hasAttribute('data-rstyle')) { St().choose(b.getAttribute('data-rstyle')); render('[data-rstyle="' + b.getAttribute('data-rstyle') + '"]'); return true; }
@@ -1674,7 +1680,7 @@
 		if (phone()) { ['left', 'top', 'width', 'max-height'].forEach(function (k) { win.style.removeProperty(k); }); sheetSize(); return; }
 		var iw = window.innerWidth, ih = window.innerHeight, bar = document.getElementById('wpadminbar');
 		var roof = 8 + (bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0);
-		var w = Math.min(RD() ? 380 : (prefs.noSide ? 0 : Math.max(150, Math.min(260, +prefs.sideW || 200))) + (+prefs.pageW || 448), iw - 16), h = ih - roof - 8; /* the lab's: the sidebar and a 448 page, as tall as the screen allows */
+		var w = Math.min(RD() ? 448 : (prefs.noSide ? 0 : Math.max(150, Math.min(260, +prefs.sideW || 200))) + (+prefs.pageW || 448), iw - 16), h = ih - roof - 8; /* the lab's: the sidebar and a 448 page, as tall as the screen allows */
 		var r = door && door.getBoundingClientRect && door.getClientRects().length ? door.getBoundingClientRect() : { top: ih - 16, bottom: ih - 16, right: iw - 16 };
 		var left = Math.max(8, Math.min(iw - w - 8, r.right - w));
 		var below = r.top <= ih / 2, top = below ? r.bottom + 8 : roof;
@@ -1694,7 +1700,17 @@
 		/* MOVED OR SIZED BY HAND (the lab's): the place and size stand, kept on screen */
 		if (prefs.x !== null && prefs.y !== null) { left = Math.max(8, Math.min(+prefs.x, iw - w - 8)); top = Math.max(roof, Math.min(+prefs.y, ih - 120)); h = ih - top - 8; }
 		if (prefs.h && !RD()) h = Math.max(320, Math.min(+prefs.h, ih - top - 8));
-		if (RD()) { if (prefs.x === null || prefs.y === null) top = below ? r.bottom + 8 : Math.max(roof, r.top - 8 - Math.min(h, 520)); frameAt(left, top, w, 'auto', Math.round(h) + 'px'); return; } /* the readers' window is as tall as what it holds */
+		/* THE READERS' WINDOW IS AS TALL AS WHAT IT HOLDS, AND WHOLE ON SCREEN (2026-09-28): it was placed as if 520 px
+		   tall, so a longer list of styles ran off the foot of the screen. Its own height is measured and it stands
+		   above the button (its foot on the button's foot when the button floats), below it when the button is high,
+		   and scrolls inside only when the screen is shorter than it. */
+		if (RD()) {
+			if (prefs.x !== null && prefs.y !== null) { frameAt(left, top, w, 'auto', Math.round(ih - top - 8) + 'px'); return; }
+			if (below) { top = r.bottom + 8; frameAt(left, top, w, 'auto', Math.round(ih - top - 8) + 'px'); return; }
+			var foot = pl && pl !== 'auto' ? Math.min(ih - 8, r.bottom) : r.top - 8;
+			frameAt(left, roof, w, 'auto', Math.round(foot - roof) + 'px');
+			win.style.top = Math.round(Math.max(roof, foot - win.offsetHeight)) + 'px'; return;
+		}
 		frameAt(left, top, w, Math.round(h) + 'px', '');
 	}
 	/* one property at a time: the window's own custom properties (the sidebar's width, the accent) stay */

@@ -372,6 +372,7 @@
 		save: notYet,
 		publish: notYet,
 		reader: W.reader ? {
+			preview: /[?&]ldp-as-reader=/.test(window.location.search), 
 			sizes: function () { var R = window.QuireReading; return R ? R.ids : []; },
 			size: function () { var R = window.QuireReading; return R ? (root.getAttribute(R.attribute) || 'default') : 'default'; },
 			setSize: function (id) { press('[data-quire-reading] [data-reading-step="' + id + '"]'); },

@@ -424,6 +424,7 @@
 		/* THE READERS' PAGE (2026-09-28, the lab's readerHTML): a reader, or an owner in Preview as Reader, gets
 		   the text size, the side and the styles offered, with the same presses the small panel made */
 		reader: W.reader ? {
+			preview: /[?&]ldp-as-reader=/.test(window.location.search), /* the owner looking through Preview as Reader */
 			sizes: function () { var R = window.QuireReading; return R ? R.ids : []; },
 			size: function () { var R = window.QuireReading; return R ? (root.getAttribute(R.attribute) || 'default') : 'default'; },
 			setSize: function (id) { press('[data-quire-reading] [data-reading-step="' + id + '"]'); },

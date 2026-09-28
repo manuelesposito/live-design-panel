@@ -864,6 +864,7 @@ function live_design_window_words() {
 		'Actual Size' => __( 'Actual Size', 'live-design-panel' ),
 		'Bigger or smaller text' => __( 'Bigger or smaller text', 'live-design-panel' ),
 		'Preview as Reader' => __( 'Preview as Reader', 'live-design-panel' ),
+		'What a visitor sees: the site default first, no styles of your own, no unsaved changes. It closes when they click the page.' => __( 'What a visitor sees: the site default first, no styles of your own, no unsaved changes. It closes when they click the page.', 'live-design-panel' ),
 		'The site as a first visit gets it, in a new tab. Nothing picked there is kept.' => __( 'The site as a first visit gets it, in a new tab. Nothing picked there is kept.', 'live-design-panel' ),
 		'Preview Links' => __( 'Preview Links', 'live-design-panel' ),
 		'Copy' => __( 'Copy', 'live-design-panel' ),

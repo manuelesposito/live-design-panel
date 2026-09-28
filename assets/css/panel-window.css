@@ -553,3 +553,7 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
 .ldpw-lap span { filter: blur(14px); opacity: 1; }
 .ldpw-lap span i { inset: 0; padding: 5px; }
+#ldp-window.is-reader .ldpw-tiles.ldpw-styles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
+#ldp-window .ldpw-nm .ldpw-def { font-style: normal; font-size: 10px; font-weight: 600; color: var(--ldpw-soft); margin-left: 4px; }
+#ldp-window.is-reader .ldpw-bar .ldpw-blue { flex: none; }
+#ldp-window.is-reader .ldpw-scroll > .ldpw-hint { margin: 4px 2px 0; }
