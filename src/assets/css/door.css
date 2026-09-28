@@ -1,0 +1,692 @@
+/* Live Design Panel: the door (the Live Design button) and the seam where the
+   panel joins it. This was panel.php's own <style> block until 2026-09-25; it
+   is a stylesheet now, delivered through wp_add_inline_style on the
+   architrave-panel-door handle so it still stands after every other sheet, and
+   on a guest its panel rules are written behind the guard at that moment
+   (architrave_panel_guard_block in panel.php). */
+	/* THE DOOR IS THE PANEL'S OWN HEAD (Manuel, 2026-09-22: "the button
+	   shouldn't change style. It's part of the panel so it should always stay
+	   in the panel design"). It wore `.quire-button.large`, so on each theme it
+	   took that room's BUTTON look and the two sites' doors did not match. Every
+	   surface value here is the panel's own, written out, so the door and the
+	   panel are one material: the panel's paper, its ink, its corner, its
+	   shadow, its face. */
+	.architrave-panel-opener {
+		/* NOT A BUTTON OF THE ROOM (Manuel, 2026-09-22, a photograph of the
+		   Terminal look: "the button still has its own style, like the style I
+		   click on the tile"). It wore `.quire-button.large`, and every rule a
+		   look writes for a button then reached it: Lines drew its outline,
+		   Fills emptied its ground, square corners squared it. It wears none of
+		   those classes now, so nothing a tile says can find it, and everything
+		   it needs is written here. The panel's own room and corner scale come
+		   from style.css, which names this class beside `.reading-panel`. */
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 0; /* the space before the word belongs to the word, and leaves with it */
+		height: var(--layout-control-height-large, 44px);
+		min-inline-size: var(--layout-control-height-large, 44px); /* at rest it is a square: the glyph and its padding come to 42 */
+		padding-inline: var(--space-3);
+		margin: 0;
+		appearance: none;
+		-webkit-appearance: none;
+		line-height: 1;
+		white-space: nowrap;
+		position: fixed;
+		inset-block-end: max(1.25rem, env(safe-area-inset-bottom));
+		inset-inline-start: 50%;
+		translate: calc(-50% + var(--opener-x, 0px)) calc(var(--opener-y, 0px) + var(--opener-lift, 0px));
+		/* UNDER THE PANEL AND ITS SCRIM, over everything else (measured
+		   2026-09-22: at 90 the pill floated on top of the phone's sheet, which
+		   covers the foot of the window). The panel is one over the scrim and
+		   the scrim one over this. */
+		/* OVER THE SCREEN EFFECTS, UNDER THE PANEL (Manuel, 2026-09-22: "when I do
+		   scan lines the scan line is sitting on top of that button; the button and
+		   the panel sit on top of everything, they aren't untouched"). Measured with
+		   the door screenshot before and after each switch: scan lines changed 1,897
+		   of its 7,744 pixels and grain changed 7,481. The texture layer stands one
+		   above the overlay layer, which is where the door stood; it is two above
+		   now, which is also the scrim's place, and the door is printed before the
+		   scrim so the scrim still lies over it when the panel is up. */
+		z-index: calc(var(--layer-overlay, 40) + 2);
+		border-radius: var(--radius-control); /* the panel's own control corner: nothing on the panel is a pill */
+		box-sizing: border-box;
+		/* THE DUSK SILL (below): the face over a copy of itself that fades out
+		   towards the foot, over the band, so the one-pixel border shows the
+		   colours only along the bottom. */
+		--opener-face: var(--surface-floating);
+		--opener-light-1: oklch(60% 0.2 258 / var(--lit, 1)); /* --lit: the light as one number, faded back in when the panel flows home (below) */
+		--opener-light-2: oklch(56% 0.19 275 / var(--lit, 1));
+		--opener-light-3: oklch(58% 0.21 292 / var(--lit, 1));
+		--opener-light-4: oklch(72% 0.14 345 / var(--lit, 1));
+		--opener-light-5: oklch(72% 0.13 232 / var(--lit, 1));
+		--opener-band: linear-gradient(90deg, var(--opener-light-1), var(--opener-light-5), var(--opener-light-3), var(--opener-light-4), var(--opener-light-2));
+		border: 1px solid transparent;
+		--opener-paint:
+			linear-gradient(var(--opener-face), var(--opener-face)) padding-box,
+			linear-gradient(var(--opener-edge, var(--opener-face)) 50%, color-mix(in srgb, var(--opener-edge, var(--opener-face)) 60%, transparent) 80%, transparent) border-box,
+			linear-gradient(var(--opener-face) 50%, color-mix(in srgb, var(--opener-face) 60%, transparent) 80%, transparent) border-box, /* under a see-through line (Instrument's), the face, so the colours stay on the foot */
+			var(--opener-band) border-box;
+		background: var(--opener-paint);
+		background-size: 200%;
+		animation: opener-slide 2s linear infinite;
+		color: var(--text-primary);
+		box-shadow: var(--elevation-raised, 0 1px 2px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06));
+		font-family: var(--font-settings); /* the panel's own face, which no look rewrites (style.css) */
+		font-size: var(--text-sm-contextual);
+		touch-action: none;
+		user-select: none;
+		-webkit-user-select: none;
+		cursor: grab;
+		/* THE LIFT, AND NO TILT (Manuel, 2026-09-22: "take the wiggle out of the
+		   button"). The reference turns its panel one degree while it is
+		   carried; ours leans on nothing, so the shadow does the work: a
+		   millimetre of rise under the pointer, the floating shadow deepening,
+		   and a press that settles back. */
+		/* THE DOOR DOES NOT STRETCH (Manuel, 2026-09-22: "the button doesn't have
+		   to get that stretch animation so turn it back"). It widened into the
+		   panel for a day; nothing about its own shape moves now. */
+		transition: box-shadow var(--motion-duration-reveal) var(--motion-easing-standard),
+			translate var(--motion-duration-feedback) var(--motion-easing-standard),
+			scale var(--motion-duration-feedback) var(--motion-easing-standard);
+	}
+	/* THE PAPER DOES NOT ANSWER THE POINTER, the shadow does. */
+	/* NO LIFT, NO PRESS (2026-09-28, his ask: "matching exactly what we have" in the lab): the button holds still under the pointer and the press */
+	/* THE LIFT KEEPS ITS FLOOR (Manuel, 2026-09-23: "when I'm right on the lower
+	   edge of the button, it really can't decide if it opens up or closes so it
+	   wiggles like a hiccup super fast"). The hover lifts the door 2px; a pointer
+	   on its last row of pixels is then outside it, the hover ends, the door
+	   drops back under the pointer, and the hover starts again, every frame. An
+	   invisible strip under the door, taller than the lift, travels with it, so
+	   a pointer on the edge stays inside while the door is up. */
+	.architrave-panel-opener::after {
+		content: "";
+		position: absolute;
+		inset-inline: 0;
+		inset-block-end: -4px;
+		height: 4px;
+	}
+
+	/* THE PRESS SETTLES THE PILL, and only while it is closed: with the panel
+	   standing 8 above it, a door that shrinks or lifts under the pointer would
+	   change that distance while the reader is looking at it. */
+
+	.architrave-panel-opener[data-dragging] {
+		cursor: grabbing;
+		scale: 1;
+		transition: box-shadow var(--motion-duration-reveal) var(--motion-easing-standard);
+		box-shadow: var(--elevation-raised, 0 1px 2px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06)), 0 6px 18px var(--elevation-ambient-color, rgb(0 0 0 / 0.07));
+	}
+	.architrave-panel-opener:focus-visible {
+		outline: var(--focus-ring-width, 2px) solid var(--focus, currentColor);
+		outline-offset: var(--focus-ring-offset, 2px);
+	}
+	/* ── THE DOOR IS A QUIET SQUARE NOW ────────────────────────────────
+	   (Manuel, 2026-09-22, after a long afternoon of aurora: "on white this
+	   inverted color looks literally just ugly … for the moment we take that
+	   effect completely out, we let it just be a button in that color. Actually
+	   I'm not convinced about that pill-shaped button. Maybe it should not be
+	   pill-shaped because nothing has been pill-shaped on that panel. Maybe it
+	   should also have rounded corners and maybe we make that settings icon
+	   that we had before in there, not that chevron.")
+
+	   So: no light of any kind, the panel's own control corner rather than a
+	   pill, and the settings glyph instead of the chevron. Everything the light
+	   needed was taken out of the file (a light came back on 2026-09-23: THE
+	   DUSK SILL, below). The lab sheet
+	   `lab/the-button-glow.html` keeps all seven versions of it, and the log
+	   keeps the reasoning, so none of it has to be found again.
+
+	   AND IT OPENS WITH A WORD (Manuel, the same message: "at first it is just
+	   a chevron icon, and on hover the text slides out, the button increases to
+	   the side and it says Live Design, and on click the panel opens up"). At
+	   rest it is a square with the glyph in it. The word is a grid column that
+	   stands at nothing and goes to its full measure under the pointer, which
+	   is the one way to ease a width the browser has to work out for itself;
+	   the space before it belongs to the word, so it disappears with it and
+	   the resting square stays square. It stays open while the panel is up,
+	   because a door with its sheet standing on it is not at rest. */
+	.opener-word {
+		display: grid;
+		grid-template-columns: 0fr;
+		transition: grid-template-columns var(--motion-duration-reveal) var(--motion-easing-standard);
+	}
+	/* TWO BOXES, NOT ONE. The outer one is what the grid squeezes to nothing,
+	   so it may carry no padding of its own: a box with padding cannot go below
+	   that padding, and the resting door measured 52 wide instead of 44 until
+	   the space moved inside. The inner box holds the space before the word and
+	   is clipped away with it. */
+	.opener-word > span {
+		overflow: hidden;
+		min-inline-size: 0;
+	}
+	.opener-word > span > span {
+		display: block;
+		white-space: nowrap;
+		padding-inline-start: var(--space-2);
+	}
+	.architrave-panel-opener:hover .opener-word,
+	.architrave-panel-opener:focus-visible .opener-word,
+	.architrave-panel-opener[data-dragging] .opener-word,
+	.architrave-panel-opener[aria-expanded="true"] .opener-word { grid-template-columns: 1fr; }
+	.architrave-panel-opener .opener-icon { display: inline-flex; }
+	/* THE GLYPH IS THE PANEL'S OWN GLYPH (Manuel, 2026-09-22: "the icon looks
+	   bigger than the others; icons should have a coherent size"). It was: 20
+	   across at stroke 1.75, against the panel's 18 and 14 at stroke 1.25, so it
+	   was both larger and heavier than anything it sits beside. It takes the two
+	   tokens every other button's mark takes now, so it cannot drift again.
+	   `--button-glyph` itself is not one of them: it is set INSIDE `.quire-button`
+	   and resolves to nothing out here, which collapsed the glyph to nought when
+	   it was tried. The door reads the size that variable reads, `--icon-control`,
+	   which is on the root. */
+	.architrave-panel-opener .opener-icon svg {
+		inline-size: var(--icon-control);
+		block-size: var(--icon-control);
+		stroke-width: var(--icon-stroke-width);
+	}
+	/* ── THE DUSK SILL (Manuel, 2026-09-23) ─────────────────────────────
+	   The light came back, chosen on `lab/the-button-glow.html` after a day of
+	   specimens (13a there): the door's plain shadow was heavy and a coloured
+	   glow over it went muddy on white. So the floating shadow goes and the
+	   door stands on `--elevation-raised`, the small close shadow that holds
+	   a white face's top edge on a white page ("on white it really loses its
+	   top border"). A one-pixel line of colour lies on the foot and fades up
+	   the sides, and a blurred strip of the same colours under it swells and
+	   settles. The colours are dusk, the panel's blue drifting into violet and
+	   a soft rose ("rainbow is so obvious"), not a rainbow. The line slides one
+	   band every two seconds; the breath is 3.7s, so the two never fall into
+	   step. The inside light, the aurora, the ring and the travelling light
+	   were all tried and are kept on the lab sheet with the reasons they lost. */
+	.architrave-panel-opener::before {
+		content: "";
+		position: absolute;
+		z-index: 0;
+		inset-block-end: -12%;
+		inset-inline-start: 50%;
+		block-size: 14%;
+		inline-size: 60%;
+		translate: -50%;
+		background: var(--opener-band);
+		background-size: 200%;
+		filter: blur(0.6rem);
+		animation: opener-slide 2s linear infinite, opener-breathe 3.7s ease-in-out infinite;
+		pointer-events: none;
+	}
+	.architrave-panel-opener > span { position: relative; }
+	@keyframes opener-slide { from { background-position: 0%; } to { background-position: 200%; } }
+	@keyframes opener-breathe {
+		0%, 100% { opacity: 0.3; scale: 0.85 0.8; }
+		50% { opacity: 0.85; scale: 1.15 1.25; }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.architrave-panel-opener,
+		.opener-word { transition: none; }
+		.architrave-panel-opener,
+		.architrave-panel-opener::before { animation: none; }
+	}
+	/* ONE DOOR. Architrave's own two, the rail's Aa and the button in the bar
+	   at the foot of a phone, step back for the pill wherever this plugin runs;
+	   the theme standing alone still has both. Their two rules are host-only,
+	   so panel.php appends them to this sheet where the theme is Architrave
+	   (architrave_panel_door_styles): a stylesheet cannot ask who the host is.
+	   This was a PHP conditional when the sheet lived in panel.php, and the
+	   literal tag broke the whole sheet's parsing the day the sheet moved. */
+	/* ONE LOOK DISSOLVES INTO THE NEXT (Manuel, 2026-09-22, at the light/dark
+	   switch on a designer's own page: "can we make a transition between the
+	   tiles like on the inspiration"). presets.js wraps a change of look in the
+	   browser's view transition and this is how long it takes.
+	   IT IS PRINTED HERE, NOT LEFT IN THE THEME'S SHEET. `::view-transition-old`
+	   names no dial, so the splitter keeps it with the theme, and a guest never
+	   received it: measured, the rule was nowhere on the page while the
+	   transition itself ran four times. This stylesheet goes wherever the plugin
+	   goes. Only where the reader has not asked for less motion, which the
+	   wrapper checks as well: two locks, not one. */
+	@media (prefers-reduced-motion: no-preference) {
+		::view-transition-old(root),
+		::view-transition-new(root) {
+			animation-duration: 320ms;
+			animation-timing-function: var(--motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
+		}
+	}
+	/* ── THE LIVE DESIGN BUTTON'S SETTINGS (Manuel, 2026-09-23) ─────────────
+	   lab/the-button-page.html. The owner picks where the door sits and how
+	   it looks on the panel's Live Design button page; panel-opener.js writes
+	   the choices on the door as data attributes and these rules read them.
+	   Everything the look needs goes through a handful of variables, so a
+	   docked door (--dock-*, measured from its neighbour) and a door set by
+	   hand (Match my site off) change the same few values. */
+	.architrave-panel-opener {
+		height: var(--opener-h, var(--layout-control-height-large, 44px));
+		min-inline-size: var(--opener-h, var(--layout-control-height-large, 44px));
+		border-radius: var(--opener-radius, var(--radius-control));
+		color: var(--opener-ink, var(--text-primary));
+		font-size: var(--opener-font, var(--text-sm-contextual));
+	}
+	.architrave-panel-opener .opener-icon svg {
+		inline-size: var(--opener-glyph, var(--icon-control));
+		block-size: var(--opener-glyph, var(--icon-control));
+	}
+	/* WHERE IT FLOATS. Seven places; Automatic floats at the bottom centre
+	   until it finds a spot. The drag still moves it from any of them. */
+	.architrave-panel-opener:not([data-docked])[data-place="bottom-left"],
+	.architrave-panel-opener:not([data-docked])[data-place="top-left"],
+	.architrave-panel-opener:not([data-docked])[data-place="left"] {
+		inset-inline-start: max(1.25rem, env(safe-area-inset-left));
+		translate: var(--opener-x, 0px) calc(var(--opener-y, 0px) + var(--opener-lift, 0px));
+	}
+	.architrave-panel-opener:not([data-docked])[data-place="bottom-right"],
+	.architrave-panel-opener:not([data-docked])[data-place="top-right"],
+	.architrave-panel-opener:not([data-docked])[data-place="right"] {
+		inset-inline-start: auto;
+		inset-inline-end: max(1.25rem, env(safe-area-inset-right));
+		translate: var(--opener-x, 0px) calc(var(--opener-y, 0px) + var(--opener-lift, 0px));
+	}
+	.architrave-panel-opener:not([data-docked])[data-place^="top-"] {
+		inset-block-end: auto;
+		inset-block-start: calc(var(--wp-admin--admin-bar--height, 0px) + 1.25rem);
+	}
+	.architrave-panel-opener:not([data-docked])[data-place="left"],
+	.architrave-panel-opener:not([data-docked])[data-place="right"] {
+		inset-block-end: auto;
+		inset-block-start: 50%;
+		translate: var(--opener-x, 0px) calc(-50% + var(--opener-y, 0px) + var(--opener-lift, 0px));
+	}
+	/* ON A PHONE, THE BOTTOM OF THE SAME SIDE (2026-09-23, the slimmed page: no
+	   phone row). The top and the sides of a phone belong to its address bar and
+	   its thumb's reach, so a door set there comes down to the foot. */
+	@media (max-width: 1009.98px) {
+		.architrave-panel-opener:not([data-docked])[data-place^="top-"],
+		.architrave-panel-opener:not([data-docked])[data-place="left"],
+		.architrave-panel-opener:not([data-docked])[data-place="right"] {
+			inset-block-start: auto;
+			inset-block-end: max(1.25rem, env(safe-area-inset-bottom));
+			translate: var(--opener-x, 0px) calc(var(--opener-y, 0px) + var(--opener-lift, 0px));
+		}
+	}
+	/* DOCKED: IN THE SITE'S OWN ROW OF BUTTONS (a theme marks the spot with
+	   data-live-design-slot; Architrave's is the corner beside the focus
+	   button). The door stands in the row, the size, corner and colours of the
+	   button beside it, the glyph alone; the square's tooltip names it. */
+	.architrave-panel-opener[data-docked] {
+		position: relative;
+		inset: auto;
+		translate: none !important;
+		cursor: pointer;
+		box-shadow: none;
+		z-index: auto;
+	}
+	.architrave-panel-opener[data-docked]:hover { box-shadow: none; }
+	.paper-stack-item:has(> .architrave-panel-opener) { display: inline-flex; }
+	/* The last square's tooltip, above it, ends on its right edge and stays in the window. */
+	@supports (position-try-fallbacks: flip-block) and (anchor-scope: --a) {
+		.quire-tooltip[data-side="top"][data-align="end"] .quire-tooltip-bubble {
+			position-area: block-start span-inline-start;
+			position-try-fallbacks: none;
+			justify-self: auto;
+			margin-block: 0 var(--tooltip-gap);
+			margin-inline: 0;
+		}
+	}
+	/* BESIDE THE FOCUS BUTTON, NOT OVER IT (Manuel, 2026-09-23: "it would sit in
+	   the bottom right corner, next to the focus button, so left of the focus
+	   button"). Architrave's corner is a column; with the door in it, a row. */
+	body.has-frame .paper-stack.paper-corner-foot:has(> * > .architrave-panel-opener) { flex-direction: row; }
+	.architrave-panel-opener[data-docked="slot"] {
+		--opener-h: var(--dock-size);
+		--opener-radius: var(--dock-radius);
+		--opener-face: var(--dock-bg);
+		--opener-ink: var(--dock-fg);
+		--opener-edge: var(--dock-edge);
+		padding-inline: 0;
+		box-shadow: var(--dock-shadow, none);
+	}
+	.architrave-panel-opener[data-docked="slot"]:hover { box-shadow: var(--dock-shadow, none); }
+	.architrave-panel-opener[data-docked="slot"] .opener-word { display: none; }
+	/* THE SQUARE ANSWERS AS ITS NEIGHBOUR DOES (Manuel, 2026-09-26, on Storybook:
+	   the door "would have the same hover or click as the button next to it").
+	   It wore the neighbour's clothes at rest and stayed white under the pointer
+	   while the focus button beside it turned sand. A theme names its row's hover
+	   and press on the slot (--live-design-hover, --live-design-press); without
+	   them, a little of the ink in the face, as the square beside a menu does. */
+	.architrave-panel-opener[data-docked="slot"]:is(:hover, [aria-expanded="true"]) {
+		--opener-face: var(--live-design-hover, color-mix(in srgb, var(--dock-fg, currentColor) 8%, var(--dock-bg, transparent)));
+	}
+	.architrave-panel-opener[data-docked="slot"]:active {
+		--opener-face: var(--live-design-press, color-mix(in srgb, var(--dock-fg, currentColor) 13%, var(--dock-bg, transparent)));
+	}
+	/* DOCKED IN THE MENU: one more item after the site's last, in the menu's
+	   own type and colour, with its word. */
+	.architrave-panel-opener[data-docked="menu"] {
+		--opener-h: auto;
+		--opener-face: var(--dock-bg);
+		--opener-ink: var(--dock-fg);
+		--opener-font: var(--dock-font-size);
+		--opener-glyph: 1.1em;
+		--opener-radius: var(--dock-radius, 0);
+		min-inline-size: 0;
+		padding: var(--dock-pad, 0.25em 0.125em);
+		font-family: var(--dock-font, inherit);
+		font-weight: var(--dock-weight, inherit);
+		letter-spacing: var(--dock-tracking, normal);
+		line-height: inherit;
+	}
+	/* ITS WORD IN THE MENU'S FACE TOO (2026-09-24, Matrix: the links in Martian Mono, the
+	   word in Inter). The shell names the door's spans with the panel's own face, so the
+	   face the door took from its neighbour stopped at the door and never reached its word. */
+	.architrave-panel-opener[data-docked="menu"] span { font-family: inherit; font-weight: inherit; letter-spacing: inherit; }
+	.architrave-panel-opener[data-docked="menu"] .opener-word { grid-template-columns: 1fr; }
+	.architrave-panel-opener[data-docked="menu"] .opener-word > span > span { padding-inline-start: 0.4em; }
+	.architrave-panel-opener[data-docked="menu"][data-icon="false"] .opener-icon { display: none; } /* the owner's choice, in a menu only: elsewhere the icon is the button */
+	.architrave-panel-opener[data-docked="menu"][data-icon="false"] .opener-word > span > span { padding-inline-start: 0; }
+	.live-design-menu-item { display: flex; align-items: center; }
+	/* ITS NAME IS NEVER CUT (Manuel, 2026-09-25, "abc" in Twenty Twenty-Five's
+	   menu showing as "ab" and half a "c"). The menu row may shrink its items, and
+	   the door's word sits in a box that clips, so the row took 5 to 8 pixels off
+	   every name. A menu word keeps its own width, like the site's words beside it. */
+	span.live-design-menu-item,
+	.live-design-menu-item > .architrave-panel-opener { flex-shrink: 0; }
+	/* The page's corner, taken where the door stands in the menu: the door itself
+	   wears the panel's own scale, which a look does not re-cut. */
+	.live-design-menu-item { --ldp-page-control: var(--radius-control); }
+	/* NO RING FOR A CLICK (Manuel, 2026-09-25: "clicking on our panel buttons still
+	   has this border around it … smaller than the hover"). Docked in a theme's menu
+	   the door stands inside the theme's blocks, and Twenty Twenty-Five rings every
+	   focused thing there, `:where(.wp-site-blocks :focus)`, a click included. The
+	   door's ring is for the keyboard only, as everywhere in the panel. */
+	.architrave-panel-opener:focus:not(:focus-visible) { outline: none; }
+	/* A WORD IN THE MENU ANSWERS THE POINTER AS THE MENU'S WORDS DO (the same
+	   evening: "the hover on that panel button, when it's just text, should be
+	   the same as on the links next to it"). Under a look the site's menu words
+	   show a pill of the page's ink behind them, 0.4em past the word, at the look's
+	   corner (panel-page.css, THE PILL IS A SHAPE); the door, docked there as a
+	   word, shows the same pill under the pointer and while its panel is open.
+	   The square beside the menu keeps its own faint ground. */
+	:root[data-chosen]:not([data-fills="off"]) .architrave-panel-opener[data-docked="menu"][data-match="true"]:not([data-icon="true"][data-named="false"]:not([data-folded])):is(:hover, :focus-visible, [aria-expanded="true"])::before {
+		display: block !important;
+		content: "";
+		inset: calc(-1 * var(--ldp-outset, 0.4em));
+		inline-size: auto;
+		block-size: auto;
+		translate: none;
+		scale: none;
+		opacity: 1;
+		filter: none;
+		animation: none;
+		border-radius: var(--ldp-page-control, var(--radius-control));
+		background: color-mix(in oklab, var(--text-primary) 12%, transparent);
+	}
+	/* AND IT STAYS LIT WHILE ITS PANEL IS OPEN, ON THE THEME'S OWN LOOK TOO
+	   (Manuel, 2026-09-25, "I go with your recommendation": the button stays in
+	   the menu, lit like an open menu item, and the panel hangs from it). With no
+	   look on there is no page pill to borrow, so the open door wears the same
+	   shape in the menu's own ink and the site's own corner; its hover stays the
+	   theme's, which is nothing. */
+	:root:not([data-chosen]) .architrave-panel-opener[data-docked="menu"][data-match="true"]:not([data-icon="true"][data-named="false"]:not([data-folded]))[aria-expanded="true"]::before {
+		display: block !important;
+		content: "";
+		inset: calc(-1 * var(--ldp-outset, 0.4em));
+		inline-size: auto;
+		block-size: auto;
+		translate: none;
+		scale: none;
+		opacity: 1;
+		filter: none;
+		animation: none;
+		border-radius: var(--dock-radius, 0.4em);
+		background: color-mix(in srgb, var(--dock-fg, currentColor) 12%, transparent);
+	}
+	/* THE SQUARE BESIDE THE MENU (2026-09-24, see toMenu in panel-opener.js): the icon
+	   alone while it has no name of its own, two lines of the menu's type high, on a
+	   faint ground of the menu's ink, its corner the site's but never rounder than a
+	   square's; the name above it under the pointer, as the site's other squares say
+	   theirs. */
+	.architrave-panel-opener[data-docked="menu"][data-match="true"][data-icon="true"][data-named="false"]:not([data-folded]) {
+		--opener-glyph: 1.1em;
+		inline-size: 2em;
+		block-size: 2em;
+		min-inline-size: 2em;
+		padding: 0;
+		border-radius: clamp(0.25em, var(--dock-radius, 0.4em), 0.4em); /* the site's corner, between a hint of one and a square's */
+		background: color-mix(in srgb, var(--dock-fg, currentColor) 7%, transparent);
+	}
+	.architrave-panel-opener[data-docked="menu"][data-match="true"][data-icon="true"][data-named="false"]:not([data-folded]):is(:hover, [aria-expanded="true"]) { background: color-mix(in srgb, var(--dock-fg, currentColor) 13%, transparent); }
+	.architrave-panel-opener[data-docked="menu"][data-match="true"][data-icon="true"][data-named="false"]:not([data-folded]) .opener-word { display: none; }
+	span.live-design-menu-item { position: relative; }
+	:has(> span.live-design-menu-item) { flex-wrap: nowrap; } /* one row with the menu, not a line of its own under it */
+	span.live-design-menu-item:has(> [data-named="false"][data-icon="true"])::after {
+		content: attr(data-tip);
+		position: absolute;
+		inset-block-start: calc(100% + 0.5rem);
+		inset-inline-end: 0;
+		padding: 0.3rem 0.55rem;
+		border-radius: 0.4rem;
+		background: var(--tip-bg, #1d1d1f);
+		color: var(--tip-fg, #fff);
+		font: 500 0.75rem/1.2 system-ui, sans-serif;
+		white-space: nowrap;
+		box-shadow: 0 4px 14px rgb(0 0 0 / 0.14);
+		opacity: 0;
+		translate: 0 -2px;
+		pointer-events: none;
+		transition: opacity 0.15s ease, translate 0.15s ease;
+		z-index: 10;
+	}
+	span.live-design-menu-item:has(> [data-named="false"][data-icon="true"][aria-expanded="false"]:is(:hover, :focus-visible))::after { opacity: 1; translate: 0 0; transition-delay: 0.5s; }
+	/* SET BY HAND (Match my site off): the size, what it shows, the colour and
+	   the corner, wherever it stands. */
+	.architrave-panel-opener[data-match="false"][data-size="small"] { --opener-h: 2.25rem; --opener-font: var(--text-xs, 0.8125rem); --opener-glyph: 1rem; }
+	.architrave-panel-opener[data-match="false"][data-size="medium"] { --opener-h: var(--layout-control-height-large, 2.75rem); --opener-font: var(--text-sm-contextual); --opener-glyph: 20px; } /* the lab's 20 px glyph (2026-09-28) */
+	.architrave-panel-opener[data-match="false"][data-size="large"] { --opener-h: 3.25rem; --opener-font: var(--text-base, 1rem); --opener-glyph: 1.375rem; }
+	.architrave-panel-opener[data-match="false"][data-docked] { --opener-edge: var(--opener-face); box-shadow: none; min-inline-size: var(--opener-h); padding-inline: var(--space-3); padding-block: 0; font-family: var(--font-settings); font-weight: inherit; letter-spacing: normal; }
+	/* WHAT IT SHOWS IS ITS OWN SETTING (Manuel, 2026-09-24; it followed the size until then):
+	   the icon alone, the icon and the name always, or the name under the pointer. */
+	.architrave-panel-opener[data-match="false"][data-show="icon"] { padding-inline: 0; }
+	.architrave-panel-opener[data-match="false"][data-show="hover"] { padding-inline: calc((var(--opener-h) - var(--opener-glyph)) / 2 - 1px); } /* its 1px edge inside; at rest a square at every size; the word opens beyond it */
+	.architrave-panel-opener[data-match="false"][data-show="icon"] .opener-word { display: none; }
+	.architrave-panel-opener[data-match="false"][data-show="both"] .opener-word { grid-template-columns: 1fr; }
+	.architrave-panel-opener[data-match="false"][data-show="both"] { padding-inline: var(--space-3) var(--space-4); }
+	/* ITS CORNER IS THE SITE'S, OR ROUND (the same day: "if someone likes the rounded-corner button"). */
+	.architrave-panel-opener[data-match="false"] { --opener-radius: var(--site-button-radius, var(--radius-control)); }
+	.architrave-panel-opener[data-match="false"][data-corners="round"] { --opener-radius: 9999px; } /* a pill, whatever the site or a look says of corners */
+	.architrave-panel-opener[data-match="false"][data-color="panel"] { --opener-face: var(--surface-floating); --opener-ink: var(--text-primary); }
+	.architrave-panel-opener[data-match="false"][data-color="own"] { --opener-face: var(--opener-own, #0a84ff); --opener-ink: var(--opener-own-ink, #ffffff); } /* the lab's Own Colour… (2026-09-28) */
+	.architrave-panel-opener[data-match="false"][data-color="site"] { --opener-face: var(--site-button-bg, var(--surface-floating)); --opener-ink: var(--site-button-fg, var(--text-primary)); }
+	/* THE AURORA OFF: a plain face, no line and no glow under it. */
+	.architrave-panel-opener[data-aurora="false"] {
+		--opener-paint: var(--opener-face);
+		background: var(--opener-face);
+		border-color: var(--opener-edge, transparent);
+		animation: none;
+	}
+	.architrave-panel-opener[data-aurora="false"]::before { display: none; }
+	/* IN A PHONE'S TOP BAR, NO LIGHT (2026-09-24): the squares there have no ground of
+	   their own, so the band under it read as a stray line spilling out of the bar;
+	   it is the search's plain neighbour, as it is a word in a menu. */
+	.mobile-live-design-slot > .architrave-panel-opener { --opener-paint: var(--opener-face); background: var(--opener-face); border-color: var(--opener-edge, transparent); animation: none; }
+	.mobile-live-design-slot > .architrave-panel-opener::before { display: none; }
+	.architrave-panel-opener[data-docked="menu"][data-match="true"][data-aurora="false"] { --opener-paint: transparent; background: transparent; }
+	/* IN A MENU IT IS A MENU ITEM (Manuel, 2026-09-24, on Ollie's header: the
+	   button "has the Aurora and that's not working because the style of that
+	   should be either a clear button or it should be text, like the others").
+	   Automatic docks it into the site's menu dressed as the items beside it, and
+	   those are words, not buttons: a line of colour under one of them reads as a
+	   stray underline, and a glow under a word has no shape to stand on. So there
+	   it is a word with its icon, in the menu's own type, and the light waits for
+	   a place where the button is a button (a corner, a slot beside a square, or
+	   the square beside the menu: below).
+	   The Aurora row on the owner's page says so (reading-panel.js). */
+	.architrave-panel-opener[data-docked="menu"][data-match="true"]:not([data-icon="true"][data-named="false"][data-aurora="true"]:not([data-folded])) {
+		--opener-paint: transparent;
+		background: transparent;
+		border-color: transparent;
+		box-shadow: none;
+		animation: none;
+	}
+	.architrave-panel-opener[data-docked="menu"][data-match="true"]:not([data-icon="true"][data-named="false"][data-aurora="true"]:not([data-folded]))::before { display: none; }
+	.architrave-panel-opener[data-docked="menu"][data-match="true"]:hover { box-shadow: none; }
+	/* THE SQUARE TAKES THE LIGHT (Manuel, 2026-09-24: "that button gets the Aurora
+	   effect"). What kept the light off in a menu was the word: a line under it read as
+	   a stray underline. The square beside the menu is a button again, so with the
+	   Aurora on it wears the band along its foot and the glow under it, on its own
+	   faint ground made solid (the band lies under the face and would show through a
+	   see-through one). A name turns it back into a word, without the light. */
+	.architrave-panel-opener[data-docked="menu"][data-match="true"][data-icon="true"][data-named="false"][data-aurora="true"]:not([data-folded]) {
+		--opener-face: color-mix(in srgb, var(--dock-fg, currentColor) 7%, var(--dock-bg, transparent));
+		background: var(--opener-paint);
+		background-size: 200%;
+	}
+	.architrave-panel-opener[data-docked="menu"][data-match="true"][data-icon="true"][data-named="false"][data-aurora="true"]:not([data-folded]):is(:hover, [aria-expanded="true"]) {
+		--opener-face: color-mix(in srgb, var(--dock-fg, currentColor) 13%, var(--dock-bg, transparent));
+	}
+	/* A THEME'S OWN BUTTON RULES DO NOT REACH IT (2026-09-23, the audit on Kadence:
+	   its `button:hover, button:focus` painted the door blue with white ink the
+	   moment it was pressed). The door's paint and ink are said once more, loud
+	   enough to outweigh a theme's plain button selectors in any state. */
+	html body .architrave-panel-opener.architrave-panel-opener,
+	html body .architrave-panel-opener.architrave-panel-opener:is(:hover, :focus, :focus-visible, :active) {
+		background: var(--opener-paint);
+		background-size: 200%;
+		color: var(--opener-ink, var(--text-primary));
+		text-decoration: none;
+		text-transform: none;
+	}
+	@media print { .architrave-panel-opener { display: none; } }
+	/* THE BUTTON BECOMES THE PANEL (Manuel, 2026-09-24; reading-panel.js, `morph`).
+	   The layer the two shapes merge on: blurred together and cut back to a hard
+	   edge by the filter reading-panel.js adds, filled with the panel's ground. */
+	@property --lit { syntax: "<number>"; inherits: true; initial-value: 1; }
+	.architrave-panel-goo {
+		position: fixed;
+		transform-origin: 0 0;
+		pointer-events: none;
+		filter: url(#architrave-goo) drop-shadow(0 6px 16px rgb(0 0 0 / 0.22)); /* matched to the panel's own shadow by measuring beside its edges (2026-09-24); two stacked here shadowed each other and came out darker */
+	}
+	.architrave-panel-goo[hidden], .architrave-panel-glow[hidden] { display: none; }
+	.architrave-panel-goo > i { position: absolute; display: block; background: #000; }
+	/* THE AURORA ON THE PANEL: the band in its lower edge and the light under it,
+	   travelling slower than on the button, since the edge is wider. */
+	.architrave-panel-glow,
+	.reading-panel {
+		--door-band: linear-gradient(90deg, oklch(60% 0.2 258), oklch(72% 0.13 232), oklch(58% 0.21 292), oklch(72% 0.14 345), oklch(56% 0.19 275));
+	}
+	.architrave-panel-glow {
+		position: fixed;
+		block-size: 14px;
+		pointer-events: none;
+	}
+	/* the light breathes inside, so the box around it can fade in and out without the two fighting */
+	.architrave-panel-glow::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background: var(--door-band);
+		background-size: 200%;
+		filter: blur(0.6rem);
+		animation: opener-slide 5s linear infinite, door-glow 5s ease-in-out infinite;
+	}
+	@keyframes door-glow { 0%, 100% { opacity: 0.35; scale: 1 0.8; } 50% { opacity: 0.85; scale: 1 1.25; } }
+	/* THE LOWER GROUP FOLDS, IN THE PLUGIN (2026-09-24; Manuel: the Hidden group would not fold on elmastudio.de, whose theme is 1.3.393 and had none of this). Moved here from style.css, as the grabber's colours were.
+	   (2026-09-24, reading-panel.js): the title is the press, the
+	   chevron points down while open and right while folded, as a sidebar section's does.
+	   Folded, the group comes back while a tile is carried, so a drop still has a place. */
+	/* A TITLE LIKE THE ONE ABOVE IT, THE CHEVRON AT THE LINE'S END (Manuel, 2026-09-24: "is that
+	   really nicely aligned with that chevron?"), as Finder's sidebar has it. The type is the
+	   group title's own; a button's font is not inherited, so it is named here. */
+	.reading-panel .reading-group-fold { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); inline-size: 100%; margin-inline: 0; padding: 0; border: 0; background: none; color: var(--text-primary); font-family: inherit; font-size: var(--text-sm-contextual); font-weight: var(--font-weight-semibold); line-height: inherit; text-align: start; cursor: pointer; appearance: none; }
+	.reading-panel .reading-group-fold[aria-expanded="false"] { margin-block-end: var(--space-3); } /* folded, the Customise button keeps the distance a group gives it */
+	.reading-panel .reading-group-fold .reading-group-chevron { inline-size: var(--icon-sm); block-size: var(--icon-sm); flex: none; opacity: 0.6; rotate: 90deg; transition: rotate var(--motion-duration-fast) var(--motion-easing-standard); }
+	.reading-panel .reading-group-fold[aria-expanded="false"] .reading-group-chevron { rotate: 0deg; }
+	.reading-panel .reading-group-fold:hover .reading-group-chevron { opacity: 1; }
+	.reading-panel .reading-group-fold:focus-visible { outline: var(--focus-ring-width) solid var(--focus); outline-offset: var(--focus-ring-offset); border-radius: var(--radius-control); }
+	.reading-panel .reading-group-fold.reading-group-fold { margin-block-end: var(--space-3, 12px); } /* the title stands clear of its tiles, open or folded (Manuel, 2026-09-24: "it's too narrow") */
+	.reading-panel [data-tile-group][data-folded] { display: none; }
+	.reading-panel.is-tile-dragging [data-tile-group][data-folded] { display: grid; }
+	/* A WINDOW'S HEIGHT (2026-09-24, reading-panel.js): the height the owner gave it by its
+	   edge is the most it will be, under the room its place already allows; the free edge
+	   says so under the pointer. The plugin's, so it works under any theme version; behind the guard, since the shell's own max-height is (panel-shell.css), and without it the height was never given on another theme. */
+	@media (min-width: 1010px) {
+		:not(#live-design-panel-guard) .reading-panel.reading-panel.reading-panel.reading-panel { max-height: min(var(--panel-anchor-max, calc(100vh - var(--panel-anchor-top, var(--space-16, 64px)) - var(--space-4, 16px))), var(--panel-user-max, 100vh)); }
+		.reading-panel[data-resize-zone] { cursor: ns-resize; }
+		.reading-panel[data-resizing] { user-select: none; }
+	}
+	/* THE GRABBER TAKES THE AURORA UNDER THE POINTER (Manuel, 2026-09-24: "I want that tracker to
+	   have that moving aurora animation when it's hovered"): a band laid over the theme's grabber,
+	   its size and place, growing with it, its colours travelling as on the button. Only where the
+	   button wears the Aurora (data-door-aurora, reading-panel.js). Here and not in the theme, so it
+	   comes with the plugin whatever theme stands under it. */
+	@media (min-width: 1010px) {
+		.reading-panel .reading-panel-head::after {
+			content: "";
+			position: absolute;
+			inset-block-start: calc(-1 * var(--space-2, 8px));
+			inset-inline-start: 50%;
+			inline-size: var(--space-8, 32px);
+			block-size: var(--space-1, 4px);
+			translate: -50% 0;
+			border-radius: 9999px;
+			background: var(--door-band);
+			background-size: 200%;
+			animation: opener-slide 2s linear infinite;
+			opacity: 0;
+			pointer-events: none;
+			transition: inline-size var(--motion-duration-slow, 240ms) var(--motion-easing-standard, ease), opacity var(--motion-duration-slow, 240ms) var(--motion-easing-standard, ease);
+		}
+		.reading-panel:is([data-grab], [data-dragging]) .reading-panel-head::after { inline-size: calc(1.5 * var(--space-8, 32px)); }
+		.reading-panel[data-door-aurora]:is([data-grab], [data-dragging]) .reading-panel-head::after { opacity: 1; }
+	}
+	/* AND THE LOWER EDGE WHILE IT IS CARRIED (Manuel, 2026-09-24: "while I'm dragging it, could
+	   bring back that bottom-edge Aurora animation … just while I'm dragging it"): the band the
+	   panel wears as it rises out of the button, faded in when the drag starts. Steady, not
+	   pulsing: the colours already travel. */
+	@keyframes door-edge-in { from { opacity: 0; } to { opacity: 1; } }
+	.reading-panel.has-door-light::after,
+	.reading-panel[data-door-aurora][data-dragging]::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		border-radius: inherit;
+		padding: 1px;
+		background: var(--door-band);
+		background-size: 200%;
+		animation: opener-slide 5s linear infinite;
+		-webkit-mask: linear-gradient(to top, #000 0, #000 18%, transparent 48%), linear-gradient(#000 0 0) content-box;
+		mask: linear-gradient(to top, #000 0, #000 18%, transparent 48%), linear-gradient(#000 0 0) content-box;
+		-webkit-mask-composite: source-out;
+		mask-composite: subtract;
+		pointer-events: none;
+	}
+	.reading-panel[data-door-aurora][data-dragging]::after { animation: opener-slide 5s linear infinite, door-edge-in var(--motion-duration-slow, 240ms) var(--motion-easing-standard, ease) both; }
+
+/* THE AURORA'S COLOURS (2026-09-28, Settings › Aurora in the new window, the prototype's BANDS): the five
+   lights of the band, per choice; dusk is the rest above and writes nothing new. */
+.architrave-panel-opener[data-band="ocean"] { --opener-light-1: oklch(62% 0.15 235 / var(--lit, 1)); --opener-light-2: oklch(60% 0.16 220 / var(--lit, 1)); --opener-light-3: oklch(58% 0.15 255 / var(--lit, 1)); --opener-light-4: oklch(82% 0.1 185 / var(--lit, 1)); --opener-light-5: oklch(78% 0.12 200 / var(--lit, 1)); }
+.architrave-panel-opener[data-band="meadow"] { --opener-light-1: oklch(72% 0.17 145 / var(--lit, 1)); --opener-light-2: oklch(64% 0.16 150 / var(--lit, 1)); --opener-light-3: oklch(66% 0.15 170 / var(--lit, 1)); --opener-light-4: oklch(82% 0.14 95 / var(--lit, 1)); --opener-light-5: oklch(85% 0.15 115 / var(--lit, 1)); }
+.architrave-panel-opener[data-band="candy"] { --opener-light-1: oklch(72% 0.19 350 / var(--lit, 1)); --opener-light-2: oklch(68% 0.2 300 / var(--lit, 1)); --opener-light-3: oklch(70% 0.18 320 / var(--lit, 1)); --opener-light-4: oklch(88% 0.12 90 / var(--lit, 1)); --opener-light-5: oklch(84% 0.12 30 / var(--lit, 1)); }
+.architrave-panel-opener[data-band="ember"] { --opener-light-1: oklch(64% 0.21 30 / var(--lit, 1)); --opener-light-2: oklch(58% 0.2 40 / var(--lit, 1)); --opener-light-3: oklch(60% 0.22 15 / var(--lit, 1)); --opener-light-4: oklch(85% 0.14 90 / var(--lit, 1)); --opener-light-5: oklch(80% 0.16 65 / var(--lit, 1)); }
+.architrave-panel-opener[data-band="mono"] { --opener-light-1: oklch(88% 0 0 / var(--lit, 1)); --opener-light-2: oklch(78% 0 0 / var(--lit, 1)); --opener-light-3: oklch(95% 0 0 / var(--lit, 1)); --opener-light-4: oklch(52% 0 0 / var(--lit, 1)); --opener-light-5: oklch(62% 0 0 / var(--lit, 1)); }
+
+/* A PREVIEW LINK'S VISIT (2026-09-28, inc/site-styles.php PREVIEW LINKS): no button, no panel; a quiet bar at the top
+   says whose style this is and when the link ends, or that it has ended. */
+:root[data-ldp-preview] .architrave-panel-opener,
+:root[data-ldp-preview] #ldp-window { display: none !important; }
+.ldp-preview-bar { position: fixed; z-index: 99992; left: 50%; top: 12px; transform: translateX(-50%); max-width: calc(100vw - 24px); padding: 8px 14px; border-radius: 999px; background: rgb(0 0 0 / .78); color: #fff; font: 500 13px/1.3 -apple-system, BlinkMacSystemFont, "Inter Variable", system-ui, sans-serif; letter-spacing: normal; text-transform: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.ldp-preview-bar b { font-weight: 650; }
+.admin-bar .ldp-preview-bar { top: 44px; }
+.ldp-glyph-aa { font: 600 16px/1 Georgia, "Times New Roman", serif; letter-spacing: -.02em; } /* the button's Aa icon (2026-09-28) */
+
+/* THE SEVEN PLACES WHILE THE OWNER CARRIES THE BUTTON (2026-09-28, the lab's exactly; panel-opener.js): a small
+   rounded square with a dashed edge at each place; the nearest swells and turns blue */
+.architrave-door-ghosts { position: fixed; inset: 0; z-index: 99988; pointer-events: none; }
+.architrave-door-ghosts i { position: absolute; box-sizing: content-box; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 7px; border: 1.5px dashed rgb(0 0 0 / .45); transition: transform .15s, border-color .15s; }
+.architrave-door-ghosts[data-dark] i { border-color: rgb(255 255 255 / .45); }
+.architrave-door-ghosts i.is-near { transform: scale(1.6); border-color: #0a84ff; background: rgb(10 132 255 / .25); }
+/* WHILE CARRIED IT RESTS CLOSED (the lab's): the size it will have where it lands, so the places match it */
+.architrave-panel-opener[data-dragging]:not([data-show="both"]) .opener-word { grid-template-columns: 0fr !important; transition: none; }
+/* THE BUTTON FOLLOWS THE WINDOW (2026-09-28, the lab's): dark, light or glass, as the window is set (panel-window.js) */
+.architrave-panel-opener[data-ldpw-glass] { -webkit-backdrop-filter: blur(20px) saturate(1.8); backdrop-filter: blur(20px) saturate(1.8); box-shadow: 0 1px 2px rgb(0 0 0 / .12), 0 4px 12px rgb(0 0 0 / .18), inset 0 1px 0 rgb(255 255 255 / .3), inset 0 0 0 1px rgb(255 255 255 / .12); }
+
+/* THE FLOATING BUTTON AS THE LAB'S (2026-09-28): Lucide's sliders at 20 px with the 2 px line, and the lab's shadow.
+   In the site's menu or its slot the button keeps its neighbours' measures. */
+.architrave-panel-opener:not([data-docked]) .opener-icon svg { stroke-width: 2; }
+.architrave-panel-opener:not([data-docked]) { box-shadow: 0 1px 2px rgb(0 0 0 / .12), 0 4px 12px rgb(0 0 0 / .18); }

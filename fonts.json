@@ -1,0 +1,283 @@
+{
+	"_": "The faces the styles use, moved out of the theme's theme.json on 2026-09-21 (1.3.316). Same records, same slugs: the slugs are public, saved content and presets.js name them. src is relative to the plugin's folder; the files are copied from the theme repo's assets/fonts/webfonts by tools/build-plugin.py.",
+	"fontFamilies": [
+		{
+			"slug": "font-sans",
+			"name": "Font/Sans",
+			"fontFamily": "\"Inter Variable\", Inter, ui-sans-serif, system-ui, sans-serif",
+			"fontFace": [
+				{
+					"fontFamily": "Inter Variable",
+					"fontStyle": "normal",
+					"fontWeight": "100 900",
+					"src": [
+						"fonts/inter-latin-opsz-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"slug": "font-serif",
+			"name": "Newsreader",
+			"fontFamily": "\"Newsreader\", Georgia, serif",
+			"fontFace": [
+				{
+					"fontFamily": "Newsreader",
+					"fontWeight": "200 800",
+					"fontStyle": "normal",
+					"fontDisplay": "swap",
+					"src": [
+						"fonts/newsreader-latin-opsz-normal.woff2"
+					]
+				},
+				{
+					"fontFamily": "Newsreader",
+					"fontWeight": "200 800",
+					"fontStyle": "italic",
+					"fontDisplay": "swap",
+					"src": [
+						"fonts/newsreader-latin-opsz-italic.woff2"
+					]
+				}
+			]
+		},
+		{
+			"slug": "font-geist-mono",
+			"name": "Geist Mono",
+			"fontFamily": "\"Geist Mono\", ui-monospace, Menlo, monospace",
+			"fontFace": [
+				{
+					"fontFamily": "Geist Mono",
+					"fontWeight": "100 900",
+					"fontStyle": "normal",
+					"fontDisplay": "swap",
+					"src": [
+						"fonts/geist-mono-latin-wght-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"slug": "font-atkinson-hyperlegible-next",
+			"name": "Atkinson Hyperlegible Next",
+			"fontFamily": "\"Atkinson Hyperlegible Next\", sans-serif",
+			"fontFace": [
+				{
+					"fontFamily": "Atkinson Hyperlegible Next",
+					"fontWeight": "200 800",
+					"fontStyle": "normal",
+					"fontDisplay": "swap",
+					"src": [
+						"fonts/atkinson-hyperlegible-next-latin-wght-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Martian Mono Variable\", \"Martian Mono\", ui-monospace, Menlo, monospace",
+			"name": "Martian Mono",
+			"slug": "font-martian-mono",
+			"fontFace": [
+				{
+					"fontFamily": "Martian Mono",
+					"fontStyle": "normal",
+					"fontWeight": "100 800",
+					"fontStretch": "75% 112.5%",
+					"src": [
+						"fonts/martian-mono-latin-wdth-wght-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Doto\", ui-monospace, monospace",
+			"name": "Doto",
+			"slug": "font-doto",
+			"fontFace": [
+				{
+					"fontFamily": "Doto",
+					"fontStyle": "normal",
+					"fontWeight": "100 900",
+					"src": [
+						"fonts/doto-latin-wght-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Geist Variable\", Geist, system-ui, sans-serif",
+			"name": "Geist",
+			"slug": "font-geist",
+			"fontFace": [
+				{
+					"fontFamily": "Geist",
+					"fontStyle": "normal",
+					"fontWeight": "100 900",
+					"src": [
+						"fonts/geist-latin-wght-normal.woff2"
+					]
+				},
+				{
+					"fontFamily": "Geist",
+					"fontStyle": "italic",
+					"fontWeight": "100 900",
+					"src": [
+						"fonts/geist-latin-wght-italic.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"IBM Plex Sans\", system-ui, sans-serif",
+			"name": "IBM Plex Sans",
+			"slug": "font-plex-sans",
+			"fontFace": [
+				{
+					"fontFamily": "IBM Plex Sans",
+					"fontStyle": "normal",
+					"fontWeight": "100 700",
+					"src": [
+						"fonts/ibm-plex-sans-latin-wght-normal.woff2"
+					]
+				},
+				{
+					"fontFamily": "IBM Plex Sans",
+					"fontStyle": "italic",
+					"fontWeight": "100 700",
+					"src": [
+						"fonts/ibm-plex-sans-latin-wght-italic.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"JetBrains Mono\", ui-monospace, Menlo, monospace",
+			"name": "JetBrains Mono",
+			"slug": "font-jetbrains-mono",
+			"fontFace": [
+				{
+					"fontFamily": "JetBrains Mono",
+					"fontStyle": "normal",
+					"fontWeight": "100 800",
+					"src": [
+						"fonts/jetbrains-mono-latin-wght-normal.woff2"
+					]
+				},
+				{
+					"fontFamily": "JetBrains Mono",
+					"fontStyle": "italic",
+					"fontWeight": "100 800",
+					"src": [
+						"fonts/jetbrains-mono-latin-wght-italic.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Libre Baskerville Variable\", \"Libre Baskerville\", Georgia, serif",
+			"name": "Libre Baskerville",
+			"slug": "font-libre-baskerville",
+			"fontFace": [
+				{
+					"fontFamily": "Libre Baskerville",
+					"fontStyle": "normal",
+					"fontWeight": "400 700",
+					"src": [
+						"fonts/libre-baskerville-latin-wght-normal.woff2"
+					]
+				},
+				{
+					"fontFamily": "Libre Baskerville",
+					"fontStyle": "italic",
+					"fontWeight": "400 700",
+					"src": [
+						"fonts/libre-baskerville-latin-wght-italic.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Vollkorn Variable\", Vollkorn, Georgia, serif",
+			"name": "Vollkorn",
+			"slug": "font-vollkorn",
+			"fontFace": [
+				{
+					"fontFamily": "Vollkorn",
+					"fontStyle": "normal",
+					"fontWeight": "400 900",
+					"src": [
+						"fonts/vollkorn-latin-wght-normal.woff2"
+					]
+				},
+				{
+					"fontFamily": "Vollkorn",
+					"fontStyle": "italic",
+					"fontWeight": "400 900",
+					"src": [
+						"fonts/vollkorn-latin-wght-italic.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Kode Mono Variable\", \"Kode Mono\", ui-monospace, Menlo, monospace",
+			"name": "Kode Mono",
+			"slug": "font-kode-mono",
+			"fontFace": [
+				{
+					"fontFamily": "Kode Mono",
+					"fontStyle": "normal",
+					"fontWeight": "400 700",
+					"src": [
+						"fonts/kode-mono-latin-wght-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"VT323\", ui-monospace, monospace",
+			"name": "VT323",
+			"slug": "font-vt-323",
+			"fontFace": [
+				{
+					"fontFamily": "VT323",
+					"fontStyle": "normal",
+					"fontWeight": "400",
+					"src": [
+						"fonts/vt323-latin-400-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Handjet\", system-ui, sans-serif",
+			"name": "Handjet",
+			"slug": "font-handjet",
+			"fontFace": [
+				{
+					"fontFamily": "Handjet",
+					"fontStyle": "normal",
+					"fontWeight": "100 900",
+					"src": [
+						"fonts/handjet-latin-wght-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Fraunces\", Georgia, serif",
+			"name": "Fraunces",
+			"slug": "font-fraunces",
+			"fontFace": [
+				{
+					"fontFamily": "Fraunces",
+					"fontStyle": "normal",
+					"fontWeight": "100 900",
+					"src": [
+						"fonts/fraunces-latin-full-normal.woff2"
+					]
+				}
+			]
+		}
+	]
+}

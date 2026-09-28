@@ -1,0 +1,2723 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Live Design Panel\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "adjusted"
+msgstr "angepasst"
+
+msgid "Customise"
+msgstr "Anpassen"
+
+msgid "Customise {name}"
+msgstr "{name} anpassen"
+
+msgid "Live Design"
+msgstr "Live Design"
+
+msgid "Duplicate"
+msgstr "Duplizieren"
+
+msgid "{name} copy"
+msgstr "{name} Kopie"
+
+msgid "Customisation"
+msgstr "Anpassung"
+
+msgid "Back"
+msgstr "Zurück"
+
+msgid "Paragraph"
+msgstr "Absatz"
+
+msgid "Justified text"
+msgstr "Blocksatz"
+
+#. The reading panel's third paragraph switch (2026-09-10).
+msgid "Drop cap"
+msgstr "Initiale"
+
+#. The drop cap's height row, under the Initiale title (2026-09-15).
+msgid "Height"
+msgstr "Höhe"
+
+#. The drop cap's switch, under the Initiale title (2026-09-15).
+msgid "Show"
+msgstr "Anzeigen"
+
+msgid "{n} lines"
+msgstr "{n} Zeilen"
+
+#. The two sliders' field and the character-spacing slider (2026-09-13).
+#. The Gilt-für switch at the top of Anpassen (2026-09-13).
+msgid "Applies to"
+msgstr "Gilt für"
+
+msgid "Everywhere"
+msgstr "Überall"
+
+msgid "Character spacing"
+msgstr "Laufweite"
+
+#. The reading text's space between words, under Laufweite (2026-09-15).
+msgid "Word spacing"
+msgstr "Wortabstand"
+
+#. The four line-spacing steps added between the five (2026-09-16).
+msgid "Densest"
+msgstr "Sehr dicht"
+
+msgid "Snug"
+msgstr "Etwas eng"
+
+msgid "Relaxed"
+msgstr "Etwas luftig"
+
+#. The style as text, on the styles page (2026-09-16).
+msgid "Copy style"
+msgstr "Stil kopieren"
+
+#. The chain between Hell and Dunkel (2026-09-16).
+msgid "Both sides"
+msgstr "Beide Seiten"
+
+msgid "Separate sides"
+msgstr "Seiten getrennt"
+
+msgid "Paste style…"
+msgstr "Stil einsetzen …"
+
+msgid "Paste"
+msgstr "Einsetzen"
+
+#. The roles of type (2026-09-13): Anpassen's Schrift group and the role pages.
+msgid "Type"
+msgstr "Typografie"
+
+msgid "Headings"
+msgstr "Überschriften"
+
+msgid "Reading text"
+msgstr "Fließtext"
+
+msgid "Category line"
+msgstr "Kategoriezeile"
+
+msgid "Custom colours"
+msgstr "Eigene Farben"
+
+msgid "Small text"
+msgstr "Nebentext"
+
+msgid "Comments"
+msgstr "Kommentare"
+
+#. The font page's four sections (2026-09-17). Display stays Display.
+msgid "Sans-serif"
+msgstr "Serifenlos"
+
+msgid "Serif"
+msgstr "Serif"
+
+msgid "Monospace"
+msgstr "Monospace"
+
+msgid "Interface titles"
+msgstr "Abschnittstitel"
+
+msgid "Members"
+msgstr "Mitglieder"
+
+msgid "All follow the size in their order. A released member has its own size."
+msgstr "Alle folgen der Schriftgröße in ihrer Ordnung. Ein gelöstes Mitglied hat eine eigene Größe."
+
+msgid "Masthead"
+msgstr "Masthead"
+
+msgid "Card titles"
+msgstr "Kartentitel"
+
+msgid "Menus and buttons"
+msgstr "Menüs und Buttons"
+
+msgid "Labels"
+msgstr "Beschriftungen"
+
+msgid "Credit"
+msgstr "Credit"
+
+msgid "Top of the left sidebar"
+msgstr "Oben in der linken Leiste"
+
+msgid "Left sidebar, under articles, search, ruler"
+msgstr "Linke Leiste, unter Artikeln, Suche, Lineal"
+
+msgid "Navigation, fields, switches"
+msgstr "Navigation, Felder, Schalter"
+
+msgid "Tooltips, badges, key hints"
+msgstr "Tooltips, Abzeichen, Tastenhinweise"
+
+msgid "Foot of the right comments sidebar"
+msgstr "Am Fuß der rechten Kommentarleiste"
+
+msgid "Lead size"
+msgstr "Leitgröße"
+
+msgid "Own size"
+msgstr "Eigene Größe"
+
+msgid "Follows Interface"
+msgstr "Folgt Oberfläche"
+
+msgid "Release"
+msgstr "Lösen"
+
+msgid "Bind"
+msgstr "Binden"
+
+msgid "Link cards and theme cards"
+msgstr "Link- und Themenkarten"
+
+msgid "Large card titles"
+msgstr "Große Kartentitel"
+
+msgid "Over the demo and download buttons"
+msgstr "Über den Demo- und Download-Buttons"
+
+msgid "Release titles"
+msgstr "Release-Titel"
+
+msgid "Version line and banner on a release post"
+msgstr "Versionszeile und Banner auf einem Release-Post"
+
+msgid "Release notes"
+msgstr "Release-Hinweise"
+
+msgid "Notes and buttons in a box inside the article"
+msgstr "Hinweise und Buttons in einem Kasten im Artikel"
+
+msgid "Boxes"
+msgstr "Kästen"
+
+msgid "Newsletter card"
+msgstr "Newsletter-Karte"
+
+msgid "Its title and text in the left sidebar"
+msgstr "Titel und Text in der linken Leiste"
+
+msgid "Fields"
+msgstr "Felder"
+
+msgid "The search field in the left sidebar"
+msgstr "Das Suchfeld in der linken Leiste"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "Icon"
+msgstr "Symbol"
+
+msgid "Icon and name"
+msgstr "Symbol und Name"
+
+msgid "Name on hover"
+msgstr "Name beim Überfahren"
+
+msgid "Corners"
+msgstr "Ecken"
+
+msgid "Like the site"
+msgstr "Wie die Website"
+
+msgid "Round"
+msgstr "Rund"
+
+msgid "Who wrote the comment"
+msgstr "Wer den Kommentar geschrieben hat"
+
+msgid "The words of the comment"
+msgstr "Die Worte des Kommentars"
+
+msgid "Dates and reply links"
+msgstr "Daten und Antworten-Links"
+
+msgid "Form"
+msgstr "Formular"
+
+msgid "Labels, notes and the buttons under the comments"
+msgstr "Beschriftungen, Hinweise und die Buttons unter den Kommentaren"
+
+msgid "Paragraphs"
+msgstr "Absätze"
+
+msgid "The paragraphs and lists of the article"
+msgstr "Die Absätze und Listen des Artikels"
+
+msgid "Excerpts"
+msgstr "Auszüge"
+
+msgid "The text on the front page's cards"
+msgstr "Der Text auf den Karten der Startseite"
+
+msgid "Section titles"
+msgstr "Abschnittstitel"
+
+msgid "The small titles in the left sidebar"
+msgstr "Die kleinen Titel in der linken Leiste"
+
+msgid "Year titles"
+msgstr "Jahrestitel"
+
+msgid "The years in the archive"
+msgstr "Die Jahre im Archiv"
+
+msgid "Date line"
+msgstr "Datumszeile"
+
+msgid "The date of the article"
+msgstr "Das Datum des Artikels"
+
+msgid "Author"
+msgstr "Autor:in"
+
+msgid "Name and bio under the article"
+msgstr "Name und Bio unter dem Artikel"
+
+msgid "Categories and tags"
+msgstr "Kategorien und Tags"
+
+msgid "The lines at the end of the article"
+msgstr "Die Zeilen am Ende des Artikels"
+
+msgid "Captions"
+msgstr "Bildunterschriften"
+
+msgid "Under pictures, and the source of a quote"
+msgstr "Unter Bildern, und die Quelle eines Zitats"
+
+msgid "Card dates"
+msgstr "Kartendaten"
+
+msgid "Sidebar rows, related rows, cards"
+msgstr "Leistenzeilen, verwandte Beiträge, Karten"
+
+msgid "Article title"
+msgstr "Artikeltitel"
+
+msgid "Subheadings"
+msgstr "Zwischentitel"
+
+msgid "Date and bio"
+msgstr "Datum und Bio"
+
+msgid "Small lines"
+msgstr "Kleine Zeilen"
+
+msgid "Comment title"
+msgstr "Titel"
+
+msgid "Comment text"
+msgstr "Text"
+
+msgid "Comment lines"
+msgstr "Kleingedrucktes"
+
+msgid "Link card title"
+msgstr "Linkkartentitel"
+
+msgid "The title of the article, on the page and the cards"
+msgstr "Der Titel des Artikels, auf der Seite und den Karten"
+
+msgid "The headings inside the article"
+msgstr "Die Überschriften im Artikel"
+
+msgid "The date line and the author bio"
+msgstr "Datumszeile und Autorenbio"
+
+msgid "Categories, tags, captions, card dates"
+msgstr "Kategorien, Tags, Bildunterschriften, Kartendaten"
+
+msgid "Over the comments and the form"
+msgstr "Über den Kommentaren und dem Formular"
+
+msgid "The words and the names"
+msgstr "Die Worte und die Namen"
+
+msgid "Dates, reply links, notes, labels"
+msgstr "Daten, Antworten-Links, Hinweise, Beschriftungen"
+
+msgid "The card of the link format"
+msgstr "Die Karte des Link-Formats"
+
+msgid "On"
+msgstr "An"
+
+msgid "Off"
+msgstr "Aus"
+
+msgid "Applies to the title and the headings in the article."
+msgstr "Gilt für den Titel und die Zwischenüberschriften im Artikel."
+
+msgid "Applies to the paragraphs of the article."
+msgstr "Gilt für die Absätze des Artikels."
+
+msgid "Dates, categories, captions and tags."
+msgstr "Datum, Kategorien, Bildunterschriften und Schlagwörter."
+
+msgid "Quotes and their sources."
+msgstr "Zitate und ihre Quellen."
+
+msgid "The category under the title, on the cards and in the article."
+msgstr "Die Kategorie unter dem Titel, auf den Karten und im Artikel."
+
+msgid "The sidebar, the menus, the buttons and the cards."
+msgstr "Seitenleiste, Menüs, Schaltflächen und Karten."
+
+msgid "The section and group titles."
+msgstr "Abschnitts- und Gruppentitel."
+
+msgid "The names, the words and the form under the article."
+msgstr "Namen, Text und Formular unter dem Artikel."
+
+msgid "Weight"
+msgstr "Schriftstärke"
+
+msgid "Thin"
+msgstr "Dünn"
+
+msgid "Extra Light"
+msgstr "Extraleicht"
+
+msgctxt "font weight"
+msgid "Light"
+msgstr "Leicht"
+
+msgid "Regular"
+msgstr "Normal"
+
+msgid "Medium"
+msgstr "Mittel"
+
+msgid "Semi Bold"
+msgstr "Halbfett"
+
+msgid "Bold"
+msgstr "Fett"
+
+msgid "Extra Bold"
+msgstr "Extrafett"
+
+msgid "Black"
+msgstr "Schwarz"
+
+msgid "Size"
+msgstr "Schriftgröße"
+
+msgid "Capitals"
+msgstr "Großbuchstaben"
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Loose"
+msgstr "Locker"
+
+msgid "Widest"
+msgstr "Gesperrt"
+
+msgid "Same as text"
+msgstr "Wie Fließtext"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Same as reading text"
+msgstr "Wie Fließtext"
+
+msgid "Same as interface"
+msgstr "Wie Oberfläche"
+
+msgid "Italic"
+msgstr "Kursiv"
+
+msgid "Very tight"
+msgstr "Sehr eng"
+
+msgid "Wider"
+msgstr "Weiter"
+
+msgid "Very wide"
+msgstr "Sehr weit"
+
+msgid "Very small"
+msgstr "Sehr klein"
+
+msgid "Slightly smaller"
+msgstr "Etwas kleiner"
+
+msgid "Slightly larger"
+msgstr "Etwas größer"
+
+msgid "Very large"
+msgstr "Sehr groß"
+
+msgid "None"
+msgstr "Keine"
+
+msgid "Lines draw edges, fills paint cards and fields."
+msgstr "Linien zeichnen Ränder, Flächen füllen Karten und Felder."
+
+msgid "Title and headings"
+msgstr "Titel und Zwischenüberschriften"
+
+msgid "Paragraphs of the article"
+msgstr "Absätze im Artikel"
+
+msgid "Dates, categories, captions, tags"
+msgstr "Datum, Kategorien, Bildunterschriften, Schlagwörter"
+
+msgid "Sidebar, menus, buttons, cards"
+msgstr "Seitenleiste, Menüs, Tasten, Karten"
+
+msgid "Section and group titles"
+msgstr "Abschnitts- und Gruppentitel"
+
+msgid "Undo"
+msgstr "Rückgängig"
+
+msgid "Reset everything"
+msgstr "Alles zurücksetzen"
+
+msgid "Preset"
+msgstr "Voreinstellung"
+
+msgid "Presets"
+msgstr "Voreinstellungen"
+
+msgid "Custom colour"
+msgstr "Eigene Farbe"
+
+msgctxt "an accent colour"
+msgid "Red"
+msgstr "Rot"
+
+msgctxt "an accent colour"
+msgid "Amber"
+msgstr "Bernstein"
+
+msgctxt "an accent colour"
+msgid "Yellow"
+msgstr "Gelb"
+
+msgctxt "an accent colour"
+msgid "Lime"
+msgstr "Limette"
+
+msgctxt "an accent colour"
+msgid "Emerald"
+msgstr "Smaragd"
+
+msgctxt "an accent colour"
+msgid "Teal"
+msgstr "Türkis"
+
+msgctxt "an accent colour"
+msgid "Cyan"
+msgstr "Cyan"
+
+msgctxt "an accent colour"
+msgid "Sky"
+msgstr "Himmelblau"
+
+msgctxt "an accent colour"
+msgid "Indigo"
+msgstr "Indigo"
+
+msgctxt "an accent colour"
+msgid "Violet"
+msgstr "Violett"
+
+msgctxt "an accent colour"
+msgid "Fuchsia"
+msgstr "Fuchsia"
+
+msgctxt "an accent colour"
+msgid "Pink"
+msgstr "Pink"
+
+msgctxt "an accent colour"
+msgid "Rose"
+msgstr "Rose"
+
+msgctxt "an accent colour"
+msgid "Slate"
+msgstr "Schiefer"
+
+msgctxt "an accent colour"
+msgid "Stone"
+msgstr "Stein"
+
+msgctxt "a colour preset"
+msgid "Salt morning"
+msgstr "Salzmorgen"
+
+msgctxt "a colour preset"
+msgid "Evening dune"
+msgstr "Abenddüne"
+
+msgctxt "a colour preset"
+msgid "Linen noon"
+msgstr "Leinenmittag"
+
+msgctxt "a colour preset"
+msgid "Jade valley"
+msgstr "Jadetal"
+
+msgctxt "a colour preset"
+msgid "Foggy morning"
+msgstr "Nebelmorgen"
+
+msgctxt "a colour preset"
+msgid "Ember rock"
+msgstr "Glutfels"
+
+msgctxt "a colour preset"
+msgid "Blue hour"
+msgstr "Blaue Stunde"
+
+msgctxt "a colour preset"
+msgid "Carbon night"
+msgstr "Kohlenacht"
+
+msgctxt "a colour preset"
+msgid "Drafting blue"
+msgstr "Zeichenblau"
+
+msgctxt "a colour preset"
+msgid "Lime night"
+msgstr "Limettennacht"
+
+msgctxt "a colour preset"
+msgid "Cactus light"
+msgstr "Kaktuslicht"
+
+msgctxt "a colour preset"
+msgid "Mallow evening"
+msgstr "Malvenabend"
+
+msgctxt "a colour preset"
+msgid "Rust desert"
+msgstr "Rostwüste"
+
+msgctxt "a colour preset"
+msgid "Sea night"
+msgstr "Meeresnacht"
+
+msgctxt "a colour preset"
+msgid "Oasis light"
+msgstr "Oasenlicht"
+
+msgctxt "a colour preset"
+msgid "Grey hour"
+msgstr "Graue Stunde"
+
+msgctxt "a colour preset"
+msgid "Indigo night"
+msgstr "Indigonacht"
+
+msgctxt "a colour preset"
+msgid "Earth shadow"
+msgstr "Erdschatten"
+
+msgid "Custom paper"
+msgstr "Eigenes Papier"
+
+msgid "Custom ink"
+msgstr "Eigene Tinte"
+
+msgid "Custom accent"
+msgstr "Eigener Akzent"
+
+msgid "Ink"
+msgstr "Tinte"
+
+msgid "Custom"
+msgstr "Eigene"
+
+msgid "Contrast on the paper"
+msgstr "Kontrast auf dem Papier"
+
+msgid "You edit the side the page shows."
+msgstr "Bearbeitet wird die Seite, die gerade zu sehen ist."
+
+msgid "The other side follows this one until you change it."
+msgstr "Die andere Seite folgt dieser, bis du sie selbst änderst."
+
+msgid "This side follows the other one until you change it."
+msgstr "Diese Seite folgt der anderen, bis du sie selbst änderst."
+
+msgid "Three colours you set; the rest follows."
+msgstr "Drei Farben setzt du, der Rest folgt."
+
+msgid "Below 4.5:1 the number turns red; saving still works."
+msgstr "Unter 4,5:1 wird die Zahl rot; sichern geht trotzdem."
+
+msgid "Ground"
+msgstr "Grund"
+
+msgid "Plane"
+msgstr "Ebene"
+
+msgid "Field"
+msgstr "Feld"
+
+msgid "Press"
+msgstr "Druck"
+
+msgid "Second ink"
+msgstr "Nebentext"
+
+msgid "Line"
+msgstr "Linie"
+
+msgid "Save as style…"
+msgstr "Als Stil sichern …"
+
+msgid "Style name"
+msgstr "Name des Stils"
+
+msgid "Save"
+msgstr "Sichern"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "My style"
+msgstr "Mein Stil"
+
+msgid "The new style gets a tile; the one it was made on stays as it was."
+msgstr "Der neue Stil bekommt eine Kachel; der, aus dem er entstand, bleibt, wie er war."
+
+msgid "Delete style"
+msgstr "Stil löschen"
+
+msgid "Really delete?"
+msgstr "Wirklich löschen?"
+
+msgid "Update style"
+msgstr "Stil aktualisieren"
+
+msgid "Publish for everyone"
+msgstr "Für alle veröffentlichen"
+
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+msgid "For readers"
+msgstr "Für Leser"
+
+msgid "Readers see"
+msgstr "Leser sehen"
+
+msgid "More styles"
+msgstr "Weitere Stile"
+
+msgid "Add"
+msgstr "Hinzufügen"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Readers get the text size, light and dark, and these three styles. The site's own style always comes first."
+msgstr "Leser bekommen die Textgröße, Hell und Dunkel und diese drei Stile. Der eigene Stil der Seite steht immer zuerst."
+
+msgid "Update for everyone"
+msgstr "Für alle aktualisieren"
+
+msgid "Make site default"
+msgstr "Als Standard der Website"
+
+msgid "Site default"
+msgstr "Standard der Website"
+
+msgid "Unpublish"
+msgstr "Veröffentlichung aufheben"
+
+msgid "Really unpublish?"
+msgstr "Wirklich aufheben?"
+
+msgid "Every reader sees this tile. The site default is what a first visit opens in."
+msgstr "Alle Leser sehen diese Kachel. Der Standard der Website ist, was ein erster Besuch öffnet."
+
+msgid "Could not publish"
+msgstr "Veröffentlichen fehlgeschlagen"
+
+msgid "Copy link"
+msgstr "Link kopieren"
+
+msgid "Link copied"
+msgstr "Link kopiert"
+
+msgid "Copied"
+msgstr "Kopiert"
+
+msgid "Paste a style or a link…"
+msgstr "Stil oder Link einsetzen…"
+
+msgid "Very readable"
+msgstr "Gut lesbar"
+
+msgid "Readable"
+msgstr "Lesbar"
+
+msgid "Hard to read"
+msgstr "Schwer lesbar"
+
+msgid "Save as new style…"
+msgstr "Als neuen Stil sichern …"
+
+msgid "Hue"
+msgstr "Farbton"
+
+msgid "Saturation"
+msgstr "Sättigung"
+
+msgid "Lightness"
+msgstr "Helligkeit"
+
+msgid "Eyedropper"
+msgstr "Pipette"
+
+msgid "Pair’s colour"
+msgstr "Farbe des Paars"
+
+msgid "Picture effects"
+msgstr "Bildeffekte"
+
+msgid "More design options"
+msgstr "Weitere Gestaltungsoptionen"
+
+msgid "As they are"
+msgstr "Standard"
+
+msgid "Tinted"
+msgstr "Getönt"
+
+msgid "The pictures as they were published."
+msgstr "Die Bilder, wie sie veröffentlicht wurden."
+
+msgid "The pictures without colour, as the newspaper prints them."
+msgstr "Die Bilder ohne Farbe, wie die Zeitung sie druckt."
+
+msgid "The pictures in the pair’s own paper and ink."
+msgstr "Die Bilder in Papier und Tinte des Paars."
+
+msgid "Duotone"
+msgstr "Duoton"
+
+msgid "Halftone"
+msgstr "Raster"
+
+msgid "Pixels"
+msgstr "Pixel"
+
+msgid "Grain"
+msgstr "Korn"
+
+msgid "Hidden"
+msgstr "Ausgeblendet"
+
+msgid "Colour on hover"
+msgstr "Farbe beim Überfahren"
+
+#. The reading panel's two switches of the screen (2026-09-19).
+msgid "Scan lines"
+msgstr "Scanlines"
+
+msgid "Glow"
+msgstr "Leuchten"
+
+msgid "Scan line strength"
+msgstr "Stärke der Scanlines"
+
+msgid "Line strength"
+msgstr "Stärke der Linien"
+
+msgid "Corner size"
+msgstr "Eckengröße"
+
+msgid "Pill buttons"
+msgstr "Buttons in Pillenform"
+
+msgid "Softer reading text"
+msgstr "Weicherer Lesetext"
+
+msgid "Line style"
+msgstr "Linienart"
+
+msgid "Fine lines"
+msgstr "Feine Linien"
+
+msgid "Dark ground"
+msgstr "Dunkler Grund"
+
+msgid "Corners, lines and fills"
+msgstr "Ecken, Linien und Flächen"
+
+msgid "Screen effects"
+msgstr "Bildschirmeffekte"
+
+msgid "Pictures"
+msgstr "Bilder"
+
+msgid "Solid"
+msgstr "Durchgezogen"
+
+msgid "Dashed"
+msgstr "Gestrichelt"
+
+msgid "Dotted"
+msgstr "Gepunktet"
+
+msgid "Fill strength"
+msgstr "Stärke der Flächen"
+
+msgid "Glow strength"
+msgstr "Stärke des Leuchtens"
+
+msgid "Background grain"
+msgstr "Korn im Hintergrund"
+
+msgid "Grain strength"
+msgstr "Stärke des Korns"
+
+msgid "Vignette"
+msgstr "Vignette"
+
+msgid "Vignette strength"
+msgstr "Stärke der Vignette"
+
+msgid "Vignette size"
+msgstr "Größe der Vignette"
+
+msgid "Softness"
+msgstr "Stärke der Weichheit"
+
+#. A picture look (2026-09-19).
+msgid "Sepia"
+msgstr "Sepia"
+
+msgid "The pictures in the brown of an old photograph."
+msgstr "Die Bilder im Braun einer alten Fotografie."
+
+msgid "Dim in the dark"
+msgstr "Im Dunkeln abdunkeln"
+
+msgid "Fade the edges"
+msgstr "Ränder ausblenden"
+
+msgid "Frame around pictures"
+msgstr "Rahmen um Bilder"
+
+msgid "The pictures in the pair’s paper and its accent colour."
+msgstr "Die Bilder im Papier des Paars und seiner Akzentfarbe."
+
+msgid "The pictures in printed dots, as a newspaper screens them."
+msgstr "Die Bilder in Druckpunkten, wie die Zeitung sie rastert."
+
+msgid "The pictures in two colours and coarse pixels, like an early computer screen."
+msgstr "Die Bilder in zwei Farben und groben Pixeln, wie auf einem frühen Computerbildschirm."
+
+msgid "The pictures in colour, under a fine film grain."
+msgstr "Die Bilder in Farbe, unter einem feinen Filmkorn."
+
+msgid "No pictures. A line stands in for each one and shows it when pressed."
+msgstr "Keine Bilder. Für jedes steht eine Zeile, die es auf Druck zeigt."
+
+msgid "Puts the style back as it came. Your text size, light or dark, and focus mode stay as you set them."
+msgstr "Stellt den Stil wieder so her, wie er kam. Deine Textgröße, Hell oder Dunkel und der Fokusmodus bleiben, wie du sie eingestellt hast."
+
+msgid "Set the text size on the first page."
+msgstr "Die Textgröße stellst du auf der ersten Seite ein."
+
+msgid "Headings at text size"
+msgstr "Überschriften in Textgröße"
+
+msgid "Also the excerpts on the front page and the cards."
+msgstr "Auch die Vorschautexte auf der Startseite und die Karten."
+
+msgid "The paragraphs of the article."
+msgstr "Die Absätze im Artikel."
+
+msgid "Character spacing, justified text and the drop cap apply to the paragraphs of the article."
+msgstr "Laufweite, Blocksatz und Initiale gelten für die Absätze im Artikel."
+
+msgid "Character spacing, justified text and the drop cap apply to the excerpts on the front page and the cards as well."
+msgstr "Laufweite, Blocksatz und Initiale gelten auch für die Vorschautexte auf der Startseite und die Karten."
+
+msgid "While you read, the controls step back."
+msgstr "Beim Lesen treten die Steuerelemente zurück."
+
+msgid "The controls stay while you read."
+msgstr "Die Steuerelemente bleiben beim Lesen sichtbar."
+
+msgid "Tighter"
+msgstr "Enger"
+
+msgid "Tightest"
+msgstr "Sehr eng"
+
+#. The reading panel's fills switch, beside Lines (2026-09-12).
+msgid "Fills"
+msgstr "Flächen"
+
+msgid "Accent colour"
+msgstr "Akzentfarbe"
+
+#. The panel's own name, on its head and the rail button (2026-09-17). The same word in both languages, Manuel's choice.
+msgid "Design"
+msgstr "Design"
+
+msgid "Rounded corners"
+msgstr "Abgerundete Ecken"
+
+msgid "Lines"
+msgstr "Linien"
+
+msgid "Reset {style}"
+msgstr "{style} zurücksetzen"
+
+msgid "Font"
+msgstr "Schriftart"
+
+msgid "Article"
+msgstr "Artikel"
+
+msgid "Interface"
+msgstr "Oberfläche"
+
+msgid "Line spacing"
+msgstr "Zeilenabstand"
+
+msgid "Restore defaults"
+msgstr "Standard wiederherstellen"
+
+msgid "Style"
+msgstr "Stil"
+
+msgid "Background"
+msgstr "Hintergrund"
+
+msgid "Black & white"
+msgstr "Schwarzweiß"
+
+msgid "Warm paper"
+msgstr "Warmes Papier"
+
+msgid "Dense"
+msgstr "Dicht"
+
+msgid "Tight"
+msgstr "Eng"
+
+msgid "Airy"
+msgstr "Luftig"
+
+msgid "Wide"
+msgstr "Weit"
+
+msgid "Signage"
+msgstr "Schild"
+
+msgid "Standard"
+msgstr "Standard"
+
+msgid "Accent"
+msgstr "Akzent"
+
+msgid "Purple"
+msgstr "Lila"
+
+msgid "Brown"
+msgstr "Braun"
+
+msgid "Green"
+msgstr "Grün"
+
+msgid "Blue"
+msgstr "Blau"
+
+msgid "Orange"
+msgstr "Orange"
+
+msgid "Book"
+msgstr "Buch"
+
+msgid "No such style."
+msgstr "Diesen Stil gibt es nicht."
+
+msgid "No style was sent."
+msgstr "Es wurde kein Stil gesendet."
+
+msgid "That is not a style."
+msgstr "Das ist kein Stil."
+
+msgid "Nothing to do."
+msgstr "Nichts zu tun."
+
+msgid "Styles"
+msgstr "Stile"
+
+msgid "Published styles"
+msgstr "Veröffentlichte Stile"
+
+msgid "The styles every reader sees as tiles, and which one a first visit opens in. Publish a look from the Design panel on the site itself; this field shows what is published, and clearing it brings Standard back."
+msgstr "Die Stile, die alle Leser als Kacheln sehen, und welcher davon bei einem ersten Besuch geöffnet ist. Veröffentlicht wird ein Look im Design-Panel auf der Website selbst; dieses Feld zeigt, was veröffentlicht ist, und ein Leeren bringt Standard zurück."
+
+msgid "More"
+msgstr "Mehr"
+
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgid "Changed"
+msgstr "Geändert"
+
+msgid "Reset this page"
+msgstr "Diese Seite zurücksetzen"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Show to readers"
+msgstr "Für Leser zeigen"
+
+msgid "Reset everything?"
+msgstr "Alles zurücksetzen?"
+
+msgid "Delete this style?"
+msgstr "Diesen Stil löschen?"
+
+msgid "Unpublish this style?"
+msgstr "Veröffentlichung dieses Stils aufheben?"
+
+msgid "Site"
+msgstr "Website"
+
+msgid "Search fonts"
+msgstr "Schriften suchen"
+
+msgid "No results"
+msgstr "Keine Treffer"
+
+msgid "Remove unused fonts"
+msgstr "Unbenutzte Schriften entfernen"
+
+msgid "Unused fonts removed"
+msgstr "Unbenutzte Schriften entfernt"
+
+msgid "No unused fonts"
+msgstr "Keine unbenutzten Schriften"
+
+msgid "A removed font downloads again when you pick it."
+msgstr "Eine entfernte Schrift wird wieder geladen, sobald du sie wählst."
+
+msgid "Readers get the text size, light and dark, and these styles. The site's own style always comes first."
+msgstr "Leser bekommen die Textgröße, Hell und Dunkel und diese Stile. Der eigene Stil der Seite steht immer zuerst."
+
+msgid "Sharing"
+msgstr "Teilen"
+
+msgid "Readers can copy styles"
+msgstr "Leser können Stile kopieren"
+
+msgid "Same colours for light and dark"
+msgstr "Gleiche Farben für Hell und Dunkel"
+
+msgid "Drop cap height"
+msgstr "Höhe der Initiale"
+
+msgid "Own weight"
+msgstr "Eigene Schriftstärke"
+
+msgid "Own capitals"
+msgstr "Eigene Großbuchstaben"
+
+msgid "Own character spacing"
+msgstr "Eigene Laufweite"
+
+msgid "Name this style"
+msgstr "Stil benennen"
+
+msgid "Your styles"
+msgstr "Deine Stile"
+
+msgid "The site's own style always comes first."
+msgstr "Der eigene Stil der Seite steht immer zuerst."
+
+msgid "Undo {what}"
+msgstr "Rückgängig: {what}"
+
+msgid "Edges"
+msgstr "Ränder"
+
+msgid "Bottom"
+msgstr "Unten"
+
+msgid "Sides and bottom"
+msgstr "Seiten und unten"
+
+msgid "All sides"
+msgstr "Alle Seiten"
+
+msgid "Live Design button"
+msgstr "Live-Design-Button"
+
+msgid "Place"
+msgstr "Ort"
+
+msgid "Where"
+msgstr "Position"
+
+
+
+msgid "Automatic"
+msgstr "Automatisch"
+
+msgid "Bottom centre"
+msgstr "Unten mittig"
+
+msgid "Bottom left"
+msgstr "Unten links"
+
+msgid "Bottom right"
+msgstr "Unten rechts"
+
+msgid "Top left"
+msgstr "Oben links"
+
+msgid "Top right"
+msgstr "Oben rechts"
+
+msgid "Left side"
+msgstr "Linker Rand"
+
+msgid "Right side"
+msgstr "Rechter Rand"
+
+msgid "Look"
+msgstr "Aussehen"
+
+
+
+
+
+msgid "Panel"
+msgstr "Panel"
+
+msgid "Site colour"
+msgstr "Farbe der Website"
+
+msgctxt "the Live Design button"
+msgid "Size"
+msgstr "Größe"
+
+
+
+
+msgid "Aurora"
+msgstr "Aurora"
+
+msgid "Beside the menu the button is a square with its icon. A name turns it into a word, without the light."
+msgstr "Neben dem Menü ist der Button ein Quadrat mit seinem Icon. Ein Name macht daraus ein Wort, ohne das Licht."
+
+msgid "With a name the button is a word in the menu, without the light. Empty, it is a square with its icon."
+msgstr "Mit einem Namen ist der Button ein Wort im Menü, ohne das Licht. Leer ist er ein Quadrat mit seinem Icon."
+
+msgid "Optional: icon only without a name"
+msgstr "Optional: nur das Icon, ohne Namen"
+
+msgid "Who sees it"
+msgstr "Wer ihn sieht"
+
+msgid "Everyone"
+msgstr "Alle"
+
+msgid "Only me"
+msgstr "Nur ich"
+
+msgid "Paste style"
+msgstr "Stil einsetzen"
+
+msgid "Classic"
+msgstr "Klassisch"
+
+msgid "Poster"
+msgstr "Poster"
+
+
+msgid "Delete “{name}”?"
+msgstr "„{name}“ löschen?"
+
+
+msgid "Style options"
+msgstr "Stiloptionen"
+
+msgid "Show to everyone"
+msgstr "Für alle zeigen"
+
+msgid "Rename…"
+msgstr "Umbenennen …"
+
+msgid "{name} is now the site default"
+msgstr "{name} ist jetzt der Standard der Website"
+
+msgid "Shown to everyone"
+msgstr "Für alle sichtbar"
+
+
+
+
+msgid "Everyone can copy styles"
+msgstr "Alle können Stile kopieren"
+
+msgid "For visitors"
+msgstr "Für Besucher"
+
+msgid "Who sees the button"
+msgstr "Wer den Button sieht"
+
+msgid "Apply changes for everyone"
+msgstr "Änderungen für alle übernehmen"
+
+msgid "The site default is always shown to everyone."
+msgstr "Der Standard der Website ist immer für alle sichtbar."
+
+msgid "Website"
+msgstr "Website"
+
+msgid "Only visible to you"
+msgstr "Nur für dich sichtbar"
+
+msgid "Visible to readers"
+msgstr "Für Leser sichtbar"
+
+msgid "Show on site"
+msgstr "Auf der Website zeigen"
+
+msgid "The site default is always on your site."
+msgstr "Der Standard der Website ist immer auf deiner Website."
+
+msgid "Button and Sharing"
+msgstr "Button und Teilen"
+
+msgid "Drag styles here to hide them."
+msgstr "Zieh Stile hierher, um sie zu verbergen."
+
+msgid "Drag styles here to show them."
+msgstr "Zieh Stile hierher, um sie zu zeigen."
+
+msgid "Search settings"
+msgstr "Einstellungen durchsuchen"
+
+msgid "Dotted background"
+msgstr "Gepunkteter Hintergrund"
+
+msgid "Details"
+msgstr "Details"
+
+
+msgid "Main button in ink"
+msgstr "Hauptbutton in Tinte"
+
+msgid "Highlighter"
+msgstr "Textmarker"
+
+msgid "Highlighter colour"
+msgstr "Farbe des Textmarkers"
+
+msgid "Catalogue"
+msgstr "Katalog"
+
+msgctxt "a colour preset"
+msgid "Vellum"
+msgstr "Pergament"
+
+msgctxt "a colour preset"
+msgid "Vermilion"
+msgstr "Zinnober"
+
+msgctxt "a colour preset"
+msgid "Ultramarine"
+msgstr "Ultramarin"
+
+msgctxt "a colour preset"
+msgid "Cadmium yellow"
+msgstr "Kadmiumgelb"
+
+msgctxt "a colour preset"
+msgid "Flamingo"
+msgstr "Flamingo"
+
+msgctxt "a colour preset"
+msgid "Viridian"
+msgstr "Viridian"
+
+msgctxt "a colour preset"
+msgid "Ultraviolet"
+msgstr "Ultraviolett"
+
+msgctxt "a colour preset"
+msgid "Tangerine"
+msgstr "Mandarine"
+
+msgctxt "a colour preset"
+msgid "Lagoon"
+msgstr "Lagune"
+
+msgctxt "a badge on a colour preset added lately"
+msgid "New"
+msgstr "Neu"
+
+msgid "Line length"
+msgstr "Zeilenlänge"
+
+msgid "Space"
+msgstr "Abstände"
+
+msgid "Spacious"
+msgstr "Großzügig"
+
+msgid "Extra compact"
+msgstr "Extra kompakt"
+
+msgid "Extra spacious"
+msgstr "Extra großzügig"
+
+msgid "letters"
+msgstr "Zeichen"
+
+msgid "Frame width"
+msgstr "Rahmenbreite"
+
+msgid "Grid size"
+msgstr "Rastergröße"
+
+msgid "Dot strength"
+msgstr "Stärke der Punkte"
+
+msgid "Fine"
+msgstr "Fein"
+
+msgid "Frame pattern"
+msgstr "Rahmenmuster"
+
+msgid "Plain"
+msgstr "Schlicht"
+
+msgid "Dots"
+msgstr "Punkte"
+
+msgid "Checkerboard"
+msgstr "Schachbrett"
+
+msgid "Wide top picture"
+msgstr "Breites Titelbild"
+
+msgid "Categories"
+msgstr "Kategorien"
+
+msgid "Below title"
+msgstr "Unter dem Titel"
+
+msgid "Above title"
+msgstr "Über dem Titel"
+
+msgid "Links"
+msgstr "Links"
+
+msgid "Coloured and underlined"
+msgstr "Farbig und unterstrichen"
+
+msgid "Coloured"
+msgstr "Farbig"
+
+msgid "Underlined"
+msgstr "Unterstrichen"
+
+msgid "Alignment"
+msgstr "Ausrichtung"
+
+msgid "Left"
+msgstr "Links"
+
+msgid "Centre"
+msgstr "Zentriert"
+
+msgid "Right"
+msgstr "Rechts"
+
+msgid "Own alignment"
+msgstr "Eigene Ausrichtung"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Smaller"
+msgstr "Kleiner"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Larger"
+msgstr "Größer"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Close"
+msgstr "Schließen"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Quotes"
+msgstr "Zitate"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Tiny"
+msgstr "Winzig"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Huge"
+msgstr "Riesig"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Violet light"
+msgstr "Violettes Licht"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Sun clay"
+msgstr "Sonnenlehm"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Radar night"
+msgstr "Radarnacht"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Ash blue"
+msgstr "Ascheblau"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Night fire"
+msgstr "Nachtfeuer"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Paper"
+msgstr "Papier"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Focus mode"
+msgstr "Fokusmodus"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Colours"
+msgstr "Farbe"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Reading size"
+msgstr "Textgröße"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Mode"
+msgstr "Modus"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Appearance"
+msgstr "Erscheinungsbild"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Colour"
+msgstr "Farbe"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Grey"
+msgstr "Grau"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "System"
+msgstr "System"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Dark"
+msgstr "Dunkel"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Small"
+msgstr "Klein"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Compact"
+msgstr "Kompakt"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Default"
+msgstr "Standard"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Comfortable"
+msgstr "Komfortabel"
+
+# The theme's own word, said by the plugin on other themes (2026-09-25).
+msgid "Large"
+msgstr "Groß"
+
+# The side, not the weight; the weight has its own msgctxt entry (2026-09-25).
+msgid "Light"
+msgstr "Hell"
+
+msgid "Wide title"
+msgstr "Breiter Titel"
+
+# The four pages behind Customise and their groups (2026-09-26).
+msgid "Layout"
+msgstr "Layout"
+
+msgid "Effects"
+msgstr "Effekte"
+
+msgid "Page"
+msgstr "Seite"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Ground and buttons"
+msgstr "Grund und Buttons"
+
+msgid "Corners and lines"
+msgstr "Ecken und Linien"
+
+# The button's colour, the pick that replaced Main button in ink (2026-09-26).
+msgid "Button colour"
+msgstr "Buttonfarbe"
+
+msgid "Own colour"
+msgstr "Eigene Farbe"
+
+msgid "Like the reading text"
+msgstr "Wie der Lesetext"
+
+msgid "Like the date"
+msgstr "Wie das Datum"
+
+msgid "Own colour…"
+msgstr "Eigene Farbe…"
+
+# The two roles' own colour wells (2026-09-26).
+msgid "Heading colour"
+msgstr "Farbe der Überschriften"
+
+msgid "Category line colour"
+msgstr "Farbe der Kategoriezeile"
+
+# The card row on Colour › Custom (2026-09-26).
+msgid "Card"
+msgstr "Karte"
+
+# The shape round (2026-09-26).
+msgid "Button shape"
+msgstr "Buttonform"
+
+msgid "Like the cards"
+msgstr "Wie die Karten"
+
+msgid "Square"
+msgstr "Eckig"
+
+msgid "Rounded"
+msgstr "Abgerundet"
+
+msgid "Pill"
+msgstr "Pille"
+
+msgid "Tags follow the buttons"
+msgstr "Schlagwörter wie die Buttons"
+
+msgid "Button style"
+msgstr "Buttonstil"
+
+msgid "Filled"
+msgstr "Gefüllt"
+
+msgid "Outlined"
+msgstr "Umrandet"
+
+msgid "Outlined with shadow"
+msgstr "Umrandet mit Schatten"
+
+msgid "Line width"
+msgstr "Linienbreite"
+
+msgid "Cards"
+msgstr "Karten"
+
+msgid "Box"
+msgstr "Kasten"
+
+msgid "Top rule"
+msgstr "Linie oben"
+
+msgid "New window"
+msgstr "Neues Fenster"
+
+msgid "You are using the new window. Readers see no difference; your styles are the same in both."
+msgstr "Du verwendest das neue Fenster. Leser sehen keinen Unterschied; deine Stile sind in beiden dieselben."
+
+msgid "The current window opens. Turn this on to try the new one."
+msgstr "Das aktuelle Fenster öffnet sich. Schalte das ein, um das neue auszuprobieren."
+
+msgid "Could not change the window"
+msgstr "Fenster konnte nicht gewechselt werden"
+
+msgid "Sections"
+msgstr "Bereiche"
+
+msgid "Not built yet"
+msgstr "Noch nicht gebaut"
+
+msgid "This part of the new window is not built yet. Until it is, it opens in the current window."
+msgstr "Dieser Teil des neuen Fensters ist noch nicht gebaut. Bis dahin öffnet er sich im aktuellen Fenster."
+
+msgid "{n} settings"
+msgstr "{n} Einstellungen"
+
+msgid "Open in the Current Window"
+msgstr "Im aktuellen Fenster öffnen"
+
+msgid "Use the Current Window…"
+msgstr "Aktuelles Fenster verwenden …"
+
+msgid "Go back to the current window?"
+msgstr "Zurück zum aktuellen Fenster?"
+
+msgid "The panel opens as before the next time you open it. Your styles, changes and readers stay exactly as they are."
+msgstr "Beim nächsten Öffnen erscheint das Panel wie bisher. Deine Stile, Änderungen und Leser bleiben genau, wie sie sind."
+
+msgid "Go Back"
+msgstr "Zurück"
+
+msgid "Only for you. Readers never see these."
+msgstr "Nur für dich. Leser sehen das nie."
+
+msgid "Could not save. Try again."
+msgstr "Speichern fehlgeschlagen. Versuche es noch einmal."
+
+msgid "Try the New Window"
+msgstr "Neues Fenster ausprobieren"
+
+msgid "Use the Current Window"
+msgstr "Aktuelles Fenster verwenden"
+
+msgid "You may not change the panel window."
+msgstr "Du darfst das Fenster des Panels nicht wechseln."
+
+msgid "The new window is on. It opens from the Live Design button on your site; readers see no difference."
+msgstr "Das neue Fenster ist eingeschaltet. Es öffnet sich über den Live-Design-Button auf deiner Website; Leser sehen keinen Unterschied."
+
+msgid "The current window is back. It opens from the Live Design button as before."
+msgstr "Das aktuelle Fenster ist zurück. Es öffnet sich über den Live-Design-Button wie bisher."
+
+msgid "Auto"
+msgstr "Automatisch"
+
+msgid "Original is the theme as it comes, and stays that way. Make a copy to change its colours."
+msgstr "Original ist das Theme, wie es geliefert wird, und bleibt so. Erstelle eine Kopie, um seine Farben zu ändern."
+
+msgid "Make a Copy"
+msgstr "Kopie erstellen"
+
+msgid "By day only"
+msgstr "Nur bei Tag"
+
+msgid "Hex"
+msgstr "Hex"
+
+msgid "Pick a colour from the page"
+msgstr "Farbe von der Seite aufnehmen"
+
+msgid "against the text"
+msgstr "zum Text"
+
+msgid "against the paper"
+msgstr "zum Papier"
+
+msgid "Other…"
+msgstr "Andere …"
+
+msgid "You are looking at the light side. The style holds both; readers choose their own."
+msgstr "Du siehst die helle Seite. Der Stil hat beide; Leser wählen ihre eigene."
+
+msgid "You are looking at the dark side. The style holds both; readers choose their own."
+msgstr "Du siehst die dunkle Seite. Der Stil hat beide; Leser wählen ihre eigene."
+
+msgid "Fonts"
+msgstr "Schriften"
+
+msgid "Reading font"
+msgstr "Schrift für Fließtext"
+
+msgid "Interface font"
+msgstr "Schrift für die Oberfläche"
+
+msgid "Show More"
+msgstr "Mehr anzeigen"
+
+msgid "Show Less"
+msgstr "Weniger anzeigen"
+
+msgid "Members follow {role} until you give one its own size, weight, capitals or spacing."
+msgstr "Mitglieder folgen {role}, bis du einem eine eigene Größe, Schriftstärke, Großbuchstaben oder Laufweite gibst."
+
+msgid "Other"
+msgstr "Weitere"
+
+msgid "By night only"
+msgstr "Nur bei Nacht"
+
+msgid "Edited"
+msgstr "Bearbeitet"
+
+msgid "Duplicate to Customise"
+msgstr "Duplizieren zum Anpassen"
+
+msgid "Make Default"
+msgstr "Als Standard festlegen"
+
+msgid "Hide from Readers"
+msgstr "Vor Lesern verbergen"
+
+msgid "Show to Readers"
+msgstr "Lesern zeigen"
+
+msgid "Revert to Published"
+msgstr "Zur veröffentlichten Fassung zurück"
+
+msgid "Revert to Original"
+msgstr "Zum Original zurück"
+
+msgid "Delete…"
+msgstr "Löschen …"
+
+msgid "Remove from Site…"
+msgstr "Von der Website entfernen …"
+
+msgid "Shown to Readers"
+msgstr "Für Leser sichtbar"
+
+msgid "Hidden from Readers"
+msgstr "Vor Lesern verborgen"
+
+msgid "Your theme as it is"
+msgstr "Dein Theme, wie es ist"
+
+msgid "The first style shown to readers is the default: a first visit opens in it."
+msgstr "Der erste für Leser sichtbare Stil ist der Standard: Ein erster Besuch öffnet in ihm."
+
+msgid "Save As…"
+msgstr "Sichern unter …"
+
+msgid "Publish the changes to “{name}”?"
+msgstr "Die Änderungen an „{name}“ veröffentlichen?"
+
+msgid "Readers will see them the next time they open a page."
+msgstr "Leser sehen sie, wenn sie das nächste Mal eine Seite öffnen."
+
+msgid "Save As New Style"
+msgstr "Als neuen Stil sichern"
+
+msgid "Rename Style"
+msgstr "Stil umbenennen"
+
+msgid "Rename"
+msgstr "Umbenennen"
+
+msgid "You can’t undo this."
+msgstr "Das lässt sich nicht rückgängig machen."
+
+msgid "Remove “{name}” from the site?"
+msgstr "„{name}“ von der Website entfernen?"
+
+msgid "Readers no longer see it. It stays here as one of your own styles."
+msgstr "Leser sehen ihn nicht mehr. Er bleibt hier als einer deiner eigenen Stile."
+
+msgid "Duplicated"
+msgstr "Dupliziert"
+
+msgid "Published"
+msgstr "Veröffentlicht"
+
+msgid "Saved"
+msgstr "Gesichert"
+
+msgid "Readers"
+msgstr "Leser"
+
+msgid "Always shown"
+msgstr "Immer sichtbar"
+
+msgid "Move {name}"
+msgstr "{name} verschieben"
+
+msgid "What a first visit opens in"
+msgstr "Darin öffnet ein erster Besuch"
+
+msgid "Readers can choose it"
+msgstr "Leser können ihn wählen"
+
+msgid "Yours; showing it publishes it"
+msgstr "Deiner; zeigen veröffentlicht ihn"
+
+msgid "Hidden from readers"
+msgstr "Vor Lesern verborgen"
+
+msgid "Readers can choose from the styles turned on. The first one is the default: a first visit opens in it."
+msgstr "Leser wählen aus den eingeschalteten Stilen. Der erste ist der Standard: Ein erster Besuch öffnet in ihm."
+
+msgid "Drag a style by its handle, or focus the handle and use the arrow keys. Moved to the top, it becomes the default."
+msgstr "Zieh einen Stil an seinem Griff, oder wähle den Griff und nutze die Pfeiltasten. Ganz oben wird er zum Standard."
+
+msgid "Live Design Button"
+msgstr "Live-Design-Button"
+
+msgid "Button size"
+msgstr "Buttongröße"
+
+msgid "Show to"
+msgstr "Zeigen für"
+
+msgid "Readers get Copy style, a link that carries the whole style to any site with the panel."
+msgstr "Leser bekommen „Stil kopieren“, einen Link, der den ganzen Stil zu jeder Website mit dem Panel mitnimmt."
+
+msgid "This site has no Live Design button settings."
+msgstr "Diese Website hat keine Einstellungen für den Live-Design-Button."
+
+msgid "Changes"
+msgstr "Änderungen"
+
+msgid "No changes. {name} is as it was saved."
+msgstr "Keine Änderungen. {name} ist so, wie er gesichert wurde."
+
+msgid "One change to {name}. It can go back on its own."
+msgstr "Eine Änderung an {name}. Sie lässt sich einzeln zurücknehmen."
+
+msgid "{n} changes to {name}. Each can go back on its own."
+msgstr "{n} Änderungen an {name}. Jede lässt sich einzeln zurücknehmen."
+
+msgid "Revert"
+msgstr "Zurücknehmen"
+
+msgid "Revert All…"
+msgstr "Alle zurücknehmen …"
+
+msgid "Show Changes"
+msgstr "Änderungen zeigen"
+
+msgid "Search Settings…"
+msgstr "Einstellungen suchen …"
+
+msgid "Search Settings"
+msgstr "Einstellungen suchen"
+
+msgid "Revert all changes to “{name}”?"
+msgstr "Alle Änderungen an „{name}“ zurücknehmen?"
+
+msgid "The style goes back to how it was saved. Undo can bring the changes back."
+msgstr "Der Stil wird wieder, wie er gesichert wurde. „Rückgängig“ holt die Änderungen zurück."
+
+msgid "Revert All"
+msgstr "Alle zurücknehmen"
+
+msgid "Reverted"
+msgstr "Zurückgenommen"
+
+msgid "Type the name of a setting, a page or a style."
+msgstr "Tippe den Namen einer Einstellung, einer Seite oder eines Stils."
+
+msgid "Browse Versions"
+msgstr "Versionen durchsuchen"
+
+msgid "Versions"
+msgstr "Versionen"
+
+msgid "Earlier"
+msgstr "Früher"
+
+msgid "Today"
+msgstr "Heute"
+
+msgid "Yesterday"
+msgstr "Gestern"
+
+msgid "and {n} more"
+msgstr "und {n} weitere"
+
+msgid "No changes"
+msgstr "Keine Änderungen"
+
+msgid "Now"
+msgstr "Jetzt"
+
+msgid "As Published"
+msgstr "Wie veröffentlicht"
+
+msgid "As Saved"
+msgstr "Wie gesichert"
+
+msgid "As It Comes"
+msgstr "Wie geliefert"
+
+msgid "What readers see"
+msgstr "Was Leser sehen"
+
+msgid "Before any of these changes"
+msgstr "Vor all diesen Änderungen"
+
+msgid "Restore"
+msgstr "Wiederherstellen"
+
+msgid "Showing"
+msgstr "Wird gezeigt"
+
+msgid "Version Restored"
+msgstr "Version wiederhergestellt"
+
+msgid "Original has no versions. It is your theme as it is."
+msgstr "Original hat keine Versionen. Es ist dein Theme, wie es ist."
+
+msgid "Versions of {name} are kept as you work and each time it is published. Choose one to see it on the page."
+msgstr "Versionen von {name} werden beim Arbeiten und bei jeder Veröffentlichung aufbewahrt. Wähle eine, um sie auf der Seite zu sehen."
+
+msgid "Main buttons"
+msgstr "Hauptbuttons"
+
+msgid "Other buttons"
+msgstr "Weitere Buttons"
+
+msgid "Quiet buttons"
+msgstr "Leise Buttons"
+
+msgid "Gray"
+msgstr "Grau"
+
+msgid "Text only"
+msgstr "Nur Text"
+
+msgid "Tags"
+msgstr "Schlagwörter"
+
+msgid "Chosen item"
+msgstr "Gewählter Eintrag"
+
+msgid "As the theme"
+msgstr "Wie im Theme"
+
+msgid "Buttons"
+msgstr "Buttons"
+
+msgid "Levels"
+msgstr "Stufen"
+
+msgid "Tags, links and menus"
+msgstr "Schlagwörter, Links und Menüs"
+
+msgid "Article head"
+msgstr "Artikelkopf"
+
+msgid "Surfaces"
+msgstr "Flächen"
+
+msgid "Subscribe"
+msgstr "Abonnieren"
+
+msgid "Archive"
+msgstr "Archiv"
+
+msgid "Share"
+msgstr "Teilen"
+
+msgid "Read"
+msgstr "Lies"
+
+msgid "a link"
+msgstr "einen Link"
+
+msgid "Latest"
+msgstr "Neueste"
+
+msgid "Popular"
+msgstr "Beliebt"
+
+msgid "Shadow"
+msgstr "Schatten"
+
+msgid "Text is as wide as the reading column. Wide steps out on both sides."
+msgstr "Text ist so breit wie die Lesespalte. Breit tritt auf beiden Seiten heraus."
+
+msgid "A theme’s buttons are sorted into the levels by what they are."
+msgstr "Die Buttons eines Themes werden nach ihrer Art den Stufen zugeordnet."
+
+msgid "The main action, like Subscribe"
+msgstr "Die Hauptaktion, etwa Abonnieren"
+
+msgid "A second choice next to it"
+msgstr "Eine zweite Wahl daneben"
+
+msgid "Small actions, like Share"
+msgstr "Kleine Aktionen, etwa Teilen"
+
+msgid "The page you are on, the tab that is open"
+msgstr "Die Seite, auf der du bist, der offene Tab"
+
+msgid "Tips and remarks in a box"
+msgstr "Tipps und Hinweise in einem Kasten"
+
+msgid "Search, comment and sign-up fields"
+msgstr "Such-, Kommentar- und Anmeldefelder"
+
+msgid "In the text"
+msgstr "Im Text"
+
+msgid "Both"
+msgstr "Beides"
+
+msgid "Flat"
+msgstr "Flach"
+
+msgid "Raised"
+msgstr "Erhaben"
+
+msgid "Line above"
+msgstr "Linie oben"
+
+msgid "Line at the side"
+msgstr "Linie an der Seite"
+
+msgid "Notes"
+msgstr "Hinweise"
+
+msgid "A surface on the other side of the page, like a dark section on light paper, passes its own colours to the text and buttons inside it."
+msgstr "Eine Fläche in der Gegenfarbe der Seite, etwa ein dunkler Abschnitt auf hellem Papier, gibt ihre eigenen Farben an den Text und die Buttons darin weiter."
+
+msgid "Picture width"
+msgstr "Bildbreite"
+
+msgid "Full"
+msgstr "Volle Breite"
+
+msgid "Picture"
+msgstr "Bild"
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "The first picture of the article"
+msgstr "Das erste Bild des Artikels"
+
+msgid "The line of categories the article is filed under"
+msgstr "Die Zeile mit den Kategorien des Artikels"
+
+msgid "Text is as wide as the reading column. Wide steps out on both sides. Full reaches the edges of the paper."
+msgstr "Text ist so breit wie die Lesespalte. Breit tritt auf beiden Seiten heraus. Volle Breite reicht bis an die Ränder des Papiers."
+
+msgid "Of the reading text; the column grows with its size"
+msgstr "Des Lesetexts; die Spalte wächst mit seiner Größe"
+
+msgid "Frame"
+msgstr "Rahmen"
+
+msgid "Fade first picture"
+msgstr "Erstes Bild ausblenden"
+
+msgid "Text softness"
+msgstr "Textweichheit"
+
+msgid "Hairline"
+msgstr "Haarlinie"
+
+msgid "Glows only in dark appearance"
+msgstr "Leuchtet nur im dunklen Erscheinungsbild"
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid "Choose on the Page"
+msgstr "Auf der Seite wählen"
+
+msgid "Click anything on the page to open its setting. Or hold ⌥ and click."
+msgstr "Klicke auf etwas auf der Seite, um seine Einstellung zu öffnen. Oder halte ⌥ und klicke."
+
+msgid "Hold to Compare"
+msgstr "Zum Vergleichen halten"
+
+msgid "Hold to see the page without your changes (hold M)"
+msgstr "Halten, um die Seite ohne deine Änderungen zu sehen (M halten)"
+
+msgid "{name} without your changes"
+msgstr "{name} ohne deine Änderungen"
+
+msgid "Only for you, on this computer. Readers never see these."
+msgstr "Nur für dich, auf diesem Computer. Leser sehen das nie."
+
+msgid "Window"
+msgstr "Fenster"
+
+msgid "Glass"
+msgstr "Glas"
+
+msgid "The page shows softly through the window"
+msgstr "Die Seite scheint sanft durch das Fenster"
+
+msgid "Reduce motion"
+msgstr "Bewegung reduzieren"
+
+msgid "Sound"
+msgstr "Ton"
+
+msgid "Sounds"
+msgstr "Töne"
+
+msgid "Clicks"
+msgstr "Klicks"
+
+msgid "Clicks and hover"
+msgstr "Klicks und Zeigen"
+
+msgid "Soft ticks as you change things"
+msgstr "Leises Ticken, während du etwas änderst"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "Tips"
+msgstr "Tipps"
+
+msgid "Small hints the first time you meet something"
+msgstr "Kleine Hinweise, wenn dir etwas zum ersten Mal begegnet"
+
+msgid "Keyboard Shortcuts"
+msgstr "Tastenkürzel"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "Follows your WordPress profile"
+msgstr "Folgt deinem WordPress-Profil"
+
+msgid "Follows your computer"
+msgstr "Folgt deinem Computer"
+
+msgid "Done"
+msgstr "Fertig"
+
+msgid "Graphite"
+msgstr "Graphit"
+
+msgid "Dusk"
+msgstr "Dämmerung"
+
+msgid "Ocean"
+msgstr "Ozean"
+
+msgid "Meadow"
+msgstr "Wiese"
+
+msgid "Candy"
+msgstr "Bonbon"
+
+msgid "Ember"
+msgstr "Glut"
+
+msgid "Silver"
+msgstr "Silber"
+
+msgid "Click anything on the page"
+msgstr "Klicke auf etwas auf der Seite"
+
+msgid "It opens its setting here. Or hold ⌥ and click, even with the window closed."
+msgstr "Seine Einstellung öffnet sich hier. Oder halte ⌥ und klicke, auch bei geschlossenem Fenster."
+
+msgid "Find anything"
+msgstr "Alles finden"
+
+msgid "Open or close the window"
+msgstr "Fenster öffnen oder schließen"
+
+msgid "Click the button, Esc to close"
+msgstr "Klick auf den Button, Esc zum Schließen"
+
+msgid "Choose on the page"
+msgstr "Auf der Seite wählen"
+
+msgid "Compare with no changes"
+msgstr "Ohne Änderungen vergleichen"
+
+msgid "Hold M"
+msgstr "M halten"
+
+msgid "Move a slider a step"
+msgstr "Einen Regler einen Schritt bewegen"
+
+msgid "This list"
+msgstr "Diese Liste"
+
+msgid "⌥-click"
+msgstr "⌥-Klick"
+
+msgid "Everyday"
+msgstr "Alltag"
+
+msgid "Warm"
+msgstr "Warm"
+
+msgid "Cool"
+msgstr "Kühl"
+
+msgctxt "a group of colours"
+msgid "Bold"
+msgstr "Kräftig"
+
+msgid "Copy Style as a Link"
+msgstr "Stil als Link kopieren"
+
+msgid "Paste a Style…"
+msgstr "Stil einfügen …"
+
+msgid "Style Copied as a Link"
+msgstr "Stil als Link kopiert"
+
+msgid "Paste a Style"
+msgstr "Stil einfügen"
+
+msgid "Paste a style link from any site with Live Design. It comes in as a style of your own; the one you are on stays as it is."
+msgstr "Füge einen Stil-Link von einer beliebigen Seite mit Live Design ein. Er kommt als dein eigener Stil dazu; der aktuelle bleibt, wie er ist."
+
+msgid "Style or link"
+msgstr "Stil oder Link"
+
+msgid "Style Pasted"
+msgstr "Stil eingefügt"
+
+msgid "That isn’t a style link. Copy one with Copy Style as a Link, then paste it here."
+msgstr "Das ist kein Stil-Link. Kopiere einen mit „Stil als Link kopieren“ und füge ihn hier ein."
+
+msgid "Hide Sidebar"
+msgstr "Seitenleiste ausblenden"
+
+msgid "Show Sidebar"
+msgstr "Seitenleiste einblenden"
+
+msgid "Show or hide the sidebar"
+msgstr "Seitenleiste ein- oder ausblenden"
+
+msgid "Copy, paste a style"
+msgstr "Stil kopieren, einfügen"
+
+msgid "Sidebar width"
+msgstr "Breite der Seitenleiste"
+
+msgid "Drag to resize, double-click to reset"
+msgstr "Ziehen zum Ändern, Doppelklick setzt zurück"
+
+msgid "Preview Links"
+msgstr "Vorschau-Links"
+
+msgid "Copy"
+msgstr "Kopieren"
+
+msgid "Open"
+msgstr "Öffnen"
+
+msgid "Stop"
+msgstr "Beenden"
+
+msgid "No preview links"
+msgstr "Keine Vorschau-Links"
+
+msgid "Loading…"
+msgstr "Lädt …"
+
+msgid "Share a Preview…"
+msgstr "Vorschau teilen …"
+
+msgid "Share a Preview of “{name}”"
+msgstr "Vorschau von „{name}“ teilen"
+
+msgid "Anyone with the link sees your site in this style as it is now, with your unsaved changes. They can’t change anything, and your readers don’t see it. The link works for 7 days."
+msgstr "Wer den Link hat, sieht deine Seite in diesem Stil, wie er gerade ist, mit deinen ungespeicherten Änderungen. Niemand kann etwas ändern, und deine Leser sehen ihn nicht. Der Link gilt 7 Tage."
+
+msgid "Anyone with the link sees your site in this style as it is now. They can’t change anything, and your readers don’t see it. The link works for 7 days."
+msgstr "Wer den Link hat, sieht deine Seite in diesem Stil, wie er gerade ist. Niemand kann etwas ändern, und deine Leser sehen ihn nicht. Der Link gilt 7 Tage."
+
+msgid "Copy Link"
+msgstr "Link kopieren"
+
+msgid "edited"
+msgstr "bearbeitet"
+
+msgid "Link Copied"
+msgstr "Link kopiert"
+
+msgid "Link stopped. It no longer works."
+msgstr "Link beendet. Er funktioniert nicht mehr."
+
+msgid "Ends {date}"
+msgstr "Endet am {date}"
+
+msgid "Preview of"
+msgstr "Vorschau von"
+
+msgid "Ends"
+msgstr "Endet am"
+
+msgid "This preview link has ended."
+msgstr "Dieser Vorschau-Link ist abgelaufen."
+
+msgid "Preview as Reader"
+msgstr "Als Leser ansehen"
+
+msgid "The site as a first visit gets it, in a new tab. Nothing picked there is kept."
+msgstr "Die Seite, wie ein erster Besuch sie bekommt, in einem neuen Tab. Nichts, was dort gewählt wird, bleibt."
+
+msgid "Preview as Reader. Nothing you pick here is kept."
+msgstr "Vorschau als Leser. Nichts, was du hier wählst, bleibt."
+
+msgid "That is no style."
+msgstr "Das ist kein Stil."
+
+msgid "Stop a preview link before making another."
+msgstr "Beende einen Vorschau-Link, bevor du einen neuen machst."
+
+msgid "Put a slider back"
+msgstr "Einen Regler zurücksetzen"
+
+msgid "Double-click it"
+msgstr "Doppelklick darauf"
+
+msgid "Search the settings"
+msgstr "Einstellungen durchsuchen"
+
+msgid "Bigger Text"
+msgstr "Text größer"
+
+msgid "Smaller Text"
+msgstr "Text kleiner"
+
+msgid "Actual Size"
+msgstr "Originalgröße"
+
+msgid "Bigger or smaller text"
+msgstr "Text größer oder kleiner"
+
+msgid "Ground colour"
+msgstr "Farbe des Grunds"
+
+msgid "Your own"
+msgstr "Eigene"
+
+msgid "The night’s paper"
+msgstr "Das Papier der Nacht"
+
+msgid "{n}% of readers"
+msgstr "{n} % der Leser"
+
+msgid "Count readers’ styles"
+msgstr "Stile der Leser zählen"
+
+msgid "One page view in ten sends only the style’s name. No cookie, nothing about the reader."
+msgstr "Einer von zehn Seitenaufrufen sendet nur den Namen des Stils. Kein Cookie, nichts über den Leser."
+
+msgid "No readers counted yet. The shares show once some are."
+msgstr "Noch keine Leser gezählt. Die Anteile erscheinen, sobald es welche gibt."
+
+msgid "Readers in the last 30 days."
+msgstr "Leser der letzten 30 Tage."
+
+msgid "Not counting. Turned off, the numbers are deleted."
+msgstr "Es wird nicht gezählt. Beim Ausschalten werden die Zahlen gelöscht."
+
+msgid "1 file"
+msgstr "1 Datei"
+
+msgid "1 font"
+msgstr "1 Schrift"
+
+msgid "{n} files"
+msgstr "{n} Dateien"
+
+msgid "{n} fonts"
+msgstr "{n} Schriften"
+
+msgid "Readers download {fonts}, {files}, {kb} KB."
+msgstr "Leser laden {fonts}, {files}, {kb} KB."
+
+msgid "Readers download {fonts}, {files}, {kb} KB: heavy, pages open more slowly on phones."
+msgstr "Leser laden {fonts}, {files}, {kb} KB: schwer, Seiten öffnen auf Telefonen langsamer."
+
+msgid "Aa"
+msgstr "Aa"
+
+msgid "Allow readers to copy styles"
+msgstr "Lesern erlauben, Stile zu kopieren"
+
+msgid "Article Head"
+msgstr "Artikelkopf"
+
+msgid "Beside the name in the menu"
+msgstr "Neben dem Namen im Menü"
+
+msgid "Brush"
+msgstr "Pinsel"
+
+msgid "Copy Style"
+msgstr "Stil kopieren"
+
+msgid "Corners & Lines"
+msgstr "Ecken und Linien"
+
+msgid "Dim in dark appearance"
+msgstr "Im dunklen Erscheinungsbild abdunkeln"
+
+msgid "Dims only in dark appearance"
+msgstr "Dunkelt nur im dunklen Erscheinungsbild ab"
+
+msgid "Dot spacing"
+msgstr "Punktabstand"
+
+msgid "Drag a style, or focus its handle and use the arrow keys."
+msgstr "Ziehe einen Stil, oder wähle seinen Griff und nutze die Pfeiltasten."
+
+msgid "In your site’s menu, as one of its items"
+msgstr "Im Menü deiner Website, als einer seiner Einträge"
+
+msgid "Inverted ground"
+msgstr "Umgekehrter Grund"
+
+msgid "Match corners"
+msgstr "Wie die Ecken"
+
+msgid "Paste Style…"
+msgstr "Stil einfügen …"
+
+msgid "Picture look"
+msgstr "Bildwirkung"
+
+msgid "Quiet"
+msgstr "Leise"
+
+msgid "Strong"
+msgstr "Stark"
+
+msgid "Readers can choose from the styles turned on. The first one turned on is the default."
+msgstr "Leser können aus den eingeschalteten Stilen wählen. Der erste eingeschaltete ist der Standard."
+
+msgid "Revert {page}"
+msgstr "{page} zurücknehmen"
+
+msgid "Settings Only"
+msgstr "Nur Einstellungen"
+
+msgid "Settings…"
+msgstr "Einstellungen …"
+
+msgid "Sidebar"
+msgstr "Seitenleiste"
+
+msgid "Sliders"
+msgstr "Regler"
+
+msgid "Small text softness"
+msgstr "Weicherer Nebentext"
+
+msgid "Sparkle"
+msgstr "Funkeln"
+
+msgid "Tags match buttons"
+msgstr "Schlagwörter wie die Buttons"
+
+msgid "Tags take the corners of the buttons"
+msgstr "Schlagwörter übernehmen die Ecken der Buttons"
+
+msgid "Tags, Links and Menus"
+msgstr "Schlagwörter, Links und Menüs"
+
+msgid "The picture shows its colours under the pointer"
+msgstr "Das Bild zeigt unter dem Zeiger seine Farben"
+
+msgid "View"
+msgstr "Ansicht"
+
+msgid "Who Sees the Button"
+msgstr "Wer den Button sieht"
+
+msgid "The ground around the paper turns dark; the paper stays light"
+msgstr "Der Grund um das Papier wird dunkel, das Papier bleibt hell"
+
+msgid "Show icon"
+msgstr "Symbol zeigen"
+
+msgid "Text size"
+msgstr "Textgröße"
+
+msgid "Style Copied"
+msgstr "Stil kopiert"
+
+msgid "Redo"
+msgstr "Wiederholen"
+
+msgid "Redo {what}"
+msgstr "Wiederholen: {what}"
+
+msgid "Copy as CSS"
+msgstr "Als CSS kopieren"
+
+msgid "Copy as JSON"
+msgstr "Als JSON kopieren"
+
+msgid "CSS Copied"
+msgstr "CSS kopiert"
+
+msgid "JSON Copied"
+msgstr "JSON kopiert"
+
+msgid "Could not copy"
+msgstr "Konnte nicht kopieren"
+
+msgid "Revert to Original…"
+msgstr "Auf Original zurücksetzen …"
+
+msgid "Revert to Published…"
+msgstr "Auf Veröffentlichtes zurücksetzen …"
+
+msgid "Command Menu…"
+msgstr "Befehlsmenü …"
+
+msgid "Share Preview…"
+msgstr "Vorschau teilen …"
+
+msgid "Or drag the button itself on the page."
+msgstr "Oder zieh den Button selbst auf der Seite."
+
+msgid "Own Colour…"
+msgstr "Eigene Farbe …"
+
+msgid "Own Colour"
+msgstr "Eigene Farbe"
+
+msgid "Also on the Live Design button, so readers see it too"
+msgstr "Auch auf dem Live-Design-Button, damit Leser es auch sehen"
+
+msgid "{name} Copy"
+msgstr "{name} Kopie"
+
+msgid "Drag a style to change its order or to show or hide it. The first one shown is the default."
+msgstr "Zieh einen Stil, um die Reihenfolge zu ändern oder ihn zu zeigen oder zu verstecken. Der erste gezeigte ist der Standard."
+
+msgid "At least one style stays shown to readers"
+msgstr "Mindestens ein Stil bleibt für Leser sichtbar"
+
+msgid "Reading Font"
+msgstr "Schrift für Fließtext"
+
+msgid "Interface Font"
+msgstr "Schrift für die Oberfläche"
+
+msgid "choose a section"
+msgstr "Bereich wählen"
+
+msgid "Original"
+msgstr "Original"
+
+msgid "Papers for Light"
+msgstr "Papier für Hell"
+
+msgid "Papers for Dark"
+msgstr "Papier für Dunkel"
+
+msgid "Text Colours for Light"
+msgstr "Textfarben für Hell"
+
+msgid "Text Colours for Dark"
+msgstr "Textfarben für Dunkel"
+
+msgid "Mint"
+msgstr "Mint"
+
+msgid "Terracotta"
+msgstr "Terrakotta"
+
+msgid "Olive"
+msgstr "Oliv"
+
+msgid "Coral"
+msgstr "Koralle"
+
+msgid "Gold"
+msgstr "Gold"
+
+msgid "Forest"
+msgstr "Wald"
+
+msgid "Navy"
+msgstr "Marine"
+
+msgid "White"
+msgstr "Weiß"
+
+msgid "Snow"
+msgstr "Schnee"
+
+msgid "Porcelain"
+msgstr "Porzellan"
+
+msgid "Linen"
+msgstr "Leinen"
+
+msgid "Ivory"
+msgstr "Elfenbein"
+
+msgid "Cream"
+msgstr "Creme"
+
+msgid "Sand"
+msgstr "Sand"
+
+msgid "Mist"
+msgstr "Nebel"
+
+msgid "Sage"
+msgstr "Salbei"
+
+msgid "Blush"
+msgstr "Zartrosa"
+
+msgid "Night"
+msgstr "Nacht"
+
+msgid "Charcoal"
+msgstr "Anthrazit"
+
+msgid "Ink Blue"
+msgstr "Tintenblau"
+
+msgid "Espresso"
+msgstr "Espresso"
+
+msgid "Plum"
+msgstr "Pflaume"
+
+msgid "Midnight"
+msgstr "Mitternacht"
+
+msgid "Walnut"
+msgstr "Walnuss"
+
+msgid "Lavender"
+msgstr "Lavendel"

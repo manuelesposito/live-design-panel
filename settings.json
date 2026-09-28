@@ -1,0 +1,4742 @@
+{
+  "version": 1,
+  "about": "Every setting a saved style can carry, once, under its saved name. Written by tools/settings-list.mjs from presets.js, reading-panel.js, plugin/words.php, tools/split_style.py and functions.php. It is also a source: presets.js's tables (DIALS, OPTS, the lists, PICKS, LEVELS, ROLES, ROLE_DEFAULT, MEMBERS, the aliases, the meanings) are a block written from it, and split_style.py reads REST (rest, restValues) and ABSENT from it. Change a table here and run node tools/settings-list.mjs. {role}, {member} and {side} stand for the ids in roles and sides.",
+  "sides": [
+    "light",
+    "dark"
+  ],
+  "means": {
+    "roles": "Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme's own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.",
+    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides."
+  },
+  "order": {
+    "schema": [
+      "architrave",
+      "label",
+      "base",
+      "palette",
+      "reading",
+      "face",
+      "leading",
+      "justify",
+      "dropcap",
+      "rounded",
+      "lines",
+      "fills",
+      "darkground",
+      "widehead",
+      "hairlines",
+      "picturehover",
+      "picturedim",
+      "picturefade",
+      "pictureframe",
+      "dots",
+      "marker",
+      "widepicture",
+      "fullpicture",
+      "categories",
+      "tagsfollow",
+      "soft",
+      "alternates",
+      "scanlines",
+      "glow",
+      "grain",
+      "vignette",
+      "tint",
+      "sans",
+      "scope",
+      "pictures",
+      "capLines",
+      "scan",
+      "line",
+      "fill",
+      "glowlevel",
+      "grainlevel",
+      "vignettelevel",
+      "vignettereach",
+      "softlevel",
+      "quietlevel",
+      "smallsoft",
+      "links",
+      "measure",
+      "space",
+      "framewidth",
+      "dotsize",
+      "dotlevel",
+      "framepattern",
+      "linestyle",
+      "corners",
+      "fadeedges",
+      "markercolour",
+      "button",
+      "buttonshape",
+      "buttonstyle",
+      "buttonmedium",
+      "buttonquiet",
+      "tags",
+      "chosenitem",
+      "linewidth",
+      "cards",
+      "quotes",
+      "notes",
+      "fields",
+      "unlinked",
+      "roles",
+      "colours"
+    ],
+    "guide": [
+      "architrave",
+      "label",
+      "base",
+      "palette",
+      "reading",
+      "face",
+      "sans",
+      "leading",
+      "justify",
+      "dropcap",
+      "capLines",
+      "rounded",
+      "lines",
+      "line",
+      "corners",
+      "dots",
+      "dotsize",
+      "dotlevel",
+      "marker",
+      "markercolour",
+      "measure",
+      "space",
+      "framewidth",
+      "framepattern",
+      "widehead",
+      "widepicture",
+      "fullpicture",
+      "categories",
+      "kickerabove",
+      "button",
+      "inkbutton",
+      "buttonshape",
+      "tagsfollow",
+      "buttonstyle",
+      "buttonmedium",
+      "buttonquiet",
+      "tags",
+      "chosenitem",
+      "linewidth",
+      "cards",
+      "quotes",
+      "notes",
+      "fields",
+      "pillbuttons",
+      "centretitle",
+      "fadeedges",
+      "linestyle",
+      "fills",
+      "fill",
+      "scanlines",
+      "scan",
+      "glow",
+      "glowlevel",
+      "grain",
+      "softlevel",
+      "quietlevel",
+      "smallsoft",
+      "links",
+      "grainlevel",
+      "vignette",
+      "vignettelevel",
+      "vignettereach",
+      "pictures",
+      "picturehover",
+      "alternates",
+      "soft",
+      "picturedim",
+      "picturefade",
+      "pictureframe",
+      "darkground",
+      "hairlines",
+      "tint",
+      "scope",
+      "unlinked",
+      "roles",
+      "colours"
+    ],
+    "members": [
+      "ui",
+      "head",
+      "small",
+      "comment",
+      "read",
+      "title"
+    ]
+  },
+  "otherAttrs": {
+    "data-accent": "ABSENT",
+    "data-marker-bright": "ABSENT",
+    "data-preset": "ABSENT",
+    "data-reading-base": "ABSENT"
+  },
+  "roles": [
+    {
+      "id": "head",
+      "label": "Headings",
+      "where": "Applies to the title and the headings in the article.",
+      "dials": [
+        "face",
+        "weight",
+        "size",
+        "tracking",
+        "words",
+        "caps",
+        "italic",
+        "leading",
+        "align",
+        "colour"
+      ],
+      "members": [
+        {
+          "id": "title",
+          "label": "Article title",
+          "rest": 64,
+          "lead": true,
+          "dials": []
+        },
+        {
+          "id": "sub",
+          "label": "Subheadings",
+          "rest": 36,
+          "weight": "semibold",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking",
+            "align"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "read",
+      "label": "Reading text",
+      "where": "Applies to the paragraphs of the article.",
+      "dials": [
+        "face",
+        "weight",
+        "size",
+        "tracking",
+        "words",
+        "caps",
+        "italic"
+      ],
+      "members": [
+        {
+          "id": "text",
+          "label": "Paragraphs",
+          "rest": 22,
+          "lead": true,
+          "dials": []
+        },
+        {
+          "id": "excerpts",
+          "label": "Excerpts",
+          "rest": 22,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "boxes",
+          "label": "Boxes",
+          "rest": 18,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        }
+      ],
+      "restOnly": {
+        "leading": "default"
+      }
+    },
+    {
+      "id": "quote",
+      "label": "Quotes",
+      "where": "The quotes.",
+      "dials": [
+        "face",
+        "weight",
+        "size",
+        "tracking",
+        "words",
+        "caps",
+        "italic",
+        "leading"
+      ],
+      "members": []
+    },
+    {
+      "id": "kicker",
+      "label": "Category line",
+      "where": "The category under the title, on the cards and in the article.",
+      "dials": [
+        "face",
+        "weight",
+        "size",
+        "tracking",
+        "words",
+        "caps",
+        "italic",
+        "leading",
+        "align",
+        "colour"
+      ],
+      "members": []
+    },
+    {
+      "id": "small",
+      "label": "Small text",
+      "where": "Dates, categories, captions and tags.",
+      "dials": [
+        "face",
+        "weight",
+        "size",
+        "tracking",
+        "words",
+        "caps",
+        "italic",
+        "leading"
+      ],
+      "members": [
+        {
+          "id": "date",
+          "label": "Date line",
+          "rest": 16,
+          "lead": true,
+          "dials": []
+        },
+        {
+          "id": "author",
+          "label": "Author",
+          "rest": 16,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "terms",
+          "label": "Categories and tags",
+          "rest": 13,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "captions",
+          "label": "Captions",
+          "rest": 13,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "carddates",
+          "label": "Card dates",
+          "rest": 13,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "release",
+          "label": "Release notes",
+          "rest": 16,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "comment",
+      "label": "Comments",
+      "where": "The names, the words and the form under the article.",
+      "dials": [
+        "face",
+        "weight",
+        "size",
+        "tracking",
+        "words",
+        "caps",
+        "italic",
+        "leading"
+      ],
+      "members": [
+        {
+          "id": "title",
+          "label": "Comment title",
+          "rest": 18,
+          "weight": "medium",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "name",
+          "label": "Name",
+          "rest": 16,
+          "weight": "medium",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "text",
+          "label": "Comment text",
+          "rest": 14,
+          "lead": true,
+          "dials": []
+        },
+        {
+          "id": "small",
+          "label": "Comment lines",
+          "rest": 13,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "form",
+          "label": "Form",
+          "rest": 13,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ui",
+      "label": "Interface",
+      "where": "The sidebar, the menus, the buttons and the cards.",
+      "dials": [
+        "face",
+        "weight",
+        "size",
+        "tracking",
+        "words",
+        "caps",
+        "italic",
+        "leading"
+      ],
+      "members": [
+        {
+          "id": "masthead",
+          "label": "Masthead",
+          "rest": 20,
+          "weight": "semibold",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "cards",
+          "label": "Card titles",
+          "rest": 13,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "linkcard",
+          "label": "Large card titles",
+          "rest": 18,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "newsletter",
+          "label": "Newsletter card",
+          "rest": 16,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "fields",
+          "label": "Fields",
+          "rest": 13,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "menus",
+          "label": "Menus and buttons",
+          "rest": 13,
+          "lead": true,
+          "dials": []
+        },
+        {
+          "id": "labels",
+          "label": "Labels",
+          "rest": 11,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "credit",
+          "label": "Credit",
+          "rest": 11,
+          "weight": "regular",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "label": "Interface titles",
+      "where": "The section and group titles.",
+      "dials": [
+        "face",
+        "weight",
+        "size",
+        "tracking",
+        "words",
+        "caps",
+        "italic",
+        "leading"
+      ],
+      "members": [
+        {
+          "id": "sections",
+          "label": "Section titles",
+          "rest": 11,
+          "lead": true,
+          "dials": []
+        },
+        {
+          "id": "years",
+          "label": "Year titles",
+          "rest": 16,
+          "weight": "medium",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        },
+        {
+          "id": "release",
+          "label": "Release titles",
+          "rest": 16,
+          "weight": "semibold",
+          "dials": [
+            "size",
+            "weight",
+            "caps",
+            "tracking"
+          ]
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "key": "architrave",
+      "group": "record",
+      "table": null,
+      "kind": "const",
+      "def": 1,
+      "means": "Always 1. Marks the JSON as a style record.",
+      "label": null,
+      "page": null,
+      "rest": null,
+      "inStandardAtRest": null
+    },
+    {
+      "key": "label",
+      "group": "record",
+      "table": null,
+      "kind": "text",
+      "max": 40,
+      "def": "Classic",
+      "means": "The name on the tile.",
+      "label": null,
+      "page": null,
+      "rest": null,
+      "inStandardAtRest": null
+    },
+    {
+      "key": "base",
+      "group": "record",
+      "table": null,
+      "kind": "pick",
+      "choices": [
+        "standard",
+        "book",
+        "large",
+        "terminal",
+        "console",
+        "blueprint",
+        "instrument",
+        "catalogue",
+        "gallery",
+        "storybook",
+        "specimen",
+        "terracotta",
+        "arcade"
+      ],
+      "def": "standard",
+      "means": "The built-in style this record starts from; every key left out rests on it. See examples for what each base is.",
+      "label": null,
+      "page": null,
+      "rest": {
+        "data-style": "ABSENT"
+      },
+      "inStandardAtRest": null,
+      "attrs": [
+        "data-style"
+      ]
+    },
+    {
+      "key": "palette",
+      "group": "dial",
+      "table": "QuireModes.palettes",
+      "kind": "pick",
+      "choices": [
+        "neutral",
+        "godfather",
+        "fargo",
+        "matrix",
+        "dune",
+        "persona",
+        "paper",
+        "terminal",
+        "grey",
+        "news",
+        "arcade"
+      ],
+      "def": "neutral",
+      "means": "The colour pair (a light and a dark side designed together). colours overrides its paper, ink and accent.",
+      "label": "Presets",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "grid",
+        "line": 1996,
+        "in": "presetGrid"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-theme"
+      ],
+      "rest": {
+        "data-theme": "THEMES_ALONE"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "reading",
+      "group": "dial",
+      "table": "QuireReading.ids",
+      "kind": "dial",
+      "steps": [
+        "tiny",
+        "small",
+        "compact",
+        "default",
+        "comfortable",
+        "large",
+        "huge"
+      ],
+      "def": "default",
+      "means": "The reading size step of the article, a fluid rung and not a pixel value; default is about 22px on a desktop. Do not set a size for a monospaced reading face, its phone floor is handled by the theme.",
+      "label": "Reading size",
+      "page": "First level",
+      "level": 1,
+      "row": {
+        "drawn": "stepper",
+        "line": 863,
+        "in": "level1"
+      },
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-reading"
+      ],
+      "rest": {
+        "data-reading": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "face",
+      "group": "dial",
+      "table": "ArchitraveFaces",
+      "kind": "pick",
+      "choices": [
+        "inter",
+        "hyperlegible",
+        "geist",
+        "plex-sans",
+        "newsreader",
+        "libre-baskerville",
+        "vollkorn",
+        "mono",
+        "martian-mono",
+        "kode-mono",
+        "jetbrains-mono",
+        "doto",
+        "vt323",
+        "handjet",
+        "mona-sans",
+        "instrument-sans",
+        "dm-sans",
+        "manrope",
+        "figtree",
+        "plus-jakarta-sans",
+        "hanken-grotesk",
+        "bricolage-grotesque",
+        "schibsted-grotesk",
+        "space-grotesk",
+        "funnel-sans",
+        "onest",
+        "public-sans",
+        "work-sans",
+        "jost",
+        "inter-tight",
+        "fraunces",
+        "source-serif-4",
+        "instrument-serif",
+        "literata",
+        "lora",
+        "eb-garamond",
+        "playfair",
+        "bodoni-moda",
+        "spectral",
+        "crimson-pro",
+        "young-serif",
+        "gloock",
+        "cardo",
+        "roboto-serif",
+        "montagu-slab",
+        "zilla-slab",
+        "platypi",
+        "ibm-plex-mono",
+        "dm-mono",
+        "space-mono",
+        "fira-code",
+        "fragment-mono",
+        "azeret-mono",
+        "red-hat-mono",
+        "chivo-mono",
+        "reddit-mono",
+        "sometype-mono",
+        "victor-mono",
+        "atkinson-hyperlegible-mono",
+        "roboto-mono",
+        "google-sans-code",
+        "geist-pixel",
+        "pixelify-sans",
+        "silkscreen",
+        "press-start-2p",
+        "tiny5",
+        "micro-5",
+        "jersey-10",
+        "dotgothic16",
+        "sixtyfour",
+        "workbench",
+        "jacquard-12",
+        "coral-pixels",
+        "big-shoulders",
+        "unbounded",
+        "syne",
+        "bebas-neue",
+        "anton",
+        "archivo-black",
+        "dela-gothic-one",
+        "bungee",
+        "shrikhand",
+        "dm-serif-display",
+        "abril-fatface",
+        "funnel-display",
+        "gabarito",
+        "climate-crisis",
+        "caprasimo"
+      ],
+      "def": "newsreader",
+      "means": "The font of the article body.",
+      "label": "Font",
+      "page": "Type › Reading text",
+      "level": 3,
+      "row": {
+        "drawn": "list",
+        "line": 1540,
+        "in": "fontRow"
+      },
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-face"
+      ],
+      "rest": {
+        "data-face": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "leading",
+      "group": "dial",
+      "table": "LEAD",
+      "kind": "dial",
+      "steps": [
+        "solid",
+        "packed",
+        "close",
+        "densest",
+        "dense",
+        "tight",
+        "snug",
+        "default",
+        "relaxed",
+        "airy",
+        "wider",
+        "wide",
+        "open",
+        "loose",
+        "loosest"
+      ],
+      "def": "default",
+      "means": "Line spacing of the article, from solid (tightest) to loosest; default is 1.6.",
+      "label": "Line spacing",
+      "page": "Type › Reading text",
+      "level": 3,
+      "row": {
+        "drawn": "slider",
+        "line": 1925,
+        "in": "level3"
+      },
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-leading"
+      ],
+      "rest": {
+        "data-leading": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "justify",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "Justified paragraphs with hyphenation.",
+      "label": "Justified text",
+      "page": "Type › Reading text",
+      "level": 3,
+      "row": {
+        "drawn": "switch",
+        "line": 1952,
+        "in": "level3"
+      },
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-hyphens",
+        "data-justify"
+      ],
+      "rest": {
+        "data-hyphens": "REST",
+        "data-justify": "REST"
+      },
+      "restValues": {
+        "data-hyphens": "off",
+        "data-justify": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-hyphens",
+          "data-justify"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "dropcap",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "A large initial on the first paragraph; capLines is its height in lines.",
+      "label": "Drop cap",
+      "page": "Type › Reading text",
+      "level": 3,
+      "row": {
+        "drawn": "switch",
+        "line": 1953,
+        "in": "level3"
+      },
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-dropcap"
+      ],
+      "rest": {
+        "data-dropcap": "REST"
+      },
+      "restValues": {
+        "data-dropcap": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-dropcap"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "rounded",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": true,
+      "means": "Rounded corners on cards, buttons and pictures. false is square.",
+      "label": "Rounded corners",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "switch",
+        "line": 1183,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-rounded"
+      ],
+      "rest": {
+        "data-rounded": "REST"
+      },
+      "restValues": {
+        "data-rounded": "on"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-rounded"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "lines",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "Hairlines around cards, buttons and fields and between rows. false means no lines anywhere except link underlines.",
+      "label": "Lines",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "switch",
+        "line": 1191,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-lines"
+      ],
+      "rest": {
+        "data-lines": "REST"
+      },
+      "restValues": {
+        "data-lines": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-lines"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "fills",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": true,
+      "means": "Tinted fills on cards, buttons and fields. With lines and fills both false, controls are plain glyphs.",
+      "label": "Fills",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "switch",
+        "line": 1199,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-fills"
+      ],
+      "rest": {
+        "data-fills": "REST"
+      },
+      "restValues": {
+        "data-fills": "on"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-fills"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "darkground",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "By day, the ground around the page takes the style's night colours while the page stays light: the rails and the space around the paper. On other themes, the footer. Nothing changes by night.",
+      "label": "Dark ground",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "switch",
+        "line": 1250,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-darkground"
+      ],
+      "rest": {
+        "data-darkground": "REST"
+      },
+      "restValues": {
+        "data-darkground": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-darkground"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "widehead",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "The article's title, categories and date line stand as wide as the wide top picture, so a big title needs fewer lines; the text keeps its column.",
+      "label": "Wide title",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "switch",
+        "line": 1178,
+        "in": "layoutBody"
+      },
+      "changesPage": "Layout",
+      "attrs": [
+        "data-widehead"
+      ],
+      "rest": {
+        "data-widehead": "REST"
+      },
+      "restValues": {
+        "data-widehead": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-widehead"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "hairlines",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "Every line at half a pixel: the cards' edges, the fields, the frame and the dividers thin to a hairline. Only with lines.",
+      "label": "Fine lines",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "switch",
+        "line": 1197,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-hairlines"
+      ],
+      "rest": {
+        "data-hairlines": "REST"
+      },
+      "restValues": {
+        "data-hairlines": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-hairlines"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "picturehover",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
+      "label": "Colour on hover",
+      "page": "Pictures",
+      "level": 16,
+      "row": {
+        "drawn": "switch",
+        "line": 1112,
+        "in": "pictureRows"
+      },
+      "changesPage": "Pictures",
+      "attrs": [
+        "data-picturehover"
+      ],
+      "rest": {
+        "data-picturehover": "REST"
+      },
+      "restValues": {
+        "data-picturehover": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-picturehover"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "picturedim",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "Pictures are dimmed a little on the dark side. Applies to plain, bw, sepia and grain.",
+      "label": "Dim in the dark",
+      "page": "Pictures",
+      "level": 16,
+      "row": {
+        "drawn": "switch",
+        "line": 1113,
+        "in": "pictureRows"
+      },
+      "changesPage": "Pictures",
+      "attrs": [
+        "data-picturedim"
+      ],
+      "rest": {
+        "data-picturedim": "REST"
+      },
+      "restValues": {
+        "data-picturedim": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-picturedim"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "picturefade",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "The article's top picture fades out toward its bottom and sides, into the paper. Not with hidden pictures.",
+      "label": "Fade the edges",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "switch",
+        "line": 1168,
+        "in": "layoutBody"
+      },
+      "changesPage": "Layout",
+      "attrs": [
+        "data-picturefade"
+      ],
+      "rest": {
+        "data-picturefade": "REST"
+      },
+      "restValues": {
+        "data-picturefade": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-picturefade"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "pictureframe",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": true,
+      "means": "Pictures wear a frame: a mat in the fields' colour, and with lines a line around it. Off, a picture stands on the paper with its corner alone.",
+      "label": "Frame around pictures",
+      "page": "Pictures",
+      "level": 16,
+      "row": {
+        "drawn": "switch",
+        "line": 1119,
+        "in": "pictureRows"
+      },
+      "changesPage": "Pictures",
+      "attrs": [
+        "data-pictureframe"
+      ],
+      "rest": {
+        "data-pictureframe": "REST"
+      },
+      "restValues": {
+        "data-pictureframe": "on"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-pictureframe"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "scanlines",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "Faint horizontal lines over the whole page, an old screen.",
+      "label": "Scan lines",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "switch",
+        "line": 1209,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-scanlines"
+      ],
+      "rest": {
+        "data-scanlines": "REST"
+      },
+      "restValues": {
+        "data-scanlines": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-scanlines"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "glow",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "A soft light around the letters in their own colour. Shows on the dark side only.",
+      "label": "Glow",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "switch",
+        "line": 1210,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-glow"
+      ],
+      "rest": {
+        "data-glow": "REST"
+      },
+      "restValues": {
+        "data-glow": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-glow"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "grain",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "A fine film grain over the whole page, the tooth of paper.",
+      "label": "Background grain",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "switch",
+        "line": 1211,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-grain"
+      ],
+      "rest": {
+        "data-grain": "REST"
+      },
+      "restValues": {
+        "data-grain": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-grain"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "vignette",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "A darkening at the page's four edges, as a screen's glass has.",
+      "label": "Vignette",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "switch",
+        "line": 1213,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-vignette"
+      ],
+      "rest": {
+        "data-vignette": "REST"
+      },
+      "restValues": {
+        "data-vignette": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-vignette"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "soft",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
+      "label": "Softer reading text",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "switch",
+        "line": 1238,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-links",
+        "data-soft"
+      ],
+      "rest": {
+        "data-links": "ABSENT",
+        "data-soft": "REST"
+      },
+      "restValues": {
+        "data-soft": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-soft"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "alternates",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
+      "label": null,
+      "page": "Type › Reading text",
+      "level": 3,
+      "pageFrom": "markChanged",
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-alternates"
+      ],
+      "rest": {
+        "data-alternates": "REST"
+      },
+      "restValues": {
+        "data-alternates": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-alternates"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "dots",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "A fine grid of dots on the page ground, a cutting mat.",
+      "label": "Dotted background",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "switch",
+        "line": 1212,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-dots"
+      ],
+      "rest": {
+        "data-dots": "REST"
+      },
+      "restValues": {
+        "data-dots": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-dots"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "marker",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "A highlighter: marked words and selected text get a wash in the marker colour, and a short bar stands under the article title. Decoration only, never a text colour.",
+      "label": "Highlighter",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "switch",
+        "line": 1242,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-marker"
+      ],
+      "rest": {
+        "data-marker": "REST"
+      },
+      "restValues": {
+        "data-marker": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-marker"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "widepicture",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "The article's top picture stands wider than the text column, as wide as the paper allows.",
+      "label": "Wide top picture",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "switch",
+        "line": 1178,
+        "in": "layoutBody"
+      },
+      "changesPage": "Layout",
+      "attrs": [
+        "data-widepicture"
+      ],
+      "rest": {
+        "data-widepicture": "REST"
+      },
+      "restValues": {
+        "data-widepicture": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-widepicture"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "tagsfollow",
+      "group": "opt",
+      "table": "OPTS",
+      "kind": "switch",
+      "def": false,
+      "means": "The tags take the buttons' corner instead of staying round.",
+      "label": "Tags follow the buttons",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "switch",
+        "line": 1188,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-tagsfollow"
+      ],
+      "rest": {
+        "data-tagsfollow": "REST"
+      },
+      "restValues": {
+        "data-tagsfollow": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-tagsfollow"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "tint",
+      "group": "other",
+      "table": "TINTS",
+      "kind": "pick",
+      "choices": [
+        "purple",
+        "brown",
+        "green",
+        "blue",
+        "orange"
+      ],
+      "def": "purple",
+      "means": "The accent colour by name, used for links and the primary button. colours.accent overrides it.",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-tint"
+      ],
+      "rest": {
+        "data-tint": "REST"
+      },
+      "restValues": {
+        "data-tint": "purple"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-tint"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "sans",
+      "group": "other",
+      "table": "SANS",
+      "kind": "pick",
+      "choices": [
+        "inter",
+        "hyperlegible",
+        "geist",
+        "plex-sans",
+        "newsreader",
+        "libre-baskerville",
+        "vollkorn",
+        "mono",
+        "martian-mono",
+        "kode-mono",
+        "jetbrains-mono",
+        "doto",
+        "vt323",
+        "handjet",
+        "mona-sans",
+        "instrument-sans",
+        "dm-sans",
+        "manrope",
+        "figtree",
+        "plus-jakarta-sans",
+        "hanken-grotesk",
+        "bricolage-grotesque",
+        "schibsted-grotesk",
+        "space-grotesk",
+        "funnel-sans",
+        "onest",
+        "public-sans",
+        "work-sans",
+        "jost",
+        "inter-tight",
+        "fraunces",
+        "source-serif-4",
+        "instrument-serif",
+        "literata",
+        "lora",
+        "eb-garamond",
+        "playfair",
+        "bodoni-moda",
+        "spectral",
+        "crimson-pro",
+        "young-serif",
+        "gloock",
+        "cardo",
+        "roboto-serif",
+        "montagu-slab",
+        "zilla-slab",
+        "platypi",
+        "ibm-plex-mono",
+        "dm-mono",
+        "space-mono",
+        "fira-code",
+        "fragment-mono",
+        "azeret-mono",
+        "red-hat-mono",
+        "chivo-mono",
+        "reddit-mono",
+        "sometype-mono",
+        "victor-mono",
+        "atkinson-hyperlegible-mono",
+        "roboto-mono",
+        "google-sans-code",
+        "geist-pixel",
+        "pixelify-sans",
+        "silkscreen",
+        "press-start-2p",
+        "tiny5",
+        "micro-5",
+        "jersey-10",
+        "dotgothic16",
+        "sixtyfour",
+        "workbench",
+        "jacquard-12",
+        "coral-pixels",
+        "big-shoulders",
+        "unbounded",
+        "syne",
+        "bebas-neue",
+        "anton",
+        "archivo-black",
+        "dela-gothic-one",
+        "bungee",
+        "shrikhand",
+        "dm-serif-display",
+        "abril-fatface",
+        "funnel-display",
+        "gabarito",
+        "climate-crisis",
+        "caprasimo"
+      ],
+      "def": "inter",
+      "means": "The font of the interface: the rail, buttons, menus.",
+      "label": "Font",
+      "page": "Type › Interface",
+      "level": 3,
+      "row": {
+        "drawn": "list",
+        "line": 1540,
+        "in": "fontRow"
+      },
+      "changesPage": "Type › Interface",
+      "attrs": [
+        "data-sans"
+      ],
+      "guestAttrs": [
+        "data-ui-face"
+      ],
+      "rest": {
+        "data-sans": "REST",
+        "data-ui-face": false
+      },
+      "restValues": {
+        "data-sans": "inter"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-sans"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "scope",
+      "group": "other",
+      "table": "SCOPE",
+      "kind": "pick",
+      "choices": [
+        "article",
+        "all"
+      ],
+      "def": "all",
+      "means": "Legacy. The theme always applies paragraph settings everywhere.",
+      "label": null,
+      "page": "Type › Reading text",
+      "level": 3,
+      "pageFrom": "markChanged",
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-scope"
+      ],
+      "rest": {
+        "data-scope": "REST"
+      },
+      "restValues": {
+        "data-scope": "all"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-scope"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "pictures",
+      "group": "other",
+      "table": "PICTURES",
+      "kind": "pick",
+      "choices": [
+        "plain",
+        "bw",
+        "sepia",
+        "duo",
+        "accent",
+        "halftone",
+        "dither",
+        "grain",
+        "hidden"
+      ],
+      "def": "plain",
+      "means": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), grain (film grain), hidden (no images; each article picture becomes a line that shows it).",
+      "label": "Picture effects",
+      "page": "Pictures",
+      "level": 16,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1219,
+        "in": "picturesBody"
+      },
+      "changesPage": "Pictures",
+      "attrs": [
+        "data-pictures"
+      ],
+      "rest": {
+        "data-pictures": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "capLines",
+      "group": "other",
+      "table": "CAP_LINES",
+      "kind": "pick",
+      "choices": [
+        "2",
+        "3",
+        "4"
+      ],
+      "tableOrder": [
+        "3",
+        "2",
+        "4"
+      ],
+      "def": "3",
+      "means": "Height of the initial in lines. Only with dropcap.",
+      "label": "Drop cap height",
+      "page": "Type › Reading text",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1954,
+        "in": "level3"
+      },
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-dropcap-lines"
+      ],
+      "rest": {
+        "data-dropcap-lines": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "button",
+      "group": "other",
+      "table": "BUTTONS",
+      "kind": "pick",
+      "choices": [
+        "accent",
+        "ink",
+        "own"
+      ],
+      "def": "accent",
+      "means": "What fills the main buttons: accent (the rest), ink, or own (colours.<side>.button). The links keep the accent either way.",
+      "label": "Button colour",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1255,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-button"
+      ],
+      "rest": {
+        "data-button": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "fullpicture",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-full-picture",
+      "means": "While the top picture is wide (widepicture), on stretches it edge to edge across the paper as a low banner (21:9, square corners). Off (the rest) keeps it wide.",
+      "label": "Picture width",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1178,
+        "in": "layoutBody"
+      },
+      "changesPage": "Layout",
+      "attrs": [
+        "data-full-picture"
+      ],
+      "rest": {
+        "data-full-picture": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "categories",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "below",
+        "above",
+        "hidden"
+      ],
+      "def": "below",
+      "attr": "data-categories",
+      "means": "Where the line of categories stands on the article and on its cards: below the title (the rest), above it, or hidden. It replaced the switch kickerabove.",
+      "label": "Categories",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1176,
+        "in": "layoutBody"
+      },
+      "changesPage": "Layout",
+      "attrs": [
+        "data-categories"
+      ],
+      "rest": {
+        "data-categories": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "buttonshape",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "cards",
+        "square",
+        "rounded",
+        "pill"
+      ],
+      "def": "cards",
+      "attr": "data-button-shape",
+      "means": "The buttons' and hover pills' corner: cards (the corner size's own, the rest), square, rounded (8 px) or pill. Only with rounded. The cards keep the corner size.",
+      "label": "Button shape",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1188,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-button-shape"
+      ],
+      "rest": {
+        "data-button-shape": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "buttonstyle",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "filled",
+        "outlined",
+        "shadow",
+        "tinted",
+        "gray",
+        "text"
+      ],
+      "def": "filled",
+      "attr": "data-button-style",
+      "means": "How the main buttons look: filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray or text (text only), in the button colour where it has one.",
+      "label": "Main buttons",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1190,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-button-style"
+      ],
+      "rest": {
+        "data-button-style": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "buttonmedium",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "gray",
+        "filled",
+        "tinted",
+        "outlined",
+        "shadow",
+        "text"
+      ],
+      "def": "gray",
+      "attr": "data-button-medium",
+      "means": "How the other buttons (the gray secondary ones) look: gray (the rest), filled, tinted, outlined, shadow (outlined with a hard shadow) or text (text only), in the button colour where it has one.",
+      "label": "Other buttons",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1190,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-button-medium"
+      ],
+      "rest": {
+        "data-button-medium": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "buttonquiet",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "text",
+        "filled",
+        "tinted",
+        "gray",
+        "outlined",
+        "shadow"
+      ],
+      "def": "text",
+      "attr": "data-button-quiet",
+      "means": "How the quiet buttons (small actions without a fill) look: text (the rest), filled, tinted, gray, outlined or shadow (outlined with a hard shadow). Architrave's alone; another theme has no quiet kind.",
+      "label": "Quiet buttons",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1190,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-button-quiet"
+      ],
+      "rest": {
+        "data-button-quiet": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "tags",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "text",
+        "filled",
+        "tinted",
+        "gray",
+        "outlined"
+      ],
+      "def": "text",
+      "attr": "data-tags",
+      "means": "How the tags at the end of an article look: text (the rest: words, as the theme sets them), or small pills that are filled, tinted, gray or outlined, made from the button colour. Tags follow the buttons gives the pills the buttons' corner.",
+      "label": "Tags",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1190,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-tags"
+      ],
+      "rest": {
+        "data-tags": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "chosenitem",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "gray",
+        "filled",
+        "outlined",
+        "bold"
+      ],
+      "def": "gray",
+      "attr": "data-chosen-item",
+      "means": "How the chosen item is marked, the page you are on in the menu and the open tab: gray (the rest: the theme's own mark), filled with the button colour, outlined in it, or bold and underlined.",
+      "label": "Chosen item",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1190,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-chosen-item"
+      ],
+      "rest": {
+        "data-chosen-item": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "linewidth",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "1",
+        "2",
+        "3",
+        "5"
+      ],
+      "def": "1",
+      "attr": "data-line-width",
+      "means": "Line width in px: 1 (the rest), 2, 3 or 5. Only with lines; fine lines only at 1.",
+      "label": "Line width",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1194,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-line-width"
+      ],
+      "rest": {
+        "data-line-width": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "cards",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "box",
+        "top",
+        "flat",
+        "raised"
+      ],
+      "def": "box",
+      "attr": "data-cards",
+      "means": "How cards look: box (the rest: the card's fill and, with lines, its line), top (a line along the top only, no fill, square; only with lines), flat (the fill alone, no line) or raised (the paper, lifted by a shadow).",
+      "label": "Cards",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1198,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-cards"
+      ],
+      "rest": {
+        "data-cards": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "quotes",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "line",
+        "plain",
+        "box"
+      ],
+      "def": "line",
+      "attr": "data-quotes",
+      "means": "How quotes in an article look: a line at the side (the rest), plain, or in a box.",
+      "label": "Quotes",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1198,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-quotes"
+      ],
+      "rest": {
+        "data-quotes": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "notes",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "flat",
+        "box",
+        "raised"
+      ],
+      "def": "flat",
+      "attr": "data-notes",
+      "means": "How a box the writer coloured inside an article looks: flat (the rest: its fill), outlined, or raised by a shadow.",
+      "label": "Notes",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1198,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-notes"
+      ],
+      "rest": {
+        "data-notes": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "fields",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "flat",
+        "box",
+        "raised"
+      ],
+      "def": "flat",
+      "attr": "data-fields",
+      "means": "How search, comment and sign-up fields look: flat (the rest: the fill, with lines its line), outlined on the paper, or raised by a shadow.",
+      "label": "Fields",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1198,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-fields"
+      ],
+      "rest": {
+        "data-fields": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "scan",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "def": "3",
+      "attr": "data-scan",
+      "prop": "--scan-alpha",
+      "means": "Strength of the scan lines, 1 to 10 (opacity in hundredths). 3 is the rest. Only with scanlines.",
+      "label": "Scan line strength",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "slider",
+        "line": 1209,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-scan"
+      ],
+      "props": [
+        "--scan-alpha"
+      ],
+      "rest": {
+        "data-scan": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "line",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "6",
+        "10",
+        "14",
+        "20",
+        "30",
+        "45",
+        "60",
+        "80",
+        "100"
+      ],
+      "def": "45",
+      "attr": "data-line",
+      "prop": "--line-strength",
+      "means": "Strength of those lines: the ink's share in the line colour, in per cent. 45 is the rest. Only with lines.",
+      "label": "Line strength",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "slider",
+        "line": 1192,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-line"
+      ],
+      "props": [
+        "--line-strength"
+      ],
+      "rest": {
+        "data-line": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "fill",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "25",
+        "50",
+        "75",
+        "100",
+        "125",
+        "150",
+        "200",
+        "300"
+      ],
+      "def": "100",
+      "attr": "data-fill",
+      "scalesSteps": true,
+      "means": "Strength of the fills as a percentage of the colour pair's own steps; 100 is the rest. Only with fills.",
+      "label": "Fill strength",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "slider",
+        "line": 1200,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-fill"
+      ],
+      "props": [
+        "--fill-factor"
+      ],
+      "rest": {
+        "data-fill": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "glowlevel",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "def": "4",
+      "attr": "data-glow-level",
+      "prop": "--surface-glow-level",
+      "means": "Strength of the glow, 1 to 10. 4 is the rest. Only with glow.",
+      "label": "Glow strength",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "slider",
+        "line": 1210,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-glow-level"
+      ],
+      "props": [
+        "--surface-glow-level"
+      ],
+      "rest": {
+        "data-glow-level": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "grainlevel",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "def": "4",
+      "attr": "data-grain-level",
+      "prop": "--grain-level",
+      "means": "Strength of the grain, 1 to 10. 4 is the rest. Only with grain.",
+      "label": "Grain strength",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "slider",
+        "line": 1211,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-grain-level"
+      ],
+      "props": [
+        "--grain-level"
+      ],
+      "rest": {
+        "data-grain-level": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "vignettelevel",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "def": "2",
+      "attr": "data-vignette-level",
+      "prop": "--vignette-level",
+      "means": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
+      "label": "Vignette strength",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "slider",
+        "line": 1213,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-vignette-level"
+      ],
+      "props": [
+        "--vignette-level"
+      ],
+      "rest": {
+        "data-vignette-level": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "vignettereach",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "def": "3",
+      "attr": "data-vignette-reach",
+      "prop": "--surface-vignette-reach",
+      "means": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
+      "label": "Vignette size",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "slider",
+        "line": 1213,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-vignette-reach"
+      ],
+      "props": [
+        "--surface-vignette-reach"
+      ],
+      "rest": {
+        "data-vignette-reach": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "softlevel",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "10",
+        "15",
+        "20",
+        "25",
+        "30",
+        "35",
+        "40",
+        "45"
+      ],
+      "def": "15",
+      "attr": "data-soft-level",
+      "prop": "--soft-strength",
+      "means": "How far the reading text steps toward the paper, in percent: 10 to 45 in steps of 5. 15 is the rest. Only with soft.",
+      "label": "Softness",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "slider",
+        "line": 1239,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-soft-level"
+      ],
+      "props": [
+        "--soft-strength"
+      ],
+      "rest": {
+        "data-soft-level": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "quietlevel",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "25",
+        "30",
+        "35",
+        "40",
+        "45",
+        "50"
+      ],
+      "def": "25",
+      "attr": "data-quiet-level",
+      "prop": "--quiet-strength",
+      "means": "How far the small text (dates, captions, meta) steps toward the paper with soft on, in percent: 25 to 50 in steps of 5. 25 is the rest. Only with soft, and only while smallsoft is not set; the row Small text writes smallsoft since 2026-09-27.",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-quiet-level"
+      ],
+      "props": [
+        "--quiet-strength"
+      ],
+      "rest": {
+        "data-quiet-level": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "smallsoft",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "25",
+        "30",
+        "35",
+        "40",
+        "45",
+        "50"
+      ],
+      "def": "25",
+      "attr": "data-small-soft",
+      "prop": "--small-strength",
+      "means": "How far the small text (dates, captions, meta) steps toward the paper, in percent: 25 to 50 in steps of 5, with soft on or off. 25 is the rest, the pair's own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-small-soft"
+      ],
+      "props": [
+        "--small-strength"
+      ],
+      "rest": {
+        "data-small-soft": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "links",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "both",
+        "coloured",
+        "underlined"
+      ],
+      "def": "both",
+      "attr": "data-links",
+      "means": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer) or underlined (the ink with a quiet underline). Not set, a style with soft marks them underlined, and an export leaves it out.",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-links"
+      ],
+      "rest": {
+        "data-links": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "linestyle",
+      "group": "other",
+      "table": "LINE_STYLE",
+      "kind": "pick",
+      "choices": [
+        "solid",
+        "dashed",
+        "dotted"
+      ],
+      "def": "solid",
+      "means": "solid, dashed or dotted lines. Dashes are long only when rounded is false. Only with lines.",
+      "label": "Line style",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1195,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-line-style"
+      ],
+      "rest": {
+        "data-line-style": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "corners",
+      "group": "other",
+      "table": "CORNERS",
+      "kind": "pick",
+      "choices": [
+        "medium",
+        "small",
+        "large",
+        "xlarge"
+      ],
+      "def": "medium",
+      "means": "medium, small or large corners. One step re-cuts every corner together; nested corners stay sums. Only with rounded.",
+      "label": "Corner size",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1185,
+        "in": "shapeBody"
+      },
+      "changesPage": "Corners and lines",
+      "attrs": [
+        "data-corners"
+      ],
+      "rest": {
+        "data-corners": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "fadeedges",
+      "group": "other",
+      "table": "FADE_EDGES",
+      "kind": "pick",
+      "choices": [
+        "sides",
+        "bottom",
+        "all"
+      ],
+      "def": "sides",
+      "means": "which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.",
+      "label": "Edges",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1169,
+        "in": "layoutBody"
+      },
+      "changesPage": "Layout",
+      "attrs": [
+        "data-fade-edges"
+      ],
+      "rest": {
+        "data-fade-edges": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "markercolour",
+      "group": "other",
+      "table": "MARKERS",
+      "kind": "pick",
+      "choices": [
+        "yellow",
+        "green",
+        "pink",
+        "blue",
+        "orange",
+        "text",
+        "muted",
+        "own"
+      ],
+      "def": "yellow",
+      "means": "The highlighter's colour: yellow, green, pink, blue, orange, text (the reading text's colour), muted (the date's colour), or own (the well colours.<side>.marker, fitted to the other side's paper when set on one side only; its ink and bar follow from the pen). Only with marker.",
+      "label": "Highlighter colour",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1243,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-marker-colour"
+      ],
+      "rest": {
+        "data-marker-colour": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "framepattern",
+      "group": "other",
+      "table": "FRAME_PATTERNS",
+      "kind": "pick",
+      "choices": [
+        "plain",
+        "dots",
+        "checker"
+      ],
+      "def": "plain",
+      "means": "What the frame around pictures shows: plain, dots (the dot grid) or checker (a transparency checkerboard). Only with pictureframe.",
+      "label": "Frame pattern",
+      "page": "Pictures",
+      "level": 16,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1121,
+        "in": "pictureRows"
+      },
+      "changesPage": "Pictures",
+      "attrs": [
+        "data-frame-pattern"
+      ],
+      "rest": {
+        "data-frame-pattern": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "measure",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "60",
+        "64",
+        "68",
+        "72",
+        "76",
+        "80",
+        "84",
+        "88"
+      ],
+      "def": "72",
+      "attr": "data-measure",
+      "prop": "--measure-factor",
+      "means": "Line length of the reading text in letters: 60 to 88 in steps of 4. 72 is the rest.",
+      "label": "Line length",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "slider",
+        "line": 1174,
+        "in": "layoutBody"
+      },
+      "changesPage": "Layout",
+      "attrs": [
+        "data-measure"
+      ],
+      "props": [
+        "--measure-factor"
+      ],
+      "rest": {
+        "data-measure": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "space",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "xcompact",
+        "compact",
+        "standard",
+        "spacious",
+        "xspacious"
+      ],
+      "def": "standard",
+      "attr": "data-space",
+      "prop": "--space-step",
+      "means": "The space of the page: xcompact, compact, standard, spacious or xspacious. Standard is the rest, the theme's own. Each kind of gap moves by its own amount: inside a group a little, between items more, between sections most, so what belongs together stays together. The reading text of an article keeps its own rhythm.",
+      "label": "Space",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "slider",
+        "line": 1164,
+        "in": "layoutBody"
+      },
+      "changesPage": "Layout",
+      "attrs": [
+        "data-space"
+      ],
+      "props": [
+        "--space-step"
+      ],
+      "rest": {
+        "data-space": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "framewidth",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "4",
+        "8",
+        "12",
+        "16",
+        "24",
+        "32"
+      ],
+      "def": "8",
+      "attr": "data-frame-width",
+      "prop": "--picture-frame",
+      "means": "Width of the frame around pictures in pixels: 4, 8, 12, 16, 24 or 32. 8 is the rest. Only with pictureframe.",
+      "label": "Frame width",
+      "page": "Pictures",
+      "level": 16,
+      "row": {
+        "drawn": "slider",
+        "line": 1121,
+        "in": "pictureRows"
+      },
+      "changesPage": "Pictures",
+      "attrs": [
+        "data-frame-width"
+      ],
+      "props": [
+        "--picture-frame"
+      ],
+      "rest": {
+        "data-frame-width": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "dotsize",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "16",
+        "24",
+        "32"
+      ],
+      "def": "24",
+      "attr": "data-dot-size",
+      "prop": "--dot-size",
+      "means": "The dot grid's spacing in pixels: 16 (fine), 24 or 32 (wide). 24 is the rest. Only with dots.",
+      "label": "Grid size",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "slider",
+        "line": 1212,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-dot-size"
+      ],
+      "props": [
+        "--dot-size"
+      ],
+      "rest": {
+        "data-dot-size": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "dotlevel",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "6",
+        "9",
+        "13",
+        "18",
+        "24"
+      ],
+      "def": "13",
+      "attr": "data-dot-level",
+      "prop": "--dot-strength",
+      "means": "Strength of the dots: the ink's share in the dot colour, in per cent: 6, 9, 13, 18 or 24. 13 is the rest. Only with dots.",
+      "label": "Dot strength",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "slider",
+        "line": 1212,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-dot-level"
+      ],
+      "props": [
+        "--dot-strength"
+      ],
+      "rest": {
+        "data-dot-level": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "unlinked",
+      "group": "other",
+      "table": null,
+      "kind": "switch",
+      "def": false,
+      "means": "true when the light and dark colours were set independently; false lets one side follow the other.",
+      "label": "Same colours for light and dark",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "switch",
+        "line": 2078,
+        "in": "level4"
+      },
+      "changesPage": "Colour",
+      "attrs": [],
+      "rest": false,
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.face",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "pick",
+      "roles": [
+        "head",
+        "read",
+        "quote",
+        "kicker",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "choicesByRoles": [
+        {
+          "roles": [
+            "head",
+            "quote",
+            "kicker",
+            "small",
+            "comment",
+            "title"
+          ],
+          "choices": [
+            "read",
+            "ui",
+            "inter",
+            "hyperlegible",
+            "geist",
+            "newsreader",
+            "libre-baskerville",
+            "vollkorn",
+            "mono",
+            "martian-mono",
+            "kode-mono",
+            "plex-sans",
+            "jetbrains-mono",
+            "plex-mono",
+            "doto",
+            "vt323",
+            "handjet",
+            "mona-sans",
+            "instrument-sans",
+            "dm-sans",
+            "manrope",
+            "figtree",
+            "plus-jakarta-sans",
+            "hanken-grotesk",
+            "bricolage-grotesque",
+            "schibsted-grotesk",
+            "space-grotesk",
+            "funnel-sans",
+            "onest",
+            "public-sans",
+            "work-sans",
+            "jost",
+            "inter-tight",
+            "fraunces",
+            "source-serif-4",
+            "instrument-serif",
+            "literata",
+            "lora",
+            "eb-garamond",
+            "playfair",
+            "bodoni-moda",
+            "spectral",
+            "crimson-pro",
+            "young-serif",
+            "gloock",
+            "cardo",
+            "roboto-serif",
+            "montagu-slab",
+            "zilla-slab",
+            "platypi",
+            "ibm-plex-mono",
+            "dm-mono",
+            "space-mono",
+            "fira-code",
+            "fragment-mono",
+            "azeret-mono",
+            "red-hat-mono",
+            "chivo-mono",
+            "reddit-mono",
+            "sometype-mono",
+            "victor-mono",
+            "atkinson-hyperlegible-mono",
+            "roboto-mono",
+            "google-sans-code",
+            "geist-pixel",
+            "pixelify-sans",
+            "silkscreen",
+            "press-start-2p",
+            "tiny5",
+            "micro-5",
+            "jersey-10",
+            "dotgothic16",
+            "sixtyfour",
+            "workbench",
+            "jacquard-12",
+            "coral-pixels",
+            "big-shoulders",
+            "unbounded",
+            "syne",
+            "bebas-neue",
+            "anton",
+            "archivo-black",
+            "dela-gothic-one",
+            "bungee",
+            "shrikhand",
+            "dm-serif-display",
+            "abril-fatface",
+            "funnel-display",
+            "gabarito",
+            "climate-crisis",
+            "caprasimo"
+          ]
+        },
+        {
+          "roles": [
+            "read",
+            "ui"
+          ],
+          "choices": [
+            "inter",
+            "hyperlegible",
+            "geist",
+            "newsreader",
+            "libre-baskerville",
+            "vollkorn",
+            "mono",
+            "martian-mono",
+            "kode-mono",
+            "plex-sans",
+            "jetbrains-mono",
+            "plex-mono",
+            "doto",
+            "vt323",
+            "handjet",
+            "mona-sans",
+            "instrument-sans",
+            "dm-sans",
+            "manrope",
+            "figtree",
+            "plus-jakarta-sans",
+            "hanken-grotesk",
+            "bricolage-grotesque",
+            "schibsted-grotesk",
+            "space-grotesk",
+            "funnel-sans",
+            "onest",
+            "public-sans",
+            "work-sans",
+            "jost",
+            "inter-tight",
+            "fraunces",
+            "source-serif-4",
+            "instrument-serif",
+            "literata",
+            "lora",
+            "eb-garamond",
+            "playfair",
+            "bodoni-moda",
+            "spectral",
+            "crimson-pro",
+            "young-serif",
+            "gloock",
+            "cardo",
+            "roboto-serif",
+            "montagu-slab",
+            "zilla-slab",
+            "platypi",
+            "ibm-plex-mono",
+            "dm-mono",
+            "space-mono",
+            "fira-code",
+            "fragment-mono",
+            "azeret-mono",
+            "red-hat-mono",
+            "chivo-mono",
+            "reddit-mono",
+            "sometype-mono",
+            "victor-mono",
+            "atkinson-hyperlegible-mono",
+            "roboto-mono",
+            "google-sans-code",
+            "geist-pixel",
+            "pixelify-sans",
+            "silkscreen",
+            "press-start-2p",
+            "tiny5",
+            "micro-5",
+            "jersey-10",
+            "dotgothic16",
+            "sixtyfour",
+            "workbench",
+            "jacquard-12",
+            "coral-pixels",
+            "big-shoulders",
+            "unbounded",
+            "syne",
+            "bebas-neue",
+            "anton",
+            "archivo-black",
+            "dela-gothic-one",
+            "bungee",
+            "shrikhand",
+            "dm-serif-display",
+            "abril-fatface",
+            "funnel-display",
+            "gabarito",
+            "climate-crisis",
+            "caprasimo"
+          ]
+        }
+      ],
+      "defByRole": {
+        "head": "read",
+        "read": "newsreader",
+        "quote": "read",
+        "kicker": "read",
+        "small": "ui",
+        "comment": "ui",
+        "ui": "inter",
+        "title": "ui"
+      },
+      "aliases": {
+        "inherit": "read"
+      },
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Font",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "list",
+        "line": 1540,
+        "in": "fontRow"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-face-own"
+      ],
+      "guestAttrs": [
+        "data-{role}-face",
+        "data-{role}-italic"
+      ],
+      "props": [
+        "--{role}-face",
+        "--{role}-style"
+      ],
+      "rest": {
+        "data-head-face-own": false,
+        "data-read-face-own": false,
+        "data-quote-face-own": false,
+        "data-kicker-face-own": false,
+        "data-small-face-own": "ABSENT",
+        "data-comment-face-own": false,
+        "data-ui-face-own": false,
+        "data-title-face-own": false,
+        "data-head-face": false,
+        "data-read-face": false,
+        "data-quote-face": false,
+        "data-kicker-face": false,
+        "data-small-face": false,
+        "data-comment-face": false,
+        "data-ui-face": false,
+        "data-title-face": false,
+        "data-head-italic": false,
+        "data-read-italic": false,
+        "data-quote-italic": false,
+        "data-kicker-italic": false,
+        "data-small-italic": false,
+        "data-comment-italic": false,
+        "data-ui-italic": false,
+        "data-title-italic": false
+      },
+      "inStandardAtRest": {
+        "attrs": [],
+        "props": [
+          "--head-face",
+          "--quote-face",
+          "--kicker-face",
+          "--small-face",
+          "--comment-face",
+          "--title-face",
+          "--kicker-style"
+        ]
+      }
+    },
+    {
+      "key": "roles.{role}.weight",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "dial",
+      "roles": [
+        "head",
+        "read",
+        "quote",
+        "kicker",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "steps": [
+        "thin",
+        "extralight",
+        "light",
+        "regular",
+        "medium",
+        "semibold",
+        "bold",
+        "extrabold",
+        "black"
+      ],
+      "defByRole": {
+        "head": "bold",
+        "read": "regular",
+        "quote": "regular",
+        "kicker": "regular",
+        "small": "regular",
+        "comment": "regular",
+        "ui": "regular",
+        "title": "medium"
+      },
+      "aliases": {
+        "lighter": "light",
+        "normal": "regular",
+        "heavy": "extrabold"
+      },
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Weight",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "slider",
+        "line": 1574,
+        "in": "weightRow"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-weight"
+      ],
+      "props": [
+        "--{role}-weight"
+      ],
+      "rest": {
+        "data-head-weight": false,
+        "data-read-weight": "ABSENT",
+        "data-quote-weight": false,
+        "data-kicker-weight": false,
+        "data-small-weight": false,
+        "data-comment-weight": "ABSENT",
+        "data-ui-weight": "ABSENT",
+        "data-title-weight": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.size",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "dial",
+      "roles": [
+        "head",
+        "read",
+        "quote",
+        "kicker",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "stepsByRoles": [
+        {
+          "roles": [
+            "head"
+          ],
+          "steps": [
+            "12",
+            "13",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+            "28",
+            "32",
+            "36",
+            "40",
+            "44",
+            "48",
+            "56",
+            "64",
+            "72",
+            "80",
+            "96",
+            "112",
+            "128"
+          ]
+        },
+        {
+          "roles": [
+            "read",
+            "quote",
+            "kicker",
+            "small",
+            "comment"
+          ],
+          "steps": [
+            "12",
+            "13",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+            "28",
+            "32",
+            "36",
+            "40",
+            "44",
+            "48",
+            "56",
+            "64",
+            "72"
+          ]
+        },
+        {
+          "roles": [
+            "ui",
+            "title"
+          ],
+          "steps": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+            "28",
+            "32",
+            "36",
+            "40",
+            "44",
+            "48",
+            "56",
+            "64",
+            "72"
+          ]
+        }
+      ],
+      "defByRole": {
+        "head": "64",
+        "read": "22",
+        "quote": "26",
+        "kicker": "26",
+        "small": "16",
+        "comment": "14",
+        "ui": "13",
+        "title": "11"
+      },
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Size",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "slider",
+        "line": 1615,
+        "in": "sizeBlock"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-size"
+      ],
+      "props": [
+        "--{role}-size"
+      ],
+      "rest": {
+        "data-head-size": "ABSENT",
+        "data-read-size": false,
+        "data-quote-size": false,
+        "data-kicker-size": false,
+        "data-small-size": false,
+        "data-comment-size": "ABSENT",
+        "data-ui-size": "ABSENT",
+        "data-title-size": false
+      },
+      "inStandardAtRest": {
+        "attrs": [],
+        "props": [
+          "--head-size",
+          "--read-size",
+          "--quote-size",
+          "--kicker-size",
+          "--small-size",
+          "--comment-size",
+          "--ui-size",
+          "--title-size"
+        ]
+      }
+    },
+    {
+      "key": "roles.{role}.tracking",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "dial",
+      "roles": [
+        "head",
+        "read",
+        "quote",
+        "kicker",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "steps": [
+        "m25",
+        "m22",
+        "m20",
+        "m17",
+        "m15",
+        "m12",
+        "m10",
+        "m7",
+        "m5",
+        "m2",
+        "m1",
+        "default",
+        "p1",
+        "p2",
+        "p5",
+        "p7",
+        "p10",
+        "p12",
+        "p15",
+        "p17",
+        "p20",
+        "p22",
+        "p25"
+      ],
+      "def": "default",
+      "aliases": {
+        "tightest": "m7",
+        "tighter": "m5",
+        "tight": "m2",
+        "loose": "p2",
+        "wide": "p5",
+        "widest": "p10"
+      },
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Character spacing",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "slider",
+        "line": 1938,
+        "in": "level3"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [],
+      "guestAttrs": [
+        "data-{role}-tracking"
+      ],
+      "props": [
+        "--reading-tracking",
+        "--{role}-tracking"
+      ],
+      "rest": {
+        "data-head-tracking": false,
+        "data-read-tracking": false,
+        "data-quote-tracking": false,
+        "data-kicker-tracking": false,
+        "data-small-tracking": false,
+        "data-comment-tracking": false,
+        "data-ui-tracking": false,
+        "data-title-tracking": false
+      },
+      "inStandardAtRest": {
+        "attrs": [],
+        "props": [
+          "--reading-tracking"
+        ]
+      }
+    },
+    {
+      "key": "roles.{role}.words",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "dial",
+      "roles": [
+        "head",
+        "read",
+        "quote",
+        "kicker",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "steps": [
+        "m25",
+        "m22",
+        "m20",
+        "m17",
+        "m15",
+        "m12",
+        "m10",
+        "m7",
+        "m5",
+        "m2",
+        "default",
+        "p2",
+        "p5",
+        "p7",
+        "p10",
+        "p12",
+        "p15",
+        "p17",
+        "p20",
+        "p22",
+        "p25"
+      ],
+      "def": "default",
+      "aliases": {
+        "tighter": "m10",
+        "tight": "m5",
+        "loose": "p5",
+        "wide": "p10",
+        "widest": "p15"
+      },
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Word spacing",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "slider",
+        "line": 1939,
+        "in": "level3"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [],
+      "guestAttrs": [
+        "data-{role}-words"
+      ],
+      "props": [
+        "--reading-word-gap",
+        "--{role}-words"
+      ],
+      "rest": {
+        "data-head-words": false,
+        "data-read-words": false,
+        "data-quote-words": false,
+        "data-kicker-words": false,
+        "data-small-words": false,
+        "data-comment-words": false,
+        "data-ui-words": false,
+        "data-title-words": false
+      },
+      "inStandardAtRest": {
+        "attrs": [],
+        "props": [
+          "--reading-word-gap"
+        ]
+      }
+    },
+    {
+      "key": "roles.{role}.caps",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "switch",
+      "roles": [
+        "head",
+        "read",
+        "quote",
+        "kicker",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "def": false,
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Capitals",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "switch",
+        "line": 1561,
+        "in": "capsRow"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [],
+      "guestAttrs": [
+        "data-{role}-caps"
+      ],
+      "props": [
+        "--{role}-case"
+      ],
+      "rest": {
+        "data-head-caps": false,
+        "data-read-caps": false,
+        "data-quote-caps": false,
+        "data-kicker-caps": false,
+        "data-small-caps": false,
+        "data-comment-caps": false,
+        "data-ui-caps": false,
+        "data-title-caps": false
+      },
+      "inStandardAtRest": {
+        "attrs": [],
+        "props": [
+          "--head-case",
+          "--read-case",
+          "--quote-case",
+          "--kicker-case",
+          "--small-case",
+          "--comment-case",
+          "--ui-case",
+          "--title-case"
+        ]
+      }
+    },
+    {
+      "key": "roles.{role}.italic",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "switch",
+      "roles": [
+        "head",
+        "read",
+        "quote",
+        "kicker",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "defByRole": {
+        "head": false,
+        "read": false,
+        "quote": true,
+        "kicker": true,
+        "small": false,
+        "comment": false,
+        "ui": false,
+        "title": false
+      },
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Italic",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "switch",
+        "line": 1557,
+        "in": "italicRow"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [],
+      "guestAttrs": [
+        "data-{role}-italic"
+      ],
+      "props": [
+        "--{role}-style"
+      ],
+      "rest": {
+        "data-head-italic": false,
+        "data-read-italic": false,
+        "data-quote-italic": false,
+        "data-kicker-italic": false,
+        "data-small-italic": false,
+        "data-comment-italic": false,
+        "data-ui-italic": false,
+        "data-title-italic": false
+      },
+      "inStandardAtRest": {
+        "attrs": [],
+        "props": [
+          "--kicker-style"
+        ]
+      }
+    },
+    {
+      "key": "roles.{role}.leading",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "dial",
+      "roles": [
+        "head",
+        "quote",
+        "kicker",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "steps": [
+        "solid",
+        "packed",
+        "close",
+        "densest",
+        "dense",
+        "tight",
+        "snug",
+        "default",
+        "relaxed",
+        "airy",
+        "wider",
+        "wide",
+        "open",
+        "loose",
+        "loosest"
+      ],
+      "def": "default",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Line spacing",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "slider",
+        "line": 1925,
+        "in": "level3"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-leading"
+      ],
+      "props": [
+        "--{role}-leading"
+      ],
+      "rest": {
+        "data-head-leading": "ABSENT_PATTERNS",
+        "data-quote-leading": "ABSENT_PATTERNS",
+        "data-kicker-leading": "ABSENT_PATTERNS",
+        "data-small-leading": "ABSENT_PATTERNS",
+        "data-comment-leading": "ABSENT_PATTERNS",
+        "data-ui-leading": "ABSENT_PATTERNS",
+        "data-title-leading": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.align",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "pick",
+      "roles": [
+        "head",
+        "kicker"
+      ],
+      "choices": [
+        "default",
+        "center",
+        "right"
+      ],
+      "def": "default",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Alignment",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1586,
+        "in": "switchRows"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-align"
+      ],
+      "props": [
+        "--{role}-align"
+      ],
+      "rest": {
+        "data-head-align": "ABSENT_PATTERNS",
+        "data-kicker-align": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.colour",
+      "group": "role",
+      "table": "ROLE_DEFAULT",
+      "kind": "pick",
+      "roles": [
+        "head",
+        "kicker"
+      ],
+      "choices": [
+        "ink",
+        "accent",
+        "own"
+      ],
+      "def": "ink",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Colour",
+      "page": "Type › {role}",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1580,
+        "in": "colourRow"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-colour"
+      ],
+      "props": [
+        "--{role}-colour"
+      ],
+      "rest": {
+        "data-head-colour": "ABSENT_PATTERNS",
+        "data-kicker-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.members.{member}.size",
+      "group": "role",
+      "table": "MEMBERS",
+      "kind": "dial",
+      "roles": [
+        "head",
+        "read",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "stepsByRoles": [
+        {
+          "roles": [
+            "head"
+          ],
+          "steps": [
+            "12",
+            "13",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+            "28",
+            "32",
+            "36",
+            "40",
+            "44",
+            "48",
+            "56",
+            "64",
+            "72",
+            "80",
+            "96",
+            "112",
+            "128"
+          ]
+        },
+        {
+          "roles": [
+            "read",
+            "small",
+            "comment"
+          ],
+          "steps": [
+            "12",
+            "13",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+            "28",
+            "32",
+            "36",
+            "40",
+            "44",
+            "48",
+            "56",
+            "64",
+            "72"
+          ]
+        },
+        {
+          "roles": [
+            "ui",
+            "title"
+          ],
+          "steps": [
+            "11",
+            "12",
+            "13",
+            "14",
+            "16",
+            "18",
+            "20",
+            "22",
+            "24",
+            "26",
+            "28",
+            "32",
+            "36",
+            "40",
+            "44",
+            "48",
+            "56",
+            "64",
+            "72"
+          ]
+        }
+      ],
+      "def": null,
+      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Size",
+      "page": "Type › {role} › {member}",
+      "level": 11,
+      "row": {
+        "drawn": "slider",
+        "line": 1834,
+        "in": "level11"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-m-{member}-size",
+        "data-{role}-members"
+      ],
+      "props": [
+        "--{role}-size-{member}"
+      ],
+      "rest": {
+        "data-head-m-sub-size": "ABSENT_PATTERNS",
+        "data-read-m-excerpts-size": "ABSENT_PATTERNS",
+        "data-read-m-boxes-size": "ABSENT_PATTERNS",
+        "data-small-m-author-size": "ABSENT_PATTERNS",
+        "data-small-m-terms-size": "ABSENT_PATTERNS",
+        "data-small-m-captions-size": "ABSENT_PATTERNS",
+        "data-small-m-carddates-size": "ABSENT_PATTERNS",
+        "data-small-m-release-size": "ABSENT_PATTERNS",
+        "data-comment-m-title-size": "ABSENT_PATTERNS",
+        "data-comment-m-name-size": "ABSENT_PATTERNS",
+        "data-comment-m-small-size": "ABSENT_PATTERNS",
+        "data-comment-m-form-size": "ABSENT_PATTERNS",
+        "data-ui-m-masthead-size": "ABSENT_PATTERNS",
+        "data-ui-m-cards-size": "ABSENT_PATTERNS",
+        "data-ui-m-linkcard-size": "ABSENT_PATTERNS",
+        "data-ui-m-newsletter-size": "ABSENT_PATTERNS",
+        "data-ui-m-fields-size": "ABSENT_PATTERNS",
+        "data-ui-m-labels-size": "ABSENT_PATTERNS",
+        "data-ui-m-credit-size": "ABSENT_PATTERNS",
+        "data-title-m-years-size": "ABSENT_PATTERNS",
+        "data-title-m-release-size": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
+        "data-read-members": "ABSENT_PATTERNS",
+        "data-small-members": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-ui-members": "ABSENT_PATTERNS",
+        "data-title-members": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.members.{member}.weight",
+      "group": "role",
+      "table": "MEMBERS",
+      "kind": "dial",
+      "roles": [
+        "head",
+        "read",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "steps": [
+        "thin",
+        "extralight",
+        "light",
+        "regular",
+        "medium",
+        "semibold",
+        "bold",
+        "extrabold",
+        "black"
+      ],
+      "aliases": {
+        "lighter": "light",
+        "normal": "regular",
+        "heavy": "extrabold"
+      },
+      "def": null,
+      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Weight",
+      "page": "Type › {role} › {member}",
+      "level": 11,
+      "row": {
+        "drawn": "slider",
+        "line": 1835,
+        "in": "level11"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-m-{member}-weight",
+        "data-{role}-members"
+      ],
+      "props": [
+        "--{role}-weight-{member}"
+      ],
+      "rest": {
+        "data-head-m-sub-weight": "ABSENT_PATTERNS",
+        "data-read-m-excerpts-weight": "ABSENT_PATTERNS",
+        "data-read-m-boxes-weight": "ABSENT_PATTERNS",
+        "data-small-m-author-weight": "ABSENT_PATTERNS",
+        "data-small-m-terms-weight": "ABSENT_PATTERNS",
+        "data-small-m-captions-weight": "ABSENT_PATTERNS",
+        "data-small-m-carddates-weight": "ABSENT_PATTERNS",
+        "data-small-m-release-weight": "ABSENT_PATTERNS",
+        "data-comment-m-title-weight": "ABSENT_PATTERNS",
+        "data-comment-m-name-weight": "ABSENT_PATTERNS",
+        "data-comment-m-small-weight": "ABSENT_PATTERNS",
+        "data-comment-m-form-weight": "ABSENT_PATTERNS",
+        "data-ui-m-masthead-weight": "ABSENT_PATTERNS",
+        "data-ui-m-cards-weight": "ABSENT_PATTERNS",
+        "data-ui-m-linkcard-weight": "ABSENT_PATTERNS",
+        "data-ui-m-newsletter-weight": "ABSENT_PATTERNS",
+        "data-ui-m-fields-weight": "ABSENT_PATTERNS",
+        "data-ui-m-labels-weight": "ABSENT_PATTERNS",
+        "data-ui-m-credit-weight": "ABSENT_PATTERNS",
+        "data-title-m-years-weight": "ABSENT_PATTERNS",
+        "data-title-m-release-weight": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
+        "data-read-members": "ABSENT_PATTERNS",
+        "data-small-members": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-ui-members": "ABSENT_PATTERNS",
+        "data-title-members": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.members.{member}.caps",
+      "group": "role",
+      "table": "MEMBERS",
+      "kind": "switch",
+      "roles": [
+        "head",
+        "read",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "def": null,
+      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Own capitals",
+      "page": "Type › {role} › {member}",
+      "level": 11,
+      "row": {
+        "drawn": "switch + switch",
+        "line": 1775,
+        "in": "OWN_WORD"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-m-{member}-caps",
+        "data-{role}-members"
+      ],
+      "props": [
+        "--{role}-case-{member}"
+      ],
+      "rest": {
+        "data-head-m-sub-caps": "ABSENT_PATTERNS",
+        "data-read-m-excerpts-caps": "ABSENT_PATTERNS",
+        "data-read-m-boxes-caps": "ABSENT_PATTERNS",
+        "data-small-m-author-caps": "ABSENT_PATTERNS",
+        "data-small-m-terms-caps": "ABSENT_PATTERNS",
+        "data-small-m-captions-caps": "ABSENT_PATTERNS",
+        "data-small-m-carddates-caps": "ABSENT_PATTERNS",
+        "data-small-m-release-caps": "ABSENT_PATTERNS",
+        "data-comment-m-title-caps": "ABSENT_PATTERNS",
+        "data-comment-m-name-caps": "ABSENT_PATTERNS",
+        "data-comment-m-small-caps": "ABSENT_PATTERNS",
+        "data-comment-m-form-caps": "ABSENT_PATTERNS",
+        "data-ui-m-masthead-caps": "ABSENT_PATTERNS",
+        "data-ui-m-cards-caps": "ABSENT_PATTERNS",
+        "data-ui-m-linkcard-caps": "ABSENT_PATTERNS",
+        "data-ui-m-newsletter-caps": "ABSENT_PATTERNS",
+        "data-ui-m-fields-caps": "ABSENT_PATTERNS",
+        "data-ui-m-labels-caps": "ABSENT_PATTERNS",
+        "data-ui-m-credit-caps": "ABSENT_PATTERNS",
+        "data-title-m-years-caps": "ABSENT_PATTERNS",
+        "data-title-m-release-caps": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
+        "data-read-members": "ABSENT_PATTERNS",
+        "data-small-members": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-ui-members": "ABSENT_PATTERNS",
+        "data-title-members": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.members.{member}.tracking",
+      "group": "role",
+      "table": "MEMBERS",
+      "kind": "dial",
+      "roles": [
+        "head",
+        "read",
+        "small",
+        "comment",
+        "ui",
+        "title"
+      ],
+      "steps": [
+        "m25",
+        "m22",
+        "m20",
+        "m17",
+        "m15",
+        "m12",
+        "m10",
+        "m7",
+        "m5",
+        "m2",
+        "m1",
+        "default",
+        "p1",
+        "p2",
+        "p5",
+        "p7",
+        "p10",
+        "p12",
+        "p15",
+        "p17",
+        "p20",
+        "p22",
+        "p25"
+      ],
+      "aliases": {
+        "tightest": "m7",
+        "tighter": "m5",
+        "tight": "m2",
+        "loose": "p2",
+        "wide": "p5",
+        "widest": "p10"
+      },
+      "def": null,
+      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Character spacing",
+      "page": "Type › {role} › {member}",
+      "level": 11,
+      "row": {
+        "drawn": "slider",
+        "line": 1836,
+        "in": "level11"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-m-{member}-tracking",
+        "data-{role}-members"
+      ],
+      "props": [
+        "--{role}-tracking-{member}"
+      ],
+      "rest": {
+        "data-head-m-sub-tracking": "ABSENT_PATTERNS",
+        "data-read-m-excerpts-tracking": "ABSENT_PATTERNS",
+        "data-read-m-boxes-tracking": "ABSENT_PATTERNS",
+        "data-small-m-author-tracking": "ABSENT_PATTERNS",
+        "data-small-m-terms-tracking": "ABSENT_PATTERNS",
+        "data-small-m-captions-tracking": "ABSENT_PATTERNS",
+        "data-small-m-carddates-tracking": "ABSENT_PATTERNS",
+        "data-small-m-release-tracking": "ABSENT_PATTERNS",
+        "data-comment-m-title-tracking": "ABSENT_PATTERNS",
+        "data-comment-m-name-tracking": "ABSENT_PATTERNS",
+        "data-comment-m-small-tracking": "ABSENT_PATTERNS",
+        "data-comment-m-form-tracking": "ABSENT_PATTERNS",
+        "data-ui-m-masthead-tracking": "ABSENT_PATTERNS",
+        "data-ui-m-cards-tracking": "ABSENT_PATTERNS",
+        "data-ui-m-linkcard-tracking": "ABSENT_PATTERNS",
+        "data-ui-m-newsletter-tracking": "ABSENT_PATTERNS",
+        "data-ui-m-fields-tracking": "ABSENT_PATTERNS",
+        "data-ui-m-labels-tracking": "ABSENT_PATTERNS",
+        "data-ui-m-credit-tracking": "ABSENT_PATTERNS",
+        "data-title-m-years-tracking": "ABSENT_PATTERNS",
+        "data-title-m-release-tracking": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
+        "data-read-members": "ABSENT_PATTERNS",
+        "data-small-members": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-ui-members": "ABSENT_PATTERNS",
+        "data-title-members": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.members.{member}.align",
+      "group": "role",
+      "table": "MEMBERS",
+      "kind": "pick",
+      "roles": [
+        "head"
+      ],
+      "choices": [
+        "default",
+        "center",
+        "right"
+      ],
+      "def": null,
+      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Alignment",
+      "page": "Type › {role} › {member}",
+      "level": 11,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1832,
+        "in": "level11"
+      },
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-{role}-m-{member}-align",
+        "data-{role}-members"
+      ],
+      "props": [
+        "--{role}-align-{member}"
+      ],
+      "rest": {
+        "data-head-m-sub-align": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.paper",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Paper",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "well",
+        "line": 2135,
+        "in": "level4"
+      },
+      "changesPage": "Colour",
+      "attrs": [],
+      "rest": false,
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.ink",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Ink",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "well",
+        "line": 2136,
+        "in": "level4"
+      },
+      "changesPage": "Colour",
+      "attrs": [],
+      "rest": false,
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.accent",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Accent",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "well",
+        "line": 2137,
+        "in": "level4"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "guestAttrs": [
+        "data-accent-own"
+      ],
+      "rest": {
+        "data-colours": "ABSENT",
+        "data-accent-own": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.button",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Button colour › Own colour…",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "pop-up item",
+        "line": 1260,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.head",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Colour › Own colour…",
+      "page": "Type › Headings",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up item",
+        "line": 1584,
+        "in": "colourMenu"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.kicker",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Colour › Own colour…",
+      "page": "Type › Category line",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up item",
+        "line": 1584,
+        "in": "colourMenu"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.ground",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Ground",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "well",
+        "line": 2143,
+        "in": "level4"
+      },
+      "changesPage": "Colour",
+      "attrs": [],
+      "rest": false,
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.lift",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Card",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "well",
+        "line": 2144,
+        "in": "level4"
+      },
+      "changesPage": "Colour",
+      "attrs": [],
+      "rest": false,
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.marker",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Highlighter colour › Own colour…",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "pop-up item",
+        "line": 1245,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.inverse",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    }
+  ],
+  "retired": [
+    {
+      "key": "kickerabove",
+      "means": "Retired 2026-09-27 and still read: true becomes categories above."
+    },
+    {
+      "key": "inkbutton",
+      "means": "Retired 2026-09-26 and still read: true becomes button ink."
+    },
+    {
+      "key": "pillbuttons",
+      "means": "Retired 2026-09-26 and still read: true becomes buttonshape pill."
+    },
+    {
+      "key": "centretitle",
+      "means": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default."
+    }
+  ]
+}

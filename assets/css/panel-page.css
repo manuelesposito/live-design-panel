@@ -1,0 +1,1335 @@
+/* Live Design Panel: the reader's choices, spent on core WordPress markup.
+ *
+ * THE OTHER THREE GUEST SHEETS DRAW THE PANEL. This one is the only sheet the
+ * plugin has that touches the page it landed on, so it is the only one with a
+ * rule that can be wrong about somebody else's design. Two things keep it
+ * honest, and both are checkable rather than promised:
+ *
+ *   1. It is THE ROLE TABLE and nothing else. The panel has carried eight
+ *      roles since 2026-09-17 (reading-panel.js ROLE_META), each one an area
+ *      of the page with its own face, weight, size, spacing and case. On
+ *      Architrave each role binds its tokens to Architrave's own parts. Here
+ *      it binds the same tokens to the core blocks a plain theme prints. So
+ *      the reach is the reader's, decided area by area on Typography, and not
+ *      one setting of ours. A guest carries THE READER'S CHOICES, never
+ *      Architrave's design: nothing in here is a look, every line is a dial.
+ *
+ *   2. EVERY SINGLE RULE IS GATED ON AN ATTRIBUTE. Not one declaration in this
+ *      file applies until `data-<role>-<dial>` is on the root, and presets.js
+ *      writes that only where the reader has moved that dial away from its
+ *      rest. A page nobody has touched is its own theme's page, and that is
+ *      mechanically checkable: every selector here begins `:root[data-`.
+ *
+ * WHY ATTRIBUTES AND NOT FALLBACKS. On Architrave a role's rule carries the
+ * theme's own value as its fallback, because Architrave IS the theme. A guest
+ * has no such value. `inherit` is not what a host gives its headings, `none` is
+ * not necessarily its text-transform, and there is no way to say "whatever this
+ * theme would have used" in CSS. Worse, four of the eight faces are written on
+ * the root even at rest (--head-face, --small-face, --comment-face,
+ * --title-face, measured on stock Twenty Twenty-Five), so the presence of a
+ * property is not a choice. presets.js knows which dials the reader has
+ * actually moved and, where the panel is a guest, writes that out for these
+ * rules to gate on.
+ *
+ * NO SIZE IS SET HERE. A size dial is a multiplier and needs the element's own
+ * size to multiply, and CSS cannot ask an element how big it already is.
+ * `calc(1em * factor)` looks like the answer and is not: in a `font-size`, `1em`
+ * is the PARENT's size, so on any element that carries its own the rule throws
+ * that size away, which took the post title from 48px to 22px and the date from
+ * 14px to 22px. Every size, the roles' rows and the A/A stepper both, is read
+ * and written by assets/js/guest-size.js, which can ask the browser. The
+ * stepper's ratios are generated at the foot of this file, one for each part of
+ * the article, out of the theme's own ladder.
+ *
+ * THE ADDRESSES were measured by reading a stock Twenty Twenty-Five page, not
+ * guessed. Seven roles have somewhere to land. The eighth, Interface titles, is
+ * the titled sections of Architrave's rail and a plain theme has none.
+ *
+ * EVERY DIAL WINS, WITH !important. It was font-family alone at first, because
+ * core prints a block's own font-family preset with its own !important, and
+ * every other property was left to lose against a host that is more specific.
+ * Measured 2026-09-22, that lost the Category line's weight to an inline
+ * `font-weight: 300` the block editor had written on the terms block, and a
+ * dial the reader has moved that changes nothing is the one thing this sheet
+ * is for. Every rule here is gated on a press, so "the reader asked for it"
+ * is what !important says; on an untouched page not one applies.
+ */
+
+/* ── A look's own scale ───────────────────────────────────────────────────
+   Under any tile but the theme's own (`data-chosen`) the article takes
+   Architrave's line spacing and the title its tightening, as it takes
+   Architrave's sizes from guest-size.js; a look is its whole type system, not
+   its faces alone (Manuel, 2026-09-22: "how can we make it look more like on
+   Elmastudio?"). These stand FIRST so that a role's own dial, written below at
+   the same weight, wins. The reading text's line spacing is with its dial. */
+:root[data-chosen] :is(.wp-block-post-title, .entry-title):not([data-ldp-designed]) {
+	line-height: var(--line-height-article-title, 1.12) !important;
+	letter-spacing: var(--tracking-tight, -0.025em) !important;
+	text-wrap: balance;
+}
+:root[data-chosen] :is(.wp-block-heading, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+	line-height: var(--line-height-article-heading, 1.25) !important;
+}
+
+/* ── Reading text ─────────────────────────────────────────────────────────
+   The paragraphs of the article, and the excerpts on an index. Its face is the
+   panel's own reading-face dial, so it gates on `data-face`, which a guest
+   writes for every face including the default (reading-face.js). */
+:root[data-face] :is(.wp-block-post-content, .entry-content, .wp-block-post-excerpt) {
+	font-family: var(--font-reading) !important;
+}
+:root[data-read-weight] :is(.wp-block-post-content, .entry-content, .wp-block-post-excerpt) {
+	font-weight: var(--read-weight) !important;
+}
+:root:is([data-leading], [data-chosen]) :is(.wp-block-post-content, .entry-content, .wp-block-post-excerpt) {
+	line-height: var(--text-reading-body-line-height) !important;
+}
+:root[data-read-caps] :is(.wp-block-post-content, .entry-content) :is(p, li) {
+	text-transform: var(--read-case) !important;
+}
+:root[data-read-tracking] :is(.wp-block-post-content, .entry-content) :is(p, li) {
+	letter-spacing: var(--reading-tracking) !important;
+}
+:root[data-read-words] :is(.wp-block-post-content, .entry-content) :is(p, li) {
+	word-spacing: var(--reading-word-gap) !important;
+}
+/* ── THE PAGE'S TWO AREAS ─────────────────────────────────────────────────
+   (Manuel, 2026-09-24, Neve FSE's front page under Classic: the headings in
+   Newsreader and the line under them still in the theme's sans. "It seems like a
+   general problem … we have to find a holistic solution. Think of all the other
+   patterns we haven't seen.")
+
+   The reading text had one address, the inside of a post. A page built from
+   patterns, a landing page, an about page, a theme's demo sections, has its
+   paragraphs outside any post, and the reading face never reached them.
+
+   No pattern's classes can be listed, because the next theme's are not known.
+   What every block theme shares is the frame WordPress itself draws: its header
+   and footer template parts are rendered as <header> and <footer> (the ten
+   most-installed block themes, all of them), and most templates put the content
+   in a <main>; where one does not, the content is what stands between the two.
+   So: the FRAME (header, footer) speaks in the Interface face, the CONTENT
+   (main, or else what is neither header nor footer) in the Reading text's. Only
+   the face: sizes and line spacing stay the article's alone, as the headings'
+   sizes do (guest-size.js, ONLY IN THE ARTICLE).
+
+   The weight is kept low on purpose, `:where()` around the area and the
+   element, so that every role's own address (Small text, Quotes, Comments,
+   Headings, the interface parts) still wins inside both areas. The parts whose
+   role is set on a container rather than on each paragraph are left out by name,
+   or their paragraphs would take this face instead of inheriting theirs. */
+:root[data-face] :where(main, .wp-site-blocks > :not(header, footer)) :where(p, li, dd, dt, td, th):not(:where(.wp-block-quote *, .wp-block-pullquote *, .wp-block-comments *, .wp-block-comment-content *, .comment-respond *, .wp-block-post-comments-form *, .wp-block-navigation *, header *, footer *)) {
+	font-family: var(--font-reading) !important;
+}
+:root:is([data-chosen], [data-sans-own], :not([data-sans="inter"])) :where(.wp-site-blocks > header, .wp-site-blocks > footer, .wp-site-blocks > header :where(p, li, dd, dt, td, th), .wp-site-blocks > footer :where(p, li, dd, dt, td, th)) {
+	font-family: var(--font-sans) !important;
+}
+/* THE SIZE IS NOT HERE. A size dial is a multiplier and needs the element's own
+   size to multiply, and `calc(1em * factor)` in a `font-size` is the PARENT's
+   size, not the element's: it took the post title from 48px to 22px. So every
+   size, the roles' rows and the A/A stepper both, is read and written by
+   assets/js/guest-size.js, which can ask the browser what a stylesheet cannot.
+   The stepper's ratios are generated at the foot of this file. */
+
+/* ── Headings ─────────────────────────────────────────────────────────────
+   The post title and the headings inside the article. `.wp-block-heading` is
+   what core gives a heading block anywhere on the page. */
+:root[data-head-face] :is(.wp-block-post-title, .entry-title, .wp-block-post-title a, .entry-title a, .wp-block-heading, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)) {
+	font-family: var(--head-face) !important;
+}
+:root[data-head-weight] :is(.wp-block-post-title, .entry-title, .wp-block-post-title a, .entry-title a, .wp-block-heading, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed], [data-ldp-designed] *) {
+	font-weight: var(--head-weight) !important;
+}
+:root[data-head-leading] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+	line-height: var(--head-leading) !important;
+}
+:root[data-head-caps] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+	text-transform: var(--head-case) !important;
+}
+:root[data-head-tracking] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+	letter-spacing: var(--head-tracking) !important;
+}
+:root[data-head-words] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+	word-spacing: var(--head-words) !important;
+}
+
+/* ── Quotes ───────────────────────────────────────────────────────────────
+   Its slant is written only when chosen, on Architrave too. Its face, like
+   every follower's (presets.js, THE TWO VOICES, 2026-09-22), is stamped once
+   the anchor it follows has been chosen, so a quote that says "Same as
+   reading text" goes to Vollkorn with the text. */
+:root[data-quote-face] :is(.wp-block-quote, .wp-block-pullquote) {
+	font-family: var(--quote-face) !important;
+}
+:root[data-quote-weight] :is(.wp-block-quote, .wp-block-pullquote) {
+	font-weight: var(--quote-weight) !important;
+}
+:root[data-quote-leading] :is(.wp-block-quote, .wp-block-pullquote) {
+	line-height: var(--quote-leading) !important;
+}
+:root[data-quote-caps] :is(.wp-block-quote, .wp-block-pullquote) {
+	text-transform: var(--quote-case) !important;
+}
+:root[data-quote-tracking] :is(.wp-block-quote, .wp-block-pullquote) {
+	letter-spacing: var(--quote-tracking) !important;
+}
+:root[data-quote-words] :is(.wp-block-quote, .wp-block-pullquote) {
+	word-spacing: var(--quote-words) !important;
+}
+
+/* THE ALIGNMENT (2026-09-25): the post's title and the headings in its text;
+   an author's own alignment wins, and a landing page's own headings outside a
+   post's content are not the reader's to move. The headings inside the text
+   may keep an alignment of their own (the member `sub`). */
+:root[data-head-align] :is(.wp-block-post-title, .entry-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([class*="has-text-align-"]):not([data-ldp-designed]) {
+	text-align: var(--head-align) !important;
+}
+:root[data-head-m-sub-align] :is(.wp-block-post-content, .entry-content) :is(h1, h2, h3, h4, h5, h6):not([class*="has-text-align-"]) {
+	text-align: var(--head-align-sub) !important;
+}
+/* ── Category line ────────────────────────────────────────────────────────
+   The terms under a title. Core prints them as `.wp-block-post-terms`, which is
+   also where the tags land, so the two share the row here; Architrave can tell
+   them apart because its own templates name them and a plain theme's do not. */
+/* THE CATEGORIES HIDDEN (2026-09-27, the text marks, PICKS `categories`): the
+   category terms and a classic theme's category links. Above the title is
+   Architrave's alone: a theme's head is its own markup, so a guest is not
+   offered it. */
+:root[data-categories="hidden"] :is(.wp-block-post-terms.taxonomy-category, .cat-links):not([data-ldp-designed]) {
+	display: none !important;
+}
+:root[data-kicker-align] .wp-block-post-terms:not([data-ldp-designed]) {
+	text-align: var(--kicker-align) !important;
+}
+/* THE COLOUR (2026-09-26): the accent or the role's own well on the post's
+   title, the headings in its text and the category line, links included. */
+:root[data-head-colour] :is(.wp-block-post-title, .entry-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]),
+:root[data-head-colour] :is(.wp-block-post-title, .entry-title) a {
+	color: var(--head-colour) !important;
+}
+:root[data-kicker-colour] .wp-block-post-terms:not([data-ldp-designed]),
+:root[data-kicker-colour] .wp-block-post-terms a {
+	color: var(--kicker-colour) !important;
+}
+:root[data-kicker-face] .wp-block-post-terms {
+	font-family: var(--kicker-face) !important;
+}
+:root[data-kicker-weight] .wp-block-post-terms {
+	font-weight: var(--kicker-weight) !important;
+}
+:root[data-kicker-leading] .wp-block-post-terms {
+	line-height: var(--kicker-leading) !important;
+}
+:root[data-kicker-caps] .wp-block-post-terms:not([data-ldp-designed]) {
+	text-transform: var(--kicker-case) !important;
+}
+:root[data-kicker-tracking] .wp-block-post-terms:not([data-ldp-designed]) {
+	letter-spacing: var(--kicker-tracking) !important;
+}
+:root[data-kicker-words] .wp-block-post-terms:not([data-ldp-designed]) {
+	word-spacing: var(--kicker-words) !important;
+}
+
+/* ── Small text ───────────────────────────────────────────────────────────
+   Dates and captions. A caption is `figcaption` in every block theme; core also
+   marks it `.wp-element-caption`.
+   AND `.has-small-font-size`, which is the class core writes on any block a
+   writer has set to the small step. On stock Twenty Twenty-Five that is the
+   "Written by" and the "in" of the byline and the credit line in the footer:
+   three pieces of text that no role reached, measured on the Matrix look where
+   they stayed in the host's own sans while everything round them had changed
+   (Manuel, 2026-09-22: "there are still fonts that are not attached, otherwise
+   they would be green"). */
+:root[data-small-face] :is(.wp-block-post-date, .entry-meta, .wp-block-post-date a, .entry-meta a, .wp-block-post-date time, .entry-meta time, .wp-block-comment-date, .wp-block-comment-date a, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+	font-family: var(--small-face) !important;
+}
+:root[data-small-weight] :is(.wp-block-post-date, .entry-meta, .wp-block-post-date a, .entry-meta a, .wp-block-post-date time, .entry-meta time, .wp-block-comment-date, .wp-block-comment-date a, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+	font-weight: var(--small-weight) !important;
+}
+:root[data-small-leading] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+	line-height: var(--small-leading) !important;
+}
+:root[data-small-caps] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+	text-transform: var(--small-case) !important;
+}
+:root[data-small-tracking] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+	letter-spacing: var(--small-tracking) !important;
+}
+:root[data-small-words] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+	word-spacing: var(--small-words) !important;
+}
+
+/* ── Comments ─────────────────────────────────────────────────────────────
+   The names, the words, the dates and the form under the article. */
+:root[data-comment-face] :is(.wp-block-comment-author-name, .wp-block-comment-author-name a, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-date a, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title, .wp-block-post-comments-form :is(label, p, .comment-reply-title)) {
+	font-family: var(--comment-face) !important;
+}
+:root[data-comment-weight] :is(.wp-block-comment-author-name, .wp-block-comment-author-name a, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title, .wp-block-post-comments-form :is(label, p, .comment-reply-title)) {
+	font-weight: var(--comment-weight) !important;
+}
+:root[data-comment-leading] :is(.wp-block-comment-content, .wp-block-post-comments-form p) {
+	line-height: var(--comment-leading) !important;
+}
+:root[data-comment-caps] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) {
+	text-transform: var(--comment-case) !important;
+}
+:root[data-comment-tracking] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) {
+	letter-spacing: var(--comment-tracking) !important;
+}
+:root[data-comment-words] :is(.wp-block-comment-content, .wp-block-post-comments-form p) {
+	word-spacing: var(--comment-words) !important;
+}
+
+/* YOUR ACCENT ON THE ARTICLE'S LINKS (2026-09-24, the audit): a theme whose links
+   wear the text colour gave a picked accent nothing to show on. Only an accent
+   the reader picked (data-accent-own), and only links in the article's text. */
+:root[data-accent-own] :is(.wp-block-post-content, .entry-content) a:where(:not(.wp-element-button, .wp-block-button__link, .button)):not(:where([data-ldp-layout] *, [data-ldp-designed] *)) {
+	color: var(--accent) !important;
+}
+
+/* ── Interface ────────────────────────────────────────────────────────────
+   Architrave's rail, menus, buttons and cards. On a plain theme that is the
+   navigation, the buttons, the site title and the pager. Its face is the
+   panel's own sans dial, which rests on Inter, so the gate is the value and not
+   the attribute: `data-sans` is on the root from the first paint. And
+   `data-sans-own` when the reader picked Inter itself under the theme's own
+   look, where Inter is our rest and not the page's (2026-09-23, the audit).
+   `.skip-link` is in the list because it is the one piece of interface a reader
+   only ever sees under the keyboard, and it was the last thing on a stock page
+   still standing in the host's own face. */
+:root:is([data-chosen], [data-sans-own], :not([data-sans="inter"])) :is(.wp-block-navigation, .wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-site-title a, .wp-block-site-tagline, .wp-block-query-pagination, .wp-block-post-navigation-link, .skip-link, .wp-block-search__label, .wp-block-search__input, .wp-block-search__button) {
+	font-family: var(--font-sans) !important;
+}
+:root[data-ui-weight] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title a, .wp-block-query-pagination, .wp-block-post-navigation-link) {
+	font-weight: var(--ui-weight) !important;
+}
+:root[data-ui-leading] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-query-pagination) {
+	line-height: var(--ui-leading) !important;
+}
+:root[data-ui-caps] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) {
+	text-transform: var(--ui-case) !important;
+}
+:root[data-ui-tracking] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) {
+	letter-spacing: var(--ui-tracking) !important;
+}
+:root[data-ui-words] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) {
+	word-spacing: var(--ui-words) !important;
+}
+
+
+/* ── Italic, on every role ────────────────────────────────────────────────
+   The switch is one attribute with two values. `on` is the reader asking for
+   the slant; `false` is the reader taking it away from a part the host set
+   slanted (the category line on Twenty Twenty-Five rests italic), which a
+   fallback of `italic` could never do: measured 2026-09-22, the Italic row
+   changed nothing on any role, because five roles had no rule at all and the
+   two that had one fell back to italic when the slant was switched off. */
+:root[data-read-italic="on"] :is(:is(.wp-block-post-content, .entry-content) :is(p, li), .wp-block-post-excerpt) { font-style: italic !important; }
+:root[data-read-italic="false"] :is(:is(.wp-block-post-content, .entry-content) :is(p, li), .wp-block-post-excerpt) { font-style: normal !important; }
+:root[data-head-italic="on"] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) { font-style: italic !important; }
+:root[data-head-italic="false"] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) { font-style: normal !important; }
+:root[data-quote-italic="on"] :is(.wp-block-quote, .wp-block-pullquote) { font-style: italic !important; }
+:root[data-quote-italic="false"] :is(.wp-block-quote, .wp-block-pullquote) { font-style: normal !important; }
+:root[data-kicker-italic="on"] .wp-block-post-terms { font-style: italic !important; }
+:root[data-kicker-italic="false"] .wp-block-post-terms { font-style: normal !important; }
+:root[data-small-italic="on"] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) { font-style: italic !important; }
+:root[data-small-italic="false"] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) { font-style: normal !important; }
+:root[data-comment-italic="on"] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) { font-style: italic !important; }
+:root[data-comment-italic="false"] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) { font-style: normal !important; }
+:root[data-ui-italic="on"] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) { font-style: italic !important; }
+:root[data-ui-italic="false"] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) { font-style: normal !important; }
+
+/* ── Hovers, under a look ──────────────────────────────────────────────────
+   A hover belongs to whoever owns the page (Manuel, 2026-09-22: "the hover
+   looks really weird", a menu word wearing the host's underline AND the
+   look's ring). Under the theme's own look the host's hover stands, untouched.
+   Under a look, the look brings Architrave's one language for the words a
+   reader can press around the article: the menu, the pager, the site title.
+   They become the rows the rail's items are, a pill with the control corner,
+   filled on hover (or ringed when Fills is off and Lines on, which panel.css
+   already does), and the host's underline goes. The padding is taken back as
+   margin, so nothing on the page moves. Prose links keep Architrave's own
+   quiet rule: the room's accent, an underline from the font, a little off. */
+/* ONE SHAPE FOR WHAT CAN BE PRESSED (Manuel, 2026-09-25, Twenty Twenty-Five's
+   menu under Catalogue: "that roundish almost pill-like hover on the menu but
+   the quite sharp corners on the dropdown … which are we following?"). The
+   answer is Architrave's: a thing you press (a menu item, a row in a dropdown,
+   a button, a page number) has the look's control corner, and a box that holds
+   pressable things adds its own padding to it, so the curves nest. Measured
+   before: the menu's pill drew 6 + its 0.4em spread, about 14; the dropdown
+   6; the rows in it 2. The pill's spread is now taken off its radius, so the
+   corner it SHOWS is the control's. */
+:root[data-chosen] :is(.wp-block-navigation-item__content, .wp-block-query-pagination a, .wp-block-post-navigation-link a, .wp-block-site-title a) {
+	text-decoration: none !important;
+	border-radius: var(--radius-control);
+	transition: background-color var(--motion-duration-fast) ease, box-shadow var(--motion-duration-fast) ease;
+}
+/* THE PILL IS A SHAPE DRAWN BEHIND THE WORD (the same evening). It was a spread
+   shadow, which adds its spread to the corner: 6 showed as 13. Taking the
+   spread off the radius cannot work either, since a spread larger than the
+   corner leaves a square. So the pill is drawn: a layer behind the word, 0.4em
+   past it on every side as the spread was, with exactly the control's corner.
+   Nothing on the page moves; the word keeps its own box. */
+:root[data-chosen] :is(.wp-block-navigation-item__content, .wp-block-query-pagination a, .wp-block-post-navigation-link a, .wp-block-site-title a):not(:where(.wp-block-navigation__submenu-container *, .wp-block-navigation-submenu > *, .reading-panel *, #wpadminbar *)) {
+	position: relative;
+	isolation: isolate;
+}
+:root[data-chosen] :is(.wp-block-navigation-item__content, .wp-block-query-pagination a, .wp-block-post-navigation-link a, .wp-block-site-title a):not(:where(.wp-block-navigation__submenu-container *, .wp-block-navigation-submenu > *, .reading-panel *, #wpadminbar *))::before {
+	content: "";
+	position: absolute;
+	inset: calc(-1 * var(--ldp-outset, 0.4em)); /* 0.4em, or half the room to a neighbour (guest-buttons.js, THE PILL'S ROOM) */
+	z-index: -1;
+	border-radius: var(--radius-control);
+	background-color: var(--panel-hover-wash, transparent);
+	box-shadow: var(--panel-hover-ring, none); /* the line under the pointer when Fills is off (A LINE, NOT A FILL, below) */
+	pointer-events: none;
+	transition: background-color var(--motion-duration-fast) ease, box-shadow var(--motion-duration-fast) ease;
+}
+/* THE PILL IS A SHADOW, NOT PADDING (measured 2026-09-22: padding with an
+   equal negative margin still moved the menu 3px, because the margins are on
+   an inline box inside a flex row). A spread shadow in the fill's own colour
+   paints the same pill and is not in the layout at all, so nothing on the
+   host's page moves when a look arrives. */
+/* THE HOVER IS A WASH OF THE PAGE'S OWN INK (Manuel, 2026-09-22, with Arcade
+   open on both sides: "I can see a hover dark but not in light"). It was
+   `--surface-hover`, which is the rung a card takes when the pointer is over it:
+   a step of the SURFACE, and on the light side of a coloured room that step is
+   almost the paper again. Measured as the distance between the two colours:
+   Arcade 4 on light against 56 on dark, Book 14 against 30. Four is nothing.
+   A hover pill here is not a card; it is drawn straight on the paper, so what it
+   needs is not the next surface up but a little of the ink that is already
+   readable on that paper. A tenth of the ink is dark on a light page and light
+   on a dark one, by construction, and it cannot be invisible on either. */
+:root[data-chosen]:not([data-fills="off"][data-lines="on"]) :is(.wp-block-navigation-item__content, .wp-block-query-pagination a, .wp-block-post-navigation-link a, .wp-block-site-title a):is(:hover, :active) {
+	--panel-hover-wash: color-mix(in oklab, var(--text-primary) 12%, transparent);
+	background-color: transparent !important; /* the pill is the layer behind (above); the host's own press fill would be a second, smaller box */
+	box-shadow: none !important;
+}
+/* A PRESS DEEPENS, IT DOES NOT SHRINK (Manuel, 2026-09-22: "the on click state is
+   getting smaller but maybe just intenser like in Architrave"). It was shrinking
+   because nothing here spoke for the press at all: the host theme's own `:active`
+   set a plain background, which replaced the pill's spread with a box the size of
+   the word. Architrave answers a press by showing the surface the row is about to
+   land on, so the click reads as instant and nothing moves. Same pill, same size,
+   a deeper wash: a twelfth of the ink under the pointer and a fifth under the
+   finger. */
+:root[data-chosen]:not([data-fills="off"][data-lines="on"]) :is(.wp-block-navigation-item__content, .wp-block-query-pagination a, .wp-block-post-navigation-link a, .wp-block-site-title a):active {
+	--panel-hover-wash: color-mix(in oklab, var(--text-primary) 20%, transparent);
+}
+/* AN ITEM WITH A DROPDOWN IS ONE BUTTON (Manuel, 2026-09-25, Neve FSE under
+   Catalogue: "the chevron has to be part of the hover … the hover cannot stop
+   before that"). WordPress draws the word as a link and the chevron as a small
+   button beside it; the pill is drawn on the item holding both, under the
+   pointer and while its dropdown is open, and the word keeps none of its own. */
+:root[data-chosen] .wp-block-navigation__container > .wp-block-navigation-submenu {
+	position: relative;
+}
+/* Not isolated like a word's: the item holds its dropdown, which must stand
+   above the page. The layer is drawn first and the word and chevron, lifted
+   into the positioned layer, paint after it. */
+:root[data-chosen] .wp-block-navigation__container > .wp-block-navigation-submenu::before {
+	content: "";
+	position: absolute;
+	inset: calc(-1 * var(--ldp-outset, 0.4em)); /* 0.4em, or half the room to a neighbour (guest-buttons.js, THE PILL'S ROOM) */
+	border-radius: var(--radius-control);
+	background-color: var(--panel-hover-wash, transparent);
+	box-shadow: var(--panel-hover-ring, none); /* the line under the pointer when Fills is off (A LINE, NOT A FILL, below) */
+	pointer-events: none;
+	transition: background-color var(--motion-duration-fast) ease, box-shadow var(--motion-duration-fast) ease;
+}
+:root[data-chosen] .wp-block-navigation__container > .wp-block-navigation-submenu > :is(.wp-block-navigation-item__content, .wp-block-navigation__submenu-icon) {
+	position: relative;
+}
+/* A DROPDOWN HANGS FROM THE PILL (Manuel, 2026-09-25: "the dropdown still is
+   aligned with the text, which gives this little bit weird of a right-side
+   indent"). What hangs from a pressable thing lines up with the shape it
+   shows, not with its word: the dropdown moves out by the pill's reach, to
+   the pill's edge on the side it is anchored (the right, in a menu set to the
+   right), and starts a quarter rem under the pill's foot instead of inside it.
+   A bridge the pointer cannot see spans that gap, so the dropdown does not
+   close on the way down. Only the first level; a flyout beside a dropdown is
+   anchored to a row, which has no reach. */
+:root[data-chosen] .wp-block-navigation__container > .wp-block-navigation-submenu > .wp-block-navigation__submenu-container:not(:where(.reading-panel *, #wpadminbar *)) {
+	margin-top: calc(var(--ldp-outset, 0.4em) + 0.25rem) !important;
+	translate: calc(-1 * var(--ldp-outset, 0.4em)) 0;
+}
+:root[data-chosen] :is(.wp-block-navigation.items-justified-right, .wp-block-navigation.items-justified-space-between .wp-block-navigation__container > .wp-block-navigation-submenu:last-child) .wp-block-navigation__container > .wp-block-navigation-submenu > .wp-block-navigation__submenu-container:not(:where(.reading-panel *, #wpadminbar *)),
+:root[data-chosen] .wp-block-navigation.items-justified-space-between .wp-block-navigation__container > .wp-block-navigation-submenu:last-child > .wp-block-navigation__submenu-container:not(:where(.reading-panel *, #wpadminbar *)) {
+	translate: var(--ldp-outset, 0.4em) 0;
+}
+:root[data-chosen] .wp-block-navigation__container > .wp-block-navigation-submenu > .wp-block-navigation__submenu-container:not(:where(.reading-panel *, #wpadminbar *))::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 100%;
+	height: calc(var(--ldp-outset, 0.4em) + 0.25rem);
+}
+:root[data-chosen]:not([data-fills="off"][data-lines="on"]) .wp-block-navigation__container > .wp-block-navigation-submenu:is(:hover, :focus-within, :has(> [aria-expanded="true"])) {
+	--panel-hover-wash: color-mix(in oklab, var(--text-primary) 12%, transparent);
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+/* The chevron is WordPress's `background-color: inherit`: it took the item's
+   wash a second time and stood as a darker square inside the pill. */
+:root[data-chosen] .wp-block-navigation .wp-block-navigation__submenu-icon:not(:where(.reading-panel *, #wpadminbar *)) {
+	background-color: transparent !important;
+}
+:root[data-chosen] .wp-block-navigation__container > .wp-block-navigation-submenu > .wp-block-navigation-item__content:is(:hover, :active, :focus) {
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+/* INSIDE THE DROPDOWN, A ROW AND NOT A PILL (the same afternoon: "super rounded
+   … this etched frame is the hover"). The spread that lets a pill stand clear of
+   a word on the page grew past the dropdown's edge and rounded it by half an em
+   more than the look's corner. In the dropdown the box takes the look's control
+   corner and a little padding, and a row under the pointer is filled inside it,
+   its corner the box's less that padding, so the two curves stay parallel. */
+/* The rows are pressed, so they wear the control's corner, like the pill
+   above; the box holding them is that corner plus its padding (none when the
+   look's corners are square, and never more than a card's). */
+:root[data-chosen] .wp-block-navigation__submenu-container:not(:where(.reading-panel *, #wpadminbar *)) {
+	border-radius: min(1.5rem, calc(var(--radius-control) + min(var(--radius-control) * 99, 0.25rem))) !important;
+	padding: 0.25rem !important;
+}
+:root[data-chosen] .wp-block-navigation__submenu-container .wp-block-navigation-item__content:not(:where(.reading-panel *, #wpadminbar *)) {
+	border-radius: min(1.25rem, var(--radius-control)) !important;
+	box-shadow: none !important;
+}
+:root[data-chosen]:not([data-fills="off"][data-lines="on"]) .wp-block-navigation__submenu-container .wp-block-navigation-item__content:is(:hover, :focus-visible):not(:where(.reading-panel *, #wpadminbar *)) {
+	background-color: color-mix(in oklab, var(--text-primary) 12%, transparent) !important;
+	box-shadow: none !important;
+}
+/* A LINE, NOT A FILL (Manuel, 2026-09-26, Twenty Twenty-Five's dropdown under
+   Terracotta: "why no hover here on the dropdown?"). Every hover above is a
+   wash, so it waits for Fills; and the host's underline is gone under every
+   look (ONE LANGUAGE FOR A LINK). A flat look, Fills off, was left with no
+   answer to the pointer at all: Terracotta, Terminal and Blueprint, in the
+   menu and in its dropdown. Architrave's own answer with Fills off and Lines
+   on is the line: under the pointer the row is drawn in the look's line, and
+   a press turns it to the ink with the paper for its words (the side menu's
+   rows in style.css). Here the same, on the pill's own layer, so the line has
+   the pill's reach and corner; a dropdown row draws it on itself. With Lines
+   off too there is no line to draw, and Architrave keeps its wash (its
+   Fills-off rules all ask for Lines on): so does a guest (1.3.487). The
+   wash rules above ask only that Fills off and Lines on are not both said,
+   and the pill's layer and reach are there under every look. */
+:root[data-chosen][data-fills="off"][data-lines="on"] :is(.wp-block-navigation-item__content, .wp-block-query-pagination a, .wp-block-post-navigation-link a, .wp-block-site-title a):is(:hover, :focus-visible):not(:where(.wp-block-navigation__submenu-container *, .reading-panel *, #wpadminbar *)),
+:root[data-chosen][data-fills="off"][data-lines="on"] .wp-block-navigation__container > .wp-block-navigation-submenu:is(:hover, :focus-within, :has(> [aria-expanded="true"])) {
+	--panel-hover-ring: inset 0 0 0 var(--border-width-default, 1px) var(--line);
+	background-color: transparent !important;
+	box-shadow: none !important;
+}
+:root[data-chosen][data-fills="off"][data-lines="on"] :is(.wp-block-navigation-item__content, .wp-block-query-pagination a, .wp-block-post-navigation-link a, .wp-block-site-title a):active:not(:where(.wp-block-navigation-submenu > *, .wp-block-navigation__submenu-container *, .reading-panel *, #wpadminbar *)),
+:root[data-chosen][data-fills="off"][data-lines="on"] .wp-block-navigation__container > .wp-block-navigation-submenu:active:not(:has(.wp-block-navigation__submenu-container :active)) {
+	--panel-hover-ring: none;
+	--panel-hover-wash: var(--text-primary);
+	color: var(--surface-base) !important;
+}
+:root[data-chosen][data-fills="off"][data-lines="on"] .wp-block-navigation__container > .wp-block-navigation-submenu:active:not(:has(.wp-block-navigation__submenu-container :active)) > :is(.wp-block-navigation-item__content, .wp-block-navigation__submenu-icon) {
+	color: var(--surface-base) !important;
+}
+:root[data-chosen][data-fills="off"][data-lines="on"] .wp-block-navigation__submenu-container .wp-block-navigation-item__content:is(:hover, :focus-visible):not(:where(.reading-panel *, #wpadminbar *)) {
+	background-color: transparent !important;
+	box-shadow: inset 0 0 0 var(--border-width-default, 1px) var(--line) !important;
+}
+:root[data-chosen][data-fills="off"][data-lines="on"] .wp-block-navigation__submenu-container .wp-block-navigation-item__content:active:not(:where(.reading-panel *, #wpadminbar *)) {
+	background-color: var(--text-primary) !important;
+	color: var(--surface-base) !important;
+	box-shadow: none !important;
+}
+/* NO SQUARES AT THE DROPDOWN'S CORNERS (Manuel, 2026-09-26, Twenty Twenty-Five
+   under Terracotta; seen under every look with round corners). WordPress
+   gives each row of a dropdown `background-color: inherit`, a square box, and
+   the first and last rows reach into the box's round corner, so their colour
+   stood outside the curve as four small squares. The rows show the box's own
+   colour through; only the row under the pointer is filled or lined. */
+:root[data-chosen] .wp-block-navigation__submenu-container > .wp-block-navigation-item:not(:where(.reading-panel *, #wpadminbar *)) {
+	background-color: transparent !important;
+}
+/* THE MENU RESTS QUIET UNDER A SOFT LOOK (2026-09-23, the same rule as
+   Architrave's rail): with Softer reading text on, the host's menu words
+   rest at the small text's grey and come up to the ink under the pointer,
+   on keyboard focus and when open. THE PAGE YOU ARE ON IS LEFT OUT (the same
+   day, measured on Ollie under Instrument: its words at the ink on the ink):
+   under Lines the current item inverts, the ink as its ground and the paper
+   as its words, and naming it here put the ink back on the words. It keeps
+   whatever its state says. Under the theme's own look there is no
+   data-chosen and nothing moves. */
+:root[data-chosen][data-soft="on"] .wp-block-navigation-item__content:not(:where([aria-current="page"], .current-menu-item > *, .current_page_item > *, .reading-panel *, .architrave-panel-opener *)) {
+	color: var(--text-muted) !important;
+	transition: background-color var(--motion-duration-fast) ease, box-shadow var(--motion-duration-fast) ease, color var(--motion-duration-fast) ease;
+}
+:root[data-chosen][data-soft="on"] .wp-block-navigation-item__content:is(:hover, :focus-visible, [aria-expanded="true"]):not(:where([aria-current="page"], .current-menu-item > *, .current_page_item > *, .reading-panel *, .architrave-panel-opener *)) {
+	color: var(--text-primary) !important;
+}
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) a:not(.wp-block-button__link, .wp-element-button):not(:where([data-ldp-layout] *, [data-ldp-designed] *)) {
+	color: var(--reading-link-ink) !important;
+	text-decoration: underline !important;
+	text-decoration-thickness: from-font !important;
+	text-underline-offset: 0.2em !important;
+}
+/* HOW LINKS ARE MARKED (2026-09-27, the text marks, PICKS `links`): Coloured
+   takes the underline off until the pointer or the keyboard reaches the link;
+   with the accent off the colour would say nothing, so it stays there.
+   Underlined is the ink, from the theme's own rule (--reading-link-ink). */
+:root[data-chosen][data-links="coloured"]:not([data-accent="off"]) :is(.wp-block-post-content, .entry-content) a:not(.wp-block-button__link, .wp-element-button):not(:hover, :focus-visible):not(:where([data-ldp-layout] *, [data-ldp-designed] *)) {
+	text-decoration-line: none !important;
+}
+
+/* ── The column ───────────────────────────────────────────────────────────
+   Architrave measures its column in characters, so bigger text is a wider
+   column; a block theme measures it in pixels, so bigger text is the same box
+   with fewer words on a line (Manuel, 2026-09-22: "a very big font, a reading
+   font in a very narrow column, can't look good. That is actually an
+   accessibility thing"). guest-size.js writes --panel-measure: under a look
+   the look's characters times the width of one in the reading face at its
+   size; under the theme's own look the host's width times the A/A step, only
+   when the reader went larger. It lands on core's own content-size token, so
+   every constrained group, the title's and the text's, takes the same width,
+   and never past the host's wide width. */
+/* THE ARTICLE'S COLUMN, NOT THE PAGE'S (Manuel, 2026-09-25, Neve's hero on a
+   phone: two lines under a look where the theme sets four, so the title started
+   lower). The theme's content width is the width of every narrow section on the
+   page; the reading measure is the article's alone. */
+/* AND THE ARTICLE'S OWN TITLE AND PICTURE (Manuel, 2026-09-25, Twenty
+   Twenty-Five's blog under Instrument: "why is that indented?"). Scoped to the
+   text alone, the text took the look's width and the title and picture above
+   it kept the theme's, so every paragraph stood a few pixels to the left of
+   its own title. The box that holds the text holds the rest of the article
+   (on a single post: title, picture, byline, tags, comments; on the blog page:
+   each entry's title and picture), and it takes the measure too. */
+:root[data-panel-measure] :is(.wp-block-post-content, .entry-content, :has(> :is(.wp-block-post-content, .entry-content))) {
+	--wp--style--global--content-size: min(var(--panel-measure), var(--wp--style--global--wide-size, 100%)) !important;
+}
+/* A DESIGNED SECTION KEEPS ITS THEME'S WIDTH AND LINE SPACING (guest-size.js,
+   ARTICLE OR DESIGNED). The measure is the article's; a pattern's narrow
+   column is its designer's, and under the measure every constrained group of
+   a pattern page narrowed to the look's 53 characters. Both values are the
+   theme's own, read by guest-size.js before a look touched them. */
+:root[data-panel-measure] [data-ldp-layout] {
+	--wp--style--global--content-size: var(--ldp-host-content) !important;
+}
+:root[data-chosen] [data-ldp-layout] {
+	line-height: var(--ldp-host-leading, normal) !important;
+}
+
+/* ── Interface titles ─────────────────────────────────────────────────────
+   Architrave's rail has titled sections and a plain block theme has none, so
+   this role has no address here and its row is greyed rather than shown dead. */
+
+/* ── The three paragraph switches ─────────────────────────────────────────
+   Justify (with its hyphens, one decision since 2026-09-11) and the drop cap
+   are the reader's, and on Architrave they land on `.single-post-article`,
+   which a plain theme never prints; measured 2026-09-22, both switches changed
+   nothing. The tokens they spend (--reading-align, --reading-hyphens,
+   --reading-dropcap, --reading-dropcap-gap) are set by the theme's own gated
+   rules, which the splitter already sends to panel.css, so only the spending
+   is re-pointed here, at the article's direct paragraphs, as the theme does. */
+:root[data-justify="on"] :is(.wp-block-post-content, .entry-content) > p:not([class*="has-text-align"]) {
+	text-align: var(--reading-align, justify) !important;
+	hyphens: var(--reading-hyphens, auto) !important;
+	text-wrap: auto;
+}
+:root[data-dropcap="on"] :is(.wp-block-post-content, .entry-content) > p:first-of-type::first-letter {
+	initial-letter: var(--reading-dropcap, 3);
+	-webkit-initial-letter: var(--reading-dropcap, 3);
+	margin-inline-end: var(--reading-dropcap-gap, 0.3em);
+}
+
+/* ── The words the host theme greys out ───────────────────────────────────
+   A look changes the page's ink, and two kinds of text were missing it
+   (measured on the Matrix look, everything green but these): the date, which
+   Twenty Twenty-Five paints a fixed grey, and the comment Reply link, which it
+   paints near black and which therefore vanished on a black page. Neither sits
+   inside `.wp-block-post-content`, so the prose link rule never reached them.
+   The date takes the look's quiet ink and Reply takes its link ink, the same
+   two the panel gives the same jobs on Architrave. */
+:root[data-chosen] :is(.wp-block-post-date, .entry-meta, .wp-block-post-date a, .entry-meta a, .wp-block-post-date time, .entry-meta time, .wp-block-comment-date, .wp-block-comment-date a, figcaption, .wp-element-caption) {
+	color: var(--text-secondary) !important;
+}
+/* A CLASSIC THEME'S HEADER (Kadence, 2026-09-23). A block theme's header is
+   template parts that stand on the page's own colour. A classic theme's
+   `.site-header` often paints itself from a setting as a plain colour, which
+   no palette variable reaches: under a dark look the page turned dark and the
+   header stayed white. Under a look it stands on the look's page. */
+:root[data-chosen] :is(#masthead, .site-header) {
+	background-color: var(--surface-canvas) !important;
+}
+:root[data-chosen] :is(.comment-reply-link, .comment-edit-link, .comment-respond .logged-in-as a, .wp-block-comment-edit-link a, .wp-block-comment-reply-link a) {
+	color: var(--reading-link-ink) !important;
+}
+
+/* ── One line, one style ──────────────────────────────────────────────────
+   guest-rows.js stamps the pieces that share a line with a different role and
+   writes the eight text properties of that line's first piece on to them, as
+   the browser has worked them out. The gate is the root attribute the script
+   sets only once it has stamped something, so this block does not exist on a
+   page it has nothing to do on.
+   THE ATTRIBUTE IS NAMED TWICE ON PURPOSE. A role's own rule is one attribute
+   and one class, and so is this; a tie between two `!important` declarations
+   goes to whichever comes later, which is fragile to keep true by hand across
+   a growing sheet. The second mention makes this the more specific rule and
+   the question does not arise. */
+:root[data-panel-rows] [data-panel-row][data-panel-row] {
+	font-family: var(--panel-row-face) !important;
+	font-size: var(--panel-row-size) !important;
+	font-weight: var(--panel-row-weight) !important;
+	font-style: var(--panel-row-style) !important;
+	line-height: var(--panel-row-leading) !important;
+	text-transform: var(--panel-row-case) !important;
+	letter-spacing: var(--panel-row-tracking) !important;
+	word-spacing: var(--panel-row-words) !important;
+}
+:root[data-panel-rows] [data-panel-row][data-panel-row] * {
+	font-family: inherit !important;
+	font-size: inherit !important;
+	font-weight: inherit !important;
+	font-style: inherit !important;
+	letter-spacing: inherit !important;
+	text-transform: inherit !important;
+}
+
+/* ── The lines the host theme draws ───────────────────────────────────────
+   guest-lines.js marks every element that actually carries a visible border,
+   because the parts a stranger's theme draws a line on cannot be named from
+   here: Twenty Twenty-Five's More posts rows are a `wp-block-group` with a
+   hashed container class, and its tags are bare `a` elements with no class at
+   all. Under a look the dial reaches all of them; with no look nothing here
+   applies and the theme keeps its own lines exactly.
+   OFF MEANS TRANSPARENT, NOT GONE. Taking the width away would move the page
+   under the reader while they press a switch; an invisible line holds its place
+   and gives back exactly what it took. */
+:root[data-chosen][data-lines="off"] [data-panel-line]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+	border-color: transparent !important;
+}
+:root[data-chosen][data-lines="on"] [data-panel-line]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+	border-color: var(--line) !important;
+}
+:root[data-chosen][data-lines="on"][data-line-style="dashed"] [data-panel-line]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+	border-style: dashed !important;
+}
+:root[data-chosen][data-lines="on"][data-line-style="dotted"] [data-panel-line]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+	border-style: dotted !important;
+}
+/* WHAT A LINE IS FOR (Manuel, 2026-09-25, lab/the-lines-a-page-is-built-with.html).
+   guest-lines.js reads each line for what it does. Under Lines off a BOX is
+   the look's card, filled and rounded, and a RULE stays as the look's quiet
+   line; decoration goes as before. With Lines on nothing here applies: the
+   look's line already shows the structure. */
+:root[data-chosen][data-lines="off"] [data-ldp-line="box"]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+	background-color: var(--surface-base) !important;
+	border-radius: min(1.25rem, calc(var(--radius-control) * 1.4)) !important;
+}
+:root[data-chosen][data-lines="off"] [data-ldp-line="rule"]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+	border-color: var(--line) !important;
+}
+
+/* ── The dotted background ──────────────────────────────────────────────
+   Architrave draws its dots on its paper (style.css, THE DOTTED BACKGROUND),
+   which no other theme has, so on Twenty Twenty-Five the switch did nothing
+   (Manuel, 2026-09-25, under Catalogue: "they don't show up anywhere"). Here
+   the page is the paper: the dots go on the body, the page's own ground, and
+   whatever the theme filled (a band, a card, a cover) keeps its ground over
+   them, as cards do on Architrave. The same dot, the same 24px grid. */
+:root[data-dots="on"] body:not(:where(.reading-panel, .reading-panel *)) {
+	background-image: var(--page-dots) !important;
+	background-size: var(--dot-size, var(--space-6, 24px)) var(--dot-size, var(--space-6, 24px)) !important;
+}
+
+/* ── The frame on another theme ─────────────────────────────────────────
+   THE FRAME REACHES OTHER THEMES TOO (Manuel, 2026-09-25, Catalogue's
+   checkerboard on Twenty Twenty-Five: "build both"). Architrave's mat, the
+   same tokens (style.css, AND EVERY PICTURE IN THE BODY STANDS IN THE SAME
+   FIELD, THE FRAME'S PATTERN): the pictures in a post and a post's own
+   picture, in a list too. Nothing else: a cover, a hero, a background or a
+   logo is the theme's design, and a frame there would break it. Only under a
+   look; the theme's own look keeps its pictures exactly. `border-box`, since
+   a theme often gives a post's picture a fixed height, and the mat has to
+   fit inside it rather than push the picture out. */
+:root[data-chosen]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+	box-sizing: border-box !important;
+	border: var(--picture-frame) solid var(--surface-hover) !important;
+	/* the look's picture corner (Pictures take the look's corner, below): a
+	   post's picture sits in a link rounded and clipped at that corner, and a
+	   frame cut rounder than its clip lost its line at the corner (Manuel,
+	   2026-09-25: "corner is still broken") */
+	border-radius: min(2rem, calc(var(--radius-control) + min(var(--radius-control) * 99, 10px))) !important;
+	background-color: var(--surface-hover) !important;
+}
+/* With Lines on the frame is a line with the frame's width of clear ground
+   inside it, as on Architrave. */
+:root[data-chosen][data-lines="on"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+	border: var(--border-width-default, 1px) solid var(--line) !important;
+	padding: var(--picture-frame) !important;
+	background-color: transparent !important;
+}
+/* The pattern in the mat: the dot grid or the checkerboard. */
+:root[data-chosen][data-frame-pattern="dots"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+	background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text-primary) 28%, transparent) 1px, transparent 1.25px) !important;
+	background-size: var(--space-1-5, 6px) var(--space-1-5, 6px) !important;
+	background-repeat: repeat !important;
+	background-origin: border-box !important;
+}
+:root[data-chosen][data-frame-pattern="checker"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+	background-image: repeating-conic-gradient(color-mix(in srgb, var(--text-primary) 9%, transparent) 0 25%, transparent 0 50%) !important;
+	background-size: var(--space-3, 12px) var(--space-3, 12px) !important;
+	background-repeat: repeat !important;
+	background-origin: border-box !important;
+}
+/* With Lines on the pattern stays inside the line (Manuel, 2026-09-25, the
+   checkerboard by night: "the corner looks somehow off"). Catalogue's line is
+   a translucent ink, and a pattern painted under it broke the line up along
+   every edge and at the round corner; Architrave clips it the same way. */
+:root[data-chosen][data-lines="on"][data-frame-pattern]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+	background-origin: padding-box !important;
+	background-clip: padding-box !important;
+}
+:root[data-chosen][data-frame-pattern]:not([data-lines="on"]):not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+	border-color: transparent !important;
+}
+
+/* ── A badge ──────────────────────────────────────────────────────────────
+   guest-lines.js, A BADGE IS A LABEL: a small pill the theme drew round a few
+   words, on whatever tag it wears. Under a look it is the look's label, in
+   every look alike: the category line's face, weight, capitals and spacing,
+   its theme's size on the page's one scale (guest-size.js), the gray chip of the
+   secondary button, so it stays a badge when Lines is off. The Lines dial
+   still speaks to its outline, as to every other line. The attribute is
+   written three times to outweigh the heading rules above, which reach it
+   when the badge is an h2. */
+:root[data-chosen] [data-ldp-badge][data-ldp-badge][data-ldp-badge]:not(:where(.reading-panel, .reading-panel *)) {
+	font-family: var(--kicker-face, var(--font-sans)) !important;
+	font-weight: var(--kicker-weight, 500) !important;
+	line-height: var(--kicker-leading, 1.5) !important;
+	text-transform: var(--kicker-case, none) !important;
+	letter-spacing: var(--kicker-tracking, normal) !important;
+	background-color: var(--surface-hover) !important;
+	border-radius: var(--radius-control) !important;
+}
+/* AND A BADGE STAYS A SHAPE WITH LINES OFF (the same review): the hover
+   gray was the page's own gray under Classic by day (#e9e9e9 on #ebebeb), so
+   the chip vanished with its outline. A tint of its own ink shows on any
+   ground it stands on. */
+:root[data-chosen][data-lines="off"] [data-ldp-badge][data-ldp-badge][data-ldp-badge]:not(:where(.reading-panel, .reading-panel *)) {
+	background-color: color-mix(in srgb, currentColor 9%, transparent) !important;
+}
+/* A badge that is a link is the link: no underline, in the badge's own ink
+   (Manuel, 2026-09-25, Twenty Twenty-Five's podcast services under Catalogue:
+   "underlines in the pills don't feel right"). The theme takes the line off
+   too; the article's link rule put it back. */
+:root[data-chosen] [data-ldp-badge][data-ldp-badge][data-ldp-badge] a:not(:where(.reading-panel *)) {
+	color: inherit !important;
+	text-decoration: none !important;
+}
+
+/* ── Pictures take the look's corner ──────────────────────────────────────
+   Architrave rounds a picture at the control's corner plus 10 (16, 20, 24 by
+   corner size; square when the look is square). A guest's pictures stayed
+   square under every look. Pictures in the article and on designed pages
+   alike (Manuel, 2026-09-25, TT5's landing page: "the rounded corners on
+   images are not applying to all images" — the designed-section exception
+   was stamped lazily, so near-identical columns came out one round, one
+   square; his call: round them all); never a full-width one or a cover,
+   whose edges meet the page's. */
+/* A COVER THAT IS NOT FULL WIDTH IS A PICTURE TOO (Manuel, 2026-09-26, TT5's
+   Banners under Gallery: "corner radius?" — three cover tiles in a grid stood
+   square beside rounded images). Only a full-width cover meets the page's
+   edges. And the corner reads THE BASE, not the control's: Pill buttons puts
+   999 on --radius-control, which pushed every picture to the 2rem cap. */
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) :is(.wp-block-image, .wp-block-gallery .wp-block-image):not(.alignfull) img:not(:where(.wp-block-cover *, .reading-panel *)),
+:root[data-chosen] .wp-block-post-featured-image:not(.alignfull) :is(img, a):not(:where(.wp-block-cover *, .reading-panel *)),
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) .wp-block-cover:not(.alignfull):not(:where(.reading-panel *)) {
+	border-radius: min(2rem, calc(var(--radius-control-base, var(--radius-control)) + min(var(--radius-control-base, var(--radius-control)) * 99, 10px))) !important;
+	overflow: hidden;
+}
+
+/* ── A look's own pastels (panel.php, EACH PASTEL ITS OWN TINT) ────────────
+   Manuel, 2026-09-25, on lab/the-second-colour.html: the second colour should
+   come from each look's reference. A look that carries a highlighter (the
+   marker switch; Catalogue, after Visual) turns the theme's pastels into
+   highlighter colours: the reader's marker first, and pink after it (yellow,
+   when the marker is pink). They stay bright on both sides, as the marker
+   does, and carry dark words (guest-ink.js holds those at 3:1). Instrument,
+   after Linear: a pale lime (a dark one at night) and Linear's cool
+   blue-grey, which is bluer than any grey of a hover. */
+:root[data-chosen][data-marker="on"] {
+	--ldp-pastel-1: var(--marker, #fff347);
+	--ldp-pastel-2: #ffb0d8;
+}
+:root[data-chosen][data-marker="on"][data-marker-colour="pink"] {
+	--ldp-pastel-2: #fff347;
+}
+:root[data-chosen][data-look="instrument"]:not([data-marker="on"]) {
+	--ldp-pastel-1: color-mix(in oklab, #e4f222 32%, var(--surface-canvas));
+	--ldp-pastel-2: color-mix(in oklab, #aeb8c8 45%, var(--surface-canvas));
+}
+:root[data-chosen][data-look="instrument"][data-theme$="-dark"]:not([data-marker="on"]) {
+	--ldp-pastel-1: color-mix(in oklab, #e4f222 13%, var(--surface-canvas));
+	--ldp-pastel-2: #15171b;
+}
+/* A theme colour AS TEXT (panel.php, A COLOUR AS TEXT IS TRANSLATED FOR TEXT):
+   by default the look's accent lifted to light or pressed to dark. A look with
+   a highlighter writes light words in its highlighter; Gallery's reference is
+   black and white, so its words are its own white and near-black. */
+:root[data-chosen][data-marker="on"] {
+	--ldp-fg-light: var(--marker, #fff347);
+}
+:root[data-chosen][data-look="gallery"] {
+	--ldp-fg-light: #f5f5f7;
+	--ldp-fg-dark: #1d1d1f;
+}
+
+/* ── Lists in the article ─────────────────────────────────────────────────
+   Architrave's own (style.css, A LIST IS ENTRIES, NOT LINES): 20px in, 16px
+   between entries, a dot for a list, numbers for a sequence. Under a look a
+   guest's article lists come the same way (Manuel, 2026-09-25, Twenty
+   Twenty-Five's blog: "that bullet list doesn't look correct"): there the post
+   sits inside the blog's own list of posts, so the browser drew its list as a
+   list inside a list, with hollow rings, 40px in. */
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) :is(ul, ol).wp-block-list:not(:where(.reading-panel *, [data-ldp-layout] *)) {
+	padding-left: var(--space-5, 1.25rem) !important;
+}
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) ul.wp-block-list:not([class*="is-style-"]):not(:where(.reading-panel *, [data-ldp-layout] *)) {
+	list-style-type: disc !important;
+}
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) ul.wp-block-list ul.wp-block-list:not([class*="is-style-"]):not(:where(.reading-panel *, [data-ldp-layout] *)) {
+	list-style-type: circle !important;
+}
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) ol.wp-block-list:not([class*="is-style-"]):not(:where(.reading-panel *, [data-ldp-layout] *)) {
+	list-style-type: decimal !important;
+}
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) .wp-block-list > li:not(:where(.reading-panel *, [data-ldp-layout] *)) {
+	margin-top: 0 !important;
+}
+:root[data-chosen] :is(.wp-block-post-content, .entry-content) .wp-block-list > li + li:not(:where(.reading-panel *, [data-ldp-layout] *)) {
+	margin-top: var(--space-4, 1rem) !important;
+}
+
+/* ── One focus ring, and only for the keyboard────────────────────────────
+   (Manuel, 2026-09-22, with a ring standing round the site title after a plain
+   mouse click: "that 2025 theme has this weird hover on every click on every
+   item; I think it's something for accessibility but it looks off on my styles;
+   make it coherent.")
+
+   It is for accessibility, and it is drawn one generation too widely. Twenty
+   Twenty-Five marks `:focus`, which a mouse press sets as surely as the Tab key
+   does, so every click leaves a ring behind on whatever was pressed. Browsers
+   have `:focus-visible` for exactly this: it is set when the browser judges the
+   reader needs the mark, which is the keyboard and not the mouse.
+
+   NOTHING IS TAKEN AWAY FROM ANYONE WHO NEEDS IT. The mark after a mouse press
+   is removed; the mark under the keyboard is not only kept, it is made the
+   panel's own ring, so a reader tabbing through a page under a look meets one
+   shape everywhere instead of the host's on the page and ours in the panel.
+   Under no look the host's own behaviour stands untouched, as everything else
+   here does. */
+:root[data-chosen] :is(a, button, summary, [tabindex]):focus:not(:focus-visible):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+	outline: none !important;
+	box-shadow: none !important;
+}
+:root[data-chosen] :is(a, button, input, textarea, select, summary, [tabindex]):focus-visible:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+	outline: var(--focus-ring-width, 2px) solid var(--focus, currentColor) !important;
+	outline-offset: var(--focus-ring-offset, 2px) !important;
+	box-shadow: none !important;
+}
+
+/* ── A title answers the pointer by stepping back ─────────────────────────
+   (Manuel, 2026-09-22, with a post title fully underlined under the pointer:
+   "the hover on titles are in Architrave not underlined, they are less
+   intense".)
+
+   That is Architrave's link contract, and the reason for it is measured rather
+   than chosen: a link at full strength has no headroom to darken into, so it
+   spends the only headroom it has and fades; a muted link, a date or a caption,
+   has nowhere to fade to and darkens instead. A title is always the first case.
+   Under a look a title therefore drops the host's underline and steps back to
+   the muted rung, which is the same answer the panel's own titles give. */
+:root[data-chosen] :is(.wp-block-post-title a, .entry-title a, .wp-block-post-title a:visited, .entry-title a:visited):hover {
+	text-decoration: none !important;
+	opacity: var(--opacity-muted, 0.72);
+	transition: opacity var(--motion-duration-fast, 120ms) ease;
+}
+
+/* AND THE OTHER HALF OF THE SAME CONTRACT (Manuel, 2026-09-22, at the date under
+   an article: "what about those links"). A date, a tag, a caption and the author
+   line are the muted case: they have nowhere to fade to, so they answer the
+   pointer by coming up to full strength. The underline goes with them, for the
+   same reason it goes on a title: one language for a link, not the host's on the
+   page and Architrave's in the panel. Measured before this on Book: no underline
+   at rest, an underline on hover, and the colour never moving. */
+:root[data-chosen] :is(.wp-block-post-date a, .entry-meta a, .wp-block-post-date time a, .entry-meta time a, .wp-block-comment-date a, .wp-block-post-terms a, .wp-block-post-author-name a, figcaption a, .wp-element-caption a):hover {
+	text-decoration: none !important;
+	color: var(--text-primary) !important;
+	transition: color var(--motion-duration-fast, 120ms) ease;
+}
+
+/* ── The one word the look still missed ───────────────────────────────────
+   (Manuel, 2026-09-22, on the Matrix look: "not all text is reached by our
+   style. There's gray text. It shouldn't be gray, it should also be green.
+   Check everything.")
+
+   Checked: every visible piece of text on four pages, asking whether its
+   colour comes from the look. One was left, the commenter's NAME, which Twenty
+   Twenty-Five paints a fixed grey of its own, rgb(104, 104, 104). It is a link
+   and it is not inside the article, so neither the prose rule nor the greyed
+   words rule above reached it. It takes the page's ink, as the comment's own
+   words do: a name is not a quiet thing, it is who is speaking. */
+:root[data-chosen] :is(.wp-block-comment-author-name, .wp-block-comment-author-name a, .wp-block-comment-author-name a:visited) {
+	color: var(--text-primary) !important;
+}
+
+/* ── A link outside the article is not underlined ─────────────────────────
+   (Manuel, 2026-09-22: "those underlines, that's a style we wouldn't do in the
+   Architrave theme … make it fainter, brighter, or whatever but not the
+   underline", and, on the other half: "a link inside of a post that is
+   underlined, that is correct. It also changes the colour.")
+
+   So there are two kinds of link and they answer differently, which is
+   Architrave's rule and now the look's rule on any theme:
+
+   IN THE ARTICLE a link is underlined and takes the look's link ink, because
+   inside running prose the underline is what tells you a word is a link at
+   all. That rule is above and is untouched.
+
+   EVERYWHERE ELSE — the dates, the names, the tags, Reply, Edit, the
+   navigation, the pagination, the footer — a link is a row or a label, its
+   place already says it is pressable, and an underline only makes the page
+   busy. It says so by its STRENGTH instead: quiet at rest, full under the
+   pointer (the two hover rules above). Measured before this on the Matrix
+   look: the date, the author's name, Reply and the footer's link each carried
+   the host theme's underline. */
+:root[data-chosen] :is(
+	.wp-block-post-date a, .entry-meta a, .wp-block-post-date time a, .entry-meta time a, .wp-block-comment-date a,
+	.wp-block-comment-author-name a, .wp-block-post-author-name a, .wp-block-post-author-name__link,
+	.wp-block-post-terms a, .wp-block-post-title a, .entry-title a,
+	.comment-reply-link, .comment-edit-link, .wp-block-comment-reply-link a, .wp-block-comment-edit-link a,
+	.comment-respond .logged-in-as a, .comment-form a,
+	.wp-block-navigation-item__content, .wp-block-query-pagination a, .wp-block-post-navigation-link a,
+	.wp-block-site-title a, .wp-block-site-tagline a,
+	.wp-block-template-part a, .wp-block-comments-pagination a,
+	figcaption a, .wp-element-caption a
+) {
+	text-decoration: none !important;
+}
+/* A LINK AMONG PLAIN WORDS STANDS ONE RUNG UP (Manuel, 2026-09-25, Twenty
+   Twenty-Five's "Written by Manuel in Notes" under Catalogue: "I can't see them
+   … it's hard to tell that they are links"). Strength says a link is a link
+   only where it has something to be stronger than: a date alone is a label, but
+   in a byline the name and the category sat in the same grey as "Written by"
+   and "in". So in a line of the post's details that also holds plain words,
+   the links take the ink, and, being at full strength, answer the pointer by
+   stepping back like a title. Still no underline. */
+:root[data-chosen] .is-layout-flex:has(> p) > :is(.wp-block-post-author-name, .wp-block-post-terms, .wp-block-post-date) a:not(:where(.reading-panel *)) {
+	color: var(--text-primary) !important;
+}
+:root[data-chosen] .is-layout-flex:has(> p) > :is(.wp-block-post-author-name, .wp-block-post-terms, .wp-block-post-date) a:not(:where(.reading-panel *)):hover {
+	opacity: var(--opacity-muted, 0.72);
+	transition: opacity var(--motion-duration-fast, 120ms) ease;
+}
+/* AND THE LINE STANDS WHERE THE TITLE STANDS (the same afternoon: "the captions
+   could be centered in that style"). A look that centres the title centres the
+   byline under it; the theme lays that line out as a row, so the row is what
+   is centred. */
+:root[data-head-align] .is-layout-flex:has(> :is(.wp-block-post-author-name, .wp-block-post-date, .wp-block-post-terms)):not(:where(.reading-panel *, .wp-block-query *)) {
+	justify-content: var(--head-align) !important;
+}
+/* And each of them comes up to full strength under the pointer, which is the
+   other half of the same contract. The rules above already say this for the
+   dates, the tags, the captions and the author line; these are the rest. */
+:root[data-chosen] :is(.comment-reply-link, .comment-edit-link, .wp-block-comment-reply-link a, .wp-block-comment-edit-link a, .comment-respond .logged-in-as a, .comment-form a, .wp-block-comment-author-name a, .wp-block-template-part a):hover {
+	text-decoration: none !important;
+	color: var(--text-primary) !important;
+	transition: color var(--motion-duration-fast, 120ms) ease;
+}
+
+/* ── The fields and the buttons ───────────────────────────────────────────
+   (Manuel, 2026-09-22, at the comment form under a Matrix page: "that button
+   and that input form both look like they have not been touched by the style
+   so what's going on there?")
+
+   Nothing was going on: no rule here had ever named them. Measured on the
+   Matrix look, every one of them was still wearing Twenty Twenty-Five's own
+   greys — the comment box, the name, mail and website fields, the search
+   field, Post Comment and Search: ground rgb(59, 59, 59) or rgb(17, 17, 17),
+   ink white, on a black-green page.
+
+   A FIELD IS A RECESS AND A BUTTON IS A RISE, which is the whole of
+   Architrave's grammar for the two. The field takes the raised surface, the
+   control's own border and the page's ink; the button takes the hover rung,
+   which is the gray secondary button, and no outline. Both keep the look's
+   corner, since the corner dial already re-cuts `--radius-control`.
+
+   The panel is excluded by name, as everywhere in this sheet: it dresses its
+   own fields (tools/build-plugin.py, the panel's floor). */
+:root[data-chosen] :is(input:is([type="text"], [type="email"], [type="url"], [type="search"], [type="tel"], [type="number"], [type="password"], [type="date"]), textarea, select):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) {
+	background-color: var(--surface-raised) !important;
+	color: var(--text-primary) !important;
+	border-color: var(--border-control) !important;
+	border-radius: var(--radius-control) !important;
+}
+:root[data-chosen] :is(input, textarea, select):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *))::placeholder {
+	color: var(--text-secondary) !important;
+	opacity: 1 !important;
+}
+:root[data-chosen] :is(input[type="submit"], button[type="submit"], .wp-block-button__link, .wp-element-button, .wp-block-search__button):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) {
+	background-color: var(--surface-hover) !important;
+	color: var(--text-primary) !important;
+	border-color: transparent !important;
+	border-radius: var(--radius-control) !important;
+}
+:root[data-chosen] :is(input[type="submit"], button[type="submit"], .wp-block-button__link, .wp-element-button, .wp-block-search__button):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)):hover {
+	background-color: var(--surface-selected) !important;
+}
+/* THE MAIN BUTTON (2026-09-24, Neve FSE: its filled "Learn More" and its outlined
+   "Contact us" came out as one gray button twice). guest-buttons.js reads which
+   buttons the theme itself fills and marks them; under a look those are
+   Architrave's main button, filled with the accent, and every other button stays
+   the gray secondary above. The attribute is written twice to outweigh the gray
+   rule and its hover. With "Main button in ink" on, the fill is the ink. */
+:root[data-chosen] [data-ldp-button="main"][data-ldp-button]:not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) {
+	background-color: var(--accent) !important;
+	color: var(--accent-contrast) !important;
+	/* no border here: with Lines on it wears the look's line like every button
+	   (Blueprint, dark, on Neve's pale photograph: the light accent fill vanished
+	   into the sky, and the line is what showed where the button is) */
+}
+:root[data-chosen] [data-ldp-button="main"][data-ldp-button]:not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)):hover {
+	background-color: var(--accent) !important;
+	opacity: var(--opacity-fill-hover);
+}
+/* A BUTTON ON A PHOTOGRAPH (Manuel, 2026-09-25, Neve's hero under Blueprint,
+   Poster, Catalogue and Matrix: "still improvable"). guest-buttons.js marks
+   whether the photograph behind a button is light or dark (`data-ldp-photo`).
+   The colour that reads on it is the page's dark one on a light photograph and
+   its light one on a dark photograph: by day those are the ink and the paper,
+   by night the paper and the ink. The main button keeps the accent where the
+   accent reads there (a day accent on a light photograph, a night accent on a
+   dark one); elsewhere it is filled with the colour that reads and its word is
+   the accent. The secondary button is always see-through, outlined and worded
+   in the colour that reads, so the two are never alike on a photograph. Not
+   where a look hides the pictures (Book): there the page is the ground. */
+:root[data-chosen]:not([data-theme$="-dark"]):not([data-pictures="hidden"]) [data-ldp-photo="light"] { --ldp-on-photo: var(--text-primary); }
+:root[data-chosen]:not([data-theme$="-dark"]):not([data-pictures="hidden"]) [data-ldp-photo="dark"] { --ldp-on-photo: var(--surface-base); }
+:root[data-chosen][data-theme$="-dark"]:not([data-pictures="hidden"]) [data-ldp-photo="light"] { --ldp-on-photo: var(--surface-base); }
+:root[data-chosen][data-theme$="-dark"]:not([data-pictures="hidden"]) [data-ldp-photo="dark"] { --ldp-on-photo: var(--text-primary); }
+:root[data-chosen]:not([data-pictures="hidden"]) [data-ldp-button="secondary"][data-ldp-photo][data-ldp-button]:not(:where(.reading-panel *, #wpadminbar *)),
+:root[data-chosen]:not([data-pictures="hidden"]) [data-ldp-button="secondary"][data-ldp-photo][data-ldp-button]:not(:where(.reading-panel *, #wpadminbar *)):hover {
+	background-color: transparent !important;
+	color: var(--ldp-on-photo) !important;
+	box-shadow: inset 0 0 0 max(1.5px, 0.1em) var(--ldp-on-photo) !important;
+}
+:root[data-chosen]:not([data-theme$="-dark"]):not([data-pictures="hidden"]) [data-ldp-button="main"][data-ldp-photo="dark"][data-ldp-button]:not(:where(.reading-panel *, #wpadminbar *)),
+:root[data-chosen][data-theme$="-dark"]:not([data-pictures="hidden"]) [data-ldp-button="main"][data-ldp-photo="light"][data-ldp-button]:not(:where(.reading-panel *, #wpadminbar *)) {
+	background-color: var(--ldp-on-photo) !important;
+	color: var(--accent) !important;
+}
+/* AND WHERE THE THEME INKED THE PHOTOGRAPH, ITS INK (guest-buttons.js, THE
+   PHOTOGRAPH'S OWN INK): the button is filled with the colour its words wear,
+   the secondary outlined in it, so a photograph speaks one colour. */
+:root[data-chosen]:not([data-pictures="hidden"]) [data-ldp-button="secondary"][data-ldp-photo-ink][data-ldp-button][data-ldp-button]:not(:where(.reading-panel *, #wpadminbar *)) {
+	color: var(--ldp-photo-ink, var(--ldp-on-photo)) !important;
+	box-shadow: inset 0 0 0 max(1.5px, 0.1em) var(--ldp-photo-ink, var(--ldp-on-photo)) !important;
+}
+:root[data-chosen]:not([data-pictures="hidden"]) [data-ldp-button="main"][data-ldp-photo-ink][data-ldp-button][data-ldp-button]:not(:where(.reading-panel *, #wpadminbar *)) {
+	background-color: var(--ldp-photo-ink, var(--accent)) !important;
+	color: var(--ldp-photo-ink-on, var(--accent-contrast)) !important;
+}
+/* A BADGE ON A PHOTOGRAPH IS ITS OUTLINE (the same page: the theme's yellow
+   ring round "Event" came as a gray chip). On a picture a fill is a patch
+   pasted on it; the badge keeps the theme's line, in the words' own colour,
+   whatever Lines says, as a quote keeps its bar. */
+:root[data-chosen]:not([data-pictures="hidden"]) .wp-block-cover [data-ldp-badge][data-ldp-badge][data-ldp-badge][data-ldp-badge]:not(:where(.reading-panel *)) {
+	background-color: transparent !important;
+	border-color: currentColor !important;
+}
+:root[data-chosen][data-button="ink"] [data-ldp-button="main"][data-ldp-button]:not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) {
+	background-color: var(--text-primary) !important;
+	color: var(--surface-base) !important;
+}
+/* THE BUTTON'S OWN COLOUR (2026-09-26): the two tokens presets.js writes on the root. */
+:root[data-chosen][data-button="own"] [data-ldp-button="main"][data-ldp-button]:not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) {
+	background-color: var(--button-colour) !important;
+	color: var(--button-contrast) !important;
+}
+/* THE BUTTON'S STYLE ON ANOTHER THEME (2026-09-26): the fill the colour rules
+   above give, as the edge and the words. */
+:root[data-chosen] { --ldp-fill: var(--accent); }
+:root[data-chosen][data-button="ink"] { --ldp-fill: var(--text-primary); }
+:root[data-chosen][data-button="own"] { --ldp-fill: var(--button-colour); }
+:root[data-chosen]:is([data-button-style="outlined"], [data-button-style="shadow"]) [data-ldp-button="main"][data-ldp-button][data-ldp-button]:not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) {
+	background-color: transparent !important;
+	color: var(--ldp-fill) !important;
+	border: 1px solid var(--ldp-fill) !important;
+}
+:root[data-chosen][data-button-style="shadow"] [data-ldp-button="main"][data-ldp-button][data-ldp-button]:not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) {
+	background-color: var(--surface-base) !important;
+	box-shadow: 3px 3px 0 var(--ldp-fill) !important;
+}
+/* A DRAWING IS NOT A PHOTOGRAPH (2026-09-24, Neve FSE under Blueprint: its three
+   feature icons, SVG pictures of a white glyph on a blue disc, came out as blank
+   discs, because the look's duotone took both colours to one). The picture
+   effects are for photographs; an SVG keeps its own colours under every look. */
+:root:is([data-chosen], [data-pictures]) img:is([src$=".svg"], [src*=".svg?"]):not(:where(.reading-panel *, #wpadminbar *)) {
+	filter: none !important;
+}
+/* A MENU'S DROPDOWN (Manuel, 2026-09-25, Neve FSE under a dark look: "Team"
+   white on white). WordPress gives a menu without a background of its own a
+   white dropdown with black words; a look recolours the words and left the white
+   box. Under a look the box is the look's raised surface with the look's ink. */
+:root[data-chosen] .wp-block-navigation:not(.has-background) .wp-block-navigation__submenu-container:not(:where(.reading-panel *, #wpadminbar *)) {
+	background-color: var(--surface-raised) !important;
+	color: var(--text-primary) !important;
+	border-color: var(--border-default, transparent) !important;
+}
+/* The tick in "Save my name" is the browser's own blue until it is told
+   otherwise, which on a green page is the last foreign colour on the form. */
+:root[data-chosen] input:is([type="checkbox"], [type="radio"]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) {
+	accent-color: var(--accent) !important;
+}
+
+/* ── A date does not break in half ────────────────────────────────────────
+   (Manuel, 2026-09-22, at a list of posts under the Matrix look, the date on
+   the right of each title in two lines: "is there a way to fix that date over
+   the panel?")
+
+   THE TEST FOR WHETHER THE PANEL MAY TOUCH A LAYOUT AT ALL: would the fault
+   still be there if the reader had chosen nothing? If it would, it is the host
+   theme's design and none of the panel's business. If it would not, the panel
+   made it, and repairing its own damage is fair. This one fails the test in the
+   panel's favour: measured at rest the date is one line; under a look the face
+   is wider and it wants 200px in a box that gives it 170 to 187, so it wraps.
+
+   The repair is the smallest thing that answers it: a date is one short string
+   and is never a paragraph, so it does not wrap, and it does not give up its
+   width in a row. The title beside it has hundreds of pixels of slack and gives
+   up the twenty. Above the phone's width only, where there are two things on
+   the line at all. */
+@media (min-width: 600px) {
+	:root[data-chosen] :is(.wp-block-post-date, .wp-block-post-date time, .wp-block-post-author-name) {
+		white-space: nowrap;
+		flex-shrink: 0;
+	}
+	:root[data-chosen] :is(.wp-block-post-title, .wp-block-post-excerpt) {
+		min-inline-size: 0;
+	}
+}
+
+/* ── Dark ground: the footer takes the night ─────────────────────────────
+   (Manuel, 2026-09-26, for Specimen: the reference's light page ending on a
+   black band.) On Architrave the switch darkens the ground around the paper;
+   a stock theme has no ground but it has a foot, so presets.js gives the
+   footer part the style's night colours (the `.ground-dark` scope) and this
+   paints it. By day only: presets.js leaves the class off by night. The
+   footer's own coloured groups keep their colours; its words follow the ink. */
+:root[data-darkground="on"] .wp-site-blocks > footer.ground-dark {
+	background-color: var(--surface-base) !important;
+	color: var(--text-primary) !important;
+}
+:root[data-darkground="on"] .wp-site-blocks > footer.ground-dark :where(p, li, a, h1, h2, h3, h4, h5, h6, .wp-block-site-title, .wp-block-site-tagline, .wp-block-navigation-item__content):not(:where(.has-text-color, .has-text-color *, .has-background *)) {
+	color: inherit !important;
+}
+
+/* THE BUTTON LEVELS ON ANOTHER THEME (2026-09-27, style.css THE BUTTON LEVELS):
+   guest-buttons.js sorts a theme's buttons into the main one and the others;
+   Main buttons and Other buttons take their looks here (a theme has no quiet
+   kind we can tell, so Quiet buttons is Architrave's). A button on a
+   photograph keeps its own rules above. `#ldp-lv` gives an id's weight. */
+:root[data-chosen]:is([data-button-style], [data-button-medium]) { --lv-fill: var(--ldp-fill); --lv-on: var(--accent-contrast); }
+:root[data-chosen][data-button="ink"]:is([data-button-style], [data-button-medium]) { --lv-on: var(--surface-base); }
+:root[data-chosen][data-button="own"]:is([data-button-style], [data-button-medium]) { --lv-on: var(--button-contrast); }
+:root[data-chosen][data-button-style="tinted"] :is(#ldp-lv, [data-ldp-button="main"])[data-ldp-button="main"]:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: color-mix(in oklab, var(--lv-fill) 16%, var(--surface-base)) !important; color: color-mix(in oklab, var(--lv-fill) 70%, var(--text-primary)) !important; border-color: transparent !important; box-shadow: none !important; }
+:root[data-chosen][data-button-style="gray"] :is(#ldp-lv, [data-ldp-button="main"])[data-ldp-button="main"]:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: var(--surface-hover) !important; color: var(--text-primary) !important; border-color: transparent !important; box-shadow: none !important; }
+:root[data-chosen][data-button-style="text"] :is(#ldp-lv, [data-ldp-button="main"])[data-ldp-button="main"]:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: transparent !important; color: color-mix(in oklab, var(--lv-fill) 80%, var(--text-primary)) !important; border-color: transparent !important; box-shadow: none !important; }
+:root[data-chosen][data-button-medium="filled"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: var(--lv-fill) !important; color: var(--lv-on) !important; border-color: transparent !important; box-shadow: none !important; }
+:root[data-chosen][data-button-medium="tinted"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: color-mix(in oklab, var(--lv-fill) 16%, var(--surface-base)) !important; color: color-mix(in oklab, var(--lv-fill) 70%, var(--text-primary)) !important; border-color: transparent !important; box-shadow: none !important; }
+:root[data-chosen][data-button-medium="outlined"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: transparent !important; color: var(--lv-fill) !important; border: 1px solid var(--lv-fill) !important; box-shadow: none !important; }
+:root[data-chosen][data-button-medium="shadow"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: var(--surface-base) !important; color: var(--lv-fill) !important; border: 1px solid var(--lv-fill) !important; box-shadow: 3px 3px 0 var(--lv-fill) !important; }
+:root[data-chosen][data-button-medium="text"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: transparent !important; color: color-mix(in oklab, var(--lv-fill) 80%, var(--text-primary)) !important; border-color: transparent !important; box-shadow: none !important; }
+:root[data-chosen][data-button-style="tinted"] :is(#ldp-lv, [data-ldp-button="main"])[data-ldp-button="main"]:hover:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: color-mix(in oklab, var(--lv-fill) 24%, var(--surface-base)) !important; }
+:root[data-chosen][data-button-style="gray"] :is(#ldp-lv, [data-ldp-button="main"])[data-ldp-button="main"]:hover:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: var(--surface-selected) !important; }
+:root[data-chosen][data-button-style="text"] :is(#ldp-lv, [data-ldp-button="main"])[data-ldp-button="main"]:hover:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: transparent !important; text-decoration: underline !important; text-underline-offset: 0.2em !important; }
+:root[data-chosen][data-button-medium="filled"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:hover:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { opacity: var(--opacity-fill-hover, 0.86) !important; }
+:root[data-chosen][data-button-medium="tinted"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:hover:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: color-mix(in oklab, var(--lv-fill) 24%, var(--surface-base)) !important; }
+:root[data-chosen][data-button-medium="outlined"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:hover:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: color-mix(in oklab, var(--lv-fill) 8%, transparent) !important; }
+:root[data-chosen][data-button-medium="shadow"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:hover:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: color-mix(in oklab, var(--lv-fill) 12%, var(--surface-base)) !important; }
+:root[data-chosen][data-button-medium="text"] :is(#ldp-lv, [data-ldp-button="secondary"])[data-ldp-button="secondary"]:hover:not([data-ldp-photo]):not(:where(.reading-panel, .reading-panel *, #ldp-window *, #wpadminbar *)) { background-color: transparent !important; text-decoration: underline !important; text-underline-offset: 0.2em !important; }
+
+/* TAGS AND THE CHOSEN ITEM ON ANOTHER THEME (2026-09-27, style.css TAGS AND
+   THE CHOSEN ITEM): a post's tag block takes the tag looks; the navigation's
+   current page takes Filled, Outlined or Bold. At the rest each keeps the theme's own. */
+:root[data-chosen]:is([data-tags], [data-chosen-item]) { --lv-fill: var(--ldp-fill); --lv-on: var(--accent-contrast); }
+:root[data-chosen][data-button="ink"]:is([data-tags], [data-chosen-item]) { --lv-on: var(--surface-base); }
+:root[data-chosen][data-button="own"]:is([data-tags], [data-chosen-item]) { --lv-on: var(--button-contrast); }
+:root[data-chosen][data-tags] .wp-block-post-terms.taxonomy-post_tag .wp-block-post-terms__separator { display: none !important; }
+:root[data-chosen][data-tags] :is(#ldp-lv, .wp-block-post-terms.taxonomy-post_tag a):not(:where(.reading-panel *)) { display: inline-block !important; margin: 0 0.25em 0.25em 0 !important; padding: 0.15em 0.6em !important; border: 1px solid transparent !important; border-radius: 999px !important; text-decoration: none !important; }
+:root[data-chosen][data-tags][data-tagsfollow="on"] :is(#ldp-lv, .wp-block-post-terms.taxonomy-post_tag a):not(:where(.reading-panel *)) { border-radius: var(--radius-control) !important; }
+:root[data-chosen][data-tags="filled"] :is(#ldp-lv, .wp-block-post-terms.taxonomy-post_tag a):not(:where(.reading-panel *)) { background-color: var(--lv-fill) !important; color: var(--lv-on) !important; }
+:root[data-chosen][data-tags="tinted"] :is(#ldp-lv, .wp-block-post-terms.taxonomy-post_tag a):not(:where(.reading-panel *)) { background-color: color-mix(in oklab, var(--lv-fill) 16%, var(--surface-base)) !important; color: color-mix(in oklab, var(--lv-fill) 70%, var(--text-primary)) !important; }
+:root[data-chosen][data-tags="gray"] :is(#ldp-lv, .wp-block-post-terms.taxonomy-post_tag a):not(:where(.reading-panel *)) { background-color: var(--surface-hover) !important; color: var(--text-primary) !important; }
+:root[data-chosen][data-tags="outlined"] :is(#ldp-lv, .wp-block-post-terms.taxonomy-post_tag a):not(:where(.reading-panel *)) { background-color: transparent !important; color: var(--lv-fill) !important; border-color: var(--lv-fill) !important; }
+:root[data-chosen][data-chosen-item="filled"] :is(#ldp-lv, .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"]):not(:where(.reading-panel *, #wpadminbar *)) { background-color: var(--lv-fill) !important; color: var(--lv-on) !important; border-radius: var(--radius-control) !important; padding-inline: 0.5em !important; }
+:root[data-chosen][data-chosen-item="outlined"] :is(#ldp-lv, .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"]):not(:where(.reading-panel *, #wpadminbar *)) { background-color: transparent !important; color: var(--lv-fill) !important; box-shadow: inset 0 0 0 1.5px var(--lv-fill) !important; border-radius: var(--radius-control) !important; padding-inline: 0.5em !important; }
+:root[data-chosen][data-chosen-item="bold"] :is(#ldp-lv, .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"]):not(:where(.reading-panel *, #wpadminbar *)) { font-weight: 700 !important; text-decoration: underline !important; text-decoration-thickness: var(--border-width-thick, 2px) !important; text-underline-offset: 0.35em !important; }
+
+/* SURFACES ON ANOTHER THEME (2026-09-28, style.css SURFACES): the post's quotes,
+   its coloured boxes and the search and comment fields take the looks. At the
+   rest each keeps the theme's own. */
+:root[data-chosen][data-quotes="plain"] :is(#ldp-lv, .wp-block-quote):not(:where(.reading-panel *)) { border-inline-start-color: transparent !important; padding-inline-start: 0 !important; }
+:root[data-chosen][data-quotes="box"] :is(#ldp-lv, .wp-block-quote):not(:where(.reading-panel *)) { padding: 1.25em 1.5em !important; border: 1px solid color-mix(in srgb, var(--text-primary) 18%, transparent) !important; border-radius: 12px !important; background-color: color-mix(in srgb, var(--text-primary) 5%, var(--surface-base)) !important; }
+:root[data-chosen][data-notes="box"] :is(#ldp-lv, :is(.wp-block-post-content, .entry-content) .wp-block-group.has-background):not(:where(.reading-panel *)) { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text-primary) 18%, transparent) !important; }
+:root[data-chosen][data-notes="raised"] :is(#ldp-lv, :is(.wp-block-post-content, .entry-content) .wp-block-group.has-background):not(:where(.reading-panel *)) { box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-primary) 6%, transparent), 0 1px 2px rgb(0 0 0 / 0.08), 0 10px 28px rgb(0 0 0 / 0.14) !important; }
+:root[data-chosen][data-fields="box"] :is(#ldp-lv, .wp-block-search__input, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"])):not(:where(.reading-panel *, #wpadminbar *)) { background-color: var(--surface-base) !important; border-color: color-mix(in srgb, var(--text-primary) 18%, transparent) !important; box-shadow: none !important; }
+:root[data-chosen][data-fields="raised"] :is(#ldp-lv, .wp-block-search__input, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"])):not(:where(.reading-panel *, #wpadminbar *)) { background-color: var(--surface-base) !important; border-color: transparent !important; box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-primary) 6%, transparent), 0 1px 2px rgb(0 0 0 / 0.08), 0 6px 16px rgb(0 0 0 / 0.1) !important; }
+
+/* THE READING STEPPER, as ratios of the host theme's own resting sizes,
+   one for each part of the article. GENERATED by tools/build-plugin.py from
+   style.css (Default is the host's own, so it has no rule). assets/js/
+   guest-size.js spends them, because a stylesheet cannot ask an element how
+   big it already is. */
+:root[data-chosen] { --panel-rung-title: 64px; --panel-rung-h1: 44px; --panel-rung-h2: 36px; --panel-rung-h3: 32px; --panel-rung-h4: 28px; --panel-rung-h5: 26px; --panel-rung-h6: 24px; --panel-rung-body: 22px; }
+:root[data-reading="tiny"] { --panel-step-title: 0.6562; --panel-step-h1: 0.6568; --panel-step-h2: 0.6556; --panel-step-h3: 0.6562; --panel-step-h4: 0.6571; --panel-step-h5: 0.6577; --panel-step-h6: 0.6583; --panel-step-body: 0.7273; }
+:root[data-reading="small"] { --panel-step-title: 0.75; --panel-step-h1: 0.75; --panel-step-h2: 0.75; --panel-step-h3: 0.75; --panel-step-h4: 0.75; --panel-step-h5: 0.75; --panel-step-h6: 0.75; --panel-step-body: 0.8182; }
+:root[data-reading="compact"] { --panel-step-title: 0.875; --panel-step-h1: 0.9091; --panel-step-h2: 0.8889; --panel-step-h3: 0.875; --panel-step-h4: 0.9286; --panel-step-h5: 0.9231; --panel-step-h6: 0.9167; --panel-step-body: 0.9091; }
+:root[data-reading="comfortable"] { --panel-step-title: 1.125; --panel-step-h1: 1.091; --panel-step-h2: 1.111; --panel-step-h3: 1.125; --panel-step-h4: 1.143; --panel-step-h5: 1.077; --panel-step-h6: 1.083; --panel-step-body: 1.091; }
+:root[data-reading="large"] { --panel-step-title: 1.125; --panel-step-h1: 1.273; --panel-step-h2: 1.306; --panel-step-h3: 1.312; --panel-step-h4: 1.321; --panel-step-h5: 1.269; --panel-step-h6: 1.25; --panel-step-body: 1.273; }
+:root[data-reading="huge"] { --panel-step-title: 1.125; --panel-step-h1: 1.464; --panel-step-h2: 1.5; --panel-step-h3: 1.509; --panel-step-h4: 1.521; --panel-step-h5: 1.462; --panel-step-h6: 1.438; --panel-step-body: 1.636; }
+
+/* THE RULES THAT SPEND A DIAL BUT CARRY NONE, copied word for word from the
+   theme's style.css by tools/build-plugin.py (split_style.LIFTED). Their
+   selectors are already core WordPress, so there is nothing to re-point; the
+   splitter left them behind only because a rule that spends a value names no
+   dial. They are inert until a look is chosen, by value rather than by a gate:
+   --surface-layer rests at none and --picture-filter at none, and Architrave
+   ships them ungated on every page for the same reason. */
+.architrave-duotone {
+	position: absolute; width: 0; height: 0; overflow: hidden;
+}
+.architrave-duotone .duo-dark {
+	flood-color: var(--duo-dark, #000);
+}
+.architrave-duotone .duo-light {
+	flood-color: var(--duo-light, #fff);
+}
+body::before, body::after {
+	content: var(--surface-layer);
+	position: fixed;
+	inset: 0;
+	z-index: calc(var(--layer-overlay) + 1);
+	pointer-events: none;
+}
+body::before {
+	opacity: var(--surface-grain);
+	mix-blend-mode: overlay;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1'/></filter><rect width='200' height='200' filter='url(%23g)'/></svg>");
+	background-size: 200px 200px;
+}
+body::after {
+	background-image:
+	radial-gradient(ellipse at center, transparent var(--surface-vignette-reach, 55%), rgb(from var(--text-primary) r g b / var(--surface-vignette)) 100%),
+	repeating-linear-gradient(to bottom, rgb(from var(--text-primary) r g b / var(--surface-scanlines)) 0 1px, transparent 1px var(--surface-scanline-pitch));
+}
+body img:not(.emoji, .wp-smiley):not(:where(.reading-panel *, #wpadminbar *)) {
+	filter: var(--picture-filter) var(--picture-dim);
+	image-rendering: var(--picture-rendering);
+}

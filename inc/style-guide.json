@@ -1,0 +1,848 @@
+{
+  "meaning": {
+    "architrave": "Always 1. Marks the JSON as a style record.",
+    "label": "The name on the tile.",
+    "base": "The built-in style this record starts from; every key left out rests on it. See examples for what each base is.",
+    "palette": "The colour pair (a light and a dark side designed together). colours overrides its paper, ink and accent.",
+    "reading": "The reading size step of the article, a fluid rung and not a pixel value; default is about 22px on a desktop. Do not set a size for a monospaced reading face, its phone floor is handled by the theme.",
+    "face": "The font of the article body.",
+    "sans": "The font of the interface: the rail, buttons, menus.",
+    "leading": "Line spacing of the article, from solid (tightest) to loosest; default is 1.6.",
+    "justify": "Justified paragraphs with hyphenation.",
+    "dropcap": "A large initial on the first paragraph; capLines is its height in lines.",
+    "capLines": "Height of the initial in lines. Only with dropcap.",
+    "rounded": "Rounded corners on cards, buttons and pictures. false is square.",
+    "lines": "Hairlines around cards, buttons and fields and between rows. false means no lines anywhere except link underlines.",
+    "line": "Strength of those lines: the ink's share in the line colour, in per cent. 45 is the rest. Only with lines.",
+    "corners": "medium, small or large corners. One step re-cuts every corner together; nested corners stay sums. Only with rounded.",
+    "dots": "A fine grid of dots on the page ground, a cutting mat.",
+    "dotsize": "The dot grid's spacing in pixels: 16 (fine), 24 or 32 (wide). 24 is the rest. Only with dots.",
+    "dotlevel": "Strength of the dots: the ink's share in the dot colour, in per cent: 6, 9, 13, 18 or 24. 13 is the rest. Only with dots.",
+    "marker": "A highlighter: marked words and selected text get a wash in the marker colour, and a short bar stands under the article title. Decoration only, never a text colour.",
+    "markercolour": "The highlighter's colour: yellow, green, pink, blue, orange, text (the reading text's colour), muted (the date's colour), or own (the well colours.<side>.marker, fitted to the other side's paper when set on one side only; its ink and bar follow from the pen). Only with marker.",
+    "measure": "Line length of the reading text in letters: 60 to 88 in steps of 4. 72 is the rest.",
+    "space": "The space of the page: xcompact, compact, standard, spacious or xspacious. Standard is the rest, the theme's own. Each kind of gap moves by its own amount: inside a group a little, between items more, between sections most, so what belongs together stays together. The reading text of an article keeps its own rhythm.",
+    "framewidth": "Width of the frame around pictures in pixels: 4, 8, 12, 16, 24 or 32. 8 is the rest. Only with pictureframe.",
+    "framepattern": "What the frame around pictures shows: plain, dots (the dot grid) or checker (a transparency checkerboard). Only with pictureframe.",
+    "widehead": "The article's title, categories and date line stand as wide as the wide top picture, so a big title needs fewer lines; the text keeps its column.",
+    "widepicture": "The article's top picture stands wider than the text column, as wide as the paper allows.",
+    "fullpicture": "While the top picture is wide (widepicture), on stretches it edge to edge across the paper as a low banner (21:9, square corners). Off (the rest) keeps it wide.",
+    "categories": "Where the line of categories stands on the article and on its cards: below the title (the rest), above it, or hidden. It replaced the switch kickerabove.",
+    "kickerabove": "Retired 2026-09-27 and still read: true becomes categories above.",
+    "button": "What fills the main buttons: accent (the rest), ink, or own (colours.<side>.button). The links keep the accent either way.",
+    "inkbutton": "Retired 2026-09-26 and still read: true becomes button ink.",
+    "buttonshape": "The buttons' and hover pills' corner: cards (the corner size's own, the rest), square, rounded (8 px) or pill. Only with rounded. The cards keep the corner size.",
+    "tagsfollow": "The tags take the buttons' corner instead of staying round.",
+    "buttonstyle": "How the main buttons look: filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray or text (text only), in the button colour where it has one.",
+    "buttonmedium": "How the other buttons (the gray secondary ones) look: gray (the rest), filled, tinted, outlined, shadow (outlined with a hard shadow) or text (text only), in the button colour where it has one.",
+    "buttonquiet": "How the quiet buttons (small actions without a fill) look: text (the rest), filled, tinted, gray, outlined or shadow (outlined with a hard shadow). Architrave's alone; another theme has no quiet kind.",
+    "tags": "How the tags at the end of an article look: text (the rest: words, as the theme sets them), or small pills that are filled, tinted, gray or outlined, made from the button colour. Tags follow the buttons gives the pills the buttons' corner.",
+    "chosenitem": "How the chosen item is marked, the page you are on in the menu and the open tab: gray (the rest: the theme's own mark), filled with the button colour, outlined in it, or bold and underlined.",
+    "linewidth": "Line width in px: 1 (the rest), 2, 3 or 5. Only with lines; fine lines only at 1.",
+    "cards": "How cards look: box (the rest: the card's fill and, with lines, its line), top (a line along the top only, no fill, square; only with lines), flat (the fill alone, no line) or raised (the paper, lifted by a shadow).",
+    "quotes": "How quotes in an article look: a line at the side (the rest), plain, or in a box.",
+    "notes": "How a box the writer coloured inside an article looks: flat (the rest: its fill), outlined, or raised by a shadow.",
+    "fields": "How search, comment and sign-up fields look: flat (the rest: the fill, with lines its line), outlined on the paper, or raised by a shadow.",
+    "pillbuttons": "Retired 2026-09-26 and still read: true becomes buttonshape pill.",
+    "centretitle": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.",
+    "fadeedges": "which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.",
+    "linestyle": "solid, dashed or dotted lines. Dashes are long only when rounded is false. Only with lines.",
+    "fills": "Tinted fills on cards, buttons and fields. With lines and fills both false, controls are plain glyphs.",
+    "fill": "Strength of the fills as a percentage of the colour pair's own steps; 100 is the rest. Only with fills.",
+    "scanlines": "Faint horizontal lines over the whole page, an old screen.",
+    "scan": "Strength of the scan lines, 1 to 10 (opacity in hundredths). 3 is the rest. Only with scanlines.",
+    "glow": "A soft light around the letters in their own colour. Shows on the dark side only.",
+    "glowlevel": "Strength of the glow, 1 to 10. 4 is the rest. Only with glow.",
+    "grain": "A fine film grain over the whole page, the tooth of paper.",
+    "softlevel": "How far the reading text steps toward the paper, in percent: 10 to 45 in steps of 5. 15 is the rest. Only with soft.",
+    "quietlevel": "How far the small text (dates, captions, meta) steps toward the paper with soft on, in percent: 25 to 50 in steps of 5. 25 is the rest. Only with soft, and only while smallsoft is not set; the row Small text writes smallsoft since 2026-09-27.",
+    "smallsoft": "How far the small text (dates, captions, meta) steps toward the paper, in percent: 25 to 50 in steps of 5, with soft on or off. 25 is the rest, the pair's own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.",
+    "links": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer) or underlined (the ink with a quiet underline). Not set, a style with soft marks them underlined, and an export leaves it out.",
+    "grainlevel": "Strength of the grain, 1 to 10. 4 is the rest. Only with grain.",
+    "vignette": "A darkening at the page's four edges, as a screen's glass has.",
+    "vignettelevel": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
+    "vignettereach": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
+    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), grain (film grain), hidden (no images; each article picture becomes a line that shows it).",
+    "picturehover": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
+    "alternates": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
+    "soft": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
+    "picturedim": "Pictures are dimmed a little on the dark side. Applies to plain, bw, sepia and grain.",
+    "picturefade": "The article's top picture fades out toward its bottom and sides, into the paper. Not with hidden pictures.",
+    "pictureframe": "Pictures wear a frame: a mat in the fields' colour, and with lines a line around it. Off, a picture stands on the paper with its corner alone.",
+    "darkground": "By day, the ground around the page takes the style's night colours while the page stays light: the rails and the space around the paper. On other themes, the footer. Nothing changes by night.",
+    "hairlines": "Every line at half a pixel: the cards' edges, the fields, the frame and the dividers thin to a hairline. Only with lines.",
+    "tint": "The accent colour by name, used for links and the primary button. colours.accent overrides it.",
+    "scope": "Legacy. The theme always applies paragraph settings everywhere.",
+    "unlinked": "true when the light and dark colours were set independently; false lets one side follow the other.",
+    "roles": "Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme's own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.",
+    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides."
+  },
+  "rules": [
+    "Send only the keys you want to change from the base; a smaller record is a better record.",
+    "A first visit opens on the dark side, so design the dark colours first and check both.",
+    "Contrast: ink on paper at 4.5:1 or better, accent on paper at 3:1 or better, on both sides.",
+    "A strength key (line, scan, fill, glowlevel, grainlevel, vignettelevel, vignettereach, softlevel, quietlevel, framewidth, dotsize, dotlevel) does nothing unless its switch is true.",
+    "Pick fonts from the listed ids only; the theme ships no others.",
+    "To try a record without publishing it, open the site at /#style= followed by the base64url of the record JSON."
+  ],
+  "examples": {
+    "standard": {
+      "architrave": 1,
+      "label": "Original",
+      "base": "standard",
+      "palette": "neutral",
+      "tint": "purple",
+      "sans": "inter",
+      "reading": "default",
+      "face": "newsreader",
+      "leading": "default",
+      "justify": false,
+      "dropcap": false,
+      "rounded": true,
+      "lines": false,
+      "scope": "article",
+      "fills": true,
+      "roles": {}
+    },
+    "instrument": {
+      "architrave": 1,
+      "label": "Instrument",
+      "base": "instrument",
+      "space": "compact",
+      "palette": "neutral",
+      "tint": "green",
+      "sans": "inter",
+      "reading": "small",
+      "face": "inter",
+      "leading": "default",
+      "justify": false,
+      "dropcap": false,
+      "rounded": true,
+      "corners": "small",
+      "lines": true,
+      "line": "10",
+      "hairlines": true,
+      "scope": "article",
+      "fills": true,
+      "soft": true,
+      "softlevel": "30",
+      "quietlevel": "40",
+      "picturedim": true,
+      "pictureframe": false,
+      "alternates": true,
+      "roles": {
+        "kicker": {
+          "italic": false
+        },
+        "head": {
+          "weight": "semibold",
+          "leading": "tight",
+          "members": {
+            "sub": {
+              "weight": "semibold",
+              "tracking": "p1"
+            }
+          }
+        },
+        "quote": {
+          "italic": false
+        },
+        "title": {
+          "weight": "medium"
+        }
+      },
+      "colours": {
+        "light": {
+          "paper": "#f4f5f6",
+          "ink": "#08090a",
+          "accent": "#5c6300"
+        },
+        "dark": {
+          "paper": "#0f1011",
+          "ink": "#f4f6f8",
+          "accent": "#e4f222"
+        }
+      }
+    },
+    "catalogue": {
+      "architrave": 1,
+      "label": "Catalogue",
+      "base": "catalogue",
+      "space": "spacious",
+      "palette": "neutral",
+      "tint": "green",
+      "sans": "ibm-plex-mono",
+      "reading": "compact",
+      "face": "source-serif-4",
+      "leading": "snug",
+      "justify": false,
+      "dropcap": false,
+      "rounded": true,
+      "corners": "small",
+      "lines": true,
+      "line": "20",
+      "scope": "article",
+      "fills": true,
+      "soft": false,
+      "pictureframe": true,
+      "framewidth": "16",
+      "framepattern": "checker",
+      "measure": "84",
+      "widepicture": true,
+      "categories": "above",
+      "dots": true,
+      "marker": true,
+      "button": "ink",
+      "roles": {
+        "head": {
+          "face": "source-serif-4",
+          "weight": "light",
+          "size": "112",
+          "tracking": "m2",
+          "leading": "dense",
+          "align": "center",
+          "members": {
+            "sub": {
+              "size": "56",
+              "align": "default"
+            }
+          }
+        },
+        "kicker": {
+          "face": "ibm-plex-mono",
+          "caps": true,
+          "italic": false,
+          "weight": "medium",
+          "size": "14",
+          "align": "center"
+        },
+        "title": {
+          "face": "ibm-plex-mono",
+          "caps": true,
+          "weight": "medium"
+        },
+        "quote": {
+          "face": "source-serif-4"
+        }
+      },
+      "colours": {
+        "light": {
+          "paper": "#f6f6f4",
+          "ink": "#2c2c26",
+          "accent": "#6f6c42"
+        },
+        "dark": {
+          "paper": "#23231f",
+          "ink": "#f2f1ea",
+          "accent": "#c9c48a"
+        }
+      }
+    },
+    "specimen": {
+      "architrave": 1,
+      "label": "Specimen",
+      "base": "specimen",
+      "space": "spacious",
+      "palette": "neutral",
+      "tint": "green",
+      "sans": "roboto-mono",
+      "reading": "small",
+      "face": "inter-tight",
+      "leading": "snug",
+      "justify": false,
+      "dropcap": false,
+      "rounded": true,
+      "lines": true,
+      "line": "20",
+      "hairlines": true,
+      "scope": "article",
+      "fills": true,
+      "soft": false,
+      "button": "ink",
+      "darkground": true,
+      "widehead": true,
+      "widepicture": true,
+      "pictureframe": false,
+      "roles": {
+        "head": {
+          "face": "inter-tight",
+          "weight": "regular",
+          "size": "128",
+          "leading": "tight",
+          "members": {
+            "sub": {
+              "weight": "regular",
+              "size": "48"
+            }
+          }
+        },
+        "kicker": {
+          "face": "roboto-mono",
+          "caps": true,
+          "italic": false,
+          "weight": "regular",
+          "size": "16",
+          "colour": "accent"
+        },
+        "small": {
+          "caps": true,
+          "members": {
+            "captions": {
+              "caps": false
+            },
+            "author": {
+              "caps": false
+            }
+          }
+        },
+        "ui": {
+          "members": {
+            "masthead": {
+              "weight": "regular"
+            }
+          }
+        },
+        "title": {
+          "caps": true,
+          "weight": "regular"
+        }
+      },
+      "colours": {
+        "light": {
+          "paper": "#f7f7f5",
+          "ink": "#222f30",
+          "accent": "#46731a"
+        },
+        "dark": {
+          "paper": "#222f30",
+          "ink": "#ffffff",
+          "accent": "#cef79e"
+        }
+      }
+    },
+    "terracotta": {
+      "architrave": 1,
+      "label": "Terracotta",
+      "base": "terracotta",
+      "space": "spacious",
+      "palette": "neutral",
+      "tint": "orange",
+      "button": "ink",
+      "sans": "schibsted-grotesk",
+      "reading": "small",
+      "face": "source-serif-4",
+      "leading": "snug",
+      "justify": false,
+      "dropcap": false,
+      "rounded": true,
+      "corners": "medium",
+      "buttonshape": "pill",
+      "lines": true,
+      "line": "20",
+      "scope": "article",
+      "fills": false,
+      "soft": false,
+      "widepicture": true,
+      "pictureframe": false,
+      "marker": true,
+      "markercolour": "orange",
+      "roles": {
+        "head": {
+          "face": "schibsted-grotesk",
+          "weight": "semibold",
+          "size": "56",
+          "caps": true,
+          "tracking": "p12",
+          "leading": "tight",
+          "align": "center",
+          "members": {
+            "sub": {
+              "size": "28",
+              "caps": true
+            }
+          }
+        },
+        "kicker": {
+          "face": "schibsted-grotesk",
+          "weight": "regular",
+          "size": "16",
+          "caps": true,
+          "tracking": "p10",
+          "italic": false,
+          "align": "center"
+        },
+        "small": {
+          "face": "dm-mono",
+          "tracking": "m2"
+        },
+        "title": {
+          "caps": true,
+          "weight": "regular",
+          "tracking": "p5"
+        }
+      },
+      "colours": {
+        "light": {
+          "paper": "#b84b30",
+          "ink": "#f8f4e9",
+          "accent": "#ffffff"
+        },
+        "dark": {
+          "paper": "#5f1d1a",
+          "ink": "#f8f4e9",
+          "accent": "#f2b49c"
+        }
+      }
+    }
+  },
+  "colourPresets": [
+    {
+      "id": "chalk",
+      "label": "Salt morning",
+      "light": {
+        "paper": "#f7f7f5",
+        "ink": "#1f2124",
+        "accent": "#4a5568"
+      },
+      "dark": {
+        "paper": "#17181a",
+        "ink": "#e8e8e6",
+        "accent": "#9aa7b8"
+      }
+    },
+    {
+      "id": "sand",
+      "label": "Evening dune",
+      "light": {
+        "paper": "#f3e7d3",
+        "ink": "#2e2418",
+        "accent": "#a35a1f"
+      },
+      "dark": {
+        "paper": "#241c12",
+        "ink": "#eadfcb",
+        "accent": "#e0a35c"
+      }
+    },
+    {
+      "id": "linen",
+      "label": "Linen noon",
+      "light": {
+        "paper": "#f1efe6",
+        "ink": "#26261f",
+        "accent": "#6b6a4f"
+      },
+      "dark": {
+        "paper": "#1d1d18",
+        "ink": "#e6e4d8",
+        "accent": "#b5b489"
+      }
+    },
+    {
+      "id": "moss",
+      "label": "Jade valley",
+      "light": {
+        "paper": "#eaf0e6",
+        "ink": "#1c2a1c",
+        "accent": "#2f6b36"
+      },
+      "dark": {
+        "paper": "#141a14",
+        "ink": "#dfe8dc",
+        "accent": "#7fc98a"
+      }
+    },
+    {
+      "id": "fog",
+      "label": "Foggy morning",
+      "light": {
+        "paper": "#eceff3",
+        "ink": "#1f262e",
+        "accent": "#3d6b8f"
+      },
+      "dark": {
+        "paper": "#161a1f",
+        "ink": "#dfe6ee",
+        "accent": "#86b6dd"
+      }
+    },
+    {
+      "id": "brick",
+      "label": "Ember rock",
+      "light": {
+        "paper": "#f5e9e2",
+        "ink": "#2b1d18",
+        "accent": "#a8402a"
+      },
+      "dark": {
+        "paper": "#201715",
+        "ink": "#eddcd4",
+        "accent": "#e08268"
+      }
+    },
+    {
+      "id": "cobalt",
+      "label": "Blue hour",
+      "light": {
+        "paper": "#eef1f8",
+        "ink": "#16203a",
+        "accent": "#2743a8"
+      },
+      "dark": {
+        "paper": "#121727",
+        "ink": "#e1e7f5",
+        "accent": "#8ba3f5"
+      }
+    },
+    {
+      "id": "olive",
+      "label": "Cactus light",
+      "light": {
+        "paper": "#f0f0e2",
+        "ink": "#262a19",
+        "accent": "#5d6b1f"
+      },
+      "dark": {
+        "paper": "#1a1c14",
+        "ink": "#e5e7d5",
+        "accent": "#b6c563"
+      }
+    },
+    {
+      "id": "meadow",
+      "label": "Meadow morning",
+      "light": {
+        "paper": "#9dd36f",
+        "ink": "#2c2e2a",
+        "accent": "#1d4d0a"
+      },
+      "dark": {
+        "paper": "#2f4a25",
+        "ink": "#f5f1e4",
+        "accent": "#9dd36f"
+      }
+    },
+    {
+      "id": "lichen",
+      "label": "Lichen night",
+      "light": {
+        "paper": "#f7f7f5",
+        "ink": "#222f30",
+        "accent": "#46731a"
+      },
+      "dark": {
+        "paper": "#222f30",
+        "ink": "#ffffff",
+        "accent": "#cef79e"
+      }
+    },
+    {
+      "id": "corten",
+      "label": "Corten field",
+      "light": {
+        "paper": "#b84b30",
+        "ink": "#f8f4e9",
+        "accent": "#ffffff"
+      },
+      "dark": {
+        "paper": "#5f1d1a",
+        "ink": "#f8f4e9",
+        "accent": "#f2b49c"
+      }
+    },
+    {
+      "id": "sandstone",
+      "label": "Sandstone",
+      "light": {
+        "paper": "#f8f4e9",
+        "ink": "#b84b30",
+        "accent": "#5f1d1a"
+      },
+      "dark": {
+        "paper": "#b84b30",
+        "ink": "#f8f4e9",
+        "accent": "#ffffff"
+      }
+    },
+    {
+      "id": "plum",
+      "label": "Mallow evening",
+      "light": {
+        "paper": "#f2ecf3",
+        "ink": "#271e2c",
+        "accent": "#6f3a80"
+      },
+      "dark": {
+        "paper": "#1b161e",
+        "ink": "#e8dfea",
+        "accent": "#c496d6"
+      }
+    },
+    {
+      "id": "rust",
+      "label": "Rust desert",
+      "light": {
+        "paper": "#f6ece3",
+        "ink": "#2c2018",
+        "accent": "#b4531d"
+      },
+      "dark": {
+        "paper": "#211915",
+        "ink": "#eee0d3",
+        "accent": "#e79355"
+      }
+    },
+    {
+      "id": "navy",
+      "label": "Sea night",
+      "light": {
+        "paper": "#edf0f2",
+        "ink": "#14212b",
+        "accent": "#0f4c70"
+      },
+      "dark": {
+        "paper": "#101a21",
+        "ink": "#dfe8ee",
+        "accent": "#6fb3d8"
+      }
+    },
+    {
+      "id": "sage",
+      "label": "Oasis light",
+      "light": {
+        "paper": "#ecf1ed",
+        "ink": "#1e2a22",
+        "accent": "#3f7a5c"
+      },
+      "dark": {
+        "paper": "#151b17",
+        "ink": "#e0e9e3",
+        "accent": "#85c9a6"
+      }
+    },
+    {
+      "id": "charcoal",
+      "label": "Grey hour",
+      "light": {
+        "paper": "#f0f0f0",
+        "ink": "#202020",
+        "accent": "#555555"
+      },
+      "dark": {
+        "paper": "#141414",
+        "ink": "#e4e4e4",
+        "accent": "#a0a0a0"
+      }
+    },
+    {
+      "id": "midnight",
+      "label": "Indigo night",
+      "light": {
+        "paper": "#eaecf4",
+        "ink": "#171a2e",
+        "accent": "#303c8c"
+      },
+      "dark": {
+        "paper": "#0f1120",
+        "ink": "#dfe2f0",
+        "accent": "#8f9bea"
+      }
+    },
+    {
+      "id": "espresso",
+      "label": "Earth shadow",
+      "light": {
+        "paper": "#f2ebe4",
+        "ink": "#241a14",
+        "accent": "#7a4a26"
+      },
+      "dark": {
+        "paper": "#1b1512",
+        "ink": "#e8ded4",
+        "accent": "#c89468"
+      }
+    },
+    {
+      "id": "carbon",
+      "label": "Carbon night",
+      "light": {
+        "paper": "#f6f5f2",
+        "ink": "#1b1a1c",
+        "accent": "#3d4bb5"
+      },
+      "dark": {
+        "paper": "#1b1a1c",
+        "ink": "#f1f0ee",
+        "accent": "#9aa5e8"
+      }
+    },
+    {
+      "id": "draft",
+      "label": "Drafting blue",
+      "light": {
+        "paper": "#edf1f6",
+        "ink": "#23395f",
+        "accent": "#2a5bc0"
+      },
+      "dark": {
+        "paper": "#133a7c",
+        "ink": "#eaf1ff",
+        "accent": "#a9cbff"
+      }
+    },
+    {
+      "id": "limelight",
+      "label": "Lime night",
+      "light": {
+        "paper": "#f4f5f6",
+        "ink": "#08090a",
+        "accent": "#5c6300"
+      },
+      "dark": {
+        "paper": "#0f1011",
+        "ink": "#f4f6f8",
+        "accent": "#e4f222"
+      }
+    },
+    {
+      "id": "gallery",
+      "label": "Gallery white",
+      "light": {
+        "paper": "#ffffff",
+        "ink": "#1d1d1f",
+        "accent": "#0066cc"
+      },
+      "dark": {
+        "paper": "#000000",
+        "ink": "#f5f5f7",
+        "accent": "#2997ff"
+      }
+    },
+    {
+      "id": "vellum",
+      "label": "Vellum",
+      "light": {
+        "paper": "#f6f6f4",
+        "ink": "#2c2c26",
+        "accent": "#6f6c42"
+      },
+      "dark": {
+        "paper": "#23231f",
+        "ink": "#f2f1ea",
+        "accent": "#c9c48a"
+      }
+    },
+    {
+      "id": "vermilion",
+      "label": "Vermilion",
+      "light": {
+        "paper": "#b82a16",
+        "ink": "#fff6ec",
+        "accent": "#ffe680"
+      },
+      "dark": {
+        "paper": "#2a0a06",
+        "ink": "#ffd9cc",
+        "accent": "#ff7a5c"
+      }
+    },
+    {
+      "id": "ultramarine",
+      "label": "Ultramarine",
+      "light": {
+        "paper": "#1f33c9",
+        "ink": "#f2f4ff",
+        "accent": "#ffd23f"
+      },
+      "dark": {
+        "paper": "#0a0f33",
+        "ink": "#dfe4ff",
+        "accent": "#8c98ff"
+      }
+    },
+    {
+      "id": "cadmium",
+      "label": "Cadmium yellow",
+      "light": {
+        "paper": "#ffd23f",
+        "ink": "#231c00",
+        "accent": "#b3124f"
+      },
+      "dark": {
+        "paper": "#1f1a05",
+        "ink": "#fff3c4",
+        "accent": "#ffd23f"
+      }
+    },
+    {
+      "id": "flamingo",
+      "label": "Flamingo",
+      "light": {
+        "paper": "#ffc9da",
+        "ink": "#3b0a1f",
+        "accent": "#b01d5c"
+      },
+      "dark": {
+        "paper": "#2a0b18",
+        "ink": "#ffe0ea",
+        "accent": "#ff79aa"
+      }
+    },
+    {
+      "id": "viridian",
+      "label": "Viridian",
+      "light": {
+        "paper": "#0b6358",
+        "ink": "#eafff9",
+        "accent": "#ffd59a"
+      },
+      "dark": {
+        "paper": "#062521",
+        "ink": "#cff5ec",
+        "accent": "#46d9c0"
+      }
+    },
+    {
+      "id": "ultraviolet",
+      "label": "Ultraviolet",
+      "light": {
+        "paper": "#ece2ff",
+        "ink": "#24005c",
+        "accent": "#6a12e8"
+      },
+      "dark": {
+        "paper": "#16002e",
+        "ink": "#eadcff",
+        "accent": "#c6ff3d"
+      }
+    },
+    {
+      "id": "tangerine",
+      "label": "Tangerine",
+      "light": {
+        "paper": "#ff8a1f",
+        "ink": "#1f0e00",
+        "accent": "#3d1a8f"
+      },
+      "dark": {
+        "paper": "#2a1300",
+        "ink": "#ffe3c7",
+        "accent": "#ff9a3d"
+      }
+    },
+    {
+      "id": "lagoon",
+      "label": "Lagoon",
+      "light": {
+        "paper": "#b6f0de",
+        "ink": "#0b3b33",
+        "accent": "#c2185b"
+      },
+      "dark": {
+        "paper": "#0a2a26",
+        "ink": "#c9f7ea",
+        "accent": "#6ff0c8"
+      }
+    }
+  ]
+}
