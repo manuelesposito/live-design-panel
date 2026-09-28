@@ -488,6 +488,57 @@ def divide(items: list) -> tuple[list, list]:
     return theme, plugin
 
 
+# THE SITE'S OWN RULES (2026-09-28). The parts only elmastudio.de uses leave the
+# theme for the private plugin Elmastudio Site (tools/site_parts.py), and so do
+# the rules that draw them: a selector branch goes with the site when it names
+# one of these classes (a class that begins with the word) or attributes. The
+# theme's zip leaves them out (tools/build-dist.py); the plugin carries them as
+# assets/css/site.css (tools/build-site.py), loaded right after style.css.
+SITE_CLASSES = (
+    "rail-newsletter", "rail-promo", "nl-confetti", "about-numbers", "page-faces",
+    "post-origin-note", "rail-more-language", "rail-language", "mobile-panel-language",
+    "readers-note", "related-list", "related-row", "release-archive", "release-checked",
+    "support-box", "mailpoet", "falling-light",
+)
+SITE_ATTRS = ("data-newsletter-done", "data-ground")
+SITE_NAME = re.compile(r"\.(" + "|".join(re.escape(c) for c in SITE_CLASSES) + r")(?![a-z0-9_])|\.(" + "|".join(re.escape(c) for c in SITE_CLASSES) + r")[-_]|\[\s*(" + "|".join(SITE_ATTRS) + r")\b")
+
+
+def is_site(selector: str) -> bool:
+    """Every branch names one of the site's classes, outside a :not()."""
+    return all(SITE_NAME.search(NOT_CALL.sub("", b)) for b in expand(selector))
+
+
+def divide_site(items: list) -> tuple[list, list]:
+    theme, site = [], []
+    for item in items:
+        if item[0] == "rule":
+            sels = split_selectors(item[1])
+            mine = [s for s in sels if not is_site(s)]
+            theirs = [s for s in sels if is_site(s)]
+            if mine:
+                theme.append(("rule", ", ".join(mine), item[2]))
+            if theirs:
+                site.append(("rule", ", ".join(theirs), item[2]))
+        elif item[0] == "at":
+            t, p = divide_site(item[2])
+            if t:
+                theme.append(("at", item[1], t))
+            if p:
+                site.append(("at", item[1], p))
+        else:
+            theme.append(item)
+    return theme, site
+
+
+def split_site(css: str) -> tuple[str, str]:
+    """(the theme's half without the site's rules, the site's rules): the theme's
+    half of style.css, cut once more."""
+    theme, _plugin = divide(parse(strip_comments(css)))
+    kept, site = divide_site(theme)
+    return write(kept) + "\n", write(site) + "\n"
+
+
 def write(items: list, depth: int = 0) -> str:
     pad = "\t" * depth
     out = []
@@ -525,6 +576,10 @@ def main() -> int:
     print(f"rules in style.css: {count(items)}")
     print(f"  the theme's:  {count(theme)}  ({len(write(theme)) // 1024} KB)")
     print(f"  the plugin's: {count(plugin)}  ({len(write(plugin)) // 1024} KB)")
+    kept, site = divide_site(theme)
+    print(f"  of the theme's, the site's own: {count(site)}  ({len(write(site)) // 1024} KB)")
+    if "--site" in sys.argv:
+        print(write(site))
     return 0
 
 

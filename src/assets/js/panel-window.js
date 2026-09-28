@@ -679,6 +679,7 @@
 	function commit() {
 		var s = St(), x = s.tile(s.current());
 		if (!x || x.host || x.own) return '';
+		if (!x.edited && s.styles().original === x.id) return ''; /* Original untouched asks for nothing, as the lab's */
 		return '<button type="button" class="ldpw-blue ldpw-commit" data-act="commit" data-f="act:commit"' + (x.edited ? '' : ' disabled') + '>' + esc(x.site ? t('Publish') : t('Save As…')) + '</button>';
 	}
 	function commitPress() {

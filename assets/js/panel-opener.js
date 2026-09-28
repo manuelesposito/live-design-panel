@@ -271,12 +271,15 @@
 	function land() {
 		var r = pill.getBoundingClientRect(), home = rests[near], nx = Math.round(r.left - home.left), ny = Math.round(r.top - home.top);
 		ghosts.remove(); ghosts = null;
-		if (near && (near !== S.place || pulled)) window.ArchitraveStyles.setButton('place', near).catch(function () {  });
+		var place = near && (near !== S.place || pulled) ? near : null;
 		pulled = false;
 		at.x = 0; at.y = 0; 
+		if (place) { S.place = place; pill.setAttribute('data-place', place); }
 		fit();
-		var to = pill.getBoundingClientRect(), gx = r.left - to.left, gy = r.top - to.top;
-		if ((gx || gy) && pill.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) pill.animate([{ transform: 'translate(' + gx + 'px, ' + gy + 'px)' }, { transform: 'none' }], { duration: 350, easing: 'cubic-bezier(.3, 1.2, .5, 1)' });
+		var to = pill.getBoundingClientRect(), gx = r.left - to.left, gy = r.top - to.top, glide = null;
+		if ((gx || gy) && pill.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) glide = pill.animate([{ transform: 'translate(' + gx + 'px, ' + gy + 'px)' }, { transform: 'none' }], { duration: 350, easing: 'cubic-bezier(.3, 1.2, .5, 1)' });
+		if (place) { var write = function () { window.ArchitraveStyles.setButton('place', place).catch(function () {  }); };
+			if (glide && glide.finished) glide.finished.then(write, write); else write(); }
 	}
 	document.addEventListener('dragstart', function (e) { if (drag) e.preventDefault(); }, true);
 	pill.addEventListener('pointerup', end);

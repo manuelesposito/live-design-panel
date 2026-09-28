@@ -386,13 +386,19 @@
 	function land() {
 		var r = pill.getBoundingClientRect(), home = rests[near], nx = Math.round(r.left - home.left), ny = Math.round(r.top - home.top);
 		ghosts.remove(); ghosts = null;
-		if (near && (near !== S.place || pulled)) window.ArchitraveStyles.setButton('place', near).catch(function () { /* refused: the old place came back with the event */ });
+		var place = near && (near !== S.place || pulled) ? near : null;
 		pulled = false;
 		at.x = 0; at.y = 0; /* IT ALWAYS SNAPS (2026-09-28): let go anywhere, it lands exactly on the nearest place */
+		if (place) { S.place = place; pill.setAttribute('data-place', place); }
 		fit();
 		/* IT GLIDES THERE, overshooting a little and settling (the lab's .35s spring): from where it was let go to where it lands */
-		var to = pill.getBoundingClientRect(), gx = r.left - to.left, gy = r.top - to.top;
-		if ((gx || gy) && pill.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) pill.animate([{ transform: 'translate(' + gx + 'px, ' + gy + 'px)' }, { transform: 'none' }], { duration: 350, easing: 'cubic-bezier(.3, 1.2, .5, 1)' });
+		var to = pill.getBoundingClientRect(), gx = r.left - to.left, gy = r.top - to.top, glide = null;
+		if ((gx || gy) && pill.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) glide = pill.animate([{ transform: 'translate(' + gx + 'px, ' + gy + 'px)' }, { transform: 'none' }], { duration: 350, easing: 'cubic-bezier(.3, 1.2, .5, 1)' });
+		/* THE GLIDE FIRST, THE WRITE AFTER (2026-09-28): saving the place re-measures the page, 12 ms on a test page
+		   and more on a real one, and it ran before the glide began, so the button hesitated on letting go. Now the
+		   button is already on its way (and on its place) when the site's copy is written. */
+		if (place) { var write = function () { window.ArchitraveStyles.setButton('place', place).catch(function () { /* refused: the old place came back with the event */ }); };
+			if (glide && glide.finished) glide.finished.then(write, write); else write(); }
 	}
 	/* NO NATIVE DRAG UNDER A CARRIED DOOR (2026-09-23, measured at Top left:
 	   the door moved once and stopped). The press over the site's title link
