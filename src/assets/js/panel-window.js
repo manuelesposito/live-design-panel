@@ -1410,7 +1410,7 @@
 				row(t('Language'), '<span class="ldpw-val">' + esc(lang === 'de' ? 'Deutsch' : 'English') + '</span>', esc(t('Follows your WordPress profile'))));
 	}
 	/* SOUNDS (the prototype's): small tones made on the spot, off unless asked for */
-	var actx = null, lastTick = {}, lastHover = 0;
+	var actx = null, lastTick = {}, lastHover = 0, hoverKey = null;
 	/* A BROWSER KEEPS SOUND ASLEEP UNTIL A PRESS (2026-09-28): a context first made by a hover, or by a window that
 	   opened without a click, starts suspended and stayed so, and every sound after it was silent. It is woken on
 	   each tone and on the first press or key anywhere, which is when the browser lets it wake. */
@@ -1429,7 +1429,14 @@
 	}
 	/* HOVER SOUNDS (the lab's "Clicks and hover"): a faint tick as the pointer crosses a row, a tile or a menu item */
 	document.addEventListener('pointerover', function (e) {
-		if (!open || prefs.sound !== 'all' || !e.target.closest || !e.target.closest('#ldp-window :is(.ldpw-nav, .ldpw-navrow, .ldpw-tile, .ldpw-menu button, .ldpw-cmdlist button, .ldpw-lk), [data-reading-panel-open]')) return;
+		var st = e.target.closest && e.target.closest('#ldp-window .ldpw-stile'); /* a style card and its ••• are one item */
+		var item = st ? st.querySelector('.ldpw-tile') : e.target.closest && e.target.closest('#ldp-window :is(.ldpw-nav, .ldpw-navrow, .ldpw-tile, .ldpw-menu button, .ldpw-cmdlist button, .ldpw-lk), [data-reading-panel-open]');
+		/* ONE TICK PER ITEM (2026-09-28): crossing the parts inside a tile (its picture, its lines, its name) ticked
+		   each time, a Geiger counter over the style cards; now only entering another item ticks. An item is known
+		   by what it does (data-f), so a redraw under the pointer is not a new one. */
+		var key = item ? (item.getAttribute('data-f') || item.getAttribute('data-menu-item') || item) : null;
+		if (key === hoverKey) return; hoverKey = key;
+		if (!item || !open || prefs.sound !== 'all') return;
 		var n = Date.now(); if (n - lastHover < 60) return; lastHover = n; sound('hover');
 	});
 	function pageBody(x) {
@@ -1815,7 +1822,7 @@
 			if (on) { makeGlow(); glow.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 240, easing: 'ease-out' }); }
 			else if (glow && !glow.hidden && !win.classList.contains('has-door-light')) { var g = glow, a = g.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 320, easing: 'ease-in', fill: 'forwards' }); a.finished.then(function () { g.hidden = true; a.cancel(); }, function () {}); }
 		}
-		return { can: can, open: openIt, close: closeIt, carried: carried, live: function () { return live; } };
+		return { can: can, open: openIt, close: closeIt, carried: carried, live: function () { return live; }, lit: lit, band: band };
 	}());
 	/* THE WINDOW IS BUILT BEFORE IT IS ASKED FOR (2026-09-28): drawing its rows took 55-70 ms on a real site, so
 	   the click waited that long and the blob lost its first frames. It is drawn, still hidden, when the pointer
@@ -1934,6 +1941,22 @@
 			if (St() && St().watch) St().watch(changed);
 		}
 	}
+	/* ONE LAP OF LIGHT (2026-09-28, the lab's): the Aurora's band runs once round the window's edge after it opens,
+	   from the foot, a bright head and a long fading tail, its glow travelling outside the edge (so the lap stands
+	   over the window, 24 px wider each side: the window clips), 1.3 s. Once per page visit, only with the Aurora
+	   on, never with reduced motion. */
+	var lapped = false;
+	function lap() {
+		if (lapped || !open || !win || win.hidden || !morph.lit() || prefs.motion === 'reduced' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		lapped = true;
+		var r = win.getBoundingClientRect(), l = document.createElement('div');
+		l.className = 'ldpw-lap'; l.setAttribute('aria-hidden', 'true');
+		Object.assign(l.style, { left: (r.left - 24) + 'px', top: (r.top - 24) + 'px', width: (r.width + 48) + 'px', height: (r.height + 48) + 'px' });
+		l.style.setProperty('--r', getComputedStyle(win).borderTopLeftRadius); l.style.setProperty('--ldpw-band', morph.band());
+		l.innerHTML = '<span><i></i></span><i></i>'; document.body.appendChild(l);
+		var run = l.animate([{ '--ldpw-lap': '180deg', opacity: 0 }, { opacity: 1, offset: 0.12 }, { opacity: 1, offset: 0.78 }, { '--ldpw-lap': '560deg', opacity: 0 }], { duration: 1300, easing: 'cubic-bezier(.65, 0, .35, 1)', fill: 'forwards' });
+		run.finished.then(function () { l.remove(); }, function () { l.remove(); });
+	}
 	function showNow() {
 		var ready = primed; primed = false; win.classList.remove('is-primed');
 		if (!ready) { asking = false; phoneList = true; editing = null; menu = null; }
@@ -1941,11 +1964,13 @@
 		win.hidden = false; zoomPage();
 		if (ready) { var f0 = win.querySelector('.ldpw-nav.is-on, .ldpw-nav'); if (f0) f0.focus({ preventScroll: true }); } else render('.ldpw-nav.is-on, .ldpw-nav');
 		place();
-		if (morph.can()) morph.open(); /* the button becomes the window */
+		var morphs = morph.can(); if (morphs) morph.open(); /* the button becomes the window */
+		setTimeout(lap, morphs ? 420 : 160); /* once the window stands */
 		if (door && door.setAttribute) door.setAttribute('aria-expanded', 'true');
 	}
 	function hide(keepFocus) {
 		if (!win || !open) return;
+		var lp = document.querySelector('body > .ldpw-lap'); if (lp) lp.remove();
 		sound('close');
 		open = false; asking = false; menu = null;
 		if (St() && St().previewing()) { St().previewVersion(null); verSel = 'now'; }

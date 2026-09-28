@@ -947,7 +947,7 @@ function architrave_as_reader_head() {
 	$words = array(
 		'bar' => __( 'Preview as Reader. Nothing you pick here is kept.', 'live-design-panel' ),
 	);
-	echo '<script>(function(){try{var h={},i,k;for(i=0;i<localStorage.length;i++){k=localStorage.key(i);h[k]=localStorage.getItem(k);}localStorage.clear();window.addEventListener("pagehide",function(){try{localStorage.clear();Object.keys(h).forEach(function(k){localStorage.setItem(k,h[k]);});}catch(e){}});}catch(e){}window.architraveAsReader=true;document.documentElement.setAttribute("data-ldp-as-reader","");document.addEventListener("DOMContentLoaded",function(){var b=document.createElement("div");b.className="ldp-preview-bar";b.setAttribute("role","status");b.textContent=' . wp_json_encode( $words['bar'] ) . ';document.body.appendChild(b);});})();</script>' . "\n"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- a fixed script; the one word is JSON-encoded.
+	wp_print_inline_script_tag( '(function(){try{var h={},i,k;for(i=0;i<localStorage.length;i++){k=localStorage.key(i);h[k]=localStorage.getItem(k);}localStorage.clear();window.addEventListener("pagehide",function(){try{localStorage.clear();Object.keys(h).forEach(function(k){localStorage.setItem(k,h[k]);});}catch(e){}});}catch(e){}window.architraveAsReader=true;document.documentElement.setAttribute("data-ldp-as-reader","");document.addEventListener("DOMContentLoaded",function(){var b=document.createElement("div");b.className="ldp-preview-bar";b.setAttribute("role","status");b.textContent=' . wp_json_encode( $words['bar'] ) . ';document.body.appendChild(b);});})();' ); /* printed through WordPress; the one word is JSON-encoded */
 }
 add_action( 'wp_head', 'architrave_as_reader_head', 0 );
 

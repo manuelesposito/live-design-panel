@@ -531,6 +531,49 @@ def divide_site(items: list) -> tuple[list, list]:
     return theme, site
 
 
+# ARCHITRAVE EXTRAS' RULES (2026-09-28): the player for a post's spoken version
+# and the ".md" half of the share button left the theme for the public plugin
+# Architrave Extras (extras/). Same rule as the site's: a branch that names one
+# of these classes goes with the plugin's assets/css/extras.css
+# (tools/build-extras.py), and the theme's zip leaves it out.
+EXTRAS_CLASSES = ("listen", "post-share-more", "post-share-menu")
+EXTRAS_NAME = re.compile(r"\.(" + "|".join(re.escape(c) for c in EXTRAS_CLASSES) + r")(?![a-z0-9_])|\.(" + "|".join(re.escape(c) for c in EXTRAS_CLASSES) + r")[-_]")
+
+
+def is_extras(selector: str) -> bool:
+    return all(EXTRAS_NAME.search(NOT_CALL.sub("", b)) for b in expand(selector))
+
+
+def divide_by(items: list, test) -> tuple[list, list]:
+    keep, out = [], []
+    for item in items:
+        if item[0] == "rule":
+            sels = split_selectors(item[1])
+            mine = [s for s in sels if not test(s)]
+            theirs = [s for s in sels if test(s)]
+            if mine:
+                keep.append(("rule", ", ".join(mine), item[2]))
+            if theirs:
+                out.append(("rule", ", ".join(theirs), item[2]))
+        elif item[0] == "at":
+            k, o = divide_by(item[2], test)
+            if k:
+                keep.append(("at", item[1], k))
+            if o:
+                out.append(("at", item[1], o))
+        else:
+            keep.append(item)
+    return keep, out
+
+
+def theme_only(css: str) -> tuple[str, str, str]:
+    """(the theme's zip half, the site's rules, Architrave Extras' rules)."""
+    theme, _plugin = divide(parse(strip_comments(css)))
+    theme, site = divide_site(theme)
+    theme, extras = divide_by(theme, is_extras)
+    return write(theme) + "\n", write(site) + "\n", write(extras) + "\n"
+
+
 def split_site(css: str) -> tuple[str, str]:
     """(the theme's half without the site's rules, the site's rules): the theme's
     half of style.css, cut once more."""
@@ -578,8 +621,12 @@ def main() -> int:
     print(f"  the plugin's: {count(plugin)}  ({len(write(plugin)) // 1024} KB)")
     kept, site = divide_site(theme)
     print(f"  of the theme's, the site's own: {count(site)}  ({len(write(site)) // 1024} KB)")
+    kept, extras = divide_by(kept, is_extras)
+    print(f"  of the theme's, Architrave Extras': {count(extras)}  ({len(write(extras)) // 1024} KB)")
     if "--site" in sys.argv:
         print(write(site))
+    if "--extras" in sys.argv:
+        print(write(extras))
     return 0
 
 

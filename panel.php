@@ -13,12 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once plugin_dir_path( ARCHITRAVE_PANEL_FILE ) . 'words.php';
 
-function architrave_panel_textdomain() {
-	// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- kept on purpose: the German ships bundled in languages/ and must load before translate.wordpress.org has approved language packs; WordPress's automatic loading covers only the packs.
-	load_plugin_textdomain( 'live-design-panel', false, dirname( plugin_basename( ARCHITRAVE_PANEL_FILE ) ) . '/languages' );
-}
-add_action( 'init', 'architrave_panel_textdomain' );
-
 function architrave_panel_where() {
 	if ( defined( 'ARCHITRAVE_PANEL_HOST' ) && ARCHITRAVE_PANEL_HOST >= 2 ) {
 		return 'host';

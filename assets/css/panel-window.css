@@ -543,3 +543,12 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-lvprev .ldpw-dch { font-size: 13px; }
 #ldp-window .ldpw-lvprev .ldpw-dch > * { padding: 7px 10px; }
 #ldp-window .ldpw-looks .ldpw-lv { border-radius: min(var(--radius-control, 7px), 8px); }
+@property --ldpw-lap { syntax: '<angle>'; inherits: true; initial-value: 180deg; }
+.ldpw-lap { position: fixed; z-index: 99990; pointer-events: none; --ldpw-lap: 180deg;
+	--ldpw-lapm: conic-gradient(from calc(var(--ldpw-lap) - 160deg), transparent 0deg, rgb(0 0 0 / .18) 70deg, rgb(0 0 0 / .7) 140deg, #000 156deg, transparent 160deg);
+	-webkit-mask: var(--ldpw-lapm); mask: var(--ldpw-lapm); }
+.ldpw-lap i, .ldpw-lap span { position: absolute; inset: 24px; border-radius: var(--r); }
+.ldpw-lap i { padding: 1.5px; background: var(--ldpw-band); background-size: 200%;
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+.ldpw-lap span { filter: blur(14px); opacity: 1; }
+.ldpw-lap span i { inset: 0; padding: 5px; }

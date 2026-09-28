@@ -14,16 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * WHAT THE PANEL SAYS (0.6.0, theme 1.3.319): its words left the theme's list
  * for words.php here and join it again through the theme's filter; the German
- * is this plugin's own (languages/live-design-panel-de_DE.mo). On a theme that
+ * is this plugin's own (languages/live-design-panel-de_DE.po, installed as a language file). On a theme that
  * still has the words itself (1.3.318 and older) the filter is never asked.
  */
 require_once plugin_dir_path( ARCHITRAVE_PANEL_FILE ) . 'words.php';
 
-function architrave_panel_textdomain() {
-	// phpcs:ignore PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound -- kept on purpose: the German ships bundled in languages/ and must load before translate.wordpress.org has approved language packs; WordPress's automatic loading covers only the packs.
-	load_plugin_textdomain( 'live-design-panel', false, dirname( plugin_basename( ARCHITRAVE_PANEL_FILE ) ) . '/languages' );
-}
-add_action( 'init', 'architrave_panel_textdomain' );
+/* The translations load by themselves (WordPress 4.6+): from translate.wordpress.org's
+   packs, or a .mo put in wp-content/languages/plugins/ (elmastudio.de's German, by
+   dist/upload-live.sh). No load_plugin_textdomain(), as wordpress.org's review asked. */
 
 /**
  * WHERE THE PANEL HAS LANDED (0.8.0). Three answers, because "no constant" was

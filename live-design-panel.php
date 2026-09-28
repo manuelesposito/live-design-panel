@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Live Design Panel
  * Description:       Design your site on the live page: a panel with dials for colours, fonts, sizes and spacing, light and dark, and saved styles your readers can pick too.
- * Version:           0.12.8
+ * Version:           0.12.9
  * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Elmastudio
@@ -30,7 +30,8 @@ if ( defined( 'ARCHITRAVE_PANEL_VERSION' ) ) {
 	add_action(
 		'admin_notices',
 		static function () {
-			if ( current_user_can( 'activate_plugins' ) ) {
+			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+			if ( current_user_can( 'activate_plugins' ) && $screen && 'plugins' === $screen->id ) {
 				echo '<div class="notice notice-warning"><p>' . esc_html__( 'Live Design Panel is the new name of Architrave Panel. Deactivate and delete "Architrave Panel"; Live Design Panel takes over at once.', 'live-design-panel' ) . '</p></div>';
 			}
 		}
@@ -38,7 +39,7 @@ if ( defined( 'ARCHITRAVE_PANEL_VERSION' ) ) {
 	return;
 }
 
-define( 'ARCHITRAVE_PANEL_VERSION', '0.12.8' );
+define( 'ARCHITRAVE_PANEL_VERSION', '0.12.9' );
 define( 'ARCHITRAVE_PANEL_FILE', __FILE__ );
 
 require_once __DIR__ . '/panel.php';
