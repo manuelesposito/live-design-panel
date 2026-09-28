@@ -1250,8 +1250,15 @@
 	}
 	if (systemDark && systemDark.addEventListener) systemDark.addEventListener('change', function () { doorLook(); });
 	function savePrefs() { try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) {  } doorLook(); applyPrefs(); }
+	function reskin() {
+		if (!win) return;
+		win.classList.add('is-reskin'); void win.offsetWidth;
+		requestAnimationFrame(function () { requestAnimationFrame(function () { win.classList.remove('is-reskin'); }); });
+	}
+	try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { if (prefs.look === 'auto') reskin(); }); } catch (e) {  }
 	function applyPrefs() {
 		if (!win) return;
+		if ((win.getAttribute('data-ui') || 'auto') !== prefs.look) reskin();
 		if (prefs.look === 'auto') win.removeAttribute('data-ui'); else win.setAttribute('data-ui', prefs.look);
 		win.toggleAttribute('data-glass', !!prefs.glass);
 		win.toggleAttribute('data-still', prefs.motion === 'reduced');

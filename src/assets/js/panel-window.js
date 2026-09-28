@@ -1345,8 +1345,18 @@
 	}
 	if (systemDark && systemDark.addEventListener) systemDark.addEventListener('change', function () { doorLook(); });
 	function savePrefs() { try { localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch (e) { /* kept for this visit only */ } doorLook(); applyPrefs(); }
+	/* LIGHT AND DARK IN ONE STEP (2026-09-28): the round buttons fade their colour for hover (.2 s) and the switches
+	   theirs (.28 s), so on a change of appearance they arrived after the rest of the window. For the frame of the
+	   change nothing in the window fades. */
+	function reskin() {
+		if (!win) return;
+		win.classList.add('is-reskin'); void win.offsetWidth;
+		requestAnimationFrame(function () { requestAnimationFrame(function () { win.classList.remove('is-reskin'); }); });
+	}
+	try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { if (prefs.look === 'auto') reskin(); }); } catch (e) { /* an old browser: the fades stay */ }
 	function applyPrefs() {
 		if (!win) return;
+		if ((win.getAttribute('data-ui') || 'auto') !== prefs.look) reskin();
 		if (prefs.look === 'auto') win.removeAttribute('data-ui'); else win.setAttribute('data-ui', prefs.look);
 		win.toggleAttribute('data-glass', !!prefs.glass);
 		win.toggleAttribute('data-still', prefs.motion === 'reduced');
