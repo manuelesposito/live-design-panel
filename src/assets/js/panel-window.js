@@ -1393,7 +1393,12 @@
 	}
 	/* SOUNDS (the prototype's): small tones made on the spot, off unless asked for */
 	var actx = null, lastTick = {}, lastHover = 0;
-	function tone(f1, f2, dur, vol, type) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); var t0 = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
+	/* A BROWSER KEEPS SOUND ASLEEP UNTIL A PRESS (2026-09-28): a context first made by a hover, or by a window that
+	   opened without a click, starts suspended and stayed so, and every sound after it was silent. It is woken on
+	   each tone and on the first press or key anywhere, which is when the browser lets it wake. */
+	function wake() { try { if (actx && actx.state === 'suspended') actx.resume(); } catch (e) { /* no sound here */ } }
+	['pointerdown', 'keydown'].forEach(function (ev) { document.addEventListener(ev, function () { if (prefs.sound === 'off') return; try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return; } wake(); }, true); });
+	function tone(f1, f2, dur, vol, type) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); wake(); var t0 = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
 		o.type = type || 'sine'; o.frequency.setValueAtTime(f1, t0); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
 		g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
 		o.connect(g); g.connect(actx.destination); o.start(t0); o.stop(t0 + dur + 0.02); } catch (e) { /* no sound here */ } }
@@ -1401,7 +1406,7 @@
 		if (prefs.sound === 'off' || (kind === 'hover' && prefs.sound !== 'all')) return;
 		({ tick: function () { tone(2200, 0, 0.018, 0.02, 'triangle'); }, on: function () { tone(660, 990, 0.07, 0.05); }, off: function () { tone(990, 620, 0.07, 0.045); },
 			tap: function () { tone(1400, 1100, 0.03, 0.03, 'triangle'); }, open: function () { tone(330, 660, 0.16, 0.04); }, close: function () { tone(660, 330, 0.14, 0.035); },
-			hover: function () { tone(3000, 0, 0.012, 0.008); } })[kind]();
+			hover: function () { tone(2400, 0, 0.02, 0.02, 'triangle'); } })[kind](); /* hover as loud as the slider's tick (2026-09-28): at 3000 Hz, 12 ms and .008 it measured 12 dB under a click and could not be heard */
 	}
 	/* HOVER SOUNDS (the lab's "Clicks and hover"): a faint tick as the pointer crosses a row, a tile or a menu item */
 	document.addEventListener('pointerover', function (e) {

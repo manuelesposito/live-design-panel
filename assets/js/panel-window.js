@@ -1294,7 +1294,9 @@
 				row(t('Language'), '<span class="ldpw-val">' + esc(lang === 'de' ? 'Deutsch' : 'English') + '</span>', esc(t('Follows your WordPress profile'))));
 	}
 	var actx = null, lastTick = {}, lastHover = 0;
-	function tone(f1, f2, dur, vol, type) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); var t0 = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
+	function wake() { try { if (actx && actx.state === 'suspended') actx.resume(); } catch (e) {  } }
+	['pointerdown', 'keydown'].forEach(function (ev) { document.addEventListener(ev, function () { if (prefs.sound === 'off') return; try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return; } wake(); }, true); });
+	function tone(f1, f2, dur, vol, type) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); wake(); var t0 = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
 		o.type = type || 'sine'; o.frequency.setValueAtTime(f1, t0); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
 		g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
 		o.connect(g); g.connect(actx.destination); o.start(t0); o.stop(t0 + dur + 0.02); } catch (e) {  } }
@@ -1302,7 +1304,7 @@
 		if (prefs.sound === 'off' || (kind === 'hover' && prefs.sound !== 'all')) return;
 		({ tick: function () { tone(2200, 0, 0.018, 0.02, 'triangle'); }, on: function () { tone(660, 990, 0.07, 0.05); }, off: function () { tone(990, 620, 0.07, 0.045); },
 			tap: function () { tone(1400, 1100, 0.03, 0.03, 'triangle'); }, open: function () { tone(330, 660, 0.16, 0.04); }, close: function () { tone(660, 330, 0.14, 0.035); },
-			hover: function () { tone(3000, 0, 0.012, 0.008); } })[kind]();
+			hover: function () { tone(2400, 0, 0.02, 0.02, 'triangle'); } })[kind](); 
 	}
 	document.addEventListener('pointerover', function (e) {
 		if (!open || prefs.sound !== 'all' || !e.target.closest || !e.target.closest('#ldp-window :is(.ldpw-nav, .ldpw-navrow, .ldpw-tile, .ldpw-menu button, .ldpw-cmdlist button, .ldpw-lk), [data-reading-panel-open]')) return;

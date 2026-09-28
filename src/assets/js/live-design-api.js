@@ -52,7 +52,7 @@
 		if (allowed === 'hex') { var h = String(want).trim().toLowerCase(); if (/^#[0-9a-f]{3}$/.test(h)) h = '#' + h[1] + h[1] + h[2] + h[2] + h[3] + h[3]; return /^#[0-9a-f]{6}$/.test(h) ? { value: h } : { error: '"' + want + '" is not a colour for ' + path + '. Write it as #rrggbb.' }; }
 		if (!Array.isArray(allowed)) return { value: want };
 		var vals = allowed.map(String);
-		if (rel) { var at = Math.max(0, vals.indexOf(String(cur))); return { value: allowed[Math.max(0, Math.min(vals.length - 1, at + rel))] }; }
+		if (rel) { var at = vals.indexOf(String(cur)); if (at === -1) return { error: 'Cannot move ' + path + ' a step: its value now is not known. Give a value: ' + vals.join(', ') }; return { value: allowed[Math.max(0, Math.min(vals.length - 1, at + rel))] }; }
 		var i = vals.indexOf(String(want).toLowerCase());
 		if (i === -1) i = vals.indexOf(String(want));
 		if (i > -1) return { value: allowed[i] };
@@ -96,6 +96,10 @@
 		var s = S(), p = path.split('.');
 		try {
 			if (p[0] === 'roles' && p.length === 3) return (s.role(p[1]) || {})[p[2]];
+			if (p[0] === 'roles' && p[2] === 'members' && p.length === 5) { /* a member at rest: its own resting size, else its role's value */
+				var m = ((((schema().roles || {})[p[1]] || {}).members) || {})[p[3]] || {};
+				return p[4] === 'size' && m.rest != null ? String(m.rest) : (s.role(p[1]) || {})[p[4]];
+			}
 			if (p[0] === 'colours') return p[1] === s.side() ? s.colour(p[2]) : undefined;
 			if (p.length === 1 && entry(path)) return s.get(path);
 		} catch (e) { /* unknown here: the step starts from the first */ }
@@ -202,6 +206,19 @@
 		try { document.dispatchEvent(new CustomEvent('livedesign:change', { detail: { who: WHO, why: why || '', keys: changed.map(function (c) { return c.key; }) } })); } catch (e) { /* old browsers */ }
 	}
 
+	/* A role's dials for describe(): the font list is said once (type.fonts), members by their rest only */
+	function dialsOf(d) {
+		if (!d) return d;
+		var o = {};
+		Object.keys(d).forEach(function (k) {
+			if (d[k] === undefined) return;
+			if (k === 'face') o.face = 'a font id from type.fonts, or read / ui';
+			else if (k === 'members') { var m = {}; Object.keys(d.members || {}).forEach(function (id) { m[id] = { rest: d.members[id].rest, dials: Object.keys(d.members[id]).filter(function (x) { return x !== 'rest'; }) }; }); o.members = m; }
+			else o[k] = d[k];
+		});
+		return o;
+	}
+
 	var LiveDesign = {
 		about: 'Live Design: style this website by name. describe() first; set() changes (one undo step); preview() shows without keeping; check() says whether the page still reads well. Nothing reaches readers until the owner publishes. set, preview, load and choose answer with a Promise.',
 		describe: function () {
@@ -218,8 +235,9 @@
 				}),
 				colours: { wells: Object.keys(((sc.colours || {}).light) || {}), now: rec.colours || null, how: 'colours.<light|dark>.<well> as #rrggbb, e.g. colours.dark.accent. Set both sides.' },
 				type: {
-					roles: roleList().map(function (r) { return { id: r.id, name: r.label, where: r.where, now: s.role(r.id), dials: (sc.roles || {})[r.id] }; }),
-					fonts: s.faces().map(function (f) { return { id: f.id, name: f.label, group: f.group }; })
+					roles: roleList().map(function (r) { return { id: r.id, name: r.label, where: r.where, now: s.role(r.id), dials: dialsOf((sc.roles || {})[r.id]) }; }),
+					fonts: s.faces().map(function (f) { return f.id + ' (' + f.group + ')'; }),
+					note: 'face takes a font id from fonts, or read / ui to follow those roles. A member (e.g. roles.head.members.sub.size) takes the same values as its role\'s dial; left out, it follows the role.'
 				},
 				presets: s.presets().map(function (x) { return { id: x.id, name: x.label, group: x.group || '' }; }),
 				styles: styleList(),
