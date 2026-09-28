@@ -1313,7 +1313,7 @@
 			if (a === 'side' && prefs.noSide) sideToggle(); else if (a === 'solo' && !prefs.noSide) sideToggle();
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
 			else if (a === 'versions') openVersions();
-			else if (a === 'reader') window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank', 'noopener');
+			else if (a === 'reader') window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank');
 		} };
 	}
 	function sideToggle() { if (prefs.x !== null) prefs.x = +prefs.x + (prefs.noSide ? -1 : 1) * Math.max(150, Math.min(260, +prefs.sideW || 200)); /* the right edge stays where it is */ prefs.noSide = !prefs.noSide; savePrefs(); place(); render(prefs.noSide ? '[data-act="side"]' : '.ldpw-nav.is-on'); }
@@ -1331,7 +1331,7 @@
 	/* THE PANEL'S OWN SETTINGS (the prototype's prefsPage): only for this person on this computer, kept in the
 	   browser; readers never see them. The window's appearance, glass, accent and motion; sounds; tips; the keys. */
 	var PREF_KEY = 'ldpw-prefs';
-	var prefs = (function () { var d = { look: 'auto', glass: false, accent: 'blue', motion: 'full', sound: 'off', tips: true, seenAim: false, noSide: false, sideW: 200, zoom: 1, x: null, y: null, pageW: null, h: null, fold: {} }; /* x, y, pageW, h: where the window was moved and how it was sized (2026-09-28, the lab's) */ try { var o = JSON.parse(localStorage.getItem(PREF_KEY) || '{}'); for (var k in o) if (Object.prototype.hasOwnProperty.call(d, k)) d[k] = o[k]; } catch (e) { /* private window: the defaults */ } return d; })();
+	var prefs = (function () { var d = { look: 'auto', glass: true, accent: 'blue', motion: 'full', sound: 'clicks', tips: true, seenAim: false, noSide: false, sideW: 200, zoom: 1, x: null, y: null, pageW: null, h: null, fold: {} }; /* x, y, pageW, h: where the window was moved and how it was sized (2026-09-28, the lab's) */ try { var o = JSON.parse(localStorage.getItem(PREF_KEY) || '{}'); for (var k in o) if (Object.prototype.hasOwnProperty.call(d, k)) d[k] = o[k]; } catch (e) { /* private window: the defaults */ } return d; })();
 	var ACCENT = { blue: ['Blue', '#0a84ff', '#007aff'], purple: ['Purple', '#bf5af2', '#9f45d6'], pink: ['Pink', '#ff375f', '#e6254d'], red: ['Red', '#ff453a', '#e0342b'], orange: ['Orange', '#ff9f0a', '#e07b00'], yellow: ['Yellow', '#ffd60a', '#c9a400'], green: ['Green', '#30d158', '#24a846'], graphite: ['Graphite', '#8e8e93', '#6e6e73'] }; /* the lab's: the dark shade and the light one */
 	function uiDark() { return prefs.look === 'dark' || (prefs.look === 'auto' && !!systemDark && systemDark.matches); }
 	function accentHex(k) { var a = ACCENT[k] || ACCENT.blue; return uiDark() ? a[1] : a[2]; }
@@ -1550,8 +1550,10 @@
 		var r = host.reader;
 		/* DONE (2026-09-28): the preview opened in a tab of its own, so Done closes it and the owner is back where they
 		   were; if the browser keeps the tab (it was not opened by the panel), the page loads again as the owner.
-		   Going to the same page looked like nothing had happened. */
-		if (b.getAttribute('data-act') === 'endpreview') { try { window.close(); } catch (e) { /* kept */ }
+		   Going to the same page looked like nothing had happened.
+		   The tab is opened WITHOUT noopener (2026-09-28): with it, browsers refused window.close and every Done fell
+		   back to a full reload, slow enough to look broken; the window also hides at once so the press shows. */
+		if (b.getAttribute('data-act') === 'endpreview') { hide(); try { window.close(); } catch (e) { /* kept */ }
 			setTimeout(function () { var u = new URL(window.location.href); u.searchParams.delete('ldp-as-reader'); window.location.href = u.toString(); }, 150); return true; }
 		if (b.hasAttribute('data-rsize')) { var ids = r.sizes(), i = ids.indexOf(r.size()) + (+b.getAttribute('data-rsize')); if (ids[i]) r.setSize(ids[i]); render('[data-f="' + b.getAttribute('data-f') + '"]'); return true; }
 		if (b.getAttribute('data-seg') === 'rside') { r.setSide(b.getAttribute('data-v')); render('[data-seg="rside"][data-v="' + b.getAttribute('data-v') + '"]'); return true; }
@@ -2085,7 +2087,7 @@
 			St().setCounting(!was).then(function (c) { countsHeld = c || countsHeld; render('[data-act="counting"]'); }, failed);
 			render('[data-act="counting"]'); return;
 		}
-		if (act === 'asreader') { window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank', 'noopener'); return; }
+		if (act === 'asreader') { window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank'); return; }
 		if (b.hasAttribute('data-plink')) {
 			var pl = b.getAttribute('data-plink').split(':'), url = s.previewURL(pl[1]);
 			if (pl[0] === 'copy') { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).catch(function () {}); done(t('Link Copied')); render(); }
