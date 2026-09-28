@@ -278,8 +278,9 @@
 		fit();
 		var to = pill.getBoundingClientRect(), gx = r.left - to.left, gy = r.top - to.top, glide = null;
 		if ((gx || gy) && pill.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) glide = pill.animate([{ transform: 'translate(' + gx + 'px, ' + gy + 'px)' }, { transform: 'none' }], { duration: 350, easing: 'cubic-bezier(.3, 1.2, .5, 1)' });
-		if (place) { var write = function () { window.ArchitraveStyles.setButton('place', place).catch(function () {  }); };
-			if (glide && glide.finished) glide.finished.then(write, write); else write(); }
+		
+		var arrived = function () { var W = window.LiveDesignWindow; if (W && W.sound) W.sound('snap'); if (place) window.ArchitraveStyles.setButton('place', place).catch(function () {  }); };
+		if (glide && glide.finished) glide.finished.then(arrived, arrived); else arrived();
 	}
 	document.addEventListener('dragstart', function (e) { if (drag) e.preventDefault(); }, true);
 	pill.addEventListener('pointerup', end);

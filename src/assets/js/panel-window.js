@@ -1424,7 +1424,8 @@
 		if (prefs.sound === 'off' || (kind === 'hover' && prefs.sound !== 'all')) return;
 		({ tick: function () { tone(2200, 0, 0.018, 0.02, 'triangle'); }, on: function () { tone(660, 990, 0.07, 0.05); }, off: function () { tone(990, 620, 0.07, 0.045); },
 			tap: function () { tone(1400, 1100, 0.03, 0.03, 'triangle'); }, open: function () { tone(330, 660, 0.16, 0.04); }, close: function () { tone(660, 330, 0.14, 0.035); },
-			hover: function () { tone(2400, 0, 0.02, 0.02, 'triangle'); } })[kind](); /* hover as loud as the slider's tick (2026-09-28): at 3000 Hz, 12 ms and .008 it measured 12 dB under a click and could not be heard */
+			hover: function () { tone(2400, 0, 0.02, 0.02, 'triangle'); },
+			snap: function () { tone(1500, 900, 0.035, 0.045, 'triangle'); tone(300, 200, 0.05, 0.035); } /* the button clicking onto its place: a small click over a soft knock (2026-09-28) */ })[kind](); /* hover as loud as the slider's tick (2026-09-28): at 3000 Hz, 12 ms and .008 it measured 12 dB under a click and could not be heard */
 	}
 	/* HOVER SOUNDS (the lab's "Clicks and hover"): a faint tick as the pointer crosses a row, a tile or a menu item */
 	document.addEventListener('pointerover', function (e) {
@@ -2260,6 +2261,8 @@
 		},
 		open: function (from) { if (host) show(from); },
 		close: function () { hide(); },
-		isOpen: function () { return open; }
+		isOpen: function () { return open; },
+		/* the page's button asks for its snap sound here; off, clicks or all as the owner chose */
+		sound: function (kind) { if (kind === 'snap') sound(kind); }
 	};
 }());

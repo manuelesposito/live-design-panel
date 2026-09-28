@@ -397,8 +397,9 @@
 		/* THE GLIDE FIRST, THE WRITE AFTER (2026-09-28): saving the place re-measures the page, 12 ms on a test page
 		   and more on a real one, and it ran before the glide began, so the button hesitated on letting go. Now the
 		   button is already on its way (and on its place) when the site's copy is written. */
-		if (place) { var write = function () { window.ArchitraveStyles.setButton('place', place).catch(function () { /* refused: the old place came back with the event */ }); };
-			if (glide && glide.finished) glide.finished.then(write, write); else write(); }
+		/* IT CLICKS INTO PLACE (2026-09-28): a small sound as it arrives, when the owner has sounds on */
+		var arrived = function () { var W = window.LiveDesignWindow; if (W && W.sound) W.sound('snap'); if (place) window.ArchitraveStyles.setButton('place', place).catch(function () { /* refused: the old place came back with the event */ }); };
+		if (glide && glide.finished) glide.finished.then(arrived, arrived); else arrived();
 	}
 	/* NO NATIVE DRAG UNDER A CARRIED DOOR (2026-09-23, measured at Top left:
 	   the door moved once and stopped). The press over the site's title link
