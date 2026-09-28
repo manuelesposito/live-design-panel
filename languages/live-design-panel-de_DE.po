@@ -2721,3 +2721,36 @@ msgstr "Walnuss"
 
 msgid "Lavender"
 msgstr "Lavendel"
+
+msgid "Get"
+msgstr "Laden"
+
+msgid "Use"
+msgstr "Verwenden"
+
+msgid "Font Library"
+msgstr "Schriftbibliothek"
+
+msgid "{n} more, fetched the first time a style uses one"
+msgstr "{n} weitere, geladen, wenn ein Stil sie zum ersten Mal verwendet"
+
+msgid "Remove Unused Fonts…"
+msgstr "Unbenutzte Schriften entfernen …"
+
+msgid "Removes the downloaded fonts no style uses. The fonts that come with the plugin stay."
+msgstr "Entfernt die geladenen Schriften, die kein Stil verwendet. Die Schriften des Plugins bleiben."
+
+msgid "Remove unused fonts?"
+msgstr "Unbenutzte Schriften entfernen?"
+
+msgid "The downloaded fonts no style uses are removed. You can get them again from the library."
+msgstr "Die geladenen Schriften, die kein Stil verwendet, werden entfernt. Du kannst sie jederzeit wieder aus der Bibliothek laden."
+
+msgid "{n} fonts removed"
+msgstr "{n} Schriften entfernt"
+
+msgid "Nothing to remove"
+msgstr "Nichts zu entfernen"
+
+msgid "Could not get the font. Try again."
+msgstr "Die Schrift konnte nicht geladen werden. Versuch es noch einmal."

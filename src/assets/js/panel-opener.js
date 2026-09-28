@@ -324,8 +324,8 @@
 	fit();
 
 	pill.addEventListener('pointerdown', function (e) {
-		if (e.button !== 0 || docked) return;
-		drag = { x: e.clientX, y: e.clientY, ox: at.x, oy: at.y };
+		if (e.button !== 0 || (docked && !owner())) return;
+		drag = { x: e.clientX, y: e.clientY, ox: at.x, oy: at.y, fromDock: !!docked, pid: e.pointerId }; /* the owner may pull it out of the menu (the lab's) */
 		moved = false;
 		try { pill.setPointerCapture(e.pointerId); } catch (x) { /* the drag still follows while the pointer is over the pill */ }
 	});
@@ -333,7 +333,21 @@
 		if (!drag) return;
 		var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
 		if (!moved && Math.abs(dx) < 4 && Math.abs(dy) < 4) return; /* a press with a shaky hand is still a press */
-		if (!moved) { moved = true; carrying(true); if (owner()) rings(); }
+		if (!moved) {
+			moved = true;
+			/* PULLED OUT OF THE MENU (2026-09-28, the lab's): it leaves the site's row and floats under the pointer;
+			   where it lands becomes its place, and Automatic goes off */
+			if (drag.fromDock) {
+				undock(); pulled = true;
+				try { pill.setPointerCapture(drag.pid); } catch (x) { /* moved in the page, the element let go of the pointer: it takes it again */ }
+				S.place = 'bottom-right'; S.match = 'false'; pill.setAttribute('data-place', 'bottom-right'); pill.setAttribute('data-match', 'false');
+				at.x = 0; at.y = 0; put();
+				var r0 = pill.getBoundingClientRect();
+				at.x = Math.round(e.clientX - (r0.left + r0.width / 2)); at.y = Math.round(e.clientY - (r0.top + r0.height / 2));
+				drag.ox = at.x; drag.oy = at.y; drag.x = e.clientX; drag.y = e.clientY; dx = 0; dy = 0;
+			}
+			carrying(true); if (owner()) rings();
+		}
 		at.x = drag.ox + dx; at.y = drag.oy + dy;
 		fit(); follow();
 		if (ghosts) nearest();
@@ -348,7 +362,7 @@
 	   (Automatic goes off). Close to a ring it clicks onto it; a little off, the nudge is kept for that
 	   place, as a drag always was. A reader's drag stays a nudge of their own. */
 	var SPOTS = ['top-left', 'top-right', 'left', 'right', 'bottom-left', 'bottom-center', 'bottom-right'];
-	var ghosts = null, rests = {}, near = null, snapped = false;
+	var ghosts = null, rests = {}, near = null, snapped = false, pulled = false;
 	function owner() { var W = window.liveDesignWindow; return !!(W && !W.reader && window.ArchitraveStyles && window.ArchitraveStyles.setButton); }
 	function rings() {
 		var was = pill.getAttribute('data-place'), tr = pill.style.transitionProperty;
@@ -372,7 +386,8 @@
 	function land() {
 		var r = pill.getBoundingClientRect(), home = rests[near], nx = Math.round(r.left - home.left), ny = Math.round(r.top - home.top);
 		ghosts.remove(); ghosts = null;
-		if (near && near !== S.place) window.ArchitraveStyles.setButton('place', near).catch(function () { /* refused: the old place came back with the event */ });
+		if (near && (near !== S.place || pulled)) window.ArchitraveStyles.setButton('place', near).catch(function () { /* refused: the old place came back with the event */ });
+		pulled = false;
 		at.x = 0; at.y = 0; /* IT ALWAYS SNAPS (2026-09-28): let go anywhere, it lands exactly on the nearest place */
 		fit();
 		/* IT GLIDES THERE, overshooting a little and settling (the lab's .35s spring): from where it was let go to where it lands */

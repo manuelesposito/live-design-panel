@@ -245,6 +245,27 @@
 			};
 		},
 		current: function () { var s = S(); return s ? s.current() : ''; },
+		fonts: {
+			library: function () { return (window.ArchitraveFontLibrary || []).map(function (f) { return f.id; }); },
+			can: function () { return !!(window.architraveFonts && window.architraveFonts.url); },
+			have: function (id) { var c = window.architraveFonts; return !!(c && c.have && c.have.indexOf(id) !== -1); },
+			get: function (id) {
+				var c = window.architraveFonts; if (!c || !c.url) return Promise.reject(new Error('fonts'));
+				return fetch(c.url, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': c.nonce }, body: JSON.stringify({ id: id }) })
+					.then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error((j && j.message) || r.status); return j; }); })
+					.then(function (j) {
+						c.have = j.have || c.have;
+						if (j.css) { var l = document.getElementById('architrave-font-files-css'); if (!l) { l = document.createElement('link'); l.id = 'architrave-font-files-css'; l.rel = 'stylesheet'; document.head.appendChild(l); } l.href = j.css; }
+						return j;
+					});
+			},
+			prune: function (keep) {
+				var c = window.architraveFonts; if (!c || !c.url) return Promise.reject(new Error('fonts'));
+				return fetch(c.url, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': c.nonce }, body: JSON.stringify({ prune: true, keep: keep || [] }) })
+					.then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error((j && j.message) || r.status); return j; }); })
+					.then(function (j) { c.have = j.have || c.have; return j; });
+			}
+		},
 		visibleOrder: function () { var s = S(); return s && s.visibleOrder ? s.visibleOrder().slice() : []; }, 
 		choose: function (id) { press('[data-architrave-presets] [data-preset="' + id + '"]'); },
 		duplicate: function (id) { var s = S(), nid = s && s.duplicate ? s.duplicate(id) : null; if (nid) press('[data-architrave-presets] [data-preset="' + nid + '"]'); return nid; },

@@ -216,8 +216,8 @@
 	dock();
 	fit();
 	pill.addEventListener('pointerdown', function (e) {
-		if (e.button !== 0 || docked) return;
-		drag = { x: e.clientX, y: e.clientY, ox: at.x, oy: at.y };
+		if (e.button !== 0 || (docked && !owner())) return;
+		drag = { x: e.clientX, y: e.clientY, ox: at.x, oy: at.y, fromDock: !!docked, pid: e.pointerId }; 
 		moved = false;
 		try { pill.setPointerCapture(e.pointerId); } catch (x) {  }
 	});
@@ -225,7 +225,19 @@
 		if (!drag) return;
 		var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
 		if (!moved && Math.abs(dx) < 4 && Math.abs(dy) < 4) return; 
-		if (!moved) { moved = true; carrying(true); if (owner()) rings(); }
+		if (!moved) {
+			moved = true;
+			if (drag.fromDock) {
+				undock(); pulled = true;
+				try { pill.setPointerCapture(drag.pid); } catch (x) {  }
+				S.place = 'bottom-right'; S.match = 'false'; pill.setAttribute('data-place', 'bottom-right'); pill.setAttribute('data-match', 'false');
+				at.x = 0; at.y = 0; put();
+				var r0 = pill.getBoundingClientRect();
+				at.x = Math.round(e.clientX - (r0.left + r0.width / 2)); at.y = Math.round(e.clientY - (r0.top + r0.height / 2));
+				drag.ox = at.x; drag.oy = at.y; drag.x = e.clientX; drag.y = e.clientY; dx = 0; dy = 0;
+			}
+			carrying(true); if (owner()) rings();
+		}
 		at.x = drag.ox + dx; at.y = drag.oy + dy;
 		fit(); follow();
 		if (ghosts) nearest();
@@ -236,7 +248,7 @@
 		if (moved) { carrying(false); if (ghosts) land(); keep(); follow(); }
 	}
 	var SPOTS = ['top-left', 'top-right', 'left', 'right', 'bottom-left', 'bottom-center', 'bottom-right'];
-	var ghosts = null, rests = {}, near = null, snapped = false;
+	var ghosts = null, rests = {}, near = null, snapped = false, pulled = false;
 	function owner() { var W = window.liveDesignWindow; return !!(W && !W.reader && window.ArchitraveStyles && window.ArchitraveStyles.setButton); }
 	function rings() {
 		var was = pill.getAttribute('data-place'), tr = pill.style.transitionProperty;
@@ -259,7 +271,8 @@
 	function land() {
 		var r = pill.getBoundingClientRect(), home = rests[near], nx = Math.round(r.left - home.left), ny = Math.round(r.top - home.top);
 		ghosts.remove(); ghosts = null;
-		if (near && near !== S.place) window.ArchitraveStyles.setButton('place', near).catch(function () {  });
+		if (near && (near !== S.place || pulled)) window.ArchitraveStyles.setButton('place', near).catch(function () {  });
+		pulled = false;
 		at.x = 0; at.y = 0; 
 		fit();
 		var to = pill.getBoundingClientRect(), gx = r.left - to.left, gy = r.top - to.top;

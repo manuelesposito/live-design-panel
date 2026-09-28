@@ -487,3 +487,14 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-origrow small { font-family: "LDP Inter", "Inter Variable", system-ui, sans-serif; }
 #ldp-window, #ldp-window *, .ldpw-goo, .ldpw-glow { text-shadow: none !important; }
 #ldp-window .ldpw-origrow small { color: inherit; opacity: .7; }
+#ldp-window .ldpw-getrow .ldpw-lb { font-size: 15px; }
+#ldp-window .ldpw-get { display: inline-grid; place-items: center; min-width: 58px; height: 28px; padding: 0 14px; border-radius: 14px; background: var(--ldpw-row2); color: var(--ldpw-blue); font-weight: 600; font-size: 13px; letter-spacing: .01em; flex: none; transition: background-color .15s, color .15s, transform .12s; }
+#ldp-window .ldpw-get:hover:not(:disabled) { background: color-mix(in srgb, var(--ldpw-blue) 16%, var(--ldpw-row2)); }
+#ldp-window .ldpw-get:active:not(:disabled) { transform: scale(.96); }
+#ldp-window .ldpw-get.is-got { background: var(--ldpw-blue); color: #fff; }
+#ldp-window .ldpw-get.is-busy { cursor: progress; }
+#ldp-window .ldpw-ring { width: 16px; height: 16px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--ldpw-blue) 25%, transparent); border-top-color: var(--ldpw-blue); animation: ldpw-spin .8s linear infinite; }
+@keyframes ldpw-spin { to { transform: rotate(360deg); } }
+#ldp-window .ldpw-libtitle { margin-top: 18px; }
+#ldp-window .ldpw-libtitle small { font-weight: 400; }
+#ldp-window .ldpw-prune { display: block; margin: 16px 4px 4px; color: var(--ldpw-blue); font-size: 14px; }

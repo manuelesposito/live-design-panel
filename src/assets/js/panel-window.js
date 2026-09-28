@@ -385,6 +385,7 @@
 		}).join('');
 	}
 	/* THE FONT LIST, as a page: a search on top, the anchors a role may follow, the faces in their groups, in the panel's own type */
+	var fontGet = {}; /* a library face while it is fetched ('busy') and once it is on the site ('got') */
 	function fontPage() {
 		var s = St(), v = s.role(fontFor), cur = v.face === 'inherit' ? 'read' : v.face, q = fontq.toLowerCase();
 		var faces = s.faces(v.face).filter(function (f) { return !q || f.label.toLowerCase().indexOf(q) !== -1; });
@@ -392,13 +393,31 @@
 		var follower = fontFor !== 'read' && fontFor !== 'ui';
 		var out = '<label class="ldpw-search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-fontq data-f="fontq" placeholder="' + esc(t('Search fonts')) + '" aria-label="' + esc(t('Search fonts')) + '" value="' + esc(fontq) + '" autocomplete="off" spellcheck="false"></label>';
 		if (follower && !q) out += box(frow('read', t(FOLLOW.read)) + frow('ui', t(FOLLOW.ui)));
+		/* THE FONTS ON THE SITE FIRST, THEN THE LIBRARY (2026-09-28, the lab's): a library face not fetched yet is
+		   listed apart with Get; getting it fetches its files once, and it then shows in its own face with Use */
+		var F = s.fonts, lib = F && F.can() ? F.library() : [], away = function (f) { return lib.indexOf(f.id) !== -1 && f.id !== cur && (!F.have(f.id) || !!fontGet[f.id]); }; /* one just fetched stays where it was got, saying Use */
+		var onSite = faces.filter(function (f) { return !away(f); }), library = faces.filter(away);
 		var shown = 0;
-		FACE_GROUPS.concat([['', 'Other']]).forEach(function (g) {
-			var mine = faces.filter(function (f) { return g[0] ? f.group === g[0] : FACE_GROUPS.every(function (x) { return x[0] !== f.group; }); });
-			if (!mine.length) return;
-			shown += mine.length;
-			out += gtitle(t(g[1])) + box(mine.map(function (f) { return frow(f.id, f.label); }).join(''));
-		});
+		function groups(list, get) {
+			var html = '';
+			FACE_GROUPS.concat([['', 'Other']]).forEach(function (g) {
+				var mine = list.filter(function (f) { return g[0] ? f.group === g[0] : FACE_GROUPS.every(function (x) { return x[0] !== f.group; }); });
+				if (!mine.length) return;
+				shown += mine.length;
+				html += gtitle(t(g[1])) + box(mine.map(function (f) { return get ? getRow(f) : frow(f.id, f.label); }).join(''));
+			});
+			return html;
+		}
+		function getRow(f) {
+			var st = fontGet[f.id], label = st === 'got' ? t('Use') : st === 'busy' ? '' : t('Get');
+			return '<div class="ldpw-r ldpw-getrow"><span class="ldpw-lb"' + (st === 'got' ? ' style="font-family:' + esc(((window.ArchitraveFontLibrary || []).filter(function (x) { return x.id === f.id; })[0] || {}).family || f.label) + '"' : '') + '>' + esc(f.label) + '</span>' +
+				'<button type="button" class="ldpw-get' + (st === 'busy' ? ' is-busy' : st === 'got' ? ' is-got' : '') + '" data-fontget="' + esc(f.id) + '" data-f="fontget:' + esc(f.id) + '"' + (st === 'busy' ? ' disabled aria-busy="true"' : '') + ' aria-label="' + esc((st === 'got' ? t('Use') : t('Get')) + ': ' + f.label) + '">' + (st === 'busy' ? '<i class="ldpw-ring" aria-hidden="true"></i>' : esc(label)) + '</button></div>';
+		}
+		out += groups(onSite, false);
+		if (library.length) {
+			out += '<p class="ldpw-gtitle ldpw-libtitle">' + esc(t('Font Library')) + ' <small>· ' + esc(t('{n} more, fetched the first time a style uses one').replace('{n}', library.length)) + '</small></p>' + groups(library, true);
+		}
+		if (F && F.can() && !q) out += '<button type="button" class="ldpw-link ldpw-prune" data-act="fontprune" data-f="act:fontprune">' + esc(t('Remove Unused Fonts…')) + '</button><p class="ldpw-hint">' + esc(t('Removes the downloaded fonts no style uses. The fonts that come with the plugin stay.')) + '</p>';
 		return out + (shown ? '' : '<p class="ldpw-hint">' + esc(t('No results')) + '</p>');
 	}
 
@@ -1921,6 +1940,20 @@
 		if ((act === 'undo' || act === 'commit') && s && s.previewing()) { s.previewVersion(null); verSel = 'now'; }
 		if (act === 'close') { hide(); return; }
 		if (act === 'find') { openCmd(); return; }
+		if (b.hasAttribute('data-fontget')) {
+			var fid = b.getAttribute('data-fontget');
+			if (fontGet[fid] === 'got') { s.setRole(fontFor, 'face', fid); render(); return; } /* Use: it becomes the font, as a press on its row does */
+			fontGet[fid] = 'busy'; render('[data-f="fontget:' + fid + '"]');
+			s.fonts.get(fid).then(function () { fontGet[fid] = 'got'; render('[data-f="fontget:' + fid + '"]'); }, function () { delete fontGet[fid]; done(t('Could not get the font. Try again.')); render(); });
+			return;
+		}
+		if (act === 'fontprune') {
+			asking = { title: t('Remove unused fonts?'), text: t('The downloaded fonts no style uses are removed. You can get them again from the library.'), go: t('Remove'), danger: true, back: '[data-act="fontprune"]', run: function () {
+				var keep = []; roles().forEach(function (r) { var f = realFace((s.role(r.id) || {}).face); if (f) keep.push(f); });
+				return s.fonts.prune(keep).then(function (j) { fontGet = {}; var n = (j.removed || []).length; done(n ? t('{n} fonts removed').replace('{n}', n) : t('Nothing to remove')); });
+			} };
+			render('[data-act="ask-go"]'); return;
+		}
 		if (act === 'sqclear') { sq = null; render('[data-sideq]'); return; }
 		if (b.hasAttribute('data-sqhit')) { goTo(sqResults()[+b.getAttribute('data-sqhit')]); return; }
 		if (act === 'share') { askShare(); return; }
