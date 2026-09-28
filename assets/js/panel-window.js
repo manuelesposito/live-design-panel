@@ -621,6 +621,11 @@
 		out += head('hidden', t('Hidden from Readers'), st.hidden.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.hidden ? ' is-folded' : '') + '" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(tileHTML).join('') + '</div>';
 		return out + '<p class="ldpw-hint">' + esc(t('Drag a style to change its order or to show or hide it. The first one shown is the default.')) + '</p>';
 	}
+	function foot(x, s, deep, built) {
+		var rev = built && s && !editing && !deep && pagePaths(x.id).length ? '<button type="button" class="ldpw-link" data-act="revertpage" data-f="act:revertpage">' + esc(t('Revert {page}').replace('{page}', x.name)) + '</button>' : '';
+		var blue = phone() && built && s && x.id !== 'styles' && x.id !== 'readers' && x.id !== 'button' ? commit() : '';
+		return rev || blue ? '<div class="ldpw-foot">' + (rev || '<span></span>') + blue + '</div>' : '';
+	}
 	function commit() {
 		var s = St(), x = s.tile(s.current());
 		if (!x || x.host || x.own) return '';
@@ -1221,8 +1226,9 @@
 	}
 	function sideToggle() { if (prefs.x !== null) prefs.x = +prefs.x + (prefs.noSide ? -1 : 1) * Math.max(150, Math.min(260, +prefs.sideW || 200));  prefs.noSide = !prefs.noSide; savePrefs(); place(); render(prefs.noSide ? '[data-act="side"]' : '.ldpw-nav.is-on'); }
 	function sideHTML() {
+		var shutter = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '" title="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>'; 
 		return '<nav class="ldpw-side" aria-label="' + esc(t('Sections')) + '">' +
-			'<div class="ldpw-shead"><button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '" title="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button><b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? '' : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('Hide Sidebar')) + '" title="' + esc(t('Hide Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>') + '</div>' +
+			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('Hide Sidebar')) + '" title="' + esc(t('Hide Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>') + '</div>' +
 			'<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' +
 			'<div class="ldpw-side-in">' + navButton({ id: 'styles', name: t('Styles') }) +
 				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + (St() && St().tile(St().current()) && St().tile(St().current()).edited ? '<em>' + esc(t('Edited')) + '</em>' : '') + '</div>' + sections().map(navButton).join('') + 
@@ -1358,9 +1364,9 @@
 		return '<div class="ldpw-detail">' +
 			'<div class="ldpw-bar">' + (prefs.noSide && !phone() ? '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close3" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button><button type="button" class="ldpw-circ is-plain" aria-haspopup="menu" data-menu="views" data-f="menu:views2" aria-label="' + esc(t('Show Sidebar')) + '" title="' + esc(t('Show Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>' : '') + (back ? '<button type="button" class="ldpw-circ is-plain" data-act="' + (editing || deep ? 'back' : 'list') + '" data-f="act:back" aria-label="' + esc(t('Back')) + '">' + svg(GLYPH.back) + '</button>' : '') +
 				(prefs.noSide && !phone() && !deep && !editing && !(sq && sq.q.trim()) ? secsTitle(x, name, sub) : '<div class="ldpw-ttl"><b>' + esc(name) + '</b>' + (sub && (prefs.noSide || phone() || editing || deep) ? '<small>' + esc(sub) + '</small>' : '') + '</div>') +  
-				(s && s.editable() && !phone() && prefs.tips && !prefs.seenAim ? '<div class="ldpw-tip" role="note"><b>' + esc(t('Click anything on the page')) + '</b><span>' + esc(t('It opens its setting here. Or hold ⌥ and click, even with the window closed.')) + '</span><button type="button" class="ldpw-tipx" data-act="tipoff" data-f="act:tipoff" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button></div>' : '') + (s && s.editable() && !phone() ? '<button type="button" class="ldpw-circ is-plain' + (aiming ? ' is-aim' : '') + '" data-act="aim" data-f="act:aim" aria-pressed="' + aiming + '" aria-label="' + esc(t('Choose on the Page')) + '" title="' + esc(t('Click anything on the page to open its setting. Or hold ⌥ and click.')) + '">' + svg(GLYPH.aim) + '</button>' : '') + (s && s.editable() && built ? '<button type="button" class="ldpw-circ is-plain' + (comparing ? ' is-aim' : '') + '" data-act="compare" data-f="act:compare" aria-label="' + esc(t('Hold to Compare')) + '" title="' + esc(t('Hold to see the page without your changes (hold M)')) + '"' + (s.changes().length ? '' : ' disabled') + '>' + svg(GLYPH.compare) + '</button>' : '') + undo + (built && s ? barMore() : settingsMore())  + (built && s && x.id !== 'styles' && x.id !== 'readers' && x.id !== 'button' ? commit() : '') +
+				(s && s.editable() && !phone() && prefs.tips && !prefs.seenAim ? '<div class="ldpw-tip" role="note"><b>' + esc(t('Click anything on the page')) + '</b><span>' + esc(t('It opens its setting here. Or hold ⌥ and click, even with the window closed.')) + '</span><button type="button" class="ldpw-tipx" data-act="tipoff" data-f="act:tipoff" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button></div>' : '') + (s && s.editable() && !phone() ? '<button type="button" class="ldpw-circ is-plain' + (aiming ? ' is-aim' : '') + '" data-act="aim" data-f="act:aim" aria-pressed="' + aiming + '" aria-label="' + esc(t('Choose on the Page')) + '" title="' + esc(t('Click anything on the page to open its setting. Or hold ⌥ and click.')) + '">' + svg(GLYPH.aim) + '</button>' : '') + (s && s.editable() && built ? '<button type="button" class="ldpw-circ is-plain' + (comparing ? ' is-aim' : '') + '" data-act="compare" data-f="act:compare" aria-label="' + esc(t('Hold to Compare')) + '" title="' + esc(t('Hold to see the page without your changes (hold M)')) + '"' + (s.changes().length ? '' : ' disabled') + '>' + svg(GLYPH.compare) + '</button>' : '') + undo + (built && s ? barMore() : settingsMore())  + (built && s && x.id !== 'styles' && x.id !== 'readers' && x.id !== 'button' && !phone() ? commit() : '') +
 				(phone() ? '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close2" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</div>' +
-			'<div class="ldpw-scroll">' + pageBody(x) + '</div>' + (built && s && !editing && !deep && pagePaths(x.id).length ? '<div class="ldpw-foot"><button type="button" class="ldpw-link" data-act="revertpage" data-f="act:revertpage">' + esc(t('Revert {page}').replace('{page}', x.name)) + '</button></div>' : '') + menuHTML() + (note ? '<p class="ldpw-note-line" role="status">' + esc(note) + '</p>' : '') +
+			'<div class="ldpw-scroll">' + pageBody(x) + '</div>' + foot(x, s, deep, built) + menuHTML() + (note ? '<p class="ldpw-note-line" role="status">' + esc(note) + '</p>' : '') +
 		'</div>';
 	}
 	var WHAT = { lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards',
@@ -1406,8 +1412,9 @@
 		var stepper = '<span class="ldpw-aa"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +
 			'<span class="ldpw-rdots" aria-hidden="true">' + ids.map(function (id, i) { return '<i' + (i === at ? ' class="is-on"' : '') + '></i>'; }).join('') + '</span>' +
 			'<button type="button" class="is-big" data-rsize="1" data-f="rsize:1" aria-label="' + esc(t('Larger')) + '"' + (at >= ids.length - 1 ? ' disabled' : '') + '>A</button></span>';
-		return '<div class="ldpw-detail"><div class="ldpw-bar"><button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>' +
-				'<div class="ldpw-ttl"><b id="ldpw-title">' + esc(t('Live Design')) + '</b></div></div>' +
+		var shut = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>';
+		return '<div class="ldpw-detail"><div class="ldpw-bar">' + (phone() ? '' : shut) +
+				'<div class="ldpw-ttl"><b id="ldpw-title">' + esc(t('Live Design')) + '</b></div>' + (phone() ? shut : '') + '</div>' + 
 			'<div class="ldpw-scroll">' +
 				box(row(t('Text size'), stepper) + row(t('Appearance'), seg('rside', r.side(), [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')))) +
 				(list.length > 1 ? '<div class="ldpw-tiles ldpw-styles" role="radiogroup" aria-label="' + esc(t('Styles')) + '">' + tiles + '</div>' : '') +
@@ -1456,7 +1463,7 @@
 		if (RD()) {
 			var had0 = document.activeElement && win.contains(document.activeElement) ? document.activeElement.getAttribute('data-f') : null;
 			win.classList.add('is-reader'); win.classList.toggle('is-phone', phone()); win.classList.remove('is-list'); applyPrefs(); win.classList.add('is-noside');
-			win.innerHTML = readerHTML();
+			win.innerHTML = readerHTML() + (phone() ? '<div class="ldpw-grab" aria-hidden="true"></div>' : '');
 			var f0 = focus ? win.querySelector(focus) : had0 ? win.querySelector('[data-f="' + had0 + '"]') : null;
 			if (f0) f0.focus({ preventScroll: true });
 			return;
@@ -1473,7 +1480,7 @@
 		var wasSeg = {}, wasSw = {};
 		win.querySelectorAll('.ldpw-seg').forEach(function (g) { var k = g.querySelector('[data-seg]'); if (k) wasSeg[k.getAttribute('data-seg')] = g.style.getPropertyValue('--i'); });
 		win.querySelectorAll('.ldpw-sw[data-f]').forEach(function (x) { wasSw[x.getAttribute('data-f')] = x.getAttribute('aria-checked'); });
-		patchInto(win, sideHTML() + detailHTML() + (asking ? sheetHTML() : '') + cmdHTML() + (small ? '' : ['n', 's', 'e', 'w', 'nw', 'ne', 'sw', 'se'].map(function (d) { return '<div class="ldpw-rz' + (d.length > 1 ? ' is-c' : '') + '" data-dir="' + d + '" aria-hidden="true"></div>'; }).join(''))); 
+		patchInto(win, sideHTML() + detailHTML() + (asking ? sheetHTML() : '') + cmdHTML() + (small ? '<div class="ldpw-grab" aria-hidden="true"></div>' : ['n', 's', 'e', 'w', 'nw', 'ne', 'sw', 'se'].map(function (d) { return '<div class="ldpw-rz' + (d.length > 1 ? ' is-c' : '') + '" data-dir="' + d + '" aria-hidden="true"></div>'; }).join(''))); 
 		var moved = [];
 		win.querySelectorAll('.ldpw-seg').forEach(function (g) { var k = g.querySelector('[data-seg]'), now = g.style.getPropertyValue('--i'), was = k ? wasSeg[k.getAttribute('data-seg')] : undefined; if (was !== undefined && was !== now) { g.style.setProperty('--i', was); moved.push(function () { g.style.setProperty('--i', now); }); } });
 		win.querySelectorAll('.ldpw-sw[data-f]').forEach(function (x) { var now = x.getAttribute('aria-checked'), was = wasSw[x.getAttribute('data-f')]; if (was !== undefined && was !== now) { x.setAttribute('aria-checked', was); moved.push(function () { x.setAttribute('aria-checked', now); }); } });
@@ -1527,7 +1534,7 @@
 	
 	function place() {
 		if (!win) return;
-		if (phone()) { ['left', 'top', 'width', 'height', 'max-height'].forEach(function (k) { win.style.removeProperty(k); }); return; }
+		if (phone()) { ['left', 'top', 'width', 'max-height'].forEach(function (k) { win.style.removeProperty(k); }); sheetSize(); return; }
 		var iw = window.innerWidth, ih = window.innerHeight, bar = document.getElementById('wpadminbar');
 		var roof = 8 + (bar ? Math.max(0, bar.getBoundingClientRect().bottom) : 0);
 		var w = Math.min(RD() ? 380 : (prefs.noSide ? 0 : Math.max(150, Math.min(260, +prefs.sideW || 200))) + (+prefs.pageW || 448), iw - 16), h = ih - roof - 8; 
@@ -1674,6 +1681,25 @@
 		ensureWin();
 		showNow();
 	}
+	var sheetH = 'full';
+	function sheetSize() { if (win && phone()) win.style.setProperty('height', (sheetH === 'half' ? 52 : 92) + 'dvh'); }
+	function sheetPull(e) {
+		if (!phone() || !e.target.closest || !e.target.closest('.ldpw-bar, .ldpw-shead, .ldpw-grab, .ldpw-rhead') || e.target.closest('button, input, a, label')) return;
+		var y0 = e.clientY, t0 = performance.now(), h0 = win.offsetHeight, moved = false;
+		try { win.setPointerCapture(e.pointerId); } catch (x) {}
+		win.style.transition = 'none';
+		function move(ev) { var dy = ev.clientY - y0; if (Math.abs(dy) > 4) moved = true; win.style.setProperty('height', Math.max(120, Math.min(window.innerHeight * .95, h0 - dy)) + 'px'); }
+		function up(ev) {
+			win.removeEventListener('pointermove', move); win.removeEventListener('pointerup', up); win.removeEventListener('pointercancel', up);
+			var dy = ev.clientY - y0, v = dy / Math.max(1, performance.now() - t0), h = win.offsetHeight;
+			win.style.transition = 'height .32s cubic-bezier(.2,.8,.2,1)';
+			setTimeout(function () { win.style.removeProperty('transition'); }, 340);
+			if (!moved) return sheetSize();
+			if (v > 0.9 || h < window.innerHeight * .3) { sheetH = 'full'; win.style.removeProperty('transition'); win.style.removeProperty('height'); return hide(); } 
+			sheetH = v < -0.6 ? 'full' : v > 0.4 ? 'half' : (h > window.innerHeight * .72 ? 'full' : 'half'); sheetSize();
+		}
+		win.addEventListener('pointermove', move); win.addEventListener('pointerup', up); win.addEventListener('pointercancel', up);
+	}
 	function ensureWin() {
 		if (!win) {
 			win = document.createElement('div');
@@ -1743,6 +1769,7 @@
 			win.addEventListener('pointermove', dragMove);
 			win.addEventListener('pointerup', dragEnd);
 			win.addEventListener('pointercancel', dragEnd);
+			win.addEventListener('pointerdown', sheetPull);
 			win.addEventListener('pointerdown', function (e) { if (e.target.matches && e.target.matches('input[type="range"]')) holding = true; });
 			win.addEventListener('focusout', function () { setTimeout(function () { if (open && dirty && !holding) render(); }, 0); });
 			document.body.appendChild(win);

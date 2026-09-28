@@ -690,3 +690,6 @@
    In the site's menu or its slot the button keeps its neighbours' measures. */
 .architrave-panel-opener:not([data-docked]) .opener-icon svg { stroke-width: 2; }
 .architrave-panel-opener:not([data-docked]) { box-shadow: 0 1px 2px rgb(0 0 0 / .12), 0 4px 12px rgb(0 0 0 / .18); }
+
+/* on a phone the sheet is the window; the button waits under it (the lab's) */
+@media (max-width: 1009px) { .architrave-panel-opener[aria-expanded="true"]:not([data-docked]) { visibility: hidden; } }

@@ -293,6 +293,24 @@
 			S().choose(hit.id);
 			return until(function () { return E().current() === hit.id; }).then(function () { return { now: explain() }; });
 		},
+		/* PUBLISH, only when the owner asks: the look on the page becomes a style on the site and, unless
+		   { default: false }, what every first visit opens in. On WordPress it is live at once; on a site that is
+		   only files it waits in the browser until the site's file carries it (LDPSite.publish() gives the file). */
+		publish: function (opts) {
+			opts = opts || {};
+			var e = E(), s = S(); if (!e || !s) return Promise.resolve({ problems: [{ problem: 'The panel is not ready on this page.' }] });
+			if (!e.canPublish()) return Promise.resolve({ problems: [{ problem: 'Only the site\'s owner can publish, from the owner\'s own page.' }] });
+			var id = e.current(), x = e.list.filter(function (y) { return y.id === id; })[0] || {};
+			if (x.host) return Promise.resolve({ problems: [{ problem: 'This is the theme\'s own look, which is always on the site. Change something first, or choose a style.' }] });
+			var name = String(opts.name || x.label || 'My style').slice(0, 40), makeDefault = opts['default'] !== false;
+			var step = x.site ? (e.adjusted(id) ? e.updateSite().then(function () { return id; }) : Promise.resolve(id)) : e.publish(name, makeDefault);
+			return step.then(function (pid) {
+				return (x.site && makeDefault && pid) ? e.makeDefault(pid).then(function () { return pid; }) : pid;
+			}).then(function (pid) {
+				var files = !!window.LDPSite;
+				return { published: name, id: pid, isDefault: makeDefault, live: files ? 'Waiting: this site is only files. Write site.file into live-design/site.js in the site folder (replace the whole file) and put the site online.' : 'On the site now: readers get it on their next page.', site: files ? window.LDPSite.publish() : undefined };
+			}, function (err) { return { problems: [{ problem: 'Publishing failed: ' + (err && err.message || err) }] }; });
+		},
 		open: function () { if (window.LiveDesignWindow && !window.LiveDesignWindow.isOpen()) window.LiveDesignWindow.open(); return { open: !!(window.LiveDesignWindow && window.LiveDesignWindow.isOpen()) }; }
 	};
 
