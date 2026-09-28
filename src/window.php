@@ -293,6 +293,19 @@ function live_design_window_enqueue() {
 add_action( 'wp_enqueue_scripts', 'live_design_window_enqueue', 13 );
 
 /**
+ * THE AI DOOR (window.LiveDesign, assets/js/live-design-api.js): an AI styles the
+ * site from a chat through the window's host, by the list's names. Only where the
+ * owner's window is served; a reader's page never gets it.
+ */
+function live_design_api_enqueue() {
+	if ( ! wp_script_is( 'live-design-window-wp', 'enqueued' ) || live_design_window_reader() ) {
+		return;
+	}
+	wp_enqueue_script( 'live-design-api', plugin_dir_url( ARCHITRAVE_PANEL_FILE ) . 'assets/js/live-design-api.js', array( 'live-design-window-wp' ), architrave_panel_asset_version( 'assets/js/live-design-api.js' ), array( 'in_footer' => true ) );
+}
+add_action( 'wp_enqueue_scripts', 'live_design_api_enqueue', 14 );
+
+/**
  * ON THE PLUGINS PAGE: "Try the New Window" or "Use the Current Window" next
  * to the plugin, for whoever may choose, through admin-post with a nonce.
  *

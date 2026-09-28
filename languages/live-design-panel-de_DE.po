@@ -2754,3 +2754,27 @@ msgstr "Nichts zu entfernen"
 
 msgid "Could not get the font. Try again."
 msgstr "Die Schrift konnte nicht geladen werden. Versuch es noch einmal."
+
+msgid "{member} follows {role}. Give it its own setting where it should differ."
+msgstr "{member} folgt {role}. Gib ihm eine eigene Einstellung, wo es abweichen soll."
+
+msgid "Follows {role}"
+msgstr "Folgt {role}"
+
+msgid "All caps"
+msgstr "Großbuchstaben"
+
+msgid "Search Fonts"
+msgstr "Schriften suchen"
+
+msgid "Sans Serif"
+msgstr "Serifenlos"
+
+msgid "Monospaced"
+msgstr "Monospace"
+
+msgid "Around the paper"
+msgstr "Rund um das Papier"
+
+msgid "Menus, buttons and boxes"
+msgstr "Menüs, Buttons und Kästen"

@@ -54,7 +54,7 @@
 	function St() { return host && host.style; }
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { smallsoft: 'Small text', links: 'Links', 'colours.{side}.inverse': 'Ground colour' }; 
-	var LAB_LABEL = { 'door.own': 'Own Colour', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover', grain: 'Grain', dots: 'Dots', dotsize: 'Dot spacing', vignettereach: 'Vignette size' };
+	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover', grain: 'Grain', dots: 'Dots', dotsize: 'Dot spacing', vignettereach: 'Vignette size' };
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 	
 	var MARK = {
@@ -167,6 +167,7 @@
 		if (sat < 12 || lit > 95) return 'everyday';
 		return (hue >= 15 && hue < 75) || hue >= 330 ? 'warm' : 'cool';
 	}
+	var customView = null; 
 	function colourPage() {
 		var s = St(), side = s.side(), ink = s.colour('ink'), paper = s.colour('paper');
 		var out = box(row(t('Appearance'), seg('view', s.view(), [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')),
@@ -175,11 +176,11 @@
 		if (!s.editable()) {
 			return out + box('<div class="ldpw-note"><p>' + esc(t('Original is the theme as it comes, and stays that way. Make a copy to change its colours.')) + '</p><button type="button" class="ldpw-blue" data-act="copy" data-f="act:copy">' + esc(t('Make a Copy')) + '</button></div>');
 		}
-		var custom = s.custom();
+		var custom = s.custom() || customView === s.current();
 		out += box(row(t('Colours'), seg('custom', custom ? 'on' : 'off', [['off', t('Preset')], ['on', t('Custom')]], t('Colours'))));
 		if (custom) {
 			var q = s.contrast(ink, paper);
-			out += box(wellRow('colours.{side}.paper') + wellRow('colours.{side}.ink', q ? esc(readable(q)) : '') + wellRow('colours.{side}.accent') + wellRow('colours.{side}.ground') + wellRow('colours.{side}.lift'));
+			out += box(wellRow('colours.{side}.paper') + wellRow('colours.{side}.ink', q ? esc(readable(q)) : '') + wellRow('colours.{side}.accent') + wellRow('colours.{side}.ground', esc(t('Around the paper'))) + wellRow('colours.{side}.lift', esc(t('Menus, buttons and boxes'))));
 		} else {
 			var tile = function (p) {
 				return '<button type="button" class="ldpw-tile' + (p.on ? ' is-on' : '') + '" role="radio" aria-checked="' + !!p.on + '" data-preset="' + esc(p.id) + '" data-f="preset:' + esc(p.id) + '">' +
@@ -269,7 +270,7 @@
 	var WORDSPACE = SPACING.map(function (id) { return { id: id, label: spacingWord(id) }; });
 	var ALIGN = [['default', 'Left'], ['center', 'Centre'], ['right', 'Right']];
 	var OWN_WORD = { size: 'Own size', weight: 'Own weight', caps: 'Own capitals', tracking: 'Own character spacing', align: 'Own alignment' };
-	var FACE_GROUPS = [['sans', 'Sans-serif'], ['serif', 'Serif'], ['mono', 'Monospace'], ['pixel', 'Pixel'], ['display', 'Display']];
+	var FACE_GROUPS = [['sans', 'Sans Serif'], ['serif', 'Serif'], ['mono', 'Monospaced'], ['pixel', 'Pixel'], ['display', 'Display']]; 
 	var FOLLOW = { read: 'Same as reading text', ui: 'Same as interface', inherit: 'Same as reading text' };
 	var FOLLOW_SHORT = { read: 'Reading text', ui: 'Interface', inherit: 'Reading text' };
 	var ROLE_GROUPS = [['Article', ['head', 'kicker', 'read', 'quote', 'small', 'comment']], ['Site', ['ui', 'title']]];
@@ -308,7 +309,8 @@
 	function rolePage() {
 		var s = St(), r = roleMeta(role), v = s.role(role), has = function (d) { return r.dials.indexOf(d) !== -1; };
 		var P = 'roles.' + role + '.', weights = s.weights(v.face);
-		var out = box(navRow('data-font="' + role + '" data-f="font:' + role + '"', t('Font'), faceName(v.face)) +
+		var fv = FOLLOW[v.face] ? t(v.face === 'ui' ? 'Interface font' : 'Reading font') + ' · ' + faceName(realFace(v.face)) : faceName(v.face); 
+		var out = box(navRow('data-font="' + role + '" data-f="font:' + role + '"', t('Font'), fv) +
 			(s.dead('size:' + role) ? row(t('Size'), '<span class="ldpw-val">' + esc(v.size + ' px') + '</span>', '', 'is-off') : stepSlider(P + 'size', t('Size'), s.sizes(role).map(function (id) { return { id: String(id), label: id + ' px' }; }), String(v.size), function (id) { s.setRole(role, 'size', id); })) +
 			(weights.length ? stepSlider(P + 'weight', t('Weight'), weights.map(function (w) { return { id: w, label: weightWord(w) + ' ' + WEIGHT_NUMBER[w] }; }), v.weight, function (id) { s.setRole(role, 'weight', id); })
 				: row(t('Weight'), '<span class="ldpw-val">' + esc(weightWord(v.weight)) + '</span>', '', 'is-off')) +
@@ -343,34 +345,36 @@
 	function memberPage() {
 		var s = St(), v = s.role(role), m = s.members(role).filter(function (x) { return x.id === member; })[0];
 		if (!m) return '';
-		return s.memberDials(role).map(function (d) {
+		var rl = t(roleMeta(role).label), mm = s.memberMeta(role, member), order = ['size', 'weight', 'align', 'caps', 'tracking'];
+		var dials = s.memberDials(role).slice().sort(function (a, b) { return order.indexOf(a) - order.indexOf(b); });
+		return '<p class="ldpw-hint">' + esc(t('{member} follows {role}. Give it its own setting where it should differ.').replace('{member}', t(mm.label)).replace('{role}', rl)) + '</p>' + box(dials.map(function (d) {
 			var own = !!(m.own && m.own[d] !== undefined);
-			var val = d === 'size' ? m.size + ' px' : d === 'weight' ? weightWord(m.weight) + ' ' + (WEIGHT_NUMBER[m.weight] || '') : d === 'caps' ? t(m.caps ? 'On' : 'Off') : d === 'align' ? t((ALIGN.filter(function (a) { return a[0] === m.align; })[0] || ALIGN[0])[1]) : ((TRACKING.filter(function (x) { return x.id === m.tracking; })[0]) || {}).label || '';
-			var head = row(t(OWN_WORD[d]), (own ? '' : '<span class="ldpw-val">' + esc(val) + '</span>') + swBtn('data-mown="' + d + '"', own, t(OWN_WORD[d])));
-			if (!own) return box(head);
+			var head = row(t(OWN_WORD[d]), swBtn('data-mown="' + d + '"', own, t(OWN_WORD[d])), own ? '' : esc(t('Follows {role}').replace('{role}', rl)));
+			if (!own) return head;
 			var K = 'members.' + member + '.' + d, set = function (id) { s.setMember(role, member, d, id); };
 			var ctl = d === 'size' ? stepSlider(K, t('Size'), s.sizes(role).map(function (id) { return { id: String(id), label: id + ' px' }; }), String(m.size), set)
 				: d === 'weight' ? stepSlider(K, t('Weight'), s.weights(v.face).map(function (w) { return { id: w, label: weightWord(w) + ' ' + WEIGHT_NUMBER[w] }; }), m.weight, set)
-				: d === 'caps' ? row(t('Capitals'), swBtn('data-mcaps', m.caps, t('Capitals')))
+				: d === 'caps' ? row(t('All caps'), swBtn('data-mcaps', m.caps, t('All caps')))
 				: d === 'align' ? row(t('Alignment'), seg('malign', m.align || 'default', ALIGN.map(function (a) { return [a[0], t(a[1])]; }), t('Alignment')))
 				: stepSlider(K, t('Character spacing'), TRACKING, m.tracking || 'default', set, 'default');
-			return box(head + ctl);
-		}).join('');
+			return head + ctl;
+		}).join(''));
 	}
 	var fontGet = {}; 
 	function fontPage() {
 		var s = St(), v = s.role(fontFor), cur = v.face === 'inherit' ? 'read' : v.face, q = fontq.toLowerCase();
 		var faces = s.faces(v.face).filter(function (f) { return !q || f.label.toLowerCase().indexOf(q) !== -1; });
-		function frow(id, lb) { var on = id === cur; return '<button type="button" class="ldpw-r ldpw-navrow" role="radio" aria-checked="' + on + '" data-face="' + esc(id) + '" data-f="face:' + esc(id) + '"><span class="ldpw-check" aria-hidden="true">' + (on ? '✓' : '') + '</span><span class="ldpw-lb">' + esc(lb) + '</span></button>'; }
+		function frow(id, lb) { var on = id === cur; return '<button type="button" class="ldpw-r ldpw-navrow ldpw-frow" role="radio" aria-checked="' + on + '" data-face="' + esc(id) + '" data-f="face:' + esc(id) + '"><span class="ldpw-lb">' + esc(lb) + '</span>' + (on ? '<span class="ldpw-fcheck" aria-hidden="true">✓</span>' : '') + '</button>'; } 
 		var follower = fontFor !== 'read' && fontFor !== 'ui';
-		var out = '<label class="ldpw-search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-fontq data-f="fontq" placeholder="' + esc(t('Search fonts')) + '" aria-label="' + esc(t('Search fonts')) + '" value="' + esc(fontq) + '" autocomplete="off" spellcheck="false"></label>';
+		var out = '<label class="ldpw-search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-fontq data-f="fontq" placeholder="' + esc(t('Search Fonts')) + '" aria-label="' + esc(t('Search Fonts')) + '" value="' + esc(fontq) + '" autocomplete="off" spellcheck="false"></label>';
 		if (follower && !q) out += box(frow('read', t(FOLLOW.read)) + frow('ui', t(FOLLOW.ui)));
 		var F = s.fonts, lib = F && F.can() ? F.library() : [], away = function (f) { return lib.indexOf(f.id) !== -1 && f.id !== cur && (!F.have(f.id) || !!fontGet[f.id]); }; 
 		var onSite = faces.filter(function (f) { return !away(f); }), library = faces.filter(away);
 		var shown = 0;
 		function groups(list, get) {
 			var html = '';
-			FACE_GROUPS.concat([['', 'Other']]).forEach(function (g) {
+			var curGroup = (faces.filter(function (f) { return f.id === cur; })[0] || {}).group;
+			FACE_GROUPS.slice().sort(function (a, b) { return (b[0] === curGroup) - (a[0] === curGroup); }).concat([['', 'Other']]).forEach(function (g) { 
 				var mine = list.filter(function (f) { return g[0] ? f.group === g[0] : FACE_GROUPS.every(function (x) { return x[0] !== f.group; }); });
 				if (!mine.length) return;
 				shown += mine.length;
@@ -610,8 +614,11 @@
 			out += '<div class="ldpw-stile ldpw-orig' + (o.on ? ' is-on' : '') + '"><button type="button" class="ldpw-origrow" role="radio" aria-checked="' + o.on + '" data-style="' + esc(o.id) + '" data-f="style:' + esc(o.id) + '" style="background:' + esc(o.paper) + ';color:' + esc(o.ink) + (o.face ? ';font-family:' + esc(o.face) : '') + '"><b>' + esc(t(o.label)) + '</b><small>' + esc(t('Your theme as it is')) + (st.originalAt === 0 ? ' · ' + esc(t('Default')) : '') + '</small></button>' +
 				'<button type="button" class="ldpw-tm" aria-haspopup="menu" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + t(o.label)) + '">' + svg(GLYPH.more) + '</button></div>';
 		}
-		out += gtitle(t('Shown to Readers')) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable" data-group="shown" role="radiogroup" aria-label="' + esc(t('Shown to Readers')) + '">' + st.shown.map(tileHTML).join('') + '</div>';
-		out += gtitle(t('Hidden from Readers')) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(tileHTML).join('') + '</div>';
+		
+		var fold = prefs.fold || {};
+		function head(g, w, n) { var o = !fold[g]; return '<button type="button" class="ldpw-gtitle ldpw-fold" data-fold="' + g + '" data-f="fold:' + g + '" aria-expanded="' + o + '">' + esc(w) + (o ? '' : ' <small>' + n + '</small>') + '</button>'; }
+		out += head('shown', t('Shown to Readers'), st.shown.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.shown ? ' is-folded' : '') + '" data-group="shown" role="radiogroup" aria-label="' + esc(t('Shown to Readers')) + '">' + st.shown.map(tileHTML).join('') + '</div>';
+		out += head('hidden', t('Hidden from Readers'), st.hidden.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.hidden ? ' is-folded' : '') + '" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(tileHTML).join('') + '</div>';
 		return out + '<p class="ldpw-hint">' + esc(t('Drag a style to change its order or to show or hide it. The first one shown is the default.')) + '</p>';
 	}
 	function commit() {
@@ -659,13 +666,13 @@
 		if (st.original) { var o = s.tile(st.original), po = shareOf(st.original, counted); rows += '<div class="ldpw-r"><span class="ldpw-lb">' + esc(t(o.label)) + (po === null ? '<small>' + esc(t('Your theme as it is')) + '</small>' : usesLine(po)) + '</span><span class="ldpw-val">' + esc(t('Always shown')) + '</span></div>'; }
 		rows += st.shown.map(function (id, i) {
 			var x = s.tile(id), first = i === 0, pc = shareOf(id, counted);
-			var handle = '<button type="button" class="ldpw-handle" data-handle="' + esc(id) + '" data-f="handle:' + esc(id) + '" aria-label="' + esc(t('Move {name}').replace('{name}', t(x.label))) + '" aria-describedby="ldpw-order-hint">' + svg(GLYPH.grip) + '</button>';
+			var handle = '<button type="button" class="ldpw-handle" data-handle="' + esc(id) + '" data-f="handle:' + esc(id) + '" aria-label="' + esc(t('Move {name}').replace('{name}', t(x.label))) + '" aria-describedby="ldpw-order-hint"><span aria-hidden="true">≡</span></button>'; 
 			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(t(x.label)) + '' + (pc === null ? '<small>' + esc(first ? t('What a first visit opens in') : t('Readers can choose it')) + '</small>' : usesLine(pc)) + '</span>' +
 				(first ? '<span class="ldpw-val">' + esc(t('Default')) + '</span>' : sw2(id, true, x.label)) + handle + '</div>';
 		}).join('');
 		rows += st.hidden.map(function (id) {
 			var x = s.tile(id);
-			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(t(x.label)) + '<small>' + esc(x.own ? t('Yours; showing it publishes it') : t('Hidden from readers')) + '</small></span>' + sw2(id, false, x.label) + '<span class="ldpw-handle is-none" aria-hidden="true"></span></div>';
+			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(t(x.label)) + '<small>' + esc(x.own ? t('Yours; showing it publishes it') : t('Hidden from readers')) + '</small></span>' + sw2(id, false, x.label) + '<span class="ldpw-handle" aria-hidden="true"><span>≡</span></span></div>' ;
 		}).join('');
 		var counting = countsHeld ? !!countsHeld.counting : true;
 		return out + '<div class="ldpw-box ldpw-sortable is-list" data-group="list">' + rows + '</div>' + '<p class="ldpw-hint" id="ldpw-order-hint">' + esc(t('Drag a style, or focus its handle and use the arrow keys.')) + '</p>' +
@@ -684,7 +691,7 @@
 		function begin() {
 			started = true; holding = true;
 			var r = item.getBoundingClientRect(), wr = win.getBoundingClientRect(), list = item.parentNode, grid = !list.classList.contains('is-list');
-			var ph = document.createElement('div'); ph.className = 'ldpw-sortph ' + (grid ? 'is-tile' : 'is-row'); ph.style.height = r.height + 'px'; if (grid) ph.style.width = r.width + 'px';
+			var ph = document.createElement('div'), card = grid && item.querySelector('.ldpw-pic'); ph.className = 'ldpw-sortph ' + (grid ? 'is-tile' : 'is-row'); ph.style.height = (card ? card.offsetHeight : r.height) + 'px';  if (grid) ph.style.width = r.width + 'px';
 			list.insertBefore(ph, item);
 			sorting = { item: item, ph: ph, dx: x0 - r.left, dy: y0 - r.top, grid: grid, wr: wr, scroll: win.querySelector('.ldpw-scroll'), vy: 0, last: null };
 			item.classList.add('ldpw-lift'); item.style.width = r.width + 'px'; item.style.height = r.height + 'px'; item.style.left = (r.left - wr.left) + 'px'; item.style.top = (r.top - wr.top) + 'px';
@@ -909,12 +916,13 @@
 		var ed = s && s.editable();
 		var x0 = s && s.tile ? s.tile(s.current()) : null;
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
-			['commit', /Publish/.test(commit()) ? t('Publish') : t('Save As…'), !commit() || / disabled>/.test(commit())], ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
+			(x0 && x0.site && / disabled>/.test(commit()) || !(x0 && x0.site) ? ['saveas', t('Save As…'), !x0 || x0.host] : ['commit', t('Publish'), false]), ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
 			[null, ['revertall', t(x0 && x0.site ? 'Revert to Published…' : 'Revert to Original…'), !n], null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']]), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
 			else if (a === 'copycss' || a === 'copyjson') copyCode(a === 'copycss' ? 'css' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
+			else if (a === 'saveas') { var sx = s.tile(s.current()); asking = { title: t('Save As New Style'), field: t('{name} Copy').replace('{name}', t(sx.label)), go: t('Save'), back: '[data-menu="barmore"]', run: function (v) { s.saveAs(v); done(t('Saved')); } }; render(); }
 			else if (a === 'versions') openVersions();
 			else if (a === 'cmdk') openCmd();
 			else if (a === 'revertall') askRevertAll();
@@ -1217,15 +1225,17 @@
 			'<div class="ldpw-shead"><button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '" title="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button><b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? '' : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('Hide Sidebar')) + '" title="' + esc(t('Hide Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>') + '</div>' +
 			'<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' +
 			'<div class="ldpw-side-in">' + navButton({ id: 'styles', name: t('Styles') }) +
-				'<div class="ldpw-gt">' + esc(styleName() || t('Style')) + '</div>' + sections().map(navButton).join('') +
+				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + (St() && St().tile(St().current()) && St().tile(St().current()).edited ? '<em>' + esc(t('Edited')) + '</em>' : '') + '</div>' + sections().map(navButton).join('') + 
 				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'readers', name: t('Readers') }) + navButton({ id: 'button', name: t('Live Design Button') }) +
 			'</div>' + 
 			(phone() ? '' : '<span class="ldpw-grip" data-grip role="separator" aria-orientation="vertical" aria-label="' + esc(t('Sidebar width')) + '"></span>') + 
 		'</nav>';
 	}
 	var PREF_KEY = 'ldpw-prefs';
-	var prefs = (function () { var d = { look: 'auto', glass: false, accent: 'blue', motion: 'full', sound: 'off', tips: true, seenAim: false, noSide: false, sideW: 200, zoom: 1, x: null, y: null, pageW: null, h: null };  try { var o = JSON.parse(localStorage.getItem(PREF_KEY) || '{}'); for (var k in o) if (Object.prototype.hasOwnProperty.call(d, k)) d[k] = o[k]; } catch (e) {  } return d; })();
-	var ACCENT = { blue: ['Blue', '#0a84ff'], purple: ['Purple', '#bf5af2'], pink: ['Pink', '#ff375f'], red: ['Red', '#ff453a'], orange: ['Orange', '#ff9f0a'], yellow: ['Yellow', '#ffd60a'], green: ['Green', '#30d158'], graphite: ['Graphite', '#8e8e93'] };
+	var prefs = (function () { var d = { look: 'auto', glass: false, accent: 'blue', motion: 'full', sound: 'off', tips: true, seenAim: false, noSide: false, sideW: 200, zoom: 1, x: null, y: null, pageW: null, h: null, fold: {} };  try { var o = JSON.parse(localStorage.getItem(PREF_KEY) || '{}'); for (var k in o) if (Object.prototype.hasOwnProperty.call(d, k)) d[k] = o[k]; } catch (e) {  } return d; })();
+	var ACCENT = { blue: ['Blue', '#0a84ff', '#007aff'], purple: ['Purple', '#bf5af2', '#9f45d6'], pink: ['Pink', '#ff375f', '#e6254d'], red: ['Red', '#ff453a', '#e0342b'], orange: ['Orange', '#ff9f0a', '#e07b00'], yellow: ['Yellow', '#ffd60a', '#c9a400'], green: ['Green', '#30d158', '#24a846'], graphite: ['Graphite', '#8e8e93', '#6e6e73'] }; 
+	function uiDark() { return prefs.look === 'dark' || (prefs.look === 'auto' && !!systemDark && systemDark.matches); }
+	function accentHex(k) { var a = ACCENT[k] || ACCENT.blue; return uiDark() ? a[1] : a[2]; }
 	var systemDark = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
 	function doorLook() {
 		var dark = prefs.look === 'dark' || (prefs.look === 'auto' && !!systemDark && systemDark.matches);
@@ -1247,7 +1257,7 @@
 		win.toggleAttribute('data-still', prefs.motion === 'reduced');
 		win.classList.toggle('is-noside', !!prefs.noSide && !phone());
 		win.style.setProperty('--ldpw-sidew', Math.max(150, Math.min(260, +prefs.sideW || 200)) + 'px');
-		win.style.setProperty('--ldpw-blue', (ACCENT[prefs.accent] || ACCENT.blue)[1]);
+		win.style.setProperty('--ldpw-blue', accentHex(prefs.accent)); 
 	}
 	function zoomBy(m) {
 		var z = +prefs.zoom || 1;
@@ -1270,7 +1280,7 @@
 	function showKeys() { asking = { title: t('Keyboard Shortcuts'), keys: KEYS, go: t('Done'), back: '[data-act="keys"]', run: function () {} }; render('[data-act="ask-go"]'); }
 	function settingsPage() {
 		var s = St(), bt = s && s.button && s.button(), lang = (document.documentElement.getAttribute('lang') || 'en').split('-')[0];
-		var dots = '<span class="ldpw-dots" role="radiogroup" aria-label="' + esc(t('Accent colour')) + '">' + Object.keys(ACCENT).map(function (k) { var on = prefs.accent === k; return '<button type="button" class="ldpw-dotc' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-accent="' + k + '" data-f="accent:' + k + '" style="--c:' + ACCENT[k][1] + '" aria-label="' + esc(t(ACCENT[k][0])) + '" title="' + esc(t(ACCENT[k][0])) + '"></button>'; }).join('') + '</span>';
+		var dots = '<span class="ldpw-dots" role="radiogroup" aria-label="' + esc(t('Accent colour')) + '">' + Object.keys(ACCENT).map(function (k) { var on = prefs.accent === k; return '<button type="button" class="ldpw-dotc' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-accent="' + k + '" data-f="accent:' + k + '" style="--c:' + accentHex(k) + '" aria-label="' + esc(t(ACCENT[k][0])) + '" title="' + esc(t(ACCENT[k][0])) + '"></button>'; }).join('') + '</span>';
 		var psw = function (k, on, lb) { return '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + !!on + '" data-pref="' + k + '" data-f="pref:' + k + '" aria-label="' + esc(lb) + '"></button>'; };
 		return '<p class="ldpw-hint">' + esc(t('Only for you, on this computer. Readers never see these.')) + '</p>' +
 			gtitle(t('Window')) + box(row(t('Appearance'), seg('plook', prefs.look, [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')), prefs.look === 'auto' ? esc(t('Follows your computer')) : '') +
@@ -1333,7 +1343,7 @@
 		var x = current(), s = St(), built = BUILT.indexOf(x.id) !== -1 && (x.id === 'settings' || s);
 		var deep = showChanges || showVersions || (x.id === 'type' && (role || fontFor));
 		var name = sq && sq.q.trim() ? t('Search') : showChanges ? t('Changes') : showVersions ? t('Versions') : editing ? label(editing) : x.id !== 'type' ? x.name : fontFor ? (role ? t('Font') : t(fontFor === 'read' ? 'Reading Font' : 'Interface Font')) : member ? t(St().memberMeta(role, member).label) : role ? t(roleMeta(role).label) : x.name;
-		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (s.tile(s.current()) && s.tile(s.current()).edited ? ' · ' + t('Edited') : '') : editing ? t(s.side() === 'dark' ? 'Dark' : 'Light') : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : member ? t(roleMeta(role).label) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
+		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (s.tile(s.current()) && s.tile(s.current()).edited ? ' · ' + t('Edited') : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /head|kicker/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : member ? t('Type') + ' › ' + t(roleMeta(role).label) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
 		var back = editing || deep || phone();
 		var undo = built && s ? '<button type="button" class="ldpw-circ" data-act="undo" data-f="act:undo"' + (s.canUndo() ? '' : ' disabled') + ' aria-label="' + esc(undoName()) + '" title="' + esc(undoName()) + '">' + svg(GLYPH.undo) + '</button>' : '';
 		return '<div class="ldpw-detail">' +
@@ -1808,6 +1818,7 @@
 			} };
 			render('[data-act="ask-go"]'); return;
 		}
+		if (b.hasAttribute('data-fold')) { var fg = b.getAttribute('data-fold'); prefs.fold = prefs.fold || {}; prefs.fold[fg] = !prefs.fold[fg]; savePrefs(); render('[data-fold="' + fg + '"]'); return; }
 		if (act === 'sqclear') { sq = null; render('[data-sideq]'); return; }
 		if (b.hasAttribute('data-sqhit')) { goTo(sqResults()[+b.getAttribute('data-sqhit')]); return; }
 		if (act === 'share') { askShare(); return; }
@@ -1857,7 +1868,7 @@
 		if (act === 'current') { var id = b.getAttribute('data-sec'); hide(true); host.openCurrent(id); return; }
 		if (b.hasAttribute('data-seg')) {
 			var sg = b.getAttribute('data-seg'), v = b.getAttribute('data-v');
-			if (sg === 'view') s.setView(v); else if (sg === 'custom') s.setCustom(v === 'on');
+			if (sg === 'view') s.setView(v); else if (sg === 'custom') {  if (v === 'on') customView = s.current(); else { customView = null; if (s.custom()) s.setCustom(false); } }
 			else if (sg === 'who') { btnWrite(s.setButton('who', v), '[data-seg="who"][data-v="' + v + '"]'); return; }
 			else if (sg === 'bsize') { btnWrite(s.setButton('size', v), '[data-seg="bsize"][data-v="' + v + '"]'); return; }
 			else if (sg === 'plook') { prefs.look = v; savePrefs(); }

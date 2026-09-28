@@ -215,6 +215,14 @@ function live_design_window_enqueue() {
 }
 add_action( 'wp_enqueue_scripts', 'live_design_window_enqueue', 13 );
 
+function live_design_api_enqueue() {
+	if ( ! wp_script_is( 'live-design-window-wp', 'enqueued' ) || live_design_window_reader() ) {
+		return;
+	}
+	wp_enqueue_script( 'live-design-api', plugin_dir_url( ARCHITRAVE_PANEL_FILE ) . 'assets/js/live-design-api.js', array( 'live-design-window-wp' ), architrave_panel_asset_version( 'assets/js/live-design-api.js' ), array( 'in_footer' => true ) );
+}
+add_action( 'wp_enqueue_scripts', 'live_design_api_enqueue', 14 );
+
 function live_design_window_action_link( $links ) {
 	if ( ! architrave_panel_runs() || ! live_design_window_may() ) {
 		return $links;

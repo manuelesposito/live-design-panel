@@ -1,0 +1,282 @@
+/*
+ * THE AI DOOR ON A REAL SITE: window.LiveDesign (build plan, "The AI door on a real site", 2026-09-28).
+ *
+ * An AI styles the site through the same door a person's window uses. It reads what every
+ * setting MEANS, changes settings by their saved names (soft, corners, roles.head.size,
+ * colours.dark.accent), sees each change as ONE step the owner can undo, and gets the
+ * reading check back in numbers. It speaks the lab prototype's words (describe, set,
+ * preview, endPreview, check, explain, undo, redo, style, load, choose, open), so the
+ * connector (tools/live-design-mcp.mjs) works on the lab page and on a real site alike.
+ *
+ * It owns nothing: every read and write goes through the window's host
+ * (window.LiveDesignHost.style) and the engine's own description of the record
+ * (ArchitraveStyles.schema / guide). A change is written as a whole record through
+ * restoreVersion, which keeps what stood as a version and is one Undo; a preview goes
+ * through previewVersion, which keeps nothing. Nothing goes live without Publish.
+ *
+ * Served only to someone who may edit the design, on the page where the new window is.
+ */
+(function () {
+	'use strict';
+
+	function H() { return window.LiveDesignHost || null; }
+	function S() { var h = H(); return h ? h.style : null; }
+	function E() { return window.ArchitraveStyles || null; }
+	var WHO = 'AI';
+
+	function clone(o) { return o == null ? o : JSON.parse(JSON.stringify(o)); }
+	function schema() { try { return E().schema(); } catch (e) { return {}; } }
+	function meaning() { try { return E().guide().meaning || {}; } catch (e) { return {}; } }
+	function list() { var h = H(); return (h && h.settings && h.settings.list) || []; }
+	function roleList() { var h = H(); return (h && h.settings && h.settings.roles) || []; }
+	function entry(key) { return list().filter(function (x) { return x.key === key; })[0] || null; }
+
+	/* how many letters apart two words are: a typo still finds its setting */
+	function apart(a, b) {
+		var m = [], i, j;
+		for (i = 0; i <= a.length; i++) m[i] = [i];
+		for (j = 0; j <= b.length; j++) m[0][j] = j;
+		for (i = 1; i <= a.length; i++) for (j = 1; j <= b.length; j++) m[i][j] = Math.min(m[i - 1][j] + 1, m[i][j - 1] + 1, m[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+		return m[a.length][b.length];
+	}
+	function nearKeys(q) {
+		q = String(q).toLowerCase();
+		return list().filter(function (x) { var l = String(x.label || '').toLowerCase(); return x.key.indexOf(q) > -1 || (l && l.indexOf(q) > -1) || apart(x.key, q) <= 2 || (l && apart(l, q) <= 2); }).map(function (x) { return x.key; });
+	}
+
+	/* A value in an AI's words, against the values the record allows: a choice by its name, a number on
+	   the nearest step, "+1" / "-1" / "more" / "less" to move a step, on/off for a switch. */
+	function settle(path, want, cur, allowed) {
+		var rel = typeof want === 'string' && /^([+-]\d+|more|less|up|down|bigger|smaller)$/.test(want) ? (/^[+-]/.test(want) ? parseInt(want, 10) : /more|up|bigger/.test(want) ? 1 : -1) : 0;
+		if (allowed === 'boolean') { if (typeof want === 'string') want = /^(on|true|yes|1)$/i.test(want); return { value: !!want }; }
+		if (allowed === 'hex') { var h = String(want).trim().toLowerCase(); if (/^#[0-9a-f]{3}$/.test(h)) h = '#' + h[1] + h[1] + h[2] + h[2] + h[3] + h[3]; return /^#[0-9a-f]{6}$/.test(h) ? { value: h } : { error: '"' + want + '" is not a colour for ' + path + '. Write it as #rrggbb.' }; }
+		if (!Array.isArray(allowed)) return { value: want };
+		var vals = allowed.map(String);
+		if (rel) { var at = Math.max(0, vals.indexOf(String(cur))); return { value: allowed[Math.max(0, Math.min(vals.length - 1, at + rel))] }; }
+		var i = vals.indexOf(String(want).toLowerCase());
+		if (i === -1) i = vals.indexOf(String(want));
+		if (i > -1) return { value: allowed[i] };
+		var n = parseFloat(want), nums = vals.map(parseFloat);
+		if (!isNaN(n) && nums.every(function (x) { return !isNaN(x); })) {
+			var best = 0; nums.forEach(function (x, k) { if (Math.abs(x - n) < Math.abs(nums[best] - n)) best = k; });
+			return { value: allowed[best], adjusted: nums[best] === n ? undefined : 'No step at ' + want + '; took the nearest, ' + allowed[best] };
+		}
+		return { error: '"' + want + '" is not a value for ' + path + '. Values: ' + vals.join(', ') };
+	}
+
+	/* What a saved name may hold, from the engine's schema; only the settings the window shows are open to an AI. */
+	function allowedFor(path, sc) {
+		var p = path.split('.');
+		if (p[0] === 'roles') {
+			var r = (sc.roles || {})[p[1]];
+			if (!r) return { error: 'There is no role "' + p[1] + '". Roles: ' + Object.keys(sc.roles || {}).join(', ') };
+			if (p[2] === 'members') {
+				var m = (r.members || {})[p[3]];
+				if (!m) return { error: 'Role "' + p[1] + '" has no member "' + p[3] + '". Members: ' + Object.keys(r.members || {}).join(', ') };
+				if (!m[p[4]] || p[4] === 'rest') return { error: 'Member "' + p[3] + '" has no dial "' + p[4] + '".' };
+				return { allowed: m[p[4]] };
+			}
+			if (p.length !== 3 || !r[p[2]]) return { error: 'Role "' + p[1] + '" has no dial "' + p[2] + '". Dials: ' + Object.keys(r).filter(function (k) { return r[k] !== undefined && k !== 'members'; }).join(', ') };
+			return { allowed: r[p[2]] };
+		}
+		if (p[0] === 'colours') {
+			if (p.length !== 3 || ['light', 'dark'].indexOf(p[1]) === -1) return { error: 'Colours are colours.<light|dark>.<well>, e.g. colours.dark.accent.' };
+			var wells = Object.keys(((sc.colours || {}).light) || {});
+			if (wells.indexOf(p[2]) === -1) return { error: 'There is no colour well "' + p[2] + '". Wells: ' + wells.join(', ') };
+			return { allowed: 'hex' };
+		}
+		if (!entry(path)) { var near = nearKeys(path); return { error: 'There is no setting "' + path + '".' + (near.length ? ' Did you mean ' + near.join(', ') + '?' : ' Call describe() for the list.') }; }
+		return { allowed: path in sc ? sc[path] : (entry(path).choices || entry(path).steps || null) };
+	}
+	function at(o, path) { return path.split('.').reduce(function (x, k) { return x == null ? undefined : x[k]; }, o); }
+	function put(o, path, v) { var p = path.split('.'), x = o; for (var i = 0; i < p.length - 1; i++) { if (!x[p[i]] || typeof x[p[i]] !== 'object') x[p[i]] = {}; x = x[p[i]]; } x[p[p.length - 1]] = v; }
+
+	/* What a saved name holds on the page now, where the record leaves it at its rest. */
+	function liveValue(path) {
+		var s = S(), p = path.split('.');
+		try {
+			if (p[0] === 'roles' && p.length === 3) return (s.role(p[1]) || {})[p[2]];
+			if (p[0] === 'colours') return p[1] === s.side() ? s.colour(p[2]) : undefined;
+			if (p.length === 1 && entry(path)) return s.get(path);
+		} catch (e) { /* unknown here: the step starts from the first */ }
+		return undefined;
+	}
+	/* The style as it stands, as a record; the theme's own look is never changed, a copy of it is. */
+	function nowRecord() { var e = E(); return e && e.nowRecord ? e.nowRecord() : null; }
+	/* Choosing a style or making a copy lands a moment after the press: wait for the engine to say so. */
+	function until(test, ms) {
+		return new Promise(function (done) {
+			var t0 = Date.now();
+			(function tick() { if (test() || Date.now() - t0 > (ms || 3000)) done(test()); else setTimeout(tick, 50); }());
+		});
+	}
+	/* the check measures the page as it is drawn after a change */
+	function painted() { return new Promise(function (done) { requestAnimationFrame(function () { requestAnimationFrame(function () { setTimeout(done, 30); }); }); }); }
+	function editableRecord() {
+		var s = S(), e = E(); if (!s || !e) return Promise.resolve({ error: 'The panel is not ready on this page.' });
+		if (s.editable() && nowRecord()) return Promise.resolve({ record: nowRecord() });
+		var was = e.current();
+		if (!s.makeCopy()) return Promise.resolve({ error: 'This style cannot be changed and no copy could be made.' });
+		return until(function () { return e.current() !== was && !!nowRecord(); }).then(function (ok) {
+			return ok ? { record: nowRecord(), madeCopy: s.name() } : { error: 'A copy of this style was made but did not open; try again.' };
+		});
+	}
+
+	/* Every change planned first, nothing written until all of it is known: the side is a view, the preset a pick, the rest one record. */
+	function plan(changes, base) {
+		var sc = schema(), rec = clone(base) || {}, done = [], problems = [], view = null, preset = null;
+		Object.keys(changes || {}).forEach(function (path) {
+			var want = changes[path];
+			if (path === 'side' || path === 'view.side') {
+				var sv = settle('side', want, S().view(), ['light', 'dark', 'auto']);
+				if (sv.error) return problems.push({ key: path, problem: sv.error });
+				view = sv.value; done.push({ key: 'side', from: S().view(), to: sv.value, says: 'Only what you look at: the style holds both sides, readers choose their own.' });
+				return;
+			}
+			if (path === 'preset') {
+				var ids = S().presets().map(function (x) { return x.id; }), hit = S().presets().filter(function (x) { return x.id === want || x.id === 'preset:' + want || x.id === 'pair:' + want || String(x.label).toLowerCase() === String(want).toLowerCase(); })[0];
+				if (!hit) return problems.push({ key: path, problem: 'No colour preset "' + want + '". Presets: ' + ids.join(', ') });
+				preset = hit.id; done.push({ key: 'preset', to: hit.id, says: hit.label });
+				return;
+			}
+			var a = allowedFor(path, sc);
+			if (a.error) return problems.push({ key: path, problem: a.error });
+			var cur = at(rec, path); if (cur === undefined) cur = liveValue(path); /* a record names only what moved from its base */
+			var r = settle(path, want, cur, a.allowed);
+			if (r.error) return problems.push({ key: path, problem: r.error });
+			if (JSON.stringify(cur) === JSON.stringify(r.value)) return;
+			put(rec, path, r.value);
+			done.push({ key: path, from: cur, to: r.value, adjusted: r.adjusted });
+		});
+		return { record: rec, changed: done, problems: problems, view: view, preset: preset };
+	}
+
+	/* THE READING CHECK, measured on the page: contrast of text, links and buttons, the reading size,
+	   letters per line and line spacing of the article's paragraphs, with a suggested fix for each warning. */
+	var READ = '.wp-block-post-content p, .entry-content p, article p, main p, p';
+	function readingParagraph() { /* the longest paragraph of the article: a caption or a footer line is not the reading text */
+		var best = null, most = 0;
+		Array.prototype.forEach.call(document.querySelectorAll(READ), function (p) { if (p.closest('.reading-panel, #ldp-window, #wpadminbar')) return; var n = (p.textContent || '').length; if (n > most && p.getBoundingClientRect().width > 0) { best = p; most = n; } });
+		return best;
+	}
+	function contrast(a, b) { var s = S(); return s ? Math.round(s.contrast(a, b) * 10) / 10 : 0; }
+	function check() {
+		var s = S(); if (!s) return { ok: false, facts: {}, warnings: [{ says: 'The panel is not ready on this page.' }] };
+		var paper = s.colour('paper'), ink = s.colour('ink'), accent = s.colour('accent'), button = s.colour('button');
+		var btnInk = contrast(button, '#ffffff') >= contrast(button, '#000000') ? '#ffffff' : '#000000';
+		var p = readingParagraph(), facts = { side: s.side(), textContrast: contrast(ink, paper), linkContrast: contrast(accent, paper), buttonTextContrast: contrast(btnInk, button) };
+		if (p) {
+			var cs = getComputedStyle(p), px = parseFloat(cs.fontSize), lh = parseFloat(cs.lineHeight);
+			var cv = document.createElement('canvas').getContext('2d'); cv.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+			var sample = 'the quick brown fox jumps over the lazy dog and keeps reading on', per = cv.measureText(sample).width / sample.length;
+			facts.readingSize = Math.round(px);
+			facts.lineSpacing = lh > 0 ? Math.round(lh / px * 100) / 100 : null;
+			facts.lettersPerLine = per > 0 ? Math.round(p.getBoundingClientRect().width / per) : null;
+		}
+		var warn = [], add = function (key, says, fix) { warn.push({ key: key, says: says, fix: fix }); };
+		if (facts.textContrast < 4.5) add('colours.' + facts.side + '.ink', 'The text is hard to read on its paper (contrast ' + facts.textContrast + ', needs 4.5).', null);
+		if (facts.linkContrast < 3) add('colours.' + facts.side + '.accent', 'Links are hard to tell from the paper (contrast ' + facts.linkContrast + ', needs 3).', { links: 'both' });
+		if (facts.buttonTextContrast < 4.5) add('button', 'The text on strong buttons is hard to read (contrast ' + facts.buttonTextContrast + ').', { button: 'ink' });
+		if (facts.readingSize && facts.readingSize < 16) add('roles.read.size', 'Reading text under 16 px is small for long reading.', { 'roles.read.size': 18 });
+		if (facts.lettersPerLine && facts.lettersPerLine > 90) add('measure', 'Lines of about ' + facts.lettersPerLine + ' letters are long; 60 to 75 read best.', { measure: '72' });
+		if (facts.lineSpacing && facts.lineSpacing < 1.3) add('leading', 'Lines of reading text sit tight (' + facts.lineSpacing + '); 1.4 to 1.7 read best.', null);
+		if (!p) facts.note = 'No article paragraph on this page: open a post to measure the reading text.';
+		return { ok: !warn.length, facts: facts, warnings: warn };
+	}
+
+	function styleList() {
+		var s = S(); if (!s) return [];
+		var st = s.styles(), ids = [].concat(st.original ? [st.original] : [], st.shown, st.hidden);
+		return ids.map(function (id) { var t = s.tile(id) || {}; return { id: id, name: t.label, shownToReaders: st.shown.indexOf(id) > -1 || id === st.original, isDefault: !!t.isDefault, own: !!t.own, now: !!t.on }; });
+	}
+	function explain() {
+		var s = S(); if (!s) return '';
+		var r = function (id) { return s.role(id) || {}; }, name = s.name(), head = r('head'), read = r('read');
+		var face = function (f) { return f ? s.faceOf(f) : ''; };
+		return name + ': a ' + s.side() + ' page, paper ' + s.colour('paper') + ', ink ' + s.colour('ink') + ', accent ' + s.colour('accent') + '. ' +
+			'Headings in ' + face(head.face) + ' ' + (head.weight || '') + ' at ' + head.size + ' px; reading text in ' + face(read.face) + ' at ' + read.size + ' px. ' +
+			'Space ' + s.get('space') + ', line length ' + s.get('measure') + ' letters, corners ' + s.get('corners') + ', lines ' + (s.get('lines') ? 'on' : 'off') + '.';
+	}
+	function after(changed, why) {
+		try { S().keepVersion(); } catch (e) { /* Versions keeps what stood already */ }
+		try { document.dispatchEvent(new CustomEvent('livedesign:change', { detail: { who: WHO, why: why || '', keys: changed.map(function (c) { return c.key; }) } })); } catch (e) { /* old browsers */ }
+	}
+
+	var LiveDesign = {
+		about: 'Live Design: style this website by name. describe() first; set() changes (one undo step); preview() shows without keeping; check() says whether the page still reads well. Nothing reaches readers until the owner publishes. set, preview, load and choose answer with a Promise.',
+		describe: function () {
+			var s = S(); if (!s) return { error: 'The panel is not ready on this page.' };
+			var sc = schema(), mean = meaning();
+			var rec = nowRecord() || {};
+			return {
+				about: this.about,
+				site: document.title,
+				style: { id: s.current(), name: s.name(), editable: s.editable(), note: s.editable() ? undefined : 'This is the theme\'s own look; your first change makes a copy of it.' },
+				settings: list().map(function (x) {
+					var a = x.key in sc ? sc[x.key] : (x.choices || x.steps);
+					return { key: x.key, section: x.section, name: x.label, means: mean[x.key], kind: x.kind, now: x.key in rec ? rec[x.key] : s.get(x.key), default: x.def, values: a };
+				}),
+				colours: { wells: Object.keys(((sc.colours || {}).light) || {}), now: rec.colours || null, how: 'colours.<light|dark>.<well> as #rrggbb, e.g. colours.dark.accent. Set both sides.' },
+				type: {
+					roles: roleList().map(function (r) { return { id: r.id, name: r.label, where: r.where, now: s.role(r.id), dials: (sc.roles || {})[r.id] }; }),
+					fonts: s.faces().map(function (f) { return { id: f.id, name: f.label, group: f.group }; })
+				},
+				presets: s.presets().map(function (x) { return { id: x.id, name: x.label, group: x.group || '' }; }),
+				styles: styleList(),
+				check: check(),
+				howToSet: 'set({ corners: "large", "roles.read.size": 20, space: "+1", "colours.dark.accent": "#ff7a4d" }, "why, in a few words"). A number goes to the nearest step; "+1"/"-1" moves one step. side: "light"|"dark" only changes what you look at.',
+				rules: (function () { try { return E().guide().rules; } catch (e) { return []; } }())
+			};
+		},
+		get: function (path) { var rec = nowRecord() || {}; return path ? at(rec, path) : rec; },
+		/* ONE STEP, UNDOABLE, KEPT IN VERSIONS */
+		set: function (changes, why) { return editableRecord().then(function (ed) {
+			if (ed.error) return { changed: [], problems: [{ problem: ed.error }] };
+			var pl = plan(changes, ed.record), s = S(), E0 = E();
+			if (pl.view) s.setView(pl.view);
+			if (pl.preset) s.choosePreset(pl.preset);
+			var recChanged = pl.changed.some(function (c) { return c.key !== 'side' && c.key !== 'preset'; });
+			if (recChanged) {
+				var base = pl.preset ? nowRecord() : null; /* a preset first, then the record's own keys on top of it */
+				if (base) pl.changed.forEach(function (c) { if (c.key !== 'side' && c.key !== 'preset') put(base, c.key, c.to); });
+				if (E0 && E0.previewing && E0.previewing()) s.previewVersion(null);
+				s.restoreVersion(base || pl.record);
+			}
+			if (pl.changed.length) after(pl.changed, why);
+			return painted().then(function () { return { changed: pl.changed, problems: pl.problems, madeCopy: ed.madeCopy || undefined, style: s.name(), check: check(), live: 'Only on this page for you. The owner publishes to show readers.' }; });
+		}); },
+		preview: function (changes) { return editableRecord().then(function (ed) {
+			if (ed.error) return { changed: [], problems: [{ problem: ed.error }] };
+			var pl = plan(changes, ed.record);
+			if (pl.preset) pl.problems.push({ key: 'preset', problem: 'A colour preset cannot be previewed; set it, then undo if it is wrong.' });
+			S().previewVersion(pl.record);
+			return painted().then(function () { return { changed: pl.changed, problems: pl.problems, check: check(), keep: 'set(the same changes) keeps it; endPreview() goes back.' }; });
+		}); },
+		endPreview: function () { var s = S(); if (s) s.previewVersion(null); return { check: check() }; },
+		undo: function () { var s = S(); if (s && s.canUndo()) s.undo(); return { now: explain(), canUndo: !!(s && s.canUndo()) }; },
+		redo: function () { var s = S(); if (s && s.canRedo()) s.redo(); return { now: explain(), canRedo: !!(s && s.canRedo()) }; },
+		check: check,
+		explain: explain,
+		/* the whole style as a record another Live Design site can load */
+		style: function () { var rec = nowRecord(); return rec ? { format: 'live-design-style', record: rec, link: S().shareLink() } : { problems: [{ problem: 'The theme\'s own look has no record; choose or copy a style first.' }] }; },
+		load: function (style, why) {
+			var rec = style && style.record ? style.record : style;
+			if (!rec || typeof rec !== 'object') return { problems: [{ problem: 'Not a style. Pass what style() returns, or its record.' }] };
+			return editableRecord().then(function (ed) {
+				if (ed.error) return { problems: [{ problem: ed.error }] };
+				var base = clone(rec); delete base.id; base.label = ed.record.label; base.base = ed.record.base; base.architrave = 1;
+				S().restoreVersion(base); after([{ key: 'style' }], why || 'loaded a style');
+				return { now: explain(), check: check() };
+			});
+		},
+		choose: function (id) {
+			var hit = styleList().filter(function (x) { return x.id === id || String(x.name).toLowerCase() === String(id).toLowerCase(); })[0];
+			if (!hit) return { problems: [{ problem: 'No style "' + id + '". Styles: ' + styleList().map(function (x) { return x.id; }).join(', ') }] };
+			S().choose(hit.id);
+			return until(function () { return E().current() === hit.id; }).then(function () { return { now: explain() }; });
+		},
+		open: function () { if (window.LiveDesignWindow && !window.LiveDesignWindow.isOpen()) window.LiveDesignWindow.open(); return { open: !!(window.LiveDesignWindow && window.LiveDesignWindow.isOpen()) }; }
+	};
+
+	window.LiveDesign = LiveDesign;
+}());
