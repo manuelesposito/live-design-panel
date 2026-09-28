@@ -122,7 +122,7 @@
 	/* A SLIDER OVER THE LIST'S STEPS, the rest a taller tick (macOS draws its stops under the track) */
 	function slider(key, unit) {
 		var x = setting(key) || {}, steps = x.steps || [], v = String(St().get(key)), i = Math.max(0, steps.indexOf(v)), n = steps.length - 1;
-		var ticks = steps.map(function (s, j) { return '<i' + (s === String(x.def) ? ' class="is-def"' : '') + ' style="--f:' + (n ? j / n : 0) + '"></i>'; }).join('');
+		var ticks = steps.map(function (s, j) { return n > 12 && s !== String(x.def) ? '' : '<i' + (s === String(x.def) ? ' class="is-def"' : '') + ' style="--f:' + (n ? j / n : 0) + '"></i>'; }).join(''); /* the lab's: a long scale keeps one mark, where the style began; twenty ticks read as a comb */
 		return '<div class="ldpw-r ldpw-sl"><div class="ldpw-top"><span class="ldpw-lb">' + esc(label(key)) + '</span><span class="ldpw-val" data-val="' + key + '">' + esc(v + unit) + '</span></div>' +
 			'<div class="ldpw-rail">' + ticks + '<input type="range" min="0" max="' + n + '" step="1" value="' + i + '" data-level="' + key + '" data-unit="' + esc(unit) + '" data-f="level:' + key + '" style="--p:' + (n ? i / n * 100 : 0) + '%" aria-label="' + esc(label(key)) + '" aria-valuetext="' + esc(v + unit) + '"></div></div>';
 	}
@@ -131,7 +131,7 @@
 	function pop(key, lb, value, items, pick, wellOf) {
 		MENU[key] = { label: lb, value: value, items: items, pick: pick };
 		var word = (items.filter(function (x) { return x[0] === value; })[0] || [value, value])[1];
-		var well = wellOf ? '<i style="background:' + esc(wellOf(value)) + '"></i>' : '';
+		var wc = wellOf ? wellOf(value) : '', well = wc ? '<i style="background:' + esc(wc) + '"></i>' : '';
 		return '<button type="button" class="ldpw-pop" aria-haspopup="menu" aria-expanded="' + (menu === key) + '" data-menu="' + key + '" data-f="menu:' + key + '" aria-label="' + esc(lb + ': ' + word) + '">' + well + '<span>' + esc(word) + '</span></button>';
 	}
 	function popRow(key, words, wellOf) {
@@ -146,7 +146,7 @@
 		STOP[key] = { stops: stops, set: set };
 		var i = 0; stops.forEach(function (x, j) { if (x.id === value) i = j; });
 		var n = stops.length - 1, word = stops[i] ? stops[i].label : '';
-		var ticks = stops.length <= 16 ? stops.map(function (x, j) { return '<i' + (x.id === def ? ' class="is-def"' : '') + ' style="--f:' + (n ? j / n : 0) + '"></i>'; }).join('') : '';
+		var ticks = stops.map(function (x, j) { return n > 12 && x.id !== def ? '' : '<i' + (x.id === def ? ' class="is-def"' : '') + ' style="--f:' + (n ? j / n : 0) + '"></i>'; }).join(''); /* the lab's: past twelve steps only the style's own mark */
 		return '<div class="ldpw-r ldpw-sl' + (dead ? ' is-off' : '') + '"><div class="ldpw-top"><span class="ldpw-lb">' + esc(lb) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><span class="ldpw-val" data-val="' + key + '">' + esc(word) + '</span></div>' +
 			'<div class="ldpw-rail">' + ticks + '<input type="range" min="0" max="' + Math.max(n, 0) + '" step="1" value="' + i + '" data-stop="' + key + '" data-f="stop:' + key + '" style="--p:' + (n ? i / n * 100 : 0) + '%" aria-label="' + esc(lb) + '" aria-valuetext="' + esc(word) + '"' + (pair ? ' data-pair="' + pair + '"' : '') + (n > 0 && !dead ? '' : ' disabled') + '></div></div>';
 	}
@@ -344,7 +344,7 @@
 			(has('align') ? row(t('Alignment'), seg('align', v.align || 'default', ALIGN.map(function (a) { return [a[0], t(a[1])]; }), t('Alignment'))) : '') +
 			(has('colour') ? row(t('Colour'), pop('rolecolour', t('Colour'), v.colour, (role === 'kicker' ? [['accent', t('Accent')], ['ink', t('Text')]] : [['ink', t('Text')], ['accent', t('Accent')]]).concat([['own', t('Own Colour…'), false, St().roleColour ? (v.colour === 'own' ? St().roleColour(role) : '#ff9f0a') : '']]), function (id) {
 				s.setRole(role, 'colour', id); if (id === 'own') editing = 'colours.{side}.' + role;
-			}, function () { return s.roleColour(role); })) : ''));
+			}, function (id) { return id === 'own' ? s.roleColour(role) : ''; })) : '')); /* the lab's: a well only for an own colour; Text and Accent are words */
 		out += '<button type="button" class="ldpw-more" aria-expanded="' + more + '" data-act="more" data-f="act:more">' + esc(t(more ? 'Show Less' : 'Show More')) + '</button>';
 		if (more) {
 			var italic = s.hasItalic(v.face);
@@ -1321,8 +1321,7 @@
 		var shutter = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '" title="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>'; /* the lab's: on a phone the name first and the × at the right */
 		return '<nav class="ldpw-side" aria-label="' + esc(t('Sections')) + '">' +
 			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('Hide Sidebar')) + '" title="' + esc(t('Hide Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>') + '</div>' +
-			'<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' +
-			'<div class="ldpw-side-in">' + navButton({ id: 'styles', name: t('Styles') }) +
+			'<div class="ldpw-side-in">' + '<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' + /* the lab's: the search scrolls with the list */ navButton({ id: 'styles', name: t('Styles') }) +
 				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + (St() && St().tile(St().current()) && St().tile(St().current()).edited ? '<em>' + esc(t('Edited')) + '</em>' : '') + '</div>' + sections().map(navButton).join('') + /* the lab's: Edited beside the style's name */
 				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'readers', name: t('Readers') }) + navButton({ id: 'button', name: t('Live Design Button') }) +
 			'</div>' + /* the panel's Settings and the way back to the current window are in the ••• menu, as the lab has them */
@@ -1679,6 +1678,7 @@
 		var r = door && door.getBoundingClientRect && door.getClientRects().length ? door.getBoundingClientRect() : { top: ih - 16, bottom: ih - 16, right: iw - 16 };
 		var left = Math.max(8, Math.min(iw - w - 8, r.right - w));
 		var below = r.top <= ih / 2, top = below ? r.bottom + 8 : roof;
+		if (door && door.getAttribute && door.getAttribute('data-docked') === 'menu' && below) { left = Math.max(8, iw - 16 - w); top = r.bottom + 10; } /* the lab's: a button in the menu opens the window just below the menu, at the screen's right edge, so the article stays in view */
 		top = Math.max(roof, Math.min(ih - 320 - 8, top));
 		h = below ? ih - top - 8 : Math.max(320, r.top - 8 - roof); /* below the button down to the foot, or above it up to the roof */
 		/* A FLOATING BUTTON IS COVERED BY THE WINDOW (2026-09-28, the lab's): the window's corner sits on the button's
@@ -1779,7 +1779,7 @@
 				if (!live || !open) { win.style.opacity = ''; return; }
 				var bb = d.getBoundingClientRect(), p = win.getBoundingClientRect(), cs = getComputedStyle(win);
 				var fill = solid(cs.backgroundColor), kids = make(fill); fit(bb, p); var f = frames(bb, p, cs.borderTopLeftRadius);
-				Object.assign(kids[0].style, boxOf(bb), { borderRadius: px(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0) });
+				Object.assign(kids[0].style, boxOf(bb), { borderRadius: px(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0), opacity: '' });
 				var ms = 280, m = kids[1].animate([Object.assign({ easing: EASE }, f.seed), Object.assign({ offset: 0.3, easing: SNAPPY }, f.drop), f.panel], { duration: ms, easing: 'linear', fill: 'forwards' });
 				tint(m, solid(face(d)), fill, 0.12, 0.55, true);
 				kids[0].animate([{ opacity: 1 }, { opacity: 1, offset: 0.75 }, { opacity: 0 }], { duration: ms, fill: 'forwards' });
@@ -1805,6 +1805,7 @@
 			var kids = make(solid(cs.backgroundColor)); fit(bb, p); var f = frames(bb, p, cs.borderTopLeftRadius);
 			Object.assign(kids[0].style, boxOf(bb), { borderRadius: px(parseFloat(getComputedStyle(d).borderTopLeftRadius) || 0) });
 			Object.assign(kids[1].style, f.panel); lightOff(); win.style.boxShadow = 'none';
+			kids[0].style.opacity = '0'; /* the button's shape waits unseen for its fade in: it flashed at full for the window's 90 ms fade, went out, then came back (2026-09-28) */
 			d.style.visibility = ''; d.style.opacity = '0';
 			win.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 90, fill: 'forwards' }).finished.then(function () {
 				done(); stop([win]); win.style.opacity = ''; win.style.boxShadow = '';
