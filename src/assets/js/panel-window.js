@@ -1647,9 +1647,13 @@
 	function placeMenu() {
 		var m = win && win.querySelector('.ldpw-menu'), b = m && [].filter.call(win.querySelectorAll('[data-menu="' + menu + '"]'), function (x) { return x.getClientRects().length; })[0]; /* the one on screen: the hidden sidebar holds a twin */
 		if (!m || !b) return;
-		var w = (m.offsetParent || win).getBoundingClientRect(), r = b.getBoundingClientRect(), h = m.offsetHeight, W = win.getBoundingClientRect();
-		var top = r.bottom - w.top + 4;
-		if (top + h > W.bottom - w.top - 8) top = Math.max(8, r.top - w.top - h - 4);
+		/* THE WHOLE MENU IN SIGHT (2026-09-28): at 70% of the window the ••• menu hid its last rows, Settings among
+		   them, behind a scroll nobody saw. It may now be as tall as the window: below the button if it fits, above
+		   if that fits, else moved up until it does, as a Mac menu at the screen's edge. */
+		var W = win.getBoundingClientRect(); m.style.maxHeight = Math.round(W.height - 16) + 'px';
+		var w = (m.offsetParent || win).getBoundingClientRect(), r = b.getBoundingClientRect(), h = m.offsetHeight;
+		var top = r.bottom - w.top + 4, floor = W.bottom - w.top - 8, ceil = W.top - w.top + 8;
+		if (top + h > floor) top = r.top - w.top - h - 4 >= ceil ? r.top - w.top - h - 4 : Math.max(ceil, floor - h);
 		m.style.top = Math.round(top) + 'px';
 		if (r.left - W.left < W.width / 3) { m.style.left = Math.round(Math.max(8 - (w.left - W.left), r.left - w.left)) + 'px'; m.style.right = 'auto'; } /* a button on the left (the sidebar's): the menu opens to the right of it */
 		else { m.style.right = Math.round(w.right - r.right) + 'px'; m.style.left = 'auto'; }
