@@ -693,3 +693,17 @@
 
 /* on a phone the sheet is the window; the button waits under it (the lab's) */
 @media (max-width: 1009px) { .architrave-panel-opener[aria-expanded="true"]:not([data-docked]) { visibility: hidden; } }
+
+/* THE EXTRAS' TWO MOVEMENTS (2026-09-29, style.css THE EXTRAS): Moving light's
+   streak along a card's top and the aurora's drift. Here and not in style.css:
+   the split leaves every @keyframes in the theme's half, and the rules that use
+   them are the plugin's, so a theme from before them would leave both still.
+   This sheet is enqueued wherever the panel runs. */
+@keyframes ldp-beam {
+	from { background-position: -50% 0, 50% 0, 0 0; }
+	to { background-position: 150% 0, 50% 0, 0 0; }
+}
+@keyframes ldp-aurora {
+	from { transform: translate(-4%, 0) scale(1); }
+	to { transform: translate(5%, 6%) scale(1.12); }
+}

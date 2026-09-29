@@ -544,6 +544,56 @@
     "box",
     "raised"
   ],
+  "titlefinish": [
+    "flat",
+    "shine",
+    "accent"
+  ],
+  "headitalics": [
+    "same",
+    "serif",
+    "classic"
+  ],
+  "headarrival": [
+    "none",
+    "fade",
+    "blur"
+  ],
+  "cardlight": [
+    "off",
+    "edge",
+    "glow"
+  ],
+  "buttonfinish": [
+    "flat",
+    "glass",
+    "glow"
+  ],
+  "toppattern": [
+    "none",
+    "dots",
+    "grid"
+  ],
+  "guides": [
+    "off",
+    "solid",
+    "dashed"
+  ],
+  "greytint": [
+    "0",
+    "5",
+    "10",
+    "15"
+  ],
+  "pageglow": [
+    "off",
+    "soft",
+    "strong"
+  ],
+  "movinglight": [
+    "off",
+    "on"
+  ],
   "unlinked": "boolean",
   "roles": {
     "head": {

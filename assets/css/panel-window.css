@@ -254,7 +254,8 @@
 #ldp-window .ldpw-err { color: #ff453a; }
 #ldp-window .ldpw-err[hidden] { display: none; }
 #ldp-window .ldpw-row { display: flex; justify-content: flex-end; gap: 8px; }
-#ldp-window.is-phone { left: 0; right: 0; bottom: 0; top: auto; width: auto; height: 92vh; height: 92dvh; max-height: 95dvh; border-radius: 26px 26px 0 0; } 
+#ldp-window.is-phone { left: 0; right: 0; bottom: 0; top: auto; width: auto; height: 52vh; height: 52dvh; max-height: 95dvh; border-radius: 26px 26px 0 0; } 
+#ldp-window.is-phone.is-reader { height: auto; max-height: 92dvh; }
 #ldp-window .ldpw-grab { display: none; }
 #ldp-window.is-phone .ldpw-grab { display: block; position: absolute; top: 6px; left: 50%; width: 36px; height: 5px; margin-left: -18px; border-radius: 3px; background: var(--ldpw-soft); opacity: .45; z-index: 12; pointer-events: none; }
 #ldp-window.is-phone :is(.ldpw-bar, .ldpw-shead) { touch-action: none; }

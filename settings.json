@@ -80,6 +80,16 @@
       "quotes",
       "notes",
       "fields",
+      "titlefinish",
+      "headitalics",
+      "headarrival",
+      "cardlight",
+      "buttonfinish",
+      "toppattern",
+      "guides",
+      "greytint",
+      "pageglow",
+      "movinglight",
       "unlinked",
       "roles",
       "colours"
@@ -128,6 +138,16 @@
       "quotes",
       "notes",
       "fields",
+      "titlefinish",
+      "headitalics",
+      "headarrival",
+      "cardlight",
+      "buttonfinish",
+      "toppattern",
+      "guides",
+      "greytint",
+      "pageglow",
+      "movinglight",
       "pillbuttons",
       "centretitle",
       "fadeedges",
@@ -633,7 +653,7 @@
       "table": null,
       "kind": "text",
       "max": 40,
-      "def": "Classic",
+      "def": "Original",
       "means": "The name on the tile.",
       "label": null,
       "page": null,
@@ -844,7 +864,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1540,
+        "line": 1545,
         "in": "fontRow"
       },
       "changesPage": "Type › Reading text",
@@ -1073,7 +1093,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1250,
+        "line": 1255,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1425,7 +1445,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1238,
+        "line": 1243,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1519,7 +1539,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1242,
+        "line": 1247,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1740,7 +1760,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1540,
+        "line": 1545,
         "in": "fontRow"
       },
       "changesPage": "Type › Interface",
@@ -1819,7 +1839,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1219,
+        "line": 1224,
         "in": "picturesBody"
       },
       "changesPage": "Pictures",
@@ -1882,7 +1902,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1255,
+        "line": 1260,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2299,6 +2319,306 @@
       "inStandardAtRest": false
     },
     {
+      "key": "titlefinish",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "flat",
+        "shine",
+        "accent"
+      ],
+      "def": "flat",
+      "attr": "data-title-finish",
+      "means": "How the title and the headings are drawn: flat (the rest: their colour), shine (from the full colour to half of it, top left to bottom right, as brushed metal) or accent (from their colour into the accent).",
+      "label": "Title finish",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-title-finish"
+      ],
+      "rest": {
+        "data-title-finish": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "headitalics",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "same",
+        "serif",
+        "classic"
+      ],
+      "def": "same",
+      "attr": "data-head-italics",
+      "means": "What the words set in italics inside a title or a heading look like: same (the rest: the heading's own face), serif (a book serif, Newsreader) or classic (a classic serif, Libre Baskerville).",
+      "label": "Italics in headings",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-head-italics"
+      ],
+      "rest": {
+        "data-head-italics": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "headarrival",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "fade",
+        "blur"
+      ],
+      "def": "none",
+      "attr": "data-head-arrival",
+      "means": "How the title and the article's headings come into view: none (the rest: they are simply there), fade (word by word) or blur (word by word, from a blur to sharp). Nothing moves for readers who ask for less motion.",
+      "label": "Headings arrive",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-head-arrival"
+      ],
+      "rest": {
+        "data-head-arrival": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "cardlight",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "edge",
+        "glow"
+      ],
+      "def": "off",
+      "attr": "data-card-light",
+      "means": "Light on the cards: off (the rest), edge (a thin light along the top edge that dies out toward the corners) or glow (the edge and a faint light falling into the card). The ink by night, the accent by day.",
+      "label": "Card light",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-card-light"
+      ],
+      "rest": {
+        "data-card-light": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "buttonfinish",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "flat",
+        "glass",
+        "glow"
+      ],
+      "def": "flat",
+      "attr": "data-button-finish",
+      "means": "A finish over the main and other buttons: flat (the rest: their look as set), glass (a faint sheet of the ink with a hairline) or glow (the main button keeps its fill and gets a soft light of the button colour under it; the other buttons glass).",
+      "label": "Button finish",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-button-finish"
+      ],
+      "rest": {
+        "data-button-finish": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "toppattern",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "dots",
+        "grid"
+      ],
+      "def": "none",
+      "attr": "data-top-pattern",
+      "means": "A pattern on the head of the paper that fades out before the reading begins: none (the rest), dots or grid.",
+      "label": "Pattern at the top",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-top-pattern"
+      ],
+      "rest": {
+        "data-top-pattern": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "guides",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "solid",
+        "dashed"
+      ],
+      "def": "off",
+      "attr": "data-guides",
+      "means": "Lines down each side of the article, a gutter out, as on a drawing board: off (the rest), solid or dashed. Not on a phone.",
+      "label": "Guides",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-guides"
+      ],
+      "rest": {
+        "data-guides": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "greytint",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "0",
+        "5",
+        "10",
+        "15"
+      ],
+      "def": "0",
+      "attr": "data-grey-tint",
+      "means": "How much of the accent the paper, the grounds and every grey take, in percent: 0 (the rest), 5, 10 or 15. The ink itself stays as it is. Only with the style's own colour pair.",
+      "label": "Tint the greys",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-grey-tint"
+      ],
+      "rest": {
+        "data-grey-tint": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "pageglow",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "soft",
+        "strong"
+      ],
+      "def": "off",
+      "attr": "data-page-glow",
+      "means": "Two slow glows of the accent behind the article's title: off (the rest), soft or strong. They stay still for readers who ask for less motion.",
+      "label": "Aurora",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-page-glow"
+      ],
+      "rest": {
+        "data-page-glow": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "movinglight",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-moving-light",
+      "means": "A short streak of the accent that travels along the top edge of the cards: off (the rest) or on. Not for readers who ask for less motion.",
+      "label": "Moving light",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1216,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-moving-light"
+      ],
+      "rest": {
+        "data-moving-light": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
       "key": "scan",
       "group": "level",
       "table": "LEVELS",
@@ -2602,7 +2922,7 @@
       "level": 4,
       "row": {
         "drawn": "slider",
-        "line": 1239,
+        "line": 1244,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2819,7 +3139,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1243,
+        "line": 1248,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -3299,7 +3619,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1540,
+        "line": 1545,
         "in": "fontRow"
       },
       "changesPage": "Type › {role}",
@@ -3401,7 +3721,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1574,
+        "line": 1579,
         "in": "weightRow"
       },
       "changesPage": "Type › {role}",
@@ -3542,7 +3862,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1615,
+        "line": 1620,
         "in": "sizeBlock"
       },
       "changesPage": "Type › {role}",
@@ -3766,7 +4086,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1561,
+        "line": 1566,
         "in": "capsRow"
       },
       "changesPage": "Type › {role}",
@@ -3833,7 +4153,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1557,
+        "line": 1562,
         "in": "italicRow"
       },
       "changesPage": "Type › {role}",
@@ -3943,7 +4263,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1586,
+        "line": 1591,
         "in": "switchRows"
       },
       "changesPage": "Type › {role}",
@@ -3981,7 +4301,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1580,
+        "line": 1585,
         "in": "colourRow"
       },
       "changesPage": "Type › {role}",
@@ -4104,7 +4424,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1834,
+        "line": 1839,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -4184,7 +4504,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1835,
+        "line": 1840,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -4248,7 +4568,7 @@
       "level": 11,
       "row": {
         "drawn": "switch + switch",
-        "line": 1775,
+        "line": 1780,
         "in": "OWN_WORD"
       },
       "changesPage": "Type › {role}",
@@ -4345,7 +4665,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1836,
+        "line": 1841,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -4409,7 +4729,7 @@
       "level": 11,
       "row": {
         "drawn": "pop-up",
-        "line": 1832,
+        "line": 1837,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -4534,7 +4854,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1260,
+        "line": 1265,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -4565,7 +4885,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1584,
+        "line": 1589,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -4596,7 +4916,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1584,
+        "line": 1589,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -4681,7 +5001,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1245,
+        "line": 1250,
         "in": "colourMore"
       },
       "changesPage": "Colour",

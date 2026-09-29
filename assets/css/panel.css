@@ -850,6 +850,163 @@
 	background: transparent;
 	box-shadow: none;
 }
+:root[data-title-finish] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	padding-block-end: 0.15em;
+}
+:root[data-title-finish="shine"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image: linear-gradient(to bottom right, currentColor 30%, color-mix(in oklab, currentColor 50%, transparent));
+}
+:root[data-title-finish="accent"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image: linear-gradient(100deg, currentColor 35%, var(--accent) 110%);
+}
+:root[data-head-italics] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	letter-spacing: 0;
+	font-style: italic;
+}
+:root[data-head-italics="serif"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	font-family: "Newsreader", Georgia, serif;
+	font-size: 1.08em;
+	font-variation-settings: "opsz" 72;
+	line-height: 0;
+}
+:root[data-head-italics="classic"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	font-family: "Libre Baskerville", Georgia, serif;
+	font-size: 0.94em;
+	font-weight: 400;
+	line-height: 0;
+}
+:root[data-head-arrival] .ldp-w {
+	transition: opacity 0.7s ease, filter 0.7s ease;
+	transition-delay: calc(var(--ldp-i, 0) * 55ms);
+}
+:root[data-head-arrival="fade"] .ldp-arrive:not(.ldp-in) .ldp-w {
+	opacity: 0;
+}
+:root[data-head-arrival="blur"] .ldp-arrive:not(.ldp-in) .ldp-w {
+	opacity: 0.15;
+	filter: blur(var(--space-2));
+}
+:root:is([data-card-light], [data-moving-light]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-light: color-mix(in oklab, var(--accent) 60%, transparent);
+	background-image: var(--ldp-beam, none), var(--ldp-edge, none), var(--ldp-cardglow, none);
+	background-repeat: no-repeat;
+	background-size: 30% 1px, 70% 1px, 100% 100%;
+	background-position: -50% 0, 50% 0, 0 0;
+}
+:root[data-theme$="-dark"]:is([data-card-light], [data-moving-light]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-light: color-mix(in oklab, var(--text-primary) 70%, transparent);
+}
+:root[data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-edge: linear-gradient(90deg, transparent, var(--ldp-light), transparent);
+}
+:root[data-card-light="glow"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-cardglow: radial-gradient(70% 55% at 50% 0%, color-mix(in oklab, var(--ldp-light) 14%, transparent), transparent 70%);
+}
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-beam: linear-gradient(90deg, transparent, var(--accent), transparent);
+	animation: ldp-beam 7s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(2n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	animation-delay: -2.3s;
+}
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(3n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	animation-delay: -4.6s;
+}
+:root[data-button-finish="glass"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled,  .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background: linear-gradient(104deg, var(--ink-alpha-weak) 5%, var(--ink-alpha-soft));
+	color: var(--text-primary);
+	border-color: transparent;
+	box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--text-primary) 9%, transparent), 0 1px 3px rgb(0 0 0 / 0.12);
+}
+:root[data-button-finish="glass"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled,  .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background: linear-gradient(104deg, var(--ink-alpha-soft) 5%, var(--ink-alpha-soft));
+}
+:root[data-button-finish="glow"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	box-shadow: 0 0 0 1px color-mix(in oklab, var(--lv-fill, var(--accent)) 60%, transparent), 0 8px 26px -8px color-mix(in oklab, var(--lv-fill, var(--accent)) 75%, transparent);
+	transition: box-shadow 0.2s ease, translate 0.2s ease;
+}
+:root[data-button-finish="glow"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	box-shadow: 0 0 0 1px var(--lv-fill, var(--accent)), 0 10px 34px -6px color-mix(in oklab, var(--lv-fill, var(--accent)) 90%, transparent);
+	translate: 0 -1px;
+}
+:root[data-top-pattern] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image: linear-gradient(to bottom, color-mix(in srgb, var(--surface-base) 0%, transparent), var(--surface-base) 560px), var(--ldp-pattern);
+	background-repeat: no-repeat, repeat;
+	background-attachment: local, local;
+}
+:root[data-top-pattern="dots"] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-pattern: radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--text-primary) 22%, transparent) 1px, transparent 1.2px);
+	background-size: 100% 100%, var(--space-4) var(--space-4);
+}
+:root[data-top-pattern="grid"] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-pattern: linear-gradient(to right, color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px);
+	background-image: linear-gradient(to bottom, color-mix(in srgb, var(--surface-base) 0%, transparent), var(--surface-base) 560px), linear-gradient(to right, color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px);
+	background-repeat: no-repeat, repeat, repeat;
+	background-attachment: local, local, local;
+	background-size: 100% 100%, var(--space-12) var(--space-12), var(--space-12) var(--space-12);
+}
+:root:is([data-guides], [data-page-glow]) .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	isolation: isolate;
+}
+:root:is([data-guides], [data-page-glow]) .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	position: relative;
+}
+:root[data-guides] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	content: "";
+	position: absolute;
+	inset-block: 0;
+	inset-inline: calc(-1 * var(--space-6));
+	z-index: -1;
+	border-inline: 1px solid color-mix(in oklab, var(--surface-base), var(--text-primary) 12%);
+	pointer-events: none;
+}
+:root[data-guides="dashed"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	border-inline-style: dashed;
+	border-inline-color: color-mix(in oklab, var(--surface-base), var(--text-primary) 18%);
+}
+@media (max-width: 699px) {
+	:root[data-guides] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+		display: none;
+	}
+}
+:root[data-page-glow] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: "";
+	position: absolute;
+	inset-inline: 0;
+	top: -6rem;
+	height: 34rem;
+	z-index: -1;
+	pointer-events: none;
+	background:
+	radial-gradient(closest-side, var(--accent), transparent) 18% 30% / 46% 60% no-repeat,
+	radial-gradient(closest-side, oklch(from var(--accent) l c calc(h - 70)), transparent) 84% 45% / 36% 55% no-repeat;
+	filter: blur(var(--space-16));
+	opacity: 0.1;
+	animation: ldp-aurora 20s ease-in-out infinite alternate;
+}
+:root[data-page-glow="strong"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	opacity: 0.22;
+}
+:root:not([data-theme$="-dark"])[data-page-glow] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	opacity: 0.14;
+}
+:root:not([data-theme$="-dark"])[data-page-glow="strong"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	opacity: 0.28;
+}
+@media (prefers-reduced-motion: reduce) {
+	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-page-glow] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+		animation: none;
+	}
+	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+		--ldp-beam: none;
+	}
+	:root[data-head-arrival] .ldp-arrive .ldp-w {
+		opacity: 1; filter: none; transition: none;
+	}
+}
 :root[data-head-align] :is(.single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not([class*="has-text-align-"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	text-align: var(--head-align);
 }

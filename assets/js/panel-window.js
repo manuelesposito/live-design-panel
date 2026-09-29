@@ -414,7 +414,17 @@
 		notes: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
 		fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
 		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', halftone: 'Halftone', dither: 'Pixels', grain: 'Grain', hidden: 'Hidden' },
-		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' }
+		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
+		titlefinish: { flat: 'Flat', shine: 'Shine', accent: 'Accent colour' },
+		headitalics: { same: 'Same font', serif: 'Serif', classic: 'Classic serif' },
+		headarrival: { none: 'None', fade: 'Fade', blur: 'Blur to sharp' },
+		cardlight: { off: 'Off', edge: 'Top edge', glow: 'Edge and glow' },
+		buttonfinish: { flat: 'Flat', glass: 'Glass', glow: 'Glow' },
+		toppattern: { none: 'None', dots: 'Dots', grid: 'Grid' },
+		guides: { off: 'Off', solid: 'Solid', dashed: 'Dashed' },
+		greytint: { '0': '0 %', '5': '5 %', '10': '10 %', '15': '15 %' },
+		pageglow: { off: 'Off', soft: 'Soft', strong: 'Strong' },
+		movinglight: { off: 'Off', on: 'On' }
 	};
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; 
 	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both'], cards: ['flat', 'box', 'raised', 'top'], quotes: ['plain', 'line', 'box'] };
@@ -426,11 +436,11 @@
 	function pickRow(key, bare) {
 		var x = setting(key) || {}, s = St(), words = PICK_WORD[key] || {};
 		var list = (PICK_ORDER[key] || x.choices || []).filter(function (id) { return !(key === 'categories' && id === 'above' && s.guest() && s.get(key) !== 'above'); }); 
-		var items = list.map(function (id) { return [id, s.guest() && GUEST_REST[key] === id ? t('As the theme') : /px$/.test(words[id] || '') ? words[id] : t(words[id] || id)]; });
+		var items = list.map(function (id) { return [id, s.guest() && GUEST_REST[key] === id ? t('As the theme') : /(px| %)$/.test(words[id] || '') ? words[id] : t(words[id] || id)]; });
 		if (LOOK_DRAW[key]) return looksRow(key, items);
-		if (key === 'corners' || key === 'linewidth') return stepSlider(key, label(key), items.map(function (x) { return { id: x[0], label: x[1] }; }), s.get(key), function (id) { s.set(key, id); }, String(x.def)); 
+		if (key === 'corners' || key === 'linewidth' || key === 'greytint') return stepSlider(key, label(key), items.map(function (x) { return { id: x[0], label: x[1] }; }), s.get(key), function (id) { s.set(key, id); }, String(x.def)); 
 		if (bare) return pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); });
-		return row(label(key), pop(key, label(key), s.get(key), list.map(function (id) { return [id, s.guest() && GUEST_REST[key] === id ? t('As the theme') : /px$/.test(words[id] || '') ? words[id] : t(words[id] || id)]; }), function (id) { s.set(key, id); }));
+		return row(label(key), pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); }));
 	}
 	var LOOK_DRAW = { buttonstyle: 'button', buttonmedium: 'button', buttonquiet: 'button', tags: 'tag', links: 'link', chosenitem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', notes: 'surface', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
 	var LOOK_SHORT = { shadow: 'Shadow', text: 'Text' };
@@ -567,7 +577,11 @@
 			offSlider('glow', 'glowlevel', label('glow'), '', night ? '' : t('Glows only in dark appearance'), !night) +
 			offSlider('grain', 'grainlevel', label('grain'), '') +
 			offSlider('dots', 'dotlevel', label('dots'), ' %') + (s.get('dots') ? levelRow('dotsize', '') : '') +
-			offSlider('vignette', 'vignettelevel', label('vignette'), '') + (s.get('vignette') ? levelRow('vignettereach', '') : ''));
+			offSlider('vignette', 'vignettelevel', label('vignette'), '') + (s.get('vignette') ? levelRow('vignettereach', '') : '')) +
+			gtitle(t('Headings')) + box(pickRow('titlefinish') + pickRow('headitalics') + pickRow('headarrival')) +
+			gtitle(t('Light')) + box((s.guest() ? '' : pickRow('cardlight')) + pickRow('buttonfinish') + (s.guest() ? '' : pickRow('pageglow') + pickRow('movinglight'))) +
+			(s.guest() ? '' : gtitle(t('Paper')) + box(pickRow('toppattern') + pickRow('guides') + pickRow('greytint'))) +
+			hint('Movement stays still for readers who ask their computer for less motion.');
 	}
 	
 	function tileHTML(id) {
@@ -1374,7 +1388,7 @@
 			'<div class="ldpw-scroll">' + pageBody(x) + '</div>' + foot(x, s, deep, built) + menuHTML() + (note ? '<p class="ldpw-note-line" role="status">' + esc(note) + '</p>' : '') +
 		'</div>';
 	}
-	var WHAT = { lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards',
+	var WHAT = { titlefinish: 'Title finish', headitalics: 'Italics in headings', headarrival: 'Headings arrive', cardlight: 'Card light', buttonfinish: 'Button finish', toppattern: 'Pattern at the top', guides: 'Guides', greytint: 'Tint the greys', pageglow: 'Aurora', movinglight: 'Moving light', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards',
 		scanlines: 'Scan lines', scan: 'Scan lines', glow: 'Glow', glowlevel: 'Glow', grain: 'Background grain', grainlevel: 'Background grain',
 		vignette: 'Vignette', vignettelevel: 'Vignette', vignettereach: 'Vignette', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 		justify: 'Justified text', dropcap: 'Drop cap', capLines: 'Drop cap height', pictures: 'Picture effects', picturedim: 'Dim in the dark',
@@ -1705,8 +1719,8 @@
 		ensureWin();
 		showNow();
 	}
-	var sheetH = 'full';
-	function sheetSize() { if (win && phone()) win.style.setProperty('height', (sheetH === 'half' ? 52 : 92) + 'dvh'); }
+	var sheetH = 'half'; 
+	function sheetSize() { if (!win || !phone()) return; if (RD() && sheetH !== 'full') { win.style.removeProperty('height'); return; } win.style.setProperty('height', (sheetH === 'half' ? 52 : 92) + 'dvh'); } 
 	function sheetPull(e) {
 		if (!phone() || !e.target.closest || !e.target.closest('.ldpw-bar, .ldpw-shead, .ldpw-grab, .ldpw-rhead') || e.target.closest('button, input, a, label')) return;
 		var y0 = e.clientY, t0 = performance.now(), h0 = win.offsetHeight, moved = false;
@@ -1718,8 +1732,8 @@
 			var dy = ev.clientY - y0, v = dy / Math.max(1, performance.now() - t0), h = win.offsetHeight;
 			win.style.transition = 'height .32s cubic-bezier(.2,.8,.2,1)';
 			setTimeout(function () { win.style.removeProperty('transition'); }, 340);
-			if (!moved) return sheetSize();
-			if (v > 0.9 || h < window.innerHeight * .3) { sheetH = 'full'; win.style.removeProperty('transition'); win.style.removeProperty('height'); return hide(); } 
+			if (!moved) { sheetH = sheetH === 'half' ? 'full' : 'half'; return sheetSize(); } 
+			if (v > 0.9 || h < window.innerHeight * .3) { sheetH = 'half'; win.style.removeProperty('transition'); win.style.removeProperty('height'); return hide(); } 
 			sheetH = v < -0.6 ? 'full' : v > 0.4 ? 'half' : (h > window.innerHeight * .72 ? 'full' : 'half'); sheetSize();
 		}
 		win.addEventListener('pointermove', move); win.addEventListener('pointerup', up); win.addEventListener('pointercancel', up);
