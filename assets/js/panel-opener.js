@@ -224,7 +224,8 @@
 	pill.addEventListener('pointermove', function (e) {
 		if (!drag) return;
 		var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-		if (!moved && Math.abs(dx) < 4 && Math.abs(dy) < 4) return; 
+		var still = drag.fromDock ? 24 : 4;
+		if (!moved && Math.abs(dx) < still && Math.abs(dy) < still) return;
 		if (!moved) {
 			moved = true;
 			if (drag.fromDock) {

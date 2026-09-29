@@ -332,7 +332,10 @@
 	pill.addEventListener('pointermove', function (e) {
 		if (!drag) return;
 		var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-		if (!moved && Math.abs(dx) < 4 && Math.abs(dy) < 4) return; /* a press with a shaky hand is still a press */
+		/* a press with a shaky hand is still a press; out of the site's row it takes a real pull (Manuel, 2026-09-29:
+		   a click that moved 4px lifted the door out of the header and left it floating over it) */
+		var still = drag.fromDock ? 24 : 4;
+		if (!moved && Math.abs(dx) < still && Math.abs(dy) < still) return;
 		if (!moved) {
 			moved = true;
 			/* PULLED OUT OF THE MENU (2026-09-28, the lab's): it leaves the site's row and floats under the pointer;
