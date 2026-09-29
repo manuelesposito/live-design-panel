@@ -905,6 +905,24 @@
 	border-block-start: 0.2em solid transparent;
 	margin-block-start: -0.2em !important;
 }
+:root[data-title-finish]:not([data-fx-title-reach="title"]) .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	border-block-start: 0.2em solid transparent;
+}
+:root[data-title-finish]:not([data-fx-title-reach="title"]) .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	margin-block-start: calc(var(--fx-head-above) - 0.2em);
+}
+:root[data-title-finish] .single-post-article .wp-block-post-content > :is(h1, h2) {
+	--fx-head-above: var(--space-reading-heading-above);
+}
+:root[data-title-finish] .single-post-article .wp-block-post-content > :is(h3, h4) {
+	--fx-head-above: var(--space-reading-subhead-above);
+}
+:root[data-title-finish] .single-post-article .wp-block-post-content > :is(h5, h6) {
+	--fx-head-above: var(--space-reading-minor-above);
+}
+:root[data-title-finish] .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6):first-child {
+	--fx-head-above: 0px;
+}
 :root[data-head-italics]:not([data-fx-serif-which]) :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-head-italics][data-fx-serif-which] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) .ldp-serif:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	letter-spacing: 0;
 	font-style: var(--fx-serif-style, italic);

@@ -154,8 +154,11 @@
 	--surface-pressed: color-mix(in srgb, var(--interaction-surface, var(--surface-base)), var(--text-primary) var(--step-surface-pressed));
 	--surface-floating: #ffffff;
 	--text-reading-meta: 18px;
+	--space-reading-heading-above: 64px;
 	--space-reading-heading-below: 32px;
+	--space-reading-subhead-above: 40px;
 	--space-reading-subhead-below: 24px;
+	--space-reading-minor-above: 32px;
 	--space-reading-minor-below: 16px;
 	--line: color-mix(in srgb, var(--text-primary) 14%, transparent);
 	--font-weight-reading: 400;
