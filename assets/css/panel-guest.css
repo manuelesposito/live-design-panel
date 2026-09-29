@@ -877,8 +877,22 @@
 	border-block-end: 0.3em solid transparent;
 	border-inline-start: 0.25em solid transparent;
 	background-origin: border-box;
-	margin-block-end: -0.3em !important;
 	margin-inline-start: -0.25em;
+}
+:root[data-title-finish] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	margin-block-end: -0.3em !important;
+}
+:root[data-title-finish]:not([data-fx-title-reach="title"]) .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	margin-block-end: calc(var(--fx-head-below) - 0.3em);
+}
+:root[data-title-finish] .single-post-article .wp-block-post-content > :is(h1, h2) {
+	--fx-head-below: var(--space-reading-heading-below);
+}
+:root[data-title-finish] .single-post-article .wp-block-post-content > :is(h3, h4) {
+	--fx-head-below: var(--space-reading-subhead-below);
+}
+:root[data-title-finish] .single-post-article .wp-block-post-content > :is(h5, h6) {
+	--fx-head-below: var(--space-reading-minor-below);
 }
 :root[data-title-finish="shine"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-title-finish="shine"]:not([data-fx-title-reach="title"]) :is(#ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background-image: linear-gradient(var(--fx-shine-dir), currentColor 30%, color-mix(in oklab, currentColor var(--fx-shine-end), transparent));
@@ -963,32 +977,32 @@
 :root[data-fx-cardlight-reach="85"] {
 	--fx-card-reach: 85%;
 }
-:root:is([data-card-light], [data-fx-pointer-look]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-card-light], [data-fx-pointer-look]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-light: color-mix(in oklab, var(--accent) calc(var(--fx-card-k) * 60%), transparent);
 	background-image: var(--ldp-pointer, none), var(--ldp-edge, none), var(--ldp-cardglow, none);
 	background-repeat: no-repeat;
 	background-size: 100% 100%, var(--fx-card-edge) 1px, 100% 100%;
 	background-position: 0 0, 50% 0, 0 0;
 }
-:root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-light: color-mix(in oklab, var(--text-primary) calc(var(--fx-card-k) * 70%), transparent);
 }
-:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="light"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="light"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="light"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="light"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-light: color-mix(in oklab, var(--fx-light) calc(var(--fx-card-k) * 90%), transparent);
 }
-:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="second"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="second"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="second"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="second"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-light: color-mix(in oklab, var(--fx-second) calc(var(--fx-card-k) * 90%), transparent);
 }
-:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="accent"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="accent"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="accent"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="accent"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-light: color-mix(in oklab, var(--accent) calc(var(--fx-card-k) * 90%), transparent);
 }
-:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="ink"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="ink"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="ink"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="ink"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-light: color-mix(in oklab, var(--text-primary) calc(var(--fx-card-k) * 90%), transparent);
 }
-:root[data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-edge: linear-gradient(90deg, transparent, var(--ldp-light), transparent);
 }
-:root[data-card-light="glow"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-card-light="glow"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-cardglow: radial-gradient(70% var(--fx-card-reach) at 50% 0%, color-mix(in oklab, var(--ldp-light) 14%, transparent), transparent 70%);
 }
 :root[data-fx-pointer-colour="second"] {
@@ -1000,7 +1014,7 @@
 :root[data-fx-pointer-colour="ink"] {
 	--fx-pointer-c: var(--text-primary);
 }
-:root[data-fx-pointer-look] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-fx-pointer-look] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-pointer: radial-gradient(160px circle at var(--ldp-mx, 50%) var(--ldp-my, 50%), color-mix(in oklab, var(--fx-pointer-c) 16%, transparent), transparent 70%);
 }
 :root[data-fx-moving-colour="second"] {
@@ -1024,10 +1038,10 @@
 :root[data-fx-moving-length="55"] {
 	--fx-beam-len: 55%;
 }
-:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-moving-light="on"]:is([data-fx-moving-where="buttons"], [data-fx-moving-where="all"]) :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-moving-light="on"]:is([data-fx-moving-where="buttons"], [data-fx-moving-where="all"]) :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	position: relative;
 }
-:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after, :root[data-moving-light="on"]:is([data-fx-moving-where="buttons"], [data-fx-moving-where="all"]) :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after, :root[data-moving-light="on"]:is([data-fx-moving-where="buttons"], [data-fx-moving-where="all"]) :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	content: "";
 	position: absolute;
 	inset: 0;
@@ -1042,14 +1056,14 @@
 	pointer-events: none;
 	animation: ldp-beam var(--fx-beam-dur) cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
-:root[data-moving-light="on"][data-fx-moving-rhythm="now"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, .quire-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+:root[data-moving-light="on"][data-fx-moving-rhythm="now"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote, .quire-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	animation-name: ldp-beam-now;
 	animation-duration: calc(var(--fx-beam-dur) * 2.5);
 }
-:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(2n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):nth-child(2n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	animation-delay: -2.3s;
 }
-:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(3n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):nth-child(3n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	animation-delay: -4.6s;
 }
 :root[data-moving-light="on"][data-fx-moving-where="all"] .single-post-article .wp-block-post-content :is(hr, .wp-block-separator):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -1238,13 +1252,27 @@
 }
 :root[data-guides][data-fx-guides-marks] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
 	--fx-mark: color-mix(in oklab, var(--surface-base), var(--fx-guides-c) calc(var(--fx-guides-mix) * 2.6));
+	--fx-guide-line: color-mix(in oklab, var(--surface-base), var(--fx-guides-c) var(--fx-guides-mix));
+	--fx-guide-img: linear-gradient(var(--fx-guide-line), var(--fx-guide-line));
+	inset-inline: calc(-1 * var(--space-6) - 5px);
+	border-inline: 0;
 	background:
-	linear-gradient(var(--fx-mark), var(--fx-mark)) left -5.5px top 40px / 11px 1px no-repeat,
-	linear-gradient(var(--fx-mark), var(--fx-mark)) left -0.5px top 35px / 1px 11px no-repeat,
-	linear-gradient(var(--fx-mark), var(--fx-mark)) right -5.5px top 40px / 11px 1px no-repeat,
-	linear-gradient(var(--fx-mark), var(--fx-mark)) right -0.5px top 35px / 1px 11px no-repeat;
-	background-origin: border-box;
-	background-clip: border-box;
+	linear-gradient(var(--fx-mark), var(--fx-mark)) left 0 top 40px / 11px 1px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) left 5px top 35px / 1px 11px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) right 0 top 40px / 11px 1px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) right 5px top 35px / 1px 11px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) left 0 bottom 40px / 11px 1px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) left 5px bottom 35px / 1px 11px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) right 0 bottom 40px / 11px 1px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) right 5px bottom 35px / 1px 11px no-repeat,
+	var(--fx-guide-img) left 5px top 0 / 1px 100% no-repeat,
+	var(--fx-guide-img) right 5px top 0 / 1px 100% no-repeat;
+}
+:root[data-guides="dashed"][data-fx-guides-marks] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	--fx-guide-img: repeating-linear-gradient(var(--fx-guide-line) 0 3px, transparent 0 6px);
+}
+:root[data-guides] .newsletter-night .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	display: none;
 }
 @media (max-width: 699px) {
 	:root[data-guides] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
@@ -1376,7 +1404,7 @@
 	:root[data-page-glow] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 		animation: none;
 	}
-	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, .quire-button, .single-post-article .wp-block-post-content :is(hr, .wp-block-separator)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote, .quire-button, .single-post-article .wp-block-post-content :is(hr, .wp-block-separator)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 		display: none;
 	}
 	:root[data-head-arrival] :is(.ldp-arrive .ldp-w, .ldp-arrive-block) {

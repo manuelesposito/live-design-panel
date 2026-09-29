@@ -851,7 +851,7 @@
 	}
 	document.addEventListener('pointermove', function (ev) {
 		if (!root.hasAttribute('data-fx-pointer-look') || !ev.target || !ev.target.closest) return;
-		var c = ev.target.closest('.post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers'); if (!c) return;
+		var c = ev.target.closest('.post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, .format-quote blockquote.wp-block-quote, .single-format-quote .wp-block-post-content blockquote.wp-block-quote'); if (!c) return;
 		var r = c.getBoundingClientRect();
 		c.style.setProperty('--ldp-mx', (ev.clientX - r.left) + 'px'); c.style.setProperty('--ldp-my', (ev.clientY - r.top) + 'px');
 	}, { passive: true });
