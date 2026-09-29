@@ -849,80 +849,202 @@
 	background: transparent;
 	box-shadow: none;
 }
-:root[data-title-finish] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-fx-title-depth="70"] {
+	--fx-shine-end: 70%;
+}
+:root[data-fx-title-depth="30"] {
+	--fx-shine-end: 30%;
+}
+:root[data-fx-title-dir="down"] {
+	--fx-shine-dir: to bottom;
+}
+:root[data-fx-title-dir="across"] {
+	--fx-shine-dir: to right;
+}
+:root[data-fx-title-colour="second"] {
+	--fx-title-c: var(--fx-second);
+}
+:root[data-fx-title-colour="accent"] {
+	--fx-title-c: var(--accent);
+}
+:root[data-fx-title-colour="ink"] {
+	--fx-title-c: var(--text-primary);
+}
+:root[data-title-finish] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-title-finish]:not([data-fx-title-reach="title"]) :is(#ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	-webkit-background-clip: text;
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
 	border-block-end: 0.3em solid transparent;
+	border-inline-start: 0.25em solid transparent;
 	background-origin: border-box;
 	margin-block-end: -0.3em !important;
+	margin-inline-start: -0.25em;
 }
-:root[data-title-finish="shine"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	background-image: linear-gradient(to bottom right, currentColor 30%, color-mix(in oklab, currentColor 50%, transparent));
+:root[data-title-finish="shine"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-title-finish="shine"]:not([data-fx-title-reach="title"]) :is(#ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image: linear-gradient(var(--fx-shine-dir), currentColor 30%, color-mix(in oklab, currentColor var(--fx-shine-end), transparent));
 }
-:root[data-title-finish="accent"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	background-image: linear-gradient(100deg, currentColor 35%, var(--accent) 110%);
+:root[data-title-finish="accent"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-title-finish="accent"]:not([data-fx-title-reach="title"]) :is(#ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image: linear-gradient(100deg, currentColor 35%, var(--fx-title-c) 110%);
 }
-:root[data-head-italics] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-title-finish] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	border-block-start: 0.2em solid transparent;
+	margin-block-start: -0.2em !important;
+}
+:root[data-head-italics]:not([data-fx-serif-which]) :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-head-italics][data-fx-serif-which] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) .ldp-serif:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	letter-spacing: 0;
-	font-style: italic;
+	font-style: var(--fx-serif-style, italic);
+	line-height: 0;
 }
-:root[data-head-italics="serif"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-fx-serif-style="upright"] {
+	--fx-serif-style: normal;
+}
+:root[data-head-italics="serif"]:not([data-fx-serif-which]) :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-head-italics="serif"][data-fx-serif-which] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) .ldp-serif:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	font-family: "Newsreader", Georgia, serif;
 	font-size: 1.08em;
 	font-variation-settings: "opsz" 72;
-	line-height: 0;
 }
-:root[data-head-italics="classic"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-head-italics="classic"]:not([data-fx-serif-which]) :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-head-italics="classic"][data-fx-serif-which] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) .ldp-serif:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	font-family: "Libre Baskerville", Georgia, serif;
 	font-size: 0.94em;
 	font-weight: 400;
-	line-height: 0;
 }
-:root[data-head-arrival] .ldp-w {
-	transition: opacity 0.7s ease, filter 0.7s ease;
-	transition-delay: calc(var(--ldp-i, 0) * 55ms);
+:root[data-head-italics="fraunces"]:not([data-fx-serif-which]) :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-head-italics="fraunces"][data-fx-serif-which] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) .ldp-serif:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	font-family: "Fraunces", Georgia, serif;
+	font-size: 1em;
+	font-weight: 500;
+	font-variation-settings: "SOFT" 100, "WONK" 1;
 }
-:root[data-head-arrival="fade"] .ldp-arrive:not(.ldp-in) .ldp-w {
+:root[data-head-italics="vollkorn"]:not([data-fx-serif-which]) :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) :is(em, i):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-head-italics="vollkorn"][data-fx-serif-which] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .content-column .archive-page > h1, #ldp-lv, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4, h5, h6)) .ldp-serif:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	font-family: "Vollkorn Variable", Vollkorn, Georgia, serif;
+	font-size: 1.04em;
+	font-weight: 500;
+}
+:root[data-fx-arrival-speed="quick"] {
+	--fx-arr-dur: 0.4s; --fx-arr-step: 30ms;
+}
+:root[data-fx-arrival-speed="slow"] {
+	--fx-arr-dur: 1.1s; --fx-arr-step: 90ms;
+}
+:root[data-fx-arrival-blur="4"] {
+	--fx-arr-blur: var(--space-1);
+}
+:root[data-fx-arrival-blur="14"] {
+	--fx-arr-blur: var(--space-3);
+}
+:root[data-head-arrival] :is(.ldp-w, .ldp-arrive-block) {
+	transition: opacity var(--fx-arr-dur) ease, filter var(--fx-arr-dur) ease, translate var(--fx-arr-dur) ease;
+	transition-delay: calc(var(--ldp-i, 0) * var(--fx-arr-step));
+}
+:root[data-head-arrival="fade"] :is(.ldp-arrive:not(.ldp-in) .ldp-w, .ldp-arrive-block:not(.ldp-in)) {
 	opacity: 0;
 }
-:root[data-head-arrival="blur"] .ldp-arrive:not(.ldp-in) .ldp-w {
+:root[data-head-arrival="blur"] :is(.ldp-arrive:not(.ldp-in) .ldp-w, .ldp-arrive-block:not(.ldp-in)) {
 	opacity: 0.15;
-	filter: blur(var(--space-2));
+	filter: blur(var(--fx-arr-blur));
 }
-:root[data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	--ldp-light: color-mix(in oklab, var(--accent) 60%, transparent);
-	background-image: var(--ldp-edge, none), var(--ldp-cardglow, none);
+:root[data-fx-cardlight-level="25"] {
+	--fx-card-k: 0.25;
+}
+:root[data-fx-cardlight-level="50"] {
+	--fx-card-k: 0.5;
+}
+:root[data-fx-cardlight-level="75"] {
+	--fx-card-k: 0.75;
+}
+:root[data-fx-cardlight-edge="40"] {
+	--fx-card-edge: 40%;
+}
+:root[data-fx-cardlight-edge="100"] {
+	--fx-card-edge: 100%;
+}
+:root[data-fx-cardlight-reach="35"] {
+	--fx-card-reach: 35%;
+}
+:root[data-fx-cardlight-reach="85"] {
+	--fx-card-reach: 85%;
+}
+:root:is([data-card-light], [data-fx-pointer-look]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-light: color-mix(in oklab, var(--accent) calc(var(--fx-card-k) * 60%), transparent);
+	background-image: var(--ldp-pointer, none), var(--ldp-edge, none), var(--ldp-cardglow, none);
 	background-repeat: no-repeat;
-	background-size: 70% 1px, 100% 100%;
-	background-position: 50% 0, 0 0;
+	background-size: 100% 100%, var(--fx-card-edge) 1px, 100% 100%;
+	background-position: 0 0, 50% 0, 0 0;
 }
-:root[data-theme$="-dark"][data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	--ldp-light: color-mix(in oklab, var(--text-primary) 70%, transparent);
+:root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-light: color-mix(in oklab, var(--text-primary) calc(var(--fx-card-k) * 70%), transparent);
+}
+:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="light"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="light"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-light: color-mix(in oklab, var(--fx-light) calc(var(--fx-card-k) * 90%), transparent);
+}
+:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="second"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="second"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-light: color-mix(in oklab, var(--fx-second) calc(var(--fx-card-k) * 90%), transparent);
+}
+:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="accent"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="accent"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-light: color-mix(in oklab, var(--accent) calc(var(--fx-card-k) * 90%), transparent);
+}
+:root:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="ink"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-theme$="-dark"]:is([data-card-light], [data-fx-pointer-look])[data-fx-cardlight-colour="ink"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-light: color-mix(in oklab, var(--text-primary) calc(var(--fx-card-k) * 90%), transparent);
 }
 :root[data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-edge: linear-gradient(90deg, transparent, var(--ldp-light), transparent);
 }
 :root[data-card-light="glow"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	--ldp-cardglow: radial-gradient(70% 55% at 50% 0%, color-mix(in oklab, var(--ldp-light) 14%, transparent), transparent 70%);
+	--ldp-cardglow: radial-gradient(70% var(--fx-card-reach) at 50% 0%, color-mix(in oklab, var(--ldp-light) 14%, transparent), transparent 70%);
 }
-:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-fx-pointer-colour="second"] {
+	--fx-pointer-c: var(--fx-second);
+}
+:root[data-fx-pointer-colour="accent"] {
+	--fx-pointer-c: var(--accent);
+}
+:root[data-fx-pointer-colour="ink"] {
+	--fx-pointer-c: var(--text-primary);
+}
+:root[data-fx-pointer-look] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-pointer: radial-gradient(160px circle at var(--ldp-mx, 50%) var(--ldp-my, 50%), color-mix(in oklab, var(--fx-pointer-c) 16%, transparent), transparent 70%);
+}
+:root[data-fx-moving-colour="second"] {
+	--fx-moving-c: var(--fx-second);
+}
+:root[data-fx-moving-colour="accent"] {
+	--fx-moving-c: var(--accent);
+}
+:root[data-fx-moving-colour="ink"] {
+	--fx-moving-c: var(--text-primary);
+}
+:root[data-fx-moving-speed="11"] {
+	--fx-beam-dur: 11s;
+}
+:root[data-fx-moving-speed="4"] {
+	--fx-beam-dur: 4s;
+}
+:root[data-fx-moving-length="20"] {
+	--fx-beam-len: 20%;
+}
+:root[data-fx-moving-length="55"] {
+	--fx-beam-len: 55%;
+}
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-moving-light="on"]:is([data-fx-moving-where="buttons"], [data-fx-moving-where="all"]) :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	position: relative;
 }
-:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after, :root[data-moving-light="on"]:is([data-fx-moving-where="buttons"], [data-fx-moving-where="all"]) :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	content: "";
 	position: absolute;
 	inset: 0;
 	border-radius: inherit;
 	padding: var(--border-width-default, 1px);
-	background: radial-gradient(closest-side, var(--accent), transparent) no-repeat;
-	background-size: 34% var(--space-8);
+	background: radial-gradient(closest-side, var(--fx-moving-c), transparent) no-repeat;
+	background-size: var(--fx-beam-len) var(--space-8);
 	background-position: -60% calc(-1 * var(--space-4));
 	-webkit-mask: linear-gradient(var(--text-primary) 0 0) content-box, linear-gradient(var(--text-primary) 0 0);
 	-webkit-mask-composite: xor;
 	mask: linear-gradient(var(--text-primary) 0 0) content-box exclude, linear-gradient(var(--text-primary) 0 0);
 	pointer-events: none;
-	animation: ldp-beam 7s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+	animation: ldp-beam var(--fx-beam-dur) cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+:root[data-moving-light="on"][data-fx-moving-rhythm="now"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, .quire-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	animation-name: ldp-beam-now;
+	animation-duration: calc(var(--fx-beam-dur) * 2.5);
 }
 :root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(2n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	animation-delay: -2.3s;
@@ -930,38 +1052,171 @@
 :root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(3n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	animation-delay: -4.6s;
 }
-:root[data-button-finish="glass"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled,  .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	background: linear-gradient(104deg, var(--ink-alpha-weak) 5%, var(--ink-alpha-soft));
+:root[data-moving-light="on"][data-fx-moving-where="all"] .single-post-article .wp-block-post-content :is(hr, .wp-block-separator):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	position: relative;
+	overflow: hidden;
+}
+:root[data-moving-light="on"][data-fx-moving-where="all"] .single-post-article .wp-block-post-content :is(hr, .wp-block-separator):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: "";
+	position: absolute;
+	inset-block: 0;
+	left: calc(-1 * var(--fx-beam-len));
+	width: var(--fx-beam-len);
+	background: linear-gradient(90deg, transparent, var(--fx-moving-c), transparent);
+	animation: ldp-streak var(--fx-beam-dur) cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+:root[data-fx-button-glass="1"] {
+	--fx-glass-a: var(--ink-alpha-weak); --fx-glass-b: var(--ink-alpha-weak);
+}
+:root[data-fx-button-glass="3"] {
+	--fx-glass-a: var(--ink-alpha-soft); --fx-glass-b: var(--ink-alpha-medium);
+}
+:root[data-fx-button-level="40"] {
+	--fx-glow-k: 40%;
+}
+:root[data-fx-button-level="100"] {
+	--fx-glow-k: 100%;
+}
+:root[data-button-finish] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--fx-glow-c: var(--lv-fill, var(--accent));
+}
+:root[data-button-finish][data-fx-button-glow="light"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--fx-glow-c: var(--fx-light);
+}
+:root[data-button-finish][data-fx-button-glow="second"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--fx-glow-c: var(--fx-second);
+}
+:root[data-button-finish][data-fx-button-glow="accent"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--fx-glow-c: var(--accent);
+}
+:root[data-button-finish][data-fx-button-glow="ink"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--fx-glow-c: var(--text-primary);
+}
+:root[data-button-finish="glass"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background: linear-gradient(104deg, var(--fx-glass-a) 5%, var(--fx-glass-b));
 	color: var(--text-primary);
 	border-color: transparent;
 	box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--text-primary) 9%, transparent), 0 1px 3px rgb(0 0 0 / 0.12);
 }
-:root[data-button-finish="glass"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled,  .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	background: linear-gradient(104deg, var(--ink-alpha-soft) 5%, var(--ink-alpha-soft));
+:root[data-button-finish="glass"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background: linear-gradient(104deg, var(--fx-glass-b) 5%, var(--fx-glass-b));
 }
 :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	box-shadow: 0 0 0 1px color-mix(in oklab, var(--lv-fill, var(--accent)) 60%, transparent), 0 8px 26px -8px color-mix(in oklab, var(--lv-fill, var(--accent)) 75%, transparent);
+	--fx-ring: 0 0 0 1px color-mix(in oklab, var(--fx-glow-c) 60%, transparent);
+	box-shadow: var(--fx-ring), 0 8px 26px -8px color-mix(in oklab, var(--fx-glow-c) var(--fx-glow-k), transparent);
 	transition: box-shadow 0.2s ease, translate 0.2s ease;
 }
+:root[data-button-finish="glow"][data-fx-button-ring="off"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--fx-ring: 0 0 0 0 transparent;
+}
 :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	box-shadow: 0 0 0 1px var(--lv-fill, var(--accent)), 0 10px 34px -6px color-mix(in oklab, var(--lv-fill, var(--accent)) 90%, transparent);
+	box-shadow: var(--fx-ring), 0 10px 34px -6px color-mix(in oklab, var(--fx-glow-c) calc(var(--fx-glow-k) * 1.2), transparent);
 	translate: 0 -1px;
 }
+:root[data-button-finish="glow"][data-fx-button-lift="off"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	translate: none;
+}
+:root[data-fx-button-sweep] :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	position: relative;
+	overflow: hidden;
+}
+:root[data-fx-button-sweep] :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(100deg, transparent 30%, color-mix(in oklab, var(--surface-base) 45%, transparent) 50%, transparent 70%);
+	translate: -120% 0;
+	pointer-events: none;
+}
+:root[data-theme$="-dark"][data-fx-button-sweep] :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	background: linear-gradient(100deg, transparent 30%, var(--ink-alpha-strong) 50%, transparent 70%);
+}
+:root[data-fx-button-sweep] :is(.quire-button.primary, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	translate: 120% 0;
+	transition: translate 0.8s ease;
+}
+:root[data-fx-pattern-colour="light"] {
+	--fx-pattern-c: var(--fx-light);
+}
+:root[data-fx-pattern-colour="second"] {
+	--fx-pattern-c: var(--fx-second);
+}
+:root[data-fx-pattern-colour="accent"] {
+	--fx-pattern-c: var(--accent);
+}
+:root[data-fx-pattern-level="25"] {
+	--fx-pattern-k: 0.25;
+}
+:root[data-fx-pattern-level="50"] {
+	--fx-pattern-k: 0.5;
+}
+:root[data-fx-pattern-level="75"] {
+	--fx-pattern-k: 0.75;
+}
+:root[data-fx-pattern-size="s"] {
+	--fx-pattern-dot: 10px; --fx-pattern-cell: 30px; --fx-pattern-gap: 8px; --fx-pattern-plus: 20px;
+}
+:root[data-fx-pattern-size="l"] {
+	--fx-pattern-dot: var(--space-6); --fx-pattern-cell: 72px; --fx-pattern-gap: 19px; --fx-pattern-plus: 48px;
+}
+:root[data-fx-pattern-reach="300"] {
+	--fx-pattern-reach: 300px;
+}
+:root[data-fx-pattern-reach="900"] {
+	--fx-pattern-reach: 900px;
+}
 :root[data-top-pattern] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	background-image: linear-gradient(to bottom, color-mix(in srgb, var(--surface-base) 0%, transparent), var(--surface-base) 560px), var(--ldp-pattern);
-	background-repeat: no-repeat, repeat;
-	background-attachment: local, local;
+	--fx-pattern-cover: linear-gradient(to bottom, color-mix(in srgb, var(--surface-base) 0%, transparent), var(--surface-base) var(--fx-pattern-reach));
+	background-attachment: local;
+}
+:root[data-top-pattern][data-fx-pattern-reach="all"] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--fx-pattern-cover: linear-gradient(transparent, transparent);
 }
 :root[data-top-pattern="dots"] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	--ldp-pattern: radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--text-primary) 22%, transparent) 1px, transparent 1.2px);
-	background-size: 100% 100%, var(--space-4) var(--space-4);
+	background-image: var(--fx-pattern-cover), radial-gradient(circle at 1px 1px, color-mix(in oklab, var(--fx-pattern-c) calc(var(--fx-pattern-k) * 22%), transparent) 1px, transparent 1.2px);
+	background-repeat: no-repeat, repeat;
+	background-size: 100% 100%, var(--fx-pattern-dot) var(--fx-pattern-dot);
 }
 :root[data-top-pattern="grid"] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	--ldp-pattern: linear-gradient(to right, color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px);
-	background-image: linear-gradient(to bottom, color-mix(in srgb, var(--surface-base) 0%, transparent), var(--surface-base) 560px), linear-gradient(to right, color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--text-primary) 7%, transparent) 1px, transparent 1px);
+	background-image: var(--fx-pattern-cover), linear-gradient(to right, color-mix(in oklab, var(--fx-pattern-c) calc(var(--fx-pattern-k) * 7%), transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in oklab, var(--fx-pattern-c) calc(var(--fx-pattern-k) * 7%), transparent) 1px, transparent 1px);
 	background-repeat: no-repeat, repeat, repeat;
-	background-attachment: local, local, local;
-	background-size: 100% 100%, var(--space-12) var(--space-12), var(--space-12) var(--space-12);
+	background-size: 100% 100%, var(--fx-pattern-cell) var(--fx-pattern-cell), var(--fx-pattern-cell) var(--fx-pattern-cell);
+}
+:root[data-top-pattern="cross"] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--fx-cross-c: color-mix(in oklab, var(--fx-pattern-c) calc(var(--fx-pattern-k) * 30%), transparent);
+	background-image: var(--fx-pattern-cover),
+	linear-gradient(to right, var(--surface-base) calc(50% - 3.5px), transparent 0 calc(50% + 3.5px), var(--surface-base) 0),
+	linear-gradient(to bottom, var(--surface-base) calc(50% - 3.5px), transparent 0 calc(50% + 3.5px), var(--surface-base) 0),
+	linear-gradient(to bottom, transparent calc(50% - 0.5px), var(--fx-cross-c) 0 calc(50% + 0.5px), transparent 0),
+	linear-gradient(to right, transparent calc(50% - 0.5px), var(--fx-cross-c) 0 calc(50% + 0.5px), transparent 0);
+	background-repeat: no-repeat, repeat, repeat, repeat, repeat;
+	background-size: 100% 100%, var(--fx-pattern-plus) var(--fx-pattern-plus), var(--fx-pattern-plus) var(--fx-pattern-plus), var(--fx-pattern-plus) var(--fx-pattern-plus), var(--fx-pattern-plus) var(--fx-pattern-plus);
+}
+:root[data-top-pattern="diagonal"] .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image: var(--fx-pattern-cover), repeating-linear-gradient(135deg, color-mix(in oklab, var(--fx-pattern-c) calc(var(--fx-pattern-k) * 9%), transparent) 0 1px, transparent 1px var(--fx-pattern-gap));
+	background-repeat: no-repeat, repeat;
+	background-size: 100% 100%, auto;
+}
+:root[data-fx-guides-colour="light"] {
+	--fx-guides-c: var(--fx-light);
+}
+:root[data-fx-guides-colour="second"] {
+	--fx-guides-c: var(--fx-second);
+}
+:root[data-fx-guides-colour="accent"] {
+	--fx-guides-c: var(--accent);
+}
+:root[data-guides="dashed"] {
+	--fx-guides-mix: 18%;
+}
+:root[data-fx-guides-level="25"] {
+	--fx-guides-mix: 7.5%;
+}
+:root[data-fx-guides-level="50"] {
+	--fx-guides-mix: 15%;
+}
+:root[data-fx-guides-level="75"] {
+	--fx-guides-mix: 22.5%;
 }
 :root:is([data-guides], [data-page-glow]) .content-column.quire-surface:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	isolation: isolate;
@@ -975,17 +1230,44 @@
 	inset-block: 0;
 	inset-inline: calc(-1 * var(--space-6));
 	z-index: -1;
-	border-inline: 1px solid color-mix(in oklab, var(--surface-base), var(--text-primary) 12%);
+	border-inline: 1px solid color-mix(in oklab, var(--surface-base), var(--fx-guides-c) var(--fx-guides-mix));
 	pointer-events: none;
 }
 :root[data-guides="dashed"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
 	border-inline-style: dashed;
-	border-inline-color: color-mix(in oklab, var(--surface-base), var(--text-primary) 18%);
+}
+:root[data-guides][data-fx-guides-marks] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	--fx-mark: color-mix(in oklab, var(--surface-base), var(--fx-guides-c) calc(var(--fx-guides-mix) * 2.6));
+	background:
+	linear-gradient(var(--fx-mark), var(--fx-mark)) left -5.5px top 40px / 11px 1px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) left -0.5px top 35px / 1px 11px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) right -5.5px top 40px / 11px 1px no-repeat,
+	linear-gradient(var(--fx-mark), var(--fx-mark)) right -0.5px top 35px / 1px 11px no-repeat;
+	background-origin: border-box;
+	background-clip: border-box;
 }
 @media (max-width: 699px) {
 	:root[data-guides] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
 		display: none;
 	}
+}
+:root[data-fx-aurora-first="second"] {
+	--fx-aurora-1: var(--fx-second);
+}
+:root[data-fx-aurora-first="accent"] {
+	--fx-aurora-1: var(--accent);
+}
+:root[data-fx-aurora-first="ink"] {
+	--fx-aurora-1: var(--text-primary);
+}
+:root[data-fx-aurora-second="light"] {
+	--fx-aurora-2: var(--fx-light);
+}
+:root[data-fx-aurora-second="accent"] {
+	--fx-aurora-2: var(--accent);
+}
+:root[data-fx-aurora-second="ink"] {
+	--fx-aurora-2: var(--text-primary);
 }
 :root[data-page-glow] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	content: "";
@@ -996,11 +1278,34 @@
 	z-index: -1;
 	pointer-events: none;
 	background:
-	radial-gradient(closest-side, var(--accent), transparent) 18% 30% / 46% 60% no-repeat,
-	radial-gradient(closest-side, oklch(from var(--accent) l c calc(h - 70)), transparent) 84% 45% / 36% 55% no-repeat;
+	radial-gradient(closest-side, var(--fx-aurora-1), transparent) 18% 30% / 46% 60% no-repeat,
+	radial-gradient(closest-side, var(--fx-aurora-2), transparent) 84% 45% / 36% 55% no-repeat;
 	filter: blur(var(--space-16));
 	opacity: 0.1;
-	animation: ldp-aurora 20s ease-in-out infinite alternate;
+	animation: ldp-aurora var(--fx-aurora-speed, 20s) ease-in-out infinite alternate;
+}
+:root[data-page-glow][data-fx-aurora-place="top"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	top: -10rem; height: 48rem; inset-inline: -25%;
+}
+:root[data-page-glow][data-fx-aurora-place="page"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	top: -6rem;
+	bottom: 0;
+	height: auto;
+	background:
+	radial-gradient(closest-side, var(--fx-aurora-1), transparent) 18% 8% / 46% 22% no-repeat,
+	radial-gradient(closest-side, var(--fx-aurora-2), transparent) 84% 55% / 36% 22% no-repeat;
+}
+:root[data-page-glow][data-fx-aurora-shape="beams"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	background:
+	linear-gradient(118deg, transparent 18%, var(--fx-aurora-1) 28%, transparent 38%),
+	linear-gradient(62deg, transparent 58%, var(--fx-aurora-2) 67%, transparent 76%);
+	filter: blur(var(--space-6));
+}
+:root[data-fx-aurora-speed="lively"] {
+	--fx-aurora-speed: 8s;
+}
+:root[data-page-glow][data-fx-aurora-speed="still"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	animation: none;
 }
 :root[data-page-glow="strong"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	opacity: 0.22;
@@ -1011,15 +1316,74 @@
 :root:not([data-theme$="-dark"])[data-page-glow="strong"] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	opacity: 0.28;
 }
+:root[data-fx-dividers-colour="second"] {
+	--fx-dividers-c: var(--fx-second);
+}
+:root[data-fx-dividers-colour="accent"] {
+	--fx-dividers-c: var(--accent);
+}
+:root[data-fx-dividers-colour="ink"] {
+	--fx-dividers-c: var(--text-primary);
+}
+:root[data-fx-dividers-look] .single-post-article .wp-block-post-content :is(hr, .wp-block-separator):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	height: 1px;
+	border: 0;
+	background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+}
+:root[data-fx-dividers-look="glow"] .single-post-article .wp-block-post-content :is(hr, .wp-block-separator):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--fx-dividers-c) 70%, transparent), transparent);
+	box-shadow: 0 0 14px color-mix(in oklab, var(--fx-dividers-c) 35%, transparent);
+}
+:root[data-fx-topline-colour="second"] {
+	--fx-topline-c: var(--fx-second);
+}
+:root[data-fx-topline-colour="accent"] {
+	--fx-topline-c: var(--accent);
+}
+:root[data-fx-topline-colour="ink"] {
+	--fx-topline-c: var(--text-primary);
+}
+@media (min-width: 1010px) {
+	:root[data-fx-topline-look] body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		inset-inline: 15%;
+		height: calc(var(--space-16) * 2);
+		z-index: 2;
+		pointer-events: none;
+		background:
+		linear-gradient(90deg, transparent, var(--fx-topline-c), transparent) top / 100% 1px no-repeat,
+		radial-gradient(50% 100% at 50% 0, color-mix(in oklab, var(--fx-topline-c) 14%, transparent), transparent);
+	}
+}
+:root[data-fx-picglow-colour="second"] {
+	--fx-picglow-c: var(--fx-second);
+}
+:root[data-fx-picglow-colour="accent"] {
+	--fx-picglow-c: var(--accent);
+}
+:root[data-fx-picglow-colour="ink"] {
+	--fx-picglow-c: var(--text-primary);
+}
+:root[data-fx-picglow-look="soft"] .single-post-article :is(.article-media img, .wp-block-post-content img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	box-shadow: 0 0 0 1px color-mix(in oklab, var(--fx-picglow-c) 25%, transparent), 0 24px 60px -24px color-mix(in oklab, var(--fx-picglow-c) 45%, transparent);
+}
+:root[data-fx-picglow-look="strong"] .single-post-article :is(.article-media img, .wp-block-post-content img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	box-shadow: 0 0 0 1px color-mix(in oklab, var(--fx-picglow-c) 45%, transparent), 0 24px 80px -16px color-mix(in oklab, var(--fx-picglow-c) 75%, transparent);
+}
 @media (prefers-reduced-motion: reduce) {
 	:root[data-page-glow] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 		animation: none;
 	}
-	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers, .quire-button, .single-post-article .wp-block-post-content :is(hr, .wp-block-separator)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 		display: none;
 	}
-	:root[data-head-arrival] .ldp-arrive .ldp-w {
+	:root[data-head-arrival] :is(.ldp-arrive .ldp-w, .ldp-arrive-block) {
 		opacity: 1; filter: none; transition: none;
+	}
+	:root[data-fx-button-sweep] .quire-button:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+		display: none;
 	}
 }
 :root[data-head-align] :is(.single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not([class*="has-text-align-"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {

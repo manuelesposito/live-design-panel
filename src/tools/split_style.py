@@ -66,7 +66,7 @@ def _from_list() -> tuple[dict[str, str], set[str]]:
 
 # REST: Standard at rest, what the root carries with nothing stored. ABSENT: the dials the root does not carry at rest at all.
 REST, ABSENT = _from_list()
-ABSENT_PATTERNS = (re.compile(r"^data-[a-z]+-leading$"), re.compile(r"^data-(head|kicker)-(align|colour)$"), re.compile(r"^data-[a-z]+-members$"), re.compile(r"^data-[a-z]+-m-[a-z]+-[a-z]+$"))
+ABSENT_PATTERNS = (re.compile(r"^data-fx-[a-z]+-[a-z]+$"), re.compile(r"^data-[a-z]+-leading$"), re.compile(r"^data-(head|kicker)-(align|colour)$"), re.compile(r"^data-[a-z]+-members$"), re.compile(r"^data-[a-z]+-m-[a-z]+-[a-z]+$"))
 # The colour rooms the theme has alone (color-mode.js, SHOWN without the plugin); None = no attribute yet.
 THEMES_ALONE = (None, "neutral-light", "neutral-dark")
 

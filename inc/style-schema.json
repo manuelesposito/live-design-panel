@@ -552,7 +552,9 @@
   "headitalics": [
     "same",
     "serif",
-    "classic"
+    "classic",
+    "vollkorn",
+    "fraunces"
   ],
   "headarrival": [
     "none",
@@ -572,7 +574,9 @@
   "toppattern": [
     "none",
     "dots",
-    "grid"
+    "grid",
+    "cross",
+    "diagonal"
   ],
   "guides": [
     "off",
@@ -595,6 +599,269 @@
     "on"
   ],
   "unlinked": "boolean",
+  "effects": {
+    "title": {
+      "depth": [
+        "50",
+        "70",
+        "30"
+      ],
+      "dir": [
+        "diagonal",
+        "down",
+        "across"
+      ],
+      "colour": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "reach": [
+        "all",
+        "title"
+      ]
+    },
+    "serif": {
+      "which": [
+        "italics",
+        "last",
+        "title"
+      ],
+      "style": [
+        "italic",
+        "upright"
+      ]
+    },
+    "arrival": {
+      "speed": [
+        "calm",
+        "quick",
+        "slow"
+      ],
+      "blur": [
+        "8",
+        "4",
+        "14"
+      ],
+      "scope": [
+        "headings",
+        "text",
+        "all"
+      ]
+    },
+    "cardlight": {
+      "level": [
+        "100",
+        "25",
+        "50",
+        "75"
+      ],
+      "colour": [
+        "auto",
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "edge": [
+        "70",
+        "40",
+        "100"
+      ],
+      "reach": [
+        "55",
+        "35",
+        "85"
+      ]
+    },
+    "moving": {
+      "colour": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "speed": [
+        "7",
+        "11",
+        "4"
+      ],
+      "length": [
+        "34",
+        "20",
+        "55"
+      ],
+      "where": [
+        "cards",
+        "buttons",
+        "all"
+      ],
+      "rhythm": [
+        "constant",
+        "now"
+      ]
+    },
+    "button": {
+      "glow": [
+        "fill",
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "level": [
+        "75",
+        "40",
+        "100"
+      ],
+      "ring": [
+        "on",
+        "off"
+      ],
+      "lift": [
+        "on",
+        "off"
+      ],
+      "sweep": [
+        "off",
+        "on"
+      ],
+      "glass": [
+        "2",
+        "1",
+        "3"
+      ]
+    },
+    "pattern": {
+      "level": [
+        "100",
+        "25",
+        "50",
+        "75"
+      ],
+      "colour": [
+        "ink",
+        "light",
+        "second",
+        "accent"
+      ],
+      "size": [
+        "m",
+        "s",
+        "l"
+      ],
+      "reach": [
+        "560",
+        "300",
+        "900",
+        "all"
+      ]
+    },
+    "guides": {
+      "level": [
+        "100",
+        "25",
+        "50",
+        "75"
+      ],
+      "colour": [
+        "ink",
+        "light",
+        "second",
+        "accent"
+      ],
+      "marks": [
+        "off",
+        "on"
+      ]
+    },
+    "tint": {
+      "colour": [
+        "light",
+        "second",
+        "accent"
+      ]
+    },
+    "aurora": {
+      "first": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "second": [
+        "second",
+        "light",
+        "accent",
+        "ink"
+      ],
+      "place": [
+        "title",
+        "top",
+        "page"
+      ],
+      "speed": [
+        "slow",
+        "still",
+        "lively"
+      ],
+      "shape": [
+        "glow",
+        "beams"
+      ]
+    },
+    "pointer": {
+      "look": [
+        "off",
+        "on"
+      ],
+      "colour": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ]
+    },
+    "dividers": {
+      "look": [
+        "plain",
+        "fade",
+        "glow"
+      ],
+      "colour": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ]
+    },
+    "topline": {
+      "look": [
+        "off",
+        "on"
+      ],
+      "colour": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ]
+    },
+    "picglow": {
+      "look": [
+        "off",
+        "soft",
+        "strong"
+      ],
+      "colour": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ]
+    }
+  },
   "roles": {
     "head": {
       "face": [
@@ -3447,7 +3714,9 @@
       "ground": "hex",
       "lift": "hex",
       "marker": "hex",
-      "inverse": "hex"
+      "inverse": "hex",
+      "light": "hex",
+      "second": "hex"
     },
     "dark": {
       "paper": "hex",
@@ -3459,7 +3728,9 @@
       "ground": "hex",
       "lift": "hex",
       "marker": "hex",
-      "inverse": "hex"
+      "inverse": "hex",
+      "light": "hex",
+      "second": "hex"
     }
   }
 }

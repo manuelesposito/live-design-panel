@@ -44,11 +44,11 @@
     "notes": "How a box the writer coloured inside an article looks: flat (the rest: its fill), outlined, or raised by a shadow.",
     "fields": "How search, comment and sign-up fields look: flat (the rest: the fill, with lines its line), outlined on the paper, or raised by a shadow.",
     "titlefinish": "How the title and the headings are drawn: flat (the rest: their colour), shine (from the full colour to half of it, top left to bottom right, as brushed metal) or accent (from their colour into the accent).",
-    "headitalics": "What the words set in italics inside a title or a heading look like: same (the rest: the heading's own face), serif (a book serif, Newsreader) or classic (a classic serif, Libre Baskerville).",
+    "headitalics": "The face of the serif words in titles and headings (which words: effects.serif): same (the rest: no serif), serif (Newsreader), classic (Libre Baskerville), vollkorn (Vollkorn) or fraunces (Fraunces).",
     "headarrival": "How the title and the article's headings come into view: none (the rest: they are simply there), fade (word by word) or blur (word by word, from a blur to sharp). Nothing moves for readers who ask for less motion.",
     "cardlight": "Light on the cards: off (the rest), edge (a thin light along the top edge that dies out toward the corners) or glow (the edge and a faint light falling into the card). The ink by night, the accent by day.",
     "buttonfinish": "A finish over the main and other buttons: flat (the rest: their look as set), glass (a faint sheet of the ink with a hairline) or glow (the main button keeps its fill and gets a soft light of the button colour under it; the other buttons glass).",
-    "toppattern": "A pattern on the head of the paper that fades out before the reading begins: none (the rest), dots or grid.",
+    "toppattern": "A pattern on the head of the paper that fades out before the reading begins: none (the rest), dots, grid, cross (small crosses) or diagonal lines.",
     "guides": "Lines down each side of the article, a gutter out, as on a drawing board: off (the rest), solid or dashed. Not on a phone.",
     "greytint": "How much of the accent the paper, the grounds and every grey take, in percent: 0 (the rest), 5, 10 or 15. The ink itself stays as it is. Only with the style's own colour pair.",
     "pageglow": "Two slow glows of the accent behind the article's title: off (the rest), soft or strong. They stay still for readers who ask for less motion.",
@@ -84,6 +84,7 @@
     "tint": "The accent colour by name, used for links and the primary button. colours.accent overrides it.",
     "scope": "Legacy. The theme always applies paragraph settings everywhere.",
     "unlinked": "true when the light and dark colours were set independently; false lets one side follow the other.",
+    "effects": "The extras' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect's own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.",
     "roles": "Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme's own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.",
     "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides."
   },
@@ -145,8 +146,64 @@
       "headarrival": "blur",
       "cardlight": "glow",
       "buttonfinish": "glow",
+      "button": "ink",
+      "toppattern": "dots",
       "guides": "dashed",
-      "greytint": "5",
+      "greytint": "10",
+      "pageglow": "soft",
+      "movinglight": "on",
+      "effects": {
+        "serif": {
+          "which": "last"
+        },
+        "arrival": {
+          "scope": "all"
+        },
+        "cardlight": {
+          "level": "75",
+          "colour": "light"
+        },
+        "moving": {
+          "where": "all"
+        },
+        "button": {
+          "glow": "light",
+          "sweep": "on"
+        },
+        "pattern": {
+          "level": "50",
+          "colour": "light"
+        },
+        "guides": {
+          "level": "50",
+          "colour": "light",
+          "marks": "on"
+        },
+        "pointer": {
+          "look": "on"
+        },
+        "dividers": {
+          "look": "glow"
+        },
+        "topline": {
+          "look": "on"
+        },
+        "picglow": {
+          "look": "soft"
+        }
+      },
+      "colours": {
+        "light": {
+          "paper": "#f4f5f6",
+          "ink": "#08090a",
+          "accent": "#5c6300"
+        },
+        "dark": {
+          "paper": "#0f1011",
+          "ink": "#f4f6f8",
+          "accent": "#e4f222"
+        }
+      },
       "roles": {
         "kicker": {
           "italic": false
@@ -166,18 +223,6 @@
         },
         "title": {
           "weight": "medium"
-        }
-      },
-      "colours": {
-        "light": {
-          "paper": "#f4f5f6",
-          "ink": "#08090a",
-          "accent": "#5c6300"
-        },
-        "dark": {
-          "paper": "#0f1011",
-          "ink": "#f4f6f8",
-          "accent": "#e4f222"
         }
       }
     },

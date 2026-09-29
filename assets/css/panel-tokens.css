@@ -128,6 +128,7 @@
 	--focus: color-mix(in srgb, var(--accent) 40%, transparent);
 	--ink-alpha-weak: rgba(35, 35, 35, 0.06);
 	--ink-alpha-soft: rgba(35, 35, 35, 0.12);
+	--ink-alpha-medium: rgba(35, 35, 35, 0.24);
 	--ink-alpha-strong: rgba(35, 35, 35, 0.48);
 	--surface-inverse: #373737;
 	--text-inverse: #e6e6e6;
@@ -216,6 +217,7 @@
 	--focus: #af7147;
 	--ink-alpha-weak: rgba(234, 238, 255, 0.06);
 	--ink-alpha-soft: rgba(234, 238, 255, 0.12);
+	--ink-alpha-medium: rgba(234, 238, 255, 0.24);
 	--ink-alpha-strong: rgba(234, 238, 255, 0.48);
 	--surface-inverse: #eaeeff;
 	--text-inverse: #10113a;
@@ -263,6 +265,7 @@
 	--focus: #da8e77;
 	--ink-alpha-weak: rgba(18, 18, 74, 0.06);
 	--ink-alpha-soft: rgba(18, 18, 74, 0.12);
+	--ink-alpha-medium: rgba(18, 18, 74, 0.24);
 	--ink-alpha-strong: rgba(18, 18, 74, 0.48);
 	--surface-inverse: #12124a;
 	--text-inverse: #eef1ff;
@@ -310,6 +313,7 @@
 	--focus: #f8929b;
 	--ink-alpha-weak: rgba(246, 225, 222, 0.06);
 	--ink-alpha-soft: rgba(246, 225, 222, 0.12);
+	--ink-alpha-medium: rgba(246, 225, 222, 0.24);
 	--ink-alpha-strong: rgba(246, 225, 222, 0.48);
 	--surface-inverse: #fff8f8;
 	--text-inverse: #311d1b;
@@ -356,6 +360,7 @@
 	--focus: #bb3c51;
 	--ink-alpha-weak: rgba(49, 29, 27, 0.06);
 	--ink-alpha-soft: rgba(49, 29, 27, 0.12);
+	--ink-alpha-medium: rgba(49, 29, 27, 0.24);
 	--ink-alpha-strong: rgba(49, 29, 27, 0.48);
 	--surface-inverse: #3c3434;
 	--text-inverse: #f6e1de;
@@ -402,6 +407,7 @@
 	--focus: #83bddf;
 	--ink-alpha-weak: rgba(223, 231, 240, 0.06);
 	--ink-alpha-soft: rgba(223, 231, 240, 0.12);
+	--ink-alpha-medium: rgba(223, 231, 240, 0.24);
 	--ink-alpha-strong: rgba(223, 231, 240, 0.48);
 	--surface-inverse: #f7fbfe;
 	--text-inverse: #1b242c;
@@ -448,6 +454,7 @@
 	--focus: #2479a3;
 	--ink-alpha-weak: rgba(27, 36, 44, 0.06);
 	--ink-alpha-soft: rgba(27, 36, 44, 0.12);
+	--ink-alpha-medium: rgba(27, 36, 44, 0.24);
 	--ink-alpha-strong: rgba(27, 36, 44, 0.48);
 	--surface-inverse: #34373a;
 	--text-inverse: #dfe7f0;
@@ -494,6 +501,7 @@
 	--focus: #eca255;
 	--ink-alpha-weak: rgba(240, 228, 213, 0.06);
 	--ink-alpha-soft: rgba(240, 228, 213, 0.12);
+	--ink-alpha-medium: rgba(240, 228, 213, 0.24);
 	--ink-alpha-strong: rgba(240, 228, 213, 0.48);
 	--surface-inverse: #fff9f2;
 	--text-inverse: #2c200f;
@@ -540,6 +548,7 @@
 	--focus: #9f5e02;
 	--ink-alpha-weak: rgba(44, 32, 15, 0.06);
 	--ink-alpha-soft: rgba(44, 32, 15, 0.12);
+	--ink-alpha-medium: rgba(44, 32, 15, 0.24);
 	--ink-alpha-strong: rgba(44, 32, 15, 0.48);
 	--surface-inverse: #3a3630;
 	--text-inverse: #f0e4d5;
@@ -586,6 +595,7 @@
 	--focus: #d9d9d9;
 	--ink-alpha-weak: rgba(255, 255, 255, 0.06);
 	--ink-alpha-soft: rgba(255, 255, 255, 0.12);
+	--ink-alpha-medium: rgba(255, 255, 255, 0.24);
 	--ink-alpha-strong: rgba(255, 255, 255, 0.48);
 	--surface-inverse: #ffffff;
 	--text-inverse: #000000;
@@ -635,6 +645,7 @@
 	--text-inverse: #e6e6ec;
 	--ink-alpha-weak: rgba(42, 42, 48, 0.06);
 	--ink-alpha-soft: rgba(42, 42, 48, 0.12);
+	--ink-alpha-medium: rgba(42, 42, 48, 0.24);
 	--ink-alpha-strong: rgba(42, 42, 48, 0.48);
 }
 :root[data-theme="matrix-dark"], .theme-matrix-dark {
@@ -660,6 +671,7 @@
 	--focus: #7ccc6a;
 	--ink-alpha-weak: rgba(217, 236, 220, 0.06);
 	--ink-alpha-soft: rgba(217, 236, 220, 0.12);
+	--ink-alpha-medium: rgba(217, 236, 220, 0.24);
 	--ink-alpha-strong: rgba(217, 236, 220, 0.48);
 	--surface-inverse: #f3fdf4;
 	--text-inverse: #132818;
@@ -706,6 +718,7 @@
 	--focus: #278700;
 	--ink-alpha-weak: rgba(19, 40, 24, 0.06);
 	--ink-alpha-soft: rgba(19, 40, 24, 0.12);
+	--ink-alpha-medium: rgba(19, 40, 24, 0.24);
 	--ink-alpha-strong: rgba(19, 40, 24, 0.48);
 	--surface-inverse: #323933;
 	--text-inverse: #d9ecdc;
@@ -752,6 +765,7 @@
 	--focus: #d9d9d9;
 	--ink-alpha-weak: rgba(230, 230, 230, 0.06);
 	--ink-alpha-soft: rgba(230, 230, 230, 0.12);
+	--ink-alpha-medium: rgba(230, 230, 230, 0.24);
 	--ink-alpha-strong: rgba(230, 230, 230, 0.48);
 	--surface-inverse: #ffffff;
 	--text-inverse: #232323;
@@ -799,6 +813,7 @@
 	--focus: #2e2e2e;
 	--ink-alpha-weak: rgba(35, 35, 35, 0.06);
 	--ink-alpha-soft: rgba(35, 35, 35, 0.12);
+	--ink-alpha-medium: rgba(35, 35, 35, 0.24);
 	--ink-alpha-strong: rgba(35, 35, 35, 0.48);
 	--surface-inverse: #373737;
 	--text-inverse: #e6e6e6;
@@ -846,6 +861,7 @@
 	--focus: #dcd7cc;
 	--ink-alpha-weak: rgba(230, 225, 214, 0.06);
 	--ink-alpha-soft: rgba(230, 225, 214, 0.12);
+	--ink-alpha-medium: rgba(230, 225, 214, 0.24);
 	--ink-alpha-strong: rgba(230, 225, 214, 0.48);
 	--surface-inverse: #e8e3d8;
 	--text-inverse: #1b1917;
@@ -893,6 +909,7 @@
 	--focus: #2b2a27;
 	--ink-alpha-weak: rgba(29, 28, 26, 0.06);
 	--ink-alpha-soft: rgba(29, 28, 26, 0.12);
+	--ink-alpha-medium: rgba(29, 28, 26, 0.24);
 	--ink-alpha-strong: rgba(29, 28, 26, 0.48);
 	--surface-inverse: #211f1c;
 	--text-inverse: #e9e5dc;
@@ -940,6 +957,7 @@
 	--focus: #d6aa87;
 	--ink-alpha-weak: rgba(250, 236, 216, 0.06);
 	--ink-alpha-soft: rgba(250, 236, 216, 0.12);
+	--ink-alpha-medium: rgba(250, 236, 216, 0.24);
 	--ink-alpha-strong: rgba(250, 236, 216, 0.48);
 	--surface-inverse: #f3e1c6;
 	--text-inverse: #342817;
@@ -987,6 +1005,7 @@
 	--focus: #986233;
 	--ink-alpha-weak: rgba(52, 40, 23, 0.06);
 	--ink-alpha-soft: rgba(52, 40, 23, 0.12);
+	--ink-alpha-medium: rgba(52, 40, 23, 0.24);
 	--ink-alpha-strong: rgba(52, 40, 23, 0.48);
 	--surface-inverse: #504739;
 	--text-inverse: #faecd8;
@@ -1034,6 +1053,7 @@
 	--focus: #85acfe;
 	--ink-alpha-weak: rgba(237, 237, 237, 0.06);
 	--ink-alpha-soft: rgba(237, 237, 237, 0.12);
+	--ink-alpha-medium: rgba(237, 237, 237, 0.24);
 	--ink-alpha-strong: rgba(237, 237, 237, 0.48);
 	--surface-inverse: #fefefe;
 	--text-inverse: #0c0c0c;
@@ -1080,6 +1100,7 @@
 	--focus: #1745c2;
 	--ink-alpha-weak: rgba(12, 12, 12, 0.06);
 	--ink-alpha-soft: rgba(12, 12, 12, 0.12);
+	--ink-alpha-medium: rgba(12, 12, 12, 0.24);
 	--ink-alpha-strong: rgba(12, 12, 12, 0.48);
 	--surface-inverse: #202020;
 	--text-inverse: #ededed;
@@ -1126,6 +1147,7 @@
 	--focus: #d9d9d9;
 	--ink-alpha-weak: rgba(77, 255, 94, 0.06);
 	--ink-alpha-soft: rgba(77, 255, 94, 0.12);
+	--ink-alpha-medium: rgba(77, 255, 94, 0.24);
 	--ink-alpha-strong: rgba(77, 255, 94, 0.48);
 	--surface-inverse: #4dff5e;
 	--text-inverse: #001902;
@@ -1173,6 +1195,7 @@
 	--focus: #2e2e2e;
 	--ink-alpha-weak: rgba(0, 52, 0, 0.06);
 	--ink-alpha-soft: rgba(0, 52, 0, 0.12);
+	--ink-alpha-medium: rgba(0, 52, 0, 0.24);
 	--ink-alpha-strong: rgba(0, 52, 0, 0.48);
 	--surface-inverse: #003400;
 	--text-inverse: #ddffdc;

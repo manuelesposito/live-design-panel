@@ -7,7 +7,8 @@
   ],
   "means": {
     "roles": "Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme's own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.",
-    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides."
+    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.",
+    "effects": "The extras' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect's own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look."
   },
   "order": {
     "schema": [
@@ -91,6 +92,7 @@
       "pageglow",
       "movinglight",
       "unlinked",
+      "effects",
       "roles",
       "colours"
     ],
@@ -179,6 +181,7 @@
       "tint",
       "scope",
       "unlinked",
+      "effects",
       "roles",
       "colours"
     ],
@@ -630,6 +633,550 @@
             "caps",
             "tracking"
           ]
+        }
+      ]
+    }
+  ],
+  "effects": [
+    {
+      "id": "title",
+      "label": "Title finish",
+      "details": [
+        {
+          "id": "depth",
+          "label": "Fades to",
+          "choices": [
+            "50",
+            "70",
+            "30"
+          ],
+          "means": "how far Shine fades, the share of the colour it ends on: 50 (the rest), 70 or 30."
+        },
+        {
+          "id": "dir",
+          "label": "Direction",
+          "choices": [
+            "diagonal",
+            "down",
+            "across"
+          ],
+          "means": "which way the finish runs: diagonal (the rest, top left to bottom right), down, or across."
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "the colour the Accent finish runs into: light (the rest; the accent until a Light is set), second (Second light), accent or ink."
+        },
+        {
+          "id": "reach",
+          "label": "Reaches",
+          "choices": [
+            "all",
+            "title"
+          ],
+          "means": "all headings (the rest) or the title alone."
+        }
+      ]
+    },
+    {
+      "id": "serif",
+      "label": "Serif words",
+      "details": [
+        {
+          "id": "which",
+          "label": "Which words",
+          "choices": [
+            "italics",
+            "last",
+            "title"
+          ],
+          "means": "which words of a heading take the serif of Italics in headings: the italics a writer set (the rest), the last word of every title and heading, or the whole title."
+        },
+        {
+          "id": "style",
+          "label": "Style",
+          "choices": [
+            "italic",
+            "upright"
+          ],
+          "means": "italic (the rest) or upright."
+        }
+      ]
+    },
+    {
+      "id": "arrival",
+      "label": "Headings arrive",
+      "details": [
+        {
+          "id": "speed",
+          "label": "Speed",
+          "choices": [
+            "calm",
+            "quick",
+            "slow"
+          ],
+          "means": "calm (the rest), quick or slow."
+        },
+        {
+          "id": "blur",
+          "label": "Blur",
+          "choices": [
+            "8",
+            "4",
+            "14"
+          ],
+          "means": "how blurred the words start with Blur to sharp: medium (8, the rest), light (4) or strong (14)."
+        },
+        {
+          "id": "scope",
+          "label": "Also",
+          "choices": [
+            "headings",
+            "text",
+            "all"
+          ],
+          "means": "the headings only (the rest), the paragraphs too, or the paragraphs and the pictures too."
+        }
+      ]
+    },
+    {
+      "id": "cardlight",
+      "label": "Card light",
+      "details": [
+        {
+          "id": "level",
+          "label": "Strength",
+          "choices": [
+            "100",
+            "25",
+            "50",
+            "75"
+          ],
+          "means": "its strength in percent: 100 (the rest), 25, 50 or 75."
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "auto",
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "auto (the rest: the ink by night, the accent by day), light, second, accent or ink."
+        },
+        {
+          "id": "edge",
+          "label": "Edge",
+          "choices": [
+            "70",
+            "40",
+            "100"
+          ],
+          "means": "how much of the top edge is lit: medium (70, the rest), short (40) or full (100)."
+        },
+        {
+          "id": "reach",
+          "label": "Glow reach",
+          "choices": [
+            "55",
+            "35",
+            "85"
+          ],
+          "means": "how far the glow falls into the card: medium (55, the rest), small (35) or large (85)."
+        }
+      ]
+    },
+    {
+      "id": "moving",
+      "label": "Moving light",
+      "details": [
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "light (the rest), second, accent or ink."
+        },
+        {
+          "id": "speed",
+          "label": "Speed",
+          "choices": [
+            "7",
+            "11",
+            "4"
+          ],
+          "means": "seconds a run takes: medium (7, the rest), slow (11) or fast (4)."
+        },
+        {
+          "id": "length",
+          "label": "Streak",
+          "choices": [
+            "34",
+            "20",
+            "55"
+          ],
+          "means": "the streak's length in percent: medium (34, the rest), short (20) or long (55)."
+        },
+        {
+          "id": "where",
+          "label": "Where",
+          "choices": [
+            "cards",
+            "buttons",
+            "all"
+          ],
+          "means": "the cards (the rest), the buttons too, or the article's dividers too."
+        },
+        {
+          "id": "rhythm",
+          "label": "Rhythm",
+          "choices": [
+            "constant",
+            "now"
+          ],
+          "means": "always (the rest) or now and then."
+        }
+      ]
+    },
+    {
+      "id": "button",
+      "label": "Button finish",
+      "details": [
+        {
+          "id": "glow",
+          "label": "Glow colour",
+          "choices": [
+            "fill",
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "the light under the main button with Glow: fill (the rest: its own colour), light, second, accent or ink."
+        },
+        {
+          "id": "level",
+          "label": "Glow",
+          "choices": [
+            "75",
+            "40",
+            "100"
+          ],
+          "means": "the glow's strength: medium (75, the rest), soft (40) or strong (100)."
+        },
+        {
+          "id": "ring",
+          "label": "Ring",
+          "choices": [
+            "on",
+            "off"
+          ],
+          "means": "a ring of the glow colour round the main button: on (the rest) or off."
+        },
+        {
+          "id": "lift",
+          "label": "Lift",
+          "choices": [
+            "on",
+            "off"
+          ],
+          "means": "the main button lifts under the pointer: on (the rest) or off."
+        },
+        {
+          "id": "sweep",
+          "label": "Light sweep",
+          "choices": [
+            "off",
+            "on"
+          ],
+          "means": "a band of light crosses a button under the pointer: off (the rest) or on."
+        },
+        {
+          "id": "glass",
+          "label": "Glass",
+          "choices": [
+            "2",
+            "1",
+            "3"
+          ],
+          "means": "how strong the glass is: medium (2, the rest), faint (1) or strong (3)."
+        }
+      ]
+    },
+    {
+      "id": "pattern",
+      "label": "Pattern at the top",
+      "details": [
+        {
+          "id": "level",
+          "label": "Strength",
+          "choices": [
+            "100",
+            "25",
+            "50",
+            "75"
+          ],
+          "means": "its strength in percent of today's: 100 (the rest), 25, 50 or 75."
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "ink",
+            "light",
+            "second",
+            "accent"
+          ],
+          "means": "ink (the rest), light, second or accent."
+        },
+        {
+          "id": "size",
+          "label": "Size",
+          "choices": [
+            "m",
+            "s",
+            "l"
+          ],
+          "means": "medium (the rest), fine or wide."
+        },
+        {
+          "id": "reach",
+          "label": "Reach",
+          "choices": [
+            "560",
+            "300",
+            "900",
+            "all"
+          ],
+          "means": "how far down it reaches before it has faded: medium (560 px, the rest), short (300), long (900) or the whole paper."
+        }
+      ]
+    },
+    {
+      "id": "guides",
+      "label": "Guides",
+      "details": [
+        {
+          "id": "level",
+          "label": "Strength",
+          "choices": [
+            "100",
+            "25",
+            "50",
+            "75"
+          ],
+          "means": "their strength: 100 (the rest: today's), or 25, 50 or 75 percent of a share of 30."
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "ink",
+            "light",
+            "second",
+            "accent"
+          ],
+          "means": "ink (the rest), light, second or accent."
+        },
+        {
+          "id": "marks",
+          "label": "Corner marks",
+          "choices": [
+            "off",
+            "on"
+          ],
+          "means": "a small cross at the four corners: off (the rest) or on."
+        }
+      ]
+    },
+    {
+      "id": "tint",
+      "label": "Tint the greys",
+      "details": [
+        {
+          "id": "colour",
+          "label": "Tint with",
+          "choices": [
+            "light",
+            "second",
+            "accent"
+          ],
+          "means": "the colour the greys take: light (the rest; the accent until a Light is set), second or accent."
+        }
+      ]
+    },
+    {
+      "id": "aurora",
+      "label": "Aurora",
+      "details": [
+        {
+          "id": "first",
+          "label": "First colour",
+          "choices": [
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "light (the rest), second, accent or ink."
+        },
+        {
+          "id": "second",
+          "label": "Second colour",
+          "choices": [
+            "second",
+            "light",
+            "accent",
+            "ink"
+          ],
+          "means": "second (the rest), light, accent or ink."
+        },
+        {
+          "id": "place",
+          "label": "Place",
+          "choices": [
+            "title",
+            "top",
+            "page"
+          ],
+          "means": "behind the title (the rest), the top of the page, or the whole article."
+        },
+        {
+          "id": "speed",
+          "label": "Speed",
+          "choices": [
+            "slow",
+            "still",
+            "lively"
+          ],
+          "means": "slow (the rest), still or lively."
+        },
+        {
+          "id": "shape",
+          "label": "Shape",
+          "choices": [
+            "glow",
+            "beams"
+          ],
+          "means": "soft glows (the rest) or two beams of light."
+        }
+      ]
+    },
+    {
+      "id": "pointer",
+      "label": "Pointer light",
+      "details": [
+        {
+          "id": "look",
+          "label": "Pointer light",
+          "choices": [
+            "off",
+            "on"
+          ],
+          "means": "a soft light under the pointer on the cards: off (the rest) or on."
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "light (the rest), second, accent or ink."
+        }
+      ]
+    },
+    {
+      "id": "dividers",
+      "label": "Dividers",
+      "details": [
+        {
+          "id": "look",
+          "label": "Dividers",
+          "choices": [
+            "plain",
+            "fade",
+            "glow"
+          ],
+          "means": "the article's dividers: plain (the rest), fading ends, or fading ends with a glow."
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "the glow's colour: light (the rest), second, accent or ink."
+        }
+      ]
+    },
+    {
+      "id": "topline",
+      "label": "Paper top line",
+      "details": [
+        {
+          "id": "look",
+          "label": "Paper top line",
+          "choices": [
+            "off",
+            "on"
+          ],
+          "means": "a bright line along the paper's top edge: off (the rest) or on. The framed paper only."
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "light (the rest), second, accent or ink."
+        }
+      ]
+    },
+    {
+      "id": "picglow",
+      "label": "Picture edge light",
+      "details": [
+        {
+          "id": "look",
+          "label": "Picture edge light",
+          "choices": [
+            "off",
+            "soft",
+            "strong"
+          ],
+          "means": "a light at the edge of the article's pictures: off (the rest), soft or strong."
+        },
+        {
+          "id": "colour",
+          "label": "Colour",
+          "choices": [
+            "light",
+            "second",
+            "accent",
+            "ink"
+          ],
+          "means": "light (the rest), second, accent or ink."
         }
       ]
     }
@@ -2356,11 +2903,13 @@
       "choices": [
         "same",
         "serif",
-        "classic"
+        "classic",
+        "vollkorn",
+        "fraunces"
       ],
       "def": "same",
       "attr": "data-head-italics",
-      "means": "What the words set in italics inside a title or a heading look like: same (the rest: the heading's own face), serif (a book serif, Newsreader) or classic (a classic serif, Libre Baskerville).",
+      "means": "The face of the serif words in titles and headings (which words: effects.serif): same (the rest: no serif), serif (Newsreader), classic (Libre Baskerville), vollkorn (Vollkorn) or fraunces (Fraunces).",
       "label": "Italics in headings",
       "page": "Effects",
       "level": 17,
@@ -2476,11 +3025,13 @@
       "choices": [
         "none",
         "dots",
-        "grid"
+        "grid",
+        "cross",
+        "diagonal"
       ],
       "def": "none",
       "attr": "data-top-pattern",
-      "means": "A pattern on the head of the paper that fades out before the reading begins: none (the rest), dots or grid.",
+      "means": "A pattern on the head of the paper that fades out before the reading begins: none (the rest), dots, grid, cross (small crosses) or diagonal lines.",
       "label": "Pattern at the top",
       "page": "Effects",
       "level": 17,
@@ -5037,6 +5588,1193 @@
       ],
       "rest": {
         "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.light",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.second",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.title.depth",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "50",
+        "70",
+        "30"
+      ],
+      "def": "50",
+      "label": "Fades to",
+      "effect": "Title finish",
+      "means": "Title finish, fades to: how far Shine fades, the share of the colour it ends on: 50 (the rest), 70 or 30.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-title-depth"
+      ],
+      "rest": {
+        "data-fx-title-depth": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.title.dir",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "diagonal",
+        "down",
+        "across"
+      ],
+      "def": "diagonal",
+      "label": "Direction",
+      "effect": "Title finish",
+      "means": "Title finish, direction: which way the finish runs: diagonal (the rest, top left to bottom right), down, or across.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-title-dir"
+      ],
+      "rest": {
+        "data-fx-title-dir": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.title.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "light",
+      "label": "Colour",
+      "effect": "Title finish",
+      "means": "Title finish, colour: the colour the Accent finish runs into: light (the rest; the accent until a Light is set), second (Second light), accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-title-colour"
+      ],
+      "rest": {
+        "data-fx-title-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.title.reach",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "all",
+        "title"
+      ],
+      "def": "all",
+      "label": "Reaches",
+      "effect": "Title finish",
+      "means": "Title finish, reaches: all headings (the rest) or the title alone.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-title-reach"
+      ],
+      "rest": {
+        "data-fx-title-reach": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.serif.which",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "italics",
+        "last",
+        "title"
+      ],
+      "def": "italics",
+      "label": "Which words",
+      "effect": "Serif words",
+      "means": "Serif words, which words: which words of a heading take the serif of Italics in headings: the italics a writer set (the rest), the last word of every title and heading, or the whole title.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-serif-which"
+      ],
+      "rest": {
+        "data-fx-serif-which": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.serif.style",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "italic",
+        "upright"
+      ],
+      "def": "italic",
+      "label": "Style",
+      "effect": "Serif words",
+      "means": "Serif words, style: italic (the rest) or upright.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-serif-style"
+      ],
+      "rest": {
+        "data-fx-serif-style": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.arrival.speed",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "calm",
+        "quick",
+        "slow"
+      ],
+      "def": "calm",
+      "label": "Speed",
+      "effect": "Headings arrive",
+      "means": "Headings arrive, speed: calm (the rest), quick or slow.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-arrival-speed"
+      ],
+      "rest": {
+        "data-fx-arrival-speed": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.arrival.blur",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "8",
+        "4",
+        "14"
+      ],
+      "def": "8",
+      "label": "Blur",
+      "effect": "Headings arrive",
+      "means": "Headings arrive, blur: how blurred the words start with Blur to sharp: medium (8, the rest), light (4) or strong (14).",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-arrival-blur"
+      ],
+      "rest": {
+        "data-fx-arrival-blur": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.arrival.scope",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "headings",
+        "text",
+        "all"
+      ],
+      "def": "headings",
+      "label": "Also",
+      "effect": "Headings arrive",
+      "means": "Headings arrive, also: the headings only (the rest), the paragraphs too, or the paragraphs and the pictures too.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-arrival-scope"
+      ],
+      "rest": {
+        "data-fx-arrival-scope": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.cardlight.level",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "100",
+        "25",
+        "50",
+        "75"
+      ],
+      "def": "100",
+      "label": "Strength",
+      "effect": "Card light",
+      "means": "Card light, strength: its strength in percent: 100 (the rest), 25, 50 or 75.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-cardlight-level"
+      ],
+      "rest": {
+        "data-fx-cardlight-level": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.cardlight.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "auto",
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "auto",
+      "label": "Colour",
+      "effect": "Card light",
+      "means": "Card light, colour: auto (the rest: the ink by night, the accent by day), light, second, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-cardlight-colour"
+      ],
+      "rest": {
+        "data-fx-cardlight-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.cardlight.edge",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "70",
+        "40",
+        "100"
+      ],
+      "def": "70",
+      "label": "Edge",
+      "effect": "Card light",
+      "means": "Card light, edge: how much of the top edge is lit: medium (70, the rest), short (40) or full (100).",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-cardlight-edge"
+      ],
+      "rest": {
+        "data-fx-cardlight-edge": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.cardlight.reach",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "55",
+        "35",
+        "85"
+      ],
+      "def": "55",
+      "label": "Glow reach",
+      "effect": "Card light",
+      "means": "Card light, glow reach: how far the glow falls into the card: medium (55, the rest), small (35) or large (85).",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-cardlight-reach"
+      ],
+      "rest": {
+        "data-fx-cardlight-reach": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.moving.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "light",
+      "label": "Colour",
+      "effect": "Moving light",
+      "means": "Moving light, colour: light (the rest), second, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-moving-colour"
+      ],
+      "rest": {
+        "data-fx-moving-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.moving.speed",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "7",
+        "11",
+        "4"
+      ],
+      "def": "7",
+      "label": "Speed",
+      "effect": "Moving light",
+      "means": "Moving light, speed: seconds a run takes: medium (7, the rest), slow (11) or fast (4).",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-moving-speed"
+      ],
+      "rest": {
+        "data-fx-moving-speed": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.moving.length",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "34",
+        "20",
+        "55"
+      ],
+      "def": "34",
+      "label": "Streak",
+      "effect": "Moving light",
+      "means": "Moving light, streak: the streak's length in percent: medium (34, the rest), short (20) or long (55).",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-moving-length"
+      ],
+      "rest": {
+        "data-fx-moving-length": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.moving.where",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "cards",
+        "buttons",
+        "all"
+      ],
+      "def": "cards",
+      "label": "Where",
+      "effect": "Moving light",
+      "means": "Moving light, where: the cards (the rest), the buttons too, or the article's dividers too.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-moving-where"
+      ],
+      "rest": {
+        "data-fx-moving-where": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.moving.rhythm",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "constant",
+        "now"
+      ],
+      "def": "constant",
+      "label": "Rhythm",
+      "effect": "Moving light",
+      "means": "Moving light, rhythm: always (the rest) or now and then.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-moving-rhythm"
+      ],
+      "rest": {
+        "data-fx-moving-rhythm": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.button.glow",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "fill",
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "fill",
+      "label": "Glow colour",
+      "effect": "Button finish",
+      "means": "Button finish, glow colour: the light under the main button with Glow: fill (the rest: its own colour), light, second, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-button-glow"
+      ],
+      "rest": {
+        "data-fx-button-glow": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.button.level",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "75",
+        "40",
+        "100"
+      ],
+      "def": "75",
+      "label": "Glow",
+      "effect": "Button finish",
+      "means": "Button finish, glow: the glow's strength: medium (75, the rest), soft (40) or strong (100).",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-button-level"
+      ],
+      "rest": {
+        "data-fx-button-level": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.button.ring",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "on",
+        "off"
+      ],
+      "def": "on",
+      "label": "Ring",
+      "effect": "Button finish",
+      "means": "Button finish, ring: a ring of the glow colour round the main button: on (the rest) or off.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-button-ring"
+      ],
+      "rest": {
+        "data-fx-button-ring": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.button.lift",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "on",
+        "off"
+      ],
+      "def": "on",
+      "label": "Lift",
+      "effect": "Button finish",
+      "means": "Button finish, lift: the main button lifts under the pointer: on (the rest) or off.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-button-lift"
+      ],
+      "rest": {
+        "data-fx-button-lift": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.button.sweep",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "label": "Light sweep",
+      "effect": "Button finish",
+      "means": "Button finish, light sweep: a band of light crosses a button under the pointer: off (the rest) or on.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-button-sweep"
+      ],
+      "rest": {
+        "data-fx-button-sweep": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.button.glass",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "2",
+        "1",
+        "3"
+      ],
+      "def": "2",
+      "label": "Glass",
+      "effect": "Button finish",
+      "means": "Button finish, glass: how strong the glass is: medium (2, the rest), faint (1) or strong (3).",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-button-glass"
+      ],
+      "rest": {
+        "data-fx-button-glass": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.pattern.level",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "100",
+        "25",
+        "50",
+        "75"
+      ],
+      "def": "100",
+      "label": "Strength",
+      "effect": "Pattern at the top",
+      "means": "Pattern at the top, strength: its strength in percent of today's: 100 (the rest), 25, 50 or 75.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-pattern-level"
+      ],
+      "rest": {
+        "data-fx-pattern-level": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.pattern.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "ink",
+        "light",
+        "second",
+        "accent"
+      ],
+      "def": "ink",
+      "label": "Colour",
+      "effect": "Pattern at the top",
+      "means": "Pattern at the top, colour: ink (the rest), light, second or accent.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-pattern-colour"
+      ],
+      "rest": {
+        "data-fx-pattern-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.pattern.size",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "m",
+        "s",
+        "l"
+      ],
+      "def": "m",
+      "label": "Size",
+      "effect": "Pattern at the top",
+      "means": "Pattern at the top, size: medium (the rest), fine or wide.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-pattern-size"
+      ],
+      "rest": {
+        "data-fx-pattern-size": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.pattern.reach",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "560",
+        "300",
+        "900",
+        "all"
+      ],
+      "def": "560",
+      "label": "Reach",
+      "effect": "Pattern at the top",
+      "means": "Pattern at the top, reach: how far down it reaches before it has faded: medium (560 px, the rest), short (300), long (900) or the whole paper.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-pattern-reach"
+      ],
+      "rest": {
+        "data-fx-pattern-reach": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.guides.level",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "100",
+        "25",
+        "50",
+        "75"
+      ],
+      "def": "100",
+      "label": "Strength",
+      "effect": "Guides",
+      "means": "Guides, strength: their strength: 100 (the rest: today's), or 25, 50 or 75 percent of a share of 30.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-guides-level"
+      ],
+      "rest": {
+        "data-fx-guides-level": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.guides.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "ink",
+        "light",
+        "second",
+        "accent"
+      ],
+      "def": "ink",
+      "label": "Colour",
+      "effect": "Guides",
+      "means": "Guides, colour: ink (the rest), light, second or accent.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-guides-colour"
+      ],
+      "rest": {
+        "data-fx-guides-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.guides.marks",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "label": "Corner marks",
+      "effect": "Guides",
+      "means": "Guides, corner marks: a small cross at the four corners: off (the rest) or on.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-guides-marks"
+      ],
+      "rest": {
+        "data-fx-guides-marks": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.tint.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "light",
+        "second",
+        "accent"
+      ],
+      "def": "light",
+      "label": "Tint with",
+      "effect": "Tint the greys",
+      "means": "Tint the greys, tint with: the colour the greys take: light (the rest; the accent until a Light is set), second or accent.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-tint-colour"
+      ],
+      "rest": {
+        "data-fx-tint-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.aurora.first",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "light",
+      "label": "First colour",
+      "effect": "Aurora",
+      "means": "Aurora, first colour: light (the rest), second, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-aurora-first"
+      ],
+      "rest": {
+        "data-fx-aurora-first": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.aurora.second",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "second",
+        "light",
+        "accent",
+        "ink"
+      ],
+      "def": "second",
+      "label": "Second colour",
+      "effect": "Aurora",
+      "means": "Aurora, second colour: second (the rest), light, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-aurora-second"
+      ],
+      "rest": {
+        "data-fx-aurora-second": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.aurora.place",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "title",
+        "top",
+        "page"
+      ],
+      "def": "title",
+      "label": "Place",
+      "effect": "Aurora",
+      "means": "Aurora, place: behind the title (the rest), the top of the page, or the whole article.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-aurora-place"
+      ],
+      "rest": {
+        "data-fx-aurora-place": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.aurora.speed",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "slow",
+        "still",
+        "lively"
+      ],
+      "def": "slow",
+      "label": "Speed",
+      "effect": "Aurora",
+      "means": "Aurora, speed: slow (the rest), still or lively.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-aurora-speed"
+      ],
+      "rest": {
+        "data-fx-aurora-speed": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.aurora.shape",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "glow",
+        "beams"
+      ],
+      "def": "glow",
+      "label": "Shape",
+      "effect": "Aurora",
+      "means": "Aurora, shape: soft glows (the rest) or two beams of light.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-aurora-shape"
+      ],
+      "rest": {
+        "data-fx-aurora-shape": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.pointer.look",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "label": "Pointer light",
+      "effect": "Pointer light",
+      "means": "Pointer light, pointer light: a soft light under the pointer on the cards: off (the rest) or on.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-pointer-look"
+      ],
+      "rest": {
+        "data-fx-pointer-look": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.pointer.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "light",
+      "label": "Colour",
+      "effect": "Pointer light",
+      "means": "Pointer light, colour: light (the rest), second, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-pointer-colour"
+      ],
+      "rest": {
+        "data-fx-pointer-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.dividers.look",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "plain",
+        "fade",
+        "glow"
+      ],
+      "def": "plain",
+      "label": "Dividers",
+      "effect": "Dividers",
+      "means": "Dividers, dividers: the article's dividers: plain (the rest), fading ends, or fading ends with a glow.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-dividers-look"
+      ],
+      "rest": {
+        "data-fx-dividers-look": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.dividers.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "light",
+      "label": "Colour",
+      "effect": "Dividers",
+      "means": "Dividers, colour: the glow's colour: light (the rest), second, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-dividers-colour"
+      ],
+      "rest": {
+        "data-fx-dividers-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.topline.look",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "label": "Paper top line",
+      "effect": "Paper top line",
+      "means": "Paper top line, paper top line: a bright line along the paper's top edge: off (the rest) or on. The framed paper only.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-topline-look"
+      ],
+      "rest": {
+        "data-fx-topline-look": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.topline.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "light",
+      "label": "Colour",
+      "effect": "Paper top line",
+      "means": "Paper top line, colour: light (the rest), second, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-topline-colour"
+      ],
+      "rest": {
+        "data-fx-topline-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.picglow.look",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "soft",
+        "strong"
+      ],
+      "def": "off",
+      "label": "Picture edge light",
+      "effect": "Picture edge light",
+      "means": "Picture edge light, picture edge light: a light at the edge of the article's pictures: off (the rest), soft or strong.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-picglow-look"
+      ],
+      "rest": {
+        "data-fx-picglow-look": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.picglow.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "light",
+        "second",
+        "accent",
+        "ink"
+      ],
+      "def": "light",
+      "label": "Colour",
+      "effect": "Picture edge light",
+      "means": "Picture edge light, colour: light (the rest), second, accent or ink.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-picglow-colour"
+      ],
+      "rest": {
+        "data-fx-picglow-colour": "ABSENT_PATTERNS"
       },
       "inStandardAtRest": false
     }

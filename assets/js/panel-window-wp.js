@@ -24,8 +24,8 @@
 	var versionsHeld = null; 
 	var PAIRS = ['neutral', 'paper', 'terminal', 'grey', 'arcade'];
 	var PAIR_LABELS = window.ArchitravePairLabels || { neutral: 'Violet light', paper: 'Sun clay', terminal: 'Radar night', grey: 'Ash blue', arcade: 'Night fire' };
-	var TOKEN = { paper: '--surface-base', ink: '--text-primary', accent: '--accent', ground: '--surface-canvas', lift: '--surface-subtle', button: '--accent', marker: '--marker' };
-	var OWN_BESIDE_PRESET = ['button', 'marker', 'head', 'kicker', 'inverse']; 
+	var TOKEN = { paper: '--surface-base', ink: '--text-primary', accent: '--accent', ground: '--surface-canvas', lift: '--surface-subtle', button: '--accent', marker: '--marker', light: '--fx-light', second: '--fx-second' };
+	var OWN_BESIDE_PRESET = ['button', 'marker', 'head', 'kicker', 'inverse', 'light', 'second']; 
 	TOKEN.head = '--text-primary'; TOKEN.kicker = '--text-primary';
 	var PICK = { markercolour: ['markerColour', 'setMarkerColour'], button: ['buttonColour', 'setButtonColour'], fadeedges: ['fadeEdges', 'setFadeEdges'], linestyle: ['lineStyle', 'setLineStyle'], corners: ['corners', 'setCorners'], pictures: ['picturesNow', 'setPictures'], framepattern: ['framePattern', 'setFramePattern'] };
 	var LEADING = [['solid', '0.9'], ['packed', '1.0'], ['close', '1.1'], ['densest', '1.2'], ['dense', '1.3'], ['tight', '1.45'], ['snug', '1.5'], ['default', '1.6'], ['relaxed', '1.7'], ['airy', '1.8'], ['wider', '1.9'], ['wide', '2.0'], ['open', '2.2'], ['loose', '2.4'], ['loosest', '2.6']];
@@ -122,6 +122,7 @@
 		get: function (key) {
 			var s = S(); if (!s) return null;
 			if (key === 'unlinked') return !s.linked();
+			if (/^effects\./.test(key)) { var fx = key.split('.'); return s.effect ? s.effect(fx[1])[fx[2]] : null; } 
 			if (PICK[key]) return s[PICK[key][0]]();
 			if (s.picks && s.picks[key]) return s.pick(key);
 			if (s.levels && s.levels[key]) return s.level(key);
@@ -130,6 +131,7 @@
 		set: function (key, v) {
 			var s = S(); if (!s) return;
 			if (key === 'unlinked') s.setLinked(!v, side());
+			else if (/^effects\./.test(key)) { var fx = key.split('.'); if (s.setEffect) s.setEffect(fx[1], fx[2], v); }
 			else if (PICK[key]) s[PICK[key][1]](v);
 			else if (s.picks && s.picks[key]) s.setPick(key, v);
 			else if (s.levels && s.levels[key]) s.setLevel(key, v);
@@ -190,7 +192,7 @@
 		ownBesidePreset: function (key) { return OWN_BESIDE_PRESET.indexOf(key) !== -1; },
 		swatches: function (key) {
 			var s = S(), sd = side(), one = currentStyle() && currentStyle().host && currentStyle().hostSide;
-			var list = s && s.swatchList ? s.swatchList(key === 'lift' || key === 'ground' ? 'paper' : key === 'button' || key === 'marker' ? 'accent' : key) : [];
+			var list = s && s.swatchList ? s.swatchList(key === 'lift' || key === 'ground' ? 'paper' : key === 'button' || key === 'marker' || key === 'light' || key === 'second' ? 'accent' : key) : [];
 			return list.map(function (x) { return { label: x.label, hex: String(x[one || sd] || '').toLowerCase() }; }).filter(function (x) { return isHex(x.hex); });
 		},
 		contrast: function (a, b) { var s = S(); return s && s.contrast && isHex(a) && isHex(b) ? s.contrast(a, b) : 0; },

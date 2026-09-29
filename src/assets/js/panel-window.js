@@ -54,7 +54,7 @@
 	}
 	function St() { return host && host.style; }
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
-	var OWN_LABEL = { smallsoft: 'Small text', links: 'Links', 'colours.{side}.inverse': 'Ground colour' }; /* rows the current window draws without a label of the list's */
+	var OWN_LABEL = { smallsoft: 'Small text', links: 'Links', 'colours.{side}.inverse': 'Ground colour', 'colours.{side}.light': 'Light', 'colours.{side}.second': 'Second light' }; /* rows the current window draws without a label of the list's */
 	/* THE LAB'S WORDS for rows the list names otherwise (lab/panel-settings.js, 2026-09-28): the new window says what the lab says */
 	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover', grain: 'Grain', dots: 'Dots', dotsize: 'Dot spacing', vignettereach: 'Vignette size' };
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
@@ -238,7 +238,7 @@
 	}
 
 	/* THE COLOUR EDITOR, as the Mac's: a big swatch, the hex, the pipette, three sliders, twenty named colours, Other… */
-	var EDIT_KEY = { 'colours.{side}.paper': 'paper', 'colours.{side}.ink': 'ink', 'colours.{side}.accent': 'accent', 'colours.{side}.ground': 'ground', 'colours.{side}.lift': 'lift', 'colours.{side}.button': 'button', 'colours.{side}.marker': 'marker', 'colours.{side}.head': 'head', 'colours.{side}.kicker': 'kicker', 'colours.{side}.inverse': 'inverse' };
+	var EDIT_KEY = { 'colours.{side}.paper': 'paper', 'colours.{side}.ink': 'ink', 'colours.{side}.accent': 'accent', 'colours.{side}.ground': 'ground', 'colours.{side}.lift': 'lift', 'colours.{side}.button': 'button', 'colours.{side}.marker': 'marker', 'colours.{side}.head': 'head', 'colours.{side}.kicker': 'kicker', 'colours.{side}.inverse': 'inverse', 'colours.{side}.light': 'light', 'colours.{side}.second': 'second' };
 	/* THE LAB'S NAMED COLOURS: for accents, and for papers and text by the side shown */
 	var LAB_ACCENTS = [['Blue','#0a84ff'],['Indigo','#5856d6'],['Purple','#af52de'],['Pink','#ff2d55'],['Red','#ff3b30'],['Orange','#ff9500'],['Yellow','#ffcc00'],['Green','#34c759'],['Mint','#00c7be'],['Teal','#30b0c7'],['Cyan','#32ade6'],['Brown','#a2845e'],['Graphite','#8e8e93'],['Terracotta','#c4472c'],['Olive','#6b7a2f'],['Coral','#ff7a59'],['Gold','#c9a227'],['Forest','#1f7a4c'],['Navy','#1f3a93'],['Rose','#e05a8a']];
 	var LAB_PAPERS = { light: [['White','#ffffff'],['Snow','#fafafa'],['Porcelain','#f6f5f2'],['Linen','#f7f1e8'],['Ivory','#fbf8ef'],['Cream','#f6ede3'],['Sand','#efe6d6'],['Mist','#eef1f4'],['Sage','#eef2ea'],['Blush','#f8eeee']],
@@ -459,6 +459,25 @@
 		pageglow: { off: 'Off', soft: 'Soft', strong: 'Strong' },
 		movinglight: { off: 'Off', on: 'On' }
 	};
+	PICK_WORD.headitalics.vollkorn = 'Vollkorn'; PICK_WORD.headitalics.fraunces = 'Fraunces'; PICK_WORD.toppattern.diagonal = 'Diagonal'; PICK_WORD.toppattern.cross = 'Crosses';
+	/* THE EXTRAS' DETAILS, their words by full path (effects.<effect>.<detail>: "colour" means something else in each) */
+	var FX_COLOUR = { light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' };
+	var FX_NAME = { title: 'Title finish', serif: 'Serif words', arrival: 'Headings arrive', cardlight: 'Card light', moving: 'Moving light', button: 'Button finish', pattern: 'Pattern at the top', guides: 'Guides', tint: 'Tint the greys', aurora: 'Aurora', pointer: 'Pointer light', dividers: 'Dividers', topline: 'Paper top line', picglow: 'Picture edge light' };
+	var FX_WORD = {
+		'title.depth': { '50': '50 %', '70': '70 %', '30': '30 %' }, 'title.dir': { diagonal: 'Diagonal', down: 'Down', across: 'Across' }, 'title.colour': FX_COLOUR, 'title.reach': { all: 'All headings', title: 'Title only' },
+		'serif.which': { italics: 'Italics', last: 'Last word', title: 'Whole title' }, 'serif.style': { italic: 'Italic', upright: 'Upright' },
+		'arrival.speed': { calm: 'Calm', quick: 'Quick', slow: 'Slow' }, 'arrival.blur': { '8': 'Medium', '4': 'Light', '14': 'Strong' }, 'arrival.scope': { headings: 'Headings only', text: 'And paragraphs', all: 'And pictures' },
+		'cardlight.level': { '100': '100 %', '25': '25 %', '50': '50 %', '75': '75 %' }, 'cardlight.colour': { auto: 'Automatic', light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' }, 'cardlight.edge': { '70': 'Medium', '40': 'Short', '100': 'Full' }, 'cardlight.reach': { '55': 'Medium', '35': 'Small', '85': 'Large' },
+		'moving.colour': FX_COLOUR, 'moving.speed': { '7': 'Medium', '11': 'Slow', '4': 'Fast' }, 'moving.length': { '34': 'Medium', '20': 'Short', '55': 'Long' }, 'moving.where': { cards: 'Cards', buttons: 'And buttons', all: 'And dividers' }, 'moving.rhythm': { constant: 'Always', now: 'Now and then' },
+		'button.glow': { fill: 'Button colour', light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' }, 'button.level': { '75': 'Medium', '40': 'Soft', '100': 'Strong' }, 'button.ring': { on: 'On', off: 'Off' }, 'button.lift': { on: 'On', off: 'Off' }, 'button.sweep': { off: 'Off', on: 'On' }, 'button.glass': { '2': 'Medium', '1': 'Faint', '3': 'Strong' },
+		'pattern.level': { '100': '100 %', '25': '25 %', '50': '50 %', '75': '75 %' }, 'pattern.colour': FX_COLOUR, 'pattern.size': { m: 'Medium', s: 'Fine', l: 'Wide' }, 'pattern.reach': { '560': 'Medium', '300': 'Short', '900': 'Long', all: 'Whole paper' },
+		'guides.level': { '100': '100 %', '25': '25 %', '50': '50 %', '75': '75 %' }, 'guides.colour': FX_COLOUR, 'guides.marks': { off: 'Off', on: 'On' },
+		'tint.colour': FX_COLOUR,
+		'aurora.first': FX_COLOUR, 'aurora.second': FX_COLOUR, 'aurora.place': { title: 'Behind the title', top: 'Top of page', page: 'Whole page' }, 'aurora.speed': { slow: 'Slow', still: 'Still', lively: 'Lively' }, 'aurora.shape': { glow: 'Glow', beams: 'Beams' },
+		'pointer.look': { off: 'Off', on: 'On' }, 'pointer.colour': FX_COLOUR, 'dividers.look': { plain: 'Plain', fade: 'Fading ends', glow: 'Fading and glowing' }, 'dividers.colour': FX_COLOUR,
+		'topline.look': { off: 'Off', on: 'On' }, 'topline.colour': FX_COLOUR, 'picglow.look': { off: 'Off', soft: 'Soft', strong: 'Strong' }, 'picglow.colour': FX_COLOUR
+	};
+	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; /* the prototype's order, loud to quiet */
 	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both'], cards: ['flat', 'box', 'raised', 'top'], quotes: ['plain', 'line', 'box'] };
 	var GUEST_REST = { tags: 'text', chosenitem: 'gray', quotes: 'line', notes: 'flat', fields: 'flat' }; /* on another theme the rest is the theme's own tags and mark, so it says so */
@@ -617,18 +636,38 @@
 			(hidden ? '' : pairLooks('pictureframe') + (s.get('pictureframe') ? levelRow('framewidth', ' px') : '') + (s.guest() ? '' : pairLooks('picturefade'))));
 	}
 	function effectsPage() {
-		var s = St(), night = s.side() === 'dark';
+		var s = St(), night = s.side() === 'dark', guest = s.guest();
+		var fx = function (id, d) { return pickRow('effects.' + id + '.' + d).replace('class="ldpw-r', 'class="ldpw-r ldpw-fxd'); }; /* one detail of an effect, set in under it (ldpw-fxd) */
+		var on = function (key, rest) { return s.get(key) !== rest; };
+		/* THE EXTRAS AND THEIR DETAILS (2026-09-29): each effect one row; its details unfold only while it is on */
+		var headings = pickRow('titlefinish') + (on('titlefinish', 'flat') ? fx('title', 'depth') + fx('title', 'dir') + (s.get('titlefinish') === 'accent' ? fx('title', 'colour') : '') + fx('title', 'reach') : '') +
+			pickRow('headitalics') + (on('headitalics', 'same') ? fx('serif', 'which') + fx('serif', 'style') : '') +
+			pickRow('headarrival') + (on('headarrival', 'none') ? fx('arrival', 'speed') + (s.get('headarrival') === 'blur' ? fx('arrival', 'blur') : '') + fx('arrival', 'scope') : '');
+		var glow = s.get('buttonfinish') === 'glow';
+		var light = (guest ? '' : pickRow('cardlight') + (on('cardlight', 'off') ? fx('cardlight', 'level') + fx('cardlight', 'colour') + fx('cardlight', 'edge') + (s.get('cardlight') === 'glow' ? fx('cardlight', 'reach') : '') : '') +
+				fx('pointer', 'look') + (s.get('effects.pointer.look') === 'on' ? fx('pointer', 'colour') : '')) +
+			pickRow('buttonfinish') + (on('buttonfinish', 'flat') ? (glow ? fx('button', 'glow') + fx('button', 'level') + fx('button', 'ring') + fx('button', 'lift') : '') + fx('button', 'glass') + fx('button', 'sweep') : '') +
+			(guest ? '' : pickRow('pageglow') + (on('pageglow', 'off') ? fx('aurora', 'first') + fx('aurora', 'second') + fx('aurora', 'place') + fx('aurora', 'speed') + fx('aurora', 'shape') : '') +
+				fx('topline', 'look') + (s.get('effects.topline.look') === 'on' ? fx('topline', 'colour') : '') +
+				fx('picglow', 'look') + (s.get('effects.picglow.look') !== 'off' ? fx('picglow', 'colour') : ''));
+		var paper = guest ? '' : pickRow('toppattern') + (on('toppattern', 'none') ? fx('pattern', 'level') + fx('pattern', 'colour') + fx('pattern', 'size') + fx('pattern', 'reach') : '') +
+			pickRow('guides') + (on('guides', 'off') ? fx('guides', 'level') + fx('guides', 'colour') + fx('guides', 'marks') : '') +
+			pickRow('greytint') + (on('greytint', '0') ? fx('tint', 'colour') : '') +
+			fx('dividers', 'look') + (s.get('effects.dividers.look') === 'glow' ? fx('dividers', 'colour') : '');
+		var motion = guest ? '' : pickRow('movinglight') + (on('movinglight', 'off') ? fx('moving', 'colour') + fx('moving', 'speed') + fx('moving', 'length') + fx('moving', 'where') + fx('moving', 'rhythm') : '');
 		return box(offSlider('scanlines', 'scan', label('scanlines'), '') +
 			offSlider('glow', 'glowlevel', label('glow'), '', night ? '' : t('Glows only in dark appearance'), !night) +
 			offSlider('grain', 'grainlevel', label('grain'), '') +
 			offSlider('dots', 'dotlevel', label('dots'), ' %') + (s.get('dots') ? levelRow('dotsize', '') : '') +
 			offSlider('vignette', 'vignettelevel', label('vignette'), '') + (s.get('vignette') ? levelRow('vignettereach', '') : '')) +
-			/* THE EXTRAS (2026-09-29, lab/the-instrument-extras.html): the headings, the light, the paper. On another theme the ones drawn by Architrave's own article and cards stay away. */
-			gtitle(t('Headings')) + box(pickRow('titlefinish') + pickRow('headitalics') + pickRow('headarrival')) +
-			gtitle(t('Light')) + box((s.guest() ? '' : pickRow('cardlight')) + pickRow('buttonfinish') + (s.guest() ? '' : pickRow('pageglow') + pickRow('movinglight'))) +
-			(s.guest() ? '' : gtitle(t('Paper')) + box(pickRow('toppattern') + pickRow('guides') + pickRow('greytint'))) +
-			hint('Movement stays still for readers who ask their computer for less motion.');
+			(s.editable() ? gtitle(t('The Style’s Two Lights')) + box(wellRow('colours.{side}.light', esc(t('Card light, glow, aurora and the rest'))) + wellRow('colours.{side}.second', esc(t('The aurora’s second glow')))) : '') +
+			gtitle(t('Headings')) + box(headings) +
+			gtitle(t('Light')) + box(light) +
+			(paper ? gtitle(t('Paper')) + box(paper) : '') +
+			(motion ? gtitle(t('Motion')) + box(motion) : '') +
+			hint('Each effect shows its details while it is on. Movement stays still for readers who ask their computer for less motion.');
 	}
+
 
 	/* ===== STYLES: the gallery, as the prototype's: the theme's own look, then what readers are shown, then what they are not ===== */
 	function tileHTML(id) {
@@ -970,7 +1009,7 @@
 	/* ===== CHANGES: what differs from the style as it was saved or published, each with its own way back ===== */
 	var DIAL_WORD = { face: 'Font', weight: 'Weight', size: 'Size', tracking: 'Character spacing', words: 'Word spacing', caps: 'Capitals', italic: 'Italic', leading: 'Line spacing', align: 'Alignment', colour: 'Colour' };
 	var TOP_WORD = { face: 'Reading font', sans: 'Interface font', reading: 'Size', leading: 'Line spacing', palette: 'Colour', preset: 'Colour', tint: 'Colour', accent: 'Accent', capLines: 'Drop cap height', unlinked: 'Same colours for light and dark' };
-	var TOP_SECTION = { face: 'type', sans: 'type', reading: 'type', leading: 'type', roles: 'type', capLines: 'type', justify: 'type', dropcap: 'type', palette: 'colour', preset: 'colour', tint: 'colour', accent: 'colour', colours: 'colour', unlinked: 'colour' };
+	var TOP_SECTION = { face: 'type', sans: 'type', reading: 'type', leading: 'type', roles: 'type', capLines: 'type', justify: 'type', dropcap: 'type', palette: 'colour', preset: 'colour', tint: 'colour', accent: 'colour', colours: 'colour', unlinked: 'colour', effects: 'effects' };
 	function changeName(path) {
 		var p = path.split('.'), s = St();
 		if (p[0] === 'roles') {
@@ -979,6 +1018,7 @@
 			return r + ' › ' + t(DIAL_WORD[p[2]] || p[2]);
 		}
 		if (p[0] === 'colours') return label('colours.{side}.' + p[2]) + ' › ' + t(p[1] === 'dark' ? 'Dark' : 'Light');
+		if (p[0] === 'effects') return t(FX_NAME[p[1]] || p[1]) + ' › ' + label(path);
 		var x = setting(p[0]);
 		return x && x.label ? t(x.label) : TOP_WORD[p[0]] ? t(TOP_WORD[p[0]]) : p[0];
 	}
@@ -987,7 +1027,7 @@
 		if (typeof v === 'boolean') return t(v ? 'On' : 'Off');
 		if (v === '' || v === null || v === undefined) return t('Default');
 		if (isHex(v)) return v.toUpperCase();
-		var w = (PICK_WORD[k] && PICK_WORD[k][v]) || (LEVEL_WORD[k] && LEVEL_WORD[k][v]) || (k === 'weight' && WEIGHT_LABEL[v]) || (k === 'markercolour' && MARKER_WORD[v]) || (k === 'button' && BUTTON_WORD[v]);
+		var w = (PICK_WORD[path] && PICK_WORD[path][v]) || (PICK_WORD[k] && PICK_WORD[k][v]) || (LEVEL_WORD[k] && LEVEL_WORD[k][v]) || (k === 'weight' && WEIGHT_LABEL[v]) || (k === 'markercolour' && MARKER_WORD[v]) || (k === 'button' && BUTTON_WORD[v]);
 		return w ? t(w) : k === 'size' ? v + ' px' : String(v);
 	}
 	function changeSection(path) { var k = path.split('.')[0], x = setting(k); return TOP_SECTION[k] || (x && x.section) || ''; }
@@ -1501,7 +1541,7 @@
 		'</div>';
 	}
 	/* UNDO SAYS WHAT IT TAKES BACK ("Undo Highlighter"), in today's window's words */
-	var WHAT = { titlefinish: 'Title finish', headitalics: 'Italics in headings', headarrival: 'Headings arrive', cardlight: 'Card light', buttonfinish: 'Button finish', toppattern: 'Pattern at the top', guides: 'Guides', greytint: 'Tint the greys', pageglow: 'Aurora', movinglight: 'Moving light', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards',
+	var WHAT = { 'effect:title': 'Title finish', 'effect:serif': 'Serif words', 'effect:arrival': 'Headings arrive', 'effect:cardlight': 'Card light', 'effect:moving': 'Moving light', 'effect:button': 'Button finish', 'effect:pattern': 'Pattern at the top', 'effect:guides': 'Guides', 'effect:tint': 'Tint the greys', 'effect:aurora': 'Aurora', 'effect:pointer': 'Pointer light', 'effect:dividers': 'Dividers', 'effect:topline': 'Paper top line', 'effect:picglow': 'Picture edge light', titlefinish: 'Title finish', headitalics: 'Italics in headings', headarrival: 'Headings arrive', cardlight: 'Card light', buttonfinish: 'Button finish', toppattern: 'Pattern at the top', guides: 'Guides', greytint: 'Tint the greys', pageglow: 'Aurora', movinglight: 'Moving light', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards',
 		scanlines: 'Scan lines', scan: 'Scan lines', glow: 'Glow', glowlevel: 'Glow', grain: 'Background grain', grainlevel: 'Background grain',
 		vignette: 'Vignette', vignettelevel: 'Vignette', vignettereach: 'Vignette', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 		justify: 'Justified text', dropcap: 'Drop cap', capLines: 'Drop cap height', pictures: 'Picture effects', picturedim: 'Dim in the dark',
@@ -1660,7 +1700,7 @@
 		var list = (host && host.settings && host.settings.list) || [], secOf = {}; list.forEach(function (x) { secOf[x.key] = x.section; });
 		return s.changes().map(function (c) { return c.path; }).filter(function (p) {
 			var k = p.split('.')[0];
-			return (k === 'colours' ? 'colour' : k === 'roles' || k === 'members' ? 'type' : secOf[k]) === secId;
+			return (k === 'colours' ? 'colour' : k === 'roles' || k === 'members' ? 'type' : k === 'effects' ? 'effects' : secOf[k]) === secId;
 		});
 	}
 	function markChanged() {
@@ -1669,7 +1709,8 @@
 		var secOf = {}; list.forEach(function (x) { secOf[x.key] = x.section; });
 		paths.forEach(function (p) {
 			var k = p.split('.')[0];
-			var sec = k === 'colours' ? 'colour' : k === 'roles' || k === 'members' ? 'type' : secOf[k];
+			var sec = k === 'colours' ? 'colour' : k === 'roles' || k === 'members' ? 'type' : k === 'effects' ? 'effects' : secOf[k];
+			if (k === 'effects') k = p; /* a detail's row is named by its whole path */
 			if (sec) secs[sec] = 1;
 			var sel = k === 'colours' ? '[data-edit="colours.{side}.' + p.split('.').pop() + '"]' : k === 'roles' ? '[data-role="' + p.split('.')[1] + '"]' : '[data-set="' + k + '"], [data-menu="' + k + '"], [data-stop="' + k + '"], [data-look="' + k + '"], [data-level="' + k + '"]';
 			win.querySelectorAll('.ldpw-scroll :is(' + sel + ')').forEach(function (el) { var r = el.closest('.ldpw-r'); if (r) r.classList.add('is-changed'); });

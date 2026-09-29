@@ -77,6 +77,10 @@
 #ldp-window .ldpw-r .ldpw-lb { flex: 1; }
 #ldp-window .ldpw-r .ldpw-lb small { display: block; font-size: 12px; color: var(--ldpw-soft); margin-top: 1px; }
 #ldp-window .ldpw-r.is-off > .ldpw-lb { color: var(--ldpw-soft); }
+#ldp-window .ldpw-r.ldpw-fxd { min-height: 36px; padding-left: 28px; }
+#ldp-window .ldpw-r.ldpw-fxd > .ldpw-lb { font-size: 13px; color: var(--ldpw-soft); }
+#ldp-window .ldpw-r + .ldpw-r.ldpw-fxd { box-shadow: none; }
+#ldp-window .ldpw-r + .ldpw-r.ldpw-fxd::before { content: ""; position: absolute; top: 0; left: 28px; right: 0; border-top: 1px solid var(--ldpw-line); }
 #ldp-window .ldpw-navrow { cursor: pointer; }
 #ldp-window .ldpw-navrow:hover:not(:disabled) { background: rgb(var(--ldpw-fx) / .04); }
 #ldp-window .ldpw-navrow:disabled { color: var(--ldpw-soft); }

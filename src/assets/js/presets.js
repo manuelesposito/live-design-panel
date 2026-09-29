@@ -116,7 +116,7 @@
 		/* BLUEPRINT IN THE PHOTOGRAPH'S TYPE (2026-09-19): the reading in IBM Plex Sans, as the spread; the titles in JETBRAINS MONO's bold ITALIC and the labels in JetBrains Mono, which stands in for Plex Mono (static, so its weight slider had four stops and two italic cuts; Manuel: "maybe we can replace it with a variable font which looks similar"). The italic is what gives the spread its slightly playful hand; the reading, the quotes and the comments in Plex Sans, light. It was Geist and Geist Mono for an hour, the nearest of the twelve. */
 		{ id: 'blueprint', label: 'Blueprint', measure: '80', /* ITS OWN WIDTH, a wide drawing sheet (Manuel, 2026-09-25, lab/the-tile-widths.html: "all yes") */ palette: 'neutral', tint: 'blue', sans: 'plex-sans', reading: 'default', face: 'plex-sans', leading: 'relaxed', justify: false, dropcap: false, rounded: false, lines: true, line: '30', linestyle: 'dashed', bold: false, scope: 'article', fills: false, /* the grain came out (Manuel, 2026-09-19 evening: "I don't like the Korn") */ pictures: 'accent', preset: 'draft', roles: { kicker: { face: 'jetbrains-mono', italic: false, caps: true, tracking: 'p10', size: '16', weight: 'medium' }, head: { face: 'jetbrains-mono', weight: 'bold', italic: true, size: '56', /* 48 until the same evening: "the heading could be a little bit bigger" */ members: { sub: { size: '28' } } }, read: { weight: 'light' }, quote: { italic: true, size: '24', weight: 'light' }, small: { face: 'jetbrains-mono', caps: true, tracking: 'p5', members: { captions: { caps: false, tracking: 'default' }, author: { caps: false, tracking: 'default' } } }, title: { face: 'jetbrains-mono', caps: true, tracking: 'p10' } } /* the quote and the comments follow the Plex Sans anchors; the mono is PINNED on the headlines, the category line, the dates and the section titles, which is what a pin is for (2026-09-22) */ },
 		/* INSTRUMENT (2026-09-20, the ask: a written description of a product site's look, a near-black page, paper-white type, one acid lime for the single action, hairlines in place of shadows, one grotesque throughout at low weights and tight tracking; "include that tile in the panel"). The reference's measurements, in this theme's dials: Inter in every role, the headings semibold (medium until 1.3.312, which the reference's article page corrected) and nothing bolder, their tracking left at the theme's rest, which measured within a hair of the reference's (a step tighter doubled it on the title); Lines on and faint, since the reference draws its edges as hairlines; Fills on, its cards a step above the page; rounded corners; no grain, no scan lines, no glow. The colours are a preset on the Neutral pair, the lime by night and an olive of the same hue by day, where a lime cannot hold 4.5:1 on a light paper. Backstage and by link, as every tile but Standard. */
-		{ id: 'instrument', label: 'Instrument', space: 'compact', /* ITS OWN AIR, the reference's dense lists (Manuel, 2026-09-25, lab/the-space-of-a-page.html) */ palette: 'neutral', tint: 'green', sans: 'inter', reading: 'small', /* THE REFERENCE'S OWN SIZES (Manuel, 2026-09-25, lab/the-tiles-side-by-side.html: "no, except Instrument"): text 18 (it reads 17), title 48 under Small; every tile read 22 before */ face: 'inter', leading: 'default', justify: false, dropcap: false, rounded: true, corners: 'small', /* the reference's cards 12, buttons 6 (1.3.311) */ lines: true, line: '10', hairlines: true, /* the reference's half-pixel lines (2026-09-26) */ bold: false, scope: 'article', fills: true, /* fill '25' rested here for a day (1.3.465) to bring the cards down to the reference's 3 % step; the slider scales every step, so the rail's hover went with it and was barely visible (Manuel, 2026-09-26, screenshot). Back to the rest. */ soft: true, softlevel: '30', /* FAINTER BY DEFAULT (Manuel, 2026-09-25: "make this softer reading a little bit more prominent so that the reading text is fainter"): the rest's 15 barely showed; 30 is the reference's muted body on its near-black page, and the slider's own note says 45 still holds 4.5:1 on this pair, so 30 reads on both sides */ quietlevel: '40', /* the reference's small print, 2026-09-23 */ /* pictures in colour: black and white was the default for an hour (1.3.340) and went again (Manuel, 2026-09-23: "bring coloured images back to instrument") */ picturedim: true, pictureframe: false, /* no mat, no line: the reference's pictures stand on the page with their corner (2026-09-23); the fade stays a switch, off, since a random picture does not sink (Manuel) */ alternates: true, /* Inter's round quotes and flagged one, 2026-09-23 */ titlefinish: 'shine', headitalics: 'serif', headarrival: 'blur', cardlight: 'glow', buttonfinish: 'glow', guides: 'dashed', greytint: '5', /* THE EXTRAS (Manuel, 2026-09-29, lab/the-instrument-extras.html, "My pick"): titles shine, italics turn serif, headings arrive from a blur, cards are lit from above, the main button glows, dashed guides, a touch of the lime in the greys. The pattern, the aurora and the moving light stay off. */ /* 1.3.312, after the reference's own article page was measured: its headings are 590 and near white over a softer text, its pictures made for the dark page */ preset: 'limelight', roles: { kicker: { italic: false }, head: { weight: 'semibold', leading: 'tight', /* 1.12 x 0.92 = 1.03, the reference's titles sit at 1.0; its weight (590) and tracking (-0.022em) the tile already had, measured 2026-09-23 */ members: { sub: { weight: 'semibold', tracking: 'p1' } } /* the headings inside the article rest bold; the reference's are 590 too. Their spacing half a step open, -0.0125em against the title's -0.025em: the reference's 20-32px headings sit at -0.012em (2026-09-26) */ }, quote: { italic: false }, title: { weight: 'medium' } } /* Inter on both anchors, no pins (2026-09-22) */ },
+		{ id: 'instrument', label: 'Instrument', space: 'compact', /* ITS OWN AIR, the reference's dense lists (Manuel, 2026-09-25, lab/the-space-of-a-page.html) */ palette: 'neutral', tint: 'green', sans: 'inter', reading: 'small', /* THE REFERENCE'S OWN SIZES (Manuel, 2026-09-25, lab/the-tiles-side-by-side.html: "no, except Instrument"): text 18 (it reads 17), title 48 under Small; every tile read 22 before */ face: 'inter', leading: 'default', justify: false, dropcap: false, rounded: true, corners: 'small', /* the reference's cards 12, buttons 6 (1.3.311) */ lines: true, line: '10', hairlines: true, /* the reference's half-pixel lines (2026-09-26) */ bold: false, scope: 'article', fills: true, /* fill '25' rested here for a day (1.3.465) to bring the cards down to the reference's 3 % step; the slider scales every step, so the rail's hover went with it and was barely visible (Manuel, 2026-09-26, screenshot). Back to the rest. */ soft: true, softlevel: '30', /* FAINTER BY DEFAULT (Manuel, 2026-09-25: "make this softer reading a little bit more prominent so that the reading text is fainter"): the rest's 15 barely showed; 30 is the reference's muted body on its near-black page, and the slider's own note says 45 still holds 4.5:1 on this pair, so 30 reads on both sides */ quietlevel: '40', /* the reference's small print, 2026-09-23 */ /* pictures in colour: black and white was the default for an hour (1.3.340) and went again (Manuel, 2026-09-23: "bring coloured images back to instrument") */ picturedim: true, pictureframe: false, /* no mat, no line: the reference's pictures stand on the page with their corner (2026-09-23); the fade stays a switch, off, since a random picture does not sink (Manuel) */ alternates: true, /* Inter's round quotes and flagged one, 2026-09-23 */ titlefinish: 'shine', headitalics: 'serif', headarrival: 'blur', cardlight: 'glow', buttonfinish: 'glow', button: 'ink', toppattern: 'dots', guides: 'dashed', greytint: '10', pageglow: 'soft', movinglight: 'on', effects: { serif: { which: 'last' }, arrival: { scope: 'all' }, cardlight: { level: '75', colour: 'light' }, moving: { where: 'all' }, button: { glow: 'light', sweep: 'on' }, pattern: { level: '50', colour: 'light' }, guides: { level: '50', colour: 'light', marks: 'on' }, pointer: { look: 'on' }, dividers: { look: 'glow' }, topline: { look: 'on' }, picglow: { look: 'soft' } }, colours: { dark: { light: '#9b7cff', second: '#5ad8ff' } }, /* ROUND TWO (Manuel, 2026-09-29: "I would go for those settings, which I have on the lab right now", his line from lab/the-instrument-extras.html): violet Light and cyan Second light, the white button glowing violet, dots, the aurora, moving light, the pointer's light, glowing dividers, the paper's top line, pictures in light, the last word of every heading in Newsreader italic. */ /* THE EXTRAS (Manuel, 2026-09-29, lab/the-instrument-extras.html, "My pick"): titles shine, italics turn serif, headings arrive from a blur, cards are lit from above, the main button glows, dashed guides, a touch of the lime in the greys. The pattern, the aurora and the moving light stay off. */ /* 1.3.312, after the reference's own article page was measured: its headings are 590 and near white over a softer text, its pictures made for the dark page */ preset: 'limelight', roles: { kicker: { italic: false }, head: { weight: 'semibold', leading: 'tight', /* 1.12 x 0.92 = 1.03, the reference's titles sit at 1.0; its weight (590) and tracking (-0.022em) the tile already had, measured 2026-09-23 */ members: { sub: { weight: 'semibold', tracking: 'p1' } } /* the headings inside the article rest bold; the reference's are 590 too. Their spacing half a step open, -0.0125em against the title's -0.025em: the reference's 20-32px headings sit at -0.012em (2026-09-26) */ }, quote: { italic: false }, title: { weight: 'medium' } } /* Inter on both anchors, no pins (2026-09-22) */ },
 		/* CATALOGUE (Manuel, 2026-09-24, a written description of a warm editorial product site with its link and its article page: "Can you build a new style out of that?", then "Instrument serif. lets do all 4"). Its article page, measured: headings in a thin high-contrast serif (title 64/64 at -0.05em, section heads 40/45), the text in the same serif at 20/30, every small word in a mono in capitals, a warm cream ground with a dotted grid, hairlines and no shadows, one near-black filled button, links in olive, a highlighter yellow as decoration only. Instrument Serif for the serif (his pick), IBM Plex Mono for the mono. The four switches it needed were built with it: dots, marker, inkbutton, centretitle. */
 		{ id: 'catalogue', label: 'Catalogue', space: 'spacious', /* ITS OWN AIR, the reference's open pages (Manuel, 2026-09-25, lab/the-space-of-a-page.html) */ palette: 'neutral', tint: 'green', sans: 'ibm-plex-mono', reading: 'compact', face: 'source-serif-4', leading: 'snug', /* ONE SERIF FOR HEADINGS AND TEXT, as the reference sets its own; SOURCE SERIF 4 for both (Manuel, 2026-09-25: Newsreader on Catalogue and Classic alike "is a bit boring. Let's use another one" of the lab's candidates). Of the three on lab/the-reading-face-for-catalogue.html it is the one that can draw the reference's headline: 96 at weight 300 needs a variable face, and Spectral ships only 400 and 700 (it held the text once, 1.3.442, and clamped the light head to 400 when tried for both). Its flat serifs are the reference's ABC Synt's (+4 % width, +7 % x-height). Newsreader (1.3.443) stays Classic's, so the two styles read apart. 20/30 as the reference. */ justify: false, dropcap: false, rounded: true, corners: 'small', lines: true, line: '20', bold: false, scope: 'article', fills: true, soft: false, /* the reference's text is its full ink and its links keep the olive, which Softer reading text would take away */ pictureframe: true, framewidth: '16', framepattern: 'checker', /* the reference's checkerboard in a wider mat (Manuel, 2026-09-25: "nicer with the checker, not with the dots") */ measure: '84', /* the reference's column holds about 82 letters of Newsreader (684 px at 20) */ widepicture: true, categories: 'above', dots: true, marker: true, button: 'ink', preset: 'vellum', roles: { head: { face: 'source-serif-4', weight: 'light', /* THE REFERENCE'S SIGNATURE, NOT ITS ARTICLE (Manuel, 2026-09-25: "why are we not taking their styles … they have bigger font sizes"): its headline is 96 at 300; its article page sat at 64, which is Classic's own */ size: '112', /* 112 on the slider draws about 96 while the text is Compact */ tracking: 'm2', /* with the head's own -0.025em, the reference's -0.05em */ leading: 'dense', /* 1.12 x 0.85 = 0.95, the reference's 96/90 */ align: 'center', /* the title centred, as the reference's; the headings inside the article stay on the left */ members: { sub: { size: '56', align: 'default' } } /* draws the section heads at about 48 while the text is Compact, the reference's section titles */ }, kicker: { face: 'ibm-plex-mono', caps: true, italic: false, weight: 'medium', size: '14', align: 'center' }, title: { face: 'ibm-plex-mono', caps: true, weight: 'medium' }, quote: { face: 'source-serif-4' } } },
 		/* GALLERY (Manuel, 2026-09-26, from a measured style sheet of the reference's
@@ -368,6 +368,7 @@
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean') entry[k] = data[k]; });
 		['tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
 		if (data.roles && typeof data.roles === 'object') entry.roles = data.roles;
+		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } /* only known details, only off their rest */
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
 		var shape = function (x) { var c = {}; Object.keys(x).forEach(function (k) { if (k !== 'id') c[k] = x[k]; }); return JSON.stringify(c); };
 		var had = STYLES.filter(function (x) { return x.own && shape(x) === shape(entry); })[0];
@@ -435,7 +436,8 @@
 	var FADE_EDGES = ['sides', 'bottom', 'all'];
 	var MARKERS = ['yellow', 'green', 'pink', 'blue', 'orange', 'text', 'muted', 'own'];
 	var FRAME_PATTERNS = ['plain', 'dots', 'checker'];
-	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, titlefinish: { attr: 'data-title-finish', list: ['flat', 'shine', 'accent'] }, headitalics: { attr: 'data-head-italics', list: ['same', 'serif', 'classic'] }, headarrival: { attr: 'data-head-arrival', list: ['none', 'fade', 'blur'] }, cardlight: { attr: 'data-card-light', list: ['off', 'edge', 'glow'] }, buttonfinish: { attr: 'data-button-finish', list: ['flat', 'glass', 'glow'] }, toppattern: { attr: 'data-top-pattern', list: ['none', 'dots', 'grid'] }, guides: { attr: 'data-guides', list: ['off', 'solid', 'dashed'] }, greytint: { attr: 'data-grey-tint', list: ['0', '5', '10', '15'] }, pageglow: { attr: 'data-page-glow', list: ['off', 'soft', 'strong'] }, movinglight: { attr: 'data-moving-light', list: ['off', 'on'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined'] } };
+	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, titlefinish: { attr: 'data-title-finish', list: ['flat', 'shine', 'accent'] }, headitalics: { attr: 'data-head-italics', list: ['same', 'serif', 'classic', 'vollkorn', 'fraunces'] }, headarrival: { attr: 'data-head-arrival', list: ['none', 'fade', 'blur'] }, cardlight: { attr: 'data-card-light', list: ['off', 'edge', 'glow'] }, buttonfinish: { attr: 'data-button-finish', list: ['flat', 'glass', 'glow'] }, toppattern: { attr: 'data-top-pattern', list: ['none', 'dots', 'grid', 'cross', 'diagonal'] }, guides: { attr: 'data-guides', list: ['off', 'solid', 'dashed'] }, greytint: { attr: 'data-grey-tint', list: ['0', '5', '10', '15'] }, pageglow: { attr: 'data-page-glow', list: ['off', 'soft', 'strong'] }, movinglight: { attr: 'data-moving-light', list: ['off', 'on'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined'] } };
+	var EFFECTS = { title: { depth: { list: ['50', '70', '30'], rest: '50' }, dir: { list: ['diagonal', 'down', 'across'], rest: 'diagonal' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, reach: { list: ['all', 'title'], rest: 'all' } }, serif: { which: { list: ['italics', 'last', 'title'], rest: 'italics' }, style: { list: ['italic', 'upright'], rest: 'italic' } }, arrival: { speed: { list: ['calm', 'quick', 'slow'], rest: 'calm' }, blur: { list: ['8', '4', '14'], rest: '8' }, scope: { list: ['headings', 'text', 'all'], rest: 'headings' } }, cardlight: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['auto', 'light', 'second', 'accent', 'ink'], rest: 'auto' }, edge: { list: ['70', '40', '100'], rest: '70' }, reach: { list: ['55', '35', '85'], rest: '55' } }, moving: { colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, speed: { list: ['7', '11', '4'], rest: '7' }, length: { list: ['34', '20', '55'], rest: '34' }, where: { list: ['cards', 'buttons', 'all'], rest: 'cards' }, rhythm: { list: ['constant', 'now'], rest: 'constant' } }, button: { glow: { list: ['fill', 'light', 'second', 'accent', 'ink'], rest: 'fill' }, level: { list: ['75', '40', '100'], rest: '75' }, ring: { list: ['on', 'off'], rest: 'on' }, lift: { list: ['on', 'off'], rest: 'on' }, sweep: { list: ['off', 'on'], rest: 'off' }, glass: { list: ['2', '1', '3'], rest: '2' } }, pattern: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, size: { list: ['m', 's', 'l'], rest: 'm' }, reach: { list: ['560', '300', '900', 'all'], rest: '560' } }, guides: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, marks: { list: ['off', 'on'], rest: 'off' } }, tint: { colour: { list: ['light', 'second', 'accent'], rest: 'light' } }, aurora: { first: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, second: { list: ['second', 'light', 'accent', 'ink'], rest: 'second' }, place: { list: ['title', 'top', 'page'], rest: 'title' }, speed: { list: ['slow', 'still', 'lively'], rest: 'slow' }, shape: { list: ['glow', 'beams'], rest: 'glow' } }, pointer: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, dividers: { look: { list: ['plain', 'fade', 'glow'], rest: 'plain' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, topline: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, picglow: { look: { list: ['off', 'soft', 'strong'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } } };
 	var LEVELS = {
 		scan: { stops: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], rest: '3', attr: 'data-scan', prop: '--scan-alpha' },
 		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
@@ -512,9 +514,9 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'dots', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'scanlines', 'glow', 'grain', 'vignette', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'unlinked', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'dots', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'scanlines', 'glow', 'grain', 'vignette', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { tint: TINTS, scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], button: BUTTONS, linestyle: LINE_STYLE, corners: CORNERS, fadeedges: FADE_EDGES, markercolour: MARKERS, framepattern: FRAME_PATTERNS },
-		wells: ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse'],
+		wells: ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'],
 		meaning: {
 			architrave: 'Always 1. Marks the JSON as a style record.',
 			label: 'The name on the tile.',
@@ -560,11 +562,11 @@
 			notes: 'How a box the writer coloured inside an article looks: flat (the rest: its fill), outlined, or raised by a shadow.',
 			fields: 'How search, comment and sign-up fields look: flat (the rest: the fill, with lines its line), outlined on the paper, or raised by a shadow.',
 			titlefinish: 'How the title and the headings are drawn: flat (the rest: their colour), shine (from the full colour to half of it, top left to bottom right, as brushed metal) or accent (from their colour into the accent).',
-			headitalics: 'What the words set in italics inside a title or a heading look like: same (the rest: the heading\'s own face), serif (a book serif, Newsreader) or classic (a classic serif, Libre Baskerville).',
+			headitalics: 'The face of the serif words in titles and headings (which words: effects.serif): same (the rest: no serif), serif (Newsreader), classic (Libre Baskerville), vollkorn (Vollkorn) or fraunces (Fraunces).',
 			headarrival: 'How the title and the article\'s headings come into view: none (the rest: they are simply there), fade (word by word) or blur (word by word, from a blur to sharp). Nothing moves for readers who ask for less motion.',
 			cardlight: 'Light on the cards: off (the rest), edge (a thin light along the top edge that dies out toward the corners) or glow (the edge and a faint light falling into the card). The ink by night, the accent by day.',
 			buttonfinish: 'A finish over the main and other buttons: flat (the rest: their look as set), glass (a faint sheet of the ink with a hairline) or glow (the main button keeps its fill and gets a soft light of the button colour under it; the other buttons glass).',
-			toppattern: 'A pattern on the head of the paper that fades out before the reading begins: none (the rest), dots or grid.',
+			toppattern: 'A pattern on the head of the paper that fades out before the reading begins: none (the rest), dots, grid, cross (small crosses) or diagonal lines.',
 			guides: 'Lines down each side of the article, a gutter out, as on a drawing board: off (the rest), solid or dashed. Not on a phone.',
 			greytint: 'How much of the accent the paper, the grounds and every grey take, in percent: 0 (the rest), 5, 10 or 15. The ink itself stays as it is. Only with the style\'s own colour pair.',
 			pageglow: 'Two slow glows of the accent behind the article\'s title: off (the rest), soft or strong. They stay still for readers who ask for less motion.',
@@ -600,6 +602,7 @@
 			tint: 'The accent colour by name, used for links and the primary button. colours.accent overrides it.',
 			scope: 'Legacy. The theme always applies paragraph settings everywhere.',
 			unlinked: 'true when the light and dark colours were set independently; false lets one side follow the other.',
+			effects: 'The extras\' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect\'s own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.',
 			roles: 'Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme\'s own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.',
 			colours: 'The style\'s own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles\' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.'
 		}
@@ -1468,37 +1471,96 @@
 		return (s && d.list.indexOf(s[key]) !== -1) ? s[key] : pickRest(key);
 	}
 	function applyPicks() { Object.keys(PICKS).forEach(function (k) { var d = PICKS[k], v = pickOf(k); if (v === d.list[0]) root.removeAttribute(d.attr); else if (root.getAttribute(d.attr) !== v) root.setAttribute(d.attr, v); });  headingsArrive(); }
-	/* THE HEADINGS ARRIVE (PICKS `headarrival`, the extras, 2026-09-29): on an
-	   article, each word of the title and of the article's own headings is
-	   wrapped once (span.ldp-w, its place in --ldp-i), the heading is marked
-	   .ldp-arrive, and it gains .ldp-in when it comes into view; style.css
-	   holds the words back only inside a marked heading that is not yet in, so
-	   a page whose script never ran shows every word. Nothing is wrapped for a
-	   reader who asks for less motion. The words stay wrapped when the setting
-	   goes back to none: a span is invisible to the rest. */
-	var arriveSeen = null;
-	function headingsArrive() {
-		if (!root.hasAttribute('data-head-arrival') || !document.body || !window.IntersectionObserver) return;
-		if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-		if (!arriveSeen) arriveSeen = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('ldp-in'); arriveSeen.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
-		var list = document.querySelectorAll('.single-post-article > .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h2, h3, h4), body.single :is(.wp-block-post-title, .wp-block-post-content > :is(h2, h3, h4), .entry-content > :is(h2, h3, h4))');
-		Array.prototype.forEach.call(list, function (h) {
-			if (h.classList.contains('ldp-arrive') || h.closest('.reading-panel, .post-card, #wpadminbar')) return;
-			var i = 0, walk = document.createTreeWalker(h, NodeFilter.SHOW_TEXT), texts = [];
-			while (walk.nextNode()) texts.push(walk.currentNode);
-			texts.forEach(function (n) {
-				var frag = document.createDocumentFragment();
-				n.nodeValue.split(/(\s+)/).forEach(function (part) {
-					if (!part) return;
-					if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
-					var w = document.createElement('span'); w.className = 'ldp-w'; w.style.setProperty('--ldp-i', i++); w.textContent = part; frag.appendChild(w);
-				});
-				n.parentNode.replaceChild(frag, n);
+	/* THE EXTRAS' DETAILS (EFFECTS, the list's table; 2026-09-29, lab/the-instrument-extras.html
+	   round two). A style's `effects` holds per effect only the details off their rest; a
+	   reader's tweak the same, over it. effectsOf merges the two, keeping only known
+	   details and values from their lists; applyEffects stamps each one that is off its rest
+	   as data-fx-<effect>-<detail> on the root and removes it at the rest, so at the rest
+	   nothing is written and the theme alone never meets one. */
+	function effectsOf(s, tw) {
+		var out = {};
+		Object.keys(EFFECTS).forEach(function (fid) {
+			var o = {};
+			[s && s.effects && s.effects[fid], tw && tw.effects && tw.effects[fid]].forEach(function (src) {
+				if (!src || typeof src !== 'object') return;
+				Object.keys(src).forEach(function (d) { if (EFFECTS[fid][d] && EFFECTS[fid][d].list.indexOf(src[d]) !== -1) o[d] = src[d]; });
 			});
-			h.classList.add('ldp-arrive');
-			arriveSeen.observe(h);
+			Object.keys(o).forEach(function (d) { if (o[d] === EFFECTS[fid][d].rest) delete o[d]; });
+			if (Object.keys(o).length) out[fid] = o;
 		});
+		return out;
 	}
+	function effectOf(fid) {
+		var e = (effectsOf(byId(current), readTweaks()[current] || {})[fid]) || {}, out = {};
+		Object.keys(EFFECTS[fid] || {}).forEach(function (d) { out[d] = e[d] !== undefined ? e[d] : EFFECTS[fid][d].rest; });
+		return out;
+	}
+	function applyEffects() {
+		var e = effectsOf(byId(current), readTweaks()[current] || {});
+		Object.keys(EFFECTS).forEach(function (fid) {
+			Object.keys(EFFECTS[fid]).forEach(function (d) {
+				var a = 'data-fx-' + fid + '-' + d, v = e[fid] && e[fid][d];
+				if (v === undefined) root.removeAttribute(a); else if (root.getAttribute(a) !== v) root.setAttribute(a, v);
+			});
+		});
+		headingsArrive();
+	}
+	/* THE HEADINGS ARRIVE (PICKS `headarrival`, effects.arrival) AND THE SERIF WORDS
+	   (`headitalics`, effects.serif). On a page, each word of the titles and the
+	   article's headings is wrapped once (span.ldp-w, its place in --ldp-i) whenever
+	   either needs words. Arriving: a heading is marked .ldp-arrive and gains .ldp-in
+	   when it comes into view; with the scope Text (or All) the article's paragraphs
+	   (and pictures) are marked whole, .ldp-arrive-block. style.css holds back only
+	   what is marked and not yet in, so a page whose script never ran shows it all;
+	   nothing arrives for a reader who asks for less motion. Serif words: the last word
+	   of every heading, or every word of a title, is marked .ldp-serif (the italics a
+	   writer set need no mark). Words stay wrapped when the settings go back: a span is
+	   invisible to the rest; a script that reads a heading reads its textContent. */
+	var arriveSeen = null;
+	var HEADS = '.single-post-article > .wp-block-post-title, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4), .post-card .wp-block-post-title, .content-column .archive-page > h1, body.single :is(.wp-block-post-title, .wp-block-post-content :is(h2, h3, h4), .entry-content :is(h2, h3, h4)), .entry-title';
+	var TITLES = '.wp-block-post-title, .archive-page > h1, .entry-title';
+	function wrapWords(h) {
+		if (h.classList.contains('ldp-words')) return;
+		var i = 0, walk = document.createTreeWalker(h, NodeFilter.SHOW_TEXT), texts = [];
+		while (walk.nextNode()) texts.push(walk.currentNode);
+		texts.forEach(function (n) {
+			var frag = document.createDocumentFragment();
+			n.nodeValue.split(/(\s+)/).forEach(function (part) {
+				if (!part) return;
+				if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+				var w = document.createElement('span'); w.className = 'ldp-w'; w.style.setProperty('--ldp-i', i++); w.textContent = part; frag.appendChild(w);
+			});
+			n.parentNode.replaceChild(frag, n);
+		});
+		h.classList.add('ldp-words');
+	}
+	function headingsArrive() {
+		if (!document.body) return;
+		var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		var arrive = root.hasAttribute('data-head-arrival') && !still && !!window.IntersectionObserver;
+		var which = root.hasAttribute('data-head-italics') ? root.getAttribute('data-fx-serif-which') : null;
+		Array.prototype.forEach.call(document.querySelectorAll('.ldp-serif'), function (w) { w.classList.remove('ldp-serif'); });
+		if (!arrive && !which) return;
+		if (arrive && !arriveSeen) arriveSeen = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('ldp-in'); arriveSeen.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
+		Array.prototype.forEach.call(document.querySelectorAll(HEADS), function (h) {
+			if (h.closest('.reading-panel, #ldp-window, #wpadminbar')) return;
+			wrapWords(h);
+			if (which === 'last') { var ws = h.querySelectorAll('.ldp-w'); if (ws.length) ws[ws.length - 1].classList.add('ldp-serif'); }
+			if (which === 'title' && h.matches(TITLES)) Array.prototype.forEach.call(h.querySelectorAll('.ldp-w'), function (w) { w.classList.add('ldp-serif'); });
+			if (arrive && !h.closest('.post-card') && !h.classList.contains('ldp-arrive')) { h.classList.add('ldp-arrive'); arriveSeen.observe(h); }
+		});
+		if (!arrive) return;
+		var scope = root.getAttribute('data-fx-arrival-scope');
+		var blocks = scope ? document.querySelectorAll('.single-post-article .wp-block-post-content > p' + (scope === 'all' ? ', .single-post-article .wp-block-post-content > :is(figure, .wp-block-image, .wp-block-gallery), .single-post-article .article-media' : '')) : [];
+		Array.prototype.forEach.call(blocks, function (b) { if (!b.classList.contains('ldp-arrive-block')) { b.classList.add('ldp-arrive-block'); arriveSeen.observe(b); } });
+	}
+	/* THE POINTER'S LIGHT (effects.pointer): the card under the pointer learns where it is. */
+	document.addEventListener('pointermove', function (ev) {
+		if (!root.hasAttribute('data-fx-pointer-look') || !ev.target || !ev.target.closest) return;
+		var c = ev.target.closest('.post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers'); if (!c) return;
+		var r = c.getBoundingClientRect();
+		c.style.setProperty('--ldp-mx', (ev.clientX - r.left) + 'px'); c.style.setProperty('--ldp-my', (ev.clientY - r.top) + 'px');
+	}, { passive: true });
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', headingsArrive); 
 	function applyButton() { var v = buttonOf(); if (v === BUTTONS[0]) root.removeAttribute('data-button'); else if (root.getAttribute('data-button') !== v) root.setAttribute('data-button', v); }
 	function applyMarkerColour() { var v = markerColourOf(); if (v === MARKERS[0]) root.removeAttribute('data-marker-colour'); else if (root.getAttribute('data-marker-colour') !== v) root.setAttribute('data-marker-colour', v); }
@@ -1888,14 +1950,14 @@
 	   and this one no longer reads (bold, wide, hyphens, tracking at the top
 	   level) and unaliased role values stayed in a reader's record and kept a
 	   style "adjusted" with nothing to reset. Only what is read survives. */
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was']);
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
 			var e = all[id], s = byId(id), clean = {};
 			if (!s || !e || typeof e !== 'object') return;
 			liftCentre(e, s);
-			TWEAK_KEYS.forEach(function (k) { if (k !== 'roles' && k !== 'colours' && e[k] !== undefined) clean[k] = e[k]; });
+			TWEAK_KEYS.forEach(function (k) { if (k !== 'roles' && k !== 'colours' && k !== 'effects' && e[k] !== undefined) clean[k] = e[k]; });
 			/* The colours: two sides, three wells, hex alone; a value equal to the
 			   style's own saved colour is no tweak. */
 			/* AND THE MASK (Manuel, 2026-09-20: "I can't click on presets"). A style
@@ -1911,7 +1973,7 @@
 				['light', 'dark'].forEach(function (side) {
 					var c = e.colours[side]; if (!c || typeof c !== 'object') return;
 					var keptC = {};
-					['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse'].forEach(function (k) { /* button, head, kicker, ground, lift, marker: the wells of 2026-09-26 */
+					['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { /* button, head, kicker, ground, lift, marker: the wells of 2026-09-26 */
 						var v = c[k];
 						if (v === '' && s.colours && s.colours[side] && s.colours[side][k]) { keptC[k] = ''; return; }
 						if (typeof v !== 'string' || !/^#[0-9a-f]{6}$/i.test(v)) return;
@@ -1944,6 +2006,22 @@
 				});
 				if (Object.keys(roles).length) clean.roles = roles;
 			}
+			/* THE EXTRAS' DETAILS: known effects and details, values from their list, and
+			   only what differs from the style's own (or from the rest, where it names none). */
+			if (e.effects && typeof e.effects === 'object') {
+				var fx = {};
+				Object.keys(EFFECTS).forEach(function (fid) {
+					var r = e.effects[fid]; if (!r || typeof r !== 'object') return;
+					var kept = {};
+					Object.keys(EFFECTS[fid]).forEach(function (d) {
+						var v = r[d]; if (EFFECTS[fid][d].list.indexOf(v) === -1) return;
+						var own = s.effects && s.effects[fid] && s.effects[fid][d];
+						if (v !== (own !== undefined ? own : EFFECTS[fid][d].rest)) kept[d] = v;
+					});
+					if (Object.keys(kept).length) fx[fid] = kept;
+				});
+				if (Object.keys(fx).length) clean.effects = fx;
+			}
 			if (Object.keys(clean).length) out[id] = clean;
 		});
 		return out;
@@ -1967,6 +2045,10 @@
 			if (k === 'roles') {
 				var ra = a.roles || {}, rb = b.roles || {}, rk = Object.keys(ra).concat(Object.keys(rb));
 				for (var j = 0; j < rk.length; j++) if (JSON.stringify(ra[rk[j]]) !== JSON.stringify(rb[rk[j]])) return 'role:' + rk[j];
+			}
+			if (k === 'effects') {
+				var fa = a.effects || {}, fb = b.effects || {}, fk = Object.keys(fa).concat(Object.keys(fb));
+				for (var q = 0; q < fk.length; q++) if (JSON.stringify(fa[fk[q]]) !== JSON.stringify(fb[fk[q]])) return 'effect:' + fk[q];
 			}
 			return k;
 		}
@@ -1999,6 +2081,7 @@
 	applyMarkerColour();
 	applyButton();
 	applyPicks();
+	applyEffects();
 	applyFramePattern();
 	applyCorners();
 	applyAccent();
@@ -2024,7 +2107,7 @@
 			var named = (s && s.preset && tw.preset === undefined) ? presetById(s.preset) : null;
 			var base = {}, t = (tw.colours && tw.colours[side]) || {};
 			[(named && named[side]) || {}, (s && s.colours && s.colours[side]) || {}].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
-			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
+			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
 		return out;
 	}
@@ -2187,7 +2270,7 @@
 		{ id: 'slate', label: 'Slate', light: '#0f172a', dark: '#f1f5f9' },
 		{ id: 'stone', label: 'Stone', light: '#1c1917', dark: '#f5f5f4' }
 	];
-	var LISTS = { paper: PAPERS, ink: INKS, accent: ACCENTS, button: ACCENTS, head: ACCENTS, kicker: ACCENTS, ground: PAPERS, lift: PAPERS, marker: ACCENTS }; /* the button's, the roles' and the pen's own colours pick from the accent's twenty; the ground and the card from the paper's */
+	var LISTS = { paper: PAPERS, ink: INKS, accent: ACCENTS, button: ACCENTS, head: ACCENTS, kicker: ACCENTS, ground: PAPERS, lift: PAPERS, marker: ACCENTS, light: ACCENTS, second: ACCENTS }; /* the button's, the roles' and the pen's own colours pick from the accent's twenty; the ground and the card from the paper's */
 	/* WHICH ROW OF A LIST IS ON: the colour the style holds on both sides, found
 	   in that list. A style wearing a preset holds the preset's colours, which
 	   are not these, so nothing is marked; a style wearing its own tint holds no
@@ -2272,7 +2355,7 @@
 		var out = coloursOf(id); out.derived = { light: [], dark: [] };
 		[['light', 'dark'], ['dark', 'light']].forEach(function (pair) {
 			var from = pair[0], to = pair[1];
-			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift'].forEach(function (k) {
+			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'light', 'second'].forEach(function (k) {
 				if (out[from][k] && !out[to][k] && out.derived[from].indexOf(k) === -1) { out[to][k] = deriveColour(out[from][k], k === 'paper' || k === 'ink' ? k : k === 'ground' || k === 'lift' ? 'paper' : 'accent', to); out.derived[to].push(k); }
 				/* the pen crosses over and is fitted to that side's paper below */
 				if (out[from].marker && !out[to].marker && out.derived[from].indexOf('marker') === -1) { out[to].marker = out[from].marker; out.derived[to].push('marker'); }
@@ -2283,7 +2366,7 @@
 		['light', 'dark'].forEach(function (side) {
 			var paper = out[side].paper || paperOf(side);
 			if (out.derived[side].indexOf('accent') !== -1) out[side].accent = accentForPaper(out[side].accent, paper);
-			['button', 'head', 'kicker'].forEach(function (k) { if (out.derived[side].indexOf(k) !== -1) out[side][k] = accentForPaper(out[side][k], paper); }); /* the button's and the roles' own colours follow to the other side as the accent does */
+			['button', 'head', 'kicker', 'light', 'second'].forEach(function (k) { if (out.derived[side].indexOf(k) !== -1) out[side][k] = accentForPaper(out[side][k], paper); }); /* the button's and the roles' own colours follow to the other side as the accent does */
 			/* THE PEN FOLLOWS THE SIDE TOO (Manuel, 2026-09-26: a cream pen "is not really
 			   adjusting. What works on dark is not working on light"). It kept one colour on
 			   both sides, and the bar under the title, a line on the paper, all but vanished
@@ -2540,11 +2623,12 @@
 		return oklchToHex({ L: m[0], C: Math.sqrt(m[1] * m[1] + m[2] * m[2]), h: Math.atan2(m[2], m[1]) });
 	}
 	function greyTinted(v) {
-		var t = +pickOf('greytint') || 0, hex = /^#[0-9a-f]{6}$/i;
-		if (!t || !hex.test(v.paper || '') || !hex.test(v.ink || '') || !hex.test(v.accent || '')) return v;
+		var t = +pickOf('greytint') || 0, hex = /^#[0-9a-f]{6}$/i, by = effectOf('tint').colour; /* the tint's colour (effects.tint): Light, Second light or the accent; an unset light is the accent */
+		var tc = by === 'second' ? v.second || v.accent : by === 'light' ? v.light || v.accent : v.accent;
+		if (!t || !hex.test(v.paper || '') || !hex.test(v.ink || '') || !hex.test(tc || '')) return v;
 		var o = {}; Object.keys(v).forEach(function (k) { o[k] = v[k]; });
-		o.paper = mixHex(v.paper, v.accent, t * 0.35 / 100);
-		o.grey = mixHex(v.ink, v.accent, t / 100);
+		o.paper = mixHex(v.paper, tc, t * 0.35 / 100);
+		o.grey = mixHex(v.ink, tc, t / 100);
 		return o;
 	}
 	function applyColours() {
@@ -2568,6 +2652,9 @@
 			}
 			/* THE ROLES' OWN COLOURS: one token each, spent by the role's colour token (applyRoles). */
 			if (v.head) css += sideRule(side, '', '', '--head-own-colour:' + v.head + ';');
+			/* THE STYLE'S TWO LIGHTS (the extras' details, 2026-09-29): Light and Second light, spent by style.css as --fx-light / --fx-second, the accent (and the accent turned) where unset. */
+			if (v.light) css += sideRule(side, '', '', '--fx-light-own:' + v.light + ';');
+			if (v.second) css += sideRule(side, '', '', '--fx-second-own:' + v.second + ';');
 			/* THE PEN OF YOUR OWN (2026-09-26): the pen, the ink read over it (dark on a
 			   light pen, light on a dark one) and the bar's deeper tone for the day. */
 			if (v.marker) css += sideRule(side, '[data-marker-colour="own"]', '', markerBody(v.marker));
@@ -2842,6 +2929,7 @@
 		applyMarkerColour();
 		applyButton();
 		applyPicks();
+		applyEffects();
 		applyFramePattern();
 		applyCorners();
 		mark();
@@ -2942,7 +3030,7 @@
 	function entryFromRecord(rec) {
 		var base = savedRecord() || {}, e = {}, J = JSON.stringify;
 		if (DIALS.some(function (d) { return rec[d] !== undefined && rec[d] !== base[d]; })) DIALS.forEach(function (d) { e[d] = rec[d] !== undefined ? rec[d] : base[d]; });
-		TWEAK_KEYS.forEach(function (k) { if (DIALS.indexOf(k) !== -1 || k === 'roles' || k === 'colours' || k === 'was') return; if (rec[k] !== undefined && J(rec[k]) !== J(base[k])) e[k] = rec[k]; });
+		TWEAK_KEYS.forEach(function (k) { if (DIALS.indexOf(k) !== -1 || k === 'roles' || k === 'colours' || k === 'effects' || k === 'was') return; if (rec[k] !== undefined && J(rec[k]) !== J(base[k])) e[k] = rec[k]; });
 		var roles = {};
 		ROLES.forEach(function (role) {
 			var a = (rec.roles || {})[role] || {}, b = (base.roles || {})[role] || {}, r = {};
@@ -2953,6 +3041,13 @@
 			if (Object.keys(r).length) roles[role] = r;
 		});
 		if (Object.keys(roles).length) e.roles = roles;
+		var fxs = {};
+		Object.keys(EFFECTS).forEach(function (fid) {
+			var a = (rec.effects || {})[fid] || {}, b = (base.effects || {})[fid] || {}, r = {};
+			Object.keys(EFFECTS[fid]).forEach(function (d) { var rest = EFFECTS[fid][d].rest, want = a[d] !== undefined ? a[d] : rest, was = b[d] !== undefined ? b[d] : rest; if (want !== was) r[d] = want; });
+			if (Object.keys(r).length) fxs[fid] = r;
+		});
+		if (Object.keys(fxs).length) e.effects = fxs;
 		var colours = {};
 		['light', 'dark'].forEach(function (side) {
 			var a = (rec.colours || {})[side] || {}, b = (base.colours || {})[side] || {}, c = {};
@@ -3108,6 +3203,7 @@
 				sans: SANS.map(function (x) { return x.id; }),
 				unlinked: 'boolean',
 				roles: roles,
+				effects: (function () { var o = {}; Object.keys(EFFECTS).forEach(function (fid) { o[fid] = {}; Object.keys(EFFECTS[fid]).forEach(function (d) { o[fid][d] = EFFECTS[fid][d].list; }); }); return o; })(),
 				colours: { light: side, dark: side }
 			};
 			var out = {};
@@ -3320,7 +3416,7 @@
 			/* the theme's own look has one side, its own: that side's colour on both (2026-09-24) */
 			var cur = byId(current), one = cur && cur.host && cur.hostSide;
 			['light', 'dark'].forEach(function (side) { entry.colours[side] = entry.colours[side] || {}; entry.colours[side][key] = x[one || side]; });
-			if (['button', 'head', 'kicker', 'marker', 'inverse'].indexOf(key) === -1) letGoPreset(entry); /* a part chosen by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
+			if (['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); /* a part chosen by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
 			/* The chain is left as the reader set it: a row here carries a colour
 			   for each side, so neither side has anything to follow, and the
 			   wheel under the list still edits the side that is shown. */
@@ -3347,7 +3443,7 @@
 			var s0 = byId(current);
 			if (s0 && s0.host) {
 				var e0 = (readTweaks()[current] || {}).colours || {};
-				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker', 'inverse'].indexOf(k) === -1 && !!e0[sd][k]; }); });
+				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(k) === -1 && !!e0[sd][k]; }); });
 			}
 			var c = coloursOf();
 			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker'].indexOf(k) === -1; }); }); /* the button's, the roles' and the pen's own colours are not Custom */
@@ -3435,7 +3531,7 @@
 		contrast: contrast,
 		paperOf: paperOf,
 		setColour: function (side, key, hex) {
-			if (['light', 'dark'].indexOf(side) === -1 || ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse'].indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
+			if (['light', 'dark'].indexOf(side) === -1 || ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
 			var all = readTweaks(), entry = all[current] || {};
 			entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {};
 			/* LINKED MEANS THE OTHER SIDE FOLLOWS, EVERY TIME (Manuel,
@@ -3453,7 +3549,7 @@
 				if (entry.colours[other]) { delete entry.colours[other][key]; if (!Object.keys(entry.colours[other]).length) delete entry.colours[other]; }
 			}
 			entry.colours[side][key] = hex.toLowerCase();
-			if (['button', 'head', 'kicker', 'marker', 'inverse'].indexOf(key) === -1) letGoPreset(entry); /* a colour moved by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
+			if (['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); /* a colour moved by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
 			all[current] = entry; writeTweaks(all);
 			applyColours(); mark();
 		},
@@ -3492,6 +3588,7 @@
 				if (tw.roles && tw.roles[role]) Object.keys(tw.roles[role]).forEach(function (k) { r[k] = tw.roles[role][k]; });
 				if (Object.keys(r).length) out.roles[role] = r;
 			});
+			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
 			var c = coloursOf(); out.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = c[side]; });
 			return JSON.stringify(out);
@@ -3551,7 +3648,8 @@
 				var tw = readTweaks()[id] || {}, w = wanted(s);
 				record = {};
 				Object.keys(s).forEach(function (k) { record[k] = s[k]; });
-				Object.keys(tw).forEach(function (k) { if (k !== 'roles') record[k] = tw[k]; });
+				Object.keys(tw).forEach(function (k) { if (k !== 'roles' && k !== 'effects') record[k] = tw[k]; });
+				var fxDup = effectsOf(s, tw); if (Object.keys(fxDup).length) record.effects = fxDup; else delete record.effects;
 				DIALS.forEach(function (d) { record[d] = w[d]; });
 				var roles = {};
 				ROLES.forEach(function (role) {
@@ -3592,6 +3690,7 @@
 				if (tw.roles && tw.roles[role]) Object.keys(tw.roles[role]).forEach(function (k) { r[k] = tw.roles[role][k]; });
 				if (Object.keys(r).length) entry.roles[role] = r;
 			});
+			var fxSave = effectsOf(s, tw); if (Object.keys(fxSave).length) entry.effects = fxSave;
 			var c = coloursOf(); entry.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = c[side]; });
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
@@ -3612,6 +3711,7 @@
 			loose.forEach(function (k) { delete s[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			s.roles = s.roles || {};
 			ROLES.forEach(function (role) { if (tw.roles && tw.roles[role]) { s.roles[role] = s.roles[role] || {}; Object.keys(tw.roles[role]).forEach(function (k) { s.roles[role][k] = tw.roles[role][k]; }); } });
+			var fxUp = effectsOf(s, tw); if (Object.keys(fxUp).length) s.effects = fxUp; else delete s.effects;
 			var c = coloursOf(); s.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = c[side]; });
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
@@ -3831,6 +3931,22 @@
 		},
 		picks: PICKS,
 		pick: pickOf,
+		/* THE EXTRAS' DETAILS: the table, one effect's details as they stand (rest, then the
+		   style's own, then the reader's), and the setter. A value equal to the style's own
+		   (or to the rest) is no tweak; an effect with none left goes. */
+		effects: EFFECTS,
+		effect: effectOf,
+		setEffect: function (fid, d, v) {
+			var def = EFFECTS[fid] && EFFECTS[fid][d]; if (!def || def.list.indexOf(v) === -1) return;
+			var s = byId(current), all = readTweaks(), entry = all[current] || {}, fx = entry.effects || {}, o = fx[fid] || {};
+			var own = s && s.effects && s.effects[fid] && s.effects[fid][d];
+			if (v === (own !== undefined ? own : def.rest)) delete o[d]; else o[d] = v;
+			if (Object.keys(o).length) fx[fid] = o; else delete fx[fid];
+			if (Object.keys(fx).length) entry.effects = fx; else delete entry.effects;
+			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
+			writeTweaks(all);
+			applyEffects(); if (fid === 'tint') applyColours(); mark();
+		},
 		setPick: function (key, v) {
 			var d = PICKS[key]; if (!d || d.list.indexOf(v) === -1) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
