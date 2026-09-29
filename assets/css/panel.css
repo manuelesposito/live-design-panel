@@ -1284,8 +1284,8 @@
 	linear-gradient(var(--fx-mark), var(--fx-mark)) left 5px bottom 35px / 1px 11px no-repeat,
 	linear-gradient(var(--fx-mark), var(--fx-mark)) right 0 bottom 40px / 11px 1px no-repeat,
 	linear-gradient(var(--fx-mark), var(--fx-mark)) right 5px bottom 35px / 1px 11px no-repeat,
-	var(--fx-guide-img) left 5px top 0 / 1px 100% no-repeat,
-	var(--fx-guide-img) right 5px top 0 / 1px 100% no-repeat;
+	var(--fx-guide-img) left 5px top 0 / 1px calc(100% - 40px) no-repeat,
+	var(--fx-guide-img) right 5px top 0 / 1px calc(100% - 40px) no-repeat;
 }
 :root[data-guides="dashed"][data-fx-guides-marks] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
 	--fx-guide-img: repeating-linear-gradient(var(--fx-guide-line) 0 3px, transparent 0 6px);
