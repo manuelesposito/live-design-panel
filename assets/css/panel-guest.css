@@ -853,7 +853,9 @@
 	-webkit-background-clip: text;
 	background-clip: text;
 	-webkit-text-fill-color: transparent;
-	padding-block-end: 0.15em;
+	border-block-end: 0.3em solid transparent;
+	background-origin: border-box;
+	margin-block-end: -0.3em !important;
 }
 :root[data-title-finish="shine"] :is(#ldp-lv, .single-post-article > .wp-block-post-title, .post-card .wp-block-post-title, .single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background-image: linear-gradient(to bottom right, currentColor 30%, color-mix(in oklab, currentColor 50%, transparent));
@@ -888,14 +890,14 @@
 	opacity: 0.15;
 	filter: blur(var(--space-2));
 }
-:root:is([data-card-light], [data-moving-light]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-light: color-mix(in oklab, var(--accent) 60%, transparent);
-	background-image: var(--ldp-beam, none), var(--ldp-edge, none), var(--ldp-cardglow, none);
+	background-image: var(--ldp-edge, none), var(--ldp-cardglow, none);
 	background-repeat: no-repeat;
-	background-size: 30% 1px, 70% 1px, 100% 100%;
-	background-position: -50% 0, 50% 0, 0 0;
+	background-size: 70% 1px, 100% 100%;
+	background-position: 50% 0, 0 0;
 }
-:root[data-theme$="-dark"]:is([data-card-light], [data-moving-light]) :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-theme$="-dark"][data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-light: color-mix(in oklab, var(--text-primary) 70%, transparent);
 }
 :root[data-card-light] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -905,13 +907,27 @@
 	--ldp-cardglow: radial-gradient(70% 55% at 50% 0%, color-mix(in oklab, var(--ldp-light) 14%, transparent), transparent 70%);
 }
 :root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	--ldp-beam: linear-gradient(90deg, transparent, var(--accent), transparent);
+	position: relative;
+}
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: var(--border-width-default, 1px);
+	background: radial-gradient(closest-side, var(--accent), transparent) no-repeat;
+	background-size: 34% var(--space-8);
+	background-position: -60% calc(-1 * var(--space-4));
+	-webkit-mask: linear-gradient(var(--text-primary) 0 0) content-box, linear-gradient(var(--text-primary) 0 0);
+	-webkit-mask-composite: xor;
+	mask: linear-gradient(var(--text-primary) 0 0) content-box exclude, linear-gradient(var(--text-primary) 0 0);
+	pointer-events: none;
 	animation: ldp-beam 7s cubic-bezier(0.5, 0, 0.5, 1) infinite;
 }
-:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(2n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(2n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	animation-delay: -2.3s;
 }
-:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(3n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):nth-child(3n):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	animation-delay: -4.6s;
 }
 :root[data-button-finish="glass"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled,  .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-finish="glow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -996,11 +1012,11 @@
 	opacity: 0.28;
 }
 @media (prefers-reduced-motion: reduce) {
-	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-page-glow] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	:root[data-page-glow] .single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 		animation: none;
 	}
-	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-		--ldp-beam: none;
+	:root[data-moving-light="on"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+		display: none;
 	}
 	:root[data-head-arrival] .ldp-arrive .ldp-w {
 		opacity: 1; filter: none; transition: none;

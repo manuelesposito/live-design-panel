@@ -449,8 +449,8 @@
 .architrave-panel-opener:not([data-docked]) { box-shadow: 0 1px 2px rgb(0 0 0 / .12), 0 4px 12px rgb(0 0 0 / .18); }
 @media (max-width: 1009px) { .architrave-panel-opener[aria-expanded="true"]:not([data-docked]) { visibility: hidden; } }
 @keyframes ldp-beam {
-	from { background-position: -50% 0, 50% 0, 0 0; }
-	to { background-position: 150% 0, 50% 0, 0 0; }
+	from { background-position: -60% calc(-1 * var(--space-4)); }
+	to { background-position: 160% calc(-1 * var(--space-4)); }
 }
 @keyframes ldp-aurora {
 	from { transform: translate(-4%, 0) scale(1); }
