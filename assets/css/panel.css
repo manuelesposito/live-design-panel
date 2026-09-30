@@ -1648,7 +1648,7 @@
 :root:is([data-fringe], [data-bloom])[data-glow="on"][data-theme$="-dark"] body {
 	text-shadow: 0 0 var(--surface-glow-spread) rgb(from currentColor r g b / var(--surface-glow-level, var(--surface-glow))), 0 0 var(--surface-glow-core) rgb(from currentColor r g b / calc(var(--surface-glow-level, var(--surface-glow)) * 0.65)), var(--ldp-ts-bloom), var(--ldp-ts-fringe);
 }
-:root[data-fringe] :is(.quire-button, .single-post-article .wp-block-post-content :is(hr, .wp-block-separator), .post-link-card):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-fringe] :is(.quire-button:not(.ghost), .single-post-article .wp-block-post-content :is(hr, .wp-block-separator), .post-link-card):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	box-shadow: var(--ldp-bs-fringe);
 }
 :root:is([data-fringe], [data-bloom]) :is(.reading-panel, .architrave-panel-opener, #ldp-window, #wpadminbar, .ldp-boot) {
@@ -1657,7 +1657,7 @@
 :root[data-crisp="headings"] :is(.single-post-article > .wp-block-post-title, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4), .post-card .wp-block-post-title, .content-column .archive-page > h1, body.single :is(.wp-block-post-title, .wp-block-post-content :is(h2, h3, h4), .entry-content :is(h2, h3, h4)), .entry-title):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	filter: url(#ldp-crisp);
 }
-:root[data-crisp="all"] :is(.content-column, body:not(.has-frame) .wp-site-blocks):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-crisp="all"] :is(.content-column, body:not(.has-frame) .wp-site-blocks) :is(h1, h2, h3, h4, h5, h6, p, li, figcaption, dt, dd, th, td, pre, summary, label, legend, cite, a, button):not(:has(svg, img, picture, video, canvas, iframe, input, button, textarea, select)):not(:is(h1, h2, h3, h4, h5, h6, p, li, figcaption, dt, dd, th, td, pre, summary, label, legend, cite, a, button):not(:has(svg, img, picture, video, canvas, iframe, input, button, textarea, select)) *):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)), :root[data-crisp="all"] :is(.content-column, body:not(.has-frame) .wp-site-blocks) :not(:has(*)):not(:empty):not(svg, svg *, input, textarea, select, option, :is(h1, h2, h3, h4, h5, h6, p, li, figcaption, dt, dd, th, td, pre, summary, label, legend, cite, a, button):not(:has(svg, img, picture, video, canvas, iframe, input, button, textarea, select)), :is(h1, h2, h3, h4, h5, h6, p, li, figcaption, dt, dd, th, td, pre, summary, label, legend, cite, a, button):not(:has(svg, img, picture, video, canvas, iframe, input, button, textarea, select)) *):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
 	filter: url(#ldp-crisp);
 }
 :root:is([data-scan-style], [data-edges]) body::after {
