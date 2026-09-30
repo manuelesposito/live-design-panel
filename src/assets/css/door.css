@@ -747,8 +747,7 @@
    values of the variables the picks spend. Here and not in style.css for the
    same reason as the extras': a bare rule and a @keyframes would go to the
    theme's half. */
-.ldp-screen { display: none; position: fixed; inset: 0; pointer-events: none; z-index: 900; overflow: hidden; }
-.frame-paper > .ldp-screen { position: absolute; border-radius: inherit; }
+.ldp-screen { display: none; position: fixed; inset: 0; pointer-events: none; z-index: calc(var(--layer-overlay, 40) - 1); overflow: hidden; } /* over the whole window, rail and all (2026-09-30); the panel's layers sit above */
 .ldp-screen > i { display: none; position: absolute; inset: 0; }
 .ldp-screen > .ldp-bezel { inset: var(--ldp-bezel); border-radius: var(--ldp-curve); } /* heavier than the children's inset: 0 above, or the ring never showed (2026-09-30) */
 .ldp-static { opacity: .55; mix-blend-mode: screen; background-size: 160px 160px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 4 -1'/></filter><rect width='160' height='160' filter='url(%23s)'/></svg>"); }

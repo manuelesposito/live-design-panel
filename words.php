@@ -549,6 +549,7 @@ function architrave_panel_words( $words ) {
 		'Print' => __( 'Print', 'live-design-panel' ),
 		'Boot blue' => __( 'Boot blue', 'live-design-panel' ),
 		'Newsprint' => __( 'Newsprint', 'live-design-panel' ),
+		'Television' => __( 'Television', 'live-design-panel' ),
 		'Shine' => __( 'Shine', 'live-design-panel' ),
 		'Same font' => __( 'Same font', 'live-design-panel' ),
 		'Classic serif' => __( 'Classic serif', 'live-design-panel' ),

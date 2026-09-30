@@ -486,10 +486,10 @@
       "base": "tube",
       "palette": "neutral",
       "tint": "blue",
-      "sans": "vt323",
-      "reading": "large",
-      "face": "vt323",
-      "leading": "snug",
+      "sans": "hyperlegible",
+      "reading": "default",
+      "face": "hyperlegible",
+      "leading": "default",
       "justify": false,
       "dropcap": false,
       "rounded": false,
@@ -500,7 +500,7 @@
       "button": "ink",
       "buttonshape": "square",
       "buttonstyle": "outlined",
-      "pictures": "dither",
+      "pictures": "duo",
       "scanlines": true,
       "scan": "3",
       "glow": true,
@@ -509,8 +509,8 @@
       "vignette": true,
       "vignettelevel": "4",
       "monitorframe": "medium",
-      "fringe": "soft",
-      "crisp": "headings",
+      "fringe": "faint",
+      "crisp": "all",
       "shimmer": "soft",
       "switchon": "on",
       "static": "on",
@@ -522,11 +522,11 @@
       },
       "roles": {
         "head": {
-          "face": "libre-baskerville",
+          "face": "handjet",
           "weight": "bold",
-          "italic": true,
-          "size": "64",
-          "tracking": "m1",
+          "caps": true,
+          "tracking": "p2",
+          "size": "56",
           "members": {
             "sub": {
               "size": "32"
@@ -537,7 +537,7 @@
           "face": "vt323",
           "italic": false,
           "caps": true,
-          "tracking": "p5",
+          "tracking": "p2",
           "size": "22"
         },
         "small": {
@@ -548,23 +548,22 @@
         "title": {
           "face": "vt323",
           "caps": true,
-          "tracking": "p5"
+          "tracking": "p2"
         },
         "quote": {
-          "face": "vt323",
           "italic": false
         }
       },
       "colours": {
         "light": {
-          "paper": "#fcf9f3",
-          "ink": "#1a1a1a",
+          "paper": "#e9e9e9",
+          "ink": "#141414",
           "accent": "#3535a0"
         },
         "dark": {
-          "paper": "#3535a0",
-          "ink": "#fcf9f3",
-          "accent": "#fcf9f3"
+          "paper": "#0f1012",
+          "ink": "#ececec",
+          "accent": "#ffffff"
         }
       }
     },
@@ -991,6 +990,20 @@
         "paper": "#3535a0",
         "ink": "#fcf9f3",
         "accent": "#fcf9f3"
+      }
+    },
+    {
+      "id": "television",
+      "label": "Television",
+      "light": {
+        "paper": "#e9e9e9",
+        "ink": "#141414",
+        "accent": "#3535a0"
+      },
+      "dark": {
+        "paper": "#0f1012",
+        "ink": "#ececec",
+        "accent": "#ffffff"
       }
     },
     {

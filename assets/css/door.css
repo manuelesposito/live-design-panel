@@ -484,8 +484,7 @@
 :root { --fx-dividers-c: var(--fx-light); }
 :root { --fx-topline-c: var(--fx-light); }
 :root { --fx-picglow-c: var(--fx-light); }
-.ldp-screen { display: none; position: fixed; inset: 0; pointer-events: none; z-index: 900; overflow: hidden; }
-.frame-paper > .ldp-screen { position: absolute; border-radius: inherit; }
+.ldp-screen { display: none; position: fixed; inset: 0; pointer-events: none; z-index: calc(var(--layer-overlay, 40) - 1); overflow: hidden; } 
 .ldp-screen > i { display: none; position: absolute; inset: 0; }
 .ldp-screen > .ldp-bezel { inset: var(--ldp-bezel); border-radius: var(--ldp-curve); } 
 .ldp-static { opacity: .55; mix-blend-mode: screen; background-size: 160px 160px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 4 -1'/></filter><rect width='160' height='160' filter='url(%23s)'/></svg>"); }

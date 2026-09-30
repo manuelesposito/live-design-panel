@@ -1596,8 +1596,14 @@
 :root[data-monitor-frame][data-fx-monitor-sheen="on"] .ldp-bezel::after {
 	content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(70% 45% at 10% 0%, rgb(255 255 255 / .06), transparent 60%);
 }
-:root[data-monitor-frame] body.has-frame .frame-paper {
-	border-radius: calc(var(--ldp-curve) + var(--ldp-bezel));
+:root:is([data-pictures="dither"], [data-pictures="halftone"]) :is(.post-link-card img, .link-card img, .avatar, img.avatar, .custom-logo, .wp-block-site-logo img, .wp-block-avatar img, .comment img, .rail img, .sidebar-column img, .theme-card img):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	filter: none;
+}
+:root[data-monitor-frame] body.has-frame {
+	padding: calc(var(--frame-gap) + var(--ldp-bezel));
+}
+:root[data-monitor-frame] body:not(.has-frame) .wp-site-blocks {
+	padding: var(--ldp-bezel);
 }
 :root[data-room-glass="on"] .ldp-room {
 	display: block; opacity: .5; background: linear-gradient(115deg, transparent 58%, rgb(255 255 255 / .06) 58%, rgb(255 255 255 / .07) 66%, transparent 66.5%, transparent 68%, rgb(255 255 255 / .05) 68%, rgb(255 255 255 / .06) 75%, transparent 75.5%);

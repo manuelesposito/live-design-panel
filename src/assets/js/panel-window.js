@@ -165,7 +165,7 @@
 	var LAB_GROUP = { 'preset:gallery': 'everyday', 'preset:chalk': 'everyday', 'preset:carbon': 'everyday', 'pair:neutral': 'everyday', 'pair:grey': 'everyday', 'preset:vellum': 'everyday',
 		'pair:paper': 'warm', 'preset:sand': 'warm', 'preset:rust': 'warm', 'preset:brick': 'warm', 'preset:corten': 'warm', 'preset:sandstone': 'warm', 'preset:plum': 'warm',
 		'preset:cobalt': 'cool', 'preset:navy': 'cool', 'preset:midnight': 'cool', 'preset:draft': 'cool', 'preset:moss': 'cool', 'preset:meadow': 'cool', 'preset:lichen': 'cool',
-		'pair:terminal': 'bold', 'pair:arcade': 'bold', 'preset:limelight': 'bold', 'preset:bootblue': 'bold', 'preset:newsprint': 'warm' };
+		'pair:terminal': 'bold', 'pair:arcade': 'bold', 'preset:limelight': 'bold', 'preset:bootblue': 'bold', 'preset:television': 'everyday', 'preset:newsprint': 'warm' };
 	var LAB_RANK = Object.keys(LAB_GROUP);
 	/* A PRESET'S NAME AS THE LAB WRITES IT, in capitals word by word ("Salt Morning"); a translated name stays as its language writes it */
 	function titled(w) { var x = t(w); return x !== w ? x : w.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }); }
