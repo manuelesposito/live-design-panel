@@ -288,6 +288,7 @@
 			if (key === 'auto') return s.setButton('place', v ? 'auto' : ((s.button() || {}).fixed || 'bottom-center'));
 			return s.setButton(key, v);
 		},
+		buttonInSlot: function () { return !!document.querySelector('.architrave-panel-opener[data-docked="slot"]'); }, 
 		buttonInMenu: function () { return !!document.querySelector('.architrave-panel-opener[data-docked="menu"][data-match="true"]'); },
 		buttonWordInMenu: function () { var b = this.button() || {}; return this.buttonInMenu() && (!!String(b.label || '').trim() || b.icon === false || !!document.querySelector('.architrave-panel-opener[data-docked="menu"][data-folded]')); },
 		readersCopy: function () { var s = S(); return !!(s && s.readersCopy && s.readersCopy()); },

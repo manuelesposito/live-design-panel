@@ -327,6 +327,7 @@
 			return s.setButton(key, v);
 		},
 		/* where Automatic set it: among the site's menu items, as a square with its icon or as a word */
+		buttonInSlot: function () { return !!document.querySelector('.architrave-panel-opener[data-docked="slot"]'); }, /* in the site's own row of squares it is one of them, without the light (2026-09-30) */
 		buttonInMenu: function () { return !!document.querySelector('.architrave-panel-opener[data-docked="menu"][data-match="true"]'); },
 		buttonWordInMenu: function () { var b = this.button() || {}; return this.buttonInMenu() && (!!String(b.label || '').trim() || b.icon === false || !!document.querySelector('.architrave-panel-opener[data-docked="menu"][data-folded]')); },
 		readersCopy: function () { var s = S(); return !!(s && s.readersCopy && s.readersCopy()); },

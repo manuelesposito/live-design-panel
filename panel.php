@@ -817,7 +817,7 @@ function architrave_panel_door_styles() {
 	$css   = (string) file_get_contents( $file ); // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown -- the plugin's own stylesheet.
 	if ( ! $guest ) {
 
-		$css = "[data-reading-panel-open]:not(.architrave-panel-opener){display:none!important}\n.paper-stack-item:has(> .rail-reading-btn){display:none}\n" . $css;
+		$css = "[data-reading-panel-open]:not(.architrave-panel-opener):not([data-live-design-twin]){display:none!important}\n.paper-stack-item:has(> .rail-reading-btn){display:none}\n" . $css;
 	}
 	wp_add_inline_style( 'architrave-panel-door', architrave_panel_guard_block( $css, $guest ) );
 }

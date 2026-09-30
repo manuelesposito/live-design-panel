@@ -205,6 +205,16 @@
 		box-shadow: var(--dock-shadow, none);
 	}
 	.architrave-panel-opener[data-docked="slot"]:hover { box-shadow: var(--dock-shadow, none); }
+	.architrave-panel-opener[data-docked="slot"] {
+		--opener-paint: var(--opener-face);
+		background: var(--opener-face);
+		border-color: var(--opener-edge, transparent);
+		animation: none;
+		transition: none;
+	}
+	.architrave-panel-opener[data-docked="slot"]::before,
+	.architrave-panel-opener[data-docked="slot"]::after { display: none; }
+	.architrave-panel-opener[data-twin] { display: none !important; }
 	.architrave-panel-opener[data-docked="slot"] .opener-word { display: none; }
 	.architrave-panel-opener[data-docked="slot"]:is(:hover, [aria-expanded="true"]) {
 		--opener-face: var(--live-design-hover, color-mix(in srgb, var(--dock-fg, currentColor) 8%, var(--dock-bg, transparent)));

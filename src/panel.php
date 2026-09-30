@@ -1360,7 +1360,10 @@ function architrave_panel_door_styles() {
 		   specificity and the LATER one wins. Appended, the docked slot stayed
 		   display:none and the door never docked (found by the judge,
 		   2026-09-25). */
-		$css = "[data-reading-panel-open]:not(.architrave-panel-opener){display:none!important}\n.paper-stack-item:has(> .rail-reading-btn){display:none}\n" . $css;
+		/* BUT THE SQUARE IN THE SLOT COMES BACK WHEN THE DOOR DOCKS THERE
+		   (2026-09-30, panel-opener.js toSlot): marked data-live-design-twin it
+		   is the button, and the door beside it is the one out of sight. */
+		$css = "[data-reading-panel-open]:not(.architrave-panel-opener):not([data-live-design-twin]){display:none!important}\n.paper-stack-item:has(> .rail-reading-btn){display:none}\n" . $css;
 	}
 	wp_add_inline_style( 'architrave-panel-door', architrave_panel_guard_block( $css, $guest ) );
 }

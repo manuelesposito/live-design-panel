@@ -57,7 +57,7 @@
 	pill.parentNode.insertBefore(home, pill);
 	var docked = null, menuItem = null;
 	var DOCK = ['--dock-size', '--dock-radius', '--dock-bg', '--dock-fg', '--dock-edge', '--dock-shadow', '--dock-font', '--dock-font-size', '--dock-weight', '--dock-tracking', '--dock-pad'];
-	var mate = null, sides = [];
+	var mate = null, sides = [], twin = null;
 	function shown(el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (getComputedStyle(el).visibility !== 'hidden' || el.hasAttribute('data-in-panel')); } 
 	function see(c) { return c && c !== 'transparent' && !/^rgba\(.*,\s*0\)$/.test(c); }
 	function groundOf(el) {
@@ -87,6 +87,7 @@
 		home.parentNode.insertBefore(pill, home.nextSibling);
 		if (menuItem) { menuItem.remove(); menuItem = null; }
 		pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded');
+		if (twin) { pill.setAttribute('aria-expanded', twin.getAttribute('aria-expanded') || 'false'); twin.removeAttribute('data-live-design-twin'); twin.removeAttribute('data-docked'); pill.removeAttribute('data-twin'); twin = null; }
 		DOCK.forEach(function (p) { pill.style.removeProperty(p); });
 		sides.forEach(function (x) { x[0].setAttribute('data-side', x[1]); if (x[2] === null) x[0].removeAttribute('data-align'); else x[0].setAttribute('data-align', x[2]); }); sides = [];
 		docked = null; mate = null;
@@ -102,6 +103,13 @@
 		});
 		if (!slot) return false;
 		slot.appendChild(pill); pill.setAttribute('data-docked', 'slot'); docked = 'slot';
+		twin = slot.querySelector('[data-reading-panel-open]:not(.architrave-panel-opener)');
+		if (twin) {
+			twin.setAttribute('data-live-design-twin', ''); pill.setAttribute('data-twin', '');
+			twin.setAttribute('data-docked', 'slot'); 
+			twin.setAttribute('aria-keyshortcuts', 'Alt+D');
+			twin.setAttribute('aria-expanded', pill.getAttribute('aria-expanded') || 'false');
+		}
 		Array.prototype.forEach.call(slot.parentElement.querySelectorAll('.quire-tooltip[data-side]'), function (t) { sides.push([t, t.getAttribute('data-side'), t.getAttribute('data-align')]); t.setAttribute('data-side', 'top'); if (!t.nextElementSibling) t.setAttribute('data-align', 'end'); });
 		wear();
 		return true;
@@ -174,7 +182,7 @@
 	function dock() {
 		undock();
 		if (S.place !== 'auto') return;
-		if ((toSlot() || toMenu()) && (shown(pill) || pill.hasAttribute('data-folded'))) return; 
+		if ((toSlot() || toMenu()) && (shown(twin || pill) || pill.hasAttribute('data-folded'))) return; 
 		undock();
 	}
 	var SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';

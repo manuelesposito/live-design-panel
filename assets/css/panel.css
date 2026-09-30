@@ -2899,17 +2899,17 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 		border-color: var(--line);
 	}
 }
-:root[data-lines="on"] :is(.quire-button[aria-expanded="true"]:not(.comments-open-btn), .paper-stack-btn[aria-expanded="true"], .reading-side-btn[aria-expanded="true"], .rail-more-trigger[aria-expanded="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-lines="on"] :is(.quire-button[aria-expanded="true"]:not(.comments-open-btn):not(:where(.rail-collapse-btn)), .paper-stack-btn[aria-expanded="true"]:not(:where(.rail-collapse-btn)), .reading-side-btn[aria-expanded="true"], .rail-more-trigger[aria-expanded="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--surface-selected);
 	color: var(--text-primary);
 }
-:root[data-lines="on"][data-fills="off"] :is(.quire-button[aria-expanded="true"]:not(.comments-open-btn), .paper-stack-btn[aria-expanded="true"], .reading-side-btn[aria-expanded="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-lines="on"][data-fills="off"] :is(.quire-button[aria-expanded="true"]:not(.comments-open-btn):not(:where(.rail-collapse-btn)), .paper-stack-btn[aria-expanded="true"]:not(:where(.rail-collapse-btn)), .reading-side-btn[aria-expanded="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-color: var(--text-primary);
 }
 :root[data-lines="on"][data-fills="off"] .rail-more-trigger[aria-expanded="true"]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	box-shadow: inset 0 0 0 var(--border-width-default) var(--line);
 }
-:root[data-lines="on"][data-fills="off"] :is(.quire-button[aria-expanded="true"]:not(.comments-open-btn), .paper-stack-btn[aria-expanded="true"], .reading-side-btn[aria-expanded="true"], .rail-more-trigger[aria-expanded="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-lines="on"][data-fills="off"] :is(.quire-button[aria-expanded="true"]:not(.comments-open-btn):not(:where(.rail-collapse-btn)), .paper-stack-btn[aria-expanded="true"]:not(:where(.rail-collapse-btn)), .reading-side-btn[aria-expanded="true"], .rail-more-trigger[aria-expanded="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: transparent;
 }
 :root[data-lines="on"] .reading-stepper button + button:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
@@ -4989,7 +4989,7 @@ button.reading-row {
 :root:is([data-ui-size], [data-ui-members]) :is(.rail-newsletter-door.is-page .rail-newsletter-door-form .quire-input, .rail-newsletter-door.is-page .rail-newsletter-door-form .mailpoet_text, .rail-newsletter-door.is-page .rail-newsletter-door-form .mailpoet_submit) {
 	font-size: max(var(--text-floor-ui), calc(var(--text-lg) * var(--ui-size-newsletter, var(--ui-size, 1))));
 }
-:root[data-fills="off"] body.has-frame :is(.rail-collapse-corner, .rail-expand, .rail-expand-search) .quire-icon-button:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-fills="off"] body.has-frame :is(.rail-collapse-corner, .rail-expand, .rail-expand-search) .quire-icon-button:hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-fills="off"] body.has-frame .paper-stack-btn:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-fills="off"] body.has-frame .paper-stack-btn:hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-fills="off"] body.has-frame .paper-stack-btn[aria-expanded="true"]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-fills="off"] body.has-frame :is(.rail-collapse-corner, .rail-expand, .rail-expand-search) .quire-icon-button:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-fills="off"] body.has-frame :is(.rail-collapse-corner, .rail-expand, .rail-expand-search) .quire-icon-button:hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-fills="off"] body.has-frame .paper-stack-btn:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-fills="off"] body.has-frame .paper-stack-btn:hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-fills="off"] body.has-frame .paper-stack-btn[aria-expanded="true"]:not(:where(.rail-collapse-btn)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: transparent;
 }
 :root[data-fills="off"]:not([data-lines="on"]) :is(.quire-button:not(.primary, .comments-pill, .ghost, .reading-nav, .reading-row), .comments-open-btn, .paper-stack-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .reading-side-btn, .reading-back):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -5006,7 +5006,7 @@ button.reading-row {
 		color: var(--text-primary);
 	}
 }
-:root[data-fills="off"]:not([data-lines="on"]) :is(.quire-button[aria-expanded="true"]:not(.comments-open-btn), .paper-stack-btn[aria-expanded="true"], .reading-side-btn[aria-expanded="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-fills="off"]:not([data-lines="on"]) :is(.quire-button[aria-expanded="true"]:not(.comments-open-btn):not(:where(.rail-collapse-btn)), .paper-stack-btn[aria-expanded="true"]:not(:where(.rail-collapse-btn)), .reading-side-btn[aria-expanded="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	color: var(--text-primary);
 }
 :root[data-fills="off"]:not([data-lines="on"]) :is(.quire-button:not(.primary, .comments-pill, .ghost, .reading-nav, .reading-row):active, .comments-open-btn:active, .paper-stack-btn:active, .rail-collapse-corner .quire-icon-button:active, .rail-expand .quire-icon-button:active, .rail-expand-search .quire-icon-button:active, .reading-side-btn:active, .reading-back:active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {

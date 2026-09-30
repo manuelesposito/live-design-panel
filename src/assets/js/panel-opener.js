@@ -116,7 +116,7 @@
 	pill.parentNode.insertBefore(home, pill);
 	var docked = null, menuItem = null;
 	var DOCK = ['--dock-size', '--dock-radius', '--dock-bg', '--dock-fg', '--dock-edge', '--dock-shadow', '--dock-font', '--dock-font-size', '--dock-weight', '--dock-tracking', '--dock-pad'];
-	var mate = null, sides = [];
+	var mate = null, sides = [], twin = null;
 	function shown(el) { if (!el) return false; var r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0 && (getComputedStyle(el).visibility !== 'hidden' || el.hasAttribute('data-in-panel')); } /* a door that has become the panel is only out of sight, and still docks (2026-09-24: Automatic switched on from the open panel left it floating) */
 	function see(c) { return c && c !== 'transparent' && !/^rgba\(.*,\s*0\)$/.test(c); }
 	function groundOf(el) {
@@ -147,6 +147,7 @@
 		home.parentNode.insertBefore(pill, home.nextSibling);
 		if (menuItem) { menuItem.remove(); menuItem = null; }
 		pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded');
+		if (twin) { pill.setAttribute('aria-expanded', twin.getAttribute('aria-expanded') || 'false'); twin.removeAttribute('data-live-design-twin'); twin.removeAttribute('data-docked'); pill.removeAttribute('data-twin'); twin = null; }
 		DOCK.forEach(function (p) { pill.style.removeProperty(p); });
 		sides.forEach(function (x) { x[0].setAttribute('data-side', x[1]); if (x[2] === null) x[0].removeAttribute('data-align'); else x[0].setAttribute('data-align', x[2]); }); sides = [];
 		docked = null; mate = null;
@@ -165,6 +166,29 @@
 		});
 		if (!slot) return false;
 		slot.appendChild(pill); pill.setAttribute('data-docked', 'slot'); docked = 'slot';
+		/* WHERE THE ROW HAS A SQUARE OF ITS OWN FOR THE PANEL, THAT SQUARE IS THE BUTTON
+		   (Manuel, 2026-09-30: the corner's squares must "all behave identically in all
+		   styles and everywhere … sometimes they behave differently", and docked beside the
+		   focus square the button "shouldn't have the aurora so that it can behave exactly
+		   like the others"). Architrave prints its own design square in this slot, the same
+		   kind of button as the search and the focus square, and this sheet hid it for the
+		   door, which then copied its neighbour: face, ink, corner and line at rest, two
+		   variables for hover and press. Every look that answers the pointer another way
+		   (a line that darkens, a dashed line, a press that inverts, a finish on the face,
+		   the page's own focus ring) showed the copy for what it was. So the door steps
+		   back here and the row's own square is shown again: it opens the same panel
+		   (every door is found by data-reading-panel-open), wears the chosen icon (take,
+		   below) and is drawn by the very rules that draw its neighbours, in every look
+		   there is and every one to come. The door stays in the slot, out of sight, so it
+		   is back the moment Automatic goes off. A slot without a square of its own keeps
+		   the door in its neighbour's clothes, without the light. */
+		twin = slot.querySelector('[data-reading-panel-open]:not(.architrave-panel-opener)');
+		if (twin) {
+			twin.setAttribute('data-live-design-twin', ''); pill.setAttribute('data-twin', '');
+			twin.setAttribute('data-docked', 'slot'); /* the window asks a button this before it flows out of it: one in the site's row stays in the row */
+			twin.setAttribute('aria-keyshortcuts', 'Alt+D');
+			twin.setAttribute('aria-expanded', pill.getAttribute('aria-expanded') || 'false');
+		}
 		/* THE ROW'S TOOLTIPS GO ABOVE (Manuel, 2026-09-23: the focus button's
 		   tooltip stood to its left, over the door that now stands there). */
 		Array.prototype.forEach.call(slot.parentElement.querySelectorAll('.quire-tooltip[data-side]'), function (t) { sides.push([t, t.getAttribute('data-side'), t.getAttribute('data-align')]); t.setAttribute('data-side', 'top'); if (!t.nextElementSibling) t.setAttribute('data-align', 'end'); });
@@ -271,7 +295,7 @@
 	function dock() {
 		undock();
 		if (S.place !== 'auto') return;
-		if ((toSlot() || toMenu()) && (shown(pill) || pill.hasAttribute('data-folded'))) return; /* folded into a phone's menu it is out of sight until the menu opens, and still home */
+		if ((toSlot() || toMenu()) && (shown(twin || pill) || pill.hasAttribute('data-folded'))) return; /* folded into a phone's menu it is out of sight until the menu opens, and still home */
 		undock();
 	}
 	var SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';

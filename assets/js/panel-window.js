@@ -929,7 +929,7 @@
 			'<div class="ldpw-spotmap" role="radiogroup" aria-label="' + esc(t('Where')) + '"><span class="ldpw-mini" aria-hidden="true"><i></i><i></i><i></i></span>' +
 			SPOTS.map(function (id) { var on = bt.place === id; return '<button type="button" class="ldpw-spot' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-spot="' + id + '" data-f="spot:' + id + '" aria-label="' + esc(t(BTN_WORD.place[id])) + '" title="' + esc(t(BTN_WORD.place[id])) + '"></button>'; }).join('') +
 			'<span class="ldpw-minidoor" data-at="' + esc(bt.place) + '" aria-hidden="true"></span></div><p class="ldpw-hint ldpw-maphint">' + esc(t('Or drag the button itself on the page.')) + '</p></div>';
-		var aur = inMenu && word ? t('Off') : bt.aurora ? t((BANDS[bt.band] || BANDS.dusk)[0]) : t('Off');
+		var aur = (inMenu && word) || (auto && s.buttonInSlot && s.buttonInSlot()) ? t('Off') : bt.aurora ? t((BANDS[bt.band] || BANDS.dusk)[0]) : t('Off');
 		var out = gtitle(t('Live Design Button')) + box(bSwitch('auto', 'Automatic', auto, false, auto ? t('In your site’s menu, as one of its items') : '') +
 			(inMenu ? bSwitch('icon', 'Show icon', bt.icon !== false, false, t('Beside the name in the menu')) : '') + map +
 			(auto ? '' : row(t('Size'), seg('bsize', bt.size, BTN_ORDER.size.map(function (id) { return [id, t(BTN_WORD.size[id])]; }), t('Size'))) + bPop('show', 'Show', bt) + bPop('corners', 'Corners', bt) + bPop('color', 'Colour', bt)) +
@@ -1648,7 +1648,7 @@
 			pts[pts.length - 1] = '1'; return 'linear(' + pts.join(', ') + ')'; }
 		var SNAPPY = spring(0.72, 60), EASE = 'cubic-bezier(.45,0,.25,1)';
 		var GE = 0.5;
-		function lit() { return !!door && door.getAttribute && door.getAttribute('data-aurora') === 'true'; }
+		function lit() { return !!door && door.getAttribute && door.getAttribute('data-aurora') === 'true' && door.getAttribute('data-docked') !== 'slot'; }
 		function band() { return 'linear-gradient(90deg, ' + (BANDS[door && door.getAttribute && door.getAttribute('data-band')] || BANDS.dusk)[1] + ')'; }
 		function can() { return !phone() && !!Element.prototype.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && prefs.motion !== 'reduced' && !!door && !!door.getClientRects && door.getClientRects().length > 0 && !door.hasAttribute('data-docked') && !door.closest('.wp-block-navigation, nav'); }
 		function make(colour) {

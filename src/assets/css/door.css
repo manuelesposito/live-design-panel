@@ -341,6 +341,22 @@
 		box-shadow: var(--dock-shadow, none);
 	}
 	.architrave-panel-opener[data-docked="slot"]:hover { box-shadow: var(--dock-shadow, none); }
+	/* IN THE ROW, NO LIGHT (Manuel, 2026-09-30: docked beside the focus square "it
+	   shouldn't have the aurora so that it can behave exactly like the others"). A
+	   square among the site's squares is one of them: a plain face, no band on its
+	   foot, no glow under it, nothing moving. The Aurora is the floating button's. */
+	.architrave-panel-opener[data-docked="slot"] {
+		--opener-paint: var(--opener-face);
+		background: var(--opener-face);
+		border-color: var(--opener-edge, transparent);
+		animation: none;
+		transition: none;
+	}
+	.architrave-panel-opener[data-docked="slot"]::before,
+	.architrave-panel-opener[data-docked="slot"]::after { display: none; }
+	/* AND WHERE THE ROW HAS ITS OWN SQUARE FOR THE PANEL, THAT SQUARE IS THE BUTTON
+	   (panel-opener.js toSlot): the door waits in the slot, out of sight. */
+	.architrave-panel-opener[data-twin] { display: none !important; }
 	.architrave-panel-opener[data-docked="slot"] .opener-word { display: none; }
 	/* THE SQUARE ANSWERS AS ITS NEIGHBOUR DOES (Manuel, 2026-09-26, on Storybook:
 	   the door "would have the same hover or click as the button next to it").
