@@ -216,27 +216,17 @@
 	dock();
 	fit();
 	pill.addEventListener('pointerdown', function (e) {
-		if (e.button !== 0 || (docked && !owner())) return;
-		drag = { x: e.clientX, y: e.clientY, ox: at.x, oy: at.y, fromDock: !!docked, pid: e.pointerId }; 
+		if (e.button !== 0 || docked) return;
+		drag = { x: e.clientX, y: e.clientY, ox: at.x, oy: at.y, pid: e.pointerId };
 		moved = false;
 		try { pill.setPointerCapture(e.pointerId); } catch (x) {  }
 	});
 	pill.addEventListener('pointermove', function (e) {
 		if (!drag) return;
 		var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-		var still = drag.fromDock ? 24 : 4;
-		if (!moved && Math.abs(dx) < still && Math.abs(dy) < still) return;
+		if (!moved && Math.abs(dx) < 4 && Math.abs(dy) < 4) return; 
 		if (!moved) {
 			moved = true;
-			if (drag.fromDock) {
-				undock(); pulled = true;
-				try { pill.setPointerCapture(drag.pid); } catch (x) {  }
-				S.place = 'bottom-right'; S.match = 'false'; pill.setAttribute('data-place', 'bottom-right'); pill.setAttribute('data-match', 'false');
-				at.x = 0; at.y = 0; put();
-				var r0 = pill.getBoundingClientRect();
-				at.x = Math.round(e.clientX - (r0.left + r0.width / 2)); at.y = Math.round(e.clientY - (r0.top + r0.height / 2));
-				drag.ox = at.x; drag.oy = at.y; drag.x = e.clientX; drag.y = e.clientY; dx = 0; dy = 0;
-			}
 			carrying(true); if (owner()) rings();
 		}
 		at.x = drag.ox + dx; at.y = drag.oy + dy;
@@ -249,7 +239,7 @@
 		if (moved) { carrying(false); if (ghosts) land(); keep(); follow(); }
 	}
 	var SPOTS = ['top-left', 'top-right', 'left', 'right', 'bottom-left', 'bottom-center', 'bottom-right'];
-	var ghosts = null, rests = {}, near = null, snapped = false, pulled = false;
+	var ghosts = null, rests = {}, near = null, snapped = false;
 	function owner() { var W = window.liveDesignWindow; return !!(W && !W.reader && window.ArchitraveStyles && window.ArchitraveStyles.setButton); }
 	function rings() {
 		var was = pill.getAttribute('data-place'), tr = pill.style.transitionProperty;
@@ -272,20 +262,20 @@
 	function land() {
 		var r = pill.getBoundingClientRect(), home = rests[near], nx = Math.round(r.left - home.left), ny = Math.round(r.top - home.top);
 		ghosts.remove(); ghosts = null;
-		var place = near && (near !== S.place || pulled) ? near : null;
-		pulled = false;
+		var place = near && near !== S.place ? near : null;
 		at.x = 0; at.y = 0; 
 		if (place) { S.place = place; pill.setAttribute('data-place', place); }
 		fit();
 		var to = pill.getBoundingClientRect(), gx = r.left - to.left, gy = r.top - to.top, glide = null;
 		if ((gx || gy) && pill.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) glide = pill.animate([{ transform: 'translate(' + gx + 'px, ' + gy + 'px)' }, { transform: 'none' }], { duration: 350, easing: 'cubic-bezier(.3, 1.2, .5, 1)' });
 		
-		var arrived = function () { var W = window.LiveDesignWindow; if (W && W.sound) W.sound('snap'); if (place) window.ArchitraveStyles.setButton('place', place).catch(function () {  }); };
-		if (glide && glide.finished) glide.finished.then(arrived, arrived); else arrived();
+		var landed = false, arrived = function () { if (landed) return; landed = true; var W = window.LiveDesignWindow; if (W && W.sound) W.sound('snap'); if (place) window.ArchitraveStyles.setButton('place', place).catch(function () {  }); };
+		if (glide && glide.finished) { glide.finished.then(arrived, arrived); setTimeout(arrived, 600); } else arrived(); 
 	}
 	document.addEventListener('dragstart', function (e) { if (drag) e.preventDefault(); }, true);
 	pill.addEventListener('pointerup', end);
 	pill.addEventListener('pointercancel', end);
+	pill.addEventListener('lostpointercapture', end); 
 	
 	pill.addEventListener('click', function () {
 		if (!pill.hasAttribute('data-folded')) return;

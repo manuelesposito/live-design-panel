@@ -1513,7 +1513,7 @@
 		if (x.id === 'button' && St()) return editing === 'door.own' ? editorPage() : buttonPage();
 		if (x.id === 'colour' && St()) return editing ? editorPage() : colourPage();
 		var PAGES = { layout: layoutPage, 'corners-and-lines': shapePage, buttons: buttonsPage, pictures: picturesPage, effects: effectsPage };
-		if (PAGES[x.id] && St()) return PAGES[x.id]();
+		if (PAGES[x.id] && St()) return editing ? editorPage() : PAGES[x.id](); /* A WELL OPENS ITS EDITOR ON EVERY PAGE (Manuel, 2026-09-30: the two lights on Effects "just move up to the top of the screen"): the head said Light, the page stayed Effects, scrolled to its top. The same for the button colour on Buttons and the highlighter's own on Pictures */
 		if (x.id === 'type' && St()) return editing ? editorPage() : fontFor ? fontPage() : member ? memberPage() : role ? rolePage() : typePage();
 		var can = host.canOpenCurrent && host.canOpenCurrent(x.id);
 		return '<div class="ldpw-box ldpw-empty">' +
@@ -1539,7 +1539,7 @@
 		var x = current(), s = St(), built = BUILT.indexOf(x.id) !== -1 && (x.id === 'settings' || s);
 		var deep = showChanges || showVersions || (x.id === 'type' && (role || fontFor));
 		var name = sq && sq.q.trim() ? t('Search') : showChanges ? t('Changes') : showVersions ? t('Versions') : editing ? label(editing) : x.id !== 'type' ? x.name : fontFor ? (role ? t('Font') : t(fontFor === 'read' ? 'Reading Font' : 'Interface Font')) : member ? t(St().memberMeta(role, member).label) : role ? t(roleMeta(role).label) : x.name;
-		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (s.tile(s.current()) && s.tile(s.current()).edited ? ' · ' + t('Edited') : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /head|kicker/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : member ? t('Type') + ' › ' + t(roleMeta(role).label) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
+		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (s.tile(s.current()) && s.tile(s.current()).edited ? ' · ' + t('Edited') : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /head|kicker/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : x.id !== 'colour' && x.id !== 'type' ? x.name : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : member ? t('Type') + ' › ' + t(roleMeta(role).label) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
 		var back = editing || deep || phone();
 		var undo = built && s ? '<button type="button" class="ldpw-circ" data-act="undo" data-f="act:undo"' + (s.canUndo() ? '' : ' disabled') + ' aria-label="' + esc(undoName()) + '" title="' + esc(undoName()) + '">' + svg(GLYPH.undo) + '</button>' : '';
 		return '<div class="ldpw-detail">' +
