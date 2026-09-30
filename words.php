@@ -132,7 +132,6 @@ function architrave_panel_words( $words ) {
 		'Icon and name' => __( 'Icon and name', 'live-design-panel' ),
 		'Name on hover' => __( 'Name on hover', 'live-design-panel' ),
 		'Corners' => __( 'Corners', 'live-design-panel' ),
-		'Like the site' => __( 'Like the site', 'live-design-panel' ),
 		'Round' => __( 'Round', 'live-design-panel' ),
 		'Who wrote the comment' => __( 'Who wrote the comment', 'live-design-panel' ),
 		'The words of the comment' => __( 'The words of the comment', 'live-design-panel' ),

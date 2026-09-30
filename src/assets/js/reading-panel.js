@@ -98,7 +98,7 @@
 		color: { panel: 'Panel', site: 'Site colour' }, /* one colour of the site's, not two that came out the same (Manuel, 2026-09-23: Accent was the panel's blue, and the site's accent and buttons are one colour on Architrave) */
 		who: { everyone: 'Everyone', me: 'Only me' },
 		show: { icon: 'Icon', both: 'Icon and name', hover: 'Name on hover' }, /* what it shows, its own setting since 2026-09-24 (it followed the size) */
-		corners: { site: 'Like the site', round: 'Round' }
+		corners: { site: 'Rounded', round: 'Round' } /* 'site' is the saved name from when the corner was the site's button's; it is the button's own rounded corner now (2026-09-30) */
 	};
 	var BUTTON_ORDER = { size: ['small', 'medium', 'large'], show: ['icon', 'both', 'hover'], color: ['panel', 'site'], corners: ['site', 'round'] };
 	/* Whether a tile has anything for its right-click menu (the menu itself is render's publishItems). */

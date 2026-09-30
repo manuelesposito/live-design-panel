@@ -876,7 +876,7 @@
 		size: { small: 'Small', medium: 'Medium', large: 'Large' },
 		show: { icon: 'Icon', both: 'Icon and name', hover: 'Name on hover' },
 		glyph: { sliders: 'Sliders', aa: 'Aa', sparkles: 'Sparkle', brush: 'Brush' },
-		corners: { site: 'Like the site', round: 'Round' },
+		corners: { site: 'Rounded', round: 'Round' }, 
 		color: { panel: 'Panel', site: 'Site colour', own: 'Own Colour…' }
 	};
 	var BTN_ORDER = { size: ['small', 'medium', 'large'], show: ['icon', 'both', 'hover'], corners: ['site', 'round'], color: ['panel', 'site', 'own'], glyph: ['sliders', 'aa', 'sparkles', 'brush'] };

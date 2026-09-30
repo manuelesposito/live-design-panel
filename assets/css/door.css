@@ -44,6 +44,7 @@
 		color: var(--text-primary);
 		box-shadow: var(--elevation-raised, 0 1px 2px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06));
 		font-family: var(--font-settings); 
+		font-feature-settings: normal; 
 		font-size: var(--text-sm-contextual);
 		touch-action: none;
 		user-select: none;
@@ -307,7 +308,7 @@
 	}
 	span.live-design-menu-item:has(> [data-named="false"][data-icon="true"][aria-expanded="false"]:is(:hover, :focus-visible))::after { opacity: 1; translate: 0 0; transition-delay: 0.5s; }
 	.architrave-panel-opener[data-match="false"][data-size="small"] { --opener-h: 2.25rem; --opener-font: var(--text-xs, 0.8125rem); --opener-glyph: 1rem; }
-	.architrave-panel-opener[data-match="false"][data-size="medium"] { --opener-h: var(--layout-control-height-large, 2.75rem); --opener-font: var(--text-sm-contextual); --opener-glyph: 20px; } 
+	.architrave-panel-opener[data-match="false"][data-size="medium"] { --opener-h: 2.75rem; --opener-font: var(--text-sm-contextual); --opener-glyph: 20px; } 
 	.architrave-panel-opener[data-match="false"][data-size="large"] { --opener-h: 3.25rem; --opener-font: var(--text-base, 1rem); --opener-glyph: 1.375rem; }
 	.architrave-panel-opener[data-match="false"][data-docked] { --opener-edge: var(--opener-face); box-shadow: none; min-inline-size: var(--opener-h); padding-inline: var(--space-3); padding-block: 0; font-family: var(--font-settings); font-weight: inherit; letter-spacing: normal; }
 	.architrave-panel-opener[data-match="false"][data-show="icon"] { padding-inline: 0; }
@@ -315,7 +316,8 @@
 	.architrave-panel-opener[data-match="false"][data-show="icon"] .opener-word { display: none; }
 	.architrave-panel-opener[data-match="false"][data-show="both"] .opener-word { grid-template-columns: 1fr; }
 	.architrave-panel-opener[data-match="false"][data-show="both"] { padding-inline: var(--space-3) var(--space-4); }
-	.architrave-panel-opener[data-match="false"] { --opener-radius: var(--site-button-radius, var(--radius-control)); }
+	.architrave-panel-opener:not([data-docked]) { --opener-h: 2.75rem; --opener-radius: 0.625rem; }
+	.architrave-panel-opener[data-match="false"] { --opener-radius: 0.625rem; }
 	.architrave-panel-opener[data-match="false"][data-corners="round"] { --opener-radius: 9999px; } 
 	.architrave-panel-opener[data-match="false"][data-color="panel"] { --opener-face: var(--surface-floating); --opener-ink: var(--text-primary); }
 	.architrave-panel-opener[data-match="false"][data-color="own"] { --opener-face: var(--opener-own, #0a84ff); --opener-ink: var(--opener-own-ink, #ffffff); } 

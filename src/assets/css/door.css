@@ -73,6 +73,7 @@
 		color: var(--text-primary);
 		box-shadow: var(--elevation-raised, 0 1px 2px rgb(0 0 0 / 0.08), 0 4px 12px rgb(0 0 0 / 0.06));
 		font-family: var(--font-settings); /* the panel's own face, which no look rewrites (style.css) */
+		font-feature-settings: normal; /* and its letters as the face draws them: a look's alternates are the page's (measured 2026-09-30: Instrument gave the button's word its "cv01", "ss03") */
 		font-size: var(--text-sm-contextual);
 		touch-action: none;
 		user-select: none;
@@ -491,7 +492,7 @@
 	/* SET BY HAND (Match my site off): the size, what it shows, the colour and
 	   the corner, wherever it stands. */
 	.architrave-panel-opener[data-match="false"][data-size="small"] { --opener-h: 2.25rem; --opener-font: var(--text-xs, 0.8125rem); --opener-glyph: 1rem; }
-	.architrave-panel-opener[data-match="false"][data-size="medium"] { --opener-h: var(--layout-control-height-large, 2.75rem); --opener-font: var(--text-sm-contextual); --opener-glyph: 20px; } /* the lab's 20 px glyph (2026-09-28) */
+	.architrave-panel-opener[data-match="false"][data-size="medium"] { --opener-h: 2.75rem; --opener-font: var(--text-sm-contextual); --opener-glyph: 20px; } /* the lab's 20 px glyph (2026-09-28) */
 	.architrave-panel-opener[data-match="false"][data-size="large"] { --opener-h: 3.25rem; --opener-font: var(--text-base, 1rem); --opener-glyph: 1.375rem; }
 	.architrave-panel-opener[data-match="false"][data-docked] { --opener-edge: var(--opener-face); box-shadow: none; min-inline-size: var(--opener-h); padding-inline: var(--space-3); padding-block: 0; font-family: var(--font-settings); font-weight: inherit; letter-spacing: normal; }
 	/* WHAT IT SHOWS IS ITS OWN SETTING (Manuel, 2026-09-24; it followed the size until then):
@@ -501,9 +502,16 @@
 	.architrave-panel-opener[data-match="false"][data-show="icon"] .opener-word { display: none; }
 	.architrave-panel-opener[data-match="false"][data-show="both"] .opener-word { grid-template-columns: 1fr; }
 	.architrave-panel-opener[data-match="false"][data-show="both"] { padding-inline: var(--space-3) var(--space-4); }
-	/* ITS CORNER IS THE SITE'S, OR ROUND (the same day: "if someone likes the rounded-corner button"). */
-	.architrave-panel-opener[data-match="false"] { --opener-radius: var(--site-button-radius, var(--radius-control)); }
-	.architrave-panel-opener[data-match="false"][data-corners="round"] { --opener-radius: 9999px; } /* a pill, whatever the site or a look says of corners */
+	/* ITS CORNER IS ITS OWN, ROUNDED OR ROUND (the same day: "if someone likes the rounded-corner button").
+	   NO STYLE CHANGES THE FLOATING BUTTON (Manuel, 2026-09-30, having chosen Book: "the button changes are never
+	   related to the style … the button should not even be changing its shape or its color"). Its corner was the
+	   site's button's, so Book squared it, Instrument and Catalogue gave it 6, Tube 8; and its medium height was the
+	   look's control height, 39 on Instrument and Specimen, 40 on Catalogue. Both are written out now, and a button
+	   floating on Automatic (no place found in the site) stands on the same two. Only the rows of the Live Design
+	   Button page change it. A button IN the site's row still wears that row's clothes. */
+	.architrave-panel-opener:not([data-docked]) { --opener-h: 2.75rem; --opener-radius: 0.625rem; }
+	.architrave-panel-opener[data-match="false"] { --opener-radius: 0.625rem; }
+	.architrave-panel-opener[data-match="false"][data-corners="round"] { --opener-radius: 9999px; } /* a pill */
 	.architrave-panel-opener[data-match="false"][data-color="panel"] { --opener-face: var(--surface-floating); --opener-ink: var(--text-primary); }
 	.architrave-panel-opener[data-match="false"][data-color="own"] { --opener-face: var(--opener-own, #0a84ff); --opener-ink: var(--opener-own-ink, #ffffff); } /* the lab's Own Colour… (2026-09-28) */
 	.architrave-panel-opener[data-match="false"][data-color="site"] { --opener-face: var(--site-button-bg, var(--surface-floating)); --opener-ink: var(--site-button-fg, var(--text-primary)); }

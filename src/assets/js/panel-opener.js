@@ -123,7 +123,7 @@
 		for (; el && el !== document.documentElement; el = el.parentElement) { var c = getComputedStyle(el).backgroundColor; if (see(c)) return c; }
 		var b = getComputedStyle(document.body).backgroundColor; return see(b) ? b : getComputedStyle(document.documentElement).backgroundColor;
 	}
-	/* THE SITE'S OWN BUTTON, for the Colour called Site buttons and a menu door's corner. */
+	/* THE SITE'S OWN BUTTON, for the Colour called Site colour and a menu door's corner. A floating button's corner is its own (door.css). */
 	function siteButton() {
 		var probe = document.createElement('button');
 		probe.className = window.architravePanelGuest ? 'wp-element-button wp-block-button__link' : 'quire-button primary'; /* Architrave's main button wears the look's accent */
@@ -139,7 +139,6 @@
 		site = siteButton();
 		pill.style.setProperty('--site-button-bg', see(site.bg) ? site.bg : 'var(--surface-floating)');
 		pill.style.setProperty('--site-button-fg', site.fg);
-		pill.style.setProperty('--site-button-radius', site.radius);
 	}
 	siteColour();
 	function undock() {

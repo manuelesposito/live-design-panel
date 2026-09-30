@@ -79,7 +79,6 @@
 		site = siteButton();
 		pill.style.setProperty('--site-button-bg', see(site.bg) ? site.bg : 'var(--surface-floating)');
 		pill.style.setProperty('--site-button-fg', site.fg);
-		pill.style.setProperty('--site-button-radius', site.radius);
 	}
 	siteColour();
 	function undock() {

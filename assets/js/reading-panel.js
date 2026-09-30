@@ -64,7 +64,7 @@
 		color: { panel: 'Panel', site: 'Site colour' }, 
 		who: { everyone: 'Everyone', me: 'Only me' },
 		show: { icon: 'Icon', both: 'Icon and name', hover: 'Name on hover' }, 
-		corners: { site: 'Like the site', round: 'Round' }
+		corners: { site: 'Rounded', round: 'Round' } 
 	};
 	var BUTTON_ORDER = { size: ['small', 'medium', 'large'], show: ['icon', 'both', 'hover'], color: ['panel', 'site'], corners: ['site', 'round'] };
 	
