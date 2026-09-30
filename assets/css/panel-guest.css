@@ -2838,6 +2838,19 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 	border-color: transparent;
 	box-shadow: none;
 }
+:root[data-lines="on"][data-focus-motion][data-rail-collapsed] body.has-frame .sidebar-column:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-lines="on"][data-focus-motion]:not([data-comments-open]) body.has-frame .comments-side:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	border-width: 0;
+	border-color: transparent;
+}
+:root[data-lines="on"][data-focus-motion]:not([data-comments-open]) body.has-frame :is(.comments-side-head, .comments-side-foot):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	margin-inline: calc(-1 * var(--space-2));
+}
+:root[data-lines="on"][data-focus-motion]:not([data-comments-open]) body.has-frame .comments-side-head:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	padding-inline: var(--space-2);
+}
+:root[data-lines="on"][data-focus-motion]:not([data-comments-open]) body.has-frame .comments-side-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	padding-inline: calc(var(--space-4) + var(--space-2));
+}
 :root[data-lines="on"][data-focus-on] body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-color: transparent;
 }
