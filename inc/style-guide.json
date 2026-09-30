@@ -486,9 +486,9 @@
       "base": "tube",
       "palette": "neutral",
       "tint": "blue",
-      "sans": "hyperlegible",
+      "sans": "young-serif",
       "reading": "default",
-      "face": "hyperlegible",
+      "face": "young-serif",
       "leading": "default",
       "justify": false,
       "dropcap": false,
@@ -516,33 +516,48 @@
       "bootscreen": "on",
       "roles": {
         "head": {
-          "face": "handjet",
-          "weight": "bold",
+          "face": "bungee",
+          "weight": "regular",
           "caps": true,
-          "tracking": "p2",
-          "size": "56",
+          "size": "48",
           "members": {
             "sub": {
-              "size": "32"
+              "size": "28",
+              "weight": "regular"
             }
           }
         },
         "kicker": {
-          "face": "vt323",
           "italic": false,
           "caps": true,
-          "tracking": "p2",
-          "size": "22"
+          "tracking": "p10",
+          "size": "16"
         },
         "small": {
-          "face": "vt323",
           "caps": true,
-          "tracking": "p2"
+          "tracking": "p10",
+          "members": {
+            "author": {
+              "caps": false,
+              "tracking": "default"
+            }
+          }
         },
         "title": {
-          "face": "vt323",
           "caps": true,
-          "tracking": "p2"
+          "tracking": "p10",
+          "members": {
+            "release": {
+              "weight": "regular"
+            }
+          }
+        },
+        "ui": {
+          "members": {
+            "masthead": {
+              "weight": "regular"
+            }
+          }
         },
         "quote": {
           "italic": false
