@@ -657,7 +657,8 @@
 			pickRow('greytint') + (on('greytint', '0') ? fx('tint', 'colour') : '') +
 			fx('dividers', 'look') + (s.get('effects.dividers.look') === 'glow' ? fx('dividers', 'colour') : '');
 		/* THE SCREEN AND THE PRINT (2026-09-30, Tube and Brochure): two groups, the tube's and the page's */
-		var screen = (guest ? '' : pickRow('monitorframe') + (on('monitorframe', 'off') ? fx('monitor', 'curve') + fx('monitor', 'sheen') : '')) +
+		var FRAME_ROW = false; /* THE MONITOR FRAME'S ROW IS PARKED (Manuel, 2026-09-30, 0.15.3: "remember that setting … don't throw everything completely away"): the bezel covers what a framed theme pins to the window (rail, collapse button, the panel's own buttons). The pick, its rules and its words all stay; true brings the row back once the pinned parts step inside the bezel */
+		var screen = (guest || !FRAME_ROW ? '' : pickRow('monitorframe') + (on('monitorframe', 'off') ? fx('monitor', 'curve') + fx('monitor', 'sheen') : '')) +
 			pickRow('phosphor') + pickRow('fringe') + pickRow('crisp') + (s.get('scanlines') ? pickRow('scanstyle') : '') + pickRow('bloom') + pickRow('shimmer') +
 			(guest ? '' : pickRow('warp') + (on('warp', 'off') ? fx('warp', 'direction') : '') + pickRow('ghosting')) +
 			pickRow('jitter') + (s.get('grain') ? pickRow('graincrawl') : '') + pickRow('switchon') + (on('switchon', 'off') ? pickRow('static') : '') + pickRow('typedtitle') + pickRow('bootscreen') + pickRow('roomglass');

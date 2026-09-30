@@ -609,7 +609,8 @@
 			pickRow('guides') + (on('guides', 'off') ? fx('guides', 'level') + fx('guides', 'colour') + fx('guides', 'marks') : '') +
 			pickRow('greytint') + (on('greytint', '0') ? fx('tint', 'colour') : '') +
 			fx('dividers', 'look') + (s.get('effects.dividers.look') === 'glow' ? fx('dividers', 'colour') : '');
-		var screen = (guest ? '' : pickRow('monitorframe') + (on('monitorframe', 'off') ? fx('monitor', 'curve') + fx('monitor', 'sheen') : '')) +
+		var FRAME_ROW = false; 
+		var screen = (guest || !FRAME_ROW ? '' : pickRow('monitorframe') + (on('monitorframe', 'off') ? fx('monitor', 'curve') + fx('monitor', 'sheen') : '')) +
 			pickRow('phosphor') + pickRow('fringe') + pickRow('crisp') + (s.get('scanlines') ? pickRow('scanstyle') : '') + pickRow('bloom') + pickRow('shimmer') +
 			(guest ? '' : pickRow('warp') + (on('warp', 'off') ? fx('warp', 'direction') : '') + pickRow('ghosting')) +
 			pickRow('jitter') + (s.get('grain') ? pickRow('graincrawl') : '') + pickRow('switchon') + (on('switchon', 'off') ? pickRow('static') : '') + pickRow('typedtitle') + pickRow('bootscreen') + pickRow('roomglass');

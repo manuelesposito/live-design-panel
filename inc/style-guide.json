@@ -508,18 +508,12 @@
       "grainlevel": "2",
       "vignette": true,
       "vignettelevel": "4",
-      "monitorframe": "medium",
       "fringe": "faint",
       "crisp": "all",
       "shimmer": "soft",
       "switchon": "on",
       "static": "on",
       "bootscreen": "on",
-      "effects": {
-        "monitor": {
-          "sheen": "on"
-        }
-      },
       "roles": {
         "head": {
           "face": "handjet",

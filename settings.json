@@ -1354,7 +1354,7 @@
       "level": 4,
       "row": {
         "drawn": "grid",
-        "line": 1997,
+        "line": 1998,
         "in": "presetGrid"
       },
       "changesPage": "Colour",
@@ -1501,7 +1501,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1546,
+        "line": 1547,
         "in": "fontRow"
       },
       "changesPage": "Type › Reading text",
@@ -1542,7 +1542,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1926,
+        "line": 1927,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1566,7 +1566,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1953,
+        "line": 1954,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1602,7 +1602,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1954,
+        "line": 1955,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1730,7 +1730,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1256,
+        "line": 1257,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1954,7 +1954,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1210,
+        "line": 1211,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -1986,7 +1986,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1211,
+        "line": 1212,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2018,7 +2018,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1212,
+        "line": 1213,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2050,7 +2050,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1214,
+        "line": 1215,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2082,7 +2082,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1244,
+        "line": 1245,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2144,7 +2144,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1213,
+        "line": 1214,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2176,7 +2176,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1248,
+        "line": 1249,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2397,7 +2397,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1546,
+        "line": 1547,
         "in": "fontRow"
       },
       "changesPage": "Type › Interface",
@@ -2476,7 +2476,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1225,
+        "line": 1226,
         "in": "picturesBody"
       },
       "changesPage": "Pictures",
@@ -2510,7 +2510,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1955,
+        "line": 1956,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -2539,7 +2539,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1261,
+        "line": 1262,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2973,7 +2973,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3005,7 +3005,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3035,7 +3035,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3065,7 +3065,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3095,7 +3095,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3127,7 +3127,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3157,7 +3157,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3188,7 +3188,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3218,7 +3218,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3247,7 +3247,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3278,7 +3278,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3310,7 +3310,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3340,7 +3340,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3370,7 +3370,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3400,7 +3400,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3431,7 +3431,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3460,7 +3460,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3490,7 +3490,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3519,7 +3519,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3549,7 +3549,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3578,7 +3578,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3607,7 +3607,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3636,7 +3636,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3665,7 +3665,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3698,7 +3698,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3729,7 +3729,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3758,7 +3758,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3787,7 +3787,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3816,7 +3816,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3845,7 +3845,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3874,7 +3874,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3904,7 +3904,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3933,7 +3933,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3964,7 +3964,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1217,
+        "line": 1218,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4002,7 +4002,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1210,
+        "line": 1211,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4122,7 +4122,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1211,
+        "line": 1212,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4163,7 +4163,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1212,
+        "line": 1213,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4204,7 +4204,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1214,
+        "line": 1215,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4241,7 +4241,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1214,
+        "line": 1215,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4280,7 +4280,7 @@
       "level": 4,
       "row": {
         "drawn": "slider",
-        "line": 1245,
+        "line": 1246,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -4497,7 +4497,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1249,
+        "line": 1250,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -4669,7 +4669,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1213,
+        "line": 1214,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4705,7 +4705,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1213,
+        "line": 1214,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4732,7 +4732,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 2079,
+        "line": 2080,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -4977,7 +4977,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1546,
+        "line": 1547,
         "in": "fontRow"
       },
       "changesPage": "Type › {role}",
@@ -5079,7 +5079,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1580,
+        "line": 1581,
         "in": "weightRow"
       },
       "changesPage": "Type › {role}",
@@ -5220,7 +5220,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1621,
+        "line": 1622,
         "in": "sizeBlock"
       },
       "changesPage": "Type › {role}",
@@ -5310,7 +5310,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1939,
+        "line": 1940,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -5392,7 +5392,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1940,
+        "line": 1941,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -5444,7 +5444,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1567,
+        "line": 1568,
         "in": "capsRow"
       },
       "changesPage": "Type › {role}",
@@ -5511,7 +5511,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1563,
+        "line": 1564,
         "in": "italicRow"
       },
       "changesPage": "Type › {role}",
@@ -5578,7 +5578,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1926,
+        "line": 1927,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -5621,7 +5621,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1592,
+        "line": 1593,
         "in": "switchRows"
       },
       "changesPage": "Type › {role}",
@@ -5659,7 +5659,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1586,
+        "line": 1587,
         "in": "colourRow"
       },
       "changesPage": "Type › {role}",
@@ -5782,7 +5782,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1840,
+        "line": 1841,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -5862,7 +5862,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1841,
+        "line": 1842,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -5926,7 +5926,7 @@
       "level": 11,
       "row": {
         "drawn": "switch + switch",
-        "line": 1781,
+        "line": 1782,
         "in": "OWN_WORD"
       },
       "changesPage": "Type › {role}",
@@ -6023,7 +6023,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1842,
+        "line": 1843,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -6087,7 +6087,7 @@
       "level": 11,
       "row": {
         "drawn": "pop-up",
-        "line": 1838,
+        "line": 1839,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -6123,7 +6123,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2136,
+        "line": 2137,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -6150,7 +6150,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2137,
+        "line": 2138,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -6177,7 +6177,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2138,
+        "line": 2139,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -6212,7 +6212,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1266,
+        "line": 1267,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -6243,7 +6243,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1590,
+        "line": 1591,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -6274,7 +6274,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1590,
+        "line": 1591,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -6305,7 +6305,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2144,
+        "line": 2145,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -6332,7 +6332,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2145,
+        "line": 2146,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -6359,7 +6359,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1251,
+        "line": 1252,
         "in": "colourMore"
       },
       "changesPage": "Colour",
