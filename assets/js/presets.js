@@ -2787,9 +2787,25 @@
 		});
 		mark();
 	}
+	
+	var RESTED = { brochure: [{ palette: 'neutral', reading: 'small', face: 'eb-garamond', leading: 'snug' }] };
+	function restMoved() {
+		var all = readTweaks(), changed = false;
+		Object.keys(RESTED).forEach(function (id) {
+			var tw = all[id]; if (!tw || !DIALS.every(function (d) { return tw[d] !== undefined; })) return;
+			if (!RESTED[id].some(function (o) { return same(tw, o); })) return;
+			DIALS.forEach(function (d) { delete tw[d]; });
+			if (!Object.keys(tw).length) delete all[id];
+			changed = true;
+		});
+		if (changed) writeTweaks(all);
+		var s = byId(current), olds = s && !s.host && RESTED[s.id], d = now();
+		if (olds && !same(d, s) && olds.some(function (o) { return same(d, o); }) && !DIALS.some(function (k) { return (all[s.id] || {})[k] !== undefined; })) apply(s, wanted(s));
+	}
 	document.addEventListener('DOMContentLoaded', function () {
 		renderHosts();
 		if (seeded) apply(byId(current), wanted(byId(current))); 
+		restMoved();
 		window.addEventListener('hashchange', function () {
 			var m = /^#style=(.+)$/.exec(window.location.hash), data = m && decodeRecord(m[1]);
 			if (!data) return;

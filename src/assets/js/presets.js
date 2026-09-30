@@ -4321,9 +4321,26 @@
 		mark();
 	}
 
+	/* A TILE'S REST THAT MOVED REACHES WHO WORE IT (Manuel, 2026-09-30, Brochure B live: "sorry but that looks so different. Make it like in the lab"). The four dials are kept by their own scripts under their own keys, so a browser that wore a tile keeps the tile's OLD size, face and leading when a release changes them, and the next echo records them as an adjustment nobody made (his Brochure stood in the small Garamond of its first version under the new tile's everything else). A tile names the rests it has left here. At load: a record whose dials are exactly an old rest loses them, and where that tile is on and the page still wears an old rest, the tile's dials are pressed again. A reader who changed any dial away from the old rest has made a choice and keeps it. */
+	var RESTED = { brochure: [{ palette: 'neutral', reading: 'small', face: 'eb-garamond', leading: 'snug' }] };
+	function restMoved() {
+		var all = readTweaks(), changed = false;
+		Object.keys(RESTED).forEach(function (id) {
+			var tw = all[id]; if (!tw || !DIALS.every(function (d) { return tw[d] !== undefined; })) return;
+			if (!RESTED[id].some(function (o) { return same(tw, o); })) return;
+			DIALS.forEach(function (d) { delete tw[d]; });
+			if (!Object.keys(tw).length) delete all[id];
+			changed = true;
+		});
+		if (changed) writeTweaks(all);
+		var s = byId(current), olds = s && !s.host && RESTED[s.id], d = now();
+		if (olds && !same(d, s) && olds.some(function (o) { return same(d, o); }) && !DIALS.some(function (k) { return (all[s.id] || {})[k] !== undefined; })) apply(s, wanted(s));
+	}
+
 	document.addEventListener('DOMContentLoaded', function () {
 		renderHosts();
 		if (seeded) apply(byId(current), wanted(byId(current))); /* a first visit on a site default, or a link: the rows follow the stamp (above) */
+		restMoved();
 		/* A carried link reached while the page is open changes the hash and
 		   nothing else, so it is read here as well as before paint. */
 		window.addEventListener('hashchange', function () {
