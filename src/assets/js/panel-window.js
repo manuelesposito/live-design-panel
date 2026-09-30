@@ -1929,7 +1929,7 @@
 	   the drawing away. */
 	var primed = false;
 	function prime() {
-		if (open || primed || !host) return;
+		if (open || primed || !host || leaving) return; /* not while the sheet is on its way out: closing gives the button the focus, and a focused button primes */
 		ensureWin(); asking = false; phoneList = true; editing = null; menu = null;
 		render(); primed = true;
 		win.classList.add('is-primed'); win.hidden = false; place(); /* laid out already, but not seen, not reachable and not pressable */
@@ -1942,6 +1942,20 @@
 	/* ON A PHONE THE SHEET IS PULLED BY ITS TOP (the lab's): half or full, a flick decides, pulled low it closes */
 	var sheetH = 'half'; /* opens at half height so the page stays in view; a pull up or a tap on the head makes it tall */
 	function sheetSize() { if (!win || !phone()) return; if (RD() && sheetH !== 'full') { win.style.removeProperty('height'); return; } win.style.setProperty('height', (sheetH === 'half' ? 52 : 92) + 'dvh'); } /* the readers' sheet is as tall as what it holds */
+	/* ON A PHONE THE SHEET LEAVES DOWNWARD (2026-09-30: pulled down by its head and let go, "at one point it
+	   completely disappears"). There is no button for it to flow back into on a phone, so every close simply took
+	   it away in one frame: a sheet let go a third of the way up the screen was gone. It now travels the rest of
+	   the way down and off the screen, from wherever it stands, for the pull, the ×, a tap on the page and Escape
+	   alike. Not with less motion asked for. */
+	var leaving = null;
+	function sheetSlides() { return phone() && !!win.animate && prefs.motion !== 'reduced' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+	function sheetStay() { if (!leaving) return; var a = leaving; leaving = null; a.cancel(); win.style.removeProperty('pointer-events'); } /* opened again while it was on its way out */
+	function sheetLeave() {
+		win.style.pointerEvents = 'none'; /* nothing on it can be pressed on the way out */
+		var a = leaving = win.animate([{ transform: 'translateY(0)' }, { transform: 'translateY(100%)' }], { duration: 280, easing: 'cubic-bezier(.4, 0, .2, 1)', fill: 'forwards' });
+		function gone() { if (leaving !== a) return; leaving = null; win.style.removeProperty('pointer-events'); if (!open) { win.hidden = true; sheetSize(); zoomPage(); } a.cancel(); }
+		a.finished.then(gone, gone);
+	}
 	function sheetPull(e) {
 		if (!phone() || !e.target.closest || !e.target.closest('.ldpw-bar, .ldpw-shead, .ldpw-grab, .ldpw-rhead') || e.target.closest('button, input, a, label')) return;
 		var y0 = e.clientY, t0 = performance.now(), h0 = win.offsetHeight, moved = false;
@@ -1954,7 +1968,7 @@
 			win.style.transition = 'height .32s cubic-bezier(.2,.8,.2,1)';
 			setTimeout(function () { win.style.removeProperty('transition'); }, 340);
 			if (!moved) { sheetH = sheetH === 'half' ? 'full' : 'half'; return sheetSize(); } /* a tap on the head: the other height */
-			if (v > 0.9 || h < window.innerHeight * .3) { sheetH = 'half'; win.style.removeProperty('transition'); win.style.removeProperty('height'); return hide(); } /* a flick down or pulled low: it closes */
+			if (v > 0.9 || h < window.innerHeight * .3) { sheetH = 'half'; win.style.removeProperty('transition'); return hide(); } /* a flick down or pulled low: it closes, from the height it was let go at (hide() gives the height back once it is gone) */
 			sheetH = v < -0.6 ? 'full' : v > 0.4 ? 'half' : (h > window.innerHeight * .72 ? 'full' : 'half'); sheetSize();
 		}
 		win.addEventListener('pointermove', move); win.addEventListener('pointerup', up); win.addEventListener('pointercancel', up);
@@ -2060,7 +2074,7 @@
 		var ready = primed; primed = false; win.classList.remove('is-primed');
 		if (!ready) { asking = false; phoneList = true; editing = null; menu = null; }
 		open = true; sound('open');
-		win.hidden = false; zoomPage();
+		sheetStay(); win.hidden = false; zoomPage();
 		if (ready) { var f0 = win.querySelector('.ldpw-nav.is-on, .ldpw-nav'); if (f0) f0.focus({ preventScroll: true }); } else render('.ldpw-nav.is-on, .ldpw-nav');
 		place();
 		var morphs = morph.can(); if (morphs) morph.open(); /* the button becomes the window */
@@ -2075,7 +2089,7 @@
 		if (St() && St().previewing()) { St().previewVersion(null); verSel = 'now'; }
 		if (St() && !RD()) St().keepVersion(); /* closing is a moment to keep what stands */
 		setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(function () { prime(); }); }, 700); /* built again for the next time, once the flow back has run */
-		if (morph.can() && morph.live()) morph.close(function () { if (!open) { win.hidden = true; zoomPage(); } }); else { if (door && door.style) { door.style.visibility = ''; door.style.opacity = ''; } win.hidden = true; zoomPage(); } /* and flows back into it */
+		if (morph.can() && morph.live()) morph.close(function () { if (!open) { win.hidden = true; zoomPage(); } }); else { if (door && door.style) { door.style.visibility = ''; door.style.opacity = ''; } if (sheetSlides()) sheetLeave(); else { win.hidden = true; sheetSize(); zoomPage(); } } /* and flows back into it; on a phone it leaves downward */
 		if (door && door.setAttribute) { door.setAttribute('aria-expanded', 'false'); if (!keepFocus && door.focus) door.focus({ preventScroll: true }); }
 	}
 	document.addEventListener('pointerup', function () { if (!holding) return; holding = false; if (open && dirty) { settleUntil = Date.now() + 200; render(); } }); /* the knob shrinks back before the window is drawn again, as the lab's */
