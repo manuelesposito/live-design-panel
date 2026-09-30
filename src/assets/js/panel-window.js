@@ -165,7 +165,7 @@
 	var LAB_GROUP = { 'preset:gallery': 'everyday', 'preset:chalk': 'everyday', 'preset:carbon': 'everyday', 'pair:neutral': 'everyday', 'pair:grey': 'everyday', 'preset:vellum': 'everyday',
 		'pair:paper': 'warm', 'preset:sand': 'warm', 'preset:rust': 'warm', 'preset:brick': 'warm', 'preset:corten': 'warm', 'preset:sandstone': 'warm', 'preset:plum': 'warm',
 		'preset:cobalt': 'cool', 'preset:navy': 'cool', 'preset:midnight': 'cool', 'preset:draft': 'cool', 'preset:moss': 'cool', 'preset:meadow': 'cool', 'preset:lichen': 'cool',
-		'pair:terminal': 'bold', 'pair:arcade': 'bold', 'preset:limelight': 'bold' };
+		'pair:terminal': 'bold', 'pair:arcade': 'bold', 'preset:limelight': 'bold', 'preset:bootblue': 'bold', 'preset:newsprint': 'warm' };
 	var LAB_RANK = Object.keys(LAB_GROUP);
 	/* A PRESET'S NAME AS THE LAB WRITES IT, in capitals word by word ("Salt Morning"); a translated name stays as its language writes it */
 	function titled(w) { var x = t(w); return x !== w ? x : w.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }); }
@@ -457,13 +457,15 @@
 		guides: { off: 'Off', solid: 'Solid', dashed: 'Dashed' },
 		greytint: { '0': '0 %', '5': '5 %', '10': '10 %', '15': '15 %' },
 		pageglow: { off: 'Off', soft: 'Soft', strong: 'Strong' },
-		movinglight: { off: 'Off', on: 'On' }
+		movinglight: { off: 'Off', on: 'On' },
+		monitorframe: { off: 'Off', thin: 'Thin', medium: 'Medium', thick: 'Thick' }, fringe: { off: 'Off', faint: 'Faint', soft: 'Soft', strong: 'Strong', slip: 'Print slip' }, crisp: { off: 'Off', headings: 'Headings', all: 'All text' }, scanstyle: { lines: 'Lines', grille: 'Grille', both: 'Both' }, shimmer: { off: 'Off', soft: 'Soft', roll: 'Roll' }, warp: { off: 'Off', slight: 'Slight', bulged: 'Bulged', strong: 'Strong' }, switchon: { off: 'Off', on: 'On' }, bloom: { off: 'Off', soft: 'Soft', strong: 'Strong' }, ghosting: { off: 'Off', on: 'On' }, jitter: { off: 'Off', rare: 'Rare', often: 'Often' }, graincrawl: { still: 'Still', moving: 'Moving' }, typedtitle: { off: 'Off', on: 'On' }, bootscreen: { off: 'Off', on: 'On' }, roomglass: { off: 'Off', on: 'On' }, phosphor: { off: 'Off', blue: 'Blue', green: 'Green', amber: 'Amber', white: 'White', black: 'Black' }, static: { off: 'Off', on: 'On' }, dropout: { off: 'Off', on: 'On' }, headrule: { off: 'Off', on: 'On' }, ink: { sharp: 'Sharp', spread: 'Spread' }, tooth: { off: 'Off', on: 'On' }, edges: { ink: 'Ink', yellowed: 'Yellowed' }, columns: { '1': 'One column', '2': 'Two per section', '3': 'Three per section' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, rainbow: { off: 'Off', rule: 'Rule', mark: 'Mark', both: 'Both' }
 	};
 	PICK_WORD.headitalics.vollkorn = 'Vollkorn'; PICK_WORD.headitalics.fraunces = 'Fraunces'; PICK_WORD.toppattern.diagonal = 'Diagonal'; PICK_WORD.toppattern.cross = 'Crosses';
 	/* THE EXTRAS' DETAILS, their words by full path (effects.<effect>.<detail>: "colour" means something else in each) */
 	var FX_COLOUR = { light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' };
-	var FX_NAME = { title: 'Title finish', serif: 'Serif words', arrival: 'Headings arrive', cardlight: 'Card light', moving: 'Moving light', button: 'Button finish', pattern: 'Pattern at the top', guides: 'Guides', tint: 'Tint the greys', aurora: 'Aurora', pointer: 'Pointer light', dividers: 'Dividers', topline: 'Paper top line', picglow: 'Picture edge light' };
+	var FX_NAME = { title: 'Title finish', serif: 'Serif words', arrival: 'Headings arrive', cardlight: 'Card light', moving: 'Moving light', button: 'Button finish', pattern: 'Pattern at the top', guides: 'Guides', tint: 'Tint the greys', aurora: 'Aurora', pointer: 'Pointer light', dividers: 'Dividers', topline: 'Paper top line', picglow: 'Picture edge light', monitor: 'Monitor frame', warp: 'Warp' };
 	var FX_WORD = {
+		'monitor.curve': { round: 'Round', slight: 'Slight', bulged: 'Bulged' }, 'monitor.sheen': { off: 'Off', on: 'On' }, 'warp.direction': { 'in': 'Pulled in', out: 'Magnified' },
 		'title.depth': { '50': '50 %', '70': '70 %', '30': '30 %' }, 'title.dir': { diagonal: 'Diagonal', down: 'Down', across: 'Across' }, 'title.colour': FX_COLOUR, 'title.reach': { all: 'All headings', title: 'Title only' },
 		'serif.which': { italics: 'Italics', last: 'Last word', title: 'Whole title' }, 'serif.style': { italic: 'Italic', upright: 'Upright' },
 		'arrival.speed': { calm: 'Calm', quick: 'Quick', slow: 'Slow' }, 'arrival.blur': { '8': 'Medium', '4': 'Light', '14': 'Strong' }, 'arrival.scope': { headings: 'Headings only', text: 'And paragraphs', all: 'And pictures' },
@@ -654,6 +656,12 @@
 			pickRow('guides') + (on('guides', 'off') ? fx('guides', 'level') + fx('guides', 'colour') + fx('guides', 'marks') : '') +
 			pickRow('greytint') + (on('greytint', '0') ? fx('tint', 'colour') : '') +
 			fx('dividers', 'look') + (s.get('effects.dividers.look') === 'glow' ? fx('dividers', 'colour') : '');
+		/* THE SCREEN AND THE PRINT (2026-09-30, Tube and Brochure): two groups, the tube's and the page's */
+		var screen = (guest ? '' : pickRow('monitorframe') + (on('monitorframe', 'off') ? fx('monitor', 'curve') + fx('monitor', 'sheen') : '')) +
+			pickRow('phosphor') + pickRow('fringe') + pickRow('crisp') + (s.get('scanlines') ? pickRow('scanstyle') : '') + pickRow('bloom') + pickRow('shimmer') +
+			(guest ? '' : pickRow('warp') + (on('warp', 'off') ? fx('warp', 'direction') : '') + pickRow('ghosting')) +
+			pickRow('jitter') + (s.get('grain') ? pickRow('graincrawl') : '') + pickRow('switchon') + (on('switchon', 'off') ? pickRow('static') : '') + pickRow('typedtitle') + pickRow('bootscreen') + pickRow('roomglass');
+		var print = pickRow('dropout') + pickRow('headrule') + pickRow('ink') + pickRow('tooth') + (s.get('vignette') ? pickRow('edges') : '') + (guest ? '' : pickRow('columns')) + pickRow('paragraphs') + (guest ? '' : pickRow('rainbow'));
 		var motion = guest ? '' : pickRow('movinglight') + (on('movinglight', 'off') ? fx('moving', 'colour') + fx('moving', 'speed') + fx('moving', 'length') + fx('moving', 'where') + fx('moving', 'rhythm') : '');
 		return box(offSlider('scanlines', 'scan', label('scanlines'), '') +
 			offSlider('glow', 'glowlevel', label('glow'), '', night ? '' : t('Glows only in dark appearance'), !night) +
@@ -665,6 +673,7 @@
 			gtitle(t('Light')) + box(light) +
 			(paper ? gtitle(t('Paper')) + box(paper) : '') +
 			(motion ? gtitle(t('Motion')) + box(motion) : '') +
+			gtitle(t('Screen')) + box(screen) + gtitle(t('Print')) + box(print) +
 			hint('Each effect shows its details while it is on. Movement stays still for readers who ask their computer for less motion.');
 	}
 
@@ -1541,7 +1550,7 @@
 		'</div>';
 	}
 	/* UNDO SAYS WHAT IT TAKES BACK ("Undo Highlighter"), in today's window's words */
-	var WHAT = { 'effect:title': 'Title finish', 'effect:serif': 'Serif words', 'effect:arrival': 'Headings arrive', 'effect:cardlight': 'Card light', 'effect:moving': 'Moving light', 'effect:button': 'Button finish', 'effect:pattern': 'Pattern at the top', 'effect:guides': 'Guides', 'effect:tint': 'Tint the greys', 'effect:aurora': 'Aurora', 'effect:pointer': 'Pointer light', 'effect:dividers': 'Dividers', 'effect:topline': 'Paper top line', 'effect:picglow': 'Picture edge light', titlefinish: 'Title finish', headitalics: 'Italics in headings', headarrival: 'Headings arrive', cardlight: 'Card light', buttonfinish: 'Button finish', toppattern: 'Pattern at the top', guides: 'Guides', greytint: 'Tint the greys', pageglow: 'Aurora', movinglight: 'Moving light', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards',
+	var WHAT = { 'effect:title': 'Title finish', 'effect:serif': 'Serif words', 'effect:arrival': 'Headings arrive', 'effect:cardlight': 'Card light', 'effect:moving': 'Moving light', 'effect:button': 'Button finish', 'effect:pattern': 'Pattern at the top', 'effect:guides': 'Guides', 'effect:tint': 'Tint the greys', 'effect:aurora': 'Aurora', 'effect:pointer': 'Pointer light', 'effect:dividers': 'Dividers', 'effect:topline': 'Paper top line', 'effect:picglow': 'Picture edge light', 'effect:monitor': 'Monitor frame', 'effect:warp': 'Warp', monitorframe: 'Monitor frame', fringe: 'Colour fringe', crisp: 'Crisp edges', scanstyle: 'Scan style', shimmer: 'Shimmer', warp: 'Warp', switchon: 'Switch-on', static: 'Static', bloom: 'Bloom', ghosting: 'Ghosting', jitter: 'Jitter', graincrawl: 'Grain motion', typedtitle: 'Typed title', bootscreen: 'Boot screen', roomglass: 'Room in the glass', phosphor: 'Phosphor', dropout: 'Drop-out title', headrule: 'Title rule', ink: 'Ink', tooth: 'Paper tooth', edges: 'Edges', columns: 'Columns', paragraphs: 'Paragraphs', rainbow: 'Rainbow', titlefinish: 'Title finish', headitalics: 'Italics in headings', headarrival: 'Headings arrive', cardlight: 'Card light', buttonfinish: 'Button finish', toppattern: 'Pattern at the top', guides: 'Guides', greytint: 'Tint the greys', pageglow: 'Aurora', movinglight: 'Moving light', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards',
 		scanlines: 'Scan lines', scan: 'Scan lines', glow: 'Glow', glowlevel: 'Glow', grain: 'Background grain', grainlevel: 'Background grain',
 		vignette: 'Vignette', vignettelevel: 'Vignette', vignettereach: 'Vignette', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 		justify: 'Justified text', dropcap: 'Drop cap', capLines: 'Drop cap height', pictures: 'Picture effects', picturedim: 'Dim in the dark',

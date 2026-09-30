@@ -91,6 +91,30 @@
       "greytint",
       "pageglow",
       "movinglight",
+      "monitorframe",
+      "fringe",
+      "crisp",
+      "scanstyle",
+      "shimmer",
+      "warp",
+      "switchon",
+      "bloom",
+      "ghosting",
+      "jitter",
+      "graincrawl",
+      "typedtitle",
+      "bootscreen",
+      "roomglass",
+      "phosphor",
+      "static",
+      "dropout",
+      "headrule",
+      "ink",
+      "tooth",
+      "edges",
+      "columns",
+      "paragraphs",
+      "rainbow",
       "unlinked",
       "effects",
       "roles",
@@ -150,6 +174,30 @@
       "greytint",
       "pageglow",
       "movinglight",
+      "monitorframe",
+      "fringe",
+      "crisp",
+      "scanstyle",
+      "shimmer",
+      "warp",
+      "switchon",
+      "bloom",
+      "ghosting",
+      "jitter",
+      "graincrawl",
+      "typedtitle",
+      "bootscreen",
+      "roomglass",
+      "phosphor",
+      "static",
+      "dropout",
+      "headrule",
+      "ink",
+      "tooth",
+      "edges",
+      "columns",
+      "paragraphs",
+      "rainbow",
       "pillbuttons",
       "centretitle",
       "fadeedges",
@@ -1179,6 +1227,46 @@
           "means": "light (the rest), second, accent or ink."
         }
       ]
+    },
+    {
+      "id": "monitor",
+      "label": "Monitor frame",
+      "details": [
+        {
+          "id": "curve",
+          "label": "Curve",
+          "choices": [
+            "round",
+            "slight",
+            "bulged"
+          ],
+          "means": "the frame's corner: round (the rest), slight or bulged."
+        },
+        {
+          "id": "sheen",
+          "label": "Glass sheen",
+          "choices": [
+            "off",
+            "on"
+          ],
+          "means": "a faint light across the glass's top corner: off (the rest) or on."
+        }
+      ]
+    },
+    {
+      "id": "warp",
+      "label": "Warp",
+      "details": [
+        {
+          "id": "direction",
+          "label": "Direction",
+          "choices": [
+            "in",
+            "out"
+          ],
+          "means": "the edges pulled in (the rest) or magnified out."
+        }
+      ]
     }
   ],
   "settings": [
@@ -1225,7 +1313,9 @@
         "storybook",
         "specimen",
         "terracotta",
-        "arcade"
+        "arcade",
+        "tube",
+        "brochure"
       ],
       "def": "standard",
       "means": "The built-in style this record starts from; every key left out rests on it. See examples for what each base is.",
@@ -1264,7 +1354,7 @@
       "level": 4,
       "row": {
         "drawn": "grid",
-        "line": 1996,
+        "line": 1997,
         "in": "presetGrid"
       },
       "changesPage": "Colour",
@@ -1411,7 +1501,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1545,
+        "line": 1546,
         "in": "fontRow"
       },
       "changesPage": "Type › Reading text",
@@ -1452,7 +1542,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1925,
+        "line": 1926,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1476,7 +1566,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1952,
+        "line": 1953,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1512,7 +1602,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1953,
+        "line": 1954,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1544,7 +1634,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1183,
+        "line": 1184,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1576,7 +1666,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1191,
+        "line": 1192,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1608,7 +1698,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1199,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1640,7 +1730,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1255,
+        "line": 1256,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1672,7 +1762,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1178,
+        "line": 1179,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1704,7 +1794,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1197,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1800,7 +1890,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1168,
+        "line": 1169,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1864,7 +1954,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1209,
+        "line": 1210,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -1896,7 +1986,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1210,
+        "line": 1211,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -1928,7 +2018,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1211,
+        "line": 1212,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -1960,7 +2050,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1213,
+        "line": 1214,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -1992,7 +2082,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1243,
+        "line": 1244,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2054,7 +2144,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1212,
+        "line": 1213,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2086,7 +2176,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1247,
+        "line": 1248,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2118,7 +2208,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1178,
+        "line": 1179,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2150,7 +2240,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1188,
+        "line": 1189,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2307,7 +2397,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1545,
+        "line": 1546,
         "in": "fontRow"
       },
       "changesPage": "Type › Interface",
@@ -2386,7 +2476,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1224,
+        "line": 1225,
         "in": "picturesBody"
       },
       "changesPage": "Pictures",
@@ -2420,7 +2510,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1954,
+        "line": 1955,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -2449,7 +2539,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1260,
+        "line": 1261,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2478,7 +2568,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1178,
+        "line": 1179,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2508,7 +2598,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1176,
+        "line": 1177,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2539,7 +2629,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1188,
+        "line": 1189,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2572,7 +2662,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1190,
+        "line": 1191,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2605,7 +2695,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1190,
+        "line": 1191,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2638,7 +2728,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1190,
+        "line": 1191,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2670,7 +2760,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1190,
+        "line": 1191,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2701,7 +2791,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1190,
+        "line": 1191,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2732,7 +2822,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1194,
+        "line": 1195,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2763,7 +2853,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1198,
+        "line": 1199,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2793,7 +2883,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1198,
+        "line": 1199,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2823,7 +2913,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1198,
+        "line": 1199,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2853,7 +2943,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1198,
+        "line": 1199,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2883,7 +2973,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2915,7 +3005,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2945,7 +3035,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2975,7 +3065,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3005,7 +3095,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3037,7 +3127,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3067,7 +3157,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3098,7 +3188,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3128,7 +3218,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3157,7 +3247,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1216,
+        "line": 1217,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3166,6 +3256,723 @@
       ],
       "rest": {
         "data-moving-light": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "monitorframe",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "thin",
+        "medium",
+        "thick"
+      ],
+      "def": "off",
+      "attr": "data-monitor-frame",
+      "means": "A black bezel around the page with rounded corners, an old monitor's frame: off (the rest), thin, medium or thick.",
+      "label": "Monitor frame",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-monitor-frame"
+      ],
+      "rest": {
+        "data-monitor-frame": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "fringe",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "faint",
+        "soft",
+        "strong",
+        "slip"
+      ],
+      "def": "off",
+      "attr": "data-fringe",
+      "means": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, or slip (print's one magenta ghost).",
+      "label": "Colour fringe",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fringe"
+      ],
+      "rest": {
+        "data-fringe": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "crisp",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "headings",
+        "all"
+      ],
+      "def": "off",
+      "attr": "data-crisp",
+      "means": "Letters drawn without smoothing, the stair-step of an old screen: off (the rest), headings, or all text.",
+      "label": "Crisp edges",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-crisp"
+      ],
+      "rest": {
+        "data-crisp": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "scanstyle",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "lines",
+        "grille",
+        "both"
+      ],
+      "def": "lines",
+      "attr": "data-scan-style",
+      "means": "How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille) or both. Only with scanlines.",
+      "label": "Scan style",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-scan-style"
+      ],
+      "rest": {
+        "data-scan-style": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "shimmer",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "soft",
+        "roll"
+      ],
+      "def": "off",
+      "attr": "data-shimmer",
+      "means": "The screen's brightness moving: off (the rest), soft (a slow hum) or roll (a faint band drifting down). Still for readers who ask for less motion.",
+      "label": "Shimmer",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-shimmer"
+      ],
+      "rest": {
+        "data-shimmer": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "warp",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "slight",
+        "bulged",
+        "strong"
+      ],
+      "def": "off",
+      "attr": "data-warp",
+      "means": "The page bent like a tube's glass: off (the rest), slight, bulged or strong. The page is redrawn as a picture, so text softens a little.",
+      "label": "Warp",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-warp"
+      ],
+      "rest": {
+        "data-warp": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "switchon",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-switch-on",
+      "means": "The screen collapses to a line and blinks back when the side changes: off (the rest) or on.",
+      "label": "Switch-on",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-switch-on"
+      ],
+      "rest": {
+        "data-switch-on": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "bloom",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "soft",
+        "strong"
+      ],
+      "def": "off",
+      "attr": "data-bloom",
+      "means": "The glow spilling into the paper, not only round the letters: off (the rest), soft or strong. By night only.",
+      "label": "Bloom",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-bloom"
+      ],
+      "rest": {
+        "data-bloom": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "ghosting",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-ghosting",
+      "means": "A vertical smear while the page scrolls, the phosphor fading: off (the rest) or on.",
+      "label": "Ghosting",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-ghosting"
+      ],
+      "rest": {
+        "data-ghosting": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "jitter",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "rare",
+        "often"
+      ],
+      "def": "off",
+      "attr": "data-jitter",
+      "means": "The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.",
+      "label": "Jitter",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-jitter"
+      ],
+      "rest": {
+        "data-jitter": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "graincrawl",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "still",
+        "moving"
+      ],
+      "def": "still",
+      "attr": "data-grain-crawl",
+      "means": "The grain standing still (the rest) or moving, as a tube's noise crawls. Only with grain.",
+      "label": "Grain motion",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-grain-crawl"
+      ],
+      "rest": {
+        "data-grain-crawl": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "typedtitle",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-typed-title",
+      "means": "The article's title arrives letter by letter behind a block cursor: off (the rest) or on.",
+      "label": "Typed title",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-typed-title"
+      ],
+      "rest": {
+        "data-typed-title": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "bootscreen",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-boot-screen",
+      "means": "A boot screen on the first visit: the site's name, a version line and a bar of blocks, then the page. Off (the rest) or on.",
+      "label": "Boot screen",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-boot-screen"
+      ],
+      "rest": {
+        "data-boot-screen": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roomglass",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-room-glass",
+      "means": "A window reflected across the top corner of the glass: off (the rest) or on.",
+      "label": "Room in the glass",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-room-glass"
+      ],
+      "rest": {
+        "data-room-glass": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "phosphor",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "blue",
+        "green",
+        "amber",
+        "white",
+        "black"
+      ],
+      "def": "off",
+      "attr": "data-phosphor",
+      "means": "The whole night screen in one phosphor: off (the rest, the style's own colours), blue, green, amber, white or black.",
+      "label": "Phosphor",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-colours",
+        "data-phosphor"
+      ],
+      "rest": {
+        "data-colours": "ABSENT",
+        "data-phosphor": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "static",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-static",
+      "means": "A burst of noise while the set switches on: off (the rest) or on. Only with switchon.",
+      "label": "Static",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-static"
+      ],
+      "rest": {
+        "data-static": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "dropout",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-dropout",
+      "means": "The title in the paper's colour on a block of ink, a headline over a photograph: off (the rest) or on.",
+      "label": "Drop-out title",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-dropout"
+      ],
+      "rest": {
+        "data-dropout": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "headrule",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-head-rule",
+      "means": "A rule under the title: off (the rest) or on.",
+      "label": "Title rule",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-head-rule"
+      ],
+      "rest": {
+        "data-head-rule": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "ink",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "sharp",
+        "spread"
+      ],
+      "def": "sharp",
+      "attr": "data-ink",
+      "means": "Print bleeds a hair: sharp (the rest) or spread, the letters a little softer and heavier.",
+      "label": "Ink",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-ink"
+      ],
+      "rest": {
+        "data-ink": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "tooth",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-tooth",
+      "means": "A coarser grain, the tooth of magazine stock: off (the rest) or on.",
+      "label": "Paper tooth",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-tooth"
+      ],
+      "rest": {
+        "data-tooth": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "edges",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "ink",
+        "yellowed"
+      ],
+      "def": "ink",
+      "attr": "data-edges",
+      "means": "The vignette's colour: ink (the rest) or yellowed, an old page's brown.",
+      "label": "Edges",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-edges"
+      ],
+      "rest": {
+        "data-edges": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "columns",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "1",
+        "2",
+        "3"
+      ],
+      "def": "1",
+      "attr": "data-columns",
+      "means": "The article's sections in columns: 1 (the rest), 2 or 3. Each heading with its text balances into its columns and the next starts below; one column on a phone.",
+      "label": "Columns",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-columns"
+      ],
+      "rest": {
+        "data-columns": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "paragraphs",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "spaced",
+        "indented"
+      ],
+      "def": "spaced",
+      "attr": "data-paragraphs",
+      "means": "Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.",
+      "label": "Paragraphs",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-paragraphs"
+      ],
+      "rest": {
+        "data-paragraphs": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "rainbow",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "rule",
+        "mark",
+        "both"
+      ],
+      "def": "off",
+      "attr": "data-rainbow",
+      "means": "Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site's name) or both.",
+      "label": "Rainbow",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1217,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-rainbow"
+      ],
+      "rest": {
+        "data-rainbow": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -3195,7 +4002,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1209,
+        "line": 1210,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3235,7 +4042,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1192,
+        "line": 1193,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3274,7 +4081,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1200,
+        "line": 1201,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3315,7 +4122,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1210,
+        "line": 1211,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3356,7 +4163,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1211,
+        "line": 1212,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3397,7 +4204,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1213,
+        "line": 1214,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3434,7 +4241,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1213,
+        "line": 1214,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3473,7 +4280,7 @@
       "level": 4,
       "row": {
         "drawn": "slider",
-        "line": 1244,
+        "line": 1245,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -3597,7 +4404,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1195,
+        "line": 1196,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3627,7 +4434,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1185,
+        "line": 1186,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3656,7 +4463,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1169,
+        "line": 1170,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -3690,7 +4497,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1248,
+        "line": 1249,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -3755,7 +4562,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1174,
+        "line": 1175,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -3791,7 +4598,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1164,
+        "line": 1165,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -3862,7 +4669,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1212,
+        "line": 1213,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3898,7 +4705,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1212,
+        "line": 1213,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3925,7 +4732,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 2078,
+        "line": 2079,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -4170,7 +4977,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1545,
+        "line": 1546,
         "in": "fontRow"
       },
       "changesPage": "Type › {role}",
@@ -4272,7 +5079,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1579,
+        "line": 1580,
         "in": "weightRow"
       },
       "changesPage": "Type › {role}",
@@ -4413,7 +5220,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1620,
+        "line": 1621,
         "in": "sizeBlock"
       },
       "changesPage": "Type › {role}",
@@ -4503,7 +5310,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1938,
+        "line": 1939,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -4585,7 +5392,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1939,
+        "line": 1940,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -4637,7 +5444,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1566,
+        "line": 1567,
         "in": "capsRow"
       },
       "changesPage": "Type › {role}",
@@ -4704,7 +5511,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1562,
+        "line": 1563,
         "in": "italicRow"
       },
       "changesPage": "Type › {role}",
@@ -4771,7 +5578,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1925,
+        "line": 1926,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -4814,7 +5621,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1591,
+        "line": 1592,
         "in": "switchRows"
       },
       "changesPage": "Type › {role}",
@@ -4852,7 +5659,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1585,
+        "line": 1586,
         "in": "colourRow"
       },
       "changesPage": "Type › {role}",
@@ -4975,7 +5782,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1839,
+        "line": 1840,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -5055,7 +5862,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1840,
+        "line": 1841,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -5119,7 +5926,7 @@
       "level": 11,
       "row": {
         "drawn": "switch + switch",
-        "line": 1780,
+        "line": 1781,
         "in": "OWN_WORD"
       },
       "changesPage": "Type › {role}",
@@ -5216,7 +6023,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1841,
+        "line": 1842,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -5280,7 +6087,7 @@
       "level": 11,
       "row": {
         "drawn": "pop-up",
-        "line": 1837,
+        "line": 1838,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -5316,7 +6123,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2135,
+        "line": 2136,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -5343,7 +6150,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2136,
+        "line": 2137,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -5370,7 +6177,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2137,
+        "line": 2138,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -5405,7 +6212,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1265,
+        "line": 1266,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -5436,7 +6243,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1589,
+        "line": 1590,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -5467,7 +6274,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1589,
+        "line": 1590,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -5498,7 +6305,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2143,
+        "line": 2144,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -5525,7 +6332,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2144,
+        "line": 2145,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -5552,7 +6359,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1250,
+        "line": 1251,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -6775,6 +7582,79 @@
       ],
       "rest": {
         "data-fx-picglow-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.monitor.curve",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "round",
+        "slight",
+        "bulged"
+      ],
+      "def": "round",
+      "label": "Curve",
+      "effect": "Monitor frame",
+      "means": "Monitor frame, curve: the frame's corner: round (the rest), slight or bulged.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-monitor-curve"
+      ],
+      "rest": {
+        "data-fx-monitor-curve": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.monitor.sheen",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "label": "Glass sheen",
+      "effect": "Monitor frame",
+      "means": "Monitor frame, glass sheen: a faint light across the glass's top corner: off (the rest) or on.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-monitor-sheen"
+      ],
+      "rest": {
+        "data-fx-monitor-sheen": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.warp.direction",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "in",
+        "out"
+      ],
+      "def": "in",
+      "label": "Direction",
+      "effect": "Warp",
+      "means": "Warp, direction: the edges pulled in (the rest) or magnified out.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-warp-direction"
+      ],
+      "rest": {
+        "data-fx-warp-direction": "ABSENT_PATTERNS"
       },
       "inStandardAtRest": false
     }

@@ -53,6 +53,30 @@
     "greytint": "How much of the accent the paper, the grounds and every grey take, in percent: 0 (the rest), 5, 10 or 15. The ink itself stays as it is. Only with the style's own colour pair.",
     "pageglow": "Two slow glows of the accent behind the article's title: off (the rest), soft or strong. They stay still for readers who ask for less motion.",
     "movinglight": "A short streak of the accent that travels along the top edge of the cards: off (the rest) or on. Not for readers who ask for less motion.",
+    "monitorframe": "A black bezel around the page with rounded corners, an old monitor's frame: off (the rest), thin, medium or thick.",
+    "fringe": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, or slip (print's one magenta ghost).",
+    "crisp": "Letters drawn without smoothing, the stair-step of an old screen: off (the rest), headings, or all text.",
+    "scanstyle": "How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille) or both. Only with scanlines.",
+    "shimmer": "The screen's brightness moving: off (the rest), soft (a slow hum) or roll (a faint band drifting down). Still for readers who ask for less motion.",
+    "warp": "The page bent like a tube's glass: off (the rest), slight, bulged or strong. The page is redrawn as a picture, so text softens a little.",
+    "switchon": "The screen collapses to a line and blinks back when the side changes: off (the rest) or on.",
+    "bloom": "The glow spilling into the paper, not only round the letters: off (the rest), soft or strong. By night only.",
+    "ghosting": "A vertical smear while the page scrolls, the phosphor fading: off (the rest) or on.",
+    "jitter": "The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.",
+    "graincrawl": "The grain standing still (the rest) or moving, as a tube's noise crawls. Only with grain.",
+    "typedtitle": "The article's title arrives letter by letter behind a block cursor: off (the rest) or on.",
+    "bootscreen": "A boot screen on the first visit: the site's name, a version line and a bar of blocks, then the page. Off (the rest) or on.",
+    "roomglass": "A window reflected across the top corner of the glass: off (the rest) or on.",
+    "phosphor": "The whole night screen in one phosphor: off (the rest, the style's own colours), blue, green, amber, white or black.",
+    "static": "A burst of noise while the set switches on: off (the rest) or on. Only with switchon.",
+    "dropout": "The title in the paper's colour on a block of ink, a headline over a photograph: off (the rest) or on.",
+    "headrule": "A rule under the title: off (the rest) or on.",
+    "ink": "Print bleeds a hair: sharp (the rest) or spread, the letters a little softer and heavier.",
+    "tooth": "A coarser grain, the tooth of magazine stock: off (the rest) or on.",
+    "edges": "The vignette's colour: ink (the rest) or yellowed, an old page's brown.",
+    "columns": "The article's sections in columns: 1 (the rest), 2 or 3. Each heading with its text balances into its columns and the next starts below; one column on a phone.",
+    "paragraphs": "Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.",
+    "rainbow": "Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site's name) or both.",
     "pillbuttons": "Retired 2026-09-26 and still read: true becomes buttonshape pill.",
     "centretitle": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.",
     "fadeedges": "which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.",
@@ -455,6 +479,181 @@
           "accent": "#f2b49c"
         }
       }
+    },
+    "tube": {
+      "architrave": 1,
+      "label": "Tube",
+      "base": "tube",
+      "palette": "neutral",
+      "tint": "blue",
+      "sans": "vt323",
+      "reading": "large",
+      "face": "vt323",
+      "leading": "snug",
+      "justify": false,
+      "dropcap": false,
+      "rounded": false,
+      "lines": true,
+      "line": "60",
+      "scope": "article",
+      "fills": false,
+      "button": "ink",
+      "buttonshape": "square",
+      "buttonstyle": "outlined",
+      "pictures": "dither",
+      "scanlines": true,
+      "scan": "3",
+      "glow": true,
+      "grain": true,
+      "grainlevel": "2",
+      "vignette": true,
+      "vignettelevel": "4",
+      "monitorframe": "medium",
+      "fringe": "soft",
+      "crisp": "headings",
+      "shimmer": "soft",
+      "switchon": "on",
+      "static": "on",
+      "bootscreen": "on",
+      "effects": {
+        "monitor": {
+          "sheen": "on"
+        }
+      },
+      "roles": {
+        "head": {
+          "face": "libre-baskerville",
+          "weight": "bold",
+          "italic": true,
+          "size": "64",
+          "tracking": "m1",
+          "members": {
+            "sub": {
+              "size": "32"
+            }
+          }
+        },
+        "kicker": {
+          "face": "vt323",
+          "italic": false,
+          "caps": true,
+          "tracking": "p5",
+          "size": "22"
+        },
+        "small": {
+          "face": "vt323",
+          "caps": true,
+          "tracking": "p2"
+        },
+        "title": {
+          "face": "vt323",
+          "caps": true,
+          "tracking": "p5"
+        },
+        "quote": {
+          "face": "vt323",
+          "italic": false
+        }
+      },
+      "colours": {
+        "light": {
+          "paper": "#fcf9f3",
+          "ink": "#1a1a1a",
+          "accent": "#3535a0"
+        },
+        "dark": {
+          "paper": "#3535a0",
+          "ink": "#fcf9f3",
+          "accent": "#fcf9f3"
+        }
+      }
+    },
+    "brochure": {
+      "architrave": 1,
+      "label": "Brochure",
+      "base": "brochure",
+      "space": "compact",
+      "palette": "neutral",
+      "tint": "brown",
+      "sans": "eb-garamond",
+      "reading": "small",
+      "face": "eb-garamond",
+      "leading": "snug",
+      "measure": "64",
+      "justify": false,
+      "dropcap": false,
+      "rounded": false,
+      "lines": false,
+      "scope": "article",
+      "fills": false,
+      "button": "ink",
+      "buttonstyle": "text",
+      "buttonmedium": "text",
+      "links": "underlined",
+      "pictures": "sepia",
+      "pictureframe": false,
+      "grain": true,
+      "grainlevel": "1",
+      "graincrawl": "moving",
+      "tooth": "on",
+      "vignette": true,
+      "vignettelevel": "2",
+      "edges": "yellowed",
+      "fringe": "slip",
+      "ink": "spread",
+      "warp": "slight",
+      "effects": {
+        "warp": {
+          "direction": "out"
+        }
+      },
+      "rainbow": "mark",
+      "paragraphs": "indented",
+      "roles": {
+        "head": {
+          "face": "eb-garamond",
+          "weight": "medium",
+          "size": "96",
+          "tracking": "m1",
+          "leading": "tight",
+          "align": "center",
+          "members": {
+            "sub": {
+              "size": "22",
+              "weight": "bold",
+              "align": "default"
+            }
+          }
+        },
+        "kicker": {
+          "face": "eb-garamond",
+          "italic": true,
+          "size": "18",
+          "align": "center"
+        },
+        "small": {
+          "face": "eb-garamond",
+          "italic": true
+        },
+        "title": {
+          "face": "eb-garamond"
+        },
+        "quote": {
+          "italic": true
+        }
+      },
+      "colours": {
+        "light": {
+          "paper": "#f3eee3",
+          "ink": "#1c1a17",
+          "accent": "#1c1a17"
+        },
+        "dark": {
+          "paper": "#1e1a15",
+          "ink": "#f1e8d6",
+          "accent": "#f1e8d6"
+        }
+      }
     }
   },
   "colourPresets": [
@@ -778,6 +977,34 @@
         "paper": "#000000",
         "ink": "#f5f5f7",
         "accent": "#2997ff"
+      }
+    },
+    {
+      "id": "bootblue",
+      "label": "Boot blue",
+      "light": {
+        "paper": "#fcf9f3",
+        "ink": "#1a1a1a",
+        "accent": "#3535a0"
+      },
+      "dark": {
+        "paper": "#3535a0",
+        "ink": "#fcf9f3",
+        "accent": "#fcf9f3"
+      }
+    },
+    {
+      "id": "newsprint",
+      "label": "Newsprint",
+      "light": {
+        "paper": "#f3eee3",
+        "ink": "#1c1a17",
+        "accent": "#1c1a17"
+      },
+      "dark": {
+        "paper": "#1e1a15",
+        "ink": "#f1e8d6",
+        "accent": "#f1e8d6"
       }
     },
     {

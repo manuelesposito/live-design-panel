@@ -85,7 +85,9 @@
 		{ id: 'specimen', label: 'Specimen', space: 'spacious', palette: 'neutral', tint: 'green', preset: 'lichen', sans: 'roboto-mono', reading: 'small', face: 'inter-tight', leading: 'snug', justify: false, dropcap: false, rounded: true, lines: true, line: '20', hairlines: true, bold: false, scope: 'article', fills: true, soft: false,  button: 'ink',  darkground: true,  widehead: true,  widepicture: true, pictureframe: false, roles: { head: { face: 'inter-tight', weight: 'regular', size: '128', leading: 'tight', members: { sub: { weight: 'regular', size: '48' } }  }, kicker: { face: 'roboto-mono', caps: true, italic: false, weight: 'regular', size: '16', colour: 'accent'  } , small: { caps: true, members: { captions: { caps: false }, author: { caps: false } } }, ui: { members: { masthead: { weight: 'regular' } } }, title: { caps: true, weight: 'regular' }  } },
 		{ id: 'terracotta', label: 'Terracotta', space: 'spacious', palette: 'neutral', tint: 'orange', preset: 'corten', button: 'ink',  sans: 'schibsted-grotesk', reading: 'small', face: 'source-serif-4', leading: 'snug', justify: false, dropcap: false, rounded: true, corners: 'medium', buttonshape: 'pill', lines: true, line: '20', bold: false, scope: 'article', fills: false,  soft: false, widepicture: true, pictureframe: false, marker: true, markercolour: 'orange',  roles: { head: { face: 'schibsted-grotesk', weight: 'semibold', size: '56', caps: true, tracking: 'p12',  leading: 'tight', align: 'center', members: { sub: { size: '28', caps: true } }  }, kicker: { face: 'schibsted-grotesk', weight: 'regular', size: '16', caps: true, tracking: 'p10', italic: false, align: 'center' }, small: { face: 'dm-mono', tracking: 'm2'  }, title: { caps: true, weight: 'regular', tracking: 'p5' }  } },
 		
-		{ id: 'arcade', label: 'Arcade', measure: '60',  palette: 'arcade', tint: 'orange', sans: 'martian-mono', reading: 'default', face: 'geist', leading: 'default', justify: false, dropcap: false, rounded: true, lines: false, bold: false, scope: 'article', fills: true, scanlines: true, vignette: true, pictures: 'duo', roles: { kicker: { face: 'handjet', caps: true, tracking: 'wide', italic: false }, head: { face: 'handjet', weight: 'bold', tracking: 'wide', caps: true }, small: { weight: 'medium', caps: true, tracking: 'wide' }, title: { caps: true, tracking: 'widest' } }  } 
+		{ id: 'arcade', label: 'Arcade', measure: '60',  palette: 'arcade', tint: 'orange', sans: 'martian-mono', reading: 'default', face: 'geist', leading: 'default', justify: false, dropcap: false, rounded: true, lines: false, bold: false, scope: 'article', fills: true, scanlines: true, vignette: true, pictures: 'duo', roles: { kicker: { face: 'handjet', caps: true, tracking: 'wide', italic: false }, head: { face: 'handjet', weight: 'bold', tracking: 'wide', caps: true }, small: { weight: 'medium', caps: true, tracking: 'wide' }, title: { caps: true, tracking: 'widest' } }  }, 
+		{ id: 'tube', label: 'Tube', palette: 'neutral', tint: 'blue', preset: 'bootblue', sans: 'vt323', reading: 'large', face: 'vt323', leading: 'snug', justify: false, dropcap: false, rounded: false, lines: true, line: '60', bold: false, scope: 'article', fills: false, button: 'ink', buttonshape: 'square', buttonstyle: 'outlined', pictures: 'dither', scanlines: true, scan: '3', glow: true, grain: true, grainlevel: '2', vignette: true, vignettelevel: '4', monitorframe: 'medium', fringe: 'soft', crisp: 'headings', shimmer: 'soft', switchon: 'on', static: 'on', bootscreen: 'on', effects: { monitor: { sheen: 'on' } }, roles: { head: { face: 'libre-baskerville', weight: 'bold', italic: true, size: '64', tracking: 'm1', members: { sub: { size: '32' } } }, kicker: { face: 'vt323', italic: false, caps: true, tracking: 'p5', size: '22' }, small: { face: 'vt323', caps: true, tracking: 'p2' }, title: { face: 'vt323', caps: true, tracking: 'p5' }, quote: { face: 'vt323', italic: false } } },
+		{ id: 'brochure', label: 'Brochure', space: 'compact', palette: 'neutral', tint: 'brown', preset: 'newsprint', sans: 'eb-garamond', reading: 'small', face: 'eb-garamond', leading: 'snug', measure: '64', justify: false, dropcap: false, rounded: false, lines: false, bold: false, scope: 'article', fills: false, button: 'ink', buttonstyle: 'text', buttonmedium: 'text', links: 'underlined', pictures: 'sepia', pictureframe: false, grain: true, grainlevel: '1', graincrawl: 'moving', tooth: 'on', vignette: true, vignettelevel: '2', edges: 'yellowed', fringe: 'slip', ink: 'spread', warp: 'slight', effects: { warp: { direction: 'out' } }, rainbow: 'mark', paragraphs: 'indented', roles: { head: { face: 'eb-garamond', weight: 'medium', size: '96', tracking: 'm1', leading: 'tight', align: 'center', members: { sub: { size: '22', weight: 'bold', align: 'default' } } }, kicker: { face: 'eb-garamond', italic: true, size: '18', align: 'center' }, small: { face: 'eb-garamond', italic: true }, title: { face: 'eb-garamond' }, quote: { italic: true } } },
 	];
 	if (!window.architravePanelGuest) STYLES.forEach(function (s) { if (s.id === 'standard') s.label = 'Original'; });
 	var OWN_KEY = 'architrave-own-styles';
@@ -168,7 +170,7 @@
 		var entry = { id: 'own-' + Date.now().toString(36), label: data.label.slice(0, 40) || t('My style'), own: true, base: byId(data.base) ? data.base : STYLES[0].id };
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean') entry[k] = data[k]; });
-		['tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		['tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'monitorframe', 'fringe', 'crisp', 'scanstyle', 'shimmer', 'warp', 'switchon', 'bloom', 'ghosting', 'jitter', 'graincrawl', 'typedtitle', 'bootscreen', 'roomglass', 'phosphor', 'static', 'dropout', 'headrule', 'ink', 'tooth', 'edges', 'columns', 'paragraphs', 'rainbow', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
 		if (data.roles && typeof data.roles === 'object') entry.roles = data.roles;
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } 
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
@@ -184,7 +186,7 @@
 		if (SITE && Array.isArray(SITE.readers)) return SITE.readers.filter(function (id) { return typeof id === 'string'; }); 
 		return (window.architravePanelGuest ? ['standard', 'instrument'] : ['standard', 'book', 'instrument']).filter(function (id) { return id !== DEFAULT; }).slice(0, 2);
 	}
-	var PUBLIC = ['standard', 'terminal', 'instrument', 'catalogue', 'gallery']; 
+	var PUBLIC = ['standard', 'terminal', 'instrument', 'catalogue', 'gallery', 'tube', 'brochure']; 
 	function offered(p) {
 		if (READER) return !!(p.host || p.id === DEFAULT || readerPicks().indexOf(p.id) !== -1);
 		if (window.architravePanelGuest && !(p.host || p.own || p.site || p.id === DEFAULT || PUBLIC.indexOf(p.id) !== -1 || readerPicks().indexOf(p.id) !== -1)) return false;
@@ -203,8 +205,8 @@
 	var FADE_EDGES = ['sides', 'bottom', 'all'];
 	var MARKERS = ['yellow', 'green', 'pink', 'blue', 'orange', 'text', 'muted', 'own'];
 	var FRAME_PATTERNS = ['plain', 'dots', 'checker'];
-	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, titlefinish: { attr: 'data-title-finish', list: ['flat', 'shine', 'accent'] }, headitalics: { attr: 'data-head-italics', list: ['same', 'serif', 'classic', 'vollkorn', 'fraunces'] }, headarrival: { attr: 'data-head-arrival', list: ['none', 'fade', 'blur'] }, cardlight: { attr: 'data-card-light', list: ['off', 'edge', 'glow'] }, buttonfinish: { attr: 'data-button-finish', list: ['flat', 'glass', 'glow'] }, toppattern: { attr: 'data-top-pattern', list: ['none', 'dots', 'grid', 'cross', 'diagonal'] }, guides: { attr: 'data-guides', list: ['off', 'solid', 'dashed'] }, greytint: { attr: 'data-grey-tint', list: ['0', '5', '10', '15'] }, pageglow: { attr: 'data-page-glow', list: ['off', 'soft', 'strong'] }, movinglight: { attr: 'data-moving-light', list: ['off', 'on'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined'] } };
-	var EFFECTS = { title: { depth: { list: ['50', '70', '30'], rest: '50' }, dir: { list: ['diagonal', 'down', 'across'], rest: 'diagonal' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, reach: { list: ['all', 'title'], rest: 'all' } }, serif: { which: { list: ['italics', 'last', 'title'], rest: 'italics' }, style: { list: ['italic', 'upright'], rest: 'italic' } }, arrival: { speed: { list: ['calm', 'quick', 'slow'], rest: 'calm' }, blur: { list: ['8', '4', '14'], rest: '8' }, scope: { list: ['headings', 'text', 'all'], rest: 'headings' } }, cardlight: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['auto', 'light', 'second', 'accent', 'ink'], rest: 'auto' }, edge: { list: ['70', '40', '100'], rest: '70' }, reach: { list: ['55', '35', '85'], rest: '55' } }, moving: { colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, speed: { list: ['7', '11', '4'], rest: '7' }, length: { list: ['34', '20', '55'], rest: '34' }, where: { list: ['cards', 'buttons', 'all'], rest: 'cards' }, rhythm: { list: ['constant', 'now'], rest: 'constant' } }, button: { glow: { list: ['fill', 'light', 'second', 'accent', 'ink'], rest: 'fill' }, level: { list: ['75', '40', '100'], rest: '75' }, ring: { list: ['on', 'off'], rest: 'on' }, lift: { list: ['on', 'off'], rest: 'on' }, sweep: { list: ['off', 'on'], rest: 'off' }, glass: { list: ['2', '1', '3'], rest: '2' } }, pattern: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, size: { list: ['m', 's', 'l'], rest: 'm' }, reach: { list: ['560', '300', '900', 'all'], rest: '560' } }, guides: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, marks: { list: ['off', 'on'], rest: 'off' } }, tint: { colour: { list: ['light', 'second', 'accent'], rest: 'light' } }, aurora: { first: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, second: { list: ['second', 'light', 'accent', 'ink'], rest: 'second' }, place: { list: ['title', 'top', 'page'], rest: 'title' }, speed: { list: ['slow', 'still', 'lively'], rest: 'slow' }, shape: { list: ['glow', 'beams'], rest: 'glow' } }, pointer: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, dividers: { look: { list: ['plain', 'fade', 'glow'], rest: 'plain' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, topline: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, picglow: { look: { list: ['off', 'soft', 'strong'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } } };
+	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, titlefinish: { attr: 'data-title-finish', list: ['flat', 'shine', 'accent'] }, headitalics: { attr: 'data-head-italics', list: ['same', 'serif', 'classic', 'vollkorn', 'fraunces'] }, headarrival: { attr: 'data-head-arrival', list: ['none', 'fade', 'blur'] }, cardlight: { attr: 'data-card-light', list: ['off', 'edge', 'glow'] }, buttonfinish: { attr: 'data-button-finish', list: ['flat', 'glass', 'glow'] }, toppattern: { attr: 'data-top-pattern', list: ['none', 'dots', 'grid', 'cross', 'diagonal'] }, guides: { attr: 'data-guides', list: ['off', 'solid', 'dashed'] }, greytint: { attr: 'data-grey-tint', list: ['0', '5', '10', '15'] }, pageglow: { attr: 'data-page-glow', list: ['off', 'soft', 'strong'] }, movinglight: { attr: 'data-moving-light', list: ['off', 'on'] }, monitorframe: { attr: 'data-monitor-frame', list: ['off', 'thin', 'medium', 'thick'] }, fringe: { attr: 'data-fringe', list: ['off', 'faint', 'soft', 'strong', 'slip'] }, crisp: { attr: 'data-crisp', list: ['off', 'headings', 'all'] }, scanstyle: { attr: 'data-scan-style', list: ['lines', 'grille', 'both'] }, shimmer: { attr: 'data-shimmer', list: ['off', 'soft', 'roll'] }, warp: { attr: 'data-warp', list: ['off', 'slight', 'bulged', 'strong'] }, switchon: { attr: 'data-switch-on', list: ['off', 'on'] }, bloom: { attr: 'data-bloom', list: ['off', 'soft', 'strong'] }, ghosting: { attr: 'data-ghosting', list: ['off', 'on'] }, jitter: { attr: 'data-jitter', list: ['off', 'rare', 'often'] }, graincrawl: { attr: 'data-grain-crawl', list: ['still', 'moving'] }, typedtitle: { attr: 'data-typed-title', list: ['off', 'on'] }, bootscreen: { attr: 'data-boot-screen', list: ['off', 'on'] }, roomglass: { attr: 'data-room-glass', list: ['off', 'on'] }, phosphor: { attr: 'data-phosphor', list: ['off', 'blue', 'green', 'amber', 'white', 'black'] }, static: { attr: 'data-static', list: ['off', 'on'] }, dropout: { attr: 'data-dropout', list: ['off', 'on'] }, headrule: { attr: 'data-head-rule', list: ['off', 'on'] }, ink: { attr: 'data-ink', list: ['sharp', 'spread'] }, tooth: { attr: 'data-tooth', list: ['off', 'on'] }, edges: { attr: 'data-edges', list: ['ink', 'yellowed'] }, columns: { attr: 'data-columns', list: ['1', '2', '3'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, rainbow: { attr: 'data-rainbow', list: ['off', 'rule', 'mark', 'both'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined'] } };
+	var EFFECTS = { title: { depth: { list: ['50', '70', '30'], rest: '50' }, dir: { list: ['diagonal', 'down', 'across'], rest: 'diagonal' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, reach: { list: ['all', 'title'], rest: 'all' } }, serif: { which: { list: ['italics', 'last', 'title'], rest: 'italics' }, style: { list: ['italic', 'upright'], rest: 'italic' } }, arrival: { speed: { list: ['calm', 'quick', 'slow'], rest: 'calm' }, blur: { list: ['8', '4', '14'], rest: '8' }, scope: { list: ['headings', 'text', 'all'], rest: 'headings' } }, cardlight: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['auto', 'light', 'second', 'accent', 'ink'], rest: 'auto' }, edge: { list: ['70', '40', '100'], rest: '70' }, reach: { list: ['55', '35', '85'], rest: '55' } }, moving: { colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, speed: { list: ['7', '11', '4'], rest: '7' }, length: { list: ['34', '20', '55'], rest: '34' }, where: { list: ['cards', 'buttons', 'all'], rest: 'cards' }, rhythm: { list: ['constant', 'now'], rest: 'constant' } }, button: { glow: { list: ['fill', 'light', 'second', 'accent', 'ink'], rest: 'fill' }, level: { list: ['75', '40', '100'], rest: '75' }, ring: { list: ['on', 'off'], rest: 'on' }, lift: { list: ['on', 'off'], rest: 'on' }, sweep: { list: ['off', 'on'], rest: 'off' }, glass: { list: ['2', '1', '3'], rest: '2' } }, pattern: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, size: { list: ['m', 's', 'l'], rest: 'm' }, reach: { list: ['560', '300', '900', 'all'], rest: '560' } }, guides: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, marks: { list: ['off', 'on'], rest: 'off' } }, tint: { colour: { list: ['light', 'second', 'accent'], rest: 'light' } }, aurora: { first: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, second: { list: ['second', 'light', 'accent', 'ink'], rest: 'second' }, place: { list: ['title', 'top', 'page'], rest: 'title' }, speed: { list: ['slow', 'still', 'lively'], rest: 'slow' }, shape: { list: ['glow', 'beams'], rest: 'glow' } }, pointer: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, dividers: { look: { list: ['plain', 'fade', 'glow'], rest: 'plain' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, topline: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, picglow: { look: { list: ['off', 'soft', 'strong'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, monitor: { curve: { list: ['round', 'slight', 'bulged'], rest: 'round' }, sheen: { list: ['off', 'on'], rest: 'off' } }, warp: { direction: { list: ['in', 'out'], rest: 'in' } } };
 	var LEVELS = {
 		scan: { stops: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], rest: '3', attr: 'data-scan', prop: '--scan-alpha' },
 		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
@@ -281,7 +283,7 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'dots', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'scanlines', 'glow', 'grain', 'vignette', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'dots', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'scanlines', 'glow', 'grain', 'vignette', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'monitorframe', 'fringe', 'crisp', 'scanstyle', 'shimmer', 'warp', 'switchon', 'bloom', 'ghosting', 'jitter', 'graincrawl', 'typedtitle', 'bootscreen', 'roomglass', 'phosphor', 'static', 'dropout', 'headrule', 'ink', 'tooth', 'edges', 'columns', 'paragraphs', 'rainbow', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { tint: TINTS, scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], button: BUTTONS, linestyle: LINE_STYLE, corners: CORNERS, fadeedges: FADE_EDGES, markercolour: MARKERS, framepattern: FRAME_PATTERNS },
 		wells: ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'],
 		meaning: {
@@ -338,6 +340,30 @@
 			greytint: 'How much of the accent the paper, the grounds and every grey take, in percent: 0 (the rest), 5, 10 or 15. The ink itself stays as it is. Only with the style\'s own colour pair.',
 			pageglow: 'Two slow glows of the accent behind the article\'s title: off (the rest), soft or strong. They stay still for readers who ask for less motion.',
 			movinglight: 'A short streak of the accent that travels along the top edge of the cards: off (the rest) or on. Not for readers who ask for less motion.',
+			monitorframe: 'A black bezel around the page with rounded corners, an old monitor\'s frame: off (the rest), thin, medium or thick.',
+			fringe: 'A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, or slip (print\'s one magenta ghost).',
+			crisp: 'Letters drawn without smoothing, the stair-step of an old screen: off (the rest), headings, or all text.',
+			scanstyle: 'How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille) or both. Only with scanlines.',
+			shimmer: 'The screen\'s brightness moving: off (the rest), soft (a slow hum) or roll (a faint band drifting down). Still for readers who ask for less motion.',
+			warp: 'The page bent like a tube\'s glass: off (the rest), slight, bulged or strong. The page is redrawn as a picture, so text softens a little.',
+			switchon: 'The screen collapses to a line and blinks back when the side changes: off (the rest) or on.',
+			bloom: 'The glow spilling into the paper, not only round the letters: off (the rest), soft or strong. By night only.',
+			ghosting: 'A vertical smear while the page scrolls, the phosphor fading: off (the rest) or on.',
+			jitter: 'The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.',
+			graincrawl: 'The grain standing still (the rest) or moving, as a tube\'s noise crawls. Only with grain.',
+			typedtitle: 'The article\'s title arrives letter by letter behind a block cursor: off (the rest) or on.',
+			bootscreen: 'A boot screen on the first visit: the site\'s name, a version line and a bar of blocks, then the page. Off (the rest) or on.',
+			roomglass: 'A window reflected across the top corner of the glass: off (the rest) or on.',
+			phosphor: 'The whole night screen in one phosphor: off (the rest, the style\'s own colours), blue, green, amber, white or black.',
+			static: 'A burst of noise while the set switches on: off (the rest) or on. Only with switchon.',
+			dropout: 'The title in the paper\'s colour on a block of ink, a headline over a photograph: off (the rest) or on.',
+			headrule: 'A rule under the title: off (the rest) or on.',
+			ink: 'Print bleeds a hair: sharp (the rest) or spread, the letters a little softer and heavier.',
+			tooth: 'A coarser grain, the tooth of magazine stock: off (the rest) or on.',
+			edges: 'The vignette\'s colour: ink (the rest) or yellowed, an old page\'s brown.',
+			columns: 'The article\'s sections in columns: 1 (the rest), 2 or 3. Each heading with its text balances into its columns and the next starts below; one column on a phone.',
+			paragraphs: 'Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.',
+			rainbow: 'Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site\'s name) or both.',
 			pillbuttons: 'Retired 2026-09-26 and still read: true becomes buttonshape pill.',
 			centretitle: 'Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.',
 			fadeedges: 'which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.',
@@ -782,7 +808,7 @@
 		if (tw && d.list.indexOf(tw[key]) !== -1) return tw[key];
 		return (s && d.list.indexOf(s[key]) !== -1) ? s[key] : pickRest(key);
 	}
-	function applyPicks() { Object.keys(PICKS).forEach(function (k) { var d = PICKS[k], v = pickOf(k); if (v === d.list[0]) root.removeAttribute(d.attr); else if (root.getAttribute(d.attr) !== v) root.setAttribute(d.attr, v); });  headingsArrive(); }
+	function applyPicks() { Object.keys(PICKS).forEach(function (k) { var d = PICKS[k], v = pickOf(k); if (v === d.list[0]) root.removeAttribute(d.attr); else if (root.getAttribute(d.attr) !== v) root.setAttribute(d.attr, v); });  headingsArrive(); screenEffects(); }
 	function effectsOf(s, tw) {
 		var out = {};
 		Object.keys(EFFECTS).forEach(function (fid) {
@@ -810,6 +836,7 @@
 			});
 		});
 		headingsArrive();
+		if (document.body) warpDirection(); 
 	}
 	var arriveSeen = null;
 	var HEADS = '.single-post-article > .wp-block-post-title, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4), .post-card .wp-block-post-title, .content-column .archive-page > h1, body.single :is(.wp-block-post-title, .wp-block-post-content :is(h2, h3, h4), .entry-content :is(h2, h3, h4)), .entry-title';
@@ -856,6 +883,80 @@
 		c.style.setProperty('--ldp-mx', (ev.clientX - r.left) + 'px'); c.style.setProperty('--ldp-my', (ev.clientY - r.top) + 'px');
 	}, { passive: true });
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', headingsArrive); 
+	var SCREEN_ATTRS = ['data-monitor-frame', 'data-room-glass', 'data-shimmer', 'data-static', 'data-boot-screen', 'data-warp', 'data-ghosting', 'data-crisp', 'data-typed-title', 'data-switch-on'];
+	function screenHost() { return document.querySelector('.frame-paper') || document.body; }
+	function screenFilters() {
+		if (document.getElementById('ldp-filters')) return;
+		var N = 256, c = document.createElement('canvas'); if (typeof c.getContext !== 'function') return;  c.width = c.height = N; var g = c.getContext('2d'), d = g.createImageData(N, N), i, x, y, u, v, r2;
+		for (y = 0; y < N; y++) for (x = 0; x < N; x++) { u = (x + 0.5) / N * 2 - 1; v = (y + 0.5) / N * 2 - 1; r2 = u * u + v * v; i = (y * N + x) * 4; d.data[i] = 128 + Math.round(u * r2 * 60); d.data[i + 1] = 128 + Math.round(v * r2 * 60); d.data[i + 2] = 0; d.data[i + 3] = 255; }
+		g.putImageData(d, 0, 0); var urlIn = c.toDataURL();
+		for (i = 0; i < d.data.length; i += 4) { d.data[i] = 255 - d.data[i]; d.data[i + 1] = 255 - d.data[i + 1]; }
+		g.putImageData(d, 0, 0); var urlOut = c.toDataURL();
+		var warp = function (id, k) { return '<filter id="ldp-warp-' + id + '" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB"><feImage class="ldp-warp-map" href="' + urlIn + '" data-in="' + urlIn + '" data-out="' + urlOut + '" width="100%" height="100%" preserveAspectRatio="none" result="m"/><feDisplacementMap in="SourceGraphic" in2="m" scale="' + k + '" xChannelSelector="R" yChannelSelector="G"/></filter>'; };
+		var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.id = 'ldp-filters'; svg.setAttribute('width', '0'); svg.setAttribute('height', '0'); svg.setAttribute('aria-hidden', 'true'); svg.style.position = 'absolute';
+		svg.innerHTML = warp('slight', 14) + warp('bulged', 34) + warp('strong', 70) + '<filter id="ldp-crisp" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer></filter><filter id="ldp-ghost" x="0" y="0" width="1" height="1"><feGaussianBlur stdDeviation="0 4"/></filter>';
+		document.body.appendChild(svg);
+	}
+	function warpDirection() { var out = root.getAttribute('data-fx-warp-direction') === 'out'; Array.prototype.forEach.call(document.querySelectorAll('.ldp-warp-map'), function (m) { var want = m.getAttribute(out ? 'data-out' : 'data-in'); if (m.getAttribute('href') !== want) m.setAttribute('href', want); }); }
+	var ghostT = null, ghostBound = false;
+	function ghosting() {
+		if (ghostBound) return; ghostBound = true;
+		var onScroll = function () { if (!root.hasAttribute('data-ghosting')) return; var h = screenHost(); h.classList.add('ldp-moving'); clearTimeout(ghostT); ghostT = setTimeout(function () { h.classList.remove('ldp-moving'); }, 90); };
+		if (window.architraveScroll && window.architraveScroll.onScroll) window.architraveScroll.onScroll(onScroll); else window.addEventListener('scroll', onScroll, { passive: true });
+	}
+	var sideSeen = null, sideWatched = false;
+	function switchOn() {
+		if (sideWatched) return; sideWatched = true;
+		var sideOf = function () { return /-dark$/.test(root.getAttribute('data-theme') || '') ? 'dark' : 'light'; };
+		sideSeen = sideOf();
+		new MutationObserver(function () {
+			var now = sideOf(); if (now === sideSeen) return; sideSeen = now;
+			if (!root.hasAttribute('data-switch-on') || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+			var h = screenHost(), st = document.querySelector('.ldp-static');
+			h.classList.remove('ldp-switch'); void h.offsetWidth; h.classList.add('ldp-switch'); if (st) st.classList.add('ldp-on');
+			setTimeout(function () { h.classList.remove('ldp-switch'); if (st) st.classList.remove('ldp-on'); }, 750);
+		}).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+	}
+	var typedDone = false;
+	function typedTitle() {
+		if (typedDone || !root.hasAttribute('data-typed-title')) return; typedDone = true;
+		var h = document.querySelector('.single-post-article > .wp-block-post-title, body.single .wp-block-post-title, body.single .entry-title'); if (!h || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+		var text = h.textContent, html = h.innerHTML, i = 0, step;
+		h.classList.add('ldp-typing');
+		step = function () { i++; h.textContent = text.slice(0, i); var c = document.createElement('span'); c.className = 'ldp-cursor'; h.appendChild(c); if (i < text.length) setTimeout(step, 45 + Math.random() * 55); else setTimeout(function () { h.innerHTML = html; h.classList.remove('ldp-typing'); }, 1200); };
+		step();
+	}
+	var bootDone = false;
+	function bootScreen() {
+		if (bootDone) return; bootDone = true;
+		if (!root.hasAttribute('data-boot-screen')) { root.removeAttribute('data-ldp-booting'); return; }
+		var seen = false; try { seen = sessionStorage.getItem('ldp-boot') === '1'; } catch (e) {  }
+		if (seen) { root.removeAttribute('data-ldp-booting'); return; }
+		try { sessionStorage.setItem('ldp-boot', '1'); } catch (e) {  }
+		var title = (document.querySelector('.wp-block-site-title') || {}).textContent || (document.title || '').split(/ [–|-] /)[0] || '';
+		var line = (document.querySelector('.wp-block-site-tagline') || {}).textContent || '';
+		var b = document.createElement('div'); b.className = 'ldp-boot'; b.setAttribute('aria-hidden', 'true');
+		var bar = ''; for (var k = 0; k < 24; k++) bar += '<i></i>';
+		b.innerHTML = '<div><h1></h1><p></p><div class="ldp-boot-bar">' + bar + '</div></div>';
+		b.querySelector('h1').textContent = title.trim(); b.querySelector('p').textContent = line.trim();
+		document.body.appendChild(b); root.setAttribute('data-ldp-booting', '');
+		var blocks = b.querySelectorAll('.ldp-boot-bar i'), i = 0, still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		var fill = function () { if (i < blocks.length && !still) { blocks[i++].classList.add('ldp-lit'); setTimeout(fill, 40 + Math.random() * 40); } else setTimeout(function () { b.classList.add('ldp-gone'); root.removeAttribute('data-ldp-booting'); setTimeout(function () { b.remove(); }, 500); }, still ? 400 : 350); };
+		fill();
+	}
+	function screenEffects() {
+		if (!document.body || typeof document.createElementNS !== 'function' || !window.getComputedStyle) return; 
+		var need = SCREEN_ATTRS.some(function (a) { return root.hasAttribute(a); });
+		var host = screenHost(), box = document.querySelector('.ldp-screen');
+		if (need && !box) { box = document.createElement('div'); box.className = 'ldp-screen'; box.setAttribute('aria-hidden', 'true'); box.innerHTML = '<i class="ldp-shimmer"></i><i class="ldp-room"></i><i class="ldp-static"></i><i class="ldp-bezel"></i>'; host.appendChild(box); }
+		else if (box && box.parentNode !== host) host.appendChild(box);
+		if (root.hasAttribute('data-warp') || root.hasAttribute('data-ghosting') || root.hasAttribute('data-crisp')) { screenFilters(); warpDirection(); }
+		if (root.hasAttribute('data-ghosting')) ghosting();
+		if (root.hasAttribute('data-switch-on')) switchOn();
+		typedTitle(); bootScreen(); 
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', screenEffects); else screenEffects();
+	(function () { var d = PICKS.bootscreen; if (d && pickOf('bootscreen') !== d.list[0]) { var seen = false; try { seen = sessionStorage.getItem('ldp-boot') === '1'; } catch (e) {} if (!seen) root.setAttribute('data-ldp-booting', ''); } })();
 	function applyButton() { var v = buttonOf(); if (v === BUTTONS[0]) root.removeAttribute('data-button'); else if (root.getAttribute('data-button') !== v) root.setAttribute('data-button', v); }
 	function applyMarkerColour() { var v = markerColourOf(); if (v === MARKERS[0]) root.removeAttribute('data-marker-colour'); else if (root.getAttribute('data-marker-colour') !== v) root.setAttribute('data-marker-colour', v); }
 	function applyFadeEdges() { var v = fadeEdgesOf(); if (v === FADE_EDGES[0]) root.removeAttribute('data-fade-edges'); else if (root.getAttribute('data-fade-edges') !== v) root.setAttribute('data-fade-edges', v); }
@@ -1066,7 +1167,7 @@
 		try { localStorage.removeItem('architrave-links'); } catch (e) {  }
 	}
 	
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'monitorframe', 'fringe', 'crisp', 'scanstyle', 'shimmer', 'warp', 'switchon', 'bloom', 'ghosting', 'jitter', 'graincrawl', 'typedtitle', 'bootscreen', 'roomglass', 'phosphor', 'static', 'dropout', 'headrule', 'ink', 'tooth', 'edges', 'columns', 'paragraphs', 'rainbow', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -1197,8 +1298,10 @@
 			[(named && named[side]) || {}, (s && s.colours && s.colours[side]) || {}].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
 			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
+		if (!id || id === current) { var ph = PHOSPHOR[pickOf('phosphor')]; if (ph) { out.dark.paper = ph[0]; out.dark.ink = ph[1]; out.dark.accent = ph[2]; } }
 		return out;
 	}
+	var PHOSPHOR = { blue: ['#3535a0', '#fcf9f3', '#fcf9f3'], green: ['#061a0c', '#62ff85', '#b6ffc4'], amber: ['#1a1104', '#ffb340', '#ffd48a'], white: ['#0f1012', '#ececec', '#ffffff'], black: ['#000000', '#fcf9f3', '#ffffff'] };
 	var PRESETS = [
 		{ id: 'chalk', label: 'Salt morning', light: { paper: '#f7f7f5', ink: '#1f2124', accent: '#4a5568' }, dark: { paper: '#17181a', ink: '#e8e8e6', accent: '#9aa7b8' } },
 		{ id: 'sand', label: 'Evening dune', light: { paper: '#f3e7d3', ink: '#2e2418', accent: '#a35a1f' }, dark: { paper: '#241c12', ink: '#eadfcb', accent: '#e0a35c' } },
@@ -1223,6 +1326,8 @@
 		{ id: 'draft', label: 'Drafting blue', light: { paper: '#edf1f6', ink: '#23395f', accent: '#2a5bc0' }, dark: { paper: '#133a7c', ink: '#eaf1ff', accent: '#a9cbff' } },
 		{ id: 'limelight', label: 'Lime night', light: { paper: '#f4f5f6', ink: '#08090a', accent: '#5c6300' }, dark: { paper: '#0f1011', ink: '#f4f6f8', accent: '#e4f222' } }, 
 		{ id: 'gallery', label: 'Gallery white', ground: 'paper', light: { paper: '#ffffff', ink: '#1d1d1f', accent: '#0066cc' }, dark: { paper: '#000000', ink: '#f5f5f7', accent: '#2997ff' }, lift: { dark: '#1d1d1f' }, frame: { dark: '#161617' } },  
+		{ id: 'bootblue', label: 'Boot blue', light: { paper: '#fcf9f3', ink: '#1a1a1a', accent: '#3535a0' }, dark: { paper: '#3535a0', ink: '#fcf9f3', accent: '#fcf9f3' } }, 
+		{ id: 'newsprint', label: 'Newsprint', light: { paper: '#f3eee3', ink: '#1c1a17', accent: '#1c1a17' }, dark: { paper: '#1e1a15', ink: '#f1e8d6', accent: '#f1e8d6' } }, 
 		{ id: 'vellum', label: 'Vellum', light: { paper: '#f6f6f4', ink: '#2c2c26', accent: '#6f6c42' }, dark: { paper: '#23231f', ink: '#f2f1ea', accent: '#c9c48a' } }, 
 		{ id: 'vermilion', label: 'Vermilion', light: { paper: '#b82a16', ink: '#fff6ec', accent: '#ffe680' }, dark: { paper: '#2a0a06', ink: '#ffd9cc', accent: '#ff7a5c' }, fresh: true, group: 'bold' },
 		{ id: 'ultramarine', label: 'Ultramarine', light: { paper: '#1f33c9', ink: '#f2f4ff', accent: '#ffd23f' }, dark: { paper: '#0a0f33', ink: '#dfe4ff', accent: '#8c98ff' }, fresh: true, group: 'bold' },
@@ -1709,7 +1814,7 @@
 		applyOptions(); 
 		mark();
 	}
-	var SHOWN = ['standard', 'instrument', 'catalogue', 'terracotta', 'specimen'];      
+	var SHOWN = ['standard', 'instrument', 'catalogue', 'terracotta', 'specimen', 'tube', 'brochure'];       
 	
 	function mark() {
 		var dials = now(), s = byId(current);
@@ -2452,7 +2557,7 @@
 			if (v === ((s && d.list.indexOf(s[key]) !== -1) ? s[key] : pickRest(key))) delete entry[key]; else entry[key] = v;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
-			applyPicks(); if (key === 'greytint') applyColours(); mark();
+			applyPicks(); if (key === 'greytint' || key === 'phosphor') applyColours(); mark();
 		},
 		buttonColours: BUTTONS,
 		buttonColour: buttonOf,

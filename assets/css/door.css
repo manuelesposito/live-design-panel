@@ -484,3 +484,24 @@
 :root { --fx-dividers-c: var(--fx-light); }
 :root { --fx-topline-c: var(--fx-light); }
 :root { --fx-picglow-c: var(--fx-light); }
+.ldp-screen { display: none; position: fixed; inset: 0; pointer-events: none; z-index: 900; overflow: hidden; }
+.frame-paper > .ldp-screen { position: absolute; border-radius: inherit; }
+.ldp-screen > i { display: none; position: absolute; inset: 0; }
+.ldp-screen > .ldp-bezel { inset: var(--ldp-bezel); border-radius: var(--ldp-curve); } 
+.ldp-static { opacity: .55; mix-blend-mode: screen; background-size: 160px 160px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 4 -1'/></filter><rect width='160' height='160' filter='url(%23s)'/></svg>"); }
+.ldp-boot { position: fixed; inset: 0; z-index: 2147483600; display: grid; place-items: center; text-align: center; background: #3535a0; color: #fcf9f3; font-family: "VT323", ui-monospace, monospace; transition: opacity .4s ease; }
+.ldp-boot.ldp-gone { opacity: 0; }
+.ldp-boot h1 { margin: 0 0 24px; font: 700 italic clamp(48px, 9vw, 112px)/1 "Libre Baskerville", Georgia, serif; color: inherit; letter-spacing: 0; text-transform: uppercase; filter: url(#ldp-crisp); }
+.ldp-boot p { margin: 0 0 40px; font-size: 22px; min-height: 1em; }
+.ldp-boot-bar { display: grid; grid-template-columns: repeat(24, 1fr); gap: 3px; padding: 4px; border: 2px solid currentColor; width: min(420px, 80vw); margin: 0 auto; }
+.ldp-boot-bar i { display: block; height: 18px; background: currentColor; visibility: hidden; }
+.ldp-boot-bar i.ldp-lit { visibility: visible; }
+:root[data-ldp-booting]::before { content: ""; position: fixed; inset: 0; z-index: 2147483500; background: #3535a0; }
+.ldp-cursor { display: inline-block; width: .5em; height: .9em; margin-inline-start: .06em; vertical-align: -.08em; background: currentColor; animation: ldp-blink 1s steps(2) infinite; }
+@keyframes ldp-hum { 0% { opacity: 0 } 20% { opacity: .05 } 35% { opacity: .01 } 50% { opacity: .06 } 70% { opacity: .02 } 85% { opacity: .05 } 100% { opacity: 0 } }
+@keyframes ldp-roll { to { top: 100%; } }
+@keyframes ldp-crawl { 0% { background-position: 0 0; } 25% { background-position: 37px -61px; } 50% { background-position: -83px 19px; } 75% { background-position: 51px 77px; } 100% { background-position: -29px -43px; } }
+@keyframes ldp-switch-on { 0% { transform: scaleY(.006) scaleX(.002); filter: brightness(6); } 30% { transform: scaleY(.006); filter: brightness(3); } 70% { transform: scaleY(1); filter: brightness(1.6); } 100% { transform: none; filter: none; } }
+@keyframes ldp-jitter { 0%, 31%, 32.2%, 74%, 74.6%, 100% { transform: none; } 31.4% { transform: translateX(3px); } 31.8% { transform: translateX(-2px); } 74.3% { transform: translateX(-4px) skewX(-.6deg); } }
+@keyframes ldp-blink { to { opacity: 0; } }
+:root { --ldp-bezel: var(--space-8); --ldp-curve: calc(var(--space-3) * 2);  --ldp-ts-fringe: 0 0 0 transparent; --ldp-bs-fringe: none; --ldp-ts-bloom: 0 0 0 transparent; --ldp-vig-ink: var(--text-primary); --ldp-scan-layer: none; --ldp-grille-layer: none; }

@@ -14,7 +14,9 @@
     "storybook",
     "specimen",
     "terracotta",
-    "arcade"
+    "arcade",
+    "tube",
+    "brochure"
   ],
   "palette": [
     "neutral",
@@ -598,6 +600,121 @@
     "off",
     "on"
   ],
+  "monitorframe": [
+    "off",
+    "thin",
+    "medium",
+    "thick"
+  ],
+  "fringe": [
+    "off",
+    "faint",
+    "soft",
+    "strong",
+    "slip"
+  ],
+  "crisp": [
+    "off",
+    "headings",
+    "all"
+  ],
+  "scanstyle": [
+    "lines",
+    "grille",
+    "both"
+  ],
+  "shimmer": [
+    "off",
+    "soft",
+    "roll"
+  ],
+  "warp": [
+    "off",
+    "slight",
+    "bulged",
+    "strong"
+  ],
+  "switchon": [
+    "off",
+    "on"
+  ],
+  "bloom": [
+    "off",
+    "soft",
+    "strong"
+  ],
+  "ghosting": [
+    "off",
+    "on"
+  ],
+  "jitter": [
+    "off",
+    "rare",
+    "often"
+  ],
+  "graincrawl": [
+    "still",
+    "moving"
+  ],
+  "typedtitle": [
+    "off",
+    "on"
+  ],
+  "bootscreen": [
+    "off",
+    "on"
+  ],
+  "roomglass": [
+    "off",
+    "on"
+  ],
+  "phosphor": [
+    "off",
+    "blue",
+    "green",
+    "amber",
+    "white",
+    "black"
+  ],
+  "static": [
+    "off",
+    "on"
+  ],
+  "dropout": [
+    "off",
+    "on"
+  ],
+  "headrule": [
+    "off",
+    "on"
+  ],
+  "ink": [
+    "sharp",
+    "spread"
+  ],
+  "tooth": [
+    "off",
+    "on"
+  ],
+  "edges": [
+    "ink",
+    "yellowed"
+  ],
+  "columns": [
+    "1",
+    "2",
+    "3"
+  ],
+  "paragraphs": [
+    "spaced",
+    "indented"
+  ],
+  "rainbow": [
+    "off",
+    "rule",
+    "mark",
+    "both"
+  ],
   "unlinked": "boolean",
   "effects": {
     "title": {
@@ -859,6 +976,23 @@
         "second",
         "accent",
         "ink"
+      ]
+    },
+    "monitor": {
+      "curve": [
+        "round",
+        "slight",
+        "bulged"
+      ],
+      "sheen": [
+        "off",
+        "on"
+      ]
+    },
+    "warp": {
+      "direction": [
+        "in",
+        "out"
       ]
     }
   },
