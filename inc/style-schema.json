@@ -74,6 +74,7 @@
     "inter-tight",
     "fraunces",
     "source-serif-4",
+    "stix-two-text",
     "instrument-serif",
     "literata",
     "lora",
@@ -221,6 +222,7 @@
     "inter-tight",
     "fraunces",
     "source-serif-4",
+    "stix-two-text",
     "instrument-serif",
     "literata",
     "lora",
@@ -615,7 +617,8 @@
     "faint",
     "soft",
     "strong",
-    "slip"
+    "slip",
+    "sliptitle"
   ],
   "crisp": [
     "off",
@@ -718,7 +721,25 @@
     "off",
     "rule",
     "mark",
-    "both"
+    "both",
+    "logo"
+  ],
+  "postband": [
+    "off",
+    "rainbow",
+    "logo"
+  ],
+  "footband": [
+    "off",
+    "on"
+  ],
+  "menuline": [
+    "plain",
+    "underlined"
+  ],
+  "legalline": [
+    "off",
+    "on"
   ],
   "unlinked": "boolean",
   "effects": {
@@ -1052,6 +1073,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -1330,6 +1352,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -1630,6 +1653,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -1825,6 +1849,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -2030,6 +2055,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -2527,6 +2553,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -2962,6 +2989,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -3587,6 +3615,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",

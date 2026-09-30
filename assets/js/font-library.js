@@ -213,6 +213,17 @@ window.ArchitraveFontLibrary = [
 		]
 	},
 	{
+		"id": "stix-two-text",
+		"label": "STIX Two Text",
+		"group": "serif",
+		"family": "\"STIX Two Text\", Georgia, serif",
+		"italic": true,
+		"range": [
+			400,
+			700
+		]
+	},
+	{
 		"id": "instrument-serif",
 		"label": "Instrument Serif",
 		"group": "serif",

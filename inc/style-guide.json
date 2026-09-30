@@ -54,7 +54,7 @@
     "pageglow": "Two slow glows of the accent behind the article's title: off (the rest), soft or strong. They stay still for readers who ask for less motion.",
     "movinglight": "A short streak of the accent that travels along the top edge of the cards: off (the rest) or on. Not for readers who ask for less motion.",
     "monitorframe": "A black bezel around the page with rounded corners, an old monitor's frame: off (the rest), thin, medium or thick.",
-    "fringe": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, or slip (print's one magenta ghost).",
+    "fringe": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, slip (print's one magenta ghost on all text) or sliptitle (that ghost on the titles and headings only, the reading left sharp).",
     "crisp": "Letters drawn without smoothing, the stair-step of an old screen: off (the rest), headings, or all text.",
     "scanstyle": "How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille) or both. Only with scanlines.",
     "shimmer": "The screen's brightness moving: off (the rest), soft (a slow hum) or roll (a faint band drifting down). Still for readers who ask for less motion.",
@@ -76,7 +76,11 @@
     "edges": "The vignette's colour: ink (the rest) or yellowed, an old page's brown.",
     "columns": "The article's sections in columns: 1 (the rest), 2 or 3. Each heading with its text balances into its columns and the next starts below; one column on a phone.",
     "paragraphs": "Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.",
-    "rainbow": "Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site's name) or both.",
+    "rainbow": "Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site's name), both, or logo (the stripes fill the site's logo itself; for a logo on a transparent ground).",
+    "postband": "What stands between two posts on a page of posts: off (the rest, the theme's own gap), rainbow (the six stripes across the whole paper) or logo (the stripes with the site's logo small in a gap at their middle).",
+    "footband": "The six rainbow stripes as a taller band that closes the page at its very foot: off (the rest) or on.",
+    "menuline": "The side column's menu links: plain (the rest) or underlined in the ink, as a printed page sets its navigation.",
+    "legalline": "A small italic line at the foot of the page, an advertisement's small print: the copyright sign, the year, the site's name and its tagline. Only words the site already has. Off (the rest) or on.",
     "pillbuttons": "Retired 2026-09-26 and still read: true becomes buttonshape pill.",
     "centretitle": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.",
     "fadeedges": "which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.",
@@ -581,20 +585,22 @@
       "architrave": 1,
       "label": "Brochure",
       "base": "brochure",
-      "space": "compact",
       "palette": "neutral",
       "tint": "brown",
-      "sans": "eb-garamond",
-      "reading": "small",
-      "face": "eb-garamond",
-      "leading": "snug",
-      "measure": "64",
+      "sans": "stix-two-text",
+      "reading": "default",
+      "face": "stix-two-text",
+      "leading": "tight",
+      "measure": "68",
       "justify": false,
       "dropcap": false,
       "rounded": false,
       "lines": false,
       "scope": "article",
       "fills": false,
+      "widehead": true,
+      "widepicture": true,
+      "categories": "above",
       "button": "ink",
       "buttonstyle": "text",
       "buttonmedium": "text",
@@ -603,49 +609,55 @@
       "pictureframe": false,
       "grain": true,
       "grainlevel": "1",
-      "graincrawl": "moving",
-      "tooth": "on",
       "vignette": true,
       "vignettelevel": "2",
+      "vignettereach": "2",
       "edges": "yellowed",
-      "fringe": "slip",
-      "ink": "spread",
-      "warp": "slight",
-      "effects": {
-        "warp": {
-          "direction": "out"
-        }
-      },
-      "rainbow": "mark",
+      "fringe": "sliptitle",
+      "columns": "2",
       "paragraphs": "indented",
+      "rainbow": "logo",
+      "postband": "logo",
+      "footband": "on",
+      "menuline": "underlined",
+      "legalline": "on",
       "roles": {
         "head": {
-          "face": "eb-garamond",
+          "face": "stix-two-text",
           "weight": "medium",
-          "size": "96",
-          "tracking": "m1",
+          "size": "112",
+          "tracking": "m2",
           "leading": "tight",
           "align": "center",
           "members": {
             "sub": {
-              "size": "22",
-              "weight": "bold",
+              "size": "40",
+              "weight": "medium",
               "align": "default"
             }
           }
         },
         "kicker": {
-          "face": "eb-garamond",
+          "face": "stix-two-text",
           "italic": true,
-          "size": "18",
+          "size": "22",
           "align": "center"
         },
         "small": {
-          "face": "eb-garamond",
-          "italic": true
+          "face": "stix-two-text",
+          "italic": true,
+          "size": "20"
+        },
+        "ui": {
+          "size": "18",
+          "members": {
+            "masthead": {
+              "size": "26"
+            }
+          }
         },
         "title": {
-          "face": "eb-garamond"
+          "face": "stix-two-text"
         },
         "quote": {
           "italic": true
@@ -653,7 +665,7 @@
       },
       "colours": {
         "light": {
-          "paper": "#f3eee3",
+          "paper": "#ebe3d1",
           "ink": "#1c1a17",
           "accent": "#1c1a17"
         },
@@ -1020,7 +1032,7 @@
       "id": "newsprint",
       "label": "Newsprint",
       "light": {
-        "paper": "#f3eee3",
+        "paper": "#ebe3d1",
         "ink": "#1c1a17",
         "accent": "#1c1a17"
       },

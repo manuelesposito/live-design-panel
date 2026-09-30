@@ -60,6 +60,9 @@
 :root[data-face="source-serif-4"] { --font-reading: "Source Serif 4", Georgia, serif; --layout-content-width-reading: 65ch; }
 :root[data-sans="source-serif-4"] { --font-sans: "Source Serif 4", Georgia, serif; --wp--preset--font-family--font-sans: "Source Serif 4", Georgia, serif; }
 .reading-tile[data-face-sample="source-serif-4"] { font-family: "Source Serif 4", Georgia, serif; }
+:root[data-face="stix-two-text"] { --font-reading: "STIX Two Text", Georgia, serif; --layout-content-width-reading: 62ch; }
+:root[data-sans="stix-two-text"] { --font-sans: "STIX Two Text", Georgia, serif; --wp--preset--font-family--font-sans: "STIX Two Text", Georgia, serif; }
+.reading-tile[data-face-sample="stix-two-text"] { font-family: "STIX Two Text", Georgia, serif; }
 :root[data-face="instrument-serif"] { --font-reading: "Instrument Serif", Georgia, serif; --layout-content-width-reading: 53ch; }
 :root[data-sans="instrument-serif"] { --font-sans: "Instrument Serif", Georgia, serif; --wp--preset--font-family--font-sans: "Instrument Serif", Georgia, serif; }
 .reading-tile[data-face-sample="instrument-serif"] { font-family: "Instrument Serif", Georgia, serif; }

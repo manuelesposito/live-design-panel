@@ -115,6 +115,10 @@
       "columns",
       "paragraphs",
       "rainbow",
+      "postband",
+      "footband",
+      "menuline",
+      "legalline",
       "unlinked",
       "effects",
       "roles",
@@ -198,6 +202,10 @@
       "columns",
       "paragraphs",
       "rainbow",
+      "postband",
+      "footband",
+      "menuline",
+      "legalline",
       "pillbuttons",
       "centretitle",
       "fadeedges",
@@ -1468,6 +1476,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -2366,6 +2375,7 @@
         "inter-tight",
         "fraunces",
         "source-serif-4",
+        "stix-two-text",
         "instrument-serif",
         "literata",
         "lora",
@@ -3334,11 +3344,12 @@
         "faint",
         "soft",
         "strong",
-        "slip"
+        "slip",
+        "sliptitle"
       ],
       "def": "off",
       "attr": "data-fringe",
-      "means": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, or slip (print's one magenta ghost).",
+      "means": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, slip (print's one magenta ghost on all text) or sliptitle (that ghost on the titles and headings only, the reading left sharp).",
       "label": "Colour fringe",
       "page": "Effects",
       "level": 17,
@@ -3985,11 +3996,12 @@
         "off",
         "rule",
         "mark",
-        "both"
+        "both",
+        "logo"
       ],
       "def": "off",
       "attr": "data-rainbow",
-      "means": "Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site's name) or both.",
+      "means": "Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site's name), both, or logo (the stripes fill the site's logo itself; for a logo on a transparent ground).",
       "label": "Rainbow",
       "page": "Effects",
       "level": 17,
@@ -4004,6 +4016,123 @@
       ],
       "rest": {
         "data-rainbow": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "postband",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "rainbow",
+        "logo"
+      ],
+      "def": "off",
+      "attr": "data-post-band",
+      "means": "What stands between two posts on a page of posts: off (the rest, the theme's own gap), rainbow (the six stripes across the whole paper) or logo (the stripes with the site's logo small in a gap at their middle).",
+      "label": "Between posts",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1218,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-post-band"
+      ],
+      "rest": {
+        "data-post-band": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "footband",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-foot-band",
+      "means": "The six rainbow stripes as a taller band that closes the page at its very foot: off (the rest) or on.",
+      "label": "Page foot",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1218,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-foot-band"
+      ],
+      "rest": {
+        "data-foot-band": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "menuline",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "plain",
+        "underlined"
+      ],
+      "def": "plain",
+      "attr": "data-menu-line",
+      "means": "The side column's menu links: plain (the rest) or underlined in the ink, as a printed page sets its navigation.",
+      "label": "Menu",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1218,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-menu-line"
+      ],
+      "rest": {
+        "data-menu-line": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "legalline",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-legal-line",
+      "means": "A small italic line at the foot of the page, an advertisement's small print: the copyright sign, the year, the site's name and its tagline. Only words the site already has. Off (the rest) or on.",
+      "label": "Legal line",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1218,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-legal-line"
+      ],
+      "rest": {
+        "data-legal-line": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -4833,6 +4962,7 @@
             "inter-tight",
             "fraunces",
             "source-serif-4",
+            "stix-two-text",
             "instrument-serif",
             "literata",
             "lora",
@@ -4932,6 +5062,7 @@
             "inter-tight",
             "fraunces",
             "source-serif-4",
+            "stix-two-text",
             "instrument-serif",
             "literata",
             "lora",
