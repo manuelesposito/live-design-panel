@@ -86,15 +86,16 @@
 		home.parentNode.insertBefore(pill, home.nextSibling);
 		if (menuItem) { menuItem.remove(); menuItem = null; }
 		pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded');
+		pill.setAttribute('data-match', S.match); 
 		if (twin) { pill.setAttribute('aria-expanded', twin.getAttribute('aria-expanded') || 'false'); twin.removeAttribute('data-live-design-twin'); twin.removeAttribute('data-docked'); pill.removeAttribute('data-twin'); twin = null; }
 		DOCK.forEach(function (p) { pill.style.removeProperty(p); });
 		sides.forEach(function (x) { x[0].setAttribute('data-side', x[1]); if (x[2] === null) x[0].removeAttribute('data-align'); else x[0].setAttribute('data-align', x[2]); }); sides = [];
 		docked = null; mate = null;
 	}
 	function set(p, v) { if (v) pill.style.setProperty(p, v); }
-	function toSlot() {
+	function toSlot(phoneOnly) {
 		var slot = null;
-		Array.prototype.some.call(document.querySelectorAll('[data-live-design-slot]'), function (s) {
+		Array.prototype.some.call(document.querySelectorAll(phoneOnly ? PHONE_SLOT : '[data-live-design-slot]'), function (s) {
 			if (!s.parentElement) return false;
 			mate = Array.prototype.filter.call(s.parentElement.querySelectorAll('button, a'), function (b) { return b !== pill && !s.contains(b) && shown(b); })[0];
 			if (mate) slot = s;
@@ -178,11 +179,15 @@
 		menuItem.style.setProperty('--tip-bg', pill.style.getPropertyValue('--dock-fg')); 
 		menuItem.style.setProperty('--tip-fg', pill.style.getPropertyValue('--dock-bg'));
 	}
+	var PHONE_SLOT = '.mobile-live-design-slot[data-live-design-slot], [data-live-design-slot="phone"]';
+	function phone() { return window.matchMedia('(max-width: 781px)').matches; } 
 	function dock() {
 		undock();
-		if (S.place !== 'auto') return;
-		if ((toSlot() || toMenu()) && (shown(twin || pill) || pill.hasAttribute('data-folded'))) return; 
+		var byHand = S.place !== 'auto';
+		pill.setAttribute('data-match', 'true'); 
+		if ((byHand ? toSlot(true) || (phone() && toMenu()) : toSlot() || toMenu()) && (shown(twin || pill) || pill.hasAttribute('data-folded'))) return; 
 		undock();
+		pill.setAttribute('data-match', S.match);
 	}
 	var SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
 	var GLYPH = { sliders: SVG + '<path d="M10 5H3"/><path d="M12 19H3"/><path d="M14 3v4"/><path d="M16 17v4"/><path d="M21 12h-9"/><path d="M21 19h-5"/><path d="M21 5h-7"/><path d="M8 10v4"/><path d="M8 12H3"/></svg>', aa: '<span class="ldp-glyph-aa" aria-hidden="true">Aa</span>', sparkles: SVG + '<path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>', brush: SVG + '<path d="m14.622 17.897-10.68-2.913"/><path d="M18.376 2.622a1 1 0 1 1 3.002 3.002L17.36 9.643a.5.5 0 0 0 0 .707l.944.944a2.41 2.41 0 0 1 0 3.408l-.944.944a.5.5 0 0 1-.707 0L8.354 7.348a.5.5 0 0 1 0-.707l.944-.944a2.41 2.41 0 0 1 3.408 0l.944.944a.5.5 0 0 0 .707 0z"/><path d="M9 8c-1.804 2.71-3.97 3.46-6.583 3.948a.507.507 0 0 0-.302.819l7.32 8.883a1 1 0 0 0 1.185.204C12.735 20.405 16 16.792 16 15"/></svg>' }; 
