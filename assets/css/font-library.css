@@ -6,6 +6,9 @@
 :root[data-face="mona-sans"] { --font-reading: "Mona Sans", system-ui, sans-serif; --font-weight-reading: var(--font-weight-body); --layout-content-width-reading: 54ch; }
 :root[data-sans="mona-sans"] { --font-sans: "Mona Sans", system-ui, sans-serif; --wp--preset--font-family--font-sans: "Mona Sans", system-ui, sans-serif; }
 .reading-tile[data-face-sample="mona-sans"] { font-family: "Mona Sans", system-ui, sans-serif; }
+:root[data-face="libre-franklin"] { --font-reading: "Libre Franklin", system-ui, sans-serif; --font-weight-reading: var(--font-weight-body); --layout-content-width-reading: 49ch; }
+:root[data-sans="libre-franklin"] { --font-sans: "Libre Franklin", system-ui, sans-serif; --wp--preset--font-family--font-sans: "Libre Franklin", system-ui, sans-serif; }
+.reading-tile[data-face-sample="libre-franklin"] { font-family: "Libre Franklin", system-ui, sans-serif; }
 :root[data-face="instrument-sans"] { --font-reading: "Instrument Sans", system-ui, sans-serif; --font-weight-reading: var(--font-weight-body); --layout-content-width-reading: 49ch; }
 :root[data-sans="instrument-sans"] { --font-sans: "Instrument Sans", system-ui, sans-serif; --wp--preset--font-family--font-sans: "Instrument Sans", system-ui, sans-serif; }
 .reading-tile[data-face-sample="instrument-sans"] { font-family: "Instrument Sans", system-ui, sans-serif; }
@@ -204,6 +207,9 @@
 :root[data-face="bungee"] { --font-reading: "Bungee", system-ui, sans-serif; --layout-content-width-reading: 62ch; }
 :root[data-sans="bungee"] { --font-sans: "Bungee", system-ui, sans-serif; --wp--preset--font-family--font-sans: "Bungee", system-ui, sans-serif; }
 .reading-tile[data-face-sample="bungee"] { font-family: "Bungee", system-ui, sans-serif; }
+:root[data-face="league-gothic"] { --font-reading: "League Gothic", system-ui, sans-serif; --layout-content-width-reading: 54ch; }
+:root[data-sans="league-gothic"] { --font-sans: "League Gothic", system-ui, sans-serif; --wp--preset--font-family--font-sans: "League Gothic", system-ui, sans-serif; }
+.reading-tile[data-face-sample="league-gothic"] { font-family: "League Gothic", system-ui, sans-serif; }
 :root[data-face="shrikhand"] { --font-reading: "Shrikhand", system-ui, sans-serif; --layout-content-width-reading: 54ch; }
 :root[data-sans="shrikhand"] { --font-sans: "Shrikhand", system-ui, sans-serif; --wp--preset--font-family--font-sans: "Shrikhand", system-ui, sans-serif; }
 .reading-tile[data-face-sample="shrikhand"] { font-family: "Shrikhand", system-ui, sans-serif; }

@@ -1267,6 +1267,36 @@
           "means": "the edges pulled in (the rest) or magnified out."
         }
       ]
+    },
+    {
+      "id": "glow",
+      "label": "Glow",
+      "details": [
+        {
+          "id": "reach",
+          "label": "Glows on",
+          "choices": [
+            "all",
+            "headings"
+          ],
+          "means": "which words glow by night: all text (the rest) or the headings only, the reading left clean."
+        }
+      ]
+    },
+    {
+      "id": "vignette",
+      "label": "Vignette",
+      "details": [
+        {
+          "id": "night",
+          "label": "By night",
+          "choices": [
+            "same",
+            "half"
+          ],
+          "means": "the vignette's strength on the dark side: the same as by day (the rest) or half, since a pale haze shows far more on a dark ground."
+        }
+      ]
     }
   ],
   "settings": [
@@ -1420,6 +1450,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -1486,6 +1517,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -2316,6 +2348,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -2382,6 +2415,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -3626,12 +3660,13 @@
       "kind": "pick",
       "choices": [
         "off",
-        "on"
+        "on",
+        "card"
       ],
       "def": "off",
       "attr": "data-boot-screen",
-      "means": "A boot screen on the first visit: the site's name, a version line and a bar of blocks, then the page. Off (the rest) or on.",
-      "label": "Boot screen",
+      "means": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks) or card (a television's test card with the site's name on its plate).",
+      "label": "Start screen",
       "page": "Effects",
       "level": 17,
       "row": {
@@ -3660,14 +3695,10 @@
       "def": "off",
       "attr": "data-room-glass",
       "means": "A window reflected across the top corner of the glass: off (the rest) or on.",
-      "label": "Room in the glass",
+      "label": null,
       "page": "Effects",
       "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1218,
-        "in": "effectsBody"
-      },
+      "pageFrom": "markChanged",
       "changesPage": "Effects",
       "attrs": [
         "data-room-glass"
@@ -4784,6 +4815,7 @@
             "vt323",
             "handjet",
             "mona-sans",
+            "libre-franklin",
             "instrument-sans",
             "dm-sans",
             "manrope",
@@ -4850,6 +4882,7 @@
             "archivo-black",
             "dela-gothic-one",
             "bungee",
+            "league-gothic",
             "shrikhand",
             "dm-serif-display",
             "abril-fatface",
@@ -4881,6 +4914,7 @@
             "vt323",
             "handjet",
             "mona-sans",
+            "libre-franklin",
             "instrument-sans",
             "dm-sans",
             "manrope",
@@ -4947,6 +4981,7 @@
             "archivo-black",
             "dela-gothic-one",
             "bungee",
+            "league-gothic",
             "shrikhand",
             "dm-serif-display",
             "abril-fatface",
@@ -7655,6 +7690,54 @@
       ],
       "rest": {
         "data-fx-warp-direction": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.glow.reach",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "all",
+        "headings"
+      ],
+      "def": "all",
+      "label": "Glows on",
+      "effect": "Glow",
+      "means": "Glow, glows on: which words glow by night: all text (the rest) or the headings only, the reading left clean.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-glow-reach"
+      ],
+      "rest": {
+        "data-fx-glow-reach": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.vignette.night",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "same",
+        "half"
+      ],
+      "def": "same",
+      "label": "By night",
+      "effect": "Vignette",
+      "means": "Vignette, by night: the vignette's strength on the dark side: the same as by day (the rest) or half, since a pale haze shows far more on a dark ground.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-vignette-night"
+      ],
+      "rest": {
+        "data-fx-vignette-night": "ABSENT_PATTERNS"
       },
       "inStandardAtRest": false
     }

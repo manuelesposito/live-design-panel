@@ -56,6 +56,7 @@
     "vt323",
     "handjet",
     "mona-sans",
+    "libre-franklin",
     "instrument-sans",
     "dm-sans",
     "manrope",
@@ -122,6 +123,7 @@
     "archivo-black",
     "dela-gothic-one",
     "bungee",
+    "league-gothic",
     "shrikhand",
     "dm-serif-display",
     "abril-fatface",
@@ -201,6 +203,7 @@
     "vt323",
     "handjet",
     "mona-sans",
+    "libre-franklin",
     "instrument-sans",
     "dm-sans",
     "manrope",
@@ -267,6 +270,7 @@
     "archivo-black",
     "dela-gothic-one",
     "bungee",
+    "league-gothic",
     "shrikhand",
     "dm-serif-display",
     "abril-fatface",
@@ -662,7 +666,8 @@
   ],
   "bootscreen": [
     "off",
-    "on"
+    "on",
+    "card"
   ],
   "roomglass": [
     "off",
@@ -994,6 +999,18 @@
         "in",
         "out"
       ]
+    },
+    "glow": {
+      "reach": [
+        "all",
+        "headings"
+      ]
+    },
+    "vignette": {
+      "night": [
+        "same",
+        "half"
+      ]
     }
   },
   "roles": {
@@ -1017,6 +1034,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -1083,6 +1101,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -1293,6 +1312,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -1359,6 +1379,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -1591,6 +1612,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -1657,6 +1679,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -1784,6 +1807,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -1850,6 +1874,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -1987,6 +2012,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -2053,6 +2079,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -2482,6 +2509,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -2548,6 +2576,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -2915,6 +2944,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -2981,6 +3011,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",
@@ -3538,6 +3569,7 @@
         "vt323",
         "handjet",
         "mona-sans",
+        "libre-franklin",
         "instrument-sans",
         "dm-sans",
         "manrope",
@@ -3604,6 +3636,7 @@
         "archivo-black",
         "dela-gothic-one",
         "bungee",
+        "league-gothic",
         "shrikhand",
         "dm-serif-display",
         "abril-fatface",

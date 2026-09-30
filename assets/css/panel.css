@@ -1654,6 +1654,18 @@
 :root:is([data-fringe], [data-bloom]) :is(.reading-panel, .architrave-panel-opener, #ldp-window, #wpadminbar, .ldp-boot) {
 	text-shadow: none;
 }
+:root:root[data-fx-glow-reach="headings"][data-theme$="-dark"]:is([data-glow="on"], [data-bloom]) body {
+	text-shadow: var(--ldp-ts-fringe);
+}
+:root:root[data-fx-glow-reach="headings"][data-theme$="-dark"][data-bloom] :is(h1, h2, h3, h4, .wp-block-post-title):not(:where(.reading-panel *, .architrave-panel-opener *, #ldp-window *, #wpadminbar *, .ldp-boot *, .ldp-card *)) {
+	text-shadow: var(--ldp-ts-bloom), var(--ldp-ts-fringe);
+}
+:root:root[data-fx-glow-reach="headings"][data-theme$="-dark"][data-glow="on"] :is(h1, h2, h3, h4, .wp-block-post-title):not(:where(.reading-panel *, .architrave-panel-opener *, #ldp-window *, #wpadminbar *, .ldp-boot *, .ldp-card *)) {
+	text-shadow: 0 0 var(--surface-glow-spread) rgb(from currentColor r g b / var(--surface-glow-level, var(--surface-glow))), 0 0 var(--surface-glow-core) rgb(from currentColor r g b / calc(var(--surface-glow-level, var(--surface-glow)) * 0.65)), var(--ldp-ts-bloom), var(--ldp-ts-fringe);
+}
+:root[data-vignette="on"][data-fx-vignette-night="half"][data-theme$="-dark"] {
+	--surface-vignette: calc(var(--vignette-level, 0.2) * 0.5);
+}
 :root[data-crisp="headings"] :is(.single-post-article > .wp-block-post-title, .single-post-article .wp-block-post-content :is(h1, h2, h3, h4), .post-card .wp-block-post-title, .content-column .archive-page > h1, body.single :is(.wp-block-post-title, .wp-block-post-content :is(h2, h3, h4), .entry-content :is(h2, h3, h4)), .entry-title):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	filter: url(#ldp-crisp);
 }

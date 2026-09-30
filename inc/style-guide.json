@@ -65,7 +65,7 @@
     "jitter": "The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.",
     "graincrawl": "The grain standing still (the rest) or moving, as a tube's noise crawls. Only with grain.",
     "typedtitle": "The article's title arrives letter by letter behind a block cursor: off (the rest) or on.",
-    "bootscreen": "A boot screen on the first visit: the site's name, a version line and a bar of blocks, then the page. Off (the rest) or on.",
+    "bootscreen": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks) or card (a television's test card with the site's name on its plate).",
     "roomglass": "A window reflected across the top corner of the glass: off (the rest) or on.",
     "phosphor": "The whole night screen in one phosphor: off (the rest, the style's own colours), blue, green, amber, white or black.",
     "static": "A burst of noise while the set switches on: off (the rest) or on. Only with switchon.",
@@ -486,43 +486,53 @@
       "base": "tube",
       "palette": "neutral",
       "tint": "blue",
-      "sans": "young-serif",
+      "sans": "libre-franklin",
       "reading": "default",
-      "face": "young-serif",
+      "face": "libre-franklin",
       "leading": "default",
       "justify": false,
       "dropcap": false,
-      "rounded": false,
+      "rounded": true,
       "lines": true,
       "line": "60",
       "scope": "article",
       "fills": false,
+      "soft": true,
       "button": "ink",
-      "buttonshape": "square",
+      "buttonshape": "rounded",
       "buttonstyle": "outlined",
-      "pictures": "duo",
+      "pictures": "bw",
       "scanlines": true,
       "scan": "3",
       "glow": true,
       "grain": true,
       "grainlevel": "2",
+      "graincrawl": "moving",
       "vignette": true,
-      "vignettelevel": "4",
-      "fringe": "faint",
-      "crisp": "all",
+      "vignettelevel": "2",
+      "bloom": "soft",
       "shimmer": "soft",
       "switchon": "on",
       "static": "on",
-      "bootscreen": "on",
+      "bootscreen": "card",
+      "effects": {
+        "glow": {
+          "reach": "headings"
+        },
+        "vignette": {
+          "night": "half"
+        }
+      },
       "roles": {
         "head": {
-          "face": "bungee",
+          "face": "league-gothic",
           "weight": "regular",
           "caps": true,
-          "size": "48",
+          "size": "80",
+          "leading": "tight",
           "members": {
             "sub": {
-              "size": "28",
+              "size": "40",
               "weight": "regular"
             }
           }
@@ -530,48 +540,39 @@
         "kicker": {
           "italic": false,
           "caps": true,
-          "tracking": "p10",
-          "size": "16"
+          "tracking": "p12",
+          "weight": "semibold",
+          "size": "13"
         },
         "small": {
           "caps": true,
-          "tracking": "p10",
+          "tracking": "p12",
+          "weight": "semibold",
           "members": {
             "author": {
               "caps": false,
-              "tracking": "default"
+              "tracking": "default",
+              "weight": "regular"
             }
           }
         },
         "title": {
           "caps": true,
-          "tracking": "p10",
-          "members": {
-            "release": {
-              "weight": "regular"
-            }
-          }
-        },
-        "ui": {
-          "members": {
-            "masthead": {
-              "weight": "regular"
-            }
-          }
+          "tracking": "p12"
         },
         "quote": {
-          "italic": false
+          "italic": true
         }
       },
       "colours": {
         "light": {
-          "paper": "#e9e9e9",
-          "ink": "#141414",
-          "accent": "#3535a0"
+          "paper": "#e6e8ec",
+          "ink": "#14161a",
+          "accent": "#14161a"
         },
         "dark": {
-          "paper": "#0f1012",
-          "ink": "#ececec",
+          "paper": "#0e1014",
+          "ink": "#e6eaf1",
           "accent": "#ffffff"
         }
       }
@@ -1005,13 +1006,13 @@
       "id": "television",
       "label": "Television",
       "light": {
-        "paper": "#e9e9e9",
-        "ink": "#141414",
-        "accent": "#3535a0"
+        "paper": "#e6e8ec",
+        "ink": "#14161a",
+        "accent": "#14161a"
       },
       "dark": {
-        "paper": "#0f1012",
-        "ink": "#ececec",
+        "paper": "#0e1014",
+        "ink": "#e6eaf1",
         "accent": "#ffffff"
       }
     },

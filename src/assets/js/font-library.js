@@ -15,6 +15,17 @@ window.ArchitraveFontLibrary = [
 		]
 	},
 	{
+		"id": "libre-franklin",
+		"label": "Libre Franklin",
+		"group": "sans",
+		"family": "\"Libre Franklin\", system-ui, sans-serif",
+		"italic": true,
+		"range": [
+			100,
+			900
+		]
+	},
+	{
 		"id": "instrument-sans",
 		"label": "Instrument Sans",
 		"group": "sans",
@@ -680,6 +691,14 @@ window.ArchitraveFontLibrary = [
 		"label": "Bungee",
 		"group": "display",
 		"family": "\"Bungee\", system-ui, sans-serif",
+		"italic": false,
+		"range": []
+	},
+	{
+		"id": "league-gothic",
+		"label": "League Gothic",
+		"group": "display",
+		"family": "\"League Gothic\", system-ui, sans-serif",
 		"italic": false,
 		"range": []
 	},
