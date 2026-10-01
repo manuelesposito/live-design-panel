@@ -560,6 +560,10 @@
 		rungs.forEach(function (r) { if (Math.abs(r - want) < Math.abs(best - want)) best = r; });
 		return String(best);
 	}
+	function ownSize(role, v) {
+		var rungs = ROLE_RUNGS[role] || ROLE_RUNGS.read, n = Math.round(+v);
+		return n >= rungs[0] && n <= rungs[rungs.length - 1] ? String(n) : nearestRung(role, v);
+	}
 	function sizeFactor(role, v) { return (+v || ROLE_BASE[role]) / (ROLE_BASE[role] || ROLE_BASE.read); }
 	function sizesFor(role) { return (ROLE_RUNGS[role] || ROLE_RUNGS.read).map(String); }
 	
@@ -1791,7 +1795,21 @@
 			new MutationObserver(applyGround).observe(root, { attributes: true, attributeFilter: ['data-theme', 'data-darkground'] });
 			if (GROUND_WIDE) { if (GROUND_WIDE.addEventListener) GROUND_WIDE.addEventListener('change', applyGround); else GROUND_WIDE.addListener(applyGround); }
 		};
-		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+		if (document.readyState === 'loading' && window.MutationObserver) {
+			var EARLY = ON_PAPER + ', .wp-site-blocks > footer', bodySeen = false;
+			var early = new MutationObserver(function (records) {
+				var hit = !bodySeen && !!document.body;
+				for (var r = 0; !hit && r < records.length; r++) {
+					for (var n = 0; n < records[r].addedNodes.length; n++) {
+						var el = records[r].addedNodes[n];
+						if (el.nodeType === 1 && el.matches && el.matches(EARLY)) { hit = true; break; }
+					}
+				}
+				if (hit) { bodySeen = true; applyGround(); }
+			});
+			early.observe(root, { childList: true, subtree: true });
+			document.addEventListener('DOMContentLoaded', function () { early.disconnect(); go(); });
+		} else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
 	})();
 	function paperOf(side) {
 		var pal = String(root.getAttribute('data-theme') || (Modes ? Modes.default : 'neutral-light')).split('-')[0];
@@ -2496,7 +2514,7 @@
 			else if (memberDialsOf(role).indexOf(dial) !== -1) {
 				set[id] = set[id] || {};
 				if (value === null || value === undefined) delete set[id][dial];
-				else if (dial === 'size') set[id].size = nearestRung(role, value); 
+				else if (dial === 'size') set[id].size = ownSize(role, value); 
 				else if (dial === 'weight') set[id].weight = WEIGHT_ALIAS[value] || value;
 				else if (dial === 'caps') set[id].caps = !!value;
 				else if (dial === 'align') set[id].align = ALIGNS.indexOf(value) !== -1 ? value : 'default';

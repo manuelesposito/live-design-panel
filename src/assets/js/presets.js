@@ -1060,6 +1060,15 @@
 		rungs.forEach(function (r) { if (Math.abs(r - want) < Math.abs(best - want)) best = r; });
 		return String(best);
 	}
+	/* A RELEASED MEMBER KEEPS THE NUMBER IT SHOWED (Manuel, 2026-10-01: Labels
+	   read 15 px, he opened its page, looked, and came back to 14 px). Own
+	   size switched on took the nearest rung, and 15 sits halfway between 14
+	   and 16, so it went down a step. A whole number inside the ladder now
+	   stays as it is; the slider moves it onto a rung once it is dragged. */
+	function ownSize(role, v) {
+		var rungs = ROLE_RUNGS[role] || ROLE_RUNGS.read, n = Math.round(+v);
+		return n >= rungs[0] && n <= rungs[rungs.length - 1] ? String(n) : nearestRung(role, v);
+	}
 	function sizeFactor(role, v) { return (+v || ROLE_BASE[role]) / (ROLE_BASE[role] || ROLE_BASE.read); }
 	/* NO "WIE FLIESSTEXT" STOP (Manuel, 2026-09-17: "that is a setting 'wie
 	   Fließtext' I don't want. Make the px value instead"). It was the head's
@@ -3002,7 +3011,31 @@
 			new MutationObserver(applyGround).observe(root, { attributes: true, attributeFilter: ['data-theme', 'data-darkground'] });
 			if (GROUND_WIDE) { if (GROUND_WIDE.addEventListener) GROUND_WIDE.addEventListener('change', applyGround); else GROUND_WIDE.addListener(applyGround); }
 		};
-		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+		/* THE GROUND IS WORN AS THE PAGE ARRIVES, NOT WHEN IT HAS (Manuel,
+		   2026-10-01: "it shows the light rail for a second and then it switches
+		   to dark"). The root wears data-darkground from the head, but the
+		   classes that carry the night are worn by the body and the paper, which
+		   the head cannot reach; waiting for DOMContentLoaded let the browser
+		   paint the whole page with a light ground first. So from the head an
+		   observer watches the parser: the body as soon as it opens, each part
+		   on ON_PAPER (and a guest's footer) as it is added. Mutation callbacks
+		   run before the next paint, so the first paint already wears both
+		   sides. Handed to the ordinary observer at DOMContentLoaded. */
+		if (document.readyState === 'loading' && window.MutationObserver) {
+			var EARLY = ON_PAPER + ', .wp-site-blocks > footer', bodySeen = false;
+			var early = new MutationObserver(function (records) {
+				var hit = !bodySeen && !!document.body;
+				for (var r = 0; !hit && r < records.length; r++) {
+					for (var n = 0; n < records[r].addedNodes.length; n++) {
+						var el = records[r].addedNodes[n];
+						if (el.nodeType === 1 && el.matches && el.matches(EARLY)) { hit = true; break; }
+					}
+				}
+				if (hit) { bodySeen = true; applyGround(); }
+			});
+			early.observe(root, { childList: true, subtree: true });
+			document.addEventListener('DOMContentLoaded', function () { early.disconnect(); go(); });
+		} else if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
 	})();
 	/* The pair's own paper on a side, for the readouts and an accent set alone: the registry's swatch. */
 	function paperOf(side) {
@@ -3986,7 +4019,7 @@
 			else if (memberDialsOf(role).indexOf(dial) !== -1) {
 				set[id] = set[id] || {};
 				if (value === null || value === undefined) delete set[id][dial];
-				else if (dial === 'size') set[id].size = nearestRung(role, value); /* a bound member reads at rest × step, which is often between rungs (15 at a lead of 16); released, it lands on the nearest, not on the role's base */
+				else if (dial === 'size') set[id].size = ownSize(role, value); /* a bound member reads at rest × step, which is often between rungs (15 at a lead of 16) */
 				else if (dial === 'weight') set[id].weight = WEIGHT_ALIAS[value] || value;
 				else if (dial === 'caps') set[id].caps = !!value;
 				else if (dial === 'align') set[id].align = ALIGNS.indexOf(value) !== -1 ? value : 'default';

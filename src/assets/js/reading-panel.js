@@ -900,7 +900,15 @@
 		   close at the right for the phone. */
 		/* A slider row: the title with the step's word, the track, a tick per stop. */
 		function slider(label, list, currentId, attr, suffix, after, off) {
-			var i = Math.max(0, list.map(function (l) { return l.id; }).indexOf(currentId));
+			var i = list.map(function (l) { return l.id; }).indexOf(currentId), shown;
+			/* A size between two stops (a member released at 15 on a ladder of 14
+			   and 16, 2026-10-01): the knob stands at the nearest stop and the
+			   number says the size itself. */
+			if (i === -1 && +currentId && list.every(function (l) { return +l.id; })) {
+				list.forEach(function (l, k) { if (i === -1 || Math.abs(l.id - currentId) < Math.abs(list[i].id - currentId)) i = k; });
+				shown = t(list[i].label).replace(list[i].id, currentId); /* the stop's own unit */
+			}
+			i = Math.max(0, i);
 			/* THE TITLE STANDS INSIDE THE FIELD (Manuel, 2026-09-17: "maybe having
 			   the slider title also on that grey bg", with Books' own Customize
 			   pane beside it, where the label sits in the card over its track).
@@ -918,13 +926,13 @@
 			   where the knob is, and it says it in the unit the reader asked
 			   for. */
 			return '<div class="reading-list"><div class="reading-row reading-slider-row' + (off ? ' is-disabled' : '') + '">' +
-				'<p class="reading-slider-title">' + label + (suffix || '') + '<span class="reading-group-value">' + t(list[i].label) + '</span>' + (after || '') + '</p>' +
+				'<p class="reading-slider-title">' + label + (suffix || '') + '<span class="reading-group-value">' + (shown || t(list[i].label)) + '</span>' + (after || '') + '</p>' +
 				'<div class="reading-slider">' +
 					/* step="any": the knob glides under the finger and the fill with it; the
 					   page changes when the nearest stop changes; the knob snaps to the stop
 					   on release, and the arrow keys move a stop at a time (Manuel,
 					   2026-09-13: the stepping knob "comes across so stiff"). */
-					'<input type="range" class="reading-range" min="0" max="' + (list.length - 1) + '" step="1" value="' + i + '" data-stop="' + i + '" ' + attr + ' aria-label="' + label + '" aria-valuemin="0" aria-valuemax="' + (list.length - 1) + '" aria-valuenow="' + i + '" aria-valuetext="' + t(list[i].label) + '"' + (off ? ' disabled aria-disabled="true"' : '') + ' style="--fill:' + Math.round(100 * i / (list.length - 1)) + '%">' +
+					'<input type="range" class="reading-range" min="0" max="' + (list.length - 1) + '" step="1" value="' + i + '" data-stop="' + i + '" ' + attr + ' aria-label="' + label + '" aria-valuemin="0" aria-valuemax="' + (list.length - 1) + '" aria-valuenow="' + i + '" aria-valuetext="' + (shown || t(list[i].label)) + '"' + (off ? ' disabled aria-disabled="true"' : '') + ' style="--fill:' + Math.round(100 * i / (list.length - 1)) + '%">' +
 				'</div>' +
 			'</div></div>';
 		}

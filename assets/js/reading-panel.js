@@ -570,11 +570,16 @@
 		
 		
 		function slider(label, list, currentId, attr, suffix, after, off) {
-			var i = Math.max(0, list.map(function (l) { return l.id; }).indexOf(currentId));
+			var i = list.map(function (l) { return l.id; }).indexOf(currentId), shown;
+			if (i === -1 && +currentId && list.every(function (l) { return +l.id; })) {
+				list.forEach(function (l, k) { if (i === -1 || Math.abs(l.id - currentId) < Math.abs(list[i].id - currentId)) i = k; });
+				shown = t(list[i].label).replace(list[i].id, currentId); 
+			}
+			i = Math.max(0, i);
 			return '<div class="reading-list"><div class="reading-row reading-slider-row' + (off ? ' is-disabled' : '') + '">' +
-				'<p class="reading-slider-title">' + label + (suffix || '') + '<span class="reading-group-value">' + t(list[i].label) + '</span>' + (after || '') + '</p>' +
+				'<p class="reading-slider-title">' + label + (suffix || '') + '<span class="reading-group-value">' + (shown || t(list[i].label)) + '</span>' + (after || '') + '</p>' +
 				'<div class="reading-slider">' +
-					'<input type="range" class="reading-range" min="0" max="' + (list.length - 1) + '" step="1" value="' + i + '" data-stop="' + i + '" ' + attr + ' aria-label="' + label + '" aria-valuemin="0" aria-valuemax="' + (list.length - 1) + '" aria-valuenow="' + i + '" aria-valuetext="' + t(list[i].label) + '"' + (off ? ' disabled aria-disabled="true"' : '') + ' style="--fill:' + Math.round(100 * i / (list.length - 1)) + '%">' +
+					'<input type="range" class="reading-range" min="0" max="' + (list.length - 1) + '" step="1" value="' + i + '" data-stop="' + i + '" ' + attr + ' aria-label="' + label + '" aria-valuemin="0" aria-valuemax="' + (list.length - 1) + '" aria-valuenow="' + i + '" aria-valuetext="' + (shown || t(list[i].label)) + '"' + (off ? ' disabled aria-disabled="true"' : '') + ' style="--fill:' + Math.round(100 * i / (list.length - 1)) + '%">' +
 				'</div>' +
 			'</div></div>';
 		}
