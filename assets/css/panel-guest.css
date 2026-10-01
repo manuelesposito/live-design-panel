@@ -605,6 +605,9 @@
 :root[data-darkground="on"][data-lines="on"][data-line] :is(.ground-dark, .ground-light) {
 	--line: color-mix(in srgb, var(--text-primary) var(--line-strength), transparent);
 }
+:root[data-darkground="on"][data-lines="on"] body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	border-color: color-mix(in srgb, var(--text-primary) 14%, transparent);
+}
 :root[data-lines="on"][data-hairlines="on"] {
 	--border-width-default: var(--border-width-hairline);
 }
