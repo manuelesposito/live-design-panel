@@ -593,6 +593,12 @@
 :root[data-darkground="on"] .ground-light {
 	color: var(--text-primary);
 }
+:root[data-darkground="on"] :is(.ground-dark, .ground-light) {
+	--step-surface-hover: inherit;
+	--step-surface-selected: inherit;
+	--step-surface-pressed: inherit;
+	--step-track-selected: inherit;
+}
 :root[data-darkground="on"][data-lines="on"] :is(.ground-dark, .ground-light) {
 	--line: color-mix(in srgb, var(--text-primary) 45%, transparent); --card-edge: var(--line);
 }
