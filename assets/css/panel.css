@@ -1895,7 +1895,7 @@
 		text-decoration: none;
 	}
 }
-:root[data-style="brochure"] body :is(#ldp-lv, .paper-stack-btn, .comments-open-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .post-actions .copy-md-btn, .comments-pill):is([aria-expanded="true"]:not(.rail-collapse-btn), :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-style="brochure"] body :is(#ldp-lv, .paper-stack-btn, .comments-open-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .post-actions .copy-md-btn, .comments-pill):is([aria-expanded="true"]:not(.rail-collapse-btn, [data-live-design-twin]), :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: color-mix(in oklab, var(--text-primary) 14%, color-mix(in oklab, var(--surface-base) 38%, transparent));
 }
 :root[data-foot-band="plate"] body :is(#ldp-lv, .paper-stack-btn, .comments-open-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .post-actions .copy-md-btn, .comments-pill).ldp-over-plate:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -1910,6 +1910,9 @@
 	:root[data-foot-band="plate"] body :is(#ldp-lv, .paper-stack-btn, .comments-open-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .post-actions .copy-md-btn, .comments-pill).ldp-over-plate:hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: color-mix(in oklab, #f1e8d6 14%, color-mix(in oklab, #0b0b0b 45%, transparent));
 	}
+}
+:root[data-style="brochure"] body::before {
+	mix-blend-mode: normal; opacity: calc(var(--surface-grain) * 0.5);
 }
 :root[data-darkground="on"][data-foot-band="plate"] body.ground-dark:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-rail-lift: color-mix(in oklab, var(--surface-canvas) 75%, #8a6a48);
