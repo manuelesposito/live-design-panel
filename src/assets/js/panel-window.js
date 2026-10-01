@@ -1317,6 +1317,11 @@
 		['.article-meta, .post-meta, .wp-block-post-date, figcaption', 'type', 'role:small', 'Small text'],
 		['blockquote', 'type', 'role:quote', 'Quotes'],
 		['.comment, .wp-block-comment-template, .comment-respond', 'type', 'role:comment', 'Comments'],
+		/* THE SMALL WORDS THAT HAD NO ROW OF THEIR OWN HERE (Manuel, 2026-10-01: "I can't click that little text with our tool to find out which setting it is"): the rail's section titles fell through to the whole rail as Interface, and the plate at the page's foot to Colour. */
+		['.quire-nav-section-heading, .quire-nav-section-head', 'type', 'role:title', 'Interface titles'],
+		['.ldp-plate-name', 'effects', 'sitename', 'Site name'],
+		['.ldp-plate-line, .ldp-plate-legal', 'type', 'role:read', 'Reading text'],
+		['.ldp-plate', 'effects', 'footband', 'Page foot'],
 		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:ui', 'Interface'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:read', 'Reading text'],
 		['main, .content-column, .wp-site-blocks, body', 'colour', '', 'Colour']

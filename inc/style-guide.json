@@ -663,7 +663,11 @@
           }
         },
         "title": {
-          "face": "crimson-pro"
+          "face": "crimson-pro",
+          "size": "16",
+          "weight": "semibold",
+          "caps": true,
+          "tracking": "p12"
         },
         "quote": {
           "italic": true

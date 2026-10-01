@@ -1225,6 +1225,10 @@
 		['.article-meta, .post-meta, .wp-block-post-date, figcaption', 'type', 'role:small', 'Small text'],
 		['blockquote', 'type', 'role:quote', 'Quotes'],
 		['.comment, .wp-block-comment-template, .comment-respond', 'type', 'role:comment', 'Comments'],
+		['.quire-nav-section-heading, .quire-nav-section-head', 'type', 'role:title', 'Interface titles'],
+		['.ldp-plate-name', 'effects', 'sitename', 'Site name'],
+		['.ldp-plate-line, .ldp-plate-legal', 'type', 'role:read', 'Reading text'],
+		['.ldp-plate', 'effects', 'footband', 'Page foot'],
 		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:ui', 'Interface'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:read', 'Reading text'],
 		['main, .content-column, .wp-site-blocks, body', 'colour', '', 'Colour']
