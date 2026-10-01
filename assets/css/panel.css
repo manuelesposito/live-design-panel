@@ -1835,13 +1835,13 @@
 	background-image: linear-gradient(to bottom, #4f7cff 0 12.5%, #8c5cff 12.5% 25%, #e04ab8 25% 37.5%, #ff5a4a 37.5% 50%, #ffa02e 50% 62.5%, #ffd43a 62.5% 75%, #8edc4a 75% 87.5%, #3ac9e8 87.5%);
 }
 :root[data-foot-band="plate"] .ldp-plate {
-	display: block; margin-block: var(--space-16) calc(-1 * var(--ldp-col-foot, 0px)); margin-inline: calc(-1 * var(--ldp-col-inset, 0px)); padding: var(--space-16) var(--space-10) var(--space-14); background: #0b0b0b; color: #f1e8d6; text-align: center; font-family: var(--font-reading); text-shadow: -0.7px 0 rgb(255 60 60 / .55), 0.7px 0 rgb(60 200 255 / .55);
+	display: block; margin-block: var(--space-16) calc(-1 * var(--ldp-col-foot, 0px)); margin-inline: calc(-1 * var(--ldp-col-inset, 0px)); padding: var(--space-16) var(--space-10) calc(var(--space-12) + var(--space-2)); background: #0b0b0b; color: #f1e8d6; text-align: center; font-family: var(--font-reading); text-shadow: -0.7px 0 rgb(255 60 60 / .55), 0.7px 0 rgb(60 200 255 / .55);
 }
 :root[data-foot-band="plate"] :is(.ldp-legal, .ldp-footband) {
 	display: none;
 }
 :root[data-foot-band="plate"] .ldp-plate p {
-	margin: 0; text-indent: 0; max-inline-size: none;
+	margin: 0; text-indent: 0; max-inline-size: none; color: inherit;
 }
 :root[data-foot-band="plate"] .ldp-plate-name {
 	display: flex; align-items: center; justify-content: center; gap: var(--space-3); font-weight: 600; font-size: calc(var(--text-reading-body) * 1.35); letter-spacing: -0.01em; color: inherit; text-decoration: none;
