@@ -1675,7 +1675,7 @@
 		fill();
 	}
 	/* THE PRINT'S FOOT AND WHAT THE BANDS NEED (2026-09-30, Brochure B; picks `footband`, `legalline`, `postband`). Three things a rule cannot do: (1) the foot is an element at the column's end, built once: the legal line, an advertisement's small print made only of words the site already has (the copyright sign, the year, the site's name, its tagline where the page shows one), and the taller band under it; (2) a band reaches the paper's edges, so the column is told its own insets, again when the window changes; (3) the logo in the band between posts is the rail's stencil, whose address the site's logo block carries, so the column is handed it. Architrave's column only: a guest's page has none, and its rows are not offered there. */
-	var footWatched = false;
+	var plateWatched = false, footWatched = false;
 	function printFoot() {
 		var col = document.querySelector('.content-column'); if (!col) return;
 		var foot = root.hasAttribute('data-foot-band') || root.hasAttribute('data-legal-line'), band = root.hasAttribute('data-post-band');
@@ -1699,6 +1699,25 @@
 		var inset = function () { var cs = window.getComputedStyle(col); col.style.setProperty('--ldp-col-inset', cs.paddingLeft); col.style.setProperty('--ldp-col-foot', cs.paddingBottom); };
 		inset();
 		if (!footWatched) { footWatched = true; window.addEventListener('resize', inset, { passive: true }); }
+		/* A SQUARE OVER THE PLATE KNOWS IT (Manuel, 2026-10-01, the lab's "Dark glass", his word "bring those lab optimizations to the live version"): the focus eye at the paper's foot, and any square the plate scrolls under, gets ldp-over-plate, which the stylesheet turns into dark glass with a cream mark. Measured on every scroll (the column scrolls, or the window on a phone), at most once a frame. */
+		if (!plateWatched && foot) {
+			plateWatched = true;
+			var marking = false;
+			var markPlate = function () {
+				marking = false;
+				var plate = root.getAttribute('data-foot-band') === 'plate' ? document.querySelector('.ldp-plate') : null;
+				var P = plate && plate.getClientRects().length ? plate.getBoundingClientRect() : null;
+				document.querySelectorAll('.paper-stack-btn, .comments-open-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .post-actions .copy-md-btn, .comments-pill').forEach(function (b) {
+					var r = b.getBoundingClientRect(), over = !!P && r.width > 0 && r.bottom > P.top && r.top < P.bottom && r.right > P.left && r.left < P.right;
+					b.classList.toggle('ldp-over-plate', over);
+				});
+			};
+			var askMark = function () { if (!marking) { marking = true; window.requestAnimationFrame(markPlate); } };
+			document.addEventListener('scroll', askMark, { capture: true, passive: true });
+			window.addEventListener('resize', askMark, { passive: true });
+			new MutationObserver(askMark).observe(root, { attributes: true, attributeFilter: ['data-foot-band', 'data-focus-on', 'data-rail-collapsed', 'data-comments-open'] });
+			askMark();
+		}
 		var logo = document.querySelector('.has-stencil-logo'), url = logo && logo.style.getPropertyValue('--architrave-logo-stencil'), ratio = logo && logo.style.getPropertyValue('--architrave-logo-ratio');
 		if (url) { col.style.setProperty('--ldp-logo', url); col.style.setProperty('--ldp-logo-ratio', ratio || '1'); col.classList.add('ldp-has-logo'); }
 	}

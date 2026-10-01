@@ -962,7 +962,7 @@
 		var fill = function () { if (i < blocks.length && !still) { blocks[i++].classList.add('ldp-lit'); setTimeout(fill, 40 + Math.random() * 40); } else setTimeout(function () { b.classList.add('ldp-gone'); root.removeAttribute('data-ldp-booting'); setTimeout(function () { b.remove(); }, 500); }, still ? 400 : 350); };
 		fill();
 	}
-	var footWatched = false;
+	var plateWatched = false, footWatched = false;
 	function printFoot() {
 		var col = document.querySelector('.content-column'); if (!col) return;
 		var foot = root.hasAttribute('data-foot-band') || root.hasAttribute('data-legal-line'), band = root.hasAttribute('data-post-band');
@@ -985,6 +985,24 @@
 		var inset = function () { var cs = window.getComputedStyle(col); col.style.setProperty('--ldp-col-inset', cs.paddingLeft); col.style.setProperty('--ldp-col-foot', cs.paddingBottom); };
 		inset();
 		if (!footWatched) { footWatched = true; window.addEventListener('resize', inset, { passive: true }); }
+		if (!plateWatched && foot) {
+			plateWatched = true;
+			var marking = false;
+			var markPlate = function () {
+				marking = false;
+				var plate = root.getAttribute('data-foot-band') === 'plate' ? document.querySelector('.ldp-plate') : null;
+				var P = plate && plate.getClientRects().length ? plate.getBoundingClientRect() : null;
+				document.querySelectorAll('.paper-stack-btn, .comments-open-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .post-actions .copy-md-btn, .comments-pill').forEach(function (b) {
+					var r = b.getBoundingClientRect(), over = !!P && r.width > 0 && r.bottom > P.top && r.top < P.bottom && r.right > P.left && r.left < P.right;
+					b.classList.toggle('ldp-over-plate', over);
+				});
+			};
+			var askMark = function () { if (!marking) { marking = true; window.requestAnimationFrame(markPlate); } };
+			document.addEventListener('scroll', askMark, { capture: true, passive: true });
+			window.addEventListener('resize', askMark, { passive: true });
+			new MutationObserver(askMark).observe(root, { attributes: true, attributeFilter: ['data-foot-band', 'data-focus-on', 'data-rail-collapsed', 'data-comments-open'] });
+			askMark();
+		}
 		var logo = document.querySelector('.has-stencil-logo'), url = logo && logo.style.getPropertyValue('--architrave-logo-stencil'), ratio = logo && logo.style.getPropertyValue('--architrave-logo-ratio');
 		if (url) { col.style.setProperty('--ldp-logo', url); col.style.setProperty('--ldp-logo-ratio', ratio || '1'); col.classList.add('ldp-has-logo'); }
 	}
