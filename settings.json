@@ -119,6 +119,8 @@
       "footband",
       "menuline",
       "legalline",
+      "stripes",
+      "sitename",
       "unlinked",
       "effects",
       "roles",
@@ -206,6 +208,8 @@
       "footband",
       "menuline",
       "legalline",
+      "stripes",
+      "sitename",
       "pillbuttons",
       "centretitle",
       "fadeedges",
@@ -4056,11 +4060,12 @@
       "kind": "pick",
       "choices": [
         "off",
-        "on"
+        "on",
+        "plate"
       ],
       "def": "off",
       "attr": "data-foot-band",
-      "means": "The six rainbow stripes as a taller band that closes the page at its very foot: off (the rest) or on.",
+      "means": "What closes the page at its very foot: off (the rest), on (the six rainbow stripes as a taller band) or plate (a black plate across the paper: the site's logo and name, its tagline and the copyright line, with a faint colour fringe, the last card of a film).",
       "label": "Page foot",
       "page": "Effects",
       "level": 17,
@@ -4133,6 +4138,64 @@
       ],
       "rest": {
         "data-legal-line": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "stripes",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "solid",
+        "gaps"
+      ],
+      "def": "solid",
+      "attr": "data-stripes",
+      "means": "How the rainbow bands between posts and at the page foot are drawn: solid (the rest, six stripes edge to edge) or gaps (six thinner stripes with paper between them, in softer hues).",
+      "label": "Stripes",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1218,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-stripes"
+      ],
+      "rest": {
+        "data-stripes": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "sitename",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "plain",
+        "caps"
+      ],
+      "def": "plain",
+      "attr": "data-site-name",
+      "means": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it) or caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark).",
+      "label": "Site name",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1218,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-site-name"
+      ],
+      "rest": {
+        "data-site-name": "ABSENT"
       },
       "inStandardAtRest": false
     },

@@ -731,7 +731,8 @@
   ],
   "footband": [
     "off",
-    "on"
+    "on",
+    "plate"
   ],
   "menuline": [
     "plain",
@@ -740,6 +741,14 @@
   "legalline": [
     "off",
     "on"
+  ],
+  "stripes": [
+    "solid",
+    "gaps"
+  ],
+  "sitename": [
+    "plain",
+    "caps"
   ],
   "unlinked": "boolean",
   "effects": {
