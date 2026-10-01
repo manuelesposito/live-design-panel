@@ -705,6 +705,8 @@
 @media (hover: hover) {
 	:root:is([data-button-style="outlined"], [data-button-style="shadow"])[data-button-style] :is(.quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: color-mix(in srgb, var(--accent) 12%, var(--surface-base));
+		color: var(--accent);
+		border-color: var(--accent);
 	}
 }
 :root[data-button-style="shadow"][data-button-style] :is(.quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):active:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
