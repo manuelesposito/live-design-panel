@@ -847,7 +847,7 @@
 	:root[data-button-medium="text"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: transparent; text-decoration: underline; text-underline-offset: 0.2em;
 	}
-	:root[data-button-medium="text"] :is(.quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):has(svg):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-button-medium="text"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):has(svg):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-style="text"] :is(#ldp-lv, .quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):has(svg):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: var(--surface-selected); text-decoration: none;
 	}
 	:root[data-button-quiet="filled"] :is(#ldp-lv, .quire-button.ghost):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
