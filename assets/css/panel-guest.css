@@ -608,6 +608,17 @@
 :root[data-darkground="on"][data-lines="on"] body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-color: color-mix(in srgb, var(--text-primary) 14%, transparent);
 }
+:root[data-darkground="on"][data-foot-band="plate"] body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--paper-r: var(--frame-radius);
+	border-radius: 0;
+	background-clip: padding-box;
+	-webkit-mask: radial-gradient(circle at 50% 50%, #000 calc(var(--paper-r) - .5px), transparent calc(var(--paper-r) + .5px)) 0 0 / calc(2 * var(--paper-r)) calc(2 * var(--paper-r)) no-repeat, radial-gradient(circle at 50% 50%, #000 calc(var(--paper-r) - .5px), transparent calc(var(--paper-r) + .5px)) 100% 0 / calc(2 * var(--paper-r)) calc(2 * var(--paper-r)) no-repeat, radial-gradient(circle at 50% 50%, #000 calc(var(--paper-r) - .5px), transparent calc(var(--paper-r) + .5px)) 0 100% / calc(2 * var(--paper-r)) calc(2 * var(--paper-r)) no-repeat, radial-gradient(circle at 50% 50%, #000 calc(var(--paper-r) - .5px), transparent calc(var(--paper-r) + .5px)) 100% 100% / calc(2 * var(--paper-r)) calc(2 * var(--paper-r)) no-repeat, linear-gradient(#000, #000) 50% 50% / calc(100% - 2 * var(--paper-r)) 100% no-repeat, linear-gradient(#000, #000) 50% 50% / 100% calc(100% - 2 * var(--paper-r)) no-repeat;
+	mask: radial-gradient(circle at 50% 50%, #000 calc(var(--paper-r) - .5px), transparent calc(var(--paper-r) + .5px)) 0 0 / calc(2 * var(--paper-r)) calc(2 * var(--paper-r)) no-repeat, radial-gradient(circle at 50% 50%, #000 calc(var(--paper-r) - .5px), transparent calc(var(--paper-r) + .5px)) 100% 0 / calc(2 * var(--paper-r)) calc(2 * var(--paper-r)) no-repeat, radial-gradient(circle at 50% 50%, #000 calc(var(--paper-r) - .5px), transparent calc(var(--paper-r) + .5px)) 0 100% / calc(2 * var(--paper-r)) calc(2 * var(--paper-r)) no-repeat, radial-gradient(circle at 50% 50%, #000 calc(var(--paper-r) - .5px), transparent calc(var(--paper-r) + .5px)) 100% 100% / calc(2 * var(--paper-r)) calc(2 * var(--paper-r)) no-repeat, linear-gradient(#000, #000) 50% 50% / calc(100% - 2 * var(--paper-r)) 100% no-repeat, linear-gradient(#000, #000) 50% 50% / 100% calc(100% - 2 * var(--paper-r)) no-repeat;
+}
+:root[data-darkground="on"][data-foot-band="plate"][data-focus-on] body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	-webkit-mask: none;
+	mask: none;
+}
 :root[data-lines="on"][data-hairlines="on"] {
 	--border-width-default: var(--border-width-hairline);
 }

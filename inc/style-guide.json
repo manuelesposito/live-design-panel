@@ -605,7 +605,7 @@
       "categories": "above",
       "button": "ink",
       "buttonstyle": "text",
-      "buttonmedium": "text",
+      "buttonmedium": "gray",
       "buttonquiet": "gray",
       "links": "underlined",
       "pictures": "sepia",
