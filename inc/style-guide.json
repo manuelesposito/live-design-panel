@@ -606,6 +606,7 @@
       "button": "ink",
       "buttonstyle": "text",
       "buttonmedium": "text",
+      "buttonquiet": "gray",
       "links": "underlined",
       "pictures": "sepia",
       "pictureframe": false,
