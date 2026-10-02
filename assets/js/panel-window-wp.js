@@ -24,7 +24,7 @@
 	var versionsHeld = null; 
 	var PAIRS = ['neutral', 'paper', 'terminal', 'grey', 'arcade'];
 	var PAIR_LABELS = window.ArchitravePairLabels || { neutral: 'Violet light', paper: 'Sun clay', terminal: 'Radar night', grey: 'Ash blue', arcade: 'Night fire' };
-	var TOKEN = { paper: '--surface-base', ink: '--text-primary', accent: '--accent', ground: '--surface-canvas', lift: '--surface-subtle', button: '--accent', marker: '--marker', light: '--fx-light', second: '--fx-second' };
+	var TOKEN = { paper: '--surface-base', ink: '--text-primary', accent: '--accent', ground: '--surface-canvas', lift: '--surface-subtle', button: '--accent', marker: '--marker' };
 	var OWN_BESIDE_PRESET = ['button', 'marker', 'head', 'kicker', 'inverse', 'light', 'second']; 
 	TOKEN.head = '--text-primary'; TOKEN.kicker = '--text-primary';
 	var PICK = { markercolour: ['markerColour', 'setMarkerColour'], button: ['buttonColour', 'setButtonColour'], fadeedges: ['fadeEdges', 'setFadeEdges'], linestyle: ['lineStyle', 'setLineStyle'], corners: ['corners', 'setCorners'], pictures: ['picturesNow', 'setPictures'], framepattern: ['framePattern', 'setFramePattern'] };
@@ -254,7 +254,6 @@
 			};
 		},
 		current: function () { var s = S(); return s ? s.current() : ''; },
-		greyTintable: function () { var s = S(); return !(s && s.greyTintable) || s.greyTintable(); },
 		fonts: {
 			library: function () { return (window.ArchitraveFontLibrary || []).map(function (f) { return f.id; }); },
 			can: function () { return !!(window.architraveFonts && window.architraveFonts.url); },

@@ -26,7 +26,7 @@
 	var PAIRS = ['neutral', 'paper', 'terminal', 'grey', 'arcade'];
 	var PAIR_LABELS = window.ArchitravePairLabels || { neutral: 'Violet light', paper: 'Sun clay', terminal: 'Radar night', grey: 'Ash blue', arcade: 'Night fire' };
 	/* Where each well's colour stands on the page while the style has none of its own. */
-	var TOKEN = { paper: '--surface-base', ink: '--text-primary', accent: '--accent', ground: '--surface-canvas', lift: '--surface-subtle', button: '--accent', marker: '--marker', light: '--fx-light', second: '--fx-second' };
+	var TOKEN = { paper: '--surface-base', ink: '--text-primary', accent: '--accent', ground: '--surface-canvas', lift: '--surface-subtle', button: '--accent', marker: '--marker' };
 	var OWN_BESIDE_PRESET = ['button', 'marker', 'head', 'kicker', 'inverse', 'light', 'second']; /* the button's, the pen's and the roles' own colours sit beside a preset */
 	TOKEN.head = '--text-primary'; TOKEN.kicker = '--text-primary';
 	/* THE SETTINGS WITH A READ AND A WRITE OF THEIR OWN in the engine (the rest are switches, levels or PICKS) */
@@ -286,7 +286,6 @@
 			};
 		},
 		current: function () { var s = S(); return s ? s.current() : ''; },
-		greyTintable: function () { var s = S(); return !(s && s.greyTintable) || s.greyTintable(); },
 		/* THE FONT LIBRARY (2026-09-28, the lab's Get): the faces not in the plugin, which the site fetches once;
 		   `have` is what is on the site now. Getting one asks the server for its files and reads the stylesheet again. */
 		fonts: {

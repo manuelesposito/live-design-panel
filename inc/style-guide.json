@@ -40,16 +40,6 @@
     "quotes": "How quotes in an article look: a line at the side (the rest), plain, or in a box.",
     "notes": "How a box the writer coloured inside an article looks: flat (the rest: its fill), outlined, or raised by a shadow.",
     "fields": "How search, comment and sign-up fields look: flat (the rest: the fill, with lines its line), outlined on the paper, or raised by a shadow.",
-    "titlefinish": "How the title and the headings are drawn: flat (the rest: their colour), shine (from the full colour to half of it, top left to bottom right, as brushed metal), accent (from their colour into the accent), spectrum (a gradient from blue through violet and pink to orange, a step brighter by night) or violet (a gradient from blue to violet).",
-    "headitalics": "The face of the serif words in titles and headings (which words: effects.serif): same (the rest: no serif), serif (Newsreader), classic (Libre Baskerville), vollkorn (Vollkorn) or fraunces (Fraunces).",
-    "headarrival": "How the title and the article's headings come into view: none (the rest: they are simply there), fade (word by word) or blur (word by word, from a blur to sharp). Nothing moves for readers who ask for less motion.",
-    "cardlight": "Light on the cards: off (the rest), edge (a thin light along the top edge that dies out toward the corners) or glow (the edge and a faint light falling into the card). The ink by night, the accent by day.",
-    "buttonfinish": "A finish over the main and other buttons: flat (the rest: their look as set), glass (a faint sheet of the ink with a hairline) or glow (the main button keeps its fill and gets a soft light of the button colour under it; the other buttons glass).",
-    "toppattern": "A pattern on the head of the paper that fades out before the reading begins: none (the rest), dots, grid, cross (small crosses) or diagonal lines.",
-    "guides": "Lines down each side of the article, a gutter out, as on a drawing board: off (the rest), solid or dashed. Not on a phone.",
-    "greytint": "How much of the accent the paper, the grounds and every grey take, in percent: 0 (the rest), 5, 10 or 15. The ink itself stays as it is. Only with the style's own colour pair.",
-    "pageglow": "Two slow glows of the accent behind the article's title: off (the rest), soft or strong. They stay still for readers who ask for less motion.",
-    "movinglight": "A short streak of the accent that travels along the top edge of the cards: off (the rest) or on. Not for readers who ask for less motion.",
     "paragraphs": "Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.",
     "sitename": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark), marquee (in the headings' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet's marquee) or title (in the heading role's own face, weight and slant, a size up, as a sign over the door).",
     "capface": "The drop cap's letter: text (the rest, the reading text's own face and weight), bold (the reading face in bold, as the title), fraunces (a soft old-style display capital) or title (the heading role's own face, weight, slant and colour). Shows with Drop cap on.",
@@ -113,117 +103,6 @@
       "scope": "article",
       "fills": true,
       "roles": {}
-    },
-    "instrument": {
-      "architrave": 1,
-      "label": "Instrument",
-      "base": "instrument",
-      "space": "compact",
-      "palette": "neutral",
-      "tint": "green",
-      "sans": "inter",
-      "reading": "default",
-      "face": "inter",
-      "leading": "default",
-      "justify": false,
-      "dropcap": false,
-      "rounded": true,
-      "corners": "small",
-      "lines": true,
-      "line": "10",
-      "hairlines": true,
-      "scope": "article",
-      "fills": true,
-      "soft": true,
-      "softlevel": "30",
-      "quietlevel": "40",
-      "picturedim": true,
-      "pictureframe": false,
-      "alternates": true,
-      "titlefinish": "shine",
-      "headitalics": "serif",
-      "headarrival": "blur",
-      "cardlight": "glow",
-      "buttonfinish": "glow",
-      "button": "ink",
-      "toppattern": "dots",
-      "guides": "dashed",
-      "greytint": "10",
-      "pageglow": "soft",
-      "movinglight": "on",
-      "effects": {
-        "serif": {
-          "which": "last"
-        },
-        "arrival": {
-          "scope": "all"
-        },
-        "cardlight": {
-          "level": "75",
-          "colour": "light"
-        },
-        "moving": {
-          "where": "all"
-        },
-        "button": {
-          "glow": "light",
-          "sweep": "on"
-        },
-        "pattern": {
-          "level": "50",
-          "colour": "light"
-        },
-        "guides": {
-          "level": "50",
-          "colour": "light",
-          "marks": "on"
-        },
-        "pointer": {
-          "look": "on"
-        },
-        "dividers": {
-          "look": "glow"
-        },
-        "topline": {
-          "look": "on"
-        },
-        "picglow": {
-          "look": "soft"
-        }
-      },
-      "colours": {
-        "light": {
-          "paper": "#f4f5f6",
-          "ink": "#08090a",
-          "accent": "#5c6300"
-        },
-        "dark": {
-          "paper": "#0f1011",
-          "ink": "#f4f6f8",
-          "accent": "#e4f222"
-        }
-      },
-      "roles": {
-        "kicker": {
-          "italic": false
-        },
-        "head": {
-          "weight": "semibold",
-          "leading": "tight",
-          "members": {
-            "sub": {
-              "weight": "semibold",
-              "tracking": "p1"
-            }
-          }
-        },
-        "quote": {
-          "italic": false
-        },
-        "title": {
-          "weight": "medium"
-        }
-      }
     }
   },
   "colourPresets": [
@@ -550,20 +429,6 @@
         "ink": "#c6d2de",
         "accent": "#86b6ff",
         "head": "#f2f6fa"
-      }
-    },
-    {
-      "id": "limelight",
-      "label": "Lime night",
-      "light": {
-        "paper": "#f4f5f6",
-        "ink": "#08090a",
-        "accent": "#5c6300"
-      },
-      "dark": {
-        "paper": "#0f1011",
-        "ink": "#f4f6f8",
-        "accent": "#e4f222"
       }
     },
     {

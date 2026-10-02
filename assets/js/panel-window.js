@@ -415,35 +415,11 @@
 		fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
 		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
 		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
-		titlefinish: { flat: 'Flat', shine: 'Shine', accent: 'Accent colour' },
-		headitalics: { same: 'Same font', serif: 'Serif', classic: 'Classic serif' },
-		headarrival: { none: 'None', fade: 'Fade', blur: 'Blur to sharp' },
-		cardlight: { off: 'Off', edge: 'Top edge', glow: 'Edge and glow' },
-		buttonfinish: { flat: 'Flat', glass: 'Glass', glow: 'Glow' },
-		toppattern: { none: 'None', dots: 'Dots', grid: 'Grid' },
-		guides: { off: 'Off', solid: 'Solid', dashed: 'Dashed' },
-		greytint: { '0': '0 %', '5': '5 %', '10': '10 %', '15': '15 %' },
-		pageglow: { off: 'Off', soft: 'Soft', strong: 'Strong' },
-		movinglight: { off: 'Off', on: 'On' },
 		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, sitename: { plain: 'Plain', caps: 'Bold italic capitals' }, subcolour: { title: 'Like the title', ink: 'Text' }
 	};
-	PICK_WORD.headitalics.vollkorn = 'Vollkorn'; PICK_WORD.headitalics.fraunces = 'Fraunces'; PICK_WORD.toppattern.diagonal = 'Diagonal'; PICK_WORD.toppattern.cross = 'Crosses';
 	var FX_COLOUR = { light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' };
-	var FX_NAME = { title: 'Title finish', serif: 'Serif words', arrival: 'Headings arrive', cardlight: 'Card light', moving: 'Moving light', button: 'Button finish', pattern: 'Pattern at the top', guides: 'Guides', tint: 'Tint the greys', aurora: 'Aurora', pointer: 'Pointer light', dividers: 'Dividers', topline: 'Paper top line', picglow: 'Picture edge light' };
-	var FX_WORD = {
-		'title.depth': { '50': '50 %', '70': '70 %', '30': '30 %' }, 'title.dir': { diagonal: 'Diagonal', down: 'Down', across: 'Across' }, 'title.colour': FX_COLOUR, 'title.reach': { all: 'All headings', title: 'Title only' },
-		'serif.which': { italics: 'Italics', last: 'Last word', title: 'Whole title' }, 'serif.style': { italic: 'Italic', upright: 'Upright' },
-		'arrival.speed': { calm: 'Calm', quick: 'Quick', slow: 'Slow' }, 'arrival.blur': { '8': 'Medium', '4': 'Light', '14': 'Strong' }, 'arrival.scope': { headings: 'Headings only', text: 'And paragraphs', all: 'And pictures' },
-		'cardlight.level': { '100': '100 %', '25': '25 %', '50': '50 %', '75': '75 %' }, 'cardlight.colour': { auto: 'Automatic', light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' }, 'cardlight.edge': { '70': 'Medium', '40': 'Short', '100': 'Full' }, 'cardlight.reach': { '55': 'Medium', '35': 'Small', '85': 'Large' },
-		'moving.colour': FX_COLOUR, 'moving.speed': { '7': 'Medium', '11': 'Slow', '4': 'Fast' }, 'moving.length': { '34': 'Medium', '20': 'Short', '55': 'Long' }, 'moving.where': { cards: 'Cards', buttons: 'And buttons', all: 'And dividers' }, 'moving.rhythm': { constant: 'Always', now: 'Now and then' },
-		'button.glow': { fill: 'Button colour', light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' }, 'button.level': { '75': 'Medium', '40': 'Soft', '100': 'Strong' }, 'button.ring': { on: 'On', off: 'Off' }, 'button.lift': { on: 'On', off: 'Off' }, 'button.sweep': { off: 'Off', on: 'On' }, 'button.glass': { '2': 'Medium', '1': 'Faint', '3': 'Strong' },
-		'pattern.level': { '100': '100 %', '25': '25 %', '50': '50 %', '75': '75 %' }, 'pattern.colour': FX_COLOUR, 'pattern.size': { m: 'Medium', s: 'Fine', l: 'Wide' }, 'pattern.reach': { '560': 'Medium', '300': 'Short', '900': 'Long', all: 'Whole paper' },
-		'guides.level': { '100': '100 %', '25': '25 %', '50': '50 %', '75': '75 %' }, 'guides.colour': FX_COLOUR, 'guides.marks': { off: 'Off', on: 'On' },
-		'tint.colour': FX_COLOUR,
-		'aurora.first': FX_COLOUR, 'aurora.second': FX_COLOUR, 'aurora.place': { title: 'Behind the title', top: 'Top of page', page: 'Whole page' }, 'aurora.speed': { slow: 'Slow', still: 'Still', lively: 'Lively' }, 'aurora.shape': { glow: 'Glow', beams: 'Beams' },
-		'pointer.look': { off: 'Off', on: 'On' }, 'pointer.colour': FX_COLOUR, 'dividers.look': { plain: 'Plain', fade: 'Fading ends', glow: 'Fading and glowing' }, 'dividers.colour': FX_COLOUR,
-		'topline.look': { off: 'Off', on: 'On' }, 'topline.colour': FX_COLOUR, 'picglow.look': { off: 'Off', soft: 'Soft', strong: 'Strong' }, 'picglow.colour': FX_COLOUR
-	};
+	var FX_NAME = {}; 
+	var FX_WORD = {}; 
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; 
 	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] , cards: ['flat', 'box', 'raised', 'top', 'ticks'], quotes: ['plain', 'line', 'box'] };
@@ -457,7 +433,7 @@
 		var list = (PICK_ORDER[key] || x.choices || []).filter(function (id) { return !(key === 'categories' && id === 'above' && s.guest() && s.get(key) !== 'above'); }); 
 		var items = list.map(function (id) { return [id, s.guest() && GUEST_REST[key] === id ? t('As the theme') : /(px| %)$/.test(words[id] || '') ? words[id] : t(words[id] || id)]; });
 		if (LOOK_DRAW[key]) return looksRow(key, items);
-		if (key === 'corners' || key === 'linewidth' || key === 'greytint') return stepSlider(key, label(key), items.map(function (x) { return { id: x[0], label: x[1] }; }), s.get(key), function (id) { s.set(key, id); }, String(x.def)); 
+		if (key === 'corners' || key === 'linewidth') return stepSlider(key, label(key), items.map(function (x) { return { id: x[0], label: x[1] }; }), s.get(key), function (id) { s.set(key, id); }, String(x.def)); 
 		if (bare) return pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); });
 		return row(label(key), pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); }));
 	}
@@ -600,29 +576,11 @@
 		var R = function (key, details, isOn) { var lit = isOn !== undefined ? !!isOn : on(key, rest(key)); return { k: key, on: lit, html: pickRow(key) + (lit && details ? details() : '') }; };
 		var F = function (id, d, details) { var key = 'effects.' + id + '.' + d, lit = on(key, rest(key)); return { k: key, on: lit, html: fx(id, d) + (lit && details ? details() : '') }; };
 		var H = function (key, html, lit) { return { k: key, on: !!lit, html: html }; };
-		var glow = s.get('buttonfinish') === 'glow';
 		var G = [
-			{ id: 'light', t: 'Light and glow', sub: 'Light on cards and buttons, the aurora', rows: [
-				guest ? null : R('cardlight', function () { return fx('cardlight', 'level') + fx('cardlight', 'colour') + fx('cardlight', 'edge') + (s.get('cardlight') === 'glow' ? fx('cardlight', 'reach') : ''); }),
-				guest ? null : F('pointer', 'look', function () { return s.get('effects.pointer.look') === 'on' ? fx('pointer', 'colour') : ''; }),
-				R('buttonfinish', function () { return (glow ? fx('button', 'glow') + fx('button', 'level') + fx('button', 'ring') + fx('button', 'lift') : '') + fx('button', 'glass') + fx('button', 'sweep'); }),
-				guest ? null : R('pageglow', function () { return fx('aurora', 'first') + fx('aurora', 'second') + fx('aurora', 'place') + fx('aurora', 'speed') + fx('aurora', 'shape'); }),
-				guest ? null : F('topline', 'look', function () { return fx('topline', 'colour'); }),
-				guest ? null : F('picglow', 'look', function () { return fx('picglow', 'colour'); }),
-				guest ? null : F('dividers', 'look', function () { return s.get('effects.dividers.look') === 'glow' ? fx('dividers', 'colour') : ''; }),
-				guest ? null : R('movinglight', function () { return fx('moving', 'colour') + fx('moving', 'speed') + fx('moving', 'length') + fx('moving', 'where') + fx('moving', 'rhythm'); }),
-				s.editable() ? H('colours.{side}.light', wellRow('colours.{side}.light', esc(t('Card light, glow, aurora and the rest'))) + wellRow('colours.{side}.second', esc(t('The aurora’s second glow'))), false) : null 
-			] },
 			{ id: 'paper', t: 'Paper', sub: 'What the page itself is made of', rows: [
-				H('grain', offSlider('grain', 'grainlevel', label('grain'), ''), s.get('grain')),
-				guest ? null : R('toppattern', function () { return fx('pattern', 'level') + fx('pattern', 'colour') + fx('pattern', 'size') + fx('pattern', 'reach'); }),
-				guest ? null : R('guides', function () { return fx('guides', 'level') + fx('guides', 'colour') + fx('guides', 'marks'); }),
-				guest || (s.greyTintable && !s.greyTintable() && !on('greytint', '0')) ? null : R('greytint', function () { return fx('tint', 'colour'); }) 
+				H('grain', offSlider('grain', 'grainlevel', label('grain'), ''), s.get('grain'))
 			] },
 			{ id: 'head', t: 'Headings and text', sub: 'The title, the headings, paragraphs, the site’s name', rows: [
-				R('titlefinish', function () { return fx('title', 'depth') + fx('title', 'dir') + (s.get('titlefinish') === 'accent' ? fx('title', 'colour') : '') + fx('title', 'reach'); }),
-				R('headitalics', function () { return fx('serif', 'which') + fx('serif', 'style'); }),
-				R('headarrival', function () { return fx('arrival', 'speed') + (s.get('headarrival') === 'blur' ? fx('arrival', 'blur') : '') + fx('arrival', 'scope'); }),
 				guest ? null : R('opening'), R('paragraphs'),
 				guest ? null : R('sitename')
 			] }
@@ -1502,7 +1460,7 @@
 			'<div class="ldpw-scroll">' + pageBody(x) + '</div>' + foot(x, s, deep, built) + menuHTML() + (note ? '<p class="ldpw-note-line" role="status">' + esc(note) + '</p>' : '') +
 		'</div>';
 	}
-	var WHAT = { 'effect:title': 'Title finish', 'effect:serif': 'Serif words', 'effect:arrival': 'Headings arrive', 'effect:cardlight': 'Card light', 'effect:moving': 'Moving light', 'effect:button': 'Button finish', 'effect:pattern': 'Pattern at the top', 'effect:guides': 'Guides', 'effect:tint': 'Tint the greys', 'effect:aurora': 'Aurora', 'effect:pointer': 'Pointer light', 'effect:dividers': 'Dividers', 'effect:topline': 'Paper top line', 'effect:picglow': 'Picture edge light', paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', sitename: 'Site name', titlefinish: 'Title finish', headitalics: 'Italics in headings', headarrival: 'Headings arrive', cardlight: 'Card light', buttonfinish: 'Button finish', toppattern: 'Pattern at the top', guides: 'Guides', greytint: 'Tint the greys', pageglow: 'Aurora', movinglight: 'Moving light', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', grain: 'Background grain', grainlevel: 'Background grain', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
+	var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', sitename: 'Site name', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', grain: 'Background grain', grainlevel: 'Background grain', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 		justify: 'Justified text', hyphenate: 'Hyphens', dropcap: 'Drop cap', capLines: 'Drop cap height', capface: 'Drop cap font', pictures: 'Picture effects', picturedim: 'Dim in the dark',
 		pictureframe: 'Frame around pictures', picturefade: 'Fade the edges', fadeedges: 'Fade the edges', marker: 'Highlighter', markercolour: 'Highlighter', button: 'Button colour', pillbuttons: 'Pill buttons', widepicture: 'Wide top picture', widehead: 'Wide title', measure: 'Line length', space: 'Space', framewidth: 'Frame width', framepattern: 'Frame pattern', palette: 'Colour', tint: 'Colour', preset: 'Colour', colours: 'Colour', accent: 'Colour',
 		face: 'Font', sans: 'Font', reading: 'Size', leading: 'Line spacing', reset: 'Reset everything', version: 'Restore' };
