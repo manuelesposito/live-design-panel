@@ -56,7 +56,7 @@
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { smallsoft: 'Small text', links: 'Links', 'colours.{side}.inverse': 'Ground colour', 'colours.{side}.light': 'Light', 'colours.{side}.second': 'Second light' }; /* rows the current window draws without a label of the list's */
 	/* THE LAB'S WORDS for rows the list names otherwise (lab/panel-settings.js, 2026-09-28): the new window says what the lab says */
-	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover', grain: 'Grain', dots: 'Dots', dotsize: 'Dot spacing', vignettereach: 'Vignette size' };
+	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover', grain: 'Grain'};
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 
 	/* THE SYMBOLS are Lucide's (ISC licence, lucide.dev), as the prototype's: 18 px on a
@@ -428,7 +428,7 @@
 	}
 
 	/* ===== LAYOUT, CORNERS AND LINES, PICTURES, EFFECTS: switches, and under each what it unfolds ===== */
-	var LEVEL_WORD = { space: { xcompact: 'Extra compact', compact: 'Compact', standard: 'Standard', spacious: 'Spacious', xspacious: 'Extra spacious' }, dotsize: { '16': 'Fine', '24': 'Medium', '32': 'Wide' } };
+	var LEVEL_WORD = { space: { xcompact: 'Extra compact', compact: 'Compact', standard: 'Standard', spacious: 'Spacious', xspacious: 'Extra spacious' }};
 	var PICK_WORD = {
 		fadeedges: { bottom: 'Bottom', sides: 'Sides and bottom', all: 'All sides' },
 		corners: { small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'Very large' },
@@ -436,7 +436,7 @@
 		categories: { below: 'Below title', above: 'Above title', hidden: 'Hidden' },
 		links: { both: 'Coloured and underlined', coloured: 'Coloured', underlined: 'Underlined', bold: 'Bold line', wash: 'Highlighter' },
 		buttonshape: { cards: 'Match corners', square: 'Square', rounded: 'Rounded', pill: 'Pill' },
-		buttonstyle: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only', key: 'Arcade key' },
+		buttonstyle: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
 		buttonmedium: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
 		buttonquiet: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
 		tags: { text: 'Text only', filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined' },
@@ -446,9 +446,9 @@
 		quotes: { plain: 'Plain', line: 'Line at the side', box: 'Box' },
 		notes: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
 		fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
-		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', halftone: 'Halftone', dither: 'Pixels', onebit: '1 bit', grain: 'Grain', trace: 'Traced', pixel: 'Arcade pixels', oldset: 'Old set', warm: 'Sun-warmed', riso: 'Risograph', hidden: 'Hidden' },
+		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
 		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
-		titlefinish: { flat: 'Flat', shine: 'Shine', accent: 'Accent colour', spectrum: 'Spectrum', violet: 'Blue to violet' },
+		titlefinish: { flat: 'Flat', shine: 'Shine', accent: 'Accent colour' },
 		headitalics: { same: 'Same font', serif: 'Serif', classic: 'Classic serif' },
 		headarrival: { none: 'None', fade: 'Fade', blur: 'Blur to sharp' },
 		cardlight: { off: 'Off', edge: 'Top edge', glow: 'Edge and glow' },
@@ -458,15 +458,13 @@
 		greytint: { '0': '0 %', '5': '5 %', '10': '10 %', '15': '15 %' },
 		pageglow: { off: 'Off', soft: 'Soft', strong: 'Strong' },
 		movinglight: { off: 'Off', on: 'On' },
-		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, 
-		textgrid: { off: 'Off', double: 'Title double', one: 'All one size' }, mdmarks: { off: 'Off', on: 'On' }, frontmatter: { off: 'Off', on: 'On' }, textmode: { off: 'Off', on: 'On' }, windowbar: { off: 'Off', on: 'On' }, statusline: { off: 'Off', pager: 'Pager', bar: 'Coloured bar' }, prompt: { off: 'Off', still: 'Still', typed: 'Typed on arrival' }, cursorshape: { blink: 'Blinking block', still: 'Block', bar: 'Thin bar' }, monitorframe: { off: 'Off', thin: 'Thin', medium: 'Medium', thick: 'Thick' }, fringe: { off: 'Off', faint: 'Faint', soft: 'Soft', strong: 'Strong', slip: 'Print slip', sliptitle: 'Slip, titles only' }, crisp: { off: 'Off', headings: 'Headings', all: 'All text' }, scanstyle: { lines: 'Lines', grille: 'Grille', both: 'Both', dark: 'Dark lines', thick: '405 lines' }, shimmer: { off: 'Off', soft: 'Soft', roll: 'Roll' }, warp: { off: 'Off', slight: 'Slight', bulged: 'Bulged', strong: 'Strong' }, switchon: { off: 'Off', on: 'On' }, bloom: { off: 'Off', soft: 'Soft', strong: 'Strong' }, ghosting: { off: 'Off', on: 'On' }, jitter: { off: 'Off', rare: 'Rare', often: 'Often' }, graincrawl: { still: 'Still', moving: 'Moving' }, typedtitle: { off: 'Off', on: 'On', decode: 'Decode' }, bootscreen: { off: 'Off', on: 'Computer boot', card: 'Test card', rain: 'Code rain', wake: 'Wake-up lines', coin: 'Insert coin', warm: 'Warm-up' }, codemarks: { off: 'Off', prompt: 'Prompt', glyphs: 'Prompt and glyphs' }, coderain: { off: 'Off', faint: 'Faint', clear: 'Clear' }, headwidth: { normal: 'Normal', narrow: 'Narrow', narrowest: 'Narrowest' }, roomglass: { off: 'Off', on: 'On' }, phosphor: { off: 'Off', blue: 'Blue', green: 'Green', amber: 'Amber', white: 'White', black: 'Black' }, static: { off: 'Off', on: 'On' }, dropout: { off: 'Off', on: 'On' }, headrule: { off: 'Off', on: 'On' }, ink: { sharp: 'Sharp', spread: 'Spread' }, tooth: { off: 'Off', faint: 'Faint', light: 'Light', medium: 'Medium', strong: 'Strong', on: 'Full' }, edges: { ink: 'Ink', yellowed: 'Yellowed' }, columns: { '1': 'One column', '2': 'Two per section', '3': 'Three per section' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, rainbow: { off: 'Off', rule: 'Rule', mark: 'Mark', both: 'Both', logo: 'On the logo' }, postband: { off: 'Off', rainbow: 'Rainbow', postband: 'Between posts', footband: 'Page foot', menuline: 'Menu', legalline: 'Legal line', stripes: 'Stripes', sheetgrid: 'Drawing grid', gridstrength: 'Grid strength', sheetborder: 'Sheet border', mottle: 'Print mottle', printedges: 'Print edges', pen: 'Pen weight', dimensions: 'Dimension lines', guidelines: 'Lettering guides', bubbles: 'Section marks', titleblock: 'Title block', scalerule: 'Scale rule', extrusion: 'Extrusion', pixelcorners: 'Pixel corners', powerbar: 'Power bar', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', arrival: 'Arrival on scroll', glassbar: 'Glass at the top', boxbuttons: 'Buttons in boxes', listtiles: 'Posts on tiles', tilehover: 'Tiles under the pointer', tubeface: 'Tube face', tvcabinet: 'Cabinet', ghostimage: 'Ghost image', titlecard: 'Title card', humbar: 'Hum bar', sitename: 'Site name', logo: 'Rainbow with logo' }, footband: { off: 'Off', on: 'Rainbow', plate: 'Dark plate' }, menuline: { plain: 'Plain', underlined: 'Underlined' }, legalline: { off: 'Off', on: 'On' }, stripes: { solid: 'Solid', gaps: 'With gaps' }, sheetgrid: { off: 'Off', squared: 'Squared', fine: 'Fine squares', dots: 'Dots' }, gridstrength: { medium: 'Medium', faint: 'Faint', strong: 'Strong' }, sheetborder: { off: 'Off', line: 'Line', zones: 'Line and zones' }, mottle: { off: 'Off', soft: 'Soft', strong: 'Strong' }, printedges: { off: 'Off', soft: 'Soft', strong: 'Strong' }, pen: { off: 'Off', medium: 'Medium', bold: 'Bold' }, dimensions: { off: 'Off', on: 'On' }, guidelines: { off: 'Off', on: 'On' }, bubbles: { off: 'Off', on: 'On' }, titleblock: { off: 'Off', on: 'On' }, scalerule: { off: 'Off', on: 'On' }, oldpaper: { off: 'Off', sun: 'Sun-faded', spots: 'Age spots', both: 'Both' }, printink: { neutral: 'Neutral', warm: 'Warm brown-black' }, titlemark: { off: 'Off', short: 'Short', wide: 'Wide' }, rainbowlinks: { off: 'Off', hover: 'On hover', always: 'Always' }, rainbowcap: { off: 'Off', on: 'On' }, coupon: { off: 'Off', on: 'On' }, fold: { off: 'Off', one: 'One fold', three: 'Three panels' }, edgeson: { window: 'Whole window', paper: 'Paper only' }, nightground: { same: 'Dark', inverted: 'Inverted' }, extrusion: { off: 'Off', diagonal: 'Diagonal', down: 'Down' }, pixelcorners: { off: 'Off', on: 'On' }, powerbar: { off: 'Off', on: 'On' }, awning: { off: 'Off', stripes: 'Stripes', scallops: 'Scallops only' }, stamp: { off: 'Off', on: 'On' }, titlesign: { off: 'Off', wave: 'Wave', star: 'Star' }, headstar: { off: 'Off', on: 'On' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, arrival: { none: 'None', rise: 'Rise', zoom: 'Rise and zoom' }, glassbar: { off: 'Off', on: 'On' }, boxbuttons: { pill: 'Pills', link: 'Links' }, listtiles: { off: 'Off', on: 'On' }, tilehover: { off: 'Off', grow: 'Grow' }, tubeface: { off: 'Off', round: 'Round buttons', square: 'Square buttons' }, tvcabinet: { off: 'Off', walnut: 'Walnut', bakelite: 'Bakelite' }, ghostimage: { off: 'Off', titles: 'Titles', all: 'Every word' }, titlecard: { off: 'Off', on: 'On' }, humbar: { off: 'Off', slow: 'Slow' }, headblock: { off: 'Off', on: 'On' }, sectionrules: { off: 'Off', thin: 'Thin', thick: 'Thick' }, sectionnumbers: { off: 'Off', written: 'Written ones', counted: 'Counted' }, sitename: { plain: 'Plain', caps: 'Bold italic capitals', marquee: 'Marquee', title: 'Title font' }, subcolour: { title: 'Like the title', ink: 'Text' }
+		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, sitename: { plain: 'Plain', caps: 'Bold italic capitals' }, subcolour: { title: 'Like the title', ink: 'Text' }
 	};
 	PICK_WORD.headitalics.vollkorn = 'Vollkorn'; PICK_WORD.headitalics.fraunces = 'Fraunces'; PICK_WORD.toppattern.diagonal = 'Diagonal'; PICK_WORD.toppattern.cross = 'Crosses';
 	/* THE EXTRAS' DETAILS, their words by full path (effects.<effect>.<detail>: "colour" means something else in each) */
 	var FX_COLOUR = { light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' };
-	var FX_NAME = { title: 'Title finish', serif: 'Serif words', arrival: 'Headings arrive', cardlight: 'Card light', moving: 'Moving light', button: 'Button finish', pattern: 'Pattern at the top', guides: 'Guides', tint: 'Tint the greys', aurora: 'Aurora', pointer: 'Pointer light', dividers: 'Dividers', topline: 'Paper top line', picglow: 'Picture edge light', monitor: 'Monitor frame', warp: 'Warp', glow: 'Glow', vignette: 'Vignette' };
+	var FX_NAME = { title: 'Title finish', serif: 'Serif words', arrival: 'Headings arrive', cardlight: 'Card light', moving: 'Moving light', button: 'Button finish', pattern: 'Pattern at the top', guides: 'Guides', tint: 'Tint the greys', aurora: 'Aurora', pointer: 'Pointer light', dividers: 'Dividers', topline: 'Paper top line', picglow: 'Picture edge light' };
 	var FX_WORD = {
-		'monitor.curve': { round: 'Round', slight: 'Slight', bulged: 'Bulged' }, 'monitor.sheen': { off: 'Off', on: 'On' }, 'warp.direction': { 'in': 'Pulled in', out: 'Magnified' }, 'glow.reach': { all: 'All text', headings: 'Headings only' }, 'vignette.night': { same: 'Same as by day', half: 'Half as strong' }, 'vignette.colour': { ink: 'Ink', black: 'Black' }, 'vignette.day': { same: 'As set', half: 'Half as strong' },
 		'title.depth': { '50': '50 %', '70': '70 %', '30': '30 %' }, 'title.dir': { diagonal: 'Diagonal', down: 'Down', across: 'Across' }, 'title.colour': FX_COLOUR, 'title.reach': { all: 'All headings', title: 'Title only' },
 		'serif.which': { italics: 'Italics', last: 'Last word', title: 'Whole title' }, 'serif.style': { italic: 'Italic', upright: 'Upright' },
 		'arrival.speed': { calm: 'Calm', quick: 'Quick', slow: 'Slow' }, 'arrival.blur': { '8': 'Medium', '4': 'Light', '14': 'Strong' }, 'arrival.scope': { headings: 'Headings only', text: 'And paragraphs', all: 'And pictures' },
@@ -482,7 +480,7 @@
 	};
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; /* the prototype's order, loud to quiet */
-	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER.concat(['key']) /* Arcade's key, the main button's alone (0.15.35: the row drew the six shared looks only, so a style resting on the key showed the raw id and the key could not be picked again) */, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] /* bold, Poster's (0.15.38) */, cards: ['flat', 'box', 'raised', 'top', 'ticks'], quotes: ['plain', 'line', 'box'] };
+	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] /* bold, Poster's (0.15.38) */, cards: ['flat', 'box', 'raised', 'top', 'ticks'], quotes: ['plain', 'line', 'box'] };
 	var GUEST_REST = { tags: 'text', chosenitem: 'gray', quotes: 'line', notes: 'flat', fields: 'flat' }; /* on another theme the rest is the theme's own tags and mark, so it says so */
 	/* a strength under its switch, its stops the list's, in words where the list's numbers say nothing */
 	function levelRow(key, unit, sub) {
@@ -502,9 +500,9 @@
 	   choice drawn small on the page's own paper, in its ink and its button colour, the chosen one ringed.
 	   draw: button (the levels), tag, link, chosen (menus and tabs), surface (cards), picture, frame, fade */
 	var LOOK_DRAW = { buttonstyle: 'button', buttonmedium: 'button', buttonquiet: 'button', tags: 'tag', links: 'link', chosenitem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', notes: 'surface', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
-	var LOOK_SHORT = { shadow: 'Shadow', text: 'Text', key: 'Key' };
+	var LOOK_SHORT = { shadow: 'Shadow', text: 'Text' };
 	var LOOK_NOTE = { buttonstyle: 'The main action, like Subscribe', buttonmedium: 'A second choice next to it', buttonquiet: 'Small actions, like Share', links: 'In the text', chosenitem: 'The page you are on, the tab that is open', notes: 'Tips and remarks in a box', fields: 'Search, comment and sign-up fields' }; /* the prototype's line under a row */ /* a level's look under its small picture, short */
-	var PIC_FILTER = { plain: 'none', bw: 'grayscale(1)', sepia: 'sepia(.85) contrast(1.05)', duo: 'grayscale(1) sepia(1) saturate(1.6) hue-rotate(175deg) brightness(.95)', accent: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(200deg) saturate(2.2)', halftone: 'grayscale(1) contrast(1.6)', dither: 'contrast(1.5) saturate(1.3)', grain: 'contrast(1.1) saturate(.85)', trace: 'url(#ldp-trace)', pixel: 'url(#ldp-pixel)', warm: 'sepia(.18) saturate(1.12) contrast(1.02)', riso: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(320deg) saturate(2.4)' };
+	var PIC_FILTER = { plain: 'none', bw: 'grayscale(1)', sepia: 'sepia(.85) contrast(1.05)', duo: 'grayscale(1) sepia(1) saturate(1.6) hue-rotate(175deg) brightness(.95)', accent: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(200deg) saturate(2.2)', grain: 'contrast(1.1) saturate(.85)', warm: 'sepia(.18) saturate(1.12) contrast(1.02)' };
 	function lookColours() {
 		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('button');
 		var btn = who === 'ink' ? ink : who === 'own' ? s.colour('button') : accent;
@@ -656,17 +654,12 @@
 		var F = function (id, d, details) { var key = 'effects.' + id + '.' + d, lit = on(key, rest(key)); return { k: key, on: lit, html: fx(id, d) + (lit && details ? details() : '') }; };
 		var H = function (key, html, lit) { return { k: key, on: !!lit, html: html }; };
 		var glow = s.get('buttonfinish') === 'glow';
-		var FRAME_ROW = false; /* THE MONITOR FRAME'S ROW IS PARKED (Manuel, 2026-09-30, 0.15.3: "remember that setting … don't throw everything completely away"): the bezel covers what a framed theme pins to the window (rail, collapse button, the panel's own buttons). The pick, its rules and its words all stay; true brings the row back once the pinned parts step inside the bezel */
+		/* THE EFFECTS AFTER THE CLEAN-UP (2026-10-02, Manuel's keep or cut list, lab/the-keep-or-cut.html): the
+		   screen, the print, the drawing office, the terminal and the styles' own parts left; what stays is
+		   Instrument's light, the paper's quiet layers and the type's few finishes, in three groups. The eleven
+		   groups of 0.15.50 are in the tag styles-archive-0.15.58. */
 		var G = [
-			{ id: 'texture', t: 'Texture', sub: 'Fine layers over the whole page', rows: [
-				H('scanlines', offSlider('scanlines', 'scan', label('scanlines'), '') + (s.get('scanlines') ? pickRow('scanstyle') : ''), s.get('scanlines')),
-				H('grain', offSlider('grain', 'grainlevel', label('grain'), '') + (s.get('grain') ? pickRow('graincrawl') : ''), s.get('grain')),
-				H('dots', offSlider('dots', 'dotlevel', label('dots'), ' %') + (s.get('dots') ? levelRow('dotsize', '') : ''), s.get('dots')),
-				H('vignette', offSlider('vignette', 'vignettelevel', label('vignette'), '') + (s.get('vignette') ? levelRow('vignettereach', '') + fx('vignette', 'night') + fx('vignette', 'colour') + fx('vignette', 'day') + pickRow('edges') + (guest ? '' : pickRow('edgeson')) : ''), s.get('vignette'))
-			] },
-			{ id: 'light', t: 'Light and glow', sub: 'Glow, light on cards and buttons, the aurora', rows: [
-				H('glow', offSlider('glow', 'glowlevel', label('glow'), '', night ? '' : t('Glows only in dark appearance'), !night) + (s.get('glow') || on('bloom', 'off') ? fx('glow', 'reach') : ''), s.get('glow')), /* the glow's and the bloom's one detail: all text or the headings only */
-				R('bloom'),
+			{ id: 'light', t: 'Light and glow', sub: 'Light on cards and buttons, the aurora', rows: [
 				guest ? null : R('cardlight', function () { return fx('cardlight', 'level') + fx('cardlight', 'colour') + fx('cardlight', 'edge') + (s.get('cardlight') === 'glow' ? fx('cardlight', 'reach') : ''); }),
 				guest ? null : F('pointer', 'look', function () { return s.get('effects.pointer.look') === 'on' ? fx('pointer', 'colour') : ''; }),
 				R('buttonfinish', function () { return (glow ? fx('button', 'glow') + fx('button', 'level') + fx('button', 'ring') + fx('button', 'lift') : '') + fx('button', 'glass') + fx('button', 'sweep'); }),
@@ -678,49 +671,17 @@
 				s.editable() ? H('colours.{side}.light', wellRow('colours.{side}.light', esc(t('Card light, glow, aurora and the rest'))) + wellRow('colours.{side}.second', esc(t('The aurora’s second glow'))), false) : null /* the style's two lights, the colours the rows above spend */
 			] },
 			{ id: 'paper', t: 'Paper', sub: 'What the page itself is made of', rows: [
+				H('grain', offSlider('grain', 'grainlevel', label('grain'), ''), s.get('grain')),
 				guest ? null : R('toppattern', function () { return fx('pattern', 'level') + fx('pattern', 'colour') + fx('pattern', 'size') + fx('pattern', 'reach'); }),
 				guest ? null : R('guides', function () { return fx('guides', 'level') + fx('guides', 'colour') + fx('guides', 'marks'); }),
-				guest || (s.greyTintable && !s.greyTintable() && !on('greytint', '0')) ? null : R('greytint', function () { return fx('tint', 'colour'); }), /* hidden where it cannot act (the system's own colours), unless it is set and wants turning off */
-				R('tooth'), guest ? null : R('oldpaper'), R('ink'), guest ? null : R('printink'), guest ? null : R('fold'),
-				guest ? null : R('glassbar'), guest ? null : R('awning'), guest ? null : R('pixelcorners'), guest ? null : R('nightground')
+				guest || (s.greyTintable && !s.greyTintable() && !on('greytint', '0')) ? null : R('greytint', function () { return fx('tint', 'colour'); }) /* hidden where it cannot act (the system's own colours), unless it is set and wants turning off */
 			] },
-			{ id: 'head', t: 'Article head', sub: 'The title and what stands around it', rows: [
-				R('headwidth'),
+			{ id: 'head', t: 'Headings and text', sub: 'The title, the headings, paragraphs, the site’s name', rows: [
 				R('titlefinish', function () { return fx('title', 'depth') + fx('title', 'dir') + (s.get('titlefinish') === 'accent' ? fx('title', 'colour') : '') + fx('title', 'reach'); }),
 				R('headitalics', function () { return fx('serif', 'which') + fx('serif', 'style'); }),
-				R('extrusion'), R('dropout'), R('headrule'),
-				guest ? null : R('titlemark'), guest ? null : R('titlesign'), guest ? null : R('headblock'), guest ? null : R('stamp'), guest ? null : R('opening')
-			] },
-			{ id: 'sections', t: 'Sections and text', sub: 'Headings in the article, paragraphs, links', rows: [
-				guest ? null : R('columns'), R('paragraphs'),
-				guest ? null : R('sectionrules'), guest ? null : R('sectionnumbers'), guest ? null : R('headstar'),
-				guest ? null : R('rainbowcap'), guest ? null : R('rainbowlinks'), R('codemarks')
-			] },
-			{ id: 'lists', t: 'Lists and cards', sub: 'Pages of posts, their cards and buttons', rows: guest ? [] : [
-				R('postband'), R('stripes'), R('listtiles'), R('tilehover'), R('boxbuttons')
-			] },
-			{ id: 'rail', t: 'Rail and page foot', sub: 'The site’s name, the menu and the end of the page', rows: guest ? [] : [
-				R('sitename'), R('menuline'), R('rainbow'), R('footband'), R('legalline'), R('coupon'), R('powerbar')
-			] },
-			{ id: 'drawing', t: 'Drawing', sub: 'A drawing office’s sheet and its marks', rows: guest ? [] : [
-				R('sheetgrid', function () { return pickRow('gridstrength'); }),
-				R('sheetborder'), R('mottle'), R('printedges'), R('pen'), R('dimensions'), R('guidelines'), R('bubbles'), R('titleblock'), R('scalerule')
-			] },
-			{ id: 'screen', t: 'Screen', sub: 'An old screen: glass, phosphor, lines', rows: [
-				guest || !FRAME_ROW ? null : R('monitorframe', function () { return fx('monitor', 'curve') + fx('monitor', 'sheen'); }),
-				guest ? null : R('tubeface'), guest ? null : R('tvcabinet'), /* the old set (Tube B): the paper as a valve set's screen and the cabinet round it */
-				R('phosphor'), R('fringe'), R('crisp'), R('shimmer'),
-				guest ? null : R('warp', function () { return fx('warp', 'direction'); }), guest ? null : R('ghosting'),
-				R('jitter'), R('ghostimage'), R('humbar'), R('coderain')
-			] },
-			{ id: 'arrival', t: 'Arrival and motion', sub: 'What happens as a page opens and is read', rows: [
-				R('switchon', function () { return pickRow('static'); }), R('bootscreen'), guest ? null : R('titlecard'), R('typedtitle'),
 				R('headarrival', function () { return fx('arrival', 'speed') + (s.get('headarrival') === 'blur' ? fx('arrival', 'blur') : '') + fx('arrival', 'scope'); }),
-				guest ? null : R('arrival')
-			] },
-			{ id: 'terminal', t: 'Terminal', sub: 'The page as a terminal’s window', rows: guest ? [] : [ /* Terminal B: the cursor's row shows while a prompt or the pager's line carries it */
-				R('textgrid'), R('mdmarks'), R('frontmatter'), R('textmode'), R('windowbar'), R('statusline'), R('prompt'),
-				on('prompt', 'off') || s.get('statusline') === 'pager' ? R('cursorshape') : null
+				guest ? null : R('opening'), R('paragraphs'),
+				guest ? null : R('sitename')
 			] }
 		];
 		var lit = '', body = '';
@@ -1443,9 +1404,6 @@
 		['.comment, .wp-block-comment-template, .comment-respond', 'type', 'role:comment', 'Comments'],
 		/* THE SMALL WORDS THAT HAD NO ROW OF THEIR OWN HERE (Manuel, 2026-10-01: "I can't click that little text with our tool to find out which setting it is"): the rail's section titles fell through to the whole rail as Interface, and the plate at the page's foot to Colour. */
 		['.quire-nav-section-heading, .quire-nav-section-head', 'type', 'role:title', 'Interface titles'],
-		['.ldp-plate-name', 'effects', 'sitename', 'Site name'],
-		['.ldp-plate-line, .ldp-plate-legal', 'type', 'role:read', 'Reading text'],
-		['.ldp-plate', 'effects', 'footband', 'Page foot'],
 		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:ui', 'Interface'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:read', 'Reading text'],
 		['main, .content-column, .wp-site-blocks, body', 'colour', '', 'Colour']
@@ -1692,11 +1650,9 @@
 		'</div>';
 	}
 	/* UNDO SAYS WHAT IT TAKES BACK ("Undo Highlighter"), in today's window's words */
-	var WHAT = { 'effect:title': 'Title finish', 'effect:serif': 'Serif words', 'effect:arrival': 'Headings arrive', 'effect:cardlight': 'Card light', 'effect:moving': 'Moving light', 'effect:button': 'Button finish', 'effect:pattern': 'Pattern at the top', 'effect:guides': 'Guides', 'effect:tint': 'Tint the greys', 'effect:aurora': 'Aurora', 'effect:pointer': 'Pointer light', 'effect:dividers': 'Dividers', 'effect:topline': 'Paper top line', 'effect:picglow': 'Picture edge light', 'effect:monitor': 'Monitor frame', 'effect:warp': 'Warp', 'effect:glow': 'Glow', 'effect:vignette': 'Vignette', monitorframe: 'Monitor frame', fringe: 'Colour fringe', crisp: 'Crisp edges', scanstyle: 'Scan style', shimmer: 'Shimmer', warp: 'Warp', switchon: 'Switch-on', static: 'Static', bloom: 'Bloom', ghosting: 'Ghosting', jitter: 'Jitter', graincrawl: 'Grain motion', typedtitle: 'Typed title', bootscreen: 'Start screen', roomglass: 'Room in the glass', phosphor: 'Phosphor', dropout: 'Drop-out title', headrule: 'Title rule', ink: 'Ink', tooth: 'Paper tooth', edges: 'Edges', columns: 'Columns', paragraphs: 'Paragraphs', rainbow: 'Rainbow', postband: 'Between posts', footband: 'Page foot', menuline: 'Menu', legalline: 'Legal line', stripes: 'Stripes', sheetgrid: 'Drawing grid', gridstrength: 'Grid strength', sheetborder: 'Sheet border', mottle: 'Print mottle', printedges: 'Print edges', pen: 'Pen weight', dimensions: 'Dimension lines', guidelines: 'Lettering guides', bubbles: 'Section marks', titleblock: 'Title block', scalerule: 'Scale rule', extrusion: 'Extrusion', pixelcorners: 'Pixel corners', powerbar: 'Power bar', awning: 'Awning', stamp: 'Stamp', titlesign: 'Mark under the title', headstar: 'Star over headings', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', arrival: 'Arrival on scroll', glassbar: 'Glass at the top', boxbuttons: 'Buttons in boxes', listtiles: 'Posts on tiles', tilehover: 'Tiles under the pointer', tubeface: 'Tube face', tvcabinet: 'Cabinet', ghostimage: 'Ghost image', titlecard: 'Title card', humbar: 'Hum bar', sitename: 'Site name', titlefinish: 'Title finish', headitalics: 'Italics in headings', headarrival: 'Headings arrive', cardlight: 'Card light', buttonfinish: 'Button finish', toppattern: 'Pattern at the top', guides: 'Guides', greytint: 'Tint the greys', pageglow: 'Aurora', movinglight: 'Moving light', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards',
-		scanlines: 'Scan lines', scan: 'Scan lines', glow: 'Glow', glowlevel: 'Glow', grain: 'Background grain', grainlevel: 'Background grain',
-		vignette: 'Vignette', vignettelevel: 'Vignette', vignettereach: 'Vignette', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
+	var WHAT = { 'effect:title': 'Title finish', 'effect:serif': 'Serif words', 'effect:arrival': 'Headings arrive', 'effect:cardlight': 'Card light', 'effect:moving': 'Moving light', 'effect:button': 'Button finish', 'effect:pattern': 'Pattern at the top', 'effect:guides': 'Guides', 'effect:tint': 'Tint the greys', 'effect:aurora': 'Aurora', 'effect:pointer': 'Pointer light', 'effect:dividers': 'Dividers', 'effect:topline': 'Paper top line', 'effect:picglow': 'Picture edge light', paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', sitename: 'Site name', titlefinish: 'Title finish', headitalics: 'Italics in headings', headarrival: 'Headings arrive', cardlight: 'Card light', buttonfinish: 'Button finish', toppattern: 'Pattern at the top', guides: 'Guides', greytint: 'Tint the greys', pageglow: 'Aurora', movinglight: 'Moving light', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', grain: 'Background grain', grainlevel: 'Background grain', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 		justify: 'Justified text', hyphenate: 'Hyphens', dropcap: 'Drop cap', capLines: 'Drop cap height', capface: 'Drop cap font', pictures: 'Picture effects', picturedim: 'Dim in the dark',
-		pictureframe: 'Frame around pictures', picturefade: 'Fade the edges', fadeedges: 'Fade the edges', dots: 'Dotted background', dotsize: 'Dotted background', dotlevel: 'Dotted background', marker: 'Highlighter', markercolour: 'Highlighter', button: 'Button colour', pillbuttons: 'Pill buttons', widepicture: 'Wide top picture', widehead: 'Wide title', measure: 'Line length', space: 'Space', framewidth: 'Frame width', framepattern: 'Frame pattern', palette: 'Colour', tint: 'Colour', preset: 'Colour', colours: 'Colour', accent: 'Colour',
+		pictureframe: 'Frame around pictures', picturefade: 'Fade the edges', fadeedges: 'Fade the edges', marker: 'Highlighter', markercolour: 'Highlighter', button: 'Button colour', pillbuttons: 'Pill buttons', widepicture: 'Wide top picture', widehead: 'Wide title', measure: 'Line length', space: 'Space', framewidth: 'Frame width', framepattern: 'Frame pattern', palette: 'Colour', tint: 'Colour', preset: 'Colour', colours: 'Colour', accent: 'Colour',
 		face: 'Font', sans: 'Font', reading: 'Size', leading: 'Line spacing', reset: 'Reset everything', version: 'Restore' };
 	function redoName() { var w = St() && St().redoWhat ? St().redoWhat() : ''; return WHAT[w] ? t('Redo {what}').replace('{what}', t(WHAT[w])) : t('Redo'); }
 	function undoName() { var w = St() ? St().undoWhat() : ''; return WHAT[w] ? t('Undo {what}').replace('{what}', t(WHAT[w])) : t('Undo'); }

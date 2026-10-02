@@ -215,7 +215,7 @@
 	var settled = 0;
 	function rewear() { siteColour(); if (docked === 'slot') wear(); else if (docked) dock(); }
 	/* not for what changes no look (2026-10-02, the panel audit): the window's own aiming class and the passing marks of a crossing or a boot screen docked the button again each time */
-	var NO_LOOK = /^(class|data-ldp-crossing|data-ldp-booting|data-rail-ready|data-comments-side)$/;
+	var NO_LOOK = /^(class|data-ldp-crossing|data-rail-ready|data-comments-side)$/;
 	new MutationObserver(function (ms) { if (ms.every(function (m) { return NO_LOOK.test(m.attributeName || ''); })) return; cancelAnimationFrame(wearing); wearing = requestAnimationFrame(rewear); clearTimeout(settled); settled = setTimeout(rewear, 500); })
 		.observe(document.documentElement, { attributes: true }); /* a look writes many switches on the root; any of them may redraw the neighbour */
 	/* A SQUARE BESIDE THE MENU (Manuel, 2026-09-24, lab/the-button-on-tt5.html: "I

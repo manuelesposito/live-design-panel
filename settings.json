@@ -31,7 +31,6 @@
       "picturedim",
       "picturefade",
       "pictureframe",
-      "dots",
       "marker",
       "widepicture",
       "fullpicture",
@@ -39,22 +38,15 @@
       "tagsfollow",
       "soft",
       "alternates",
-      "scanlines",
-      "glow",
       "grain",
-      "vignette",
       "tint",
       "sans",
       "scope",
       "pictures",
       "capLines",
-      "scan",
       "line",
       "fill",
-      "glowlevel",
       "grainlevel",
-      "vignettelevel",
-      "vignettereach",
       "softlevel",
       "quietlevel",
       "smallsoft",
@@ -62,8 +54,6 @@
       "measure",
       "space",
       "framewidth",
-      "dotsize",
-      "dotlevel",
       "framepattern",
       "linestyle",
       "corners",
@@ -91,94 +81,15 @@
       "greytint",
       "pageglow",
       "movinglight",
-      "monitorframe",
-      "fringe",
-      "crisp",
-      "scanstyle",
-      "shimmer",
-      "warp",
-      "switchon",
-      "bloom",
-      "ghosting",
-      "jitter",
-      "graincrawl",
-      "typedtitle",
-      "bootscreen",
-      "roomglass",
-      "phosphor",
-      "static",
-      "dropout",
-      "headrule",
-      "ink",
-      "tooth",
-      "edges",
-      "columns",
       "paragraphs",
-      "rainbow",
-      "postband",
-      "footband",
-      "menuline",
-      "legalline",
-      "stripes",
       "sitename",
-      "sheetgrid",
-      "gridstrength",
-      "sheetborder",
-      "mottle",
-      "printedges",
-      "pen",
-      "dimensions",
-      "guidelines",
-      "bubbles",
-      "titleblock",
-      "scalerule",
-      "oldpaper",
-      "printink",
-      "titlemark",
-      "rainbowlinks",
-      "rainbowcap",
       "capface",
       "hyphenate",
-      "coupon",
-      "fold",
-      "edgeson",
-      "nightground",
-      "codemarks",
-      "coderain",
-      "headwidth",
-      "textgrid",
-      "mdmarks",
-      "frontmatter",
-      "textmode",
-      "windowbar",
-      "statusline",
-      "prompt",
-      "cursorshape",
-      "extrusion",
-      "pixelcorners",
-      "powerbar",
-      "awning",
-      "stamp",
-      "titlesign",
-      "headstar",
       "piccorners",
       "pictureshadow",
       "subcolour",
       "opening",
       "widefigures",
-      "arrival",
-      "glassbar",
-      "boxbuttons",
-      "listtiles",
-      "tilehover",
-      "tubeface",
-      "tvcabinet",
-      "ghostimage",
-      "titlecard",
-      "humbar",
-      "headblock",
-      "sectionrules",
-      "sectionnumbers",
       "unlinked",
       "effects",
       "roles",
@@ -200,9 +111,6 @@
       "lines",
       "line",
       "corners",
-      "dots",
-      "dotsize",
-      "dotlevel",
       "marker",
       "markercolour",
       "measure",
@@ -238,113 +146,27 @@
       "greytint",
       "pageglow",
       "movinglight",
-      "monitorframe",
-      "fringe",
-      "crisp",
-      "scanstyle",
-      "shimmer",
-      "warp",
-      "switchon",
-      "bloom",
-      "ghosting",
-      "jitter",
-      "graincrawl",
-      "typedtitle",
-      "bootscreen",
-      "roomglass",
-      "phosphor",
-      "static",
-      "dropout",
-      "headrule",
-      "ink",
-      "tooth",
-      "edges",
-      "columns",
       "paragraphs",
-      "rainbow",
-      "postband",
-      "footband",
-      "menuline",
-      "legalline",
-      "stripes",
       "sitename",
-      "sheetgrid",
-      "gridstrength",
-      "sheetborder",
-      "mottle",
-      "printedges",
-      "pen",
-      "dimensions",
-      "guidelines",
-      "bubbles",
-      "titleblock",
-      "scalerule",
-      "oldpaper",
-      "printink",
-      "titlemark",
-      "rainbowlinks",
-      "rainbowcap",
       "capface",
       "hyphenate",
-      "coupon",
-      "fold",
-      "edgeson",
-      "nightground",
-      "codemarks",
-      "coderain",
-      "headwidth",
-      "textgrid",
-      "mdmarks",
-      "frontmatter",
-      "textmode",
-      "windowbar",
-      "statusline",
-      "prompt",
-      "cursorshape",
-      "extrusion",
-      "pixelcorners",
-      "powerbar",
-      "awning",
-      "stamp",
-      "titlesign",
-      "headstar",
       "piccorners",
       "pictureshadow",
       "subcolour",
       "opening",
       "widefigures",
-      "arrival",
-      "glassbar",
-      "boxbuttons",
-      "listtiles",
-      "tilehover",
-      "tubeface",
-      "tvcabinet",
-      "ghostimage",
-      "titlecard",
-      "humbar",
-      "headblock",
-      "sectionrules",
-      "sectionnumbers",
       "pillbuttons",
       "centretitle",
       "fadeedges",
       "linestyle",
       "fills",
       "fill",
-      "scanlines",
-      "scan",
-      "glow",
-      "glowlevel",
       "grain",
       "softlevel",
       "quietlevel",
       "smallsoft",
       "links",
       "grainlevel",
-      "vignette",
-      "vignettelevel",
-      "vignettereach",
       "pictures",
       "picturehover",
       "alternates",
@@ -1355,94 +1177,6 @@
           "means": "light (the rest), second, accent or ink."
         }
       ]
-    },
-    {
-      "id": "monitor",
-      "label": "Monitor frame",
-      "details": [
-        {
-          "id": "curve",
-          "label": "Curve",
-          "choices": [
-            "round",
-            "slight",
-            "bulged"
-          ],
-          "means": "the frame's corner: round (the rest), slight or bulged."
-        },
-        {
-          "id": "sheen",
-          "label": "Glass sheen",
-          "choices": [
-            "off",
-            "on"
-          ],
-          "means": "a faint light across the glass's top corner: off (the rest) or on."
-        }
-      ]
-    },
-    {
-      "id": "warp",
-      "label": "Warp",
-      "details": [
-        {
-          "id": "direction",
-          "label": "Direction",
-          "choices": [
-            "in",
-            "out"
-          ],
-          "means": "the edges pulled in (the rest) or magnified out."
-        }
-      ]
-    },
-    {
-      "id": "glow",
-      "label": "Glow",
-      "details": [
-        {
-          "id": "reach",
-          "label": "Glows on",
-          "choices": [
-            "all",
-            "headings"
-          ],
-          "means": "which words glow by night: all text (the rest) or the headings only, the reading left clean."
-        }
-      ]
-    },
-    {
-      "id": "vignette",
-      "label": "Vignette",
-      "details": [
-        {
-          "id": "night",
-          "label": "By night",
-          "choices": [
-            "same",
-            "half"
-          ],
-          "means": "the vignette's strength on the dark side: the same as by day (the rest) or half, since a pale haze shows far more on a dark ground."
-        },
-        {
-          "id": "colour",
-          "label": "By night in",
-          "choices": [
-            "ink",
-            "black"
-          ],
-          "means": "the colour the edges darken toward on the dark side: the ink (the rest), which reads as a pale haze, or black, as a screen's glass falls off into the dark."
-        },
-        {
-          "id": "day",
-          "label": "By day",
-          "choices": [
-            "same",
-            "half"
-          ],
-          "means": "the vignette's strength on the light side: the same as set (the rest) or half."
-        }
-      ]
     }
   ],
   "settings": [
@@ -1478,21 +1212,7 @@
       "kind": "pick",
       "choices": [
         "standard",
-        "book",
-        "large",
-        "terminal",
-        "console",
-        "blueprint",
-        "instrument",
-        "catalogue",
-        "gallery",
-        "storybook",
-        "specimen",
-        "terracotta",
-        "risograph",
-        "arcade",
-        "tube",
-        "brochure"
+        "instrument"
       ],
       "def": "standard",
       "means": "The built-in style this record starts from; every key left out rests on it. See examples for what each base is.",
@@ -1531,7 +1251,7 @@
       "level": 4,
       "row": {
         "drawn": "grid",
-        "line": 2016,
+        "line": 2004,
         "in": "presetGrid"
       },
       "changesPage": "Colour",
@@ -1564,7 +1284,7 @@
       "level": 1,
       "row": {
         "drawn": "stepper",
-        "line": 869,
+        "line": 865,
         "in": "level1"
       },
       "changesPage": "Type › Reading text",
@@ -1684,7 +1404,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1561,
+        "line": 1549,
         "in": "fontRow"
       },
       "changesPage": "Type › Reading text",
@@ -1725,7 +1445,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1941,
+        "line": 1929,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1749,7 +1469,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1968,
+        "line": 1956,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1785,7 +1505,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1971,
+        "line": 1959,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1817,7 +1537,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1198,
+        "line": 1193,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1849,7 +1569,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1206,
+        "line": 1201,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1881,7 +1601,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1214,
+        "line": 1209,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1913,7 +1633,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1271,
+        "line": 1261,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1945,7 +1665,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1193,
+        "line": 1188,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1977,7 +1697,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1212,
+        "line": 1207,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2009,7 +1729,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1126,
+        "line": 1122,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2041,7 +1761,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1127,
+        "line": 1123,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2073,7 +1793,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1183,
+        "line": 1178,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2105,7 +1825,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1133,
+        "line": 1129,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2126,70 +1846,6 @@
       }
     },
     {
-      "key": "scanlines",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "Faint horizontal lines over the whole page, an old screen.",
-      "label": "Scan lines",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "switch",
-        "line": 1225,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-scanlines"
-      ],
-      "rest": {
-        "data-scanlines": "REST"
-      },
-      "restValues": {
-        "data-scanlines": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-scanlines"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "glow",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "A soft light around the letters in their own colour. Shows on the dark side only.",
-      "label": "Glow",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "switch",
-        "line": 1226,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-glow"
-      ],
-      "rest": {
-        "data-glow": "REST"
-      },
-      "restValues": {
-        "data-glow": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-glow"
-        ],
-        "props": []
-      }
-    },
-    {
       "key": "grain",
       "group": "opt",
       "table": "OPTS",
@@ -2201,7 +1857,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1227,
+        "line": 1219,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2222,38 +1878,6 @@
       }
     },
     {
-      "key": "vignette",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "A darkening at the page's four edges, as a screen's glass has.",
-      "label": "Vignette",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "switch",
-        "line": 1229,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-vignette"
-      ],
-      "rest": {
-        "data-vignette": "REST"
-      },
-      "restValues": {
-        "data-vignette": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-vignette"
-        ],
-        "props": []
-      }
-    },
-    {
       "key": "soft",
       "group": "opt",
       "table": "OPTS",
@@ -2265,7 +1889,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1259,
+        "line": 1249,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2316,38 +1940,6 @@
       }
     },
     {
-      "key": "dots",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "A fine grid of dots on the page ground, a cutting mat.",
-      "label": "Dotted background",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "switch",
-        "line": 1228,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-dots"
-      ],
-      "rest": {
-        "data-dots": "REST"
-      },
-      "restValues": {
-        "data-dots": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-dots"
-        ],
-        "props": []
-      }
-    },
-    {
       "key": "marker",
       "group": "opt",
       "table": "OPTS",
@@ -2359,7 +1951,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1263,
+        "line": 1253,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2391,7 +1983,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1193,
+        "line": 1188,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2423,7 +2015,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1203,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2586,7 +2178,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1561,
+        "line": 1549,
         "in": "fontRow"
       },
       "changesPage": "Type › Interface",
@@ -2653,15 +2245,8 @@
         "sepia",
         "duo",
         "accent",
-        "halftone",
-        "dither",
-        "onebit",
         "grain",
-        "trace",
-        "pixel",
         "warm",
-        "oldset",
-        "riso",
         "hidden"
       ],
       "def": "plain",
@@ -2671,7 +2256,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1240,
+        "line": 1230,
         "in": "picturesBody"
       },
       "changesPage": "Pictures",
@@ -2705,7 +2290,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1972,
+        "line": 1960,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -2734,7 +2319,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1276,
+        "line": 1266,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2763,7 +2348,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1193,
+        "line": 1188,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2793,7 +2378,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1191,
+        "line": 1186,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2824,7 +2409,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1203,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2847,8 +2432,7 @@
         "shadow",
         "tinted",
         "gray",
-        "text",
-        "key"
+        "text"
       ],
       "def": "filled",
       "attr": "data-button-style",
@@ -2858,7 +2442,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1205,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2891,7 +2475,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1205,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2924,7 +2508,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1205,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2956,7 +2540,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1205,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2987,7 +2571,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1205,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3018,7 +2602,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1209,
+        "line": 1204,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3050,7 +2634,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1213,
+        "line": 1208,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3080,7 +2664,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1213,
+        "line": 1208,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3110,7 +2694,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1213,
+        "line": 1208,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3140,7 +2724,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1213,
+        "line": 1208,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3160,9 +2744,7 @@
       "choices": [
         "flat",
         "shine",
-        "accent",
-        "spectrum",
-        "violet"
+        "accent"
       ],
       "def": "flat",
       "attr": "data-title-finish",
@@ -3172,7 +2754,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3204,7 +2786,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3234,7 +2816,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3264,7 +2846,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3294,7 +2876,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3326,7 +2908,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3356,7 +2938,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3387,7 +2969,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3417,7 +2999,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3446,7 +3028,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3455,674 +3037,6 @@
       ],
       "rest": {
         "data-moving-light": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "monitorframe",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "thin",
-        "medium",
-        "thick"
-      ],
-      "def": "off",
-      "attr": "data-monitor-frame",
-      "means": "A black bezel around the page with rounded corners, an old monitor's frame: off (the rest), thin, medium or thick.",
-      "label": "Monitor frame",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-monitor-frame"
-      ],
-      "rest": {
-        "data-monitor-frame": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "fringe",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "faint",
-        "soft",
-        "strong",
-        "slip",
-        "sliptitle"
-      ],
-      "def": "off",
-      "attr": "data-fringe",
-      "means": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, slip (print's one magenta ghost on all text) or sliptitle (that ghost on the titles and headings only, the reading left sharp).",
-      "label": "Colour fringe",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fringe"
-      ],
-      "rest": {
-        "data-fringe": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "crisp",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "headings",
-        "all"
-      ],
-      "def": "off",
-      "attr": "data-crisp",
-      "means": "Letters drawn without smoothing, the stair-step of an old screen: off (the rest), headings, or all text.",
-      "label": "Crisp edges",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-crisp"
-      ],
-      "rest": {
-        "data-crisp": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "scanstyle",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "lines",
-        "grille",
-        "both",
-        "dark",
-        "thick"
-      ],
-      "def": "lines",
-      "attr": "data-scan-style",
-      "means": "How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille), both, or dark (the dark gaps between a colour screen's rows: by night they show on what is lit and vanish on the black, and the vignette darkens; by day faint lines in the ink)., or thick (the 405 lines of the first sets: so few that each shows, a dark gap under every two bright rows). Only with scanlines.",
-      "label": "Scan style",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-scan-style"
-      ],
-      "rest": {
-        "data-scan-style": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "shimmer",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "soft",
-        "roll"
-      ],
-      "def": "off",
-      "attr": "data-shimmer",
-      "means": "The screen's brightness moving: off (the rest), soft (a slow hum) or roll (a faint band drifting down). Still for readers who ask for less motion.",
-      "label": "Shimmer",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-shimmer"
-      ],
-      "rest": {
-        "data-shimmer": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "warp",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "slight",
-        "bulged",
-        "strong"
-      ],
-      "def": "off",
-      "attr": "data-warp",
-      "means": "The page bent like a tube's glass: off (the rest), slight, bulged or strong. The page is redrawn as a picture, so text softens a little.",
-      "label": "Warp",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-warp"
-      ],
-      "rest": {
-        "data-warp": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "switchon",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-switch-on",
-      "means": "The screen collapses to a line and blinks back when the side changes: off (the rest) or on.",
-      "label": "Switch-on",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-switch-on"
-      ],
-      "rest": {
-        "data-switch-on": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "bloom",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "soft",
-        "strong"
-      ],
-      "def": "off",
-      "attr": "data-bloom",
-      "means": "The glow spilling into the paper, not only round the letters: off (the rest), soft or strong. By night only.",
-      "label": "Bloom",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-bloom"
-      ],
-      "rest": {
-        "data-bloom": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "ghosting",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-ghosting",
-      "means": "A vertical smear while the page scrolls, the phosphor fading: off (the rest) or on.",
-      "label": "Ghosting",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-ghosting"
-      ],
-      "rest": {
-        "data-ghosting": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "jitter",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "rare",
-        "often"
-      ],
-      "def": "off",
-      "attr": "data-jitter",
-      "means": "The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.",
-      "label": "Jitter",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-jitter"
-      ],
-      "rest": {
-        "data-jitter": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "graincrawl",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "still",
-        "moving"
-      ],
-      "def": "still",
-      "attr": "data-grain-crawl",
-      "means": "The grain standing still (the rest) or moving, as a tube's noise crawls. Only with grain.",
-      "label": "Grain motion",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-grain-crawl"
-      ],
-      "rest": {
-        "data-grain-crawl": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "typedtitle",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on",
-        "decode"
-      ],
-      "def": "off",
-      "attr": "data-typed-title",
-      "means": "The article's title arrives letter by letter behind a block cursor: off (the rest), on, or decode (each letter of the title and of the article's headings runs through scrambled code glyphs before it settles, the headings as they come into view). Nothing moves for readers who ask for less motion.",
-      "label": "Typed title",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-typed-title"
-      ],
-      "rest": {
-        "data-typed-title": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "bootscreen",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on",
-        "card",
-        "rain",
-        "wake",
-        "coin",
-        "warm"
-      ],
-      "def": "off",
-      "attr": "data-boot-screen",
-      "means": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks), card (a television's test card with the site's name on its plate), rain (falling lines of green code that thin away to the page), wake (three lines typed on a black screen), or coin (an arcade cabinet's attract screen: the site's name in the heading's face standing on the second light, PRESS START blinking, the credit line), or warm (no screen of its own: the page opens out of a bright line across the middle, dim and soft, and comes up to full light, as a valve set warmed up).",
-      "label": "Start screen",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-boot-screen",
-        "data-ldp-booting"
-      ],
-      "rest": {
-        "data-boot-screen": "ABSENT",
-        "data-ldp-booting": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "roomglass",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-room-glass",
-      "means": "A window reflected across the top corner of the glass: off (the rest) or on.",
-      "label": null,
-      "page": "Effects",
-      "level": 17,
-      "pageFrom": "markChanged",
-      "changesPage": "Effects",
-      "attrs": [
-        "data-room-glass"
-      ],
-      "rest": {
-        "data-room-glass": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "phosphor",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "blue",
-        "green",
-        "amber",
-        "white",
-        "black"
-      ],
-      "def": "off",
-      "attr": "data-phosphor",
-      "means": "The whole night screen in one phosphor: off (the rest, the style's own colours), blue, green, amber, white or black.",
-      "label": "Phosphor",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-colours",
-        "data-phosphor"
-      ],
-      "rest": {
-        "data-colours": "ABSENT",
-        "data-phosphor": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "static",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-static",
-      "means": "A burst of noise while the set switches on: off (the rest) or on. Only with switchon.",
-      "label": "Static",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-static"
-      ],
-      "rest": {
-        "data-static": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "dropout",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-dropout",
-      "means": "The title in the paper's colour on a block of ink, a headline over a photograph: off (the rest) or on.",
-      "label": "Drop-out title",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-dropout"
-      ],
-      "rest": {
-        "data-dropout": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "headrule",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-head-rule",
-      "means": "A rule under the title: off (the rest) or on.",
-      "label": "Title rule",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-head-rule"
-      ],
-      "rest": {
-        "data-head-rule": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "ink",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "sharp",
-        "spread"
-      ],
-      "def": "sharp",
-      "attr": "data-ink",
-      "means": "Print bleeds a hair: sharp (the rest) or spread, the letters a little softer and heavier.",
-      "label": "Ink",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-ink"
-      ],
-      "rest": {
-        "data-ink": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "tooth",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "faint",
-        "light",
-        "medium",
-        "strong",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-tooth",
-      "means": "Paper's tooth, the grain of a printed sheet: off (the rest), faint, light, medium or strong (the tooth alone at that strength) or on (the full tooth over the grain).",
-      "label": "Paper tooth",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-tooth"
-      ],
-      "rest": {
-        "data-tooth": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "edges",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "ink",
-        "yellowed"
-      ],
-      "def": "ink",
-      "attr": "data-edges",
-      "means": "The vignette's colour: ink (the rest) or yellowed, an old page's brown.",
-      "label": "Edges",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-edges"
-      ],
-      "rest": {
-        "data-edges": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "columns",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "1",
-        "2",
-        "3"
-      ],
-      "def": "1",
-      "attr": "data-columns",
-      "means": "The article's sections in columns: 1 (the rest), 2 or 3. Each heading with its text balances into its columns and the next starts below; one column on a phone.",
-      "label": "Columns",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-columns"
-      ],
-      "rest": {
-        "data-columns": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -4143,7 +3057,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4156,194 +3070,13 @@
       "inStandardAtRest": false
     },
     {
-      "key": "rainbow",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "rule",
-        "mark",
-        "both",
-        "logo"
-      ],
-      "def": "off",
-      "attr": "data-rainbow",
-      "means": "Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site's name), both, or logo (the stripes fill the site's logo itself; for a logo on a transparent ground).",
-      "label": "Rainbow",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-rainbow"
-      ],
-      "rest": {
-        "data-rainbow": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "postband",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "rainbow",
-        "logo"
-      ],
-      "def": "off",
-      "attr": "data-post-band",
-      "means": "What stands between two posts on a page of posts: off (the rest, the theme's own gap), rainbow (the six stripes across the whole paper) or logo (the stripes with the site's logo small in a gap at their middle).",
-      "label": "Between posts",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-post-band"
-      ],
-      "rest": {
-        "data-post-band": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "footband",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on",
-        "plate"
-      ],
-      "def": "off",
-      "attr": "data-foot-band",
-      "means": "What closes the page at its very foot: off (the rest), on (the six rainbow stripes as a taller band) or plate (a black plate across the paper: the site's logo and name, its tagline and the copyright line, with a faint colour fringe, the last card of a film).",
-      "label": "Page foot",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-foot-band"
-      ],
-      "rest": {
-        "data-foot-band": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "menuline",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "plain",
-        "underlined"
-      ],
-      "def": "plain",
-      "attr": "data-menu-line",
-      "means": "The side column's menu links: plain (the rest) or underlined in the ink, as a printed page sets its navigation.",
-      "label": "Menu",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-menu-line"
-      ],
-      "rest": {
-        "data-menu-line": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "legalline",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-legal-line",
-      "means": "A small italic line at the foot of the page, an advertisement's small print: the copyright sign, the year, the site's name and its tagline. Only words the site already has. Off (the rest) or on.",
-      "label": "Legal line",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-legal-line"
-      ],
-      "rest": {
-        "data-legal-line": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "stripes",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "solid",
-        "gaps"
-      ],
-      "def": "solid",
-      "attr": "data-stripes",
-      "means": "How the rainbow bands between posts and at the page foot are drawn: solid (the rest, six stripes edge to edge) or gaps (six thinner stripes with paper between them, in softer hues).",
-      "label": "Stripes",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-stripes"
-      ],
-      "rest": {
-        "data-stripes": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
       "key": "sitename",
       "group": "pick",
       "table": "PICKS",
       "kind": "pick",
       "choices": [
         "plain",
-        "caps",
-        "marquee",
-        "title"
+        "caps"
       ],
       "def": "plain",
       "attr": "data-site-name",
@@ -4353,7 +3086,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4362,452 +3095,6 @@
       ],
       "rest": {
         "data-site-name": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "sheetgrid",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "squared",
-        "fine",
-        "dots"
-      ],
-      "def": "off",
-      "attr": "data-sheet-grid",
-      "means": "Squared paper under the page, scrolling with it: off (the rest), squared (a hairline every 12px and a heavier one every fifth, engineering paper), fine (the small squares only) or dots (a point at each big crossing). Drawn in the ink by night, in a pale cut of it by day.",
-      "label": "Drawing grid",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-sheet-grid"
-      ],
-      "rest": {
-        "data-sheet-grid": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "gridstrength",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "medium",
-        "faint",
-        "strong"
-      ],
-      "def": "medium",
-      "attr": "data-grid-strength",
-      "means": "How strongly the drawing grid shows: medium (the rest), faint or strong. Only with a drawing grid.",
-      "label": "Grid strength",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-grid-strength"
-      ],
-      "rest": {
-        "data-grid-strength": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "sheetborder",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "line",
-        "zones"
-      ],
-      "def": "off",
-      "attr": "data-sheet-border",
-      "means": "The edge of a drawing sheet on the paper: off (the rest), line (a heavy line on the paper's edge) or zones (the line with zone numbers along the top and foot and letters down the sides, left out where the paper's corner squares sit). Architrave's paper only.",
-      "label": "Sheet border",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-sheet-border"
-      ],
-      "rest": {
-        "data-sheet-border": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "mottle",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "soft",
-        "strong"
-      ],
-      "def": "off",
-      "attr": "data-mottle",
-      "means": "The uneven exposure of a blueprint, large soft clouds over the paper (not grain): off (the rest), soft or strong. Dark appearance only.",
-      "label": "Print mottle",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-mottle"
-      ],
-      "rest": {
-        "data-mottle": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "printedges",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "soft",
-        "strong"
-      ],
-      "def": "off",
-      "attr": "data-print-edges",
-      "means": "The paper darkening towards its edges, as an old print does: off (the rest), soft or strong. Half as strong in light appearance.",
-      "label": "Print edges",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-print-edges"
-      ],
-      "rest": {
-        "data-print-edges": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "pen",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "medium",
-        "bold"
-      ],
-      "def": "off",
-      "attr": "data-pen",
-      "means": "A stroke drawn round the letters of the title and the headings, which gives a single-weight face its weight: off (the rest), medium or bold.",
-      "label": "Pen weight",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-pen"
-      ],
-      "rest": {
-        "data-pen": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "dimensions",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-dimensions",
-      "means": "A drawing's dimension line over the article's title (its width in pixels between two ticks) and under its opening picture: off (the rest) or on.",
-      "label": "Dimension lines",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-dimensions"
-      ],
-      "rest": {
-        "data-dimensions": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "guidelines",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-guide-lines",
-      "means": "The two faint lines a draughtsman rules before lettering (the capital height and the baseline), under every line of the article's title and headings and out to the paper's edges: off (the rest) or on.",
-      "label": "Lettering guides",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-guide-lines"
-      ],
-      "rest": {
-        "data-guide-lines": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "bubbles",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-bubbles",
-      "means": "A drawing's detail mark before each of the article's section headings: a circle cut by a line, the section's number above, how many there are below. Off (the rest) or on.",
-      "label": "Section marks",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-bubbles"
-      ],
-      "rest": {
-        "data-bubbles": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "titleblock",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-title-block",
-      "means": "The box every drawing carries, where the article ends: the site, the article's title, its author, its date, the scale, the sheet, the number of words and the revision, in the site's language. Off (the rest) or on.",
-      "label": "Title block",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-title-block"
-      ],
-      "rest": {
-        "data-title-block": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "scalerule",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-scale-rule",
-      "means": "How far the reader is, the drawing office's way: a scale rule along the paper's foot, as wide as the column, with a cursor that walks along it. Off (the rest) or on. Architrave's paper only.",
-      "label": "Scale rule",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-scale-rule"
-      ],
-      "rest": {
-        "data-scale-rule": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "oldpaper",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "sun",
-        "spots",
-        "both"
-      ],
-      "def": "off",
-      "attr": "data-old-paper",
-      "means": "How old the cream paper looks: off (the rest), sun (warmer toward its edges and a touch at its head, as paper left in the light), spots (a few faint brown age spots) or both. On a light paper only.",
-      "label": "Old paper",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-old-paper"
-      ],
-      "rest": {
-        "data-old-paper": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "printink",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "neutral",
-        "warm"
-      ],
-      "def": "neutral",
-      "attr": "data-print-ink",
-      "means": "The ink the text is printed in by day: neutral (the rest, the style's own) or warm (the brown-black of old printed advertisements).",
-      "label": "Printing ink",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-print-ink"
-      ],
-      "rest": {
-        "data-print-ink": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "titlemark",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "short",
-        "wide"
-      ],
-      "def": "off",
-      "attr": "data-title-mark",
-      "means": "The six rainbow stripes as a small mark under the article's title: off (the rest), short or wide (as wide as the reading).",
-      "label": "Rainbow under the title",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-title-mark"
-      ],
-      "rest": {
-        "data-title-mark": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "rainbowlinks",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "hover",
-        "always"
-      ],
-      "def": "off",
-      "attr": "data-rainbow-links",
-      "means": "The links in the reading underlined in the six rainbow stripes: off (the rest), hover (when the pointer is on a link) or always.",
-      "label": "Rainbow links",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-rainbow-links"
-      ],
-      "rest": {
-        "data-rainbow-links": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -4830,7 +3117,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1973,
+        "line": 1961,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -4861,7 +3148,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1970,
+        "line": 1958,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -4870,684 +3157,6 @@
       ],
       "rest": {
         "data-hyphenate": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "rainbowcap",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-rainbow-cap",
-      "means": "The drop cap's letter filled with the six rainbow stripes: off (the rest) or on. Shows with Drop cap on.",
-      "label": "Rainbow capital",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-rainbow-cap"
-      ],
-      "rest": {
-        "data-rainbow-cap": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "coupon",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-coupon",
-      "means": "A dashed cut line with scissors above the page's foot, as old advertisements ended with an order coupon: off (the rest) or on.",
-      "label": "Coupon line",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-coupon"
-      ],
-      "rest": {
-        "data-coupon": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "fold",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "one",
-        "three"
-      ],
-      "def": "off",
-      "attr": "data-fold",
-      "means": "A soft crease on the paper, as a folded brochure: off (the rest), one (down the middle) or three (two creases, three panels). On a light paper only.",
-      "label": "Folded brochure",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fold"
-      ],
-      "rest": {
-        "data-fold": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "edgeson",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "window",
-        "paper"
-      ],
-      "def": "window",
-      "attr": "data-edges-on",
-      "means": "Where the yellowed edges lie: window (the rest, around the whole window) or paper (inside the framed paper's corners only, the rail clean). With Edges yellowed; a page without a frame keeps the whole window.",
-      "label": "Yellowed edges on",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-edges-on"
-      ],
-      "rest": {
-        "data-edges-on": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "nightground",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "same",
-        "inverted"
-      ],
-      "def": "same",
-      "attr": "data-night-ground",
-      "means": "With the dark ground on, what the rail does by night: same (the rest, dark like the page) or inverted (the rail and the ground take the day's colours beside the night's paper).",
-      "label": "Rail at night",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-night-ground"
-      ],
-      "rest": {
-        "data-night-ground": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "codemarks",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "prompt",
-        "glyphs"
-      ],
-      "def": "off",
-      "attr": "data-code-marks",
-      "means": "A terminal's marks in the article: off (the rest), prompt (a prompt before the category line and the headings, a blinking cursor after the date, dashes for the list's dots) or glyphs (the prompt with a run of mirrored code glyphs beside the category line and as the list's markers).",
-      "label": "Code marks",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-code-marks"
-      ],
-      "rest": {
-        "data-code-marks": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "coderain",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "faint",
-        "clear"
-      ],
-      "def": "off",
-      "attr": "data-code-rain",
-      "means": "Falling lines of code on the paper beside the article, never under its words: off (the rest), faint or clear. In the ink, each line's head in the accent. Still for readers who ask for less motion.",
-      "label": "Code rain",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-code-rain"
-      ],
-      "rest": {
-        "data-code-rain": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "headwidth",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "normal",
-        "narrow",
-        "narrowest"
-      ],
-      "def": "normal",
-      "attr": "data-head-width",
-      "means": "The title's and the headings' letters drawn narrower, where the heading face has a width axis (Martian Mono has): normal (the rest), narrow or narrowest. The site's name takes it too.",
-      "label": "Heading width",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-head-width"
-      ],
-      "rest": {
-        "data-head-width": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "textgrid",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "double",
-        "one"
-      ],
-      "def": "off",
-      "attr": "data-text-grid",
-      "means": "The article set as a terminal sets it: one face at one size, every space a whole line, a blank line between paragraphs, no letter spacing and no capitals: off (the rest), double (the title alone at twice the size, as the old double-height line) or one (the title at the text's size too). On Architrave's page.",
-      "label": "Text grid",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-text-grid"
-      ],
-      "rest": {
-        "data-text-grid": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "mdmarks",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-md-marks",
-      "means": "The article shown as its own Markdown file: off (the rest) or on (a dim # before the title, ## before the headings, underscores round emphasis, asterisks round bold, backticks round code, dashes for the list's dots, a > before every line of a quote and a ![alt](file) line over each picture). On Architrave's page.",
-      "label": "Markdown marks",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-md-marks"
-      ],
-      "rest": {
-        "data-md-marks": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "frontmatter",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-front-matter",
-      "means": "The category and the date set as the head of a Markdown file, between two --- lines, the keys dim and the values in the terminal's yellow: off (the rest) or on. On Architrave's page.",
-      "label": "Front matter",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-front-matter"
-      ],
-      "rest": {
-        "data-front-matter": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "textmode",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-text-mode",
-      "means": "The page's parts drawn as a terminal draws them: off (the rest) or on (buttons as [ Words ], boxes as single-line dialogs with their name cut into the top line, links and buttons turned over under the pointer, the rail's sections as folders). On Architrave's page.",
-      "label": "Text-mode parts",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-text-mode"
-      ],
-      "rest": {
-        "data-text-mode": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "windowbar",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-window-bar",
-      "means": "A terminal window's title bar across the top of the paper, holding the paper's own squares, with the page's file, the program and the window's columns and rows: off (the rest) or on. On Architrave's framed page.",
-      "label": "Window bar",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-window-bar"
-      ],
-      "rest": {
-        "data-window-bar": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "statusline",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "pager",
-        "bar"
-      ],
-      "def": "off",
-      "attr": "data-status-line",
-      "means": "A line at the foot of the paper that follows the scroll: off (the rest), pager (the file's name, the lines shown and how far in, turned over, as a pager prints it) or bar (an editor's coloured status bar). On Architrave's framed page.",
-      "label": "Status line",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-status-line"
-      ],
-      "rest": {
-        "data-status-line": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "prompt",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "still",
-        "typed"
-      ],
-      "def": "off",
-      "attr": "data-prompt",
-      "means": "A shell's prompt before the page with the command that shows it, and an empty prompt with the cursor after it: off (the rest), still, or typed (the command typed on arrival, then the page printed a line at a time). Nothing moves for readers who ask for less motion. On Architrave's page.",
-      "label": "Prompt",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-prompt"
-      ],
-      "rest": {
-        "data-prompt": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "cursorshape",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "blink",
-        "still",
-        "bar"
-      ],
-      "def": "blink",
-      "attr": "data-cursor-shape",
-      "means": "The terminal's cursor in the prompt and the status line: blink (a blinking block, the rest), still (a block) or bar (a thin bar).",
-      "label": "Cursor",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-cursor-shape"
-      ],
-      "rest": {
-        "data-cursor-shape": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "extrusion",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "diagonal",
-        "down"
-      ],
-      "def": "off",
-      "attr": "data-extrusion",
-      "means": "The title and the headings standing out of the page on a hard block of the second light, one step a pixel, no blur, as an arcade marquee's letters: off (the rest), diagonal or down. The title three steps deep, a heading two. Composes with the glow, the bloom and the fringe.",
-      "label": "Extrusion",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-extrusion"
-      ],
-      "rest": {
-        "data-extrusion": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "pixelcorners",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-pixel-corners",
-      "means": "The corner a pixel screen draws when it rounds: the paper's corners and the pictures' cut in stairs of whole pixels. Off (the rest) or on. Best with square corners.",
-      "label": "Pixel corners",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-pixel-corners"
-      ],
-      "rest": {
-        "data-pixel-corners": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "powerbar",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-power-bar",
-      "means": "How far the reader is, the arcade's way: twenty blocks along the paper's foot, one lit for every twentieth read, the last one lit in the second light. Off (the rest) or on. Architrave's paper only.",
-      "label": "Power bar",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-power-bar"
-      ],
-      "rest": {
-        "data-power-bar": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "awning",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "stripes",
-        "scallops"
-      ],
-      "def": "off",
-      "attr": "data-awning",
-      "means": "A café's awning across the top of the paper, in the ground's colour and the paper's, pinned there while the page scrolls under it: off (the rest), stripes (striped, its edge cut in scallops) or scallops (one colour, the scalloped edge only). Architrave's paper only.",
-      "label": "Awning",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-awning"
-      ],
-      "rest": {
-        "data-awning": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "stamp",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-stamp",
-      "means": "A round stamp on the corner of an article's opening picture, as on a postcard: the site's name and the article's first category around it, the name's first letter inside, in the title's colour. Off (the rest) or on. Architrave's articles only.",
-      "label": "Stamp",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-stamp"
-      ],
-      "rest": {
-        "data-stamp": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "titlesign",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "wave",
-        "star"
-      ],
-      "def": "off",
-      "attr": "data-title-sign",
-      "means": "A small mark under the article's title, in the title's colour, standing where the highlighter's bar stands: off (the rest), wave (a short wave, the sea in front of the café) or star (a six-pointed star).",
-      "label": "Mark under the title",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-title-sign"
-      ],
-      "rest": {
-        "data-title-sign": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "headstar",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-head-star",
-      "means": "A small star over each of the article's section headings, in the accent: off (the rest) or on.",
-      "label": "Star over headings",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-head-star"
-      ],
-      "rest": {
-        "data-head-star": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -5568,7 +3177,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5597,7 +3206,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5626,7 +3235,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5655,7 +3264,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5684,7 +3293,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1232,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5693,430 +3302,6 @@
       ],
       "rest": {
         "data-wide-figures": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "arrival",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "none",
-        "rise",
-        "zoom"
-      ],
-      "def": "none",
-      "attr": "data-arrival",
-      "means": "How the article's parts and the list's posts come into view as the page scrolls: none (the rest: they are simply there), rise (each rises 40px into place, once; the title, its date and its picture one after another on arrival) or zoom (the same, the pictures coming in from a small zoom). Nothing moves for readers who ask for less motion. Architrave's page only.",
-      "label": "Arrival on scroll",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-arrival"
-      ],
-      "rest": {
-        "data-arrival": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "glassbar",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-glass-bar",
-      "means": "Once the paper scrolls, its top turns to frosted glass under the corner squares, and the words run under it: off (the rest) or on. Architrave's framed paper only.",
-      "label": "Glass at the top",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-glass-bar"
-      ],
-      "rest": {
-        "data-glass-bar": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "boxbuttons",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "pill",
-        "link"
-      ],
-      "def": "pill",
-      "attr": "data-box-buttons",
-      "means": "The quiet buttons inside the article's boxes (the support box, a release's actions): pill (the rest: as the other buttons) or link (the accent's text links ending on a chevron, as a 'Learn more' link; the filled button stays the one button). Architrave's page only.",
-      "label": "Buttons in boxes",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-box-buttons"
-      ],
-      "rest": {
-        "data-box-buttons": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "listtiles",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-list-tiles",
-      "means": "Each post of a list on its own tile in the card colour, as wide as the wide top picture plus a gutter, its corner the picture's plus that gutter; the boxes on a tile take the paper: off (the rest) or on. Architrave's page only.",
-      "label": "Posts on tiles",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-list-tiles"
-      ],
-      "rest": {
-        "data-list-tiles": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "tilehover",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "grow"
-      ],
-      "def": "off",
-      "attr": "data-tile-hover",
-      "means": "Link cards and the list's tiles under the pointer: off (the rest: their colour changes as ever) or grow (they grow by one percent with a soft shadow). Architrave's page only.",
-      "label": "Tiles under the pointer",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-tile-hover"
-      ],
-      "rest": {
-        "data-tile-hover": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "tubeface",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "round",
-        "square"
-      ],
-      "def": "off",
-      "attr": "data-tube-face",
-      "means": "The framed paper as an old television's screen: off (the rest), round (the screen's grain, scan lines and vignette lie on the paper and not on the window, its edges fall dark, a black mask round it, and the corner buttons turn round with the corner nested to them) or square (the same with the corner buttons and the corner as they are). Architrave's framed paper only; without a paper the window stays the screen.",
-      "label": "Tube face",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-tube-face"
-      ],
-      "rest": {
-        "data-tube-face": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "tvcabinet",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "walnut",
-        "bakelite"
-      ],
-      "def": "off",
-      "attr": "data-tv-cabinet",
-      "means": "What stands round the screen: off (the rest: the ground as the colours give it), walnut (veneer) or bakelite (a deep brown). The same by day and by night; the rail's words, lines and logo stand on it in ivory. Architrave's framed page only.",
-      "label": "Cabinet",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-tv-cabinet"
-      ],
-      "rest": {
-        "data-tv-cabinet": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "ghostimage",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "titles",
-        "all"
-      ],
-      "def": "off",
-      "attr": "data-ghost-image",
-      "means": "A faint second copy of the words a little to the right, the signal arriving twice: off (the rest), titles (the title and the headings) or all (every word, fainter).",
-      "label": "Ghost image",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-ghost-image"
-      ],
-      "rest": {
-        "data-ghost-image": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "titlecard",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-title-card",
-      "means": "The article's title as a television's title card: centred between two thin frames, its kicker and date centred with it. Off (the rest) or on. Architrave's page only.",
-      "label": "Title card",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-title-card"
-      ],
-      "rest": {
-        "data-title-card": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "humbar",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "slow"
-      ],
-      "def": "off",
-      "attr": "data-hum-bar",
-      "means": "A broad soft band of less light drifting slowly up the screen, as the mains hummed through an old set: off (the rest) or slow. On the paper under Tube face, over the window elsewhere. Still for readers who ask for less motion.",
-      "label": "Hum bar",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-hum-bar"
-      ],
-      "rest": {
-        "data-hum-bar": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "headblock",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "attr": "data-head-block",
-      "means": "A solid block of the accent over the article's head, the mark a poster opens with: off (the rest) or on. Above the categories when they stand over the title.",
-      "label": "Colour block",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-head-block"
-      ],
-      "rest": {
-        "data-head-block": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "sectionrules",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "thin",
-        "thick"
-      ],
-      "def": "off",
-      "attr": "data-section-rules",
-      "means": "A rule in the ink over each of the article's section headings, the way a poster divides its fields: off (the rest), thin (2px) or thick (6px).",
-      "label": "Section rules",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-section-rules"
-      ],
-      "rest": {
-        "data-section-rules": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "sectionnumbers",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "written",
-        "counted"
-      ],
-      "def": "off",
-      "attr": "data-section-numbers",
-      "means": "Each section heading's number stands over it, big and in the accent: off (the rest), written (only a number the heading already begins with, \"1. …\", taken out of its line) or counted (every section numbered, a written number kept).",
-      "label": "Section numbers",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1232,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-section-numbers"
-      ],
-      "rest": {
-        "data-section-numbers": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "scan",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ],
-      "def": "3",
-      "attr": "data-scan",
-      "prop": "--scan-alpha",
-      "means": "Strength of the scan lines, 1 to 10 (opacity in hundredths). 3 is the rest. Only with scanlines.",
-      "label": "Scan line strength",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "slider",
-        "line": 1225,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-scan"
-      ],
-      "props": [
-        "--scan-alpha"
-      ],
-      "rest": {
-        "data-scan": false
       },
       "inStandardAtRest": false
     },
@@ -6145,7 +3330,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1207,
+        "line": 1202,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -6184,7 +3369,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1215,
+        "line": 1210,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -6196,47 +3381,6 @@
       ],
       "rest": {
         "data-fill": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "glowlevel",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ],
-      "def": "4",
-      "attr": "data-glow-level",
-      "prop": "--surface-glow-level",
-      "means": "Strength of the glow, 1 to 10. 4 is the rest. Only with glow.",
-      "label": "Glow strength",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "slider",
-        "line": 1226,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-glow-level"
-      ],
-      "props": [
-        "--surface-glow-level"
-      ],
-      "rest": {
-        "data-glow-level": false
       },
       "inStandardAtRest": false
     },
@@ -6266,7 +3410,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1227,
+        "line": 1219,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -6278,84 +3422,6 @@
       ],
       "rest": {
         "data-grain-level": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "vignettelevel",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ],
-      "def": "2",
-      "attr": "data-vignette-level",
-      "prop": "--vignette-level",
-      "means": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
-      "label": "Vignette strength",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "slider",
-        "line": 1229,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-vignette-level"
-      ],
-      "props": [
-        "--vignette-level"
-      ],
-      "rest": {
-        "data-vignette-level": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "vignettereach",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6"
-      ],
-      "def": "3",
-      "attr": "data-vignette-reach",
-      "prop": "--surface-vignette-reach",
-      "means": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
-      "label": "Vignette size",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "slider",
-        "line": 1229,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-vignette-reach"
-      ],
-      "props": [
-        "--surface-vignette-reach"
-      ],
-      "rest": {
-        "data-vignette-reach": false
       },
       "inStandardAtRest": false
     },
@@ -6383,7 +3449,7 @@
       "level": 4,
       "row": {
         "drawn": "slider",
-        "line": 1260,
+        "line": 1250,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -6514,7 +3580,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1210,
+        "line": 1205,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -6544,7 +3610,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1200,
+        "line": 1195,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -6573,7 +3639,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1184,
+        "line": 1179,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -6607,7 +3673,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1264,
+        "line": 1254,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -6636,7 +3702,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1135,
+        "line": 1131,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -6672,7 +3738,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1189,
+        "line": 1184,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -6708,7 +3774,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1179,
+        "line": 1174,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -6745,7 +3811,7 @@
       "level": 16,
       "row": {
         "drawn": "slider",
-        "line": 1135,
+        "line": 1131,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -6761,76 +3827,6 @@
       "inStandardAtRest": false
     },
     {
-      "key": "dotsize",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "16",
-        "24",
-        "32"
-      ],
-      "def": "24",
-      "attr": "data-dot-size",
-      "prop": "--dot-size",
-      "means": "The dot grid's spacing in pixels: 16 (fine), 24 or 32 (wide). 24 is the rest. Only with dots.",
-      "label": "Grid size",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "slider",
-        "line": 1228,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-dot-size"
-      ],
-      "props": [
-        "--dot-size"
-      ],
-      "rest": {
-        "data-dot-size": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "dotlevel",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "6",
-        "9",
-        "13",
-        "18",
-        "24"
-      ],
-      "def": "13",
-      "attr": "data-dot-level",
-      "prop": "--dot-strength",
-      "means": "Strength of the dots: the ink's share in the dot colour, in per cent: 6, 9, 13, 18 or 24. 13 is the rest. Only with dots.",
-      "label": "Dot strength",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "slider",
-        "line": 1228,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-dot-level"
-      ],
-      "props": [
-        "--dot-strength"
-      ],
-      "rest": {
-        "data-dot-level": false
-      },
-      "inStandardAtRest": false
-    },
-    {
       "key": "unlinked",
       "group": "other",
       "table": null,
@@ -6842,7 +3838,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 2098,
+        "line": 2086,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7099,7 +4095,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1561,
+        "line": 1549,
         "in": "fontRow"
       },
       "changesPage": "Type › {role}",
@@ -7201,7 +4197,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1595,
+        "line": 1583,
         "in": "weightRow"
       },
       "changesPage": "Type › {role}",
@@ -7342,7 +4338,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1636,
+        "line": 1624,
         "in": "sizeBlock"
       },
       "changesPage": "Type › {role}",
@@ -7432,7 +4428,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1954,
+        "line": 1942,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -7514,7 +4510,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1955,
+        "line": 1943,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -7566,7 +4562,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1582,
+        "line": 1570,
         "in": "capsRow"
       },
       "changesPage": "Type › {role}",
@@ -7633,7 +4629,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1578,
+        "line": 1566,
         "in": "italicRow"
       },
       "changesPage": "Type › {role}",
@@ -7700,7 +4696,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1941,
+        "line": 1929,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -7743,7 +4739,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1607,
+        "line": 1595,
         "in": "switchRows"
       },
       "changesPage": "Type › {role}",
@@ -7781,7 +4777,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1601,
+        "line": 1589,
         "in": "colourRow"
       },
       "changesPage": "Type › {role}",
@@ -7904,7 +4900,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1855,
+        "line": 1843,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7984,7 +4980,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1856,
+        "line": 1844,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -8048,7 +5044,7 @@
       "level": 11,
       "row": {
         "drawn": "switch + switch",
-        "line": 1796,
+        "line": 1784,
         "in": "OWN_WORD"
       },
       "changesPage": "Type › {role}",
@@ -8145,7 +5141,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1857,
+        "line": 1845,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -8209,7 +5205,7 @@
       "level": 11,
       "row": {
         "drawn": "pop-up",
-        "line": 1853,
+        "line": 1841,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -8245,7 +5241,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2155,
+        "line": 2143,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -8272,7 +5268,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2156,
+        "line": 2144,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -8299,7 +5295,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2157,
+        "line": 2145,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -8334,7 +5330,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1281,
+        "line": 1271,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -8365,7 +5361,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1605,
+        "line": 1593,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -8396,7 +5392,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1605,
+        "line": 1593,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -8427,7 +5423,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2163,
+        "line": 2151,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -8458,7 +5454,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2164,
+        "line": 2152,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -8485,7 +5481,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1266,
+        "line": 1256,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -9708,175 +6704,6 @@
       ],
       "rest": {
         "data-fx-picglow-colour": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "effects.monitor.curve",
-      "group": "effect",
-      "table": "EFFECTS",
-      "kind": "pick",
-      "choices": [
-        "round",
-        "slight",
-        "bulged"
-      ],
-      "def": "round",
-      "label": "Curve",
-      "effect": "Monitor frame",
-      "means": "Monitor frame, curve: the frame's corner: round (the rest), slight or bulged.",
-      "page": "Effects",
-      "level": 17,
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fx-monitor-curve"
-      ],
-      "rest": {
-        "data-fx-monitor-curve": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "effects.monitor.sheen",
-      "group": "effect",
-      "table": "EFFECTS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "on"
-      ],
-      "def": "off",
-      "label": "Glass sheen",
-      "effect": "Monitor frame",
-      "means": "Monitor frame, glass sheen: a faint light across the glass's top corner: off (the rest) or on.",
-      "page": "Effects",
-      "level": 17,
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fx-monitor-sheen"
-      ],
-      "rest": {
-        "data-fx-monitor-sheen": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "effects.warp.direction",
-      "group": "effect",
-      "table": "EFFECTS",
-      "kind": "pick",
-      "choices": [
-        "in",
-        "out"
-      ],
-      "def": "in",
-      "label": "Direction",
-      "effect": "Warp",
-      "means": "Warp, direction: the edges pulled in (the rest) or magnified out.",
-      "page": "Effects",
-      "level": 17,
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fx-warp-direction"
-      ],
-      "rest": {
-        "data-fx-warp-direction": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "effects.glow.reach",
-      "group": "effect",
-      "table": "EFFECTS",
-      "kind": "pick",
-      "choices": [
-        "all",
-        "headings"
-      ],
-      "def": "all",
-      "label": "Glows on",
-      "effect": "Glow",
-      "means": "Glow, glows on: which words glow by night: all text (the rest) or the headings only, the reading left clean.",
-      "page": "Effects",
-      "level": 17,
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fx-glow-reach"
-      ],
-      "rest": {
-        "data-fx-glow-reach": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "effects.vignette.night",
-      "group": "effect",
-      "table": "EFFECTS",
-      "kind": "pick",
-      "choices": [
-        "same",
-        "half"
-      ],
-      "def": "same",
-      "label": "By night",
-      "effect": "Vignette",
-      "means": "Vignette, by night: the vignette's strength on the dark side: the same as by day (the rest) or half, since a pale haze shows far more on a dark ground.",
-      "page": "Effects",
-      "level": 17,
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fx-vignette-night"
-      ],
-      "rest": {
-        "data-fx-vignette-night": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "effects.vignette.colour",
-      "group": "effect",
-      "table": "EFFECTS",
-      "kind": "pick",
-      "choices": [
-        "ink",
-        "black"
-      ],
-      "def": "ink",
-      "label": "By night in",
-      "effect": "Vignette",
-      "means": "Vignette, by night in: the colour the edges darken toward on the dark side: the ink (the rest), which reads as a pale haze, or black, as a screen's glass falls off into the dark.",
-      "page": "Effects",
-      "level": 17,
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fx-vignette-colour"
-      ],
-      "rest": {
-        "data-fx-vignette-colour": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "effects.vignette.day",
-      "group": "effect",
-      "table": "EFFECTS",
-      "kind": "pick",
-      "choices": [
-        "same",
-        "half"
-      ],
-      "def": "same",
-      "label": "By day",
-      "effect": "Vignette",
-      "means": "Vignette, by day: the vignette's strength on the light side: the same as set (the rest) or half.",
-      "page": "Effects",
-      "level": 17,
-      "changesPage": "Effects",
-      "attrs": [
-        "data-fx-vignette-day"
-      ],
-      "rest": {
-        "data-fx-vignette-day": "ABSENT_PATTERNS"
       },
       "inStandardAtRest": false
     }

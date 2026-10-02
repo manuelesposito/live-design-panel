@@ -88,147 +88,9 @@
 		   is a tweak of that style like a dial's. Book rests with all three
 		   on; the others off. */
 		{ id: 'standard', label: 'Classic', /* Standard until 2026-09-23 (Manuel: "if we now set a site default, the first one cannot be called Standard", German's word for a default). The id stays. */ palette: 'neutral', tint: 'purple', sans: 'inter', reading: 'default', face: 'newsreader', leading: 'default', justify: false, dropcap: false, rounded: true, lines: false, bold: false, scope: 'article', fills: true, roles: {} },
-		{ id: 'book', label: 'Book', measure: '60', /* ITS OWN WIDTH, a printed page is narrow (Manuel, 2026-09-25, lab/the-tile-widths.html: "all yes") */ palette: 'paper', tint: 'brown', preset: 'lamplight', sans: 'hyperlegible', reading: 'default', face: 'vollkorn', leading: 'default', justify: false, hyphenate: 'few', dropcap: true, capface: 'bold', /* BOOK B (Manuel, 2026-10-02, lab/the-article-in-book.html, "I go with your recommendation"; the ask was "what would Apple do?"): a deep brown night (Lamplight: the Paper pair by day, by night #221d17 under the same cream, so the dates and the author box read clearly where the mid brown held them at 3.3:1), the text set flush left with long words only broken (the justified 60-letter column opened gaps and ended line after line on a hyphen), the drop cap in the text's own face in bold, as the title (Fraunces beside Vollkorn was a second family on the page). Was: Paper's own night, justify true, the initial in Fraunces. */ rounded: false, lines: false, bold: false, scope: 'article', fills: true, roles: {} /* THE PICTURES SHOW (Manuel, 2026-09-26: a style that hides the pictures "is not going to work"): Book rests on them as published. Hidden stays a choice in Picture effects for any style and theme, only no style rests on it. */ /* NO PINS (2026-09-22): every role followed its anchor by name, Vollkorn on the article's three and Hyperlegible on the site's three, and now says so */ } /* MANUEL'S OWN BOOK (2026-09-19, the record copied out of his panel: "I updated the book style. Can you take that as the default values for book?"): square corners, the pictures hidden behind their lines (shown again 2026-09-26), the quotes in Vollkorn and the comments in Hyperlegible, which the recipe had left on Newsreader and Inter. His record's `line: 14` is 1.3.267's mistaken rest, not a choice, and Lines is off; it is not taken. */ /* BACK ON VOLLKORN (Manuel, 2026-09-17 evening, with the final twelve): it was Book's face from the day Book was decided on lab/the-book-face.html, went to EB Garamond for the few hours Vollkorn was out of the theme, and returns with it. */,
-		/* CLEAR (Large print, then Poster, until 2026-09-12; Manuel: "Klar it is", it never looked like a poster; Apple names a look by what the reader gets) RESTS LIGHT AND SQUARE (Manuel, 2026-09-12: "default should
-		   be light and no rounded corners and airy"): the one style besides
-		   Book that named a side until 2026-09-12; its box has no rounded corner. The terminal palette, not Persona or
-		   Neutral (Manuel, 2026-09-12: "true white and true black"): #ffffff
-		   paper with #000000 ink, and the black sheet when flipped, the same
-		   pair Terminal reads from the other side; style.css puts Neutral's
-		   purple back in place of the green. Ragged and unhyphenated, as
-		   poster type breaks. No lines (Manuel, 2026-09-12, settling it: "Poster
-		   should be, by default: lines off, airy, and accent blue").
-		   THE GREY PAIR (the same afternoon, after the one white sheet left
-		   the corner squares "floating in nowhere"): Manuel's four values,
-		   #4a4a4d with #ebebf6 by day, #000000 with #8d8d95 by night, the
-		   rail a step from the paper on both; style.css, THE GREY PAIR. */
-		/* THE REWORK OF 1.3.278 IS TAKEN BACK (Manuel, the same evening: "I like the style of the shield before better. Can you reverse it?"). The line below is the one that stood before it, his own values of 1.3.272 under the new name. What was tried and did not stay: the title 48, the headings bold at 28, the category line 16 in capitals, a regular body, the quote at 24, Lines on at 14 %, dates and tags in capitals, the dimming by night. */
-		/* POSTER B (Manuel, 2026-10-02, lab/the-article-in-poster.html: "I really like it. Bring it all now to the live panel and all those settings"). The face, the blue and the big 28 px text kept, set as a printed poster: the text on Snug (1.5; Airy's 1.8 read as single lines with air between), the title a size up with its lines touching (head 72 on Tight, the headings kept near their old size at 32), the date a label in spaced capitals in the full ink (smallsoft 0), the categories over it as a small blue label in spaced capitals under a block of blue, a thick rule and a big blue number over each section, links in the ink on a thick blue line, pictures without the tinted mat, white paper by day (the grey pair's own day side, assets/css/quire.pairs.css; the night keeps his #4a4a4d). Before it (git, 0.15.37): Airy, the title 56 on its own leading, the categories under the title, the mat, the cool grey paper by day. */
-		{ id: 'large', label: 'Poster', measure: '60', palette: 'grey', tint: 'blue', sans: 'hyperlegible', reading: 'large', face: 'hyperlegible', leading: 'snug', justify: false, dropcap: false, rounded: false, lines: false, bold: true, scope: 'article', fills: true, pictures: 'accent', pictureframe: false, pictureshadow: 'soft', /* the duotone draws a white screenshot in the paper's own white (Manuel, 2026-10-02, his pick Soft shadow) */ categories: 'above', links: 'bold', smallsoft: '0', headblock: 'on', sectionrules: 'thick', sectionnumbers: 'written', roles: { kicker: { italic: false, weight: 'extrabold', size: '12', caps: true, tracking: 'p10', colour: 'accent' }, small: { weight: 'bold', size: '12', caps: true, tracking: 'p7' }, head: { weight: 'extrabold', tracking: 'm2', size: '72', leading: 'tight', members: { sub: { size: '32' } } }, read: { weight: 'medium' }, quote: { size: '32' } } },
-		/* TERMINAL IS A STYLE, NOT THE MATRIX COLOUR (Manuel, 2026-09-10): Apple's
-		   Terminal is black on white, so the Neutral room; Geist Mono to start. */
-		/* TERMINAL, GONE OVER (Manuel, 2026-09-19: "go over the terminal style and tweak every setting and every font choice so it's the best you can do … there's a Newsreader somewhere and that's off"). The Newsreader was the quotes, and the comments were Inter: the recipe named four roles and left two on the theme's rest; all of them are the one mono now (a quote follows the reading face). What a terminal does with one face and one size, the recipe does with case and weight: the title smaller and semibold, since monospace capitals run wide; the headings in the article at the body's size in capitals, as a man page sets NAME and SYNOPSIS; the category line and the section titles in spaced capitals. The lines a little further apart, which a mono wants. The screen: soft scan lines, the glow by night, the pictures in the pair's own two colours with their own colours under the pointer. Was: { id: 'terminal', label: 'Terminal', palette: 'terminal', tint: 'green', sans: 'mono', reading: 'default', face: 'mono', leading: 'default', justify: false, dropcap: false, rounded: false, lines: true, bold: false, scope: 'article', fills: false, roles: { kicker: { face: 'mono', italic: false }, head: { face: 'mono' }, small: { face: 'mono' }, title: { face: 'mono' } } } */
-		/* MANUEL'S OWN TERMINAL (2026-09-19, the record copied out of his panel, "can we update this for the terminal?"): against the recipe of the same afternoon, the fills ON and the lines at 10 %, a faint grid and not the 45 it had. The rest of his record is the recipe. */
-		/* MATRIX IS MARTIAN MONO (Manuel, 2026-09-19: three tiles in Geist "is not good. The matrix should probably have Martian"): every face of the line below, which was Geist Mono throughout. Terminal keeps Geist Mono. Martian is wide: its measure is its own 44ch, and the title's 40 stands. */
-		/* MATRIX B (Manuel, 2026-10-02, lab/the-matrix.html and the two live pages in it: "I really like it. Can you bring it on the live page … bring all those settings in"). The film's green screen: two monos, each doing what it is best at. The titles and the site's name in Martian Mono at its narrowest width and heaviest weight, in capitals (the new Heading width); everything read and the interface in Share Tech Mono, a narrow square-shouldered terminal face (new in the font library); the small lines in its spaced capitals. The film's green, nearly black with a green that burns, the title a step brighter (preset Film green). No colour fringe, which is a colour set's, no crisp edges, which are a bitmap's: a green terminal is one phosphor and soft. Faint scan lines, a soft hum and bloom, the glow, moving grain, a vignette that falls off into black by night and is half as strong by day, a rare jitter. Titles and headings decode out of scrambled glyphs, a prompt stands before the small lines, faint code falls beside the article, and a visit opens on falling code. Pictures in the pair's two colours, dimmed by night. Was, before: Martian Mono throughout at its normal width, the Radarnacht pair, relaxed leading, glow alone. */
-		{ id: 'terminal', label: 'Matrix', measure: '88', /* ITS OWN WIDTH, a full screen of code, the widest (Manuel, 2026-09-25, lab/the-tile-widths.html: "all yes") */ /* the green one was called Terminal until 2026-09-19 (below); the id stays, so a stored choice and a link still find it */ palette: 'terminal', tint: 'green', preset: 'film', sans: 'share-tech-mono', reading: 'default', face: 'share-tech-mono', leading: 'default', justify: false, dropcap: false, rounded: false, lines: true, bold: false, scope: 'article', fills: true, line: '10', pictures: 'duo', picturedim: true, scanlines: true, scan: '2', glow: true, bloom: 'soft', grain: true, grainlevel: '1', graincrawl: 'moving', vignette: true, vignettelevel: '4', shimmer: 'soft', jitter: 'rare', switchon: 'on', typedtitle: 'decode', bootscreen: 'rain', codemarks: 'prompt', coderain: 'faint', headwidth: 'narrowest', effects: { vignette: { colour: 'black', day: 'half' } }, roles: { kicker: { italic: false, caps: true, tracking: 'p20', size: '16' }, head: { face: 'martian-mono', weight: 'extrabold', caps: true, size: '44', tracking: 'm1', colour: 'own', members: { sub: { size: '22', caps: true, tracking: 'p5', weight: 'bold' } } }, small: { caps: true, tracking: 'p10' }, ui: { members: { masthead: { weight: 'regular', caps: true, tracking: 'p10' } } }, title: { face: 'martian-mono', weight: 'extrabold', caps: true, tracking: 'p5' }, quote: { italic: false, size: '22' } } /* Share Tech Mono has one weight: no role that reads in it rests on a bold, the site's name included (in its spaced capitals, a terminal's banner) */ }, /* the category line at 18 and the quote at the body's 22, after the first capture: at their rests (26) both outshouted a 40 title */
-		/* TERMINAL, THE NEW ONE (Manuel, 2026-09-19, a photograph of a printed spread: markup set in a mono on a near-black page, white, the attribute names in a soft blue, a dialog and its Cancel button drawn as thin white outlines; "maybe terminal is actually a matrix … that could be our terminal. New tile"). The green one keeps everything and takes the name Matrix. This one: the page nearly black and the ink nearly white by night, turned over by day; the blue of the attribute names as the accent; one mono throughout, set as Matrix is; Lines on and strong, Fills off, since the photograph's boxes are outlines and nothing in it is filled; square corners; no scan lines, no glow, no grain, which are the green screen's; pictures black and white. The colours are the style's own (`colours`), on the Neutral pair, because no pair has a black page. The face is Geist Mono, the theme's; the photograph's is another mono with a slanted cut, which the theme does not carry. */
-		/* TERMINAL B (Manuel, 2026-10-02, lab/the-article-in-terminal.html and its front page: "I really like what you did so make it live … bring all those settings into the live panel"). Made new from nothing: the paper is a terminal's window, with its title bar (the paper's squares stand in it) and a pager's status line at its foot, and the article is printed in it as its own Markdown file. One mono, JetBrains Mono, at one size with a blank line between paragraphs, the title alone at double size (the old double-height line); # and ## before the title and headings, the category and the date as front matter in the terminal's yellow, a ![alt](file) line over each picture; buttons as [ Words ], the boxes as single-line dialogs, links turned over under the pointer, the rail's sections as folders; the command typed before the page and an empty prompt waiting after it. Colours Graphite, a soft near-black by night, an off-white by day, blue links. Pictures dithered in the pair's two colours, their own under the pointer. No scan lines and no glow (Manuel, 2026-09-10: Terminal is not the green screen). Was: palette neutral, sans and face mono (Geist Mono), reading default, leading relaxed, lines on at 60, pictures bw, preset carbon, the head semibold 40 and the kicker in spaced capitals. */
-		{ id: 'console', label: 'Terminal', measure: '80', /* ITS OWN WIDTH, the 80-column terminal (Manuel, 2026-09-25, lab/the-tile-widths.html: "all yes") */ palette: 'neutral', tint: 'blue', preset: 'graphite', sans: 'jetbrains-mono', reading: 'small', face: 'jetbrains-mono', leading: 'default', justify: false, dropcap: false, rounded: false, lines: false, bold: false, scope: 'article', fills: false, pictures: 'onebit', picturehover: true, pictureframe: false, textgrid: 'double', mdmarks: 'on', frontmatter: 'on', textmode: 'on', windowbar: 'on', statusline: 'pager', prompt: 'typed', roles: { kicker: { italic: false }, head: { weight: 'bold' }, quote: { italic: false } } /* the one mono is both anchors, so no role pins it; the text grid sets every size, case and spacing in the column */ },
-		/* BLUEPRINT (Manuel, 2026-09-19, a second photograph: a spread on pale blue-grey paper in blue ink, a bold mono headline, a light sans for the reading, a list between fine rules with one thick bar down its side, mono numbers beside dashed rules; "in the past we wanted to do a style called Blueprint … inspired by that and also by your inspiration, making it appropriate for the name"). Two drawings, one per side. BY DAY the photograph: a drafting sheet, slate-blue ink on a cool pale paper, the drawing's blue as the accent. BY NIGHT the blueprint proper, the cyanotype: pale lines on a deep blue sheet. What makes it a drawing on both: everything is LINE and nothing is filled (Lines on, Fills off, square corners); the labels are the draughtsman's, small mono capitals, spaced (category line, dates, section titles); the headline the bold mono of the title block; the reading a light sans, as the photograph's; a little grain, the sheet's tooth; and the pictures in Duoton, which in this blue is a cyanotype print. The colours are the style's own on the Neutral pair. */
-		/* BLUEPRINT IN THE PHOTOGRAPH'S TYPE (2026-09-19): the reading in IBM Plex Sans, as the spread; the titles in JETBRAINS MONO's bold ITALIC and the labels in JetBrains Mono, which stands in for Plex Mono (static, so its weight slider had four stops and two italic cuts; Manuel: "maybe we can replace it with a variable font which looks similar"). The italic is what gives the spread its slightly playful hand; the reading, the quotes and the comments in Plex Sans, light. It was Geist and Geist Mono for an hour, the nearest of the twelve. */
-		/* BLUEPRINT B (Manuel, 2026-10-02, after lab/the-blueprint.html and its two live pages: "It's basically what you did in the lab and it's awesome. I want to see it live … we need more settings"). A sheet from the drawing office: the cyanotype by night (white lines on Prussian blue, the accent the ink, since a print has one colour), the drafting sheet by day (blue lines on white, the grid in a pale cut of the ink). Everything not read is lettered in Routed Gothic, a single-stroke face after the stencil lettering of technical drawings (the titles in its Wide cut, capitals, a medium pen for weight); the reading stays Plex Sans, light. The drawing's marks are the new picks of THE DRAWING OFFICE: squared grid, the sheet's border with its zones, a soft mottle and darker edges, dimension lines, lettering guides, section marks, the title block and the scale rule; solid lines at 55; pictures traced. His settings from the live page's rows, as they were: grid squared at 2, border with zones, mottle soft, edges 2, lettering, pen medium, every mark on, solid lines at 55, traced, scale rule. */
-		{ id: 'blueprint', label: 'Blueprint', measure: '80', /* ITS OWN WIDTH, a wide drawing sheet (Manuel, 2026-09-25, lab/the-tile-widths.html: "all yes") */ palette: 'neutral', tint: 'blue', sans: 'plex-sans', reading: 'default', face: 'plex-sans', leading: 'relaxed', justify: false, dropcap: false, rounded: false, lines: true, line: '55', linestyle: 'solid', bold: false, scope: 'article', fills: false, pictures: 'trace', preset: 'draft', sheetgrid: 'squared', sheetborder: 'zones', mottle: 'soft', printedges: 'soft', pen: 'medium', dimensions: 'on', guidelines: 'on', bubbles: 'on', titleblock: 'on', scalerule: 'on', roles: { kicker: { face: 'routed-gothic', italic: false, caps: true, tracking: 'p15', size: '16', weight: 'regular' }, head: { face: 'routed-gothic-wide', weight: 'regular', italic: false, caps: true, tracking: 'p2', size: '48', members: { sub: { size: '28', weight: 'regular' } } }, read: { weight: 'light' }, quote: { italic: true, size: '24', weight: 'light' }, small: { face: 'routed-gothic', caps: true, tracking: 'p12', weight: 'regular', members: { captions: { caps: false, tracking: 'default' }, author: { caps: false, tracking: 'default' } } }, title: { face: 'routed-gothic', caps: true, tracking: 'p15', weight: 'regular' } } /* Routed Gothic has one weight: every role it carries rests at regular, or the browser would make up a bold */ },
+		/* THE FOURTEEN OTHERS LEFT (Manuel, 2026-10-02: "we went overboard"): Book, Poster, Matrix, Terminal, Blueprint, Catalogue, Gallery, Storybook, Specimen, Aperitivo, Risograph, Arcade, Tube and Brochure. Their recipes are records in archive/styles/ and the whole state is the tag styles-archive-0.15.58. New styles come back one at a time. */
 		/* INSTRUMENT (2026-09-20, the ask: a written description of a product site's look, a near-black page, paper-white type, one acid lime for the single action, hairlines in place of shadows, one grotesque throughout at low weights and tight tracking; "include that tile in the panel"). The reference's measurements, in this theme's dials: Inter in every role, the headings semibold (medium until 1.3.312, which the reference's article page corrected) and nothing bolder, their tracking left at the theme's rest, which measured within a hair of the reference's (a step tighter doubled it on the title); Lines on and faint, since the reference draws its edges as hairlines; Fills on, its cards a step above the page; rounded corners; no grain, no scan lines, no glow. The colours are a preset on the Neutral pair, the lime by night and an olive of the same hue by day, where a lime cannot hold 4.5:1 on a light paper. Backstage and by link, as every tile but Standard. */
 		{ id: 'instrument', label: 'Instrument', space: 'compact', /* ITS OWN AIR, the reference's dense lists (Manuel, 2026-09-25, lab/the-space-of-a-page.html) */ palette: 'neutral', tint: 'green', sans: 'inter', reading: 'default' /* was small, 16 to 18px (2026-10-02, the styles review; Manuel: "so small and narrow", fixed in every style that read small) */, /* THE REFERENCE'S OWN SIZES (Manuel, 2026-09-25, lab/the-tiles-side-by-side.html: "no, except Instrument"): text 18 (it reads 17), title 48 under Small; every tile read 22 before */ face: 'inter', leading: 'default', justify: false, dropcap: false, rounded: true, corners: 'small', /* the reference's cards 12, buttons 6 (1.3.311) */ lines: true, line: '10', hairlines: true, /* the reference's half-pixel lines (2026-09-26) */ bold: false, scope: 'article', fills: true, /* fill '25' rested here for a day (1.3.465) to bring the cards down to the reference's 3 % step; the slider scales every step, so the rail's hover went with it and was barely visible (Manuel, 2026-09-26, screenshot). Back to the rest. */ soft: true, softlevel: '30', /* FAINTER BY DEFAULT (Manuel, 2026-09-25: "make this softer reading a little bit more prominent so that the reading text is fainter"): the rest's 15 barely showed; 30 is the reference's muted body on its near-black page, and the slider's own note says 45 still holds 4.5:1 on this pair, so 30 reads on both sides */ quietlevel: '40', /* the reference's small print, 2026-09-23 */ /* pictures in colour: black and white was the default for an hour (1.3.340) and went again (Manuel, 2026-09-23: "bring coloured images back to instrument") */ picturedim: true, pictureframe: false, /* no mat, no line: the reference's pictures stand on the page with their corner (2026-09-23); the fade stays a switch, off, since a random picture does not sink (Manuel) */ alternates: true, /* Inter's round quotes and flagged one, 2026-09-23 */ titlefinish: 'shine', headitalics: 'serif', headarrival: 'blur', cardlight: 'glow', buttonfinish: 'glow', button: 'ink', toppattern: 'dots', guides: 'dashed', greytint: '10', pageglow: 'soft', movinglight: 'on', effects: { serif: { which: 'last' }, arrival: { scope: 'all' }, cardlight: { level: '75', colour: 'light' }, moving: { where: 'all' }, button: { glow: 'light', sweep: 'on' }, pattern: { level: '50', colour: 'light' }, guides: { level: '50', colour: 'light', marks: 'on' }, pointer: { look: 'on' }, dividers: { look: 'glow' }, topline: { look: 'on' }, picglow: { look: 'soft' } }, colours: { dark: { light: '#9b7cff', second: '#5ad8ff' } }, /* ROUND TWO (Manuel, 2026-09-29: "I would go for those settings, which I have on the lab right now", his line from lab/the-instrument-extras.html): violet Light and cyan Second light, the white button glowing violet, dots, the aurora, moving light, the pointer's light, glowing dividers, the paper's top line, pictures in light, the last word of every heading in Newsreader italic. */ /* THE EXTRAS (Manuel, 2026-09-29, lab/the-instrument-extras.html, "My pick"): titles shine, italics turn serif, headings arrive from a blur, cards are lit from above, the main button glows, dashed guides, a touch of the lime in the greys. The pattern, the aurora and the moving light stay off. */ /* 1.3.312, after the reference's own article page was measured: its headings are 590 and near white over a softer text, its pictures made for the dark page */ preset: 'limelight', roles: { kicker: { italic: false }, head: { weight: 'semibold', leading: 'tight', /* 1.12 x 0.92 = 1.03, the reference's titles sit at 1.0; its weight (590) and tracking (-0.022em) the tile already had, measured 2026-09-23 */ members: { sub: { weight: 'semibold', tracking: 'p1' } } /* the headings inside the article rest bold; the reference's are 590 too. Their spacing half a step open, -0.0125em against the title's -0.025em: the reference's 20-32px headings sit at -0.012em (2026-09-26) */ }, quote: { italic: false }, title: { weight: 'medium' } } /* Inter on both anchors, no pins (2026-09-22) */ },
-		/* CATALOGUE (Manuel, 2026-09-24, a written description of a warm editorial product site with its link and its article page: "Can you build a new style out of that?", then "Instrument serif. lets do all 4"). Its article page, measured: headings in a thin high-contrast serif (title 64/64 at -0.05em, section heads 40/45), the text in the same serif at 20/30, every small word in a mono in capitals, a warm cream ground with a dotted grid, hairlines and no shadows, one near-black filled button, links in olive, a highlighter yellow as decoration only. Instrument Serif for the serif (his pick), IBM Plex Mono for the mono. The four switches it needed were built with it: dots, marker, inkbutton, centretitle. */
-		{ id: 'catalogue', label: 'Catalogue', space: 'spacious', /* ITS OWN AIR, the reference's open pages (Manuel, 2026-09-25, lab/the-space-of-a-page.html) */ palette: 'neutral', tint: 'green', sans: 'ibm-plex-mono', reading: 'compact', face: 'source-serif-4', leading: 'snug', /* ONE SERIF FOR HEADINGS AND TEXT, as the reference sets its own; SOURCE SERIF 4 for both (Manuel, 2026-09-25: Newsreader on Catalogue and Classic alike "is a bit boring. Let's use another one" of the lab's candidates). Of the three on lab/the-reading-face-for-catalogue.html it is the one that can draw the reference's headline: 96 at weight 300 needs a variable face, and Spectral ships only 400 and 700 (it held the text once, 1.3.442, and clamped the light head to 400 when tried for both). Its flat serifs are the reference's ABC Synt's (+4 % width, +7 % x-height). Newsreader (1.3.443) stays Classic's, so the two styles read apart. 20/30 as the reference. */ justify: false, dropcap: false, rounded: true, corners: 'small', lines: true, line: '20', bold: false, scope: 'article', fills: true, soft: false, /* the reference's text is its full ink and its links keep the olive, which Softer reading text would take away */ pictureframe: true, framewidth: '16', framepattern: 'checker', /* the reference's checkerboard in a wider mat (Manuel, 2026-09-25: "nicer with the checker, not with the dots") */ measure: '84', /* the reference's column holds about 82 letters of Newsreader (684 px at 20) */ widepicture: true, categories: 'above', dots: true, marker: true, button: 'ink', preset: 'vellum', roles: { head: { face: 'source-serif-4', weight: 'light', /* THE REFERENCE'S SIGNATURE, NOT ITS ARTICLE (Manuel, 2026-09-25: "why are we not taking their styles … they have bigger font sizes"): its headline is 96 at 300; its article page sat at 64, which is Classic's own */ size: '112', /* 112 on the slider draws about 96 while the text is Compact */ tracking: 'm2', /* with the head's own -0.025em, the reference's -0.05em */ leading: 'dense', /* 1.12 x 0.85 = 0.95, the reference's 96/90 */ align: 'center', /* the title centred, as the reference's; the headings inside the article stay on the left */ members: { sub: { size: '56', align: 'default' } } /* draws the section heads at about 48 while the text is Compact, the reference's section titles */ }, kicker: { face: 'ibm-plex-mono', caps: true, italic: false, weight: 'medium', size: '14', align: 'center' }, title: { face: 'ibm-plex-mono', caps: true, weight: 'medium' }, quote: { face: 'source-serif-4' } } },
-		/* GALLERY (Manuel, 2026-09-26, from a measured style sheet of the reference's
-		   product launch page — the white gallery): everything on white, the ink
-		   near-black, one blue for links and buttons, the type one sans in two jobs
-		   — a huge tight semibold display over a small dense body with negative
-		   tracking — big soft corners on cards and pictures, no lines, no shadows,
-		   generous air between sections. Drawn with today's dials: neutral pair on
-		   the blue tint is its white/ink/blue; Inter stands in for the reference's
-		   own face, as the sheet itself suggests; the 80 display at m2/dense is its
-		   hero (80/600, -1.2px, 1.05); the centred kicker over the title is its
-		   product label; Small reading at snug is its 17/1.47; Large corners are
-		   its 28 cards; Lines off keeps the fills and loses the rules, which is its
-		   shadowless hairline-sparse page. WHAT THE DIALS CANNOT SAY YET (his
-		   question "what new settings would we need", answered in CHANGELOG
-		   0.11.105): pill buttons TOGETHER WITH large cards (corners is one step
-		   for both), a second blue (links vs filled buttons), and white cards on a
-		   grey ground (fills always mix the box DARKER than the paper, never
-		   lighter). Arrives hidden, as Instrument did. */
-		{ id: 'gallery', label: 'Gallery', space: 'spacious', palette: 'neutral', tint: 'blue', sans: 'inter', reading: 'default' /* was small, 16 to 18px (2026-10-02, the styles review; Manuel: "so small and narrow", fixed in every style that read small) */, face: 'inter', leading: 'snug', justify: false, dropcap: false, rounded: true, corners: 'large', buttonshape: 'pill', preset: 'gallery', button: 'own', colours: { light: { button: '#0071e3' }, dark: { button: '#0a84ff' } }, /* THE SECOND BLUE (Manuel, 2026-09-26, lab/the-new-dials-on-the-styles.html 1: "yes nice"): the reference's filled button beside its link blue */ /* its own colours (above), not the tint's */ /* the reference's two radii at once: 28 cards, stadium buttons — the ask this switch was built for (2026-09-26) */ lines: false, bold: false, scope: 'article', fills: true, soft: false, widepicture: true, pictureframe: false, categories: 'above', /* GALLERY B (Manuel, 2026-10-02, lab/the-article-in-gallery.html: "I really like it … bring all those settings into the live panel"): the title in the Spectrum gradient (the title alone, the headings keep their ink), a big opening sentence, the pictures in the text as wide as the top picture, everything rising into place with the pictures from a small zoom, glass under the paper's squares, the quiet buttons in boxes as links with a chevron, the list's posts on tiles that grow under the pointer; by day the grey paper with white tiles (the set Gallery, below) */ titlefinish: 'spectrum', effects: { title: { reach: 'title' } }, pictureshadow: 'soft', /* the white screenshots stood white on the white cards (Manuel, 2026-10-02: "a lot of screenshots are white and they almost go white with the white background", his pick Soft shadow) */ opening: 'big', widefigures: 'on', arrival: 'zoom', glassbar: 'on', boxbuttons: 'link', listtiles: 'on', tilehover: 'grow', roles: { head: { weight: 'semibold', size: '96', /* the hero a step up (Gallery B, 2026-10-02): 72 on Architrave at Small, under the title's ceiling (the article's width / 9, about 76 here); 80 drew 60 */ leading: 'tight', /* 1.03 against the reference's 1.05; dense drew 60 on 51 on a guest and a second line would collide (2026-09-26) */ tracking: 'm1', /* -0.0125em, the half step beside the reference's -0.015em; the head's rest was -0.025em */ align: 'center', members: { sub: { size: '40', align: 'default' } } /* the feature statements, 40/600, on the left as the reference's editorial blocks */ }, kicker: { weight: 'semibold', size: '20', tracking: 'p2', italic: false, caps: false, align: 'center' }, title: { weight: 'semibold' }, quote: { italic: false } } },
-		/* STORYBOOK (Manuel, 2026-09-26, a measured style sheet of an illustrated
-		   agency page: "make a style like this"). Everything on a warm cream paper,
-		   a warm near-black ink, one fresh green; one sans in every job, the
-		   display huge (140/500, -0.06em, 0.95) over a plain 17/1.5 body; cards and
-		   buttons fully soft (50 radius), no lines, no shadows, the depth carried
-		   by the step from paper to ground alone. Drawn with today's dials: the
-		   Meadow pair is its cream, ink and green (the green darkened by day to
-		   hold 5:1 as a link, the reference's own by night); Inter is its face;
-		   head 128 at medium, m2 (with the head's own -0.025em, its -0.05 to
-		   -0.06), dense (0.95); Small at snug is its 17/1.5; Very large corners
-		   (built for it, cards 44 against its 50) + pill buttons are its soft
-		   stickers; Lines off. WHAT THE DIALS CANNOT SAY YET: white
-		   cards on the cream (fills mix darker, as Gallery found); its decorative
-		   yellow and coral (one accent per pair); a closing band in a colour of
-		   its own at the foot. Arrives hidden, as Gallery did. */
-		{ id: 'storybook', label: 'Storybook', space: 'spacious', palette: 'neutral', tint: 'green', preset: 'meadow', button: 'own', colours: { light: { button: '#ffffff' }, dark: { button: '#ffffff' } }, /* THE WHITE BUTTON (Manuel, 2026-09-26, lab/storybook-goes-green.html, 2): the reference's white "Get a quote"; the coral had gone rust */ sans: 'inter', reading: 'default' /* was small, 16 to 18px (2026-10-02, the styles review; Manuel: "so small and narrow", fixed in every style that read small) */, face: 'inter', leading: 'snug', justify: false, dropcap: false, rounded: true, corners: 'xlarge', buttonshape: 'pill', lines: false, bold: false, scope: 'article', fills: true, soft: false, widepicture: true, pictureframe: false, categories: 'above', roles: { head: { weight: 'medium', size: '128', tracking: 'm2', leading: 'dense', align: 'center', members: { sub: { weight: 'medium', size: '56', align: 'default' } } /* its section heads, 53/500, on the left */ }, kicker: { weight: 'medium', italic: false, caps: false, align: 'center' }, title: { weight: 'medium' }, quote: { italic: false } } },
-		/* SPECIMEN (Manuel, 2026-09-26, a measured style sheet of a biotech
-		   research site: "make a style like this"). A near-black green ink, a
-		   warm off-white page, one pale lime kept for small signals; one sans at
-		   one weight in every job, hierarchy by size and tight spacing alone; a
-		   mono in capitals for menus, dates and buttons; hairlines, no shadows.
-		   The reference has no article pages of its own (its news links leave
-		   for the journals), so its Newsroom was measured instead: the page
-		   light (#f7f7f5), the title 140/1.0 at 400 and -0.03em, the intro
-		   24/1.2, list titles 22, dates Roboto Mono 14 in capitals, the menus
-		   the same with 8 corners, and the light page closing on a pure black
-		   footer over 40 rounded corners. Drawn with today's dials: the Lichen
-		   pair is its off-white, green-black ink and lime (the lime darkened by
-		   day to hold 5.2:1 as a link; by night its own on the ink, 11.5:1);
-		   Inter Tight is its face (the sheet's own stand-in) at regular in every
-		   role; Roboto Mono is the interface, in capitals on the kicker, the
-		   dates and the section titles; head 128 at regular, tight; Small at
-		   snug is its 18/1.3; Medium corners are its 8 buttons and 16-20 cards;
-		   fine lines at 20; filled buttons in the ink, never the lime.
-		   WHAT THE DIALS CANNOT SAY YET: a dark band at the foot with the page's
-		   rounded end over it; white cards on the off-white (Gallery's gap 3);
-		   a small accent dot before categories; round tags beside square
-		   buttons; a title past 128. Arrived hidden, as Storybook did; shown in the panel the same day (Manuel: "show it in the panel"). */
-		{ id: 'specimen', label: 'Specimen', space: 'spacious', palette: 'neutral', tint: 'green', preset: 'lichen', sans: 'roboto-mono', reading: 'default' /* was small, 16 to 18px (2026-10-02, the styles review; Manuel: "so small and narrow", fixed in every style that read small) */, face: 'inter-tight', leading: 'snug', justify: false, dropcap: false, rounded: true, lines: true, line: '20', hairlines: true, bold: false, scope: 'article', fills: true, soft: false, /* the reference's text is its full ink */ button: 'ink', /* its filled buttons are the ink; the lime never fills a button */ darkground: true, /* the reference's light page on its black ground (2026-09-26) */ widehead: true, /* its 140 title runs across the page, not down the text column (2026-09-26) */ widepicture: true, pictureframe: false, roles: { head: { face: 'inter-tight', weight: 'regular', size: '128', leading: 'tight', members: { sub: { weight: 'regular', size: '48' } } /* draws its section statements at about 36 while the text is Small */ }, kicker: { face: 'roboto-mono', caps: true, italic: false, weight: 'regular', size: '16', colour: 'accent' /* THE CATEGORY LINE IN THE ACCENT (Manuel, 2026-09-26, the same sheet, 4): for the reference's accent dot */ } /* about 14 under Small, its mono labels */, small: { caps: true, members: { captions: { caps: false }, author: { caps: false } } }, ui: { members: { masthead: { weight: 'regular' } } }, title: { caps: true, weight: 'regular' } /* quote: { italic: false } until 2026-09-27: it wrote nothing on Architrave, whose stylesheet slants a quote, so its quotes have leaned since it was made; the rest keeps them so */ } },
-		/* TERRACOTTA (Manuel, 2026-09-26, a measured style sheet of a coastal
-		   café page plus the page itself: "make a style like this", "I specially
-		   like those terracotta colors for bg"). A rust field floods the page and
-		   cream is its writing; flat colour, no shadows, no gradients. The sheet
-		   named a serif for everything; the page itself was checked and says
-		   otherwise: a grotesque sans in tracked capitals for menus, labels and
-		   headings, a text serif for running copy, a small mono for times and
-		   descriptions. Drawn with today's dials: the Corten pair is its rust
-		   paper and cream ink by day (4.7:1) with white links (5.1:1), and by
-		   night its deeper bordeaux under the same cream (11.4:1) with a pale
-		   clay for links (7.0:1); Sandstone is the same world turned over, cream
-		   paper and rust writing, for a reader who wants it lighter. Schibsted
-		   Grotesk stands in for its sans, Source Serif 4 for its text serif, DM
-		   Mono is its own mono. Headings in capitals at semibold, opened to the
-		   reference's 0.10em; the kicker the same at regular; dates and small
-		   print in the mono. Medium corners are its 14 cards, pill buttons its
-		   pill buttons and fields; fine rules at 20.
-		   WHAT THE DIALS CANNOT SAY YET: outlined buttons (ours fill); square
-		   pictures while the cards keep their corner; a rust field above a cream
-		   page on the same side (one paper per side); the line drawings and the
-		   title set on a curve. Shown in the panel from its first day (Manuel: "show it in the panel"). */
-		/* APERITIVO, TERRACOTTA MADE NEW (Manuel, 2026-10-02: "terracotta … it's kind of boring … maybe we even should
-		   get another name", then of lab/the-article-in-terracotta.html: "I really like it. Bring it live … bring all
-		   those settings in"). The café becomes a bar on the coast. The article on cream paper while the rail and the
-		   ground stay the rust (darkground with the preset's own ground colour: the reference's rust field above its
-		   cream page, the gap of 2026-09-26), by night bordeaux around an espresso page; titles, drop cap and the
-		   site's name in Bodoni Moda italic, in the rust; the green of the shutters for links; outlined pill buttons in
-		   the title's colour; square pictures beside the round cards; a striped awning over the paper, a round stamp on
-		   the opening picture, a wave under the title (picks awning, stamp, titlesign, piccorners; style.css THE
-		   AWNING). The kicker and the small lines keep the grotesk and the mono. The id stays, so a stored choice and a
-		   link still find it; Terracotta's own colours stay in the list as Corten field and Sandstone. */
-		{ id: 'terracotta', label: 'Aperitivo', space: 'spacious', palette: 'neutral', tint: 'orange', preset: 'riviera', button: 'own', buttonstyle: 'outlined', buttonshape: 'pill', darkground: true, sans: 'schibsted-grotesk', reading: 'default' /* was small, 16 to 18px (2026-10-02, the styles review; Manuel: "so small and narrow", fixed in every style that read small) */, face: 'source-serif-4', leading: 'default', justify: false, dropcap: true, capface: 'title', rounded: true, corners: 'medium', lines: true, line: '20', bold: false, scope: 'article', fills: false, /* flat: two surfaces, no raised boxes */ soft: false, widepicture: true, pictureframe: false, piccorners: 'square', marker: true, markercolour: 'orange', /* the highlighter, the warm apricot pen beside the rust (Manuel, 2026-09-26); its bar under the title gives way to the wave */ awning: 'stripes', stamp: 'on', titlesign: 'wave', sitename: 'title', roles: { head: { face: 'bodoni-moda', weight: 'semibold', italic: true, size: '56', leading: 'tight', align: 'center', colour: 'own', members: { sub: { size: '28' } } }, kicker: { face: 'schibsted-grotesk', weight: 'regular', size: '16', caps: true, tracking: 'p10', italic: false, align: 'center', colour: 'own' }, small: { face: 'dm-mono', tracking: 'm2' /* the mono tightened, as its times and temperatures */ }, title: { caps: true, weight: 'regular', tracking: 'p5' } } },
-		/* ZEITUNG, the newspaper style of 2026-09-12, is GONE (Manuel, 2026-09-15:
-		   "I don't like the tile"), with Libre Franklin, Noto Serif, the
-		   Newsprint pair and the red that were its alone. */
-		/* ARCADE, MADE PROPERLY (Manuel, 2026-09-14: "really arcade '80s … the most
-		   expressive one … variable fonts, whatever combination you think is
-		   cool"): Tourney, wide and black, for the headlines, the marquee over
-		   the cabinet; Space Grotesk to read; Kode Mono in capitals for every
-		   small word, the scoreboard. The arcade pair, blue by night and by
-		   day, one orange. The pictures in the pair's own colours, the CRT;
-		   scanlines and a vignette from the style block in style.css. */
-		/* ARCADE B (Manuel, 2026-10-02, after lab/the-arcade.html and its two live pages: "I love it. Update the arcade style … and bring in all those settings as well"). The attract screen of a colour arcade cabinet, and Tube's opposite on every axis: Tube is a soft black-and-white set, Arcade is COLOUR on BLACK, pixel-sharp, with a pixel's own corner. Two faces: Press Start 2P, the cabinets' 8px letter, for the title, the headings and the category line, set only at 32, 24 and 16 px so every pixel lands on whole screen pixels; Space Grotesk for everything read, a step under full white. Two colours plus white, each with one job (preset Cabinet): yellow is what to look at and press, magenta (the second light) is depth, the hard block under the title, the headings and the key. By day the cabinet's printed side, a warm white: the yellow stays on the fills, the words go ink. The screen: dark scan lines that lie on what is lit, a vignette that darkens, the glow on the headings, crisp pixel words. Pictures dithered in the style's own five colours, the paper's corners in pixel stairs, a power bar at the paper's foot, and INSERT COIN once a visit. */
-		{ id: 'risograph', label: 'Risograph', space: 'spacious', palette: 'neutral', tint: 'orange', preset: 'riso', button: 'own', buttonshape: 'pill', sans: 'ibm-plex-mono', reading: 'default', face: 'ibm-plex-mono', leading: 'default', justify: false, dropcap: false, rounded: true, lines: false, bold: false, scope: 'article', fills: false, soft: false, widepicture: true, pictureframe: false, pictures: 'riso', links: 'wash', /* RISOGRAPH (2026-10-02, lab/the-article-in-risograph.html, his settings from the sheet): one red on oatmeal, the frame a shade darker than the paper; Caprasimo titles, centred, as written; everything read in IBM Plex Mono; links on a pale wash of the red; pictures printed in the red with a fine grain; red pill buttons. Caprasimo has ONE weight, so every resting bold of the head and the site name is set back to regular (no made-up bold). */ roles: { head: { face: 'caprasimo', weight: 'regular', size: '72', leading: 'tight', align: 'center', colour: 'own', members: { sub: { weight: 'regular', align: 'default' } } }, kicker: { face: 'ibm-plex-mono', italic: false, weight: 'regular', caps: false, align: 'center', colour: 'own' }, small: { face: 'ibm-plex-mono' }, title: { face: 'caprasimo', weight: 'regular' } } },
-		{ id: 'arcade', label: 'Arcade', measure: '60', /* ITS OWN WIDTH, a narrow cabinet screen (Manuel, 2026-09-25, lab/the-tile-widths.html: "all yes") */ palette: 'neutral', tint: 'orange', preset: 'cabinet', colours: { light: { button: '#ffcc1a', second: '#ff3d8b', ground: '#d9d6cc' }, dark: { button: '#ffd23f', second: '#ff3d8b', ground: '#000000' } }, sans: 'space-grotesk', reading: 'default', face: 'space-grotesk', leading: 'default', justify: false, dropcap: false, rounded: false, lines: false, bold: false, scope: 'article', fills: true, soft: true, button: 'own', buttonstyle: 'key', pictures: 'pixel', scanlines: true, scan: '5', scanstyle: 'dark', vignette: true, vignettelevel: '2', glow: true, crisp: 'headings', extrusion: 'diagonal', pixelcorners: 'on', powerbar: 'on', bootscreen: 'coin', subcolour: 'ink', sitename: 'marquee', /* only the title in yellow, the site's name a small marquee (Manuel, 2026-10-02, after Arcade went live: "Yes go" on both) */ effects: { glow: { reach: 'headings' } }, roles: { head: { face: 'press-start-2p', weight: 'regular', caps: true, size: '32', leading: 'open', tracking: 'default', colour: 'accent', members: { sub: { size: '24', weight: 'regular' } } }, kicker: { face: 'press-start-2p', weight: 'regular', italic: false, caps: true, size: '16', tracking: 'default', colour: 'accent' }, small: { caps: true, tracking: 'p5', members: { author: { caps: false, tracking: 'default' } } }, title: { caps: true, tracking: 'p10' } } }, /* WAS (2026-09-14 to 2026-10-01, backstage, never judged live): the arcade pair's navy, orange, Handjet capitals, Geist to read and Martian Mono for the small lines, round corners, scan lines and a vignette, pictures tinted. Next to Tube it said "old screen" a second time, quieter. */
-		/* TUBE (Manuel, 2026-09-29/30, lab/the-tube.html, from a studio site that draws its whole page in one shader: "this old monitor … old screen scan line style"; then "two styles out of it … the first one Tube like an old TV"). The screen's words in VT323, the terminal's own bitmap face, the headline in the boot screen's bold italic serif drawn crisp; the boot blue by night; a black bezel, scan lines, a colour fringe, the glow, a little grain, a vignette, a soft shimmer, the set switching on with a burst of static when the side changes, the boot screen on the first visit; pictures in pixels. */
-		{ id: 'tube', label: 'Tube', palette: 'neutral', tint: 'blue', preset: 'silver', sans: 'libre-franklin', reading: 'default', face: 'libre-franklin', leading: 'default', justify: false, dropcap: false, rounded: true, lines: true, line: '60', bold: false, scope: 'article', fills: false, soft: true, button: 'ink', buttonshape: 'rounded', buttonstyle: 'outlined', pictures: 'oldset', scanlines: true, scan: '3', scanstyle: 'thick', glow: true, grain: true, grainlevel: '2', graincrawl: 'moving', bloom: 'soft', switchon: 'on', bootscreen: 'warm', tubeface: 'round', tvcabinet: 'walnut', ghostimage: 'titles', humbar: 'slow', effects: { glow: { reach: 'headings' } }, /* TUBE B, A SUPER OLD TELEVISION (Manuel, 2026-10-02, lab/the-article-in-tube.html: "I really like it so bring it into the live design panel"): the paper is a forties valve set's screen and everything round it the cabinet. Silver phosphor (no true black), the 405 thick lines, the snow and the lines on the screen alone, its edges dark, round knobs for the corner buttons, walnut round it with the rail in ivory, a ghost on the titles, the hum bar, an old set's soft pictures, the warm-up for a start. No vignette (the tube's own edge is it), no shimmer, no static, no test card. */ roles: { head: { face: 'league-gothic', weight: 'regular', caps: true, size: '80', leading: 'tight', members: { sub: { size: '40', weight: 'regular' } } }, kicker: { italic: false, caps: true, tracking: 'p12', weight: 'semibold', size: '13' }, small: { caps: true, tracking: 'p12', weight: 'semibold', members: { author: { caps: false, tracking: 'default', weight: 'regular' } } }, title: { caps: true, tracking: 'p12' }, quote: { italic: true } } }, /* A BLACK-AND-WHITE SET (Manuel, 2026-09-30, a day of rounds ending in lab/the-tube.html, his choice of its version B: "I will go with your recommendation … bring that live"). What stood on such a screen was never pixels: every word was a card before a camera, in the bold open faces that survived a soft picture. So: tall narrow capitals for the titles (League Gothic, his pick over a Clarendon), Franklin's gothic for everything that is read (Libre Franklin, with real bolds and italics), two faces and no more. No colour fringe, which is a colour set's fault; no crisp edges, which are a computer's; the glow on the headings only and the reading a touch under full white; the snow alive; a breath of blue in the white (preset Television); round corners, since a tube has no sharp one; pictures in greys; by night the shimmer and the vignette at half; the test card first. Both faces come from the font library, fetched on the owner's first visit. */
-		/* BROCHURE (Manuel, 2026-09-30, lab/the-brochure.html, from a studio site that draws its page as an old advertisement: "the second like an old Apple advertisement … both retro but different"; then, the first version live, "super tiny everything. make it similar to the screenshot", and of version B "what you have in the lab looks awesome … bring it to the live panel"). One sturdy text serif for everything, large. The headline a sentence over the whole paper, centred, a medium weight set tight; the categories above it and the date close under it, both italic. The top picture as wide as the headline, the copy under it in one column, paragraphs indented and none spaced, the grain crawling; links plain underlined words, the menu too. Pictures bare on the paper in sepia (the panel's Halftone is a far coarser screen than the lab's fine dots and drowns a dark picture, tried 2026-09-30; it stays a choice). The paper a warm cream, clean: a little grain, the edges yellowed at the very rim, the letters sharp, print's magenta slip on the titles alone, no bend. The site's logo takes the stripes; between two posts six thin stripes with paper between them run across the whole paper (lab round of 2026-10-01: the cat out of the band, gaps between the lines, the reference's softer hues); the page ends on a black plate with the logo, the name in bold italic capitals, the tagline and the copyright line. */
-		{ id: 'brochure', label: 'Brochure', palette: 'neutral', tint: 'brown', preset: 'newsprint', sans: 'stix-two-text', reading: 'default', face: 'stix-two-text', leading: 'tight', measure: '68', justify: false, dropcap: false, rounded: true, lines: false, bold: false, scope: 'article', fills: true, /* fills and corners back on (Manuel, 2026-10-01: "no surfaces at all is also looking weird", "in the lab we had rounded corners") */ darkground: true, /* the rail inverted is Brochure's own (Manuel, 2026-10-01: "the basics should be the style brochure", not an adjustment) */ widehead: true, widepicture: true, categories: 'above', button: 'ink', buttonstyle: 'text', buttonmedium: 'gray', /* Gray, not Text (Manuel, 2026-10-01: under Text the copy-URL and .md pair, the rail squares, the search and the focus eye stood bare beside the grey comments bubble, and their grey hover came out of nothing; "setting that middle button to gray and we got everything back") */ buttonquiet: 'gray', /* the quiet buttons (Next, the comments bubble) show the grey box under the pointer, the same box the icon buttons show; at the rest their hover was a 6 % tint, nothing on cream (Manuel, 2026-10-01: on Weiter "there's no hover at all") */ links: 'underlined', pictures: 'sepia', pictureframe: false, grain: true, grainlevel: '2', /* a step up from 1 (Manuel, 2026-10-01: "we had this nice little gristle in the lab, it looks so plain now") */ graincrawl: 'moving', vignette: true, vignettelevel: '2', vignettereach: '2', edges: 'yellowed', fringe: 'sliptitle', columns: '1', paragraphs: 'indented', rainbow: 'logo', postband: 'rainbow', footband: 'plate', stripes: 'gaps', menuline: 'plain', /* the underline left the rail's menu (Manuel, 2026-10-01: odd on the rail, the hover box is the rail's own) */ legalline: 'on', sitename: 'caps', oldpaper: 'both', printink: 'warm', titlemark: 'short', rainbowlinks: 'hover', coupon: 'on', edgeson: 'paper', nightground: 'inverted', roles: { head: { face: 'stix-two-text', weight: 'medium', size: '112', tracking: 'm2', leading: 'tight', align: 'center', members: { sub: { size: '40', weight: 'medium', align: 'default' } } }, kicker: { face: 'stix-two-text', italic: true, size: '22', align: 'center' }, small: { face: 'stix-two-text', italic: true, size: '20' }, ui: { size: '18', members: { masthead: { size: '26' } } }, title: { face: 'crimson-pro', size: '16', weight: 'semibold', caps: true, tracking: 'p12' }, quote: { italic: true } } }, /* THE SECTION TITLES BIGGER, IN SPACED CAPITALS (the lab sheet's Section titles row, B on Spaced capitals; Manuel, 2026-10-01 on the live rail: "I want to have that text bigger"): 16 against the rest's 11 (14 still read small beside the 18px menu in capitals), semibold, capitals spaced .125em. */ /* the section titles' face is the wordmark's (sitename caps reads it): Crimson Pro, measured the narrowest bold italic in the library (ELMASTUDIO 145 against the text serif's 164 at 24px, 2026-10-01) */
 	];
 	/* ORIGINAL ON ARCHITRAVE TOO (Manuel, 2026-09-28: "coherent … no special case for Architrave"): on its own theme
 	   Classic is the theme as it is, so it is called what it is everywhere else, Original. On another theme the
@@ -386,7 +248,7 @@
 		var entry = { id: 'own-' + Date.now().toString(36), label: data.label.slice(0, 40) || t('My style'), own: true, base: byId(data.base) ? data.base : STYLES[0].id };
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean') entry[k] = data[k]; });
-		['tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'monitorframe', 'fringe', 'crisp', 'scanstyle', 'shimmer', 'warp', 'switchon', 'bloom', 'ghosting', 'jitter', 'graincrawl', 'typedtitle', 'bootscreen', 'roomglass', 'phosphor', 'static', 'dropout', 'headrule', 'ink', 'tooth', 'edges', 'columns', 'paragraphs', 'rainbow', 'postband', 'footband', 'menuline', 'legalline', 'stripes', 'sitename', 'sheetgrid', 'gridstrength', 'sheetborder', 'mottle', 'printedges', 'pen', 'dimensions', 'guidelines', 'bubbles', 'titleblock', 'scalerule', 'oldpaper', 'printink', 'titlemark', 'rainbowlinks', 'rainbowcap', 'capface', 'hyphenate', 'coupon', 'fold', 'edgeson', 'nightground', 'codemarks', 'coderain', 'headwidth', 'textgrid', 'mdmarks', 'frontmatter', 'textmode', 'windowbar', 'statusline', 'prompt', 'cursorshape', 'extrusion', 'pixelcorners', 'powerbar', 'awning', 'stamp', 'titlesign', 'headstar', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'arrival', 'glassbar', 'boxbuttons', 'listtiles', 'tilehover', 'headblock', 'sectionrules', 'sectionnumbers', 'tubeface', 'tvcabinet', 'ghostimage', 'titlecard', 'humbar', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		['tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'grainlevel', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'paragraphs', 'sitename', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
 		if (data.roles && typeof data.roles === 'object') entry.roles = data.roles;
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } /* only known details, only off their rest */
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
@@ -412,7 +274,7 @@
 		/* Until the owner picks: on a guest, two of the public four (Book is
 		   not public any more, 2026-09-25); on Architrave, where Standard IS
 		   the site's own, Book and Instrument as before. */
-		return (window.architravePanelGuest ? ['standard', 'instrument'] : ['standard', 'book', 'instrument']).filter(function (id) { return id !== DEFAULT; }).slice(0, 2);
+		return ['standard', 'instrument'].filter(function (id) { return id !== DEFAULT; }).slice(0, 2);
 	}
 	/* THE PUBLIC FOUR (Manuel, 2026-09-25, before wordpress.org): on another
 	   theme a fresh site offers only the finished looks — Classic, Matrix,
@@ -422,7 +284,7 @@
 	   others"): a saved choice and a link still find them, so nothing a
 	   reader kept ever breaks, and promoting one is adding its id here.
 	   Architrave is Manuel's own site and shows him everything, as before. */
-	var PUBLIC = ['standard', 'terminal', 'instrument', 'catalogue', 'gallery', 'tube', 'brochure', 'arcade']; /* Gallery promoted 2026-09-26 (Manuel, "keep going"), after its fixes were judged on TT5 */
+	var PUBLIC = ['standard', 'instrument']; /* the two left on 2026-10-02; the earlier promotions are in the tag styles-archive-0.15.58 */
 	function offered(p) {
 		if (READER) return !!(p.host || p.id === DEFAULT || readerPicks().indexOf(p.id) !== -1);
 		/* AND WHAT THE SITE ALREADY SHOWS ITS READERS (2026-09-25: Book stood on
@@ -445,10 +307,10 @@
 	/* Do not edit between the markers: change plugin/settings.json and run `node tools/settings-list.mjs`,
 	   which writes this block and then the list again from the running code; --check fails when they part. */
 	var DIALS = ['palette', 'reading', 'face', 'leading'];
-	var OPTS = ['justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'scanlines', 'glow', 'grain', 'vignette', 'soft', 'alternates', 'dots', 'marker', 'widepicture', 'tagsfollow'];
+	var OPTS = ['justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'grain', 'soft', 'alternates', 'marker', 'widepicture', 'tagsfollow'];
 	var TINTS = ['purple', 'brown', 'green', 'blue', 'orange'];
 	var SCOPE = ['article', 'all'];
-	var PICTURES = ['plain', 'bw', 'sepia', 'duo', 'accent', 'halftone', 'dither', 'onebit', 'grain', 'trace', 'pixel', 'warm', 'oldset', 'riso', 'hidden'];
+	var PICTURES = ['plain', 'bw', 'sepia', 'duo', 'accent', 'grain', 'warm', 'hidden'];
 	var CAP_LINES = ['3', '2', '4'];
 	var BUTTONS = ['accent', 'ink', 'own'];
 	var LINE_STYLE = ['solid', 'dashed', 'dotted'];
@@ -456,24 +318,18 @@
 	var FADE_EDGES = ['sides', 'bottom', 'all'];
 	var MARKERS = ['yellow', 'green', 'pink', 'blue', 'orange', 'text', 'muted', 'own'];
 	var FRAME_PATTERNS = ['plain', 'dots', 'checker'];
-	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text', 'key'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised', 'ticks'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, titlefinish: { attr: 'data-title-finish', list: ['flat', 'shine', 'accent', 'spectrum', 'violet'] }, headitalics: { attr: 'data-head-italics', list: ['same', 'serif', 'classic', 'vollkorn', 'fraunces'] }, headarrival: { attr: 'data-head-arrival', list: ['none', 'fade', 'blur'] }, cardlight: { attr: 'data-card-light', list: ['off', 'edge', 'glow'] }, buttonfinish: { attr: 'data-button-finish', list: ['flat', 'glass', 'glow'] }, toppattern: { attr: 'data-top-pattern', list: ['none', 'dots', 'grid', 'cross', 'diagonal'] }, guides: { attr: 'data-guides', list: ['off', 'solid', 'dashed'] }, greytint: { attr: 'data-grey-tint', list: ['0', '5', '10', '15'] }, pageglow: { attr: 'data-page-glow', list: ['off', 'soft', 'strong'] }, movinglight: { attr: 'data-moving-light', list: ['off', 'on'] }, monitorframe: { attr: 'data-monitor-frame', list: ['off', 'thin', 'medium', 'thick'] }, fringe: { attr: 'data-fringe', list: ['off', 'faint', 'soft', 'strong', 'slip', 'sliptitle'] }, crisp: { attr: 'data-crisp', list: ['off', 'headings', 'all'] }, scanstyle: { attr: 'data-scan-style', list: ['lines', 'grille', 'both', 'dark', 'thick'] }, shimmer: { attr: 'data-shimmer', list: ['off', 'soft', 'roll'] }, warp: { attr: 'data-warp', list: ['off', 'slight', 'bulged', 'strong'] }, switchon: { attr: 'data-switch-on', list: ['off', 'on'] }, bloom: { attr: 'data-bloom', list: ['off', 'soft', 'strong'] }, ghosting: { attr: 'data-ghosting', list: ['off', 'on'] }, jitter: { attr: 'data-jitter', list: ['off', 'rare', 'often'] }, graincrawl: { attr: 'data-grain-crawl', list: ['still', 'moving'] }, typedtitle: { attr: 'data-typed-title', list: ['off', 'on', 'decode'] }, bootscreen: { attr: 'data-boot-screen', list: ['off', 'on', 'card', 'rain', 'wake', 'coin', 'warm'] }, roomglass: { attr: 'data-room-glass', list: ['off', 'on'] }, phosphor: { attr: 'data-phosphor', list: ['off', 'blue', 'green', 'amber', 'white', 'black'] }, static: { attr: 'data-static', list: ['off', 'on'] }, dropout: { attr: 'data-dropout', list: ['off', 'on'] }, headrule: { attr: 'data-head-rule', list: ['off', 'on'] }, ink: { attr: 'data-ink', list: ['sharp', 'spread'] }, tooth: { attr: 'data-tooth', list: ['off', 'faint', 'light', 'medium', 'strong', 'on'] }, edges: { attr: 'data-edges', list: ['ink', 'yellowed'] }, columns: { attr: 'data-columns', list: ['1', '2', '3'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, rainbow: { attr: 'data-rainbow', list: ['off', 'rule', 'mark', 'both', 'logo'] }, postband: { attr: 'data-post-band', list: ['off', 'rainbow', 'logo'] }, footband: { attr: 'data-foot-band', list: ['off', 'on', 'plate'] }, menuline: { attr: 'data-menu-line', list: ['plain', 'underlined'] }, legalline: { attr: 'data-legal-line', list: ['off', 'on'] }, stripes: { attr: 'data-stripes', list: ['solid', 'gaps'] }, sitename: { attr: 'data-site-name', list: ['plain', 'caps', 'marquee', 'title'] }, sheetgrid: { attr: 'data-sheet-grid', list: ['off', 'squared', 'fine', 'dots'] }, gridstrength: { attr: 'data-grid-strength', list: ['medium', 'faint', 'strong'] }, sheetborder: { attr: 'data-sheet-border', list: ['off', 'line', 'zones'] }, mottle: { attr: 'data-mottle', list: ['off', 'soft', 'strong'] }, printedges: { attr: 'data-print-edges', list: ['off', 'soft', 'strong'] }, pen: { attr: 'data-pen', list: ['off', 'medium', 'bold'] }, dimensions: { attr: 'data-dimensions', list: ['off', 'on'] }, guidelines: { attr: 'data-guide-lines', list: ['off', 'on'] }, bubbles: { attr: 'data-bubbles', list: ['off', 'on'] }, titleblock: { attr: 'data-title-block', list: ['off', 'on'] }, scalerule: { attr: 'data-scale-rule', list: ['off', 'on'] }, oldpaper: { attr: 'data-old-paper', list: ['off', 'sun', 'spots', 'both'] }, printink: { attr: 'data-print-ink', list: ['neutral', 'warm'] }, titlemark: { attr: 'data-title-mark', list: ['off', 'short', 'wide'] }, rainbowlinks: { attr: 'data-rainbow-links', list: ['off', 'hover', 'always'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, rainbowcap: { attr: 'data-rainbow-cap', list: ['off', 'on'] }, coupon: { attr: 'data-coupon', list: ['off', 'on'] }, fold: { attr: 'data-fold', list: ['off', 'one', 'three'] }, edgeson: { attr: 'data-edges-on', list: ['window', 'paper'] }, nightground: { attr: 'data-night-ground', list: ['same', 'inverted'] }, codemarks: { attr: 'data-code-marks', list: ['off', 'prompt', 'glyphs'] }, coderain: { attr: 'data-code-rain', list: ['off', 'faint', 'clear'] }, headwidth: { attr: 'data-head-width', list: ['normal', 'narrow', 'narrowest'] }, textgrid: { attr: 'data-text-grid', list: ['off', 'double', 'one'] }, mdmarks: { attr: 'data-md-marks', list: ['off', 'on'] }, frontmatter: { attr: 'data-front-matter', list: ['off', 'on'] }, textmode: { attr: 'data-text-mode', list: ['off', 'on'] }, windowbar: { attr: 'data-window-bar', list: ['off', 'on'] }, statusline: { attr: 'data-status-line', list: ['off', 'pager', 'bar'] }, prompt: { attr: 'data-prompt', list: ['off', 'still', 'typed'] }, cursorshape: { attr: 'data-cursor-shape', list: ['blink', 'still', 'bar'] }, extrusion: { attr: 'data-extrusion', list: ['off', 'diagonal', 'down'] }, pixelcorners: { attr: 'data-pixel-corners', list: ['off', 'on'] }, powerbar: { attr: 'data-power-bar', list: ['off', 'on'] }, awning: { attr: 'data-awning', list: ['off', 'stripes', 'scallops'] }, stamp: { attr: 'data-stamp', list: ['off', 'on'] }, titlesign: { attr: 'data-title-sign', list: ['off', 'wave', 'star'] }, headstar: { attr: 'data-head-star', list: ['off', 'on'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, subcolour: { attr: 'data-sub-colour', list: ['title', 'ink'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, arrival: { attr: 'data-arrival', list: ['none', 'rise', 'zoom'] }, glassbar: { attr: 'data-glass-bar', list: ['off', 'on'] }, boxbuttons: { attr: 'data-box-buttons', list: ['pill', 'link'] }, listtiles: { attr: 'data-list-tiles', list: ['off', 'on'] }, tilehover: { attr: 'data-tile-hover', list: ['off', 'grow'] }, tubeface: { attr: 'data-tube-face', list: ['off', 'round', 'square'] }, tvcabinet: { attr: 'data-tv-cabinet', list: ['off', 'walnut', 'bakelite'] }, ghostimage: { attr: 'data-ghost-image', list: ['off', 'titles', 'all'] }, titlecard: { attr: 'data-title-card', list: ['off', 'on'] }, humbar: { attr: 'data-hum-bar', list: ['off', 'slow'] }, headblock: { attr: 'data-head-block', list: ['off', 'on'] }, sectionrules: { attr: 'data-section-rules', list: ['off', 'thin', 'thick'] }, sectionnumbers: { attr: 'data-section-numbers', list: ['off', 'written', 'counted'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] } };
-	var EFFECTS = { title: { depth: { list: ['50', '70', '30'], rest: '50' }, dir: { list: ['diagonal', 'down', 'across'], rest: 'diagonal' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, reach: { list: ['all', 'title'], rest: 'all' } }, serif: { which: { list: ['italics', 'last', 'title'], rest: 'italics' }, style: { list: ['italic', 'upright'], rest: 'italic' } }, arrival: { speed: { list: ['calm', 'quick', 'slow'], rest: 'calm' }, blur: { list: ['8', '4', '14'], rest: '8' }, scope: { list: ['headings', 'text', 'all'], rest: 'headings' } }, cardlight: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['auto', 'light', 'second', 'accent', 'ink'], rest: 'auto' }, edge: { list: ['70', '40', '100'], rest: '70' }, reach: { list: ['55', '35', '85'], rest: '55' } }, moving: { colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, speed: { list: ['7', '11', '4'], rest: '7' }, length: { list: ['34', '20', '55'], rest: '34' }, where: { list: ['cards', 'buttons', 'all'], rest: 'cards' }, rhythm: { list: ['constant', 'now'], rest: 'constant' } }, button: { glow: { list: ['fill', 'light', 'second', 'accent', 'ink'], rest: 'fill' }, level: { list: ['75', '40', '100'], rest: '75' }, ring: { list: ['on', 'off'], rest: 'on' }, lift: { list: ['on', 'off'], rest: 'on' }, sweep: { list: ['off', 'on'], rest: 'off' }, glass: { list: ['2', '1', '3'], rest: '2' } }, pattern: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, size: { list: ['m', 's', 'l'], rest: 'm' }, reach: { list: ['560', '300', '900', 'all'], rest: '560' } }, guides: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, marks: { list: ['off', 'on'], rest: 'off' } }, tint: { colour: { list: ['light', 'second', 'accent'], rest: 'light' } }, aurora: { first: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, second: { list: ['second', 'light', 'accent', 'ink'], rest: 'second' }, place: { list: ['title', 'top', 'page'], rest: 'title' }, speed: { list: ['slow', 'still', 'lively'], rest: 'slow' }, shape: { list: ['glow', 'beams'], rest: 'glow' } }, pointer: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, dividers: { look: { list: ['plain', 'fade', 'glow'], rest: 'plain' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, topline: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, picglow: { look: { list: ['off', 'soft', 'strong'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, monitor: { curve: { list: ['round', 'slight', 'bulged'], rest: 'round' }, sheen: { list: ['off', 'on'], rest: 'off' } }, warp: { direction: { list: ['in', 'out'], rest: 'in' } }, glow: { reach: { list: ['all', 'headings'], rest: 'all' } }, vignette: { night: { list: ['same', 'half'], rest: 'same' }, colour: { list: ['ink', 'black'], rest: 'ink' }, day: { list: ['same', 'half'], rest: 'same' } } };
+	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised', 'ticks'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, titlefinish: { attr: 'data-title-finish', list: ['flat', 'shine', 'accent'] }, headitalics: { attr: 'data-head-italics', list: ['same', 'serif', 'classic', 'vollkorn', 'fraunces'] }, headarrival: { attr: 'data-head-arrival', list: ['none', 'fade', 'blur'] }, cardlight: { attr: 'data-card-light', list: ['off', 'edge', 'glow'] }, buttonfinish: { attr: 'data-button-finish', list: ['flat', 'glass', 'glow'] }, toppattern: { attr: 'data-top-pattern', list: ['none', 'dots', 'grid', 'cross', 'diagonal'] }, guides: { attr: 'data-guides', list: ['off', 'solid', 'dashed'] }, greytint: { attr: 'data-grey-tint', list: ['0', '5', '10', '15'] }, pageglow: { attr: 'data-page-glow', list: ['off', 'soft', 'strong'] }, movinglight: { attr: 'data-moving-light', list: ['off', 'on'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, sitename: { attr: 'data-site-name', list: ['plain', 'caps'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, subcolour: { attr: 'data-sub-colour', list: ['title', 'ink'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] } };
+	var EFFECTS = { title: { depth: { list: ['50', '70', '30'], rest: '50' }, dir: { list: ['diagonal', 'down', 'across'], rest: 'diagonal' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, reach: { list: ['all', 'title'], rest: 'all' } }, serif: { which: { list: ['italics', 'last', 'title'], rest: 'italics' }, style: { list: ['italic', 'upright'], rest: 'italic' } }, arrival: { speed: { list: ['calm', 'quick', 'slow'], rest: 'calm' }, blur: { list: ['8', '4', '14'], rest: '8' }, scope: { list: ['headings', 'text', 'all'], rest: 'headings' } }, cardlight: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['auto', 'light', 'second', 'accent', 'ink'], rest: 'auto' }, edge: { list: ['70', '40', '100'], rest: '70' }, reach: { list: ['55', '35', '85'], rest: '55' } }, moving: { colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, speed: { list: ['7', '11', '4'], rest: '7' }, length: { list: ['34', '20', '55'], rest: '34' }, where: { list: ['cards', 'buttons', 'all'], rest: 'cards' }, rhythm: { list: ['constant', 'now'], rest: 'constant' } }, button: { glow: { list: ['fill', 'light', 'second', 'accent', 'ink'], rest: 'fill' }, level: { list: ['75', '40', '100'], rest: '75' }, ring: { list: ['on', 'off'], rest: 'on' }, lift: { list: ['on', 'off'], rest: 'on' }, sweep: { list: ['off', 'on'], rest: 'off' }, glass: { list: ['2', '1', '3'], rest: '2' } }, pattern: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, size: { list: ['m', 's', 'l'], rest: 'm' }, reach: { list: ['560', '300', '900', 'all'], rest: '560' } }, guides: { level: { list: ['100', '25', '50', '75'], rest: '100' }, colour: { list: ['ink', 'light', 'second', 'accent'], rest: 'ink' }, marks: { list: ['off', 'on'], rest: 'off' } }, tint: { colour: { list: ['light', 'second', 'accent'], rest: 'light' } }, aurora: { first: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' }, second: { list: ['second', 'light', 'accent', 'ink'], rest: 'second' }, place: { list: ['title', 'top', 'page'], rest: 'title' }, speed: { list: ['slow', 'still', 'lively'], rest: 'slow' }, shape: { list: ['glow', 'beams'], rest: 'glow' } }, pointer: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, dividers: { look: { list: ['plain', 'fade', 'glow'], rest: 'plain' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, topline: { look: { list: ['off', 'on'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } }, picglow: { look: { list: ['off', 'soft', 'strong'], rest: 'off' }, colour: { list: ['light', 'second', 'accent', 'ink'], rest: 'light' } } };
 	var LEVELS = {
-		scan: { stops: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], rest: '3', attr: 'data-scan', prop: '--scan-alpha' },
 		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
 		fill: { stops: ['25', '50', '75', '100', '125', '150', '200', '300'], rest: '100', attr: 'data-fill', steps: true },
-		glowlevel: { stops: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], rest: '4', attr: 'data-glow-level', prop: '--surface-glow-level' },
 		grainlevel: { stops: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], rest: '4', attr: 'data-grain-level', prop: '--grain-level' },
-		vignettelevel: { stops: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], rest: '2', attr: 'data-vignette-level', prop: '--vignette-level' },
-		vignettereach: { stops: ['1', '2', '3', '4', '5', '6'], rest: '3', attr: 'data-vignette-reach', prop: '--surface-vignette-reach' },
 		softlevel: { stops: ['10', '15', '20', '25', '30', '35', '40', '45'], rest: '15', attr: 'data-soft-level', prop: '--soft-strength' },
 		quietlevel: { stops: ['25', '30', '35', '40', '45', '50'], rest: '25', attr: 'data-quiet-level', prop: '--quiet-strength' },
 		smallsoft: { stops: ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50'], rest: '25', attr: 'data-small-soft', prop: '--small-strength' },
 		measure: { stops: ['60', '64', '68', '72', '76', '80', '84', '88'], rest: '72', attr: 'data-measure', prop: '--measure-factor' },
 		space: { stops: ['xcompact', 'compact', 'standard', 'spacious', 'xspacious'], rest: 'standard', attr: 'data-space', prop: '--space-step' },
-		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' },
-		dotsize: { stops: ['16', '24', '32'], rest: '24', attr: 'data-dot-size', prop: '--dot-size' },
-		dotlevel: { stops: ['6', '9', '13', '18', '24'], rest: '13', attr: 'data-dot-level', prop: '--dot-strength' }
+		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' }
 	};
 	var ROLES = ['head', 'read', 'quote', 'kicker', 'small', 'comment', 'ui', 'title'];
 	var ROLE_DEFAULT = {
@@ -534,7 +390,7 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'dots', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'scanlines', 'glow', 'grain', 'vignette', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'monitorframe', 'fringe', 'crisp', 'scanstyle', 'shimmer', 'warp', 'switchon', 'bloom', 'ghosting', 'jitter', 'graincrawl', 'typedtitle', 'bootscreen', 'roomglass', 'phosphor', 'static', 'dropout', 'headrule', 'ink', 'tooth', 'edges', 'columns', 'paragraphs', 'rainbow', 'postband', 'footband', 'menuline', 'legalline', 'stripes', 'sitename', 'sheetgrid', 'gridstrength', 'sheetborder', 'mottle', 'printedges', 'pen', 'dimensions', 'guidelines', 'bubbles', 'titleblock', 'scalerule', 'oldpaper', 'printink', 'titlemark', 'rainbowlinks', 'rainbowcap', 'capface', 'hyphenate', 'coupon', 'fold', 'edgeson', 'nightground', 'codemarks', 'coderain', 'headwidth', 'textgrid', 'mdmarks', 'frontmatter', 'textmode', 'windowbar', 'statusline', 'prompt', 'cursorshape', 'extrusion', 'pixelcorners', 'powerbar', 'awning', 'stamp', 'titlesign', 'headstar', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'arrival', 'glassbar', 'boxbuttons', 'listtiles', 'tilehover', 'tubeface', 'tvcabinet', 'ghostimage', 'titlecard', 'humbar', 'headblock', 'sectionrules', 'sectionnumbers', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'grain', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'grainlevel', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'paragraphs', 'sitename', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { tint: TINTS, scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], button: BUTTONS, linestyle: LINE_STYLE, corners: CORNERS, fadeedges: FADE_EDGES, markercolour: MARKERS, framepattern: FRAME_PATTERNS },
 		wells: ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'],
 		meaning: {
@@ -553,9 +409,6 @@
 			lines: 'Hairlines around cards, buttons and fields and between rows. false means no lines anywhere except link underlines.',
 			line: 'Strength of those lines: the ink\'s share in the line colour, in per cent. 45 is the rest. Only with lines.',
 			corners: 'medium, small or large corners. One step re-cuts every corner together; nested corners stay sums. Only with rounded.',
-			dots: 'A fine grid of dots on the page ground, a cutting mat.',
-			dotsize: 'The dot grid\'s spacing in pixels: 16 (fine), 24 or 32 (wide). 24 is the rest. Only with dots.',
-			dotlevel: 'Strength of the dots: the ink\'s share in the dot colour, in per cent: 6, 9, 13, 18 or 24. 13 is the rest. Only with dots.',
 			marker: 'A highlighter: marked words and selected text get a wash in the marker colour, and a short bar stands under the article title. Decoration only, never a text colour.',
 			markercolour: 'The highlighter\'s colour: yellow, green, pink, blue, orange, text (the reading text\'s colour), muted (the date\'s colour), or own (the well colours.<side>.marker, fitted to the other side\'s paper when set on one side only; its ink and bar follow from the pen). Only with marker.',
 			measure: 'Line length of the reading text in letters: 60 to 88 in steps of 4. 72 is the rest.',
@@ -591,113 +444,27 @@
 			greytint: 'How much of the accent the paper, the grounds and every grey take, in percent: 0 (the rest), 5, 10 or 15. The ink itself stays as it is. Only with the style\'s own colour pair.',
 			pageglow: 'Two slow glows of the accent behind the article\'s title: off (the rest), soft or strong. They stay still for readers who ask for less motion.',
 			movinglight: 'A short streak of the accent that travels along the top edge of the cards: off (the rest) or on. Not for readers who ask for less motion.',
-			monitorframe: 'A black bezel around the page with rounded corners, an old monitor\'s frame: off (the rest), thin, medium or thick.',
-			fringe: 'A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, slip (print\'s one magenta ghost on all text) or sliptitle (that ghost on the titles and headings only, the reading left sharp).',
-			crisp: 'Letters drawn without smoothing, the stair-step of an old screen: off (the rest), headings, or all text.',
-			scanstyle: 'How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille), both, or dark (the dark gaps between a colour screen\'s rows: by night they show on what is lit and vanish on the black, and the vignette darkens; by day faint lines in the ink)., or thick (the 405 lines of the first sets: so few that each shows, a dark gap under every two bright rows). Only with scanlines.',
-			shimmer: 'The screen\'s brightness moving: off (the rest), soft (a slow hum) or roll (a faint band drifting down). Still for readers who ask for less motion.',
-			warp: 'The page bent like a tube\'s glass: off (the rest), slight, bulged or strong. The page is redrawn as a picture, so text softens a little.',
-			switchon: 'The screen collapses to a line and blinks back when the side changes: off (the rest) or on.',
-			bloom: 'The glow spilling into the paper, not only round the letters: off (the rest), soft or strong. By night only.',
-			ghosting: 'A vertical smear while the page scrolls, the phosphor fading: off (the rest) or on.',
-			jitter: 'The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.',
-			graincrawl: 'The grain standing still (the rest) or moving, as a tube\'s noise crawls. Only with grain.',
-			typedtitle: 'The article\'s title arrives letter by letter behind a block cursor: off (the rest), on, or decode (each letter of the title and of the article\'s headings runs through scrambled code glyphs before it settles, the headings as they come into view). Nothing moves for readers who ask for less motion.',
-			bootscreen: 'A start screen on the first visit of a session, then the page: off (the rest), on (a computer\'s boot screen: the site\'s name, its line and a bar of blocks), card (a television\'s test card with the site\'s name on its plate), rain (falling lines of green code that thin away to the page), wake (three lines typed on a black screen), or coin (an arcade cabinet\'s attract screen: the site\'s name in the heading\'s face standing on the second light, PRESS START blinking, the credit line), or warm (no screen of its own: the page opens out of a bright line across the middle, dim and soft, and comes up to full light, as a valve set warmed up).',
-			roomglass: 'A window reflected across the top corner of the glass: off (the rest) or on.',
-			phosphor: 'The whole night screen in one phosphor: off (the rest, the style\'s own colours), blue, green, amber, white or black.',
-			static: 'A burst of noise while the set switches on: off (the rest) or on. Only with switchon.',
-			dropout: 'The title in the paper\'s colour on a block of ink, a headline over a photograph: off (the rest) or on.',
-			headrule: 'A rule under the title: off (the rest) or on.',
-			ink: 'Print bleeds a hair: sharp (the rest) or spread, the letters a little softer and heavier.',
-			tooth: 'Paper\'s tooth, the grain of a printed sheet: off (the rest), faint, light, medium or strong (the tooth alone at that strength) or on (the full tooth over the grain).',
-			edges: 'The vignette\'s colour: ink (the rest) or yellowed, an old page\'s brown.',
-			columns: 'The article\'s sections in columns: 1 (the rest), 2 or 3. Each heading with its text balances into its columns and the next starts below; one column on a phone.',
 			paragraphs: 'Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.',
-			rainbow: 'Six rainbow stripes: off (the rest), rule (on the dividers), mark (a small square before the site\'s name), both, or logo (the stripes fill the site\'s logo itself; for a logo on a transparent ground).',
-			postband: 'What stands between two posts on a page of posts: off (the rest, the theme\'s own gap), rainbow (the six stripes across the whole paper) or logo (the stripes with the site\'s logo small in a gap at their middle).',
-			footband: 'What closes the page at its very foot: off (the rest), on (the six rainbow stripes as a taller band) or plate (a black plate across the paper: the site\'s logo and name, its tagline and the copyright line, with a faint colour fringe, the last card of a film).',
-			menuline: 'The side column\'s menu links: plain (the rest) or underlined in the ink, as a printed page sets its navigation.',
-			legalline: 'A small italic line at the foot of the page, an advertisement\'s small print: the copyright sign, the year, the site\'s name and its tagline. Only words the site already has. Off (the rest) or on.',
-			stripes: 'How the rainbow bands between posts and at the page foot are drawn: solid (the rest, six stripes edge to edge) or gaps (six thinner stripes with paper between them, in softer hues).',
 			sitename: 'The site\'s name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles\' face, as an advertisement\'s wordmark), marquee (in the headings\' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet\'s marquee) or title (in the heading role\'s own face, weight and slant, a size up, as a sign over the door).',
-			sheetgrid: 'Squared paper under the page, scrolling with it: off (the rest), squared (a hairline every 12px and a heavier one every fifth, engineering paper), fine (the small squares only) or dots (a point at each big crossing). Drawn in the ink by night, in a pale cut of it by day.',
-			gridstrength: 'How strongly the drawing grid shows: medium (the rest), faint or strong. Only with a drawing grid.',
-			sheetborder: 'The edge of a drawing sheet on the paper: off (the rest), line (a heavy line on the paper\'s edge) or zones (the line with zone numbers along the top and foot and letters down the sides, left out where the paper\'s corner squares sit). Architrave\'s paper only.',
-			mottle: 'The uneven exposure of a blueprint, large soft clouds over the paper (not grain): off (the rest), soft or strong. Dark appearance only.',
-			printedges: 'The paper darkening towards its edges, as an old print does: off (the rest), soft or strong. Half as strong in light appearance.',
-			pen: 'A stroke drawn round the letters of the title and the headings, which gives a single-weight face its weight: off (the rest), medium or bold.',
-			dimensions: 'A drawing\'s dimension line over the article\'s title (its width in pixels between two ticks) and under its opening picture: off (the rest) or on.',
-			guidelines: 'The two faint lines a draughtsman rules before lettering (the capital height and the baseline), under every line of the article\'s title and headings and out to the paper\'s edges: off (the rest) or on.',
-			bubbles: 'A drawing\'s detail mark before each of the article\'s section headings: a circle cut by a line, the section\'s number above, how many there are below. Off (the rest) or on.',
-			titleblock: 'The box every drawing carries, where the article ends: the site, the article\'s title, its author, its date, the scale, the sheet, the number of words and the revision, in the site\'s language. Off (the rest) or on.',
-			scalerule: 'How far the reader is, the drawing office\'s way: a scale rule along the paper\'s foot, as wide as the column, with a cursor that walks along it. Off (the rest) or on. Architrave\'s paper only.',
-			oldpaper: 'How old the cream paper looks: off (the rest), sun (warmer toward its edges and a touch at its head, as paper left in the light), spots (a few faint brown age spots) or both. On a light paper only.',
-			printink: 'The ink the text is printed in by day: neutral (the rest, the style\'s own) or warm (the brown-black of old printed advertisements).',
-			titlemark: 'The six rainbow stripes as a small mark under the article\'s title: off (the rest), short or wide (as wide as the reading).',
-			rainbowlinks: 'The links in the reading underlined in the six rainbow stripes: off (the rest), hover (when the pointer is on a link) or always.',
-			rainbowcap: 'The drop cap\'s letter filled with the six rainbow stripes: off (the rest) or on. Shows with Drop cap on.',
 			capface: 'The drop cap\'s letter: text (the rest, the reading text\'s own face and weight), bold (the reading face in bold, as the title), fraunces (a soft old-style display capital) or title (the heading role\'s own face, weight, slant and colour). Shows with Drop cap on.',
 			hyphenate: 'Where words break at the line\'s end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).',
-			coupon: 'A dashed cut line with scissors above the page\'s foot, as old advertisements ended with an order coupon: off (the rest) or on.',
-			fold: 'A soft crease on the paper, as a folded brochure: off (the rest), one (down the middle) or three (two creases, three panels). On a light paper only.',
-			edgeson: 'Where the yellowed edges lie: window (the rest, around the whole window) or paper (inside the framed paper\'s corners only, the rail clean). With Edges yellowed; a page without a frame keeps the whole window.',
-			nightground: 'With the dark ground on, what the rail does by night: same (the rest, dark like the page) or inverted (the rail and the ground take the day\'s colours beside the night\'s paper).',
-			codemarks: 'A terminal\'s marks in the article: off (the rest), prompt (a prompt before the category line and the headings, a blinking cursor after the date, dashes for the list\'s dots) or glyphs (the prompt with a run of mirrored code glyphs beside the category line and as the list\'s markers).',
-			coderain: 'Falling lines of code on the paper beside the article, never under its words: off (the rest), faint or clear. In the ink, each line\'s head in the accent. Still for readers who ask for less motion.',
-			headwidth: 'The title\'s and the headings\' letters drawn narrower, where the heading face has a width axis (Martian Mono has): normal (the rest), narrow or narrowest. The site\'s name takes it too.',
-			textgrid: 'The article set as a terminal sets it: one face at one size, every space a whole line, a blank line between paragraphs, no letter spacing and no capitals: off (the rest), double (the title alone at twice the size, as the old double-height line) or one (the title at the text\'s size too). On Architrave\'s page.',
-			mdmarks: 'The article shown as its own Markdown file: off (the rest) or on (a dim # before the title, ## before the headings, underscores round emphasis, asterisks round bold, backticks round code, dashes for the list\'s dots, a > before every line of a quote and a ![alt](file) line over each picture). On Architrave\'s page.',
-			frontmatter: 'The category and the date set as the head of a Markdown file, between two --- lines, the keys dim and the values in the terminal\'s yellow: off (the rest) or on. On Architrave\'s page.',
-			textmode: 'The page\'s parts drawn as a terminal draws them: off (the rest) or on (buttons as [ Words ], boxes as single-line dialogs with their name cut into the top line, links and buttons turned over under the pointer, the rail\'s sections as folders). On Architrave\'s page.',
-			windowbar: 'A terminal window\'s title bar across the top of the paper, holding the paper\'s own squares, with the page\'s file, the program and the window\'s columns and rows: off (the rest) or on. On Architrave\'s framed page.',
-			statusline: 'A line at the foot of the paper that follows the scroll: off (the rest), pager (the file\'s name, the lines shown and how far in, turned over, as a pager prints it) or bar (an editor\'s coloured status bar). On Architrave\'s framed page.',
-			prompt: 'A shell\'s prompt before the page with the command that shows it, and an empty prompt with the cursor after it: off (the rest), still, or typed (the command typed on arrival, then the page printed a line at a time). Nothing moves for readers who ask for less motion. On Architrave\'s page.',
-			cursorshape: 'The terminal\'s cursor in the prompt and the status line: blink (a blinking block, the rest), still (a block) or bar (a thin bar).',
-			extrusion: 'The title and the headings standing out of the page on a hard block of the second light, one step a pixel, no blur, as an arcade marquee\'s letters: off (the rest), diagonal or down. The title three steps deep, a heading two. Composes with the glow, the bloom and the fringe.',
-			pixelcorners: 'The corner a pixel screen draws when it rounds: the paper\'s corners and the pictures\' cut in stairs of whole pixels. Off (the rest) or on. Best with square corners.',
-			powerbar: 'How far the reader is, the arcade\'s way: twenty blocks along the paper\'s foot, one lit for every twentieth read, the last one lit in the second light. Off (the rest) or on. Architrave\'s paper only.',
-			awning: 'A café\'s awning across the top of the paper, in the ground\'s colour and the paper\'s, pinned there while the page scrolls under it: off (the rest), stripes (striped, its edge cut in scallops) or scallops (one colour, the scalloped edge only). Architrave\'s paper only.',
-			stamp: 'A round stamp on the corner of an article\'s opening picture, as on a postcard: the site\'s name and the article\'s first category around it, the name\'s first letter inside, in the title\'s colour. Off (the rest) or on. Architrave\'s articles only.',
-			titlesign: 'A small mark under the article\'s title, in the title\'s colour, standing where the highlighter\'s bar stands: off (the rest), wave (a short wave, the sea in front of the café) or star (a six-pointed star).',
-			headstar: 'A small star over each of the article\'s section headings, in the accent: off (the rest) or on.',
 			piccorners: 'The pictures\' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).',
 			pictureshadow: 'A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave\'s page only.',
 			subcolour: 'The colour of the article\'s section headings when the headings\' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text\'s colour, so only the title stands in the colour).',
 			opening: 'The article\'s first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave\'s page only.',
 			widefigures: 'The pictures in the article\'s text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave\'s page only.',
-			arrival: 'How the article\'s parts and the list\'s posts come into view as the page scrolls: none (the rest: they are simply there), rise (each rises 40px into place, once; the title, its date and its picture one after another on arrival) or zoom (the same, the pictures coming in from a small zoom). Nothing moves for readers who ask for less motion. Architrave\'s page only.',
-			glassbar: 'Once the paper scrolls, its top turns to frosted glass under the corner squares, and the words run under it: off (the rest) or on. Architrave\'s framed paper only.',
-			boxbuttons: 'The quiet buttons inside the article\'s boxes (the support box, a release\'s actions): pill (the rest: as the other buttons) or link (the accent\'s text links ending on a chevron, as a \'Learn more\' link; the filled button stays the one button). Architrave\'s page only.',
-			listtiles: 'Each post of a list on its own tile in the card colour, as wide as the wide top picture plus a gutter, its corner the picture\'s plus that gutter; the boxes on a tile take the paper: off (the rest) or on. Architrave\'s page only.',
-			tilehover: 'Link cards and the list\'s tiles under the pointer: off (the rest: their colour changes as ever) or grow (they grow by one percent with a soft shadow). Architrave\'s page only.',
-			tubeface: 'The framed paper as an old television\'s screen: off (the rest), round (the screen\'s grain, scan lines and vignette lie on the paper and not on the window, its edges fall dark, a black mask round it, and the corner buttons turn round with the corner nested to them) or square (the same with the corner buttons and the corner as they are). Architrave\'s framed paper only; without a paper the window stays the screen.',
-			tvcabinet: 'What stands round the screen: off (the rest: the ground as the colours give it), walnut (veneer) or bakelite (a deep brown). The same by day and by night; the rail\'s words, lines and logo stand on it in ivory. Architrave\'s framed page only.',
-			ghostimage: 'A faint second copy of the words a little to the right, the signal arriving twice: off (the rest), titles (the title and the headings) or all (every word, fainter).',
-			titlecard: 'The article\'s title as a television\'s title card: centred between two thin frames, its kicker and date centred with it. Off (the rest) or on. Architrave\'s page only.',
-			humbar: 'A broad soft band of less light drifting slowly up the screen, as the mains hummed through an old set: off (the rest) or slow. On the paper under Tube face, over the window elsewhere. Still for readers who ask for less motion.',
-			headblock: 'A solid block of the accent over the article\'s head, the mark a poster opens with: off (the rest) or on. Above the categories when they stand over the title.',
-			sectionrules: 'A rule in the ink over each of the article\'s section headings, the way a poster divides its fields: off (the rest), thin (2px) or thick (6px).',
-			sectionnumbers: 'Each section heading\'s number stands over it, big and in the accent: off (the rest), written (only a number the heading already begins with, "1. …", taken out of its line) or counted (every section numbered, a written number kept).',
 			pillbuttons: 'Retired 2026-09-26 and still read: true becomes buttonshape pill.',
 			centretitle: 'Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.',
 			fadeedges: 'which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.',
 			linestyle: 'solid, dashed or dotted lines. Dashes are long only when rounded is false. Only with lines.',
 			fills: 'Tinted fills on cards, buttons and fields. With lines and fills both false, controls are plain glyphs.',
 			fill: 'Strength of the fills as a percentage of the colour pair\'s own steps; 100 is the rest. Only with fills.',
-			scanlines: 'Faint horizontal lines over the whole page, an old screen.',
-			scan: 'Strength of the scan lines, 1 to 10 (opacity in hundredths). 3 is the rest. Only with scanlines.',
-			glow: 'A soft light around the letters in their own colour. Shows on the dark side only.',
-			glowlevel: 'Strength of the glow, 1 to 10. 4 is the rest. Only with glow.',
 			grain: 'A fine film grain over the whole page, the tooth of paper.',
 			softlevel: 'How far the reading text steps toward the paper, in percent: 10 to 45 in steps of 5. 15 is the rest. Only with soft.',
 			quietlevel: 'How far the small text (dates, captions, meta) steps toward the paper with soft on, in percent: 25 to 50 in steps of 5. 25 is the rest. Only with soft, and only while smallsoft is not set; the row Small text writes smallsoft since 2026-09-27.',
 			smallsoft: 'How far the small text (dates, captions, meta) steps toward the paper, in percent: 0 (the ink itself) to 50 in steps of 5, with soft on or off. 25 is the rest, the pair\'s own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.',
 			links: 'How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.',
 			grainlevel: 'Strength of the grain, 1 to 10. 4 is the rest. Only with grain.',
-			vignette: 'A darkening at the page\'s four edges, as a screen\'s glass has.',
-			vignettelevel: 'Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.',
-			vignettereach: 'How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.',
 			pictures: 'How every image on the site is shown: plain as published, bw, sepia, duo (the pair\'s paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style\'s own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), oldset (an old set\'s picture: grey, the contrast soft and the edge a little out of focus), riso (printed in the accent on the paper with a fine grain, as a one-ink risograph prints them), hidden (no images; each article picture becomes a line that shows it).',
 			picturehover: 'The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.',
 			alternates: 'Inter\'s alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face\'s letters.',
@@ -1441,16 +1208,12 @@
 	   before the slider, falls to the rest. */
 	/* LEVELS: the list's tables above (plugin/settings.json). Its values are the list's; what each strength writes into its custom property is code, and stays here, and is attached to the table below. */
 	var LEVEL_CSS = {
-		scan: function (v) { return String(+v / 100); },
 		line: function (v) { return v + '%'; },
 		/* FLÄCHEN AND LEUCHTEN HAVE ONE TOO (Manuel, 2026-09-19: "can we also have an intensity switch like we have for the lines? And the same for glow"). Glow: the halo's alpha in tenths, 4 at rest. Fills: a percentage of the pair's OWN three steps, 100 at rest where nothing is written. Not an absolute share: the steps are 6, 10, 16 by day and as much as 18 on Terminal's night (measured), so one number for all would have jumped at its first move, the lines' fault again. The pair's steps are read off the page with nothing written, multiplied, and written on the root; read again when the side or the pair changes. */
-		glowlevel: function (v) { return String(+v / 10); },
 		/* KORN IM HINTERGRUND (Manuel, 2026-09-19: a grain "not on the image, sondern for the background itself. And we would need a strength or intensity slider for that too"): the texture layer's first half, body::before, which the theme has carried unused since the palettes were planned. The switch is OPTS `grain`; this is its opacity in tenths, 4 at rest. */
 		grainlevel: function (v) { return String(+v / 10); },
 		/* DIE VIGNETTE (Manuel, 2026-09-22: "on the Arcade tile there is a vignette. Could we have that as a setting?"): the texture layer's third drawing, body::after's radial gradient, which until today belonged to the Arcade style alone and could not be turned off there or on anywhere else. The switch is OPTS `vignette`; this is the ink's share at the page's corners in tenths, 2 at rest, which is Arcade's own 0.22 rounded to the slider's step. */
-		vignettelevel: function (v) { return String(+v / 10); },
 		/* AND HOW FAR IT REACHES IN (Manuel, 2026-09-22, of the second dial the vignette could have: "build it too"). The gradient is clear to a point and darkens from there to the edge; this is that point, and the slider reads the way the eye does, so a bigger number is MORE vignette. 3 is the rest, 55 per cent, where the drawing has always started. */
-		vignettereach: function (v) { return [85, 70, 55, 40, 25, 10][+v - 1] + '%'; },
 		/* WEICHERER LESETEXT HAS ONE TOO (2026-09-21, the ask: "15% or 25% intensity, like the setting you had in the lab"): how far the reading text steps from the ink toward the paper. 15 is the rest, the pair's own secondary rung; 25 is the sheet's stronger setting and the top, since beyond it a gentle pair's night text falls under 5:1. The switch is OPTS `soft`. */
 		softlevel: function (v) { return v + '%'; }, /* WIDER (Manuel, 2026-09-23: "I want to make it even softer. It's just 20. We should give it a bigger range"): 10 to 45. 45 is the top because it is the last step that holds 4.5:1 on Instrument's night pair (5.1; 50 falls to 4.3). A gentler pair falls under sooner, Book's night at about 30: the slider trusts the owner there. */
 		/* THE SMALL TEXT TOO (2026-09-23, the reference measured again: its reading text sits about 16 % from the ink, its dates, captions and small print about 45 %, #8a8f98, where ours held the pair's 25 %). How far --text-muted steps from the ink toward the paper, with Softer reading text on; 25 is the pair's own rung and the rest, so nothing is written there. */
@@ -1470,8 +1233,6 @@
 		   they could be changed, like to a bigger grid or a different colour"; his
 		   yes to two sliders and no colour, the dots always the look's own ink).
 		   Only with Dotted background. 24 and 13 are the grid's rest. */
-		dotsize: function (v) { return v + 'px'; },
-		dotlevel: function (v) { return v + '%'; }
 	};
 	Object.keys(LEVEL_CSS).forEach(function (k) { LEVELS[k].css = LEVEL_CSS[k]; });
 	/* THE LINES' REST IS 45, NOT 14 (2026-09-19, Manuel on the slider: "when I turn it down to make the lines lighter, sometimes it goes a little bit up again"). At the rest nothing is written and the stylesheet's own value stands, and with Lines on that value is 45 % in EVERY style (style.css, the Lines block), not Terminal's alone as 1.3.267 believed; 14 is the hairline of a page with Lines off. So the stop called 14 wrote nothing and the page went back to 45: lighter, lighter, then darker. A style's own `line`, or its base's, is its rest. */
@@ -1630,7 +1391,6 @@
 			});
 		});
 		headingsArrive();
-		if (document.body) warpDirection(); /* the warp's direction is a detail (2026-09-30) */
 	}
 	/* THE HEADINGS ARRIVE (PICKS `headarrival`, effects.arrival) AND THE SERIF WORDS
 	   (`headitalics`, effects.serif). On a page, each word of the titles and the
@@ -1692,76 +1452,7 @@
 		c.style.setProperty('--ldp-mx', (ev.clientX - r.left) + 'px'); c.style.setProperty('--ldp-my', (ev.clientY - r.top) + 'px');
 	}, { passive: true });
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', headingsArrive); 
-	/* THE SCREEN AND THE PRINT (2026-09-30, lab/the-tube.html + lab/the-brochure.html; Manuel: "make both live on the site as new styles"). What CSS cannot do alone:
-	   the overlays (bezel, glass sheen, room, shimmer, static) are one box, drawn inside the framed paper (absolute, so it stays on the paper while the column scrolls) or fixed over the window elsewhere;
-	   the warp, the ghosting and the crisp edges are SVG filters written once; the boot screen and the typed title run once per visit; the switch-on watches the side; the columns are CSS alone. Everything is gated on the root attribute, so a pick that goes back to its rest leaves the page as it was. */
-	var SCREEN_ATTRS = ['data-monitor-frame', 'data-room-glass', 'data-shimmer', 'data-static', 'data-boot-screen', 'data-warp', 'data-ghosting', 'data-crisp', 'data-typed-title', 'data-switch-on'];
-	function screenHost() { return document.querySelector('.frame-paper') || document.body; } /* the paper: the warp, the ghosting and the switch-on act on it */
-	function screenBox() { return document.body; } /* THE OVERLAYS COVER THE WINDOW, rail and all (Manuel, 2026-09-30, Tube live: the bezel wrapped only the paper and the rail stood outside the monitor) */
-	function screenFilters() {
-		if (document.getElementById('ldp-filters')) return;
-		var N = 256, c = document.createElement('canvas'); if (typeof c.getContext !== 'function') return; /* the generator's stub has no canvas */ c.width = c.height = N; var g = c.getContext('2d'), d = g.createImageData(N, N), i, x, y, u, v, r2;
-		for (y = 0; y < N; y++) for (x = 0; x < N; x++) { u = (x + 0.5) / N * 2 - 1; v = (y + 0.5) / N * 2 - 1; r2 = u * u + v * v; i = (y * N + x) * 4; d.data[i] = 128 + Math.round(u * r2 * 60); d.data[i + 1] = 128 + Math.round(v * r2 * 60); d.data[i + 2] = 0; d.data[i + 3] = 255; }
-		g.putImageData(d, 0, 0); var urlIn = c.toDataURL();
-		for (i = 0; i < d.data.length; i += 4) { d.data[i] = 255 - d.data[i]; d.data[i + 1] = 255 - d.data[i + 1]; }
-		g.putImageData(d, 0, 0); var urlOut = c.toDataURL();
-		var warp = function (id, k) { return '<filter id="ldp-warp-' + id + '" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB"><feImage class="ldp-warp-map" href="' + urlIn + '" data-in="' + urlIn + '" data-out="' + urlOut + '" width="100%" height="100%" preserveAspectRatio="none" result="m"/><feDisplacementMap in="SourceGraphic" in2="m" scale="' + k + '" xChannelSelector="R" yChannelSelector="G"/></filter>'; };
-		var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.id = 'ldp-filters'; svg.setAttribute('width', '0'); svg.setAttribute('height', '0'); svg.setAttribute('aria-hidden', 'true'); svg.style.position = 'absolute';
-		svg.innerHTML = warp('slight', 14) + warp('bulged', 34) + warp('strong', 70) + '<filter id="ldp-crisp" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB"><feComponentTransfer><feFuncA type="discrete" tableValues="0 1"/></feComponentTransfer></filter><filter id="ldp-ghost" x="0" y="0" width="1" height="1"><feGaussianBlur stdDeviation="0 4"/></filter>';
-		document.body.appendChild(svg);
-	}
-	function warpDirection() { var out = root.getAttribute('data-fx-warp-direction') === 'out'; Array.prototype.forEach.call(document.querySelectorAll('.ldp-warp-map'), function (m) { var want = m.getAttribute(out ? 'data-out' : 'data-in'); if (m.getAttribute('href') !== want) m.setAttribute('href', want); }); }
-	var ghostT = null, ghostBound = false;
-	function ghosting() {
-		if (ghostBound) return; ghostBound = true;
-		var onScroll = function () { if (!root.hasAttribute('data-ghosting')) return; var h = screenHost(); h.classList.add('ldp-moving'); clearTimeout(ghostT); ghostT = setTimeout(function () { h.classList.remove('ldp-moving'); }, 90); };
-		if (window.architraveScroll && window.architraveScroll.onScroll) window.architraveScroll.onScroll(onScroll); else window.addEventListener('scroll', onScroll, { passive: true });
-	}
-	var sideSeen = null, sideWatched = false;
-	function switchOn() {
-		if (sideWatched) return; sideWatched = true;
-		var sideOf = function () { return /-dark$/.test(root.getAttribute('data-theme') || '') ? 'dark' : 'light'; };
-		sideSeen = sideOf();
-		new MutationObserver(function () {
-			var now = sideOf(); if (now === sideSeen) return; sideSeen = now;
-			if (!root.hasAttribute('data-switch-on') || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-			var h = screenHost(), st = document.querySelector('.ldp-static');
-			h.classList.remove('ldp-switch'); void h.offsetWidth; h.classList.add('ldp-switch'); if (st) st.classList.add('ldp-on');
-			setTimeout(function () { h.classList.remove('ldp-switch'); if (st) st.classList.remove('ldp-on'); }, 750);
-		}).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
-	}
-	var typedDone = false;
-	/* THE CODE'S GLYPHS (2026-10-02, Matrix, lab/the-matrix.html): half-width katakana and numbers, drawn mirrored where they are letters, as the film's falling code was. Used by decode and by the rain. */
-	var CODE = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ012345789Z:.=*+-<>';
-	function codeGlyph() { return CODE.charAt(Math.floor(Math.random() * CODE.length)); }
-	/* DECODE (typedtitle's third value, 2026-10-02): each letter runs through scrambled glyphs before it settles, left to right, in under a second; an unsettled glyph wears the accent (door.css .ldp-dc). The heading's own markup comes back when it is done, so a link or an emphasis inside it is kept. */
-	function decodeHeading(h) {
-		if (!h || h.ldpDecoding) return; h.ldpDecoding = true;
-		var html = h.innerHTML, text = h.textContent, n = text.length, start = Date.now(), per = Math.max(28, 900 / Math.max(n, 1)), esc = function (c) { return c === '&' ? '&amp;' : c === '<' ? '&lt;' : c; };
-		h.classList.add('ldp-decoding');
-		var tick = setInterval(function () {
-			var settled = Math.floor((Date.now() - start) / per), out = '';
-			for (var i = 0; i < n; i++) { var c = text.charAt(i); if (i < settled || /\s/.test(c)) out += esc(c); else if (i < settled + 10) { var g = codeGlyph(); out += '<span class="ldp-dc' + (g > '~' ? ' ldp-mir' : '') + '">' + g + '</span>'; } }
-			h.innerHTML = out;
-			if (settled >= n) { clearInterval(tick); h.innerHTML = html; h.classList.remove('ldp-decoding'); h.ldpDecoding = false; }
-		}, 45);
-	}
-	var decodeSeen = null;
-	function decodeHeadings(title) {
-		decodeHeading(title);
-		if (!window.IntersectionObserver) return;
-		if (!decodeSeen) decodeSeen = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { decodeSeen.unobserve(e.target); if (root.getAttribute('data-typed-title') === 'decode') decodeHeading(e.target); } }); }, { threshold: 1 });
-		Array.prototype.forEach.call(document.querySelectorAll('.single-post-article .wp-block-post-content :is(h2, h3), body.single :is(.wp-block-post-content, .entry-content) :is(h2, h3)'), function (h) { if (!h.closest('.reading-panel, #ldp-window')) decodeSeen.observe(h); });
-	}
-	function typedTitle() {
-		if (typedDone || !root.hasAttribute('data-typed-title')) return; typedDone = true;
-		var h = document.querySelector('.single-post-article > .wp-block-post-title, body.single .wp-block-post-title, body.single .entry-title'); if (!h || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-		if (root.getAttribute('data-typed-title') === 'decode') { if (root.hasAttribute('data-ldp-booting')) setTimeout(function () { decodeHeadings(h); }, 1700); else decodeHeadings(h); return; } /* under a start screen the title decodes as the screen thins away */
-		var text = h.textContent, html = h.innerHTML, i = 0, step;
-		h.classList.add('ldp-typing');
-		step = function () { if (!root.hasAttribute('data-typed-title')) { h.innerHTML = html; h.classList.remove('ldp-typing'); return; } /* switched off while typing: the title whole at once, no cursor left behind (2026-10-01, the panel audit) */ i++; h.textContent = text.slice(0, i); var c = document.createElement('span'); c.className = 'ldp-cursor'; h.appendChild(c); if (i < text.length) setTimeout(step, 45 + Math.random() * 55); else setTimeout(function () { h.innerHTML = html; h.classList.remove('ldp-typing'); }, 1200); };
-		step();
-	}
+	/* THE SCREEN, THE PRINT AND THE STYLES' OWN PARTS LEFT (2026-10-02, the clean-up: Manuel's keep or cut list, lab/the-keep-or-cut.html): the overlays, boot screen, typed title, code rain, terminal window, print foot, drawing office, cabinet, gallery ways, poster numbers, café parts and the TV set. All of it is in the tag styles-archive-0.15.58. */
 	/* MEASURE ONCE, AFTER EVERYTHING HAS CHANGED (Manuel, 2026-10-02: "the panel seems a little bit slow … what would
 	   Apple do?"). A change of look writes some sixty attributes and variables on <html>, and the styles' own scripts
 	   below (Blueprint's sheet, Terminal's window, Arcade's filter, Aperitivo's awning, the rain, the drop cap) then
@@ -1779,544 +1470,6 @@
 		var ask = frameAsk = ++frameSeq, run = function () { if (frameAsk !== ask) return; frameAsk = 0; var jobs = frameJobs; frameJobs = []; jobs.forEach(function (f) { try { f(); } catch (e) { /* one style's part never stops another's */ } }); };
 		if (window.requestAnimationFrame) window.requestAnimationFrame(run);
 		setTimeout(run, 250);
-	}
-	/* CODE RAIN (2026-10-02, Matrix; pick `coderain`, and the start screen `rain`): columns of glyphs falling on a canvas, each line's head in the accent and its trail in the ink, fading by erasing so whatever lies under the canvas shows. Twenty frames a second. Returns its stop. */
-	function codeRain(cv, o) {
-		var g = cv.getContext && cv.getContext('2d'); if (!g) return function () {};
-		var W = 0, H = 0, cols = 0, drops = [], run = true, last = 0, fs = 17;
-		var size = function () { var r = cv.getBoundingClientRect(), d = window.devicePixelRatio || 1; W = r.width; H = r.height; cv.width = Math.max(1, W * d); cv.height = Math.max(1, H * d); g.setTransform(d, 0, 0, d, 0, 0); cols = Math.ceil(W / fs); drops = []; for (var i = 0; i < cols; i++) drops.push(o.opaque ? Math.random() * -H / fs : Math.random() * H / fs - 12); if (o.opaque) { g.fillStyle = '#000'; g.fillRect(0, 0, W, H); } };
-		size(); var ro = window.ResizeObserver ? new ResizeObserver(size) : null; if (ro) ro.observe(cv);
-		var face = (window.getComputedStyle(root).getPropertyValue('--font-sans') || 'monospace').trim();
-		var frame = function (t) {
-			if (!run) return; window.requestAnimationFrame(frame); if (t - last < 50) return; last = t;
-			var cs = window.getComputedStyle(root), ink = o.opaque ? '#00ff41' : (cs.getPropertyValue('--text-primary').trim() || '#00ff41'), head = o.opaque ? '#e6ffec' : (cs.getPropertyValue('--accent').trim() || ink);
-			if (o.opaque) { g.fillStyle = 'rgba(0,0,0,.09)'; g.fillRect(0, 0, W, H); } else { g.globalCompositeOperation = 'destination-out'; g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect(0, 0, W, H); g.globalCompositeOperation = 'source-over'; }
-			g.font = fs + 'px ' + face + ', "Hiragino Sans", "Yu Gothic", monospace'; g.textBaseline = 'top';
-			for (var i = 0; i < cols; i++) {
-				var y = drops[i] * fs, x = i * fs;
-				if (y > -fs) { g.save(); g.translate(x + fs, y); g.scale(-1, 1); g.fillStyle = ink; g.fillText(codeGlyph(), 0, -fs); g.fillStyle = head; g.fillText(codeGlyph(), 0, 0); g.restore(); }
-				drops[i] += o.opaque ? 1 : 0.6; if (y > H && Math.random() > 0.975) drops[i] = Math.random() * -8;
-			}
-		};
-		window.requestAnimationFrame(frame);
-		return function () { run = false; if (ro) ro.disconnect(); };
-	}
-	/* the rain beside the article: one canvas over the paper (the window where there is no frame), masked clear over the article's column, which the script measures */
-	var rainStop = null, rainWatched = false;
-	function rainPlace(cv) {
-		var paper = document.querySelector('.frame-paper'), P = paper ? paper.getBoundingClientRect() : { left: 0, top: 0, width: window.innerWidth, height: window.innerHeight };
-		cv.style.left = P.left + 'px'; cv.style.top = P.top + 'px'; cv.style.width = P.width + 'px'; cv.style.height = P.height + 'px'; if (paper) cv.style.borderRadius = window.getComputedStyle(paper).borderRadius;
-		var A = document.querySelector('.single-post-article .wp-block-post-content, .content-column .wp-block-query, body.single .entry-content, main .wp-block-post-content, main'), r = A ? A.getBoundingClientRect() : null;
-		if (!r || !r.width) return;
-		var l = r.left - P.left - 16, rr = r.right - P.left + 16, m = 'linear-gradient(to right, #000 0, #000 ' + Math.max(0, l - 30) + 'px, transparent ' + l + 'px, transparent ' + rr + 'px, #000 ' + (rr + 30) + 'px)';
-		cv.style.webkitMaskImage = m; cv.style.maskImage = m;
-	}
-	function rainPlaceNow() { var c = document.querySelector('.ldp-rain'); if (c && root.hasAttribute('data-code-rain')) rainPlace(c); }
-	function rainGo() { var c = document.querySelector('.ldp-rain'); if (!c || !root.hasAttribute('data-code-rain') || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return; rainPlace(c); if (!rainStop) rainStop = codeRain(c, {}); }
-	function rainBeside() {
-		var want = root.hasAttribute('data-code-rain') && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-		var cv = document.querySelector('.ldp-rain');
-		if (want && !cv) { cv = document.createElement('canvas'); cv.className = 'ldp-rain'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv); }
-		if (!cv) return;
-		if (want) nextFrame(rainGo); /* placed and started on the next frame: both measure (2026-10-02, see MEASURE ONCE) */
-		else if (rainStop) { rainStop(); rainStop = null; cv.getContext('2d').clearRect(0, 0, cv.width, cv.height); }
-		if (want && !rainWatched) { rainWatched = true; window.addEventListener('resize', function () { var c = document.querySelector('.ldp-rain'); if (c && root.hasAttribute('data-code-rain')) rainPlace(c); }, { passive: true }); new MutationObserver(function () { nextFrame(rainPlaceNow); }).observe(root, { attributes: true, attributeFilter: ['data-rail-collapsed', 'data-focus-on', 'data-comments-open', 'data-measure'] }); }
-	}
-	/* TERMINAL B (2026-10-02, lab/the-article-in-terminal.html; Manuel: "I really like what you did so make it live … bring all those settings into the live panel"). The paper is a terminal's window and the article its own Markdown file. What CSS cannot do is built here, each part once, the first time its setting is on, resting hidden in door.css and drawn by style.css TERMINAL B: the window bar (its height from the paper's own top squares, so they stand in it), the status line that counts the lines as a pager does, the two prompts, the front matter's fences, each picture's source line and the quotes' gutters of "> ". Architrave's page only: elsewhere there is no paper to be a window. */
-	var TERM_ATTRS = ['data-window-bar', 'data-status-line', 'data-prompt', 'data-front-matter', 'data-md-marks', 'data-text-grid', 'data-text-mode'];
-	var termWatched = false, termTyped = false, termTyping = null;
-	function termWord(w) { var W = window.architraveWords || WORDS || {}; return W[w] || w; }
-	function termScroller() { var c = document.querySelector('.frame-paper > .content-column'); return c && c.scrollHeight > c.clientHeight + 4 && window.getComputedStyle(c).overflowY !== 'visible' ? c : document.scrollingElement || document.documentElement; }
-	function termPlace() { /* what the file is called and the command that shows it */
-		var c = document.querySelector('link[rel="canonical"]'), u = ((c && c.href) || window.location.href).replace(/[?#].*$/, '').replace(/\/$/, '');
-		var path = u.replace(/^https?:\/\/[^/]+/, ''), slug = path.split('/').pop();
-		var list = !slug || document.body.classList.contains('home') || document.body.classList.contains('blog') || document.body.classList.contains('archive');
-		var all = '/' + '*.md', file = list ? (slug || 'blog') + all : slug + '.md'; /* the slash and the star apart: the build's comment stripper reads them together as a comment's start */
-		var name = ((document.querySelector('.wp-block-site-title') || {}).textContent || window.location.hostname.split('.')[0] || 'site').trim().toLowerCase().replace(/\s+/g, '-');
-		return { file: file, cmd: list ? 'cat ' + file + ' | less' : 'less ' + file, host: name, list: list };
-	}
-	function termCell() { /* ONE PROBE THAT STAYS (2026-10-02): put in and taken out at every measure, it made the page lay out again each time; it waits hidden on the paper */
-		var host = document.querySelector('.frame-paper') || document.body, p = host.querySelector(':scope > .ldp-tcell');
-		if (!p) { p = document.createElement('span'); p.className = 'ldp-tcell'; p.setAttribute('aria-hidden', 'true'); p.textContent = 'MMMMMMMMMM'; p.style.cssText = 'position:absolute;top:0;left:0;visibility:hidden;pointer-events:none;white-space:pre;letter-spacing:0;word-spacing:normal;text-transform:none;font-style:normal;font-feature-settings:"calt" 0, "liga" 0;font-family:var(--font-reading);font-size:var(--ldp-tsize, var(--text-reading-body));line-height:var(--ldp-tlh, 1.6)'; host.appendChild(p); } /* the column's own text settings under the text grid, written out, since it no longer stands in the column */
-		var r = p.getBoundingClientRect(); return { w: r.width / 10 || 9, h: r.height || 25 };
-	}
-	function termPrompt(el, place, cmd) { el.innerHTML = '<span class="ldp-pu"></span> <span class="ldp-pd">~</span> % <span class="ldp-pc"></span>'; el.querySelector('.ldp-pu').textContent = termWord('reader') + '@' + place.host; el.querySelector('.ldp-pc').textContent = cmd; }
-	function termMeasure() { /* everything read first, then written (2026-10-02, see MEASURE ONCE): a write between two reads restyled the page again, eight times a switch */
-		var paper = document.querySelector('.frame-paper'); if (!paper) return;
-		var P = paper.getBoundingClientRect(), place = termPlace(), cell = termCellNow = termCell();
-		var bar = paper.querySelector(':scope > .ldp-tbar'), barOn = !!bar && root.hasAttribute('data-window-bar'), sq = null;
-		if (barOn) sq = Array.prototype.map.call(document.querySelectorAll('.paper-stack'), function (e) { return e.getBoundingClientRect(); }).filter(function (r) { return r.height && r.top < P.top + 120 && r.bottom > P.top; })[0];
-		var A = document.querySelector('.single-post-article, .frame-paper .wp-block-query, .frame-paper .content-column > main, .frame-paper .content-column > *'), R = A ? A.getBoundingClientRect() : null;
-		var status = termStatusRead(cell, place), lh = cell.h;
-		var gutters = Array.prototype.map.call(document.querySelectorAll('.frame-paper blockquote > .ldp-gutter'), function (g) { return [g, Math.max(1, Math.round(g.parentNode.getBoundingClientRect().height / lh))]; });
-		if (barOn) {
-			root.style.setProperty('--ldp-tbar-h', (sq ? Math.round((sq.top + sq.height / 2 - P.top) * 2) : 52) + 'px');
-			var cols = Math.floor((P.width - 32) / cell.w), rows = Math.floor(P.height / cell.h);
-			bar.textContent = ''; var a = document.createElement('span'), b = document.createElement('b'), z = document.createElement('span');
-			a.textContent = place.file.replace(/\.md$/, '').replace(/\/\*$/, '') + ' —'; b.textContent = 'less'; z.textContent = '— ' + cols + '×' + rows; bar.appendChild(a); bar.appendChild(b); bar.appendChild(z);
-		}
-		if (R) { root.style.setProperty('--ldp-tstatus-in', Math.max(16, Math.round(R.left - P.left)) + 'px'); root.style.setProperty('--ldp-tstatus-end', Math.max(16, Math.round(P.right - R.right)) + 'px'); }
-		termStatusWrite(status);
-		gutters.forEach(function (x) { x[0].textContent = new Array(x[1] + 1).join('> \n'); x[0].style.height = (x[1] * lh) + 'px'; });
-	}
-	/* THE LINE COUNT ON SCROLL reads the scroller only: the letter's box is the one termMeasure took (it measures again
-	   whenever the face, the size or the leading change), not a probe put in and taken out on every scroll event. */
-	var termCellNow = null;
-	function termStatus() { if (!root.hasAttribute('data-status-line')) return; var st = termStatusRead(termCellNow || (termCellNow = termCell()), termPlace()); termStatusWrite(st); }
-	function termStatusRead(cell, place) {
-		var st = document.querySelector('.frame-paper > .ldp-tstatus'); if (!st || !root.hasAttribute('data-status-line')) return null;
-		var sc = termScroller(), bar = root.getAttribute('data-status-line') === 'bar';
-		var total = Math.max(1, Math.round(sc.scrollHeight / cell.h)), from = Math.round(sc.scrollTop / cell.h) + 1, to = Math.min(total, Math.round((sc.scrollTop + sc.clientHeight) / cell.h));
-		var end = sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 4, pct = Math.round(to / total * 100);
-		return { st: st, line: bar ? ' NORMAL  ' + place.file : end ? '(END)' : place.file + ' ' + termWord('lines') + ' ' + from + '-' + to + '/' + total + ' ' + pct + '%', bar: bar, right: 'utf-8  ' + pct + '%  ' + to + ':1 ' };
-	}
-	function termStatusWrite(s) {
-		if (!s) return;
-		var i = s.st.querySelector('i'), em = s.st.querySelector('em');
-		i.textContent = s.line;
-		if (s.bar) { em.className = ''; em.textContent = s.right; } else { em.className = 'ldp-tcur'; em.textContent = ''; }
-	}
-	function termArrive(top, first) { /* the command typed after the prompt, then the page printed down to the window's foot */
-		if (termTyped || root.getAttribute('data-prompt') !== 'typed' || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-		termTyped = true;
-		var place = termPlace(), cmd = place.cmd, i = 0, stop = setTimeout(function () { root.removeAttribute('data-ldp-printing'); }, 8000); /* never a page left hidden */
-		root.style.setProperty('--ldp-print-top', Math.round(top.getBoundingClientRect().bottom - first.getBoundingClientRect().top + 2) + 'px');
-		root.setAttribute('data-ldp-printing', 'wait');
-		var cur = document.createElement('span'); cur.className = 'ldp-tcur';
-		var t0 = Date.now(), per = Math.min(30, 1100 / Math.max(cmd.length, 1)); /* BY THE CLOCK (2026-10-02): the letters due by now are shown, so a busy page types as fast as a calm one, about a second in all */
-		var step = function () {
-			i = Math.min(cmd.length, Math.max(i + 1, Math.floor((Date.now() - t0) / per))); termPrompt(top, place, cmd.slice(0, i)); top.appendChild(cur);
-			if (i < cmd.length) { termTyping = setTimeout(step, per * (0.5 + Math.random())); return; }
-			termTyping = setTimeout(function () {
-				termPrompt(top, place, cmd);
-				var cell = termCell(), h = Math.max(0, Math.min(first.getBoundingClientRect().bottom, window.innerHeight) - top.getBoundingClientRect().bottom), n = Math.max(6, Math.round(h / cell.h));
-				root.style.setProperty('--ldp-print-n', n); root.style.setProperty('--ldp-print-t', (n * 22) + 'ms'); root.style.setProperty('--ldp-print-h', h + 'px');
-				root.setAttribute('data-ldp-printing', 'run');
-				termTyping = setTimeout(function () { clearTimeout(stop); root.removeAttribute('data-ldp-printing'); }, n * 22 + 100);
-			}, 380);
-		};
-		step();
-	}
-	function terminalPage() {
-		var paper = document.querySelector('.frame-paper'); if (!paper || !TERM_ATTRS.some(function (a) { return root.hasAttribute(a); })) return;
-		var col = paper.querySelector(':scope > .content-column'), place = termPlace(), make = function (cls, tag) { var e = document.createElement(tag || 'div'); e.className = cls; e.setAttribute('aria-hidden', 'true'); return e; };
-		/* the words the rules show, in the site's language, lower case as a file's keys are */
-		[['category', 'Category'], ['date', 'Date'], ['author', 'Author'], ['comment', 'Write a comment'], ['newsletter', 'Newsletter']].forEach(function (w) { root.style.setProperty('--ldp-word-' + w[0], JSON.stringify(termWord(w[1]).toLowerCase())); });
-		if (root.hasAttribute('data-window-bar') && !paper.querySelector(':scope > .ldp-tbar')) paper.appendChild(make('ldp-tbar'));
-		if (root.hasAttribute('data-status-line') && !paper.querySelector(':scope > .ldp-tstatus')) { var st = make('ldp-tstatus'); st.innerHTML = '<i></i><em></em>'; paper.appendChild(st); }
-		var first = document.querySelector('.single-post-article') || paper.querySelector('.wp-block-query') || (col && col.firstElementChild);
-		if (root.hasAttribute('data-prompt') && first && col && !col.querySelector('.ldp-prompt')) {
-			var top = make('ldp-prompt'), end = make('ldp-prompt ldp-end');
-			termPrompt(top, place, place.cmd); termPrompt(end, place, ''); end.appendChild(make('ldp-tcur', 'span'));
-			first.insertBefore(top, first.firstChild); first.appendChild(end); /* inside the article, so it stands at the text's edge */
-			termArrive(top, first);
-		}
-		if (root.hasAttribute('data-front-matter')) Array.prototype.forEach.call(paper.querySelectorAll('.single-post-article, .post-card'), function (art) {
-			var kick = art.querySelector(':scope > .article-kicker, :scope > .post-kicker'), meta = art.querySelector(':scope > .article-meta, :scope > .post-meta');
-			if (!kick || !meta || art.querySelector(':scope > .ldp-fence')) return;
-			var f = make('ldp-fence'); f.textContent = '---'; kick.parentNode.insertBefore(f, kick); var g = f.cloneNode(true); meta.parentNode.insertBefore(g, meta.nextSibling);
-		});
-		if (root.hasAttribute('data-md-marks')) {
-			Array.prototype.forEach.call(paper.querySelectorAll('.content-column figure img, .content-column .post-link-card img'), function (img) {
-				var fig = img.closest('figure') || img.closest('.post-link-card'); if (!fig || (fig.previousElementSibling && fig.previousElementSibling.classList.contains('ldp-src'))) return;
-				var file = (img.getAttribute('src') || '').split('?')[0].split('/').pop().replace(/-\d+x\d+(?=\.\w+$)/, ''), s = make('ldp-src'), alt = document.createElement('span');
-				alt.textContent = (img.getAttribute('alt') || '').trim(); s.appendChild(document.createTextNode('![')); s.appendChild(alt); s.appendChild(document.createTextNode('](' + file + ')'));
-				fig.parentNode.insertBefore(s, fig);
-			});
-			Array.prototype.forEach.call(paper.querySelectorAll('.content-column blockquote'), function (q) { if (!q.querySelector(':scope > .ldp-gutter')) q.appendChild(make('ldp-gutter', 'span')); });
-		}
-		nextFrame(termMeasure);
-		if (!termWatched) {
-			termWatched = true;
-			var again = function () { if (TERM_ATTRS.some(function (a) { return root.hasAttribute(a); })) nextFrame(termMeasure); };
-			window.addEventListener('resize', again, { passive: true });
-			if (col) col.addEventListener('scroll', termStatus, { passive: true });
-			window.addEventListener('scroll', termStatus, { passive: true });
-			new MutationObserver(again).observe(root, { attributes: true, attributeFilter: ['data-rail-collapsed', 'data-focus-on', 'data-comments-open', 'data-measure', 'data-reading', 'data-face', 'data-leading', 'data-theme'] });
-			if (document.fonts && document.fonts.ready) document.fonts.ready.then(again);
-		}
-	}
-	var bootDone = false;
-	function bootScreen() {
-		if (bootDone) return; bootDone = true;
-		if (!root.hasAttribute('data-boot-screen')) { root.removeAttribute('data-ldp-booting'); return; }
-		var seen = false; try { seen = sessionStorage.getItem('ldp-boot') === '1'; } catch (e) { /* no storage: boot */ }
-		if (seen) { root.removeAttribute('data-ldp-booting'); return; }
-		try { sessionStorage.setItem('ldp-boot', '1'); } catch (e) { /* not kept */ }
-		var title = (document.querySelector('.wp-block-site-title') || {}).textContent || (document.title || '').split(/ [–|-] /)[0] || '';
-		var line = (document.querySelector('.wp-block-site-tagline') || {}).textContent || '';
-		/* THE WARM-UP (2026-10-02, Tube B): no card; the set's own screen opens out of a bright line and comes up to full light, the paper on Architrave, the page elsewhere (style.css .ldp-warming). The head's dark cover lifts as it starts. */
-		if (root.getAttribute('data-boot-screen') === 'warm') {
-			var wide = !window.matchMedia || window.matchMedia('(min-width: 1010px)').matches, wp = wide && document.querySelector('body.has-frame .frame-paper'), wh = wp || document.querySelector('.wp-site-blocks') || document.body;
-			root.removeAttribute('data-ldp-booting');
-			if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-			wh.classList.add('ldp-warming'); setTimeout(function () { wh.classList.remove('ldp-warming'); }, 2500);
-			return;
-		}
-		/* THE TEST CARD (2026-09-30, Tube): the pick's third value. A television's start, drawn: the site's name on the plate in the heading's own face, its line above, two lines a station said. Shown about two seconds, a moment with less motion asked for. */
-		if (root.getAttribute('data-boot-screen') === 'card') {
-			var c = document.createElement('div'); c.className = 'ldp-card'; c.setAttribute('aria-hidden', 'true');
-			c.innerHTML = '<svg viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet"><defs><pattern id="ldp-tc-grid" width="50" height="50" patternUnits="userSpaceOnUse"><path d="M50 0H0V50" fill="none" stroke="#fff" stroke-width="1" opacity=".38"/></pattern><pattern id="ldp-tc-1" width="16" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#fff"/></pattern><pattern id="ldp-tc-2" width="10" height="8" patternUnits="userSpaceOnUse"><rect width="5" height="8" fill="#fff"/></pattern><pattern id="ldp-tc-3" width="6" height="8" patternUnits="userSpaceOnUse"><rect width="3" height="8" fill="#fff"/></pattern><pattern id="ldp-tc-4" width="4" height="8" patternUnits="userSpaceOnUse"><rect width="2" height="8" fill="#fff"/></pattern><clipPath id="ldp-tc-round"><circle cx="400" cy="300" r="262"/></clipPath></defs><rect x="-1200" y="-900" width="3200" height="2400" fill="#2b2b2b"/><rect x="-1200" y="-900" width="3200" height="2400" fill="url(#ldp-tc-grid)"/><g fill="#2b2b2b" stroke="#fff" stroke-width="2"><circle cx="85" cy="85" r="56"/><circle cx="715" cy="85" r="56"/><circle cx="85" cy="515" r="56"/><circle cx="715" cy="515" r="56"/></g><path stroke="#fff" stroke-width="2" d="M29 85h112M85 29v112M659 85h112M715 29v112M29 515h112M85 459v112M659 515h112M715 459v112"/><circle cx="400" cy="300" r="270" fill="#6f6f6f" stroke="#fff" stroke-width="4"/><g clip-path="url(#ldp-tc-round)"><rect x="130" y="30" width="540" height="110" fill="#111"/><rect x="200" y="78" width="96" height="48" fill="url(#ldp-tc-1)"/><rect x="302" y="78" width="96" height="48" fill="url(#ldp-tc-2)"/><rect x="404" y="78" width="96" height="48" fill="url(#ldp-tc-3)"/><rect x="506" y="78" width="96" height="48" fill="url(#ldp-tc-4)"/><rect x="130" y="140" width="540" height="64" fill="#e9e9e9"/><rect x="130" y="392" width="540" height="58" fill="#111"/><rect x="160" y="400" width="60" height="42" fill="#fff"/><rect x="220" y="400" width="60" height="42" fill="#dadada"/><rect x="280" y="400" width="60" height="42" fill="#b6b6b6"/><rect x="340" y="400" width="60" height="42" fill="#929292"/><rect x="400" y="400" width="60" height="42" fill="#6d6d6d"/><rect x="460" y="400" width="60" height="42" fill="#494949"/><rect x="520" y="400" width="60" height="42" fill="#242424"/><rect x="580" y="400" width="60" height="42" fill="#000"/><rect x="130" y="450" width="540" height="120" fill="#3d3d3d"/><path d="M400 30v110M400 450v120" stroke="#fff" stroke-width="2"/></g><rect x="150" y="218" width="500" height="160" fill="#0d0d0d" stroke="#fff" stroke-width="3"/><text class="ldp-card-name" x="400" y="296" text-anchor="middle" fill="#f2f2f2"></text><text class="ldp-card-line" x="400" y="346" text-anchor="middle" fill="#f2f2f2"></text><text class="ldp-card-small" data-at="top" x="400" y="178" text-anchor="middle" fill="#111"></text><text class="ldp-card-small" data-at="foot" x="400" y="500" text-anchor="middle" fill="#f2f2f2"></text></svg>';
-			var say = function (x) { var W = window.architraveWords || WORDS || {}; return W[x] || x; }, put = function (sel, text) { var el = c.querySelector(sel); if (el) el.textContent = text; return el; };
-			var name = put('.ldp-card-name', title.trim()); put('.ldp-card-line', say('Please stand by')); put('[data-at="top"]', (line.trim() || String(location.hostname || '').replace(/^www\./, '')).slice(0, 40)); /* the site's line, or its address where it has none, as a station signs its card */ put('[data-at="foot"]', say('Transmission begins shortly'));
-			document.body.appendChild(c); root.setAttribute('data-ldp-booting', 'card');
-			try { if (name && name.getComputedTextLength && name.getComputedTextLength() > 460) { name.setAttribute('textLength', '460'); name.setAttribute('lengthAdjust', 'spacingAndGlyphs'); } } catch (e) { /* not measured: the name stands as it is */ }
-			var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-			setTimeout(function () { c.classList.add('ldp-gone'); root.removeAttribute('data-ldp-booting'); setTimeout(function () { c.remove(); }, 500); }, calm ? 700 : 1900);
-			return;
-		}
-		/* CODE RAIN AND THE WAKE-UP LINES (2026-10-02, Matrix: lab/the-matrix.html, Manuel: "I really like it … bring all those settings in"): the window fills with falling code that thins away to the page, or three lines are typed on a black screen. About two seconds; with less motion asked for, a moment of black. */
-		var still2 = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches, kind = root.getAttribute('data-boot-screen');
-		if (kind === 'rain' || kind === 'wake') {
-			var sc = document.createElement('div'); sc.className = 'ldp-codescreen'; sc.setAttribute('aria-hidden', 'true');
-			document.body.appendChild(sc); root.setAttribute('data-ldp-booting', 'code');
-			var done = function () { sc.classList.add('ldp-gone'); root.removeAttribute('data-ldp-booting'); setTimeout(function () { if (stop) stop(); sc.remove(); }, 700); }, stop = null;
-			if (still2) { setTimeout(done, 400); return; }
-			if (kind === 'rain') { var cv = document.createElement('canvas'); sc.appendChild(cv); stop = codeRain(cv, { opaque: true }); setTimeout(done, 2000); return; }
-			var W2 = window.architraveWords || WORDS || {}, lines = [W2['Wake up, reader.'] || 'Wake up, reader.', W2['The page has been waiting for you.'] || 'The page has been waiting for you.', W2['Follow the green line.'] || 'Follow the green line.'], li = 0, ci = 0, p = null;
-			sc.classList.add('ldp-wake');
-			var type = function () {
-				if (li >= lines.length) { setTimeout(done, 650); return; }
-				if (!p) { p = document.createElement('p'); sc.appendChild(p); }
-				ci++; p.textContent = lines[li].slice(0, ci); var k = document.createElement('span'); k.className = 'ldp-cursor'; p.appendChild(k);
-				if (ci >= lines[li].length) { p.textContent = lines[li]; li++; ci = 0; p = null; setTimeout(type, 420); } else setTimeout(type, 38 + Math.random() * 45);
-			};
-			type();
-			return;
-		}
-		/* INSERT COIN (2026-10-02, Arcade B): an arcade cabinet's attract screen on the page's own paper, the site's name in the heading's face on the second light, PRESS START blinking, the credit line. 1.8 seconds, gone on a press; a narrow window takes the name a size down, never between the pixel face's sizes. */
-		if (root.getAttribute('data-boot-screen') === 'coin') {
-			var sayc = function (x) { var W = window.architraveWords || WORDS || {}; return W[x] || x; };
-			var k2 = document.createElement('div'); k2.className = 'ldp-coin'; k2.setAttribute('aria-hidden', 'true');
-			k2.innerHTML = '<div><p class="ldp-coin-name"></p><p class="ldp-coin-press"></p><p class="ldp-coin-credit"><b></b> <span></span><br><span></span></p></div>';
-			k2.querySelector('.ldp-coin-name').textContent = title.trim(); k2.querySelector('.ldp-coin-press').textContent = sayc('Press start');
-			k2.querySelector('.ldp-coin-credit b').textContent = sayc('1 coin'); k2.querySelectorAll('.ldp-coin-credit span')[0].textContent = sayc('1 play');
-			k2.querySelectorAll('.ldp-coin-credit span')[1].textContent = '© ' + new Date().getFullYear() + ' ' + title.trim();
-			document.body.appendChild(k2); root.setAttribute('data-ldp-booting', 'coin');
-			var nm = k2.querySelector('.ldp-coin-name'); if (nm.scrollWidth > window.innerWidth * 0.9) { k2.classList.add('ldp-coin-small'); if (nm.scrollWidth > window.innerWidth * 0.9) k2.classList.add('ldp-coin-smaller'); }
-			var gone = function () { if (k2.classList.contains('ldp-gone')) return; k2.classList.add('ldp-gone'); root.removeAttribute('data-ldp-booting'); setTimeout(function () { k2.remove(); }, 500); };
-			k2.addEventListener('click', gone);
-			setTimeout(gone, (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) ? 700 : 1800);
-			return;
-		}
-		var b = document.createElement('div'); b.className = 'ldp-boot'; b.setAttribute('aria-hidden', 'true');
-		var bar = ''; for (var k = 0; k < 24; k++) bar += '<i></i>';
-		b.innerHTML = '<div><h1></h1><p></p><div class="ldp-boot-bar">' + bar + '</div></div>';
-		b.querySelector('h1').textContent = title.trim(); b.querySelector('p').textContent = line.trim();
-		document.body.appendChild(b); root.setAttribute('data-ldp-booting', '');
-		var blocks = b.querySelectorAll('.ldp-boot-bar i'), i = 0, still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-		var fill = function () { if (i < blocks.length && !still) { blocks[i++].classList.add('ldp-lit'); setTimeout(fill, 40 + Math.random() * 40); } else setTimeout(function () { b.classList.add('ldp-gone'); root.removeAttribute('data-ldp-booting'); setTimeout(function () { b.remove(); }, 500); }, still ? 400 : 350); };
-		fill();
-	}
-	/* THE PRINT'S FOOT AND WHAT THE BANDS NEED (2026-09-30, Brochure B; picks `footband`, `legalline`, `postband`). Three things a rule cannot do: (1) the foot is an element at the column's end, built once: the legal line, an advertisement's small print made only of words the site already has (the copyright sign, the year, the site's name, its tagline where the page shows one), and the taller band under it; (2) a band reaches the paper's edges, so the column is told its own insets, again when the window changes; (3) the logo in the band between posts is the rail's stencil, whose address the site's logo block carries, so the column is handed it. Architrave's column only: a guest's page has none, and its rows are not offered there. */
-	var plateWatched = false, footWatched = false;
-	function printFoot() {
-		var col = document.querySelector('.content-column'); if (!col) return;
-		var foot = root.hasAttribute('data-foot-band') || root.hasAttribute('data-legal-line'), band = root.hasAttribute('data-post-band');
-		if (!foot && !band) return;
-		if (foot && !col.querySelector('.ldp-foot')) {
-			var f = document.createElement('div'); f.className = 'ldp-foot'; f.innerHTML = '<p class="ldp-legal"></p><i class="ldp-footband" aria-hidden="true"></i><div class="ldp-plate"><a class="ldp-plate-name" href="/"><i class="ldp-plate-mark" aria-hidden="true"></i><span></span></a><p class="ldp-plate-line"></p><p class="ldp-plate-legal"></p></div>';
-			var name = ((document.querySelector('.wp-block-site-title') || {}).textContent || '').trim(), line = ((document.querySelector('.wp-block-site-tagline') || {}).textContent || '').trim();
-			var legal = '\u00a9 ' + new Date().getFullYear() + (name ? ' ' + name : '');
-			f.firstChild.textContent = legal + (line ? '. ' + line : '');
-			f.querySelector('.ldp-plate-name span').textContent = name; f.querySelector('.ldp-plate-legal').textContent = legal;
-			var lineEl = f.querySelector('.ldp-plate-line'); lineEl.textContent = line; if (!line) lineEl.hidden = true;
-			col.appendChild(f);
-			/* THE TAGLINE IS NOT ON THE PAGE: Architrave prints no tagline block, so the plate asks the site once, through the address every WordPress answers, and keeps the answer for the session (a page with a tagline block needs no asking) */
-			if (!line && window.fetch) {
-				var kept = null; try { var held = JSON.parse(sessionStorage.getItem('ldp-tagline2') || 'null'); if (held && Date.now() - held.at < 600000) kept = held.t; } catch (e) { /* no storage: ask */ } /* kept ten minutes, not the session (2026-10-01: the tagline changed on the site and an open tab went on showing the old one) */
-				var say = function (t) { t = String(t || '').trim(); if (!t) return; lineEl.textContent = t; lineEl.hidden = false; f.firstChild.textContent = legal + '. ' + t; };
-				if (kept !== null) say(kept);
-				else fetch('/wp-json/', { credentials: 'same-origin' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { var t = j && j.description ? String(j.description) : ''; try { sessionStorage.setItem('ldp-tagline2', JSON.stringify({ t: t, at: Date.now() })); } catch (e) { /* not kept */ } say(t); }).catch(function () { /* the plate stands without its line */ });
-			}
-		}
-		var inset = function () { var cs = window.getComputedStyle(col); col.style.setProperty('--ldp-col-inset', cs.paddingLeft); col.style.setProperty('--ldp-col-foot', cs.paddingBottom); };
-		inset();
-		if (!footWatched) { footWatched = true; window.addEventListener('resize', inset, { passive: true }); }
-		/* A SQUARE OVER THE PLATE KNOWS IT (Manuel, 2026-10-01, the lab's "Dark glass", his word "bring those lab optimizations to the live version"): the focus eye at the paper's foot, and any square the plate scrolls under, gets ldp-over-plate, which the stylesheet turns into dark glass with a cream mark. Measured on every scroll (the column scrolls, or the window on a phone), at most once a frame. */
-		if (!plateWatched && foot) {
-			plateWatched = true;
-			var marking = false;
-			var markPlate = function () {
-				marking = false;
-				var plate = root.getAttribute('data-foot-band') === 'plate' ? document.querySelector('.ldp-plate') : null;
-				var P = plate && plate.getClientRects().length ? plate.getBoundingClientRect() : null;
-				document.querySelectorAll('.paper-stack-btn, .comments-open-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .post-actions .copy-md-btn, .comments-pill').forEach(function (b) {
-					var r = b.getBoundingClientRect(), over = !!P && r.width > 0 && r.bottom > P.top && r.top < P.bottom && r.right > P.left && r.left < P.right;
-					b.classList.toggle('ldp-over-plate', over);
-				});
-			};
-			var askMark = function () { if (!marking) { marking = true; window.requestAnimationFrame(markPlate); } };
-			document.addEventListener('scroll', askMark, { capture: true, passive: true });
-			window.addEventListener('resize', askMark, { passive: true });
-			new MutationObserver(askMark).observe(root, { attributes: true, attributeFilter: ['data-foot-band', 'data-focus-on', 'data-rail-collapsed', 'data-comments-open'] });
-			askMark();
-		}
-		var logo = document.querySelector('.has-stencil-logo'), url = logo && logo.style.getPropertyValue('--architrave-logo-stencil'), ratio = logo && logo.style.getPropertyValue('--architrave-logo-ratio');
-		if (url) { col.style.setProperty('--ldp-logo', url); col.style.setProperty('--ldp-logo-ratio', ratio || '1'); col.classList.add('ldp-has-logo'); }
-	}
-	/* THE DRAWING OFFICE (2026-10-02, Blueprint; lab/the-blueprint.html, Manuel: "it's awesome. I want to see it live"). What its picks need that a rule cannot draw: (1) the traced pictures' filter (#ldp-trace, tiny, no canvas: the light, its edges found, their strength as the ink's alpha); (2) the sheet over the framed paper, its border's zone marks laid out to the paper and left out where a corner square sits; (3) the dimension lines over the article's title and under its opening picture, which say their own width; (4) the section marks' number and count, written as two attributes on each section heading (never an element in it: the section bar reads the headings' text); (5) the title block where the article ends, made of what the page already says; (6) the scale rule on the paper's foot with its cursor. Each part is built once, when its pick is first on, and rests hidden in door.css; the stylesheet shows it. */
-	var drawingWatched = false, drawingT = null;
-	function traceFilter() {
-		if (document.getElementById('ldp-trace-svg')) return;
-		var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.id = 'ldp-trace-svg'; svg.setAttribute('width', '0'); svg.setAttribute('height', '0'); svg.setAttribute('aria-hidden', 'true'); svg.style.position = 'absolute';
-		svg.innerHTML = '<filter id="ldp-trace" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values="0.3 0.59 0.11 0 0  0.3 0.59 0.11 0 0  0.3 0.59 0.11 0 0  0 0 0 0 1" result="l"/><feConvolveMatrix in="l" order="3" kernelMatrix="-1 -1 -1 -1 8 -1 -1 -1 -1" preserveAlpha="true" result="e"/><feColorMatrix in="e" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.2 0 0 0 -0.08" result="a"/><feFlood class="ldp-trace-ink" result="ink"/><feComposite in="ink" in2="a" operator="in"/></filter>' +
-			/* 1 BIT (2026-10-02, Terminal B): each pixel the ink or the paper, a fine random dither, as a terminal that prints only characters shows a picture (lab/live-pages/terminal-rows.html); #architrave-duotone after it puts the pair's two colours in */
-			'<filter id="ldp-onebit" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" type="matrix" values=".299 .587 .114 0 0  .299 .587 .114 0 0  .299 .587 .114 0 0  0 0 0 0 1" result="l"/><feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="1 0 0 0 0  1 0 0 0 0  1 0 0 0 0  0 0 0 0 1" result="m"/><feComposite in="l" in2="m" operator="arithmetic" k1="0" k2="1" k3="1" k4="-.5" result="s"/><feComponentTransfer in="s" result="bit"><feFuncR type="discrete" tableValues="0 1"/><feFuncG type="discrete" tableValues="0 1"/><feFuncB type="discrete" tableValues="0 1"/></feComponentTransfer><feComposite in="bit" in2="SourceAlpha" operator="in" result="pic"/><feFlood flood-color="#000" result="f"/><feMorphology in="f" operator="erode" radius="1.5" result="inner"/><feComposite in="pic" in2="inner" operator="in" result="pin"/><feComposite in="SourceGraphic" in2="inner" operator="out" result="edge"/><feMerge><feMergeNode in="pin"/><feMergeNode in="edge"/></feMerge></filter>'; /* the 1px ink edge goes through as it is (2026-10-02, the styles review: drawn between two device pixels it was a grey the noise cut into dots); the band is half a pixel wider than the line, so a picture at a fractional place keeps all of it */
-		document.body.appendChild(svg);
-	}
-	function drawingSay(x) { var W = window.architraveWords || WORDS || {}; return W[x] || x; }
-	function drawingOffice() {
-		var has = function (a) { return root.hasAttribute(a); };
-		traceFilter(); /* always: it is one small filter, and the Pictures dial is applied apart from the picks (applyPictures), so it may be asked for before this runs again; the panel's sample of the look uses it too */
-		var paper = document.querySelector('body.has-frame .frame-paper'), article = document.querySelector('.single-post-article');
-		var sheet = paper && paper.querySelector(':scope > .ldp-sheet'), rule = paper && paper.querySelector(':scope > .ldp-rule');
-		if (paper && !sheet && (has('data-sheet-border') || has('data-mottle') || has('data-print-edges'))) { sheet = document.createElement('div'); sheet.className = 'ldp-sheet'; sheet.setAttribute('aria-hidden', 'true'); sheet.innerHTML = '<i class="ldp-mottle"></i><i class="ldp-edges"></i>'; paper.appendChild(sheet); }
-		if (paper && !rule && has('data-scale-rule')) { rule = document.createElement('div'); rule.className = 'ldp-rule'; rule.setAttribute('aria-hidden', 'true'); rule.innerHTML = '<i class="ldp-ticks"></i><i class="ldp-done"></i><i class="ldp-cur"></i>'; paper.appendChild(rule); }
-		var dim = function (cls) { var d = document.createElement('div'); d.className = 'ldp-dim' + (cls ? ' ' + cls : ''); d.setAttribute('aria-hidden', 'true'); d.innerHTML = '<i></i><i></i><span></span>'; return d; };
-		var title = article && article.querySelector('.wp-block-post-title'), lead = article && article.querySelector('figure.wp-block-post-featured-image');
-		if (has('data-dimensions') && title && !article.querySelector('.ldp-dim')) { title.parentNode.insertBefore(dim(''), title); if (lead) lead.appendChild(dim('ldp-under')); }
-		var content = article && article.querySelector('.wp-block-post-content');
-		if (has('data-bubbles') && content && !content.hasAttribute('data-ldp-marked')) {
-			var heads = content.querySelectorAll('h2'); /* every section heading, at any depth: an archived release post keeps its headings inside its own box (2026-10-02, live, the Moog post had none marked) */
-			Array.prototype.forEach.call(heads, function (h, i) { h.setAttribute('data-ldp-n', String(i + 1)); h.setAttribute('data-ldp-of', String(heads.length)); });
-			content.setAttribute('data-ldp-marked', '');
-		}
-		if (has('data-title-block') && content && !article.querySelector('.ldp-titleblock')) {
-			var text = function (el) { return el ? String(el.textContent || '').replace(/\s+/g, ' ').trim() : ''; };
-			var site = text(document.querySelector('.wp-block-site-title')), name = text(title), date = text(article.querySelector('time'));
-			var author = text(document.querySelector('.wp-block-post-author-name, .wp-block-post-author__name')) || '—';
-			var words = text(content).split(' ').filter(Boolean).length;
-			var b = document.createElement('div'); b.className = 'ldp-titleblock'; b.setAttribute('aria-hidden', 'true');
-			var cell = function (label, value, wide) { var c = document.createElement('div'); if (wide) c.className = 'ldp-wide'; c.textContent = drawingSay(label); var v = document.createElement('b'); v.textContent = value; c.appendChild(v); b.appendChild(c); };
-			cell('Project', site, true); cell('Drawing', name, true); cell('Drawn by', author); cell('Date', date); cell('Scale', '1 : 1'); cell('Sheet', '1 / 1'); cell('Words', String(words)); cell('Revision', 'A');
-			content.parentNode.insertBefore(b, content.nextSibling);
-		}
-		nextFrame(drawingLayout);
-		if (!drawingWatched && (sheet || rule || has('data-dimensions') || has('data-guide-lines'))) {
-			drawingWatched = true;
-			var later = function () { clearTimeout(drawingT); drawingT = setTimeout(drawingLayout, 120); };
-			window.addEventListener('resize', later, { passive: true });
-			if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawingLayout);
-			new MutationObserver(later).observe(root, { attributes: true, attributeFilter: ['data-sheet-border', 'data-scale-rule', 'data-dimensions', 'data-guide-lines', 'data-rail-collapsed', 'data-focus-on', 'data-measure', 'data-reading'] });
-			var onScroll = function () { drawingProgress(); };
-			if (window.architraveScroll && window.architraveScroll.onScroll) window.architraveScroll.onScroll(onScroll); else window.addEventListener('scroll', onScroll, { passive: true });
-		}
-	}
-	function drawingLayout() { /* read first, write after; and nothing measured where no part of the drawing is on (2026-10-02, see MEASURE ONCE: this ran on every style and restyled the page twice a switch) */
-		var paper = document.querySelector('body.has-frame .frame-paper'); if (!paper || !window.getComputedStyle) return;
-		var sheet = paper.querySelector(':scope > .ldp-sheet'), rule = paper.querySelector(':scope > .ldp-rule');
-		var zones = !!sheet && root.getAttribute('data-sheet-border') === 'zones', ruled = !!rule && root.hasAttribute('data-scale-rule'), guides = root.hasAttribute('data-guide-lines');
-		var dims = root.hasAttribute('data-dimensions') ? Array.prototype.slice.call(document.querySelectorAll('.ldp-dim')) : [];
-		if (sheet && !zones) Array.prototype.forEach.call(sheet.querySelectorAll('.ldp-zone, .ldp-tick'), function (n) { n.remove(); });
-		if (!zones && !ruled && !guides && !dims.length) return;
-		/* the reads */
-		var P = paper.getBoundingClientRect(), w = P.width, h = P.height, busy = [], A = null, heads = [];
-		if (zones && w > 0) busy = Array.prototype.map.call(document.querySelectorAll('.paper-stack, .paper-stack-btn, .architrave-panel-opener, .rail-expand, .rail-collapse-corner'), function (e) { var r = e.getBoundingClientRect(); return { l: r.left - P.left - 12, r: r.right - P.left + 12, t: r.top - P.top - 12, b: r.bottom - P.top + 12, w: r.width }; }).filter(function (r) { return r.w > 0; });
-		if (ruled) A = (document.querySelector('.single-post-article, .content-column .wp-block-post-template, .content-column .wp-block-query') || paper).getBoundingClientRect();
-		/* THE LETTERING GUIDES' MEASURE: each heading's own face, its ascent, descent and capital height in em, read from a canvas once per face */
-		if (guides) heads = Array.prototype.map.call(document.querySelectorAll('.single-post-article .wp-block-post-title, .single-post-article .wp-block-post-content h2, .single-post-article .wp-block-post-content h3'), function (el) { var cs = window.getComputedStyle(el); return [el, cs.fontStyle + ' ' + cs.fontWeight + ' 100px ' + cs.fontFamily]; });
-		var progress = drawingProgressRead();
-		var dimW = dims.map(function (d) { var of = d.classList.contains('ldp-under') ? d.parentNode : d.nextElementSibling, sp = d.querySelector('span'); return of && sp ? [sp, Math.round(of.getBoundingClientRect().width)] : null; });
-		/* the writes */
-		if (zones) {
-			Array.prototype.forEach.call(sheet.querySelectorAll('.ldp-zone, .ldp-tick'), function (n) { n.remove(); });
-			if (w > 0) {
-				var free = function (x, y) { return !busy.some(function (r) { return x > r.l && x < r.r && y > r.t && y < r.b; }); };
-				var add = function (cls, x, y, css, txt) { if (!free(x, y)) return; var n = document.createElement('i'); n.className = cls; n.style.cssText = css; if (txt) n.textContent = txt; sheet.appendChild(n); };
-				var nx = Math.max(4, Math.round(w / 190)), ny = Math.max(3, Math.round(h / 190)), i, x, y;
-				for (i = 0; i < nx; i++) {
-					x = w * (i + .5) / nx; add('ldp-zone', x, 9, 'left:' + x + 'px;top:6px;transform:translateX(-50%)', String(i + 1)); add('ldp-zone', x, h - 9, 'left:' + x + 'px;bottom:5px;transform:translateX(-50%)', String(i + 1));
-					if (i) { x = w * i / nx; add('ldp-tick', x, 6, 'left:' + x + 'px;top:0;width:1px;height:12px'); add('ldp-tick', x, h - 6, 'left:' + x + 'px;bottom:0;width:1px;height:12px'); }
-				}
-				for (i = 0; i < ny; i++) {
-					y = h * (i + .5) / ny; var L = String.fromCharCode(65 + i); add('ldp-zone', 9, y, 'top:' + y + 'px;left:6px;transform:translateY(-50%)', L); add('ldp-zone', w - 9, y, 'top:' + y + 'px;right:6px;transform:translateY(-50%)', L);
-					if (i) { y = h * i / ny; add('ldp-tick', 6, y, 'top:' + y + 'px;left:0;height:1px;width:12px'); add('ldp-tick', w - 6, y, 'top:' + y + 'px;right:0;height:1px;width:12px'); }
-				}
-			}
-		}
-		if (ruled) {
-			rule.style.left = Math.round(A.left - P.left) + 'px'; rule.style.width = Math.round(A.width) + 'px';
-			Array.prototype.forEach.call(rule.querySelectorAll('.ldp-n'), function (n) { n.remove(); });
-			for (var x2 = 0, k = 0; x2 < A.width - 20; x2 += 60, k++) { var n = document.createElement('i'); n.className = 'ldp-n'; n.style.left = x2 + 'px'; n.textContent = String(k); rule.appendChild(n); }
-		}
-		if (heads.length) {
-			var cv = document.createElement('canvas'), g = cv.getContext && cv.getContext('2d'), seen = {};
-			if (g && g.measureText) heads.forEach(function (hk) {
-				var key = hk[1];
-				if (!(key in seen)) { g.font = key; var m = g.measureText('H'); seen[key] = m.fontBoundingBoxAscent ? [m.fontBoundingBoxAscent / 100, m.fontBoundingBoxDescent / 100, m.actualBoundingBoxAscent / 100] : null; }
-				if (seen[key]) { hk[0].style.setProperty('--ldp-g-a', seen[key][0].toFixed(3)); hk[0].style.setProperty('--ldp-g-d', seen[key][1].toFixed(3)); hk[0].style.setProperty('--ldp-g-c', seen[key][2].toFixed(3)); }
-			});
-		}
-		dimW.forEach(function (x) { if (x) x[0].textContent = String(x[1]); });
-		drawingProgressWrite(progress, ruled ? Math.round(A.width) : undefined);
-	}
-	function drawingProgress() { drawingProgressWrite(drawingProgressRead()); }
-	function drawingProgressRead() {
-		var rule = document.querySelector('.frame-paper > .ldp-rule'); if (!rule || !root.hasAttribute('data-scale-rule')) return null;
-		var col = document.querySelector('.frame-paper > .content-column'); if (!col) return null; /* the rule is the framed paper's, and the paper's column is what scrolls */
-		var max = col.scrollHeight - col.clientHeight, top = col.scrollTop;
-		return { rule: rule, f: max > 0 ? Math.min(1, Math.max(0, top / max)) : 0 };
-	}
-	function drawingProgressWrite(x, rw) { /* rw: the rule's width when it was just set, so it need not be read back */
-		if (!x) return; if (rw === undefined) rw = x.rule.clientWidth;
-		x.rule.querySelector('.ldp-cur').style.left = Math.round(x.f * (rw - 1)) + 'px'; x.rule.querySelector('.ldp-done').style.width = Math.round(x.f * rw) + 'px';
-	}
-	/* THE CABINET (2026-10-02, Arcade B; lab/the-arcade.html, Manuel: "I love it … bring it live"). What its picks need that a rule cannot draw: (1) the pixel pictures' filter (#ldp-pixel): the light, a 4 x 4 ordered dither added, cut into five steps that map onto the page's own five colours (paper, card, second light, accent, ink), so it is written again whenever those colours change (side, colours, style); (2) the power bar at the framed paper's foot, lit as the paper's column is read. Architrave's paper only for the bar; the filter is any page's. */
-	var cabinetWatched = false, cabinetT = null, cabinetKey = '';
-	/* ONE PROBE THAT STAYS (2026-10-02): a probe put into the body and taken out for each of the five colours made the
-	   browser restyle the page five times, 71 ms a switch to Arcade; one hidden probe, recoloured, restyles itself alone. */
-	function colourProbe() {
-		var p = document.getElementById('ldp-colour-probe');
-		if (!p) { p = document.createElement('i'); p.id = 'ldp-colour-probe'; p.setAttribute('aria-hidden', 'true'); p.style.display = 'none'; document.body.appendChild(p); }
-		return p;
-	}
-	function cabinetRgb(value) {
-		var probe = colourProbe(); probe.style.color = value;
-		var c = window.getComputedStyle(probe).color;
-		var m = String(c).match(/[\d.]+/g); if (!m || m.length < 3) return null;
-		var v = m.slice(0, 3).map(Number), srgb = /color\(srgb/.test(c);
-		return v.map(function (x) { return srgb ? x : x / 255; });
-	}
-	function cabinetFilter() {
-		if (!root.hasAttribute('data-pictures') || root.getAttribute('data-pictures') !== 'pixel') return;
-		var cs = window.getComputedStyle(root), get = function (k, d) { return (cs.getPropertyValue(k) || '').trim() || d; };
-		var pal = [get('--surface-base', '#000'), get('--surface-subtle', '#222'), 'var(--fx-second)', get('--accent', '#ff0'), get('--text-primary', '#fff')].map(function (v) { return v.indexOf('var(') === 0 ? cabinetRgbVar(v) : cabinetRgb(v); });
-		if (pal.some(function (x) { return !x; })) return;
-		pal.sort(function (a, b) { return (a[0] * .3 + a[1] * .59 + a[2] * .11) - (b[0] * .3 + b[1] * .59 + b[2] * .11); }); /* DARK TO LIGHT, whatever the side (0.15.45): the steps are the picture's light from dark to light, so the colours must stand in that order; by day the paper is the lightest, not the darkest, and a white screenshot came out near black */
-		var key = JSON.stringify(pal); if (key === cabinetKey && document.getElementById('ldp-pixel')) return; cabinetKey = key;
-		var svg = document.getElementById('ldp-pixel-svg');
-		if (!svg) { svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.id = 'ldp-pixel-svg'; svg.setAttribute('width', '0'); svg.setAttribute('height', '0'); svg.setAttribute('aria-hidden', 'true'); svg.style.position = 'absolute'; document.body.appendChild(svg); }
-		var B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5], tile = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" shape-rendering="crispEdges">';
-		B.forEach(function (v, k) { var g = Math.round(v / 15 * 255); tile += '<rect x="' + (k % 4) * 4 + '" y="' + Math.floor(k / 4) * 4 + '" width="4" height="4" fill="rgb(' + g + ',' + g + ',' + g + ')"/>'; });
-		tile += '</svg>';
-		var tab = function (c) { return pal.map(function (x) { return x[c].toFixed(4); }).join(' '); };
-		svg.innerHTML = '<filter id="ldp-pixel" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0.3 0.59 0.11 0 0  0.3 0.59 0.11 0 0  0.3 0.59 0.11 0 0  0 0 0 1 0" result="l"/><feImage href="data:image/svg+xml;utf8,' + encodeURIComponent(tile) + '" x="0" y="0" width="16" height="16" result="b"/><feTile in="b" result="t"/><feComposite in="l" in2="t" operator="arithmetic" k1="0" k2="1" k3="0.22" k4="-0.11" result="d"/><feComponentTransfer in="d" result="q"><feFuncR type="discrete" tableValues="' + tab(0) + '"/><feFuncG type="discrete" tableValues="' + tab(1) + '"/><feFuncB type="discrete" tableValues="' + tab(2) + '"/></feComponentTransfer><feFlood flood-color="#000" result="f"/><feMorphology in="f" operator="erode" radius="2.5" result="inner"/><feComposite in="q" in2="SourceAlpha" operator="in" result="qa"/><feComposite in="qa" in2="inner" operator="in" result="pic"/><feComposite in="SourceGraphic" in2="inner" operator="out" result="edge"/><feMerge><feMergeNode in="pic"/><feMergeNode in="edge"/></feMerge></filter>'; /* THE EDGE GOES THROUGH UNTOUCHED (2026-10-02, the styles review): the outer 2px of the box are the picture's own border, drawn by the source, so the dots never touch it; the dots keep the picture's own alpha, so transparent corners and a picture still loading stay clear (the arithmetic step lifted every alpha by 0.11, a faint field of dots) */
-	}
-	function cabinetRgbVar(v) { return cabinetRgb(v); } /* the probe resolves a variable as it resolves a colour */
-	function cabinet() {
-		if (!document.body || !window.getComputedStyle) return;
-		var paper = document.querySelector('body.has-frame .frame-paper'), bar = paper && paper.querySelector(':scope > .ldp-power');
-		if (paper && !bar && root.hasAttribute('data-power-bar')) { bar = document.createElement('div'); bar.className = 'ldp-power'; bar.setAttribute('aria-hidden', 'true'); bar.innerHTML = new Array(21).join('<i></i>'); paper.appendChild(bar); }
-		nextFrame(cabinetMeasure); /* the page's colours and the column's height, read on the next frame (2026-10-02, see MEASURE ONCE) */
-		if (!cabinetWatched && (bar || root.getAttribute('data-pictures') === 'pixel')) {
-			cabinetWatched = true;
-			new MutationObserver(function () { clearTimeout(cabinetT); cabinetT = setTimeout(function () { cabinet(); }, 60); }).observe(root, { attributes: true, attributeFilter: ['data-theme', 'style', 'data-pictures', 'data-power-bar', 'data-colours'] });
-			var onScroll = function () { cabinetProgress(); };
-			if (window.architraveScroll && window.architraveScroll.onScroll) window.architraveScroll.onScroll(onScroll); else window.addEventListener('scroll', onScroll, { passive: true });
-		}
-	}
-	function cabinetMeasure() { cabinetProgress(); cabinetFilter(); } /* the column's height first, while the page is freshly laid out; the colours after, which need no layout */
-	function cabinetProgress() {
-		var bar = document.querySelector('.frame-paper > .ldp-power'); if (!bar || !root.hasAttribute('data-power-bar')) return;
-		var col = document.querySelector('.frame-paper > .content-column'); if (!col) return;
-		var max = col.scrollHeight - col.clientHeight, f = max > 0 ? Math.min(1, Math.max(0, col.scrollTop / max)) : 0, n = Math.round(f * 20);
-		Array.prototype.forEach.call(bar.children, function (b, k) { b.classList.toggle('ldp-lit', k < n); b.classList.toggle('ldp-tip', k === n - 1); });
-	}
-	/* THE GALLERY (2026-10-02, Gallery B; lab/the-article-in-gallery.html, Manuel: "bring all those settings into the live panel"). What its picks need that a rule cannot do. (1) ARRIVAL (arrival rise | zoom): the paper's parts get .ldp-rise and, once they come into view, .ldp-in, once each; the title block (kicker, title, date, picture) one after another. Picking it again lets what is in view arrive again. Nothing is hidden before this has run (the rule asks for .ldp-rise), and style.css moves nothing for readers who ask for less motion. (2) GLASS (glassbar on): .ldp-glass laid on the framed paper, and the root marked ldp-scrolled once the column has left its top (window.architraveScroll, never the window). */
-	var galleryIO = null, galleryArmed = '', galleryScrollOn = false;
-	var RISE_PARTS = '.single-post-article > :is(.article-kicker, .wp-block-post-title, .article-meta, .article-media), .single-post-article .wp-block-post-content > :is(p, h2, h3, h4, figure, ul, ol, blockquote, .wp-block-image, .support-box, .release-panel, .release-archive, .post-link-card, .wp-block-buttons, .code-block), .author-box, .wp-block-post-template > li.wp-block-post';
-	function galleryWays() {
-		if (!document.body || !window.getComputedStyle || typeof document.querySelectorAll !== 'function') return;
-		var arrival = root.getAttribute('data-arrival') || '';
-		if (arrival !== galleryArmed) {
-			galleryArmed = arrival;
-			var parts = Array.prototype.slice.call(document.querySelectorAll(RISE_PARTS));
-			if (galleryIO) { galleryIO.disconnect(); galleryIO = null; }
-			if (!arrival || !('IntersectionObserver' in window)) {
-				parts.forEach(function (el) { el.classList.remove('ldp-rise', 'ldp-in'); el.style.removeProperty('--ldp-rise-delay'); });
-			} else {
-				var head = 0;
-				galleryIO = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('ldp-in'); if (galleryIO) galleryIO.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
-				parts.forEach(function (el) {
-					el.classList.remove('ldp-in'); el.classList.add('ldp-rise');
-					if (el.parentElement && el.parentElement.classList.contains('single-post-article')) el.style.setProperty('--ldp-rise-delay', (head++ * 0.12) + 's');
-					galleryIO.observe(el);
-				});
-			}
-		}
-		var paper = document.querySelector('body.has-frame .frame-paper'), glass = paper && paper.querySelector(':scope > .ldp-glass');
-		if (paper && !glass && root.hasAttribute('data-glass-bar')) { glass = document.createElement('div'); glass.className = 'ldp-glass'; glass.setAttribute('aria-hidden', 'true'); paper.appendChild(glass); }
-		if (glass && !galleryScrollOn) {
-			galleryScrollOn = true;
-			var mark = function () { var S = window.architraveScroll, y = S && S.top ? S.top() : (window.scrollY || 0); root.classList.toggle('ldp-scrolled', y > 8); };
-			if (window.architraveScroll && window.architraveScroll.onScroll) window.architraveScroll.onScroll(mark); else window.addEventListener('scroll', mark, { passive: true });
-			nextFrame(mark); /* the scroll read on the next frame (2026-10-02, see MEASURE ONCE) */
-		}
-	}
-	/* THE POSTER'S SECTION NUMBERS (0.15.38, sectionnumbers; lab/the-article-in-poster.html). Each section heading gets data-ldp-num, which
-	   style.css draws over it, big, in the accent. A number the heading begins with ("1. Webseite …") is wrapped in .ldp-num, found in the
-	   first text of the heading even when Headings arrive has wrapped its words, and stands out of the line; the heading's textContent is
-	   unchanged, so the section bar and every reader of it see the same words. written: only those; counted: every section, a written
-	   number kept. Off: the attributes go, the wrapped number stays in its line as it was written. */
-	function posterNumbers() {
-		if (!document.body || !document.createTreeWalker) return;
-		var mode = root.getAttribute('data-section-numbers'), content = document.querySelector('.single-post-article .wp-block-post-content');
-		if (!content) return;
-		var heads = content.querySelectorAll(':scope > h2, :scope > .wp-block-group h2');
-		Array.prototype.forEach.call(heads, function (h, i) {
-			var span = h.querySelector('.ldp-num');
-			if (mode && !span) {
-				var walk = document.createTreeWalker(h, 4), t = walk.nextNode();
-				while (t && !/\S/.test(t.data)) t = walk.nextNode();
-				var m = t && /^\s*(\d{1,3})[.):]\s+/.exec(t.data);
-				if (m && h.textContent.replace(/^\s+/, '').indexOf(m[1]) === 0) { /* the first words of the heading, not a number further in */
-					span = document.createElement('span'); span.className = 'ldp-num'; span.setAttribute('data-n', m[1]); span.textContent = m[0];
-					t.data = t.data.slice(m[0].length); t.parentNode.insertBefore(span, t);
-				}
-			}
-			var n = span ? span.getAttribute('data-n') : (mode === 'counted' ? String(i + 1) : '');
-			if (mode && n) h.setAttribute('data-ldp-num', n); else h.removeAttribute('data-ldp-num');
-		});
-	}
-	/* THE AWNING AND THE STAMP (2026-10-02, Aperitivo; lab/the-article-in-terracotta.html). Built once each, the
-	   first time their pick is on, and left in place (they rest hidden in door.css): the awning on the framed
-	   paper itself, pinned while the column scrolls under it (2026-10-02, Manuel); the stamp on the article's opening picture,
-	   the site's name and the article's first category set around a circle, the name's first letter inside. */
-	/* THE AWNING'S ROOM: the first words on the page start this far below the paper's top (the awning's 64 and
-	   a line of air); whatever is already there counts, so a template that sets them low gets nothing added. */
-	var cafeWatched = false;
-	function cafeRoom() {
-		var col = document.querySelector('body.has-frame .frame-paper > .content-column'); if (!col || !window.getComputedStyle) return;
-		if (!root.hasAttribute('data-awning')) { col.style.removeProperty('--ldp-awning-room'); return; }
-		var first = col.querySelector('.single-post-article, .post-card, .wp-block-query, h1, h2'); if (!first) return;
-		col.style.removeProperty('--ldp-awning-room'); /* measured without the room it may already have */
-		var at = first.getBoundingClientRect().top - col.getBoundingClientRect().top + col.scrollTop;
-		var room = Math.max(0, Math.round(72 - at)); /* the awning (44px) and a line of air */ if (room) col.style.setProperty('--ldp-awning-room', room + 'px');
-		if (!cafeWatched) { cafeWatched = true; var t = null; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(cafeRoom, 120); }, { passive: true }); if (document.fonts && document.fonts.ready) document.fonts.ready.then(cafeRoom); }
-	}
-	function cafeParts() {
-		var paper = document.querySelector('body.has-frame .frame-paper');
-		var awningCol = paper && paper.querySelector(':scope > .content-column');
-		if (awningCol && root.hasAttribute('data-awning') && !awningCol.querySelector(':scope > .ldp-awning')) {
-			var a = document.createElement('div'); a.className = 'ldp-awning'; a.setAttribute('aria-hidden', 'true'); a.innerHTML = '<i class="ldp-stripes"></i><i class="ldp-scallop"></i>';
-			awningCol.insertBefore(a, awningCol.firstChild); /* THE SHOP FRONT (2026-10-02, the styles review, Manuel's pick): the column's, so it scrolls away with the page's top and never lies over the text; it was the paper's, pinned, and the words slid under it and showed between its scallops */
-		}
-		nextFrame(cafeRoom); /* measured on the next frame (2026-10-02, see MEASURE ONCE) */
-		var lead = document.querySelector('.single-post-article > figure.wp-block-post-featured-image');
-		if (lead && root.hasAttribute('data-stamp') && !lead.querySelector(':scope > .ldp-stamp') && typeof document.createElementNS === 'function') {
-			var text = function (el) { return el ? String(el.textContent || '').replace(/\s+/g, ' ').trim() : ''; };
-			var site = text(document.querySelector('.wp-block-site-title')) || text(document.querySelector('title')).split(/\s[–|-]\s/).pop();
-			var cat = text(document.querySelector('.single-post-article .article-kicker a, .single-post-article .taxonomy-category a'));
-			var NS = 'http://www.w3.org/2000/svg', el = function (n, at) { var e = document.createElementNS(NS, n); Object.keys(at).forEach(function (k) { e.setAttribute(k, at[k]); }); return e; };
-			var st = document.createElement('div'); st.className = 'ldp-stamp'; st.setAttribute('aria-hidden', 'true');
-			var svg = el('svg', { viewBox: '0 0 128 128' }), id = 'ldp-stamp-ring';
-			var defs = el('defs', {}); defs.appendChild(el('path', { id: id, d: 'M64 64 m-48 0 a48 48 0 1 1 96 0 a48 48 0 1 1 -96 0' })); svg.appendChild(defs);
-			svg.appendChild(el('circle', { 'class': 'ldp-stamp-paper', cx: 64, cy: 64, r: 63 }));
-			svg.appendChild(el('circle', { cx: 64, cy: 64, r: 59, 'stroke-width': 1.5 }));
-			svg.appendChild(el('circle', { cx: 64, cy: 64, r: 35, 'stroke-width': 1 }));
-			var ring = el('text', {}), tp = el('textPath', { href: '#' + id, textLength: 298, lengthAdjust: 'spacing' });
-			tp.textContent = (site + ' ✶ ' + (cat || site) + ' ✶ ').toUpperCase(); ring.appendChild(tp); svg.appendChild(ring);
-			var mid = el('text', { 'class': 'ldp-stamp-mid', x: 64, y: 74, 'text-anchor': 'middle' }); mid.textContent = site.charAt(0); svg.appendChild(mid);
-			st.appendChild(svg); lead.appendChild(st);
-		}
-	}
-	/* THE OLD SET (2026-10-02, Tube B; lab/the-article-in-tube.html): the tube's layers, one box with the edge and the hum bar, laid INSIDE the framed paper (it stays on the paper while the column scrolls; style.css THE OLD SET draws the grain, the lines and the vignette on it under the tube face) or on the body where there is no paper, for the hum bar alone. Built once, moved when the frame comes or goes. */
-	function tvSet() {
-		if (!root.hasAttribute('data-tube-face') && !root.hasAttribute('data-hum-bar')) return;
-		var paper = document.querySelector('body.has-frame .frame-paper'), host = paper || document.body, box = document.querySelector('.ldp-tube');
-		if (!box) { box = document.createElement('div'); box.className = 'ldp-tube'; box.setAttribute('aria-hidden', 'true'); box.innerHTML = '<i class="ldp-tube-edge"></i><i class="ldp-tube-hum"></i>'; }
-		if (box.parentNode !== host) host.appendChild(box);
 	}
 	/* PICTURES THAT MELT INTO THE PAGE (2026-10-02, the styles review; Manuel: a picture should "always have a border separating the image
 	   from the background if there's not enough contrast. If there's enough contrast we don't need it"). Each picture's outer ring of pixels
@@ -2370,24 +1523,7 @@
 	}
 	function screenEffects() {
 		if (!document.body || typeof document.createElementNS !== 'function' || !window.getComputedStyle) return; /* not in the generator's stub */
-		var need = SCREEN_ATTRS.some(function (a) { return root.hasAttribute(a); });
-		var host = screenBox(), box = document.querySelector('.ldp-screen');
-		if (need && !box) { box = document.createElement('div'); box.className = 'ldp-screen'; box.setAttribute('aria-hidden', 'true'); box.innerHTML = '<i class="ldp-shimmer"></i><i class="ldp-room"></i><i class="ldp-static"></i><i class="ldp-bezel"></i>'; host.appendChild(box); }
-		else if (box && box.parentNode !== host) host.appendChild(box);
-		if (root.hasAttribute('data-warp') || root.hasAttribute('data-ghosting') || root.hasAttribute('data-crisp')) { screenFilters(); warpDirection(); }
-		if (root.hasAttribute('data-ghosting')) ghosting();
-		if (root.hasAttribute('data-switch-on')) switchOn();
-		printFoot();
-		drawingOffice();
-		cabinet();
-		galleryWays();
-		tvSet();
-		cafeParts();
-		rainBeside();
-		posterNumbers();
-		terminalPage();
 		nextFrame(pictureEdges);
-		typedTitle(); bootScreen(); /* the columns need no script: the headings span every column (column-span: all), so each section balances on its own */
 	}
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', screenEffects); else screenEffects();
 	function applyButton() { var v = buttonOf(); if (v === BUTTONS[0]) root.removeAttribute('data-button'); else if (root.getAttribute('data-button') !== v) root.setAttribute('data-button', v); }
@@ -2774,7 +1910,7 @@
 	   and this one no longer reads (bold, wide, hyphens, tracking at the top
 	   level) and unaliased role values stayed in a reader's record and kept a
 	   style "adjusted" with nothing to reset. Only what is read survives. */
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'scan', 'line', 'fill', 'glowlevel', 'grainlevel', 'vignettelevel', 'vignettereach', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'dotsize', 'dotlevel', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'monitorframe', 'fringe', 'crisp', 'scanstyle', 'shimmer', 'warp', 'switchon', 'bloom', 'ghosting', 'jitter', 'graincrawl', 'typedtitle', 'bootscreen', 'roomglass', 'phosphor', 'static', 'dropout', 'headrule', 'ink', 'tooth', 'edges', 'columns', 'paragraphs', 'rainbow', 'postband', 'footband', 'menuline', 'legalline', 'stripes', 'sitename', 'sheetgrid', 'gridstrength', 'sheetborder', 'mottle', 'printedges', 'pen', 'dimensions', 'guidelines', 'bubbles', 'titleblock', 'scalerule', 'oldpaper', 'printink', 'titlemark', 'rainbowlinks', 'rainbowcap', 'capface', 'hyphenate', 'coupon', 'fold', 'edgeson', 'nightground', 'codemarks', 'coderain', 'headwidth', 'textgrid', 'mdmarks', 'frontmatter', 'textmode', 'windowbar', 'statusline', 'prompt', 'cursorshape', 'extrusion', 'pixelcorners', 'powerbar', 'awning', 'stamp', 'titlesign', 'headstar', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'arrival', 'glassbar', 'boxbuttons', 'listtiles', 'tilehover', 'headblock', 'sectionrules', 'sectionnumbers', 'tubeface', 'tvcabinet', 'ghostimage', 'titlecard', 'humbar', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'grainlevel', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'titlefinish', 'headitalics', 'headarrival', 'cardlight', 'buttonfinish', 'toppattern', 'guides', 'greytint', 'pageglow', 'movinglight', 'paragraphs', 'sitename', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -2906,7 +2042,6 @@
 	applyButton();
 	applyPicks();
 	/* THE BOOT SCREEN MUST COVER THE FIRST PAINT: presets.js runs in the head, so the root says it is booting before the body exists and door.css paints the blue over everything until the screen itself is built. Asked HERE, once the style on the page (`current`) and the reader's changes (TWEAK_KEYS) are known: asked where the screen's code stands, both were still undefined, the pick always read as off, and the article painted before the screen came (2026-10-01, the panel audit). */
-	(function () { var d = PICKS.bootscreen; if (d && pickOf('bootscreen') !== d.list[0]) { var seen = false; try { seen = sessionStorage.getItem('ldp-boot') === '1'; } catch (e) {} if (!seen) root.setAttribute('data-ldp-booting', pickOf('bootscreen') === 'card' || pickOf('bootscreen') === 'coin' || pickOf('bootscreen') === 'warm' ? pickOf('bootscreen') : pickOf('bootscreen') === 'rain' || pickOf('bootscreen') === 'wake' ? 'code' : ''); } })();
 	applyEffects();
 	applyFramePattern();
 	applyCorners();
@@ -2935,11 +2070,8 @@
 			[(named && named[side]) || {}, (s && s.colours && s.colours[side]) || {}].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
 			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
-		/* PHOSPHOR (2026-09-30, Tube): a pick that turns the whole night screen one phosphor; it writes the night's paper, ink and accent over whatever the style and the reader set, and only for the style on the page. `own` asks for the style's own colours without it: what is SAVED (export, Save as, Update, Duplicate) and what Custom is judged on. Without it, Save as on Tube in green wrote the green into the copy's own colours, and the copy stayed green with Phosphor off (2026-10-01, the panel audit). */
-		if (!own && (!id || id === current)) { var ph = PHOSPHOR[pickOf('phosphor')]; if (ph) { out.dark.paper = ph[0]; out.dark.ink = ph[1]; out.dark.accent = ph[2]; } }
 		return out;
 	}
-	var PHOSPHOR = { blue: ['#3535a0', '#fcf9f3', '#fcf9f3'], green: ['#061a0c', '#62ff85', '#b6ffc4'], amber: ['#1a1104', '#ffb340', '#ffd48a'], white: ['#0f1012', '#ececec', '#ffffff'], black: ['#000000', '#fcf9f3', '#ffffff'] };
 	/* THE COLOUR PRESETS (Manuel, 2026-09-16: "my point is having more colour
 	   presets that people can choose from … let's say in the beginning: 20").
 	   The five that were here are QDS modes, registered in the design system
@@ -2983,21 +2115,7 @@
 		{ id: 'graphite', label: 'Graphite', light: { paper: '#fbfbfa', ink: '#262626', accent: '#1a56c4' }, dark: { paper: '#161616', ink: '#d2d2d2', accent: '#7aaaf7', head: '#f6f6f6' } }, /* Terminal B's (2026-10-02, lab/the-article-in-terminal.html): a soft near-black with a light grey ink by night, the title a step brighter, an off-white by day; the links a terminal's blue */
 		{ id: 'pure', label: 'Pure black and white', light: { paper: '#ffffff', ink: '#000000', accent: '#0037da' }, dark: { paper: '#000000', ink: '#e6e6e6', accent: '#6aa6ff', head: '#ffffff' } }, /* Terminal B's second (2026-10-02): a terminal's plain black and white */
 		{ id: 'deepblue', label: 'Deep blue', light: { paper: '#f4f7fa', ink: '#1a2a3a', accent: '#1856c4' }, dark: { paper: '#0c1824', ink: '#c6d2de', accent: '#86b6ff', head: '#f2f6fa' } }, /* Terminal B's third (2026-10-02): a night sea */
-		{ id: 'draft', label: 'Drafting blue', light: { paper: '#f6f8fa', ink: '#173a72', accent: '#173a72' }, dark: { paper: '#174b8d', ink: '#f3f8ff', accent: '#f3f8ff' } }, /* Blueprint B (2026-10-02): the lab's cyanotype by night, the drafting sheet by day, the accent the ink on both (it was #edf1f6/#23395f/#2a5bc0 and #133a7c/#eaf1ff/#a9cbff) */
-		{ id: 'lamplight', label: 'Lamplight', light: { paper: '#f3e1c6', ink: '#342817', accent: '#8b5727' }, dark: { paper: '#221d17', ink: '#faecd8', accent: '#e0b490' }, ground: { light: '#e4cfb2', dark: '#1b1713' } }, /* Book's (2026-10-02, lab/the-article-in-book.html): by day the Paper pair's own paper, ink, accent and ground; by night a deep warm brown under Paper's cream (13:1) where Paper's mid brown held the cream at 7.8 and the dates at 3.3 */
 		{ id: 'limelight', label: 'Lime night', light: { paper: '#f4f5f6', ink: '#08090a', accent: '#5c6300' }, dark: { paper: '#0f1011', ink: '#f4f6f8', accent: '#e4f222' } }, /* Instrument's (2026-09-20); the night ink a cool near-white since 1.3.312, so the softened text under it takes the reference's bluish grey */
-		{ id: 'gallery', label: 'Gallery', ground: 'paper', light: { paper: '#f5f5f7', ink: '#1d1d1f', accent: '#0066cc' }, dark: { paper: '#000000', ink: '#f5f5f7', accent: '#2997ff' }, lift: { light: '#ffffff', dark: '#1d1d1f' }, frame: { light: '#e3e3e8', dark: '#161617' } }, /* GREY PAPER, WHITE TILES BY DAY (Manuel, 2026-10-02, Gallery B: "I really like it"): the reference's day is a light grey page #f5f5f7 with white tiles on it, the way its night is a black page with grey cards; the cards, buttons and boxes take the white lift, and on Architrave the ground goes a step deeper (#e3e3e8) so the paper keeps its edge. The link blue holds 5.2:1 on the grey. Its name loses "white" (it was "Gallery white"); the id stays, saved styles name the set by id. */ /* BLACK PAPER, GREY CARDS BY NIGHT (Manuel, 2026-09-26, lab/gallery-by-night.html, A with the box fixed + A2: the night "more like" the reference's dark product page): its black page with its dark grey cards #1d1d1f standing clearly off it, and on Architrave its footer grey #161617 as the ground, so the paper keeps its edge. The black no longer swallows the fills, because the cards, buttons and hovers take the lift instead of a mix of the paper. */ /* Gallery's (Manuel, 2026-09-26, "go"): the reference's white, its near-black ink and its link blue #0066cc (5.6:1 on white) by day; by night #121212 (black since, with its own lift: see above), a black that fills can show on (Manuel, the same day: cards, quotes and hovers "basically invisible" on #000000 — every fill is a step above the paper, and on true black it landed at #0a0a0a, which screens crush to black), with a sky blue that reads there (6.2:1) — the blue tint alone drew a signal blue, rgb 0 0 255 */
-		{ id: 'bootblue', label: 'Boot blue', light: { paper: '#fcf9f3', ink: '#1a1a1a', accent: '#3535a0' }, dark: { paper: '#3535a0', ink: '#fcf9f3', accent: '#fcf9f3' } }, /* Tube's (2026-09-30): the boot screen's blue with cream type by night; by day the cream page with the blue as its accent */
-		{ id: 'silver', label: 'Silver', light: { paper: '#dddcd6', ink: '#1b1b19', accent: '#1b1b19' }, dark: { paper: '#1b1c1b', ink: '#e9e7e0', accent: '#f4f3ef' } }, /* AN OLD SET'S SCREEN (2026-10-02, Tube B): no true black, the glass's own grey; a white a breath warm; the set has no colour, so by day the accent is the ink */
-		{ id: 'aged', label: 'Aged phosphor', light: { paper: '#e3dccd', ink: '#231c15', accent: '#231c15' }, dark: { paper: '#1d1915', ink: '#efe4cf', accent: '#f7f1e7' } }, /* the same set grown old: its white gone to cream (2026-10-02, Tube B) */
-		{ id: 'greygreen', label: 'Green-grey', light: { paper: '#dbe1d6', ink: '#161b16', accent: '#161b16' }, dark: { paper: '#121713', ink: '#dde9da', accent: '#eef4ec' } }, /* the first sets' faintly green white (2026-10-02, Tube B) */
-		{ id: 'television', label: 'Television', light: { paper: '#e6e8ec', ink: '#14161a', accent: '#14161a' }, dark: { paper: '#0e1014', ink: '#e6eaf1', accent: '#ffffff' } }, /* A BREATH OF BLUE IN THE WHITE, NO BLUE LINK (2026-09-30, lab/the-tube.html): a black-and-white tube's phosphor leaned cool, and the set has no colour, so by day the accent is the ink */ /* Tube's (2026-09-30): white phosphor on near black by night, a light grey screen by day, the boot blue as the day's accent */
-		{ id: 'newsprint', label: 'Newsprint', light: { paper: '#ebe3d1', ink: '#1c1a17', accent: '#1c1a17' }, dark: { paper: '#1e1a15', ink: '#f1e8d6', accent: '#f1e8d6' } }, /* Brochure's (2026-09-30): the aged white of a magazine page, its ink the accent too, as an advertisement's; by night the same page under a lamp */
-		{ id: 'cabinet', label: 'Cabinet', light: { paper: '#f1efe8', ink: '#16141d', accent: '#16141d' }, dark: { paper: '#07070b', ink: '#f1f1f7', accent: '#ffd23f' } }, /* Arcade's (2026-10-02): a colour cabinet's black screen with yellow, which is what to look at and press; by day the cabinet's printed side, a warm white, where a yellow word cannot be read, so the accent is the ink and the yellow stays on the button (the tile's own well) */
-		{ id: 'riso', label: 'Riso red', light: { paper: '#f7eee3', ink: '#ea3323', accent: '#ea3323', head: '#ea3323', kicker: '#ea3323', button: '#ea3323' }, dark: { paper: '#241512', ink: '#ff6b57', accent: '#ff6b57', head: '#ff6b57', kicker: '#ff6b57', button: '#ff6b57' }, ground: { light: '#efe3d4', dark: '#1c100d' } }, /* Risograph's (2026-10-02, lab/the-article-in-risograph.html): ONE RED for text, titles, links and buttons, his pick on the sheet ("One red"): 3.7:1 on the oatmeal by day, under the 4.5 line for small text, chosen knowingly; the lifted red 6.3:1 on the brown by night. The ground (frame and rail) a shade darker than the paper. */
-		{ id: 'riviera', label: 'Riviera', light: { paper: '#f7efe2', ink: '#2f1b15', accent: '#2d6a4c', head: '#a83e22', kicker: '#a83e22', button: '#a83e22', inverse: '#b84b30' }, dark: { paper: '#261613', ink: '#f3e8d8', accent: '#93c9a7', head: '#ef9f7d', kicker: '#ef9f7d', button: '#ef9f7d' }, ground: { dark: '#4f1915' }, groundInk: '#f8f4e9' }, /* the rail's words by day in Terracotta's cream (4.6:1 on the rust), not the white the ground's choice finds (Manuel, 2026-10-02) */ /* Aperitivo's (2026-10-02, lab/the-article-in-terracotta.html): by day a cream page (ink 14:1, the rust titles 5.6:1, the shutter green 6.1:1) on Corten's rust ground (inverse, worn under Dark ground); by night an espresso page (cream 14:1, clay titles 7.2:1, sage 9:1) on a bordeaux ground */
-		{ id: 'film', label: 'Film green', light: { paper: '#e8f4ea', ink: '#04260f', accent: '#007a28', head: '#04260f' }, dark: { paper: '#020a04', ink: '#00ff41', accent: '#d4ffdf', head: '#4dff7a' } }, /* Matrix's (2026-10-02, lab/the-matrix.html): by night the film's code, nearly black with a green that burns (#00ff41, 14.8:1), the head of a falling line white-hot as the accent and the title a step toward it; by day a pale green sheet with a deep green ink (14.4:1) and its link (4.9:1) */
-		{ id: 'vellum', label: 'Vellum', light: { paper: '#f6f6f4', ink: '#2c2c26', accent: '#6f6c42' }, dark: { paper: '#23231f', ink: '#f2f1ea', accent: '#c9c48a' } }, /* Catalogue's (2026-09-24): the reference's warm cream and warm near-black by day; its link olive #7e7b4e held 4.0:1 on the cream, so one step darker (5.0:1). By night its dark footer's ground and a khaki from its tags. */
 		/* THE LAB'S EIGHT NEW BOLD ONES (lab/the-panel-prototype.html, 2026-09-28): strong papers, shown with a New badge and always in the Bold group */
 		{ id: 'vermilion', label: 'Vermilion', light: { paper: '#b82a16', ink: '#fff6ec', accent: '#ffe680' }, dark: { paper: '#2a0a06', ink: '#ffd9cc', accent: '#ff7a5c' }, fresh: true, group: 'bold' },
 		{ id: 'ultramarine', label: 'Ultramarine', light: { paper: '#1f33c9', ink: '#f2f4ff', accent: '#ffd23f' }, dark: { paper: '#0a0f33', ink: '#dfe4ff', accent: '#8c98ff' }, fresh: true, group: 'bold' },
@@ -3204,9 +2322,6 @@
 				if (out[from].marker && !out[to].marker && out.derived[from].indexOf('marker') === -1) { out[to].marker = out[from].marker; out.derived[to].push('marker'); }
 			});
 		});
-		/* PHOSPHOR ON THE NIGHT ONLY, laid on after the crossing: the day is derived from the style's own night, never from the phosphor (Classic in amber had an amber day, 2026-10-01, the panel audit). What the night derives (the button, the roles' colours) is then fitted to the phosphor's paper below. */
-		var phNow = coloursOf(id);
-		['paper', 'ink', 'accent'].forEach(function (k) { if (phNow.dark[k] && phNow.dark[k] !== out.dark[k] && PHOSPHOR[pickOf('phosphor')]) { out.dark[k] = phNow.dark[k]; var at = out.derived.dark.indexOf(k); if (at !== -1) out.derived.dark.splice(at, 1); } });
 		/* The accent last, once each side's paper is known: the pair's own paper
 		   where the style sets none, read off the registry's swatch. */
 		['light', 'dark'].forEach(function (side) {
@@ -3866,7 +2981,7 @@
 	// The backstage door (`?backstage`, 2026-09-09 to 2026-09-25) is gone: it was
 	// the working preview of hidden tiles, and whoever may publish sees every
 	// tile since 0.9.8, so it had nothing left to open.
-	var SHOWN = ['standard', 'instrument', 'catalogue', 'terracotta', 'specimen', 'tube', 'brochure', 'arcade', 'risograph']; /* Risograph shown from its first day (2026-10-02: "Bring it live") */ /* Tube and Brochure shown from their first day (Manuel, 2026-09-30: "make them live on the site as new styles") */ /* Specimen shown on Manuel's word (2026-09-26, "show it in the panel") */ /* Terracotta shown on Manuel's word the day it arrived (2026-09-26, "show it in the panel") */ /* Catalogue shown from its first day (2026-09-24), as Instrument was */ /* Instrument shown since 1.3.310 (2026-09-20, the same evening: "is it a new tile? I can't see it"); the ask had been a tile IN the panel */ /* console: the new Terminal, public from its first day on Manuel's word (2026-09-19); terminal is Matrix now */ /* Poster public 2026-09-12 (1.1.878) */ /* Arcade shown since 0.15.31 (Manuel, 2026-10-02: "bring it live") */
+	var SHOWN = ['standard', 'instrument']; /* the two left on 2026-10-02 (archive/styles); the earlier list and its notes are in the tag styles-archive-0.15.58 */
 
 	/* THE MARKS: the style that is on carries the check, and "adjusted" after
 	   its name while the dials are off its recipe. The way back shows while
@@ -4475,7 +3590,7 @@
 			DIALS.forEach(function (d) { out[d] = w[d]; });
 			OPTS.forEach(function (k) { out[k] = optionOn(k); });
 			var loose = followers();
-			out.tint = tintOf(); out.sans = sansOf(); out.scope = scopeOf(); out.pictures = picturesOf(); out.capLines = capLinesOf(); out.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { out[k] = pickOf(k); }); out.scan = levelOf('scan'); out.line = levelOf('line'); out.fill = levelOf('fill'); out.glowlevel = levelOf('glowlevel'); out.grainlevel = levelOf('grainlevel'); out.vignettelevel = levelOf('vignettelevel'); out.vignettereach = levelOf('vignettereach'); out.softlevel = levelOf('softlevel'); out.quietlevel = levelOf('quietlevel'); out.smallsoft = levelOf('smallsoft'); out.linestyle = lineStyleOf(); out.corners = cornersOf(); out.fadeedges = fadeEdgesOf(); out.markercolour = markerColourOf(); out.framepattern = framePatternOf(); out.measure = levelOf('measure'); out.space = levelOf('space'); out.framewidth = levelOf('framewidth'); out.dotsize = levelOf('dotsize'); out.dotlevel = levelOf('dotlevel');
+			out.tint = tintOf(); out.sans = sansOf(); out.scope = scopeOf(); out.pictures = picturesOf(); out.capLines = capLinesOf(); out.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { out[k] = pickOf(k); }); out.line = levelOf('line'); out.fill = levelOf('fill'); out.grainlevel = levelOf('grainlevel'); out.softlevel = levelOf('softlevel'); out.quietlevel = levelOf('quietlevel'); out.smallsoft = levelOf('smallsoft'); out.linestyle = lineStyleOf(); out.corners = cornersOf(); out.fadeedges = fadeEdgesOf(); out.markercolour = markerColourOf(); out.framepattern = framePatternOf(); out.measure = levelOf('measure'); out.space = levelOf('space'); out.framewidth = levelOf('framewidth');
 			loose.forEach(function (k) { delete out[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			if (unlinkedOf()) out.unlinked = true; /* save and update carried it, the text did not: a shared or published style arrived with its sides linked (2026-09-26) */
 			out.roles = {};
@@ -4583,7 +3698,7 @@
 			DIALS.forEach(function (d) { entry[d] = s.host ? now()[d] : w[d]; });
 			OPTS.forEach(function (k) { entry[k] = optionOn(k); });
 			var loose = followers();
-			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.scan = levelOf('scan'); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.glowlevel = levelOf('glowlevel'); entry.grainlevel = levelOf('grainlevel'); entry.vignettelevel = levelOf('vignettelevel'); entry.vignettereach = levelOf('vignettereach'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); entry.space = levelOf('space'); entry.framewidth = levelOf('framewidth'); entry.dotsize = levelOf('dotsize'); entry.dotlevel = levelOf('dotlevel'); entry.unlinked = unlinkedOf();
+			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.grainlevel = levelOf('grainlevel'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); entry.space = levelOf('space'); entry.framewidth = levelOf('framewidth'); entry.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete entry[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			entry.roles = {};
 			ROLES.forEach(function (role) {
@@ -4609,7 +3724,7 @@
 			DIALS.forEach(function (d) { s[d] = w[d]; });
 			OPTS.forEach(function (k) { s[k] = optionOn(k); });
 			var loose = followers();
-			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.scan = levelOf('scan'); s.line = levelOf('line'); s.fill = levelOf('fill'); s.glowlevel = levelOf('glowlevel'); s.grainlevel = levelOf('grainlevel'); s.vignettelevel = levelOf('vignettelevel'); s.vignettereach = levelOf('vignettereach'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); s.space = levelOf('space'); s.framewidth = levelOf('framewidth'); s.dotsize = levelOf('dotsize'); s.dotlevel = levelOf('dotlevel'); s.unlinked = unlinkedOf();
+			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.line = levelOf('line'); s.fill = levelOf('fill'); s.grainlevel = levelOf('grainlevel'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); s.space = levelOf('space'); s.framewidth = levelOf('framewidth'); s.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete s[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			s.roles = s.roles || {};
 			ROLES.forEach(function (role) { if (tw.roles && tw.roles[role]) { s.roles[role] = s.roles[role] || {}; Object.keys(tw.roles[role]).forEach(function (k) { s.roles[role][k] = tw.roles[role][k]; }); } });
@@ -4797,7 +3912,7 @@
 			writeTweaks(all);
 			applyCapLines(); mark();
 		},
-		levels: { scan: LEVELS.scan.stops, line: LEVELS.line.stops, fill: LEVELS.fill.stops, glowlevel: LEVELS.glowlevel.stops, grainlevel: LEVELS.grainlevel.stops, vignettelevel: LEVELS.vignettelevel.stops, vignettereach: LEVELS.vignettereach.stops, softlevel: LEVELS.softlevel.stops, quietlevel: LEVELS.quietlevel.stops, smallsoft: LEVELS.smallsoft.stops, measure: LEVELS.measure.stops, space: LEVELS.space.stops, framewidth: LEVELS.framewidth.stops, dotsize: LEVELS.dotsize.stops, dotlevel: LEVELS.dotlevel.stops },
+		levels: { line: LEVELS.line.stops, fill: LEVELS.fill.stops, grainlevel: LEVELS.grainlevel.stops, softlevel: LEVELS.softlevel.stops, quietlevel: LEVELS.quietlevel.stops, smallsoft: LEVELS.smallsoft.stops, measure: LEVELS.measure.stops, space: LEVELS.space.stops, framewidth: LEVELS.framewidth.stops,  },
 		level: function (k) { return LEVELS[k] ? levelOf(k) : ''; },
 		setLevel: function (k, v) {
 			var L = LEVELS[k]; if (!L || L.stops.indexOf(v) === -1) return;
@@ -4857,7 +3972,7 @@
 			if (v === ((s && d.list.indexOf(s[key]) !== -1) ? s[key] : pickRest(key))) delete entry[key]; else entry[key] = v;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
-			applyPicks(); if (key === 'greytint' || key === 'phosphor') applyColours(); mark();
+			applyPicks(); if (key === 'greytint') applyColours(); mark();
 		},
 		buttonColours: BUTTONS,
 		buttonColour: buttonOf,
@@ -5077,7 +4192,7 @@
 	}
 
 	/* A TILE'S REST THAT MOVED REACHES WHO WORE IT (Manuel, 2026-09-30, Brochure B live: "sorry but that looks so different. Make it like in the lab"). The four dials are kept by their own scripts under their own keys, so a browser that wore a tile keeps the tile's OLD size, face and leading when a release changes them, and the next echo records them as an adjustment nobody made (his Brochure stood in the small Garamond of its first version under the new tile's everything else). A tile names the rests it has left here. At load: a record whose dials are exactly an old rest loses them, and where that tile is on and the page still wears an old rest, the tile's dials are pressed again. A reader who changed any dial away from the old rest has made a choice and keeps it. */
-	var RESTED = { instrument: [{ palette: 'neutral', reading: 'small', face: 'inter', leading: 'default' }], gallery: [{ palette: 'neutral', reading: 'small', face: 'inter', leading: 'snug' }], storybook: [{ palette: 'neutral', reading: 'small', face: 'inter', leading: 'snug' }], specimen: [{ palette: 'neutral', reading: 'small', face: 'inter-tight', leading: 'snug' }], terracotta: [{ palette: 'neutral', reading: 'small', face: 'source-serif-4', leading: 'snug' }], /* the five that read small before the styles review (2026-10-02) */ console: [{ palette: 'neutral', reading: 'default', face: 'mono', leading: 'relaxed' }], /* console: the tile's dials before Terminal B (2026-10-02) */ arcade: [{ palette: 'arcade', reading: 'default', face: 'geist', leading: 'default' }], /* arcade: the tile's dials before Arcade B (0.15.31) */ brochure: [{ palette: 'neutral', reading: 'small', face: 'eb-garamond', leading: 'snug' }], terminal: [{ palette: 'terminal', reading: 'default', face: 'martian-mono', leading: 'relaxed' }], large: [{ palette: 'grey', reading: 'large', face: 'hyperlegible', leading: 'airy' }] /* Poster's rest before Poster B (0.15.38) */ }; /* Matrix's rest before 2026-10-02 (Matrix B) */
+	var RESTED = { instrument: [{ palette: 'neutral', reading: 'small', face: 'inter', leading: 'default' }] }; /* the other tiles' old rests left with them (2026-10-02) */
 	function restMoved() {
 		var all = readTweaks(), changed = false;
 		Object.keys(RESTED).forEach(function (id) {

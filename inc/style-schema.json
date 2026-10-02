@@ -3,21 +3,7 @@
   "label": "string, at most 40 characters",
   "base": [
     "standard",
-    "book",
-    "large",
-    "terminal",
-    "console",
-    "blueprint",
-    "instrument",
-    "catalogue",
-    "gallery",
-    "storybook",
-    "specimen",
-    "terracotta",
-    "risograph",
-    "arcade",
-    "tube",
-    "brochure"
+    "instrument"
   ],
   "palette": [
     "neutral",
@@ -166,7 +152,6 @@
   "picturedim": "boolean",
   "picturefade": "boolean",
   "pictureframe": "boolean",
-  "dots": "boolean",
   "marker": "boolean",
   "widepicture": "boolean",
   "fullpicture": [
@@ -181,10 +166,7 @@
   "tagsfollow": "boolean",
   "soft": "boolean",
   "alternates": "boolean",
-  "scanlines": "boolean",
-  "glow": "boolean",
   "grain": "boolean",
-  "vignette": "boolean",
   "tint": [
     "purple",
     "brown",
@@ -298,33 +280,14 @@
     "sepia",
     "duo",
     "accent",
-    "halftone",
-    "dither",
-    "onebit",
     "grain",
-    "trace",
-    "pixel",
     "warm",
-    "oldset",
-    "riso",
     "hidden"
   ],
   "capLines": [
     "2",
     "3",
     "4"
-  ],
-  "scan": [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10"
   ],
   "line": [
     "6",
@@ -347,18 +310,6 @@
     "200",
     "300"
   ],
-  "glowlevel": [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10"
-  ],
   "grainlevel": [
     "1",
     "2",
@@ -370,26 +321,6 @@
     "8",
     "9",
     "10"
-  ],
-  "vignettelevel": [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "10"
-  ],
-  "vignettereach": [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6"
   ],
   "softlevel": [
     "10",
@@ -454,18 +385,6 @@
     "24",
     "32"
   ],
-  "dotsize": [
-    "16",
-    "24",
-    "32"
-  ],
-  "dotlevel": [
-    "6",
-    "9",
-    "13",
-    "18",
-    "24"
-  ],
   "framepattern": [
     "plain",
     "dots",
@@ -514,8 +433,7 @@
     "shadow",
     "tinted",
     "gray",
-    "text",
-    "key"
+    "text"
   ],
   "buttonmedium": [
     "gray",
@@ -577,9 +495,7 @@
   "titlefinish": [
     "flat",
     "shine",
-    "accent",
-    "spectrum",
-    "violet"
+    "accent"
   ],
   "headitalics": [
     "same",
@@ -630,237 +546,13 @@
     "off",
     "on"
   ],
-  "monitorframe": [
-    "off",
-    "thin",
-    "medium",
-    "thick"
-  ],
-  "fringe": [
-    "off",
-    "faint",
-    "soft",
-    "strong",
-    "slip",
-    "sliptitle"
-  ],
-  "crisp": [
-    "off",
-    "headings",
-    "all"
-  ],
-  "scanstyle": [
-    "lines",
-    "grille",
-    "both",
-    "dark",
-    "thick"
-  ],
-  "shimmer": [
-    "off",
-    "soft",
-    "roll"
-  ],
-  "warp": [
-    "off",
-    "slight",
-    "bulged",
-    "strong"
-  ],
-  "switchon": [
-    "off",
-    "on"
-  ],
-  "bloom": [
-    "off",
-    "soft",
-    "strong"
-  ],
-  "ghosting": [
-    "off",
-    "on"
-  ],
-  "jitter": [
-    "off",
-    "rare",
-    "often"
-  ],
-  "graincrawl": [
-    "still",
-    "moving"
-  ],
-  "typedtitle": [
-    "off",
-    "on",
-    "decode"
-  ],
-  "bootscreen": [
-    "off",
-    "on",
-    "card",
-    "rain",
-    "wake",
-    "coin",
-    "warm"
-  ],
-  "roomglass": [
-    "off",
-    "on"
-  ],
-  "phosphor": [
-    "off",
-    "blue",
-    "green",
-    "amber",
-    "white",
-    "black"
-  ],
-  "static": [
-    "off",
-    "on"
-  ],
-  "dropout": [
-    "off",
-    "on"
-  ],
-  "headrule": [
-    "off",
-    "on"
-  ],
-  "ink": [
-    "sharp",
-    "spread"
-  ],
-  "tooth": [
-    "off",
-    "faint",
-    "light",
-    "medium",
-    "strong",
-    "on"
-  ],
-  "edges": [
-    "ink",
-    "yellowed"
-  ],
-  "columns": [
-    "1",
-    "2",
-    "3"
-  ],
   "paragraphs": [
     "spaced",
     "indented"
   ],
-  "rainbow": [
-    "off",
-    "rule",
-    "mark",
-    "both",
-    "logo"
-  ],
-  "postband": [
-    "off",
-    "rainbow",
-    "logo"
-  ],
-  "footband": [
-    "off",
-    "on",
-    "plate"
-  ],
-  "menuline": [
-    "plain",
-    "underlined"
-  ],
-  "legalline": [
-    "off",
-    "on"
-  ],
-  "stripes": [
-    "solid",
-    "gaps"
-  ],
   "sitename": [
     "plain",
-    "caps",
-    "marquee",
-    "title"
-  ],
-  "sheetgrid": [
-    "off",
-    "squared",
-    "fine",
-    "dots"
-  ],
-  "gridstrength": [
-    "medium",
-    "faint",
-    "strong"
-  ],
-  "sheetborder": [
-    "off",
-    "line",
-    "zones"
-  ],
-  "mottle": [
-    "off",
-    "soft",
-    "strong"
-  ],
-  "printedges": [
-    "off",
-    "soft",
-    "strong"
-  ],
-  "pen": [
-    "off",
-    "medium",
-    "bold"
-  ],
-  "dimensions": [
-    "off",
-    "on"
-  ],
-  "guidelines": [
-    "off",
-    "on"
-  ],
-  "bubbles": [
-    "off",
-    "on"
-  ],
-  "titleblock": [
-    "off",
-    "on"
-  ],
-  "scalerule": [
-    "off",
-    "on"
-  ],
-  "oldpaper": [
-    "off",
-    "sun",
-    "spots",
-    "both"
-  ],
-  "printink": [
-    "neutral",
-    "warm"
-  ],
-  "titlemark": [
-    "off",
-    "short",
-    "wide"
-  ],
-  "rainbowlinks": [
-    "off",
-    "hover",
-    "always"
-  ],
-  "rainbowcap": [
-    "off",
-    "on"
+    "caps"
   ],
   "capface": [
     "text",
@@ -873,105 +565,6 @@
     "few",
     "any",
     "off"
-  ],
-  "coupon": [
-    "off",
-    "on"
-  ],
-  "fold": [
-    "off",
-    "one",
-    "three"
-  ],
-  "edgeson": [
-    "window",
-    "paper"
-  ],
-  "nightground": [
-    "same",
-    "inverted"
-  ],
-  "codemarks": [
-    "off",
-    "prompt",
-    "glyphs"
-  ],
-  "coderain": [
-    "off",
-    "faint",
-    "clear"
-  ],
-  "headwidth": [
-    "normal",
-    "narrow",
-    "narrowest"
-  ],
-  "textgrid": [
-    "off",
-    "double",
-    "one"
-  ],
-  "mdmarks": [
-    "off",
-    "on"
-  ],
-  "frontmatter": [
-    "off",
-    "on"
-  ],
-  "textmode": [
-    "off",
-    "on"
-  ],
-  "windowbar": [
-    "off",
-    "on"
-  ],
-  "statusline": [
-    "off",
-    "pager",
-    "bar"
-  ],
-  "prompt": [
-    "off",
-    "still",
-    "typed"
-  ],
-  "cursorshape": [
-    "blink",
-    "still",
-    "bar"
-  ],
-  "extrusion": [
-    "off",
-    "diagonal",
-    "down"
-  ],
-  "pixelcorners": [
-    "off",
-    "on"
-  ],
-  "powerbar": [
-    "off",
-    "on"
-  ],
-  "awning": [
-    "off",
-    "stripes",
-    "scallops"
-  ],
-  "stamp": [
-    "off",
-    "on"
-  ],
-  "titlesign": [
-    "off",
-    "wave",
-    "star"
-  ],
-  "headstar": [
-    "off",
-    "on"
   ],
   "piccorners": [
     "cards",
@@ -992,64 +585,6 @@
   "widefigures": [
     "off",
     "on"
-  ],
-  "arrival": [
-    "none",
-    "rise",
-    "zoom"
-  ],
-  "glassbar": [
-    "off",
-    "on"
-  ],
-  "boxbuttons": [
-    "pill",
-    "link"
-  ],
-  "listtiles": [
-    "off",
-    "on"
-  ],
-  "tilehover": [
-    "off",
-    "grow"
-  ],
-  "tubeface": [
-    "off",
-    "round",
-    "square"
-  ],
-  "tvcabinet": [
-    "off",
-    "walnut",
-    "bakelite"
-  ],
-  "ghostimage": [
-    "off",
-    "titles",
-    "all"
-  ],
-  "titlecard": [
-    "off",
-    "on"
-  ],
-  "humbar": [
-    "off",
-    "slow"
-  ],
-  "headblock": [
-    "off",
-    "on"
-  ],
-  "sectionrules": [
-    "off",
-    "thin",
-    "thick"
-  ],
-  "sectionnumbers": [
-    "off",
-    "written",
-    "counted"
   ],
   "unlinked": "boolean",
   "effects": {
@@ -1312,43 +847,6 @@
         "second",
         "accent",
         "ink"
-      ]
-    },
-    "monitor": {
-      "curve": [
-        "round",
-        "slight",
-        "bulged"
-      ],
-      "sheen": [
-        "off",
-        "on"
-      ]
-    },
-    "warp": {
-      "direction": [
-        "in",
-        "out"
-      ]
-    },
-    "glow": {
-      "reach": [
-        "all",
-        "headings"
-      ]
-    },
-    "vignette": {
-      "night": [
-        "same",
-        "half"
-      ],
-      "colour": [
-        "ink",
-        "black"
-      ],
-      "day": [
-        "same",
-        "half"
       ]
     }
   },

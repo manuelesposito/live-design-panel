@@ -126,7 +126,7 @@
 	var wearing = 0;
 	var settled = 0;
 	function rewear() { siteColour(); if (docked === 'slot') wear(); else if (docked) dock(); }
-	var NO_LOOK = /^(class|data-ldp-crossing|data-ldp-booting|data-rail-ready|data-comments-side)$/;
+	var NO_LOOK = /^(class|data-ldp-crossing|data-rail-ready|data-comments-side)$/;
 	new MutationObserver(function (ms) { if (ms.every(function (m) { return NO_LOOK.test(m.attributeName || ''); })) return; cancelAnimationFrame(wearing); wearing = requestAnimationFrame(rewear); clearTimeout(settled); settled = setTimeout(rewear, 500); })
 		.observe(document.documentElement, { attributes: true }); 
 	function toMenu() {
