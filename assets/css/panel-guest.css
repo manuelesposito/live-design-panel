@@ -2634,6 +2634,91 @@ html:root[data-print-ink="warm"]:not([data-theme$="-dark"]), html:root[data-prin
 	content: "\2702\FE0E"; position: absolute; top: -.72em; left: calc(var(--ldp-col-inset, 0px) + 28px); padding: 0 8px;
 	font: 20px/1 var(--font-reading); color: color-mix(in oklab, var(--text-primary) 70%, transparent); background: var(--surface-base);
 }
+:root[data-awning] {
+	--ldp-stripe: color-mix(in oklab, var(--surface-base), #ffffff 55%);
+}
+:root[data-awning][data-theme$="-dark"] {
+	--ldp-stripe: color-mix(in oklab, var(--text-primary), var(--surface-base) 22%);
+}
+:root[data-awning] body.has-frame .frame-paper > .content-column > .ldp-awning {
+	display: block; position: absolute; z-index: 0; inset-block-start: 0; inset-inline: 0; block-size: 64px; max-inline-size: none; margin: 0; pointer-events: none;
+}
+:root[data-awning] .ldp-awning::before {
+	content: ""; position: absolute; z-index: 1; inset-inline: 0; inset-block-start: 0; block-size: 7px; background: var(--ldp-field, var(--surface-canvas)); box-shadow: 0 2px 0 rgb(0 0 0 / .08);
+}
+:root[data-awning] .ldp-awning > .ldp-stripes {
+	position: absolute; inset: 0 0 13px; background: linear-gradient(to bottom, rgb(0 0 0 / .1), transparent 40%), repeating-linear-gradient(90deg, var(--ldp-field, var(--surface-canvas)) 0 28px, var(--ldp-stripe) 28px 56px);
+}
+:root[data-awning] .ldp-awning > .ldp-scallop {
+	position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 13px; background: radial-gradient(circle at 14px 0, var(--ldp-field, var(--surface-canvas)) 13.5px, transparent 14px) 0 0 / 56px 13px repeat-x, radial-gradient(circle at 42px 0, var(--ldp-stripe) 13.5px, transparent 14px) 0 0 / 56px 13px repeat-x;
+}
+:root[data-awning="scallops"] .ldp-awning > .ldp-stripes {
+	background: var(--ldp-field, var(--surface-canvas));
+}
+:root[data-awning="scallops"] .ldp-awning > .ldp-scallop {
+	background: radial-gradient(circle at 14px 0, var(--ldp-field, var(--surface-canvas)) 13.5px, transparent 14px) 0 0 / 28px 13px repeat-x;
+}
+:root[data-awning] body.has-frame .frame-paper > .content-column {
+	padding-block-start: var(--ldp-awning-room, 0px);
+}
+:root:not(#live-design-panel-guard)[data-awning] body.has-frame :is(.paper-stack, .rail-collapse-corner, .rail-expand-search, .comments-open, .rail-expand) .quire-button:not(:hover) {
+	background-color: var(--surface-base);
+}
+:root[data-stamp] .single-post-article > figure.wp-block-post-featured-image:has(> .ldp-stamp) {
+	position: relative; overflow: visible;
+}
+:root[data-stamp] .single-post-article .ldp-stamp {
+	display: block; position: absolute; z-index: 2; inset-block-start: -46px; inset-inline-end: -38px; inline-size: 112px; block-size: 112px; max-inline-size: none; margin: 0; rotate: -12deg; color: var(--head-colour, var(--text-primary)); pointer-events: none;
+}
+:root[data-stamp] .ldp-stamp svg {
+	display: block; inline-size: 100%; block-size: 100%; overflow: visible;
+}
+:root[data-stamp] .ldp-stamp .ldp-stamp-paper {
+	fill: var(--surface-base);
+}
+:root[data-stamp] .ldp-stamp :is(circle:not(.ldp-stamp-paper)) {
+	fill: none; stroke: currentColor;
+}
+:root[data-stamp] .ldp-stamp text {
+	fill: currentColor; font-family: var(--kicker-face, var(--font-sans)); font-size: 10.5px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+}
+:root[data-stamp] .ldp-stamp text.ldp-stamp-mid {
+	font-family: var(--head-face, var(--font-reading)); font-size: 30px; font-style: var(--head-style, normal); font-weight: var(--head-weight, 600); letter-spacing: 0; text-transform: none;
+}
+@media (max-width: 700px) {
+	:root[data-stamp] .single-post-article .ldp-stamp {
+		inline-size: 84px; block-size: 84px; inset-block-start: -36px; inset-inline-end: -6px;
+	}
+}
+:root[data-title-sign] :is(.single-post-article > .wp-block-post-title, .post-card .wp-block-post-title:not(.quire-visually-hidden)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: ''; display: block; inline-size: 84px; block-size: 12px; margin-block-start: .35em; margin-inline: auto; border-radius: 0; background: var(--head-colour, var(--text-primary));
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='12' viewBox='0 0 28 12'><path d='M0 6 Q7 0 14 6 T28 6' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'/></svg>") 0 0 / 28px 12px repeat-x;
+	mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='12' viewBox='0 0 28 12'><path d='M0 6 Q7 0 14 6 T28 6' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round'/></svg>") 0 0 / 28px 12px repeat-x;
+}
+:root[data-title-sign]:not([data-head-align="center"]) :is(.single-post-article > .wp-block-post-title, .post-card .wp-block-post-title:not(.quire-visually-hidden)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	margin-inline: 0;
+}
+:root[data-title-sign="star"] :is(.single-post-article > .wp-block-post-title, .post-card .wp-block-post-title:not(.quire-visually-hidden)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: "✶"; inline-size: auto; block-size: auto; background: none; -webkit-mask: none; mask: none; color: var(--head-colour, var(--text-primary)); font: 400 22px/1 var(--font-sans); font-style: normal; letter-spacing: 0; text-transform: none; text-align: inherit;
+}
+:root[data-head-star] .single-post-article .wp-block-post-content > h2::before {
+	content: "✶"; display: block; margin-block-end: .45em; font: 400 15px/1 var(--font-sans); font-style: normal; letter-spacing: 0; text-transform: none; color: var(--accent);
+}
+:root[data-pic-corners="square"] .content-column :is(img:not(.emoji, .avatar, .wp-block-site-logo img), figure, .wp-block-post-featured-image, .wp-block-gallery, .wp-block-image):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	border-radius: 0;
+}
+:root[data-pictures="warm"] {
+	--picture-filter: sepia(.18) saturate(1.12) contrast(1.02);
+}
+html:root[data-cap-face="title"] {
+	--reading-dropcap-face: var(--head-face, var(--font-reading)); --reading-dropcap-weight: min(900, calc(var(--head-weight, 600) + 200)); --reading-dropcap-settings: "opsz" 11;
+}
+:root[data-dropcap="on"][data-cap-face="title"] :is(.single-post-article .wp-block-post-content, .post-card :is(.post-body, .post-format-body) :is(.wp-block-post-excerpt, .entry-content)) > p:first-of-type::first-letter {
+	font-style: var(--head-style, normal); color: var(--head-colour, inherit);
+}
+:root[data-site-name="title"] :is(.sidebar-logo-section .wp-block-site-title a, .mobile-nav-bar .wp-block-site-title a, .ldp-plate-name):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	font-family: var(--head-face, var(--font-reading)); font-weight: var(--head-weight, 600); font-style: var(--head-style, normal); font-size: 1.3em; letter-spacing: -0.01em; text-transform: none;
+}
 :root[data-extrusion="diagonal"] {
 	--ldp-ext-1: 2px 2px 0 var(--fx-second), 4px 4px 0 var(--fx-second), 6px 6px 0 var(--fx-second); --ldp-ext-2: 2px 2px 0 var(--fx-second), 4px 4px 0 var(--fx-second);
 }

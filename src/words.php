@@ -273,6 +273,7 @@ function architrave_panel_words( $words ) {
 		'Drafting blue' => _x( 'Drafting blue', 'a colour preset', 'live-design-panel' ), /* Blueprint's (2026-09-19) */
 		'Lime night'    => _x( 'Lime night', 'a colour preset', 'live-design-panel' ), /* Instrument's (2026-09-20) */
 		'Lamplight'     => _x( 'Lamplight', 'a colour preset', 'live-design-panel' ), /* Book's (2026-10-02) */
+		'Riviera'       => _x( 'Riviera', 'a colour preset', 'live-design-panel' ), /* Aperitivo's (2026-10-02) */
 		'Cactus light'  => _x( 'Cactus light', 'a colour preset', 'live-design-panel' ),
 		'Mallow evening' => _x( 'Mallow evening', 'a colour preset', 'live-design-panel' ),
 		'Rust desert'   => _x( 'Rust desert', 'a colour preset', 'live-design-panel' ),
@@ -611,6 +612,18 @@ function architrave_panel_words( $words ) {
 		'Grow' => __( 'Grow', 'live-design-panel' ),
 		'Spectrum' => __( 'Spectrum', 'live-design-panel' ),
 		'Blue to violet' => __( 'Blue to violet', 'live-design-panel' ),
+		/* Aperitivo (2026-10-02, lab/the-article-in-terracotta.html): the five new picks and the new values of Pictures, Drop cap font and Site name */
+		'Awning' => __( 'Awning', 'live-design-panel' ),
+		'Scallops only' => __( 'Scallops only', 'live-design-panel' ),
+		'Stamp' => __( 'Stamp', 'live-design-panel' ),
+		'Mark under the title' => __( 'Mark under the title', 'live-design-panel' ),
+		'Wave' => __( 'Wave', 'live-design-panel' ),
+		'Star' => __( 'Star', 'live-design-panel' ),
+		'Star over headings' => __( 'Star over headings', 'live-design-panel' ),
+		'Picture corners' => __( 'Picture corners', 'live-design-panel' ),
+		'Sun-warmed' => __( 'Sun-warmed', 'live-design-panel' ),
+		'The pictures in their own colours, a little warmer, as in late afternoon light.' => __( 'The pictures in their own colours, a little warmer, as in late afternoon light.', 'live-design-panel' ),
+		'Title font' => __( 'Title font', 'live-design-panel' ),
 		'Insert coin' => __( 'Insert coin', 'live-design-panel' ),
 		'Press start' => __( 'Press start', 'live-design-panel' ),
 		'1 coin' => __( '1 coin', 'live-design-panel' ),

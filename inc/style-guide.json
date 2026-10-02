@@ -82,7 +82,7 @@
     "menuline": "The side column's menu links: plain (the rest) or underlined in the ink, as a printed page sets its navigation.",
     "legalline": "A small italic line at the foot of the page, an advertisement's small print: the copyright sign, the year, the site's name and its tagline. Only words the site already has. Off (the rest) or on.",
     "stripes": "How the rainbow bands between posts and at the page foot are drawn: solid (the rest, six stripes edge to edge) or gaps (six thinner stripes with paper between them, in softer hues).",
-    "sitename": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark) or marquee (in the headings' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet's marquee).",
+    "sitename": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark), marquee (in the headings' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet's marquee) or title (in the heading role's own face, weight and slant, a size up, as a sign over the door).",
     "sheetgrid": "Squared paper under the page, scrolling with it: off (the rest), squared (a hairline every 12px and a heavier one every fifth, engineering paper), fine (the small squares only) or dots (a point at each big crossing). Drawn in the ink by night, in a pale cut of it by day.",
     "gridstrength": "How strongly the drawing grid shows: medium (the rest), faint or strong. Only with a drawing grid.",
     "sheetborder": "The edge of a drawing sheet on the paper: off (the rest), line (a heavy line on the paper's edge) or zones (the line with zone numbers along the top and foot and letters down the sides, left out where the paper's corner squares sit). Architrave's paper only.",
@@ -99,7 +99,7 @@
     "titlemark": "The six rainbow stripes as a small mark under the article's title: off (the rest), short or wide (as wide as the reading).",
     "rainbowlinks": "The links in the reading underlined in the six rainbow stripes: off (the rest), hover (when the pointer is on a link) or always.",
     "rainbowcap": "The drop cap's letter filled with the six rainbow stripes: off (the rest) or on. Shows with Drop cap on.",
-    "capface": "The drop cap's letter: text (the rest, the reading text's own face and weight), bold (the reading face in bold, as the title) or fraunces (a soft old-style display capital). Shows with Drop cap on.",
+    "capface": "The drop cap's letter: text (the rest, the reading text's own face and weight), bold (the reading face in bold, as the title), fraunces (a soft old-style display capital) or title (the heading role's own face, weight, slant and colour). Shows with Drop cap on.",
     "hyphenate": "Where words break at the line's end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).",
     "coupon": "A dashed cut line with scissors above the page's foot, as old advertisements ended with an order coupon: off (the rest) or on.",
     "fold": "A soft crease on the paper, as a folded brochure: off (the rest), one (down the middle) or three (two creases, three panels). On a light paper only.",
@@ -119,6 +119,11 @@
     "extrusion": "The title and the headings standing out of the page on a hard block of the second light, one step a pixel, no blur, as an arcade marquee's letters: off (the rest), diagonal or down. The title three steps deep, a heading two. Composes with the glow, the bloom and the fringe.",
     "pixelcorners": "The corner a pixel screen draws when it rounds: the paper's corners and the pictures' cut in stairs of whole pixels. Off (the rest) or on. Best with square corners.",
     "powerbar": "How far the reader is, the arcade's way: twenty blocks along the paper's foot, one lit for every twentieth read, the last one lit in the second light. Off (the rest) or on. Architrave's paper only.",
+    "awning": "A café's awning across the top of the paper, in the ground's colour and the paper's, scrolling away with the page: off (the rest), stripes (striped, its edge cut in scallops) or scallops (one colour, the scalloped edge only). Architrave's paper only.",
+    "stamp": "A round stamp on the corner of an article's opening picture, as on a postcard: the site's name and the article's first category around it, the name's first letter inside, in the title's colour. Off (the rest) or on. Architrave's articles only.",
+    "titlesign": "A small mark under the article's title, in the title's colour, standing where the highlighter's bar stands: off (the rest), wave (a short wave, the sea in front of the café) or star (a six-pointed star).",
+    "headstar": "A small star over each of the article's section headings, in the accent: off (the rest) or on.",
+    "piccorners": "The pictures' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).",
     "subcolour": "The colour of the article's section headings when the headings' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text's colour, so only the title stands in the colour).",
     "opening": "The article's first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave's page only.",
     "widefigures": "The pictures in the article's text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave's page only.",
@@ -149,7 +154,7 @@
     "vignette": "A darkening at the page's four edges, as a screen's glass has.",
     "vignettelevel": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
     "vignettereach": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
-    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), hidden (no images; each article picture becomes a line that shows it).",
+    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), hidden (no images; each article picture becomes a line that shows it).",
     "picturehover": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
     "alternates": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
     "soft": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
@@ -461,21 +466,24 @@
     },
     "terracotta": {
       "architrave": 1,
-      "label": "Terracotta",
+      "label": "Aperitivo",
       "base": "terracotta",
       "space": "spacious",
       "palette": "neutral",
       "tint": "orange",
-      "button": "ink",
+      "button": "own",
+      "buttonstyle": "outlined",
+      "buttonshape": "pill",
+      "darkground": true,
       "sans": "schibsted-grotesk",
       "reading": "small",
       "face": "source-serif-4",
       "leading": "snug",
       "justify": false,
-      "dropcap": false,
+      "dropcap": true,
+      "capface": "title",
       "rounded": true,
       "corners": "medium",
-      "buttonshape": "pill",
       "lines": true,
       "line": "20",
       "scope": "article",
@@ -483,21 +491,25 @@
       "soft": false,
       "widepicture": true,
       "pictureframe": false,
+      "piccorners": "square",
       "marker": true,
       "markercolour": "orange",
+      "awning": "stripes",
+      "stamp": "on",
+      "titlesign": "wave",
+      "sitename": "title",
       "roles": {
         "head": {
-          "face": "schibsted-grotesk",
+          "face": "bodoni-moda",
           "weight": "semibold",
+          "italic": true,
           "size": "56",
-          "caps": true,
-          "tracking": "p12",
           "leading": "tight",
           "align": "center",
+          "colour": "own",
           "members": {
             "sub": {
-              "size": "28",
-              "caps": true
+              "size": "28"
             }
           }
         },
@@ -508,7 +520,8 @@
           "caps": true,
           "tracking": "p10",
           "italic": false,
-          "align": "center"
+          "align": "center",
+          "colour": "own"
         },
         "small": {
           "face": "dm-mono",
@@ -522,14 +535,14 @@
       },
       "colours": {
         "light": {
-          "paper": "#b84b30",
-          "ink": "#f8f4e9",
-          "accent": "#ffffff"
+          "paper": "#f7efe2",
+          "ink": "#2f1b15",
+          "accent": "#2d6a4c"
         },
         "dark": {
-          "paper": "#5f1d1a",
-          "ink": "#f8f4e9",
-          "accent": "#f2b49c"
+          "paper": "#261613",
+          "ink": "#f3e8d8",
+          "accent": "#93c9a7"
         }
       }
     },
@@ -1270,6 +1283,27 @@
         "paper": "#07070b",
         "ink": "#f1f1f7",
         "accent": "#ffd23f"
+      }
+    },
+    {
+      "id": "riviera",
+      "label": "Riviera",
+      "light": {
+        "paper": "#f7efe2",
+        "ink": "#2f1b15",
+        "accent": "#2d6a4c",
+        "head": "#a83e22",
+        "kicker": "#a83e22",
+        "button": "#a83e22",
+        "inverse": "#b84b30"
+      },
+      "dark": {
+        "paper": "#261613",
+        "ink": "#f3e8d8",
+        "accent": "#93c9a7",
+        "head": "#ef9f7d",
+        "kicker": "#ef9f7d",
+        "button": "#ef9f7d"
       }
     },
     {

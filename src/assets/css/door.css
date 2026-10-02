@@ -811,6 +811,8 @@
 /* THE DRAWING OFFICE (2026-10-02, Blueprint): the parts presets.js drawingOffice() builds rest hidden; their picks show them (style.css THE DRAWING OFFICE) */
 .ldp-trace-ink { flood-color: var(--text-primary); } /* the traced pictures' lines, in the ink of whatever surface they sit on */
 .ldp-sheet, .ldp-sheet > *, .ldp-zone, .ldp-tick, .ldp-rule, .ldp-dim, .ldp-titleblock { display: none; }
+/* THE AWNING (2026-10-02, Aperitivo): the awning and the stamp presets.js cafeParts() builds rest hidden; their picks show them (style.css THE AWNING) */
+.ldp-awning, .ldp-stamp { display: none; }
 /* THE CABINET (2026-10-02, Arcade B): the power bar presets.js cabinet() builds rests hidden, the pick shows it (style.css THE CABINET); the extrusion's two depths rest empty. */
 .ldp-power { display: none; }
 /* THE GALLERY (2026-10-02, Gallery B): the glass presets.js galleryWays() lays on the paper rests hidden, the pick shows it (style.css THE GALLERY). */

@@ -157,6 +157,11 @@
       "extrusion",
       "pixelcorners",
       "powerbar",
+      "awning",
+      "stamp",
+      "titlesign",
+      "headstar",
+      "piccorners",
       "subcolour",
       "opening",
       "widefigures",
@@ -293,6 +298,11 @@
       "extrusion",
       "pixelcorners",
       "powerbar",
+      "awning",
+      "stamp",
+      "titlesign",
+      "headstar",
+      "piccorners",
       "subcolour",
       "opening",
       "widefigures",
@@ -1508,7 +1518,7 @@
       "level": 4,
       "row": {
         "drawn": "grid",
-        "line": 2013,
+        "line": 2014,
         "in": "presetGrid"
       },
       "changesPage": "Colour",
@@ -1541,7 +1551,7 @@
       "level": 1,
       "row": {
         "drawn": "stepper",
-        "line": 866,
+        "line": 867,
         "in": "level1"
       },
       "changesPage": "Type › Reading text",
@@ -1661,7 +1671,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1558,
+        "line": 1559,
         "in": "fontRow"
       },
       "changesPage": "Type › Reading text",
@@ -1702,7 +1712,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1938,
+        "line": 1939,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1726,7 +1736,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1965,
+        "line": 1966,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1762,7 +1772,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1968,
+        "line": 1969,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1794,7 +1804,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1195,
+        "line": 1196,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1826,7 +1836,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1203,
+        "line": 1204,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1858,7 +1868,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1211,
+        "line": 1212,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1890,7 +1900,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1268,
+        "line": 1269,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1922,7 +1932,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1190,
+        "line": 1191,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1954,7 +1964,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1209,
+        "line": 1210,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1986,7 +1996,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1123,
+        "line": 1124,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2018,7 +2028,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1124,
+        "line": 1125,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2050,7 +2060,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1180,
+        "line": 1181,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2082,7 +2092,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1130,
+        "line": 1131,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2114,7 +2124,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1222,
+        "line": 1223,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2146,7 +2156,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1223,
+        "line": 1224,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2178,7 +2188,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1224,
+        "line": 1225,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2210,7 +2220,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1226,
+        "line": 1227,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2242,7 +2252,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1256,
+        "line": 1257,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2304,7 +2314,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1225,
+        "line": 1226,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2336,7 +2346,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1260,
+        "line": 1261,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2368,7 +2378,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1190,
+        "line": 1191,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2400,7 +2410,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1200,
+        "line": 1201,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2563,7 +2573,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1558,
+        "line": 1559,
         "in": "fontRow"
       },
       "changesPage": "Type › Interface",
@@ -2636,16 +2646,17 @@
         "grain",
         "trace",
         "pixel",
+        "warm",
         "hidden"
       ],
       "def": "plain",
-      "means": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), hidden (no images; each article picture becomes a line that shows it).",
+      "means": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), hidden (no images; each article picture becomes a line that shows it).",
       "label": "Picture effects",
       "page": "Pictures",
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1237,
+        "line": 1238,
         "in": "picturesBody"
       },
       "changesPage": "Pictures",
@@ -2679,7 +2690,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1969,
+        "line": 1970,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -2708,7 +2719,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1273,
+        "line": 1274,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2737,7 +2748,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1190,
+        "line": 1191,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2767,7 +2778,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1188,
+        "line": 1189,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2798,7 +2809,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1200,
+        "line": 1201,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2832,7 +2843,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1202,
+        "line": 1203,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2865,7 +2876,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1202,
+        "line": 1203,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2898,7 +2909,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1202,
+        "line": 1203,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2930,7 +2941,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1202,
+        "line": 1203,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2961,7 +2972,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1202,
+        "line": 1203,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2992,7 +3003,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1206,
+        "line": 1207,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3024,7 +3035,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1210,
+        "line": 1211,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3054,7 +3065,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1210,
+        "line": 1211,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3084,7 +3095,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1210,
+        "line": 1211,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3114,7 +3125,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1210,
+        "line": 1211,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3146,7 +3157,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3178,7 +3189,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3208,7 +3219,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3238,7 +3249,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3268,7 +3279,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3300,7 +3311,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3330,7 +3341,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3361,7 +3372,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3391,7 +3402,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3420,7 +3431,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3451,7 +3462,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3484,7 +3495,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3514,7 +3525,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3545,7 +3556,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3575,7 +3586,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3606,7 +3617,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3635,7 +3646,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3665,7 +3676,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3694,7 +3705,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3724,7 +3735,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3753,7 +3764,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3783,7 +3794,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3816,7 +3827,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3876,7 +3887,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3907,7 +3918,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3936,7 +3947,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3965,7 +3976,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3994,7 +4005,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4027,7 +4038,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4056,7 +4067,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4086,7 +4097,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4115,7 +4126,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4147,7 +4158,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4177,7 +4188,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4207,7 +4218,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4236,7 +4247,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4265,7 +4276,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4294,7 +4305,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4314,17 +4325,18 @@
       "choices": [
         "plain",
         "caps",
-        "marquee"
+        "marquee",
+        "title"
       ],
       "def": "plain",
       "attr": "data-site-name",
-      "means": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark) or marquee (in the headings' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet's marquee).",
+      "means": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark), marquee (in the headings' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet's marquee) or title (in the heading role's own face, weight and slant, a size up, as a sign over the door).",
       "label": "Site name",
       "page": "Effects",
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4355,7 +4367,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4385,7 +4397,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4415,7 +4427,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4445,7 +4457,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4475,7 +4487,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4505,7 +4517,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4534,7 +4546,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4563,7 +4575,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4592,7 +4604,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4621,7 +4633,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4650,7 +4662,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4681,7 +4693,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4710,7 +4722,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4740,7 +4752,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4770,7 +4782,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4790,17 +4802,18 @@
       "choices": [
         "text",
         "bold",
-        "fraunces"
+        "fraunces",
+        "title"
       ],
       "def": "text",
       "attr": "data-cap-face",
-      "means": "The drop cap's letter: text (the rest, the reading text's own face and weight), bold (the reading face in bold, as the title) or fraunces (a soft old-style display capital). Shows with Drop cap on.",
+      "means": "The drop cap's letter: text (the rest, the reading text's own face and weight), bold (the reading face in bold, as the title), fraunces (a soft old-style display capital) or title (the heading role's own face, weight, slant and colour). Shows with Drop cap on.",
       "label": "Drop cap font",
       "page": "Type › Reading text",
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1970,
+        "line": 1971,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -4831,7 +4844,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1967,
+        "line": 1968,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -4860,7 +4873,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4889,7 +4902,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4919,7 +4932,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4948,7 +4961,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4977,7 +4990,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5007,7 +5020,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5037,7 +5050,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5067,7 +5080,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5097,7 +5110,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5126,7 +5139,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5155,7 +5168,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5184,7 +5197,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5213,7 +5226,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5243,7 +5256,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5273,7 +5286,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5303,7 +5316,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5333,7 +5346,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5362,7 +5375,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5391,7 +5404,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5400,6 +5413,153 @@
       ],
       "rest": {
         "data-power-bar": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "awning",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "stripes",
+        "scallops"
+      ],
+      "def": "off",
+      "attr": "data-awning",
+      "means": "A café's awning across the top of the paper, in the ground's colour and the paper's, scrolling away with the page: off (the rest), stripes (striped, its edge cut in scallops) or scallops (one colour, the scalloped edge only). Architrave's paper only.",
+      "label": "Awning",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1230,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-awning"
+      ],
+      "rest": {
+        "data-awning": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "stamp",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-stamp",
+      "means": "A round stamp on the corner of an article's opening picture, as on a postcard: the site's name and the article's first category around it, the name's first letter inside, in the title's colour. Off (the rest) or on. Architrave's articles only.",
+      "label": "Stamp",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1230,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-stamp"
+      ],
+      "rest": {
+        "data-stamp": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "titlesign",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "wave",
+        "star"
+      ],
+      "def": "off",
+      "attr": "data-title-sign",
+      "means": "A small mark under the article's title, in the title's colour, standing where the highlighter's bar stands: off (the rest), wave (a short wave, the sea in front of the café) or star (a six-pointed star).",
+      "label": "Mark under the title",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1230,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-title-sign"
+      ],
+      "rest": {
+        "data-title-sign": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "headstar",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-head-star",
+      "means": "A small star over each of the article's section headings, in the accent: off (the rest) or on.",
+      "label": "Star over headings",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1230,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-head-star"
+      ],
+      "rest": {
+        "data-head-star": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "piccorners",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "cards",
+        "square"
+      ],
+      "def": "cards",
+      "attr": "data-pic-corners",
+      "means": "The pictures' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).",
+      "label": "Picture corners",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1230,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-pic-corners"
+      ],
+      "rest": {
+        "data-pic-corners": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -5420,7 +5580,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5449,7 +5609,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5478,7 +5638,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5508,7 +5668,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5537,7 +5697,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5566,7 +5726,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5595,7 +5755,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5624,7 +5784,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5653,7 +5813,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5683,7 +5843,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5713,7 +5873,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1229,
+        "line": 1230,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5751,7 +5911,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1222,
+        "line": 1223,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5791,7 +5951,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1204,
+        "line": 1205,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -5830,7 +5990,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1212,
+        "line": 1213,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -5871,7 +6031,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1223,
+        "line": 1224,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5912,7 +6072,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1224,
+        "line": 1225,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5953,7 +6113,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1226,
+        "line": 1227,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5990,7 +6150,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1226,
+        "line": 1227,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -6029,7 +6189,7 @@
       "level": 4,
       "row": {
         "drawn": "slider",
-        "line": 1257,
+        "line": 1258,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -6159,7 +6319,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1207,
+        "line": 1208,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -6189,7 +6349,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1197,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -6218,7 +6378,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1181,
+        "line": 1182,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -6252,7 +6412,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1261,
+        "line": 1262,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -6281,7 +6441,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1132,
+        "line": 1133,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -6317,7 +6477,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1186,
+        "line": 1187,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -6353,7 +6513,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1176,
+        "line": 1177,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -6390,7 +6550,7 @@
       "level": 16,
       "row": {
         "drawn": "slider",
-        "line": 1132,
+        "line": 1133,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -6424,7 +6584,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1225,
+        "line": 1226,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -6460,7 +6620,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1225,
+        "line": 1226,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -6487,7 +6647,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 2095,
+        "line": 2096,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -6744,7 +6904,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1558,
+        "line": 1559,
         "in": "fontRow"
       },
       "changesPage": "Type › {role}",
@@ -6846,7 +7006,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1592,
+        "line": 1593,
         "in": "weightRow"
       },
       "changesPage": "Type › {role}",
@@ -6987,7 +7147,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1633,
+        "line": 1634,
         "in": "sizeBlock"
       },
       "changesPage": "Type › {role}",
@@ -7077,7 +7237,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1951,
+        "line": 1952,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -7159,7 +7319,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1952,
+        "line": 1953,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -7211,7 +7371,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1579,
+        "line": 1580,
         "in": "capsRow"
       },
       "changesPage": "Type › {role}",
@@ -7278,7 +7438,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1575,
+        "line": 1576,
         "in": "italicRow"
       },
       "changesPage": "Type › {role}",
@@ -7345,7 +7505,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1938,
+        "line": 1939,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -7388,7 +7548,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1604,
+        "line": 1605,
         "in": "switchRows"
       },
       "changesPage": "Type › {role}",
@@ -7426,7 +7586,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1598,
+        "line": 1599,
         "in": "colourRow"
       },
       "changesPage": "Type › {role}",
@@ -7549,7 +7709,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1852,
+        "line": 1853,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7629,7 +7789,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1853,
+        "line": 1854,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7693,7 +7853,7 @@
       "level": 11,
       "row": {
         "drawn": "switch + switch",
-        "line": 1793,
+        "line": 1794,
         "in": "OWN_WORD"
       },
       "changesPage": "Type › {role}",
@@ -7790,7 +7950,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1854,
+        "line": 1855,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7854,7 +8014,7 @@
       "level": 11,
       "row": {
         "drawn": "pop-up",
-        "line": 1850,
+        "line": 1851,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7890,7 +8050,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2152,
+        "line": 2153,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7917,7 +8077,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2153,
+        "line": 2154,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7944,7 +8104,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2154,
+        "line": 2155,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7979,7 +8139,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1278,
+        "line": 1279,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -8010,7 +8170,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1602,
+        "line": 1603,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -8041,7 +8201,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1602,
+        "line": 1603,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -8072,12 +8232,16 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2160,
+        "line": 2161,
         "in": "level4"
       },
       "changesPage": "Colour",
-      "attrs": [],
-      "rest": false,
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
       "inStandardAtRest": false
     },
     {
@@ -8099,7 +8263,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2161,
+        "line": 2162,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -8126,7 +8290,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1263,
+        "line": 1264,
         "in": "colourMore"
       },
       "changesPage": "Colour",

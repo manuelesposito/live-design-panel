@@ -531,6 +531,7 @@
 .ldp-foot, .ldp-legal, .ldp-footband, .ldp-plate { display: none; }
 .ldp-trace-ink { flood-color: var(--text-primary); } 
 .ldp-sheet, .ldp-sheet > *, .ldp-zone, .ldp-tick, .ldp-rule, .ldp-dim, .ldp-titleblock { display: none; }
+.ldp-awning, .ldp-stamp { display: none; }
 .ldp-power { display: none; }
 .ldp-glass { display: none; }
 :root { --ldp-ext-1: 0 0 0 transparent; --ldp-ext-2: 0 0 0 transparent; }

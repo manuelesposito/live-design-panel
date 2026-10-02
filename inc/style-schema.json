@@ -303,6 +303,7 @@
     "grain",
     "trace",
     "pixel",
+    "warm",
     "hidden"
   ],
   "capLines": [
@@ -777,7 +778,8 @@
   "sitename": [
     "plain",
     "caps",
-    "marquee"
+    "marquee",
+    "title"
   ],
   "sheetgrid": [
     "off",
@@ -857,7 +859,8 @@
   "capface": [
     "text",
     "bold",
-    "fraunces"
+    "fraunces",
+    "title"
   ],
   "hyphenate": [
     "auto",
@@ -945,6 +948,28 @@
   "powerbar": [
     "off",
     "on"
+  ],
+  "awning": [
+    "off",
+    "stripes",
+    "scallops"
+  ],
+  "stamp": [
+    "off",
+    "on"
+  ],
+  "titlesign": [
+    "off",
+    "wave",
+    "star"
+  ],
+  "headstar": [
+    "off",
+    "on"
+  ],
+  "piccorners": [
+    "cards",
+    "square"
   ],
   "subcolour": [
     "title",
