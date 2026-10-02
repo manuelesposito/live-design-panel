@@ -200,8 +200,18 @@
 			metas[i].setAttribute('content', canvas);
 		}
 	}
+	var telling = false;
+	function tellSoon() {
+		if (telling) return;
+		telling = true;
+		var go = function () { if (!telling) return; telling = false; tellBrowser(); };
+		if (window.requestAnimationFrame) window.requestAnimationFrame(go);
+		setTimeout(go, 250); /* a hidden tab draws no frames */
+	}
 	if (window.MutationObserver) {
-		new MutationObserver(tellBrowser).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+		/* ON THE NEXT FRAME (2026-10-02): read straight away, the colour made the browser restyle the whole page in the
+		   middle of a change of look, 70 to 140 ms on elmastudio.de; a frame later the page is restyled once anyway. */
+		new MutationObserver(tellSoon).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
 	}
 
 	var unfollow = function () {};
@@ -214,7 +224,7 @@
 		for (var i = 0; i < Modes.modes.length; i++) {
 			if (Modes.modes[i].id === applied) root.style.colorScheme = Modes.modes[i].scheme;
 		}
-		tellBrowser();
+		tellSoon();
 		return applied;
 	}
 
@@ -581,7 +591,9 @@
 				btn.classList.toggle('is-active', on);
 				btn.setAttribute('aria-pressed', on ? 'true' : 'false');
 			});
-			seatChip(instant);
+			/* inside a change of look, on the next frame (2026-10-02): measured here, the chip made the browser restyle the
+			   whole page in the middle of the change, which the look's own fade hides anyway */
+			if (window.architraveRestyling && window.requestAnimationFrame) window.requestAnimationFrame(function () { seatChip(true); }); else seatChip(instant);
 			document.querySelectorAll(PICKER + '[data-palette]').forEach(function (btn) {
 				var on = btn.getAttribute('data-palette') === state.palette;
 				btn.classList.toggle('is-selected', on);
@@ -699,7 +711,10 @@
 			   from a background tab, or by a script while the tab was away, left
 			   the old pair on (measured 2026-09-14). The cross-fade is for eyes
 			   that are on the page; without them, the swap runs plain. */
-			if (document.startViewTransition && document.visibilityState === 'visible') {
+			/* ONE FADE FOR A CHANGE OF LOOK (2026-10-02): a style that is put on presses the palette from inside its own
+			   cross-fade (presets.js, apply), and a second transition started there cancelled the first and photographed
+			   the page again. The look's fade carries the colours; the swap simply happens inside it. */
+			if (document.startViewTransition && document.visibilityState === 'visible' && !window.architraveRestyling) {
 				/* a transition a newer one replaces is skipped, which is no fault: its promises are caught (2026-09-27, Versions shows two looks in quick turn) */
 				try { var vt = document.startViewTransition(swap); [vt.ready, vt.finished, vt.updateCallbackDone].forEach(function (p) { if (p && p.catch) p.catch(function () {}); }); } catch (e) { swap(); }
 			} else swap();

@@ -129,7 +129,7 @@
 	@media (prefers-reduced-motion: no-preference) {
 		::view-transition-old(root),
 		::view-transition-new(root) {
-			animation-duration: 320ms;
+			animation-duration: 200ms; 
 			animation-timing-function: var(--motion-easing-standard, cubic-bezier(0.2, 0, 0, 1));
 		}
 	}

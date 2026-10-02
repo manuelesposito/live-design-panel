@@ -102,8 +102,16 @@
 			metas[i].setAttribute('content', canvas);
 		}
 	}
+	var telling = false;
+	function tellSoon() {
+		if (telling) return;
+		telling = true;
+		var go = function () { if (!telling) return; telling = false; tellBrowser(); };
+		if (window.requestAnimationFrame) window.requestAnimationFrame(go);
+		setTimeout(go, 250); 
+	}
 	if (window.MutationObserver) {
-		new MutationObserver(tellBrowser).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+		new MutationObserver(tellSoon).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
 	}
 	var unfollow = function () {};
 	function paint() {
@@ -113,7 +121,7 @@
 		for (var i = 0; i < Modes.modes.length; i++) {
 			if (Modes.modes[i].id === applied) root.style.colorScheme = Modes.modes[i].scheme;
 		}
-		tellBrowser();
+		tellSoon();
 		return applied;
 	}
 	var initial = paint();
@@ -294,7 +302,7 @@
 				btn.classList.toggle('is-active', on);
 				btn.setAttribute('aria-pressed', on ? 'true' : 'false');
 			});
-			seatChip(instant);
+			if (window.architraveRestyling && window.requestAnimationFrame) window.requestAnimationFrame(function () { seatChip(true); }); else seatChip(instant);
 			document.querySelectorAll(PICKER + '[data-palette]').forEach(function (btn) {
 				var on = btn.getAttribute('data-palette') === state.palette;
 				btn.classList.toggle('is-selected', on);
@@ -350,7 +358,8 @@
 				paint();
 				paintControls();
 			}
-			if (document.startViewTransition && document.visibilityState === 'visible') {
+			
+			if (document.startViewTransition && document.visibilityState === 'visible' && !window.architraveRestyling) {
 				try { var vt = document.startViewTransition(swap); [vt.ready, vt.finished, vt.updateCallbackDone].forEach(function (p) { if (p && p.catch) p.catch(function () {}); }); } catch (e) { swap(); }
 			} else swap();
 		});
