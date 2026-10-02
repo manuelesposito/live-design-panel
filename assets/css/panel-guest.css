@@ -1798,6 +1798,12 @@
 :root[data-edges="yellowed"] {
 	--ldp-vig-ink: #8a6420;
 }
+:root[data-edges-on="paper"][data-edges="yellowed"] body.has-frame:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	background-image: radial-gradient(ellipse at center, transparent var(--surface-vignette-reach, 55%), rgb(from var(--ldp-vig-ink) r g b / 0) 100%), var(--ldp-scan-layer), var(--ldp-grille-layer);
+}
+:root[data-edges-on="paper"][data-edges="yellowed"] body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: ""; position: absolute; inset: 0; z-index: 3; border-radius: inherit; pointer-events: none; background: radial-gradient(ellipse at center, transparent var(--surface-vignette-reach, 55%), rgb(from var(--ldp-vig-ink) r g b / var(--surface-vignette)) 100%);
+}
 :root[data-warp="slight"] body.has-frame .frame-paper {
 	filter: url(#ldp-warp-slight);
 }
@@ -2201,11 +2207,26 @@
 :root[data-ink="spread"] :is(.single-post-article .wp-block-post-content, body.single .entry-content):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	filter: blur(.3px) contrast(1.25);
 }
-:root[data-tooth="on"] {
+:root[data-tooth] {
 	--surface-layer: '';
 }
-:root[data-tooth="on"] body::before {
+:root[data-tooth] body::before {
 	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='340' height='340'><filter id='t'><feTurbulence type='fractalNoise' baseFrequency='0.32' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.5 0 0 0 0 0.4 0 0 0 0.9 0.1'/></filter><rect width='340' height='340' filter='url(%23t)'/></svg>"); background-size: 340px 340px; mix-blend-mode: multiply; opacity: calc(var(--surface-grain, 0) + .22);
+}
+:root[data-tooth="faint"] {
+	--ldp-tooth-k: .03;
+}
+:root[data-tooth="light"] {
+	--ldp-tooth-k: .06;
+}
+:root[data-tooth="medium"] {
+	--ldp-tooth-k: .1;
+}
+:root[data-tooth="strong"] {
+	--ldp-tooth-k: .15;
+}
+:root[data-tooth]:not([data-tooth="on"]) body::before {
+	opacity: var(--ldp-tooth-k);
 }
 :root[data-columns] :is(.single-post-article .wp-block-post-content, body.single .entry-content):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	column-gap: var(--space-8);

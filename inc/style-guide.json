@@ -72,7 +72,7 @@
     "dropout": "The title in the paper's colour on a block of ink, a headline over a photograph: off (the rest) or on.",
     "headrule": "A rule under the title: off (the rest) or on.",
     "ink": "Print bleeds a hair: sharp (the rest) or spread, the letters a little softer and heavier.",
-    "tooth": "A coarser grain, the tooth of magazine stock: off (the rest) or on.",
+    "tooth": "Paper's tooth, the grain of a printed sheet: off (the rest), faint, light, medium or strong (the tooth alone at that strength) or on (the full tooth over the grain).",
     "edges": "The vignette's colour: ink (the rest) or yellowed, an old page's brown.",
     "columns": "The article's sections in columns: 1 (the rest), 2 or 3. Each heading with its text balances into its columns and the next starts below; one column on a phone.",
     "paragraphs": "Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.",
@@ -103,6 +103,8 @@
     "hyphenate": "Where words break at the line's end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).",
     "coupon": "A dashed cut line with scissors above the page's foot, as old advertisements ended with an order coupon: off (the rest) or on.",
     "fold": "A soft crease on the paper, as a folded brochure: off (the rest), one (down the middle) or three (two creases, three panels). On a light paper only.",
+    "edgeson": "Where the yellowed edges lie: window (the rest, around the whole window) or paper (inside the framed paper's corners only, the rail clean). With Edges yellowed; a page without a frame keeps the whole window.",
+    "nightground": "With the dark ground on, what the rail does by night: same (the rest, dark like the page) or inverted (the rail and the ground take the day's colours beside the night's paper).",
     "codemarks": "A terminal's marks in the article: off (the rest), prompt (a prompt before the category line and the headings, a blinking cursor after the date, dashes for the list's dots) or glyphs (the prompt with a run of mirrored code glyphs beside the category line and as the list's markers).",
     "coderain": "Falling lines of code on the paper beside the article, never under its words: off (the rest), faint or clear. In the ink, each line's head in the accent. Still for readers who ask for less motion.",
     "headwidth": "The title's and the headings' letters drawn narrower, where the heading face has a width axis (Martian Mono has): normal (the rest), narrow or narrowest. The site's name takes it too.",
@@ -770,6 +772,8 @@
       "titlemark": "short",
       "rainbowlinks": "hover",
       "coupon": "on",
+      "edgeson": "paper",
+      "nightground": "inverted",
       "roles": {
         "head": {
           "face": "stix-two-text",

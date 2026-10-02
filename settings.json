@@ -141,6 +141,8 @@
       "hyphenate",
       "coupon",
       "fold",
+      "edgeson",
+      "nightground",
       "codemarks",
       "coderain",
       "headwidth",
@@ -275,6 +277,8 @@
       "hyphenate",
       "coupon",
       "fold",
+      "edgeson",
+      "nightground",
       "codemarks",
       "coderain",
       "headwidth",
@@ -4009,11 +4013,15 @@
       "kind": "pick",
       "choices": [
         "off",
+        "faint",
+        "light",
+        "medium",
+        "strong",
         "on"
       ],
       "def": "off",
       "attr": "data-tooth",
-      "means": "A coarser grain, the tooth of magazine stock: off (the rest) or on.",
+      "means": "Paper's tooth, the grain of a printed sheet: off (the rest), faint, light, medium or strong (the tooth alone at that strength) or on (the full tooth over the grain).",
       "label": "Paper tooth",
       "page": "Effects",
       "level": 17,
@@ -4920,6 +4928,64 @@
       ],
       "rest": {
         "data-fold": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "edgeson",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "window",
+        "paper"
+      ],
+      "def": "window",
+      "attr": "data-edges-on",
+      "means": "Where the yellowed edges lie: window (the rest, around the whole window) or paper (inside the framed paper's corners only, the rail clean). With Edges yellowed; a page without a frame keeps the whole window.",
+      "label": "Yellowed edges on",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-edges-on"
+      ],
+      "rest": {
+        "data-edges-on": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "nightground",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "same",
+        "inverted"
+      ],
+      "def": "same",
+      "attr": "data-night-ground",
+      "means": "With the dark ground on, what the rail does by night: same (the rest, dark like the page) or inverted (the rail and the ground take the day's colours beside the night's paper).",
+      "label": "Rail at night",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-night-ground"
+      ],
+      "rest": {
+        "data-night-ground": "ABSENT"
       },
       "inStandardAtRest": false
     },

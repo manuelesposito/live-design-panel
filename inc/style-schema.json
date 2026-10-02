@@ -726,6 +726,10 @@
   ],
   "tooth": [
     "off",
+    "faint",
+    "light",
+    "medium",
+    "strong",
     "on"
   ],
   "edges": [
@@ -869,6 +873,14 @@
     "off",
     "one",
     "three"
+  ],
+  "edgeson": [
+    "window",
+    "paper"
+  ],
+  "nightground": [
+    "same",
+    "inverted"
   ],
   "codemarks": [
     "off",
