@@ -104,6 +104,7 @@
     "atkinson-hyperlegible-mono",
     "roboto-mono",
     "google-sans-code",
+    "share-tech-mono",
     "geist-pixel",
     "pixelify-sans",
     "silkscreen",
@@ -254,6 +255,7 @@
     "atkinson-hyperlegible-mono",
     "roboto-mono",
     "google-sans-code",
+    "share-tech-mono",
     "geist-pixel",
     "pixelify-sans",
     "silkscreen",
@@ -671,12 +673,15 @@
   ],
   "typedtitle": [
     "off",
-    "on"
+    "on",
+    "decode"
   ],
   "bootscreen": [
     "off",
     "on",
-    "card"
+    "card",
+    "rain",
+    "wake"
   ],
   "roomglass": [
     "off",
@@ -839,6 +844,21 @@
     "off",
     "one",
     "three"
+  ],
+  "codemarks": [
+    "off",
+    "prompt",
+    "glyphs"
+  ],
+  "coderain": [
+    "off",
+    "faint",
+    "clear"
+  ],
+  "headwidth": [
+    "normal",
+    "narrow",
+    "narrowest"
   ],
   "unlinked": "boolean",
   "effects": {
@@ -1130,6 +1150,14 @@
       "night": [
         "same",
         "half"
+      ],
+      "colour": [
+        "ink",
+        "black"
+      ],
+      "day": [
+        "same",
+        "half"
       ]
     }
   },
@@ -1202,6 +1230,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -1483,6 +1512,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -1786,6 +1816,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -1984,6 +2015,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -2192,6 +2224,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -2692,6 +2725,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -3130,6 +3164,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -3758,6 +3793,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",

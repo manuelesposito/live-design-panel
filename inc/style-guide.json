@@ -64,8 +64,8 @@
     "ghosting": "A vertical smear while the page scrolls, the phosphor fading: off (the rest) or on.",
     "jitter": "The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.",
     "graincrawl": "The grain standing still (the rest) or moving, as a tube's noise crawls. Only with grain.",
-    "typedtitle": "The article's title arrives letter by letter behind a block cursor: off (the rest) or on.",
-    "bootscreen": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks) or card (a television's test card with the site's name on its plate).",
+    "typedtitle": "The article's title arrives letter by letter behind a block cursor: off (the rest), on, or decode (each letter of the title and of the article's headings runs through scrambled code glyphs before it settles, the headings as they come into view). Nothing moves for readers who ask for less motion.",
+    "bootscreen": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks), card (a television's test card with the site's name on its plate), rain (falling lines of green code that thin away to the page) or wake (three lines typed on a black screen).",
     "roomglass": "A window reflected across the top corner of the glass: off (the rest) or on.",
     "phosphor": "The whole night screen in one phosphor: off (the rest, the style's own colours), blue, green, amber, white or black.",
     "static": "A burst of noise while the set switches on: off (the rest) or on. Only with switchon.",
@@ -101,6 +101,9 @@
     "rainbowcap": "The drop cap's letter filled with the six rainbow stripes: off (the rest) or on. Shows with Drop cap on.",
     "coupon": "A dashed cut line with scissors above the page's foot, as old advertisements ended with an order coupon: off (the rest) or on.",
     "fold": "A soft crease on the paper, as a folded brochure: off (the rest), one (down the middle) or three (two creases, three panels). On a light paper only.",
+    "codemarks": "A terminal's marks in the article: off (the rest), prompt (a prompt before the category line and the headings, a blinking cursor after the date, dashes for the list's dots) or glyphs (the prompt with a run of mirrored code glyphs beside the category line and as the list's markers).",
+    "coderain": "Falling lines of code on the paper beside the article, never under its words: off (the rest), faint or clear. In the ink, each line's head in the accent. Still for readers who ask for less motion.",
+    "headwidth": "The title's and the headings' letters drawn narrower, where the heading face has a width axis (Martian Mono has): normal (the rest), narrow or narrowest. The site's name takes it too.",
     "pillbuttons": "Retired 2026-09-26 and still read: true becomes buttonshape pill.",
     "centretitle": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.",
     "fadeedges": "which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.",
@@ -1074,6 +1077,22 @@
         "paper": "#1e1a15",
         "ink": "#f1e8d6",
         "accent": "#f1e8d6"
+      }
+    },
+    {
+      "id": "film",
+      "label": "Film green",
+      "light": {
+        "paper": "#e8f4ea",
+        "ink": "#04260f",
+        "accent": "#007a28",
+        "head": "#04260f"
+      },
+      "dark": {
+        "paper": "#020a04",
+        "ink": "#00ff41",
+        "accent": "#d4ffdf",
+        "head": "#4dff7a"
       }
     },
     {

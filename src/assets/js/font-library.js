@@ -532,6 +532,14 @@ window.ArchitraveFontLibrary = [
 		]
 	},
 	{
+		"id": "share-tech-mono",
+		"label": "Share Tech Mono",
+		"group": "mono",
+		"family": "\"Share Tech Mono\", ui-monospace, Menlo, monospace",
+		"italic": false,
+		"range": []
+	},
+	{
 		"id": "geist-pixel",
 		"label": "Geist Pixel",
 		"group": "pixel",

@@ -139,6 +139,9 @@
       "rainbowcap",
       "coupon",
       "fold",
+      "codemarks",
+      "coderain",
+      "headwidth",
       "unlinked",
       "effects",
       "roles",
@@ -246,6 +249,9 @@
       "rainbowcap",
       "coupon",
       "fold",
+      "codemarks",
+      "coderain",
+      "headwidth",
       "pillbuttons",
       "centretitle",
       "fadeedges",
@@ -1343,6 +1349,24 @@
             "half"
           ],
           "means": "the vignette's strength on the dark side: the same as by day (the rest) or half, since a pale haze shows far more on a dark ground."
+        },
+        {
+          "id": "colour",
+          "label": "By night in",
+          "choices": [
+            "ink",
+            "black"
+          ],
+          "means": "the colour the edges darken toward on the dark side: the ink (the rest), which reads as a pale haze, or black, as a screen's glass falls off into the dark."
+        },
+        {
+          "id": "day",
+          "label": "By day",
+          "choices": [
+            "same",
+            "half"
+          ],
+          "means": "the vignette's strength on the light side: the same as set (the rest) or half."
         }
       ]
     }
@@ -1546,6 +1570,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -2447,6 +2472,7 @@
         "atkinson-hyperlegible-mono",
         "roboto-mono",
         "google-sans-code",
+        "share-tech-mono",
         "geist-pixel",
         "pixelify-sans",
         "silkscreen",
@@ -3688,11 +3714,12 @@
       "kind": "pick",
       "choices": [
         "off",
-        "on"
+        "on",
+        "decode"
       ],
       "def": "off",
       "attr": "data-typed-title",
-      "means": "The article's title arrives letter by letter behind a block cursor: off (the rest) or on.",
+      "means": "The article's title arrives letter by letter behind a block cursor: off (the rest), on, or decode (each letter of the title and of the article's headings runs through scrambled code glyphs before it settles, the headings as they come into view). Nothing moves for readers who ask for less motion.",
       "label": "Typed title",
       "page": "Effects",
       "level": 17,
@@ -3718,11 +3745,13 @@
       "choices": [
         "off",
         "on",
-        "card"
+        "card",
+        "rain",
+        "wake"
       ],
       "def": "off",
       "attr": "data-boot-screen",
-      "means": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks) or card (a television's test card with the site's name on its plate).",
+      "means": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks), card (a television's test card with the site's name on its plate), rain (falling lines of green code that thin away to the page) or wake (three lines typed on a black screen).",
       "label": "Start screen",
       "page": "Effects",
       "level": 17,
@@ -4776,6 +4805,96 @@
       "inStandardAtRest": false
     },
     {
+      "key": "codemarks",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "prompt",
+        "glyphs"
+      ],
+      "def": "off",
+      "attr": "data-code-marks",
+      "means": "A terminal's marks in the article: off (the rest), prompt (a prompt before the category line and the headings, a blinking cursor after the date, dashes for the list's dots) or glyphs (the prompt with a run of mirrored code glyphs beside the category line and as the list's markers).",
+      "label": "Code marks",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-code-marks"
+      ],
+      "rest": {
+        "data-code-marks": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "coderain",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "faint",
+        "clear"
+      ],
+      "def": "off",
+      "attr": "data-code-rain",
+      "means": "Falling lines of code on the paper beside the article, never under its words: off (the rest), faint or clear. In the ink, each line's head in the accent. Still for readers who ask for less motion.",
+      "label": "Code rain",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-code-rain"
+      ],
+      "rest": {
+        "data-code-rain": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "headwidth",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "normal",
+        "narrow",
+        "narrowest"
+      ],
+      "def": "normal",
+      "attr": "data-head-width",
+      "means": "The title's and the headings' letters drawn narrower, where the heading face has a width axis (Martian Mono has): normal (the rest), narrow or narrowest. The site's name takes it too.",
+      "label": "Heading width",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-head-width"
+      ],
+      "rest": {
+        "data-head-width": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
       "key": "scan",
       "group": "level",
       "table": "LEVELS",
@@ -5631,6 +5750,7 @@
             "atkinson-hyperlegible-mono",
             "roboto-mono",
             "google-sans-code",
+            "share-tech-mono",
             "geist-pixel",
             "pixelify-sans",
             "silkscreen",
@@ -5733,6 +5853,7 @@
             "atkinson-hyperlegible-mono",
             "roboto-mono",
             "google-sans-code",
+            "share-tech-mono",
             "geist-pixel",
             "pixelify-sans",
             "silkscreen",
@@ -8512,6 +8633,54 @@
       ],
       "rest": {
         "data-fx-vignette-night": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.vignette.colour",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "ink",
+        "black"
+      ],
+      "def": "ink",
+      "label": "By night in",
+      "effect": "Vignette",
+      "means": "Vignette, by night in: the colour the edges darken toward on the dark side: the ink (the rest), which reads as a pale haze, or black, as a screen's glass falls off into the dark.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-vignette-colour"
+      ],
+      "rest": {
+        "data-fx-vignette-colour": "ABSENT_PATTERNS"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "effects.vignette.day",
+      "group": "effect",
+      "table": "EFFECTS",
+      "kind": "pick",
+      "choices": [
+        "same",
+        "half"
+      ],
+      "def": "same",
+      "label": "By day",
+      "effect": "Vignette",
+      "means": "Vignette, by day: the vignette's strength on the light side: the same as set (the rest) or half.",
+      "page": "Effects",
+      "level": 17,
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fx-vignette-day"
+      ],
+      "rest": {
+        "data-fx-vignette-day": "ABSENT_PATTERNS"
       },
       "inStandardAtRest": false
     }
