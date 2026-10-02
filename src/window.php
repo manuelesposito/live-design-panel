@@ -285,6 +285,22 @@ function live_design_window_enqueue() {
 	$base = plugin_dir_url( ARCHITRAVE_PANEL_FILE );
 	wp_enqueue_style( 'live-design-window', $base . 'assets/css/panel-window.css', array(), architrave_panel_asset_version( 'assets/css/panel-window.css' ) );
 	wp_enqueue_script( 'live-design-window', $base . 'assets/js/panel-window.js', array(), architrave_panel_asset_version( 'assets/js/panel-window.js' ), array( 'in_footer' => true ) );
+	/* THE TILES' "Aa" (2026-10-02, tools/build-tile-faces.py): each face cut down to the two letters, so the window
+	   built ahead downloads a few KB per tile instead of every style's whole face (about 540 KB on elmastudio.de). */
+	$aa = plugin_dir_path( ARCHITRAVE_PANEL_FILE ) . 'assets/fonts/aa/faces.json';
+	if ( is_readable( $aa ) ) {
+		$faces = json_decode( (string) file_get_contents( $aa ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file of the plugin's own
+		if ( is_array( $faces ) ) {
+			wp_add_inline_script( 'live-design-window', 'window.LDPTileFaces = ' . wp_json_encode( array( 'base' => $base . 'assets/fonts/aa/', 'faces' => $faces ) ) . ';', 'before' );
+		}
+	}
+	/* ONE INTER (2026-10-02): the window's own "LDP Inter" is the same file the theme ships as "Inter Variable"; where
+	   the theme has it, the window reads the theme's copy, which the page has already fetched, not a second one (73 KB). */
+	$theme_inter = 'assets/fonts/webfonts/inter-latin-opsz-normal.woff2';
+	$own_inter   = plugin_dir_path( ARCHITRAVE_PANEL_FILE ) . 'fonts/inter-latin-opsz-normal.woff2';
+	if ( is_readable( get_theme_file_path( $theme_inter ) ) && is_readable( $own_inter ) && filesize( get_theme_file_path( $theme_inter ) ) === filesize( $own_inter ) ) {
+		wp_add_inline_style( 'live-design-window', '@font-face { font-family: "LDP Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("' . esc_url( get_theme_file_uri( $theme_inter ) ) . '") format("woff2"); }' );
+	}
 	wp_enqueue_script( 'live-design-window-wp', $base . 'assets/js/panel-window-wp.js', array( 'live-design-window', 'architrave-reading-panel' ), architrave_panel_asset_version( 'assets/js/panel-window-wp.js' ), array( 'in_footer' => true ) );
 	$boot = $reader ? array( 'words' => live_design_window_words() ) : live_design_window_boot(); /* a reader's page needs only the words */
 	unset( $boot['css'], $boot['js'] );

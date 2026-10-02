@@ -1,0 +1,378 @@
+{
+ "Abril Fatface": {
+  "file": "abril-fatface.woff2",
+  "weight": "400"
+ },
+ "Anton": {
+  "file": "anton.woff2",
+  "weight": "400"
+ },
+ "Archivo Black": {
+  "file": "archivo-black.woff2",
+  "weight": "400"
+ },
+ "Atkinson Hyperlegible Mono": {
+  "file": "atkinson-hyperlegible-mono.woff2",
+  "weight": "200 800"
+ },
+ "Atkinson Hyperlegible Next": {
+  "file": "atkinson-hyperlegible-next.woff2",
+  "weight": "200 800"
+ },
+ "Azeret Mono": {
+  "file": "azeret-mono.woff2",
+  "weight": "100 900"
+ },
+ "Bebas Neue": {
+  "file": "bebas-neue.woff2",
+  "weight": "400"
+ },
+ "Big Shoulders": {
+  "file": "big-shoulders.woff2",
+  "weight": "100 900"
+ },
+ "Bodoni Moda": {
+  "file": "bodoni-moda.woff2",
+  "weight": "400 900"
+ },
+ "Bricolage Grotesque": {
+  "file": "bricolage-grotesque.woff2",
+  "weight": "200 800"
+ },
+ "Bungee": {
+  "file": "bungee.woff2",
+  "weight": "400"
+ },
+ "Caprasimo": {
+  "file": "caprasimo.woff2",
+  "weight": "400"
+ },
+ "Cardo": {
+  "file": "cardo.woff2",
+  "weight": "400"
+ },
+ "Chivo Mono": {
+  "file": "chivo-mono.woff2",
+  "weight": "100 900"
+ },
+ "Climate Crisis": {
+  "file": "climate-crisis.woff2",
+  "weight": "400"
+ },
+ "Coral Pixels": {
+  "file": "coral-pixels.woff2",
+  "weight": "400"
+ },
+ "Crimson Pro": {
+  "file": "crimson-pro.woff2",
+  "weight": "200 900"
+ },
+ "DM Mono": {
+  "file": "dm-mono.woff2",
+  "weight": "400"
+ },
+ "DM Sans": {
+  "file": "dm-sans.woff2",
+  "weight": "100 900"
+ },
+ "DM Serif Display": {
+  "file": "dm-serif-display.woff2",
+  "weight": "400"
+ },
+ "Dela Gothic One": {
+  "file": "dela-gothic-one.woff2",
+  "weight": "400"
+ },
+ "DotGothic16": {
+  "file": "dotgothic16.woff2",
+  "weight": "400"
+ },
+ "Doto": {
+  "file": "doto.woff2",
+  "weight": "100 900"
+ },
+ "EB Garamond": {
+  "file": "eb-garamond.woff2",
+  "weight": "400 800"
+ },
+ "Figtree": {
+  "file": "figtree.woff2",
+  "weight": "300 900"
+ },
+ "Fira Code": {
+  "file": "fira-code.woff2",
+  "weight": "300 700"
+ },
+ "Fragment Mono": {
+  "file": "fragment-mono.woff2",
+  "weight": "400"
+ },
+ "Fraunces": {
+  "file": "fraunces.woff2",
+  "weight": "100 900"
+ },
+ "Funnel Display": {
+  "file": "funnel-display.woff2",
+  "weight": "300 800"
+ },
+ "Funnel Sans": {
+  "file": "funnel-sans.woff2",
+  "weight": "300 800"
+ },
+ "Gabarito": {
+  "file": "gabarito.woff2",
+  "weight": "400 900"
+ },
+ "Geist": {
+  "file": "geist.woff2",
+  "weight": "100 900"
+ },
+ "Geist Mono": {
+  "file": "geist-mono.woff2",
+  "weight": "100 900"
+ },
+ "Geist Pixel": {
+  "file": "geist-pixel.woff2",
+  "weight": "400"
+ },
+ "Gloock": {
+  "file": "gloock.woff2",
+  "weight": "400"
+ },
+ "Google Sans Code": {
+  "file": "google-sans-code.woff2",
+  "weight": "300 800"
+ },
+ "Handjet": {
+  "file": "handjet.woff2",
+  "weight": "100 900"
+ },
+ "Hanken Grotesk": {
+  "file": "hanken-grotesk.woff2",
+  "weight": "100 900"
+ },
+ "IBM Plex Mono": {
+  "file": "ibm-plex-mono.woff2",
+  "weight": "400"
+ },
+ "IBM Plex Sans": {
+  "file": "ibm-plex-sans.woff2",
+  "weight": "100 700"
+ },
+ "Instrument Sans": {
+  "file": "instrument-sans.woff2",
+  "weight": "400 700"
+ },
+ "Instrument Serif": {
+  "file": "instrument-serif.woff2",
+  "weight": "400"
+ },
+ "Inter Tight": {
+  "file": "inter-tight.woff2",
+  "weight": "100 900"
+ },
+ "Inter Variable": {
+  "file": "inter-variable.woff2",
+  "weight": "100 900"
+ },
+ "Jacquard 12": {
+  "file": "jacquard-12.woff2",
+  "weight": "400"
+ },
+ "Jersey 10": {
+  "file": "jersey-10.woff2",
+  "weight": "400"
+ },
+ "JetBrains Mono": {
+  "file": "jetbrains-mono.woff2",
+  "weight": "100 800"
+ },
+ "Jost": {
+  "file": "jost.woff2",
+  "weight": "100 900"
+ },
+ "Kode Mono": {
+  "file": "kode-mono.woff2",
+  "weight": "400 700"
+ },
+ "League Gothic": {
+  "file": "league-gothic.woff2",
+  "weight": "400"
+ },
+ "Libre Baskerville": {
+  "file": "libre-baskerville.woff2",
+  "weight": "400 700"
+ },
+ "Libre Franklin": {
+  "file": "libre-franklin.woff2",
+  "weight": "100 900"
+ },
+ "Literata": {
+  "file": "literata.woff2",
+  "weight": "200 900"
+ },
+ "Lora": {
+  "file": "lora.woff2",
+  "weight": "400 700"
+ },
+ "Manrope": {
+  "file": "manrope.woff2",
+  "weight": "200 800"
+ },
+ "Martian Mono": {
+  "file": "martian-mono.woff2",
+  "weight": "100 800"
+ },
+ "Micro 5": {
+  "file": "micro-5.woff2",
+  "weight": "400"
+ },
+ "Mona Sans": {
+  "file": "mona-sans.woff2",
+  "weight": "200 900"
+ },
+ "Montagu Slab": {
+  "file": "montagu-slab.woff2",
+  "weight": "100 700"
+ },
+ "Newsreader": {
+  "file": "newsreader.woff2",
+  "weight": "200 800"
+ },
+ "Onest": {
+  "file": "onest.woff2",
+  "weight": "100 900"
+ },
+ "Pixelify Sans": {
+  "file": "pixelify-sans.woff2",
+  "weight": "400 700"
+ },
+ "Platypi": {
+  "file": "platypi.woff2",
+  "weight": "300 800"
+ },
+ "Playfair": {
+  "file": "playfair.woff2",
+  "weight": "300 900"
+ },
+ "Plus Jakarta Sans": {
+  "file": "plus-jakarta-sans.woff2",
+  "weight": "200 800"
+ },
+ "Press Start 2P": {
+  "file": "press-start-2p.woff2",
+  "weight": "400"
+ },
+ "Public Sans": {
+  "file": "public-sans.woff2",
+  "weight": "100 900"
+ },
+ "Red Hat Mono": {
+  "file": "red-hat-mono.woff2",
+  "weight": "300 700"
+ },
+ "Reddit Mono": {
+  "file": "reddit-mono.woff2",
+  "weight": "200 900"
+ },
+ "Roboto Mono": {
+  "file": "roboto-mono.woff2",
+  "weight": "100 700"
+ },
+ "Roboto Serif": {
+  "file": "roboto-serif.woff2",
+  "weight": "100 900"
+ },
+ "Routed Gothic": {
+  "file": "routed-gothic.woff2",
+  "weight": "400"
+ },
+ "Routed Gothic Wide": {
+  "file": "routed-gothic-wide.woff2",
+  "weight": "400"
+ },
+ "STIX Two Text": {
+  "file": "stix-two-text.woff2",
+  "weight": "400 700"
+ },
+ "Schibsted Grotesk": {
+  "file": "schibsted-grotesk.woff2",
+  "weight": "400 900"
+ },
+ "Share Tech Mono": {
+  "file": "share-tech-mono.woff2",
+  "weight": "400"
+ },
+ "Shrikhand": {
+  "file": "shrikhand.woff2",
+  "weight": "400"
+ },
+ "Silkscreen": {
+  "file": "silkscreen.woff2",
+  "weight": "400"
+ },
+ "Sixtyfour": {
+  "file": "sixtyfour.woff2",
+  "weight": "400"
+ },
+ "Sometype Mono": {
+  "file": "sometype-mono.woff2",
+  "weight": "400 700"
+ },
+ "Source Serif 4": {
+  "file": "source-serif-4.woff2",
+  "weight": "200 900"
+ },
+ "Space Grotesk": {
+  "file": "space-grotesk.woff2",
+  "weight": "300 700"
+ },
+ "Space Mono": {
+  "file": "space-mono.woff2",
+  "weight": "400"
+ },
+ "Spectral": {
+  "file": "spectral.woff2",
+  "weight": "400"
+ },
+ "Syne": {
+  "file": "syne.woff2",
+  "weight": "400 800"
+ },
+ "Tiny5": {
+  "file": "tiny5.woff2",
+  "weight": "400"
+ },
+ "Unbounded": {
+  "file": "unbounded.woff2",
+  "weight": "200 900"
+ },
+ "VT323": {
+  "file": "vt323.woff2",
+  "weight": "400"
+ },
+ "Victor Mono": {
+  "file": "victor-mono.woff2",
+  "weight": "100 700"
+ },
+ "Vollkorn": {
+  "file": "vollkorn.woff2",
+  "weight": "400 900"
+ },
+ "Work Sans": {
+  "file": "work-sans.woff2",
+  "weight": "100 900"
+ },
+ "Workbench": {
+  "file": "workbench.woff2",
+  "weight": "400"
+ },
+ "Young Serif": {
+  "file": "young-serif.woff2",
+  "weight": "400"
+ },
+ "Zilla Slab": {
+  "file": "zilla-slab.woff2",
+  "weight": "400"
+ }
+}

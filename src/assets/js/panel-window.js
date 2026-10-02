@@ -741,6 +741,43 @@
 	}
 
 
+	/* THE TILES' "Aa" IN TWO LETTERS (2026-10-02, Manuel: "what else could we optimize? Would Apple optimize?"). The
+	   window is built ahead, hidden, and every style tile drew "Aa" in its style's whole reading face: a reader's phone
+	   downloaded twelve faces on every page, about 540 KB, for tiles most readers never open. Each face now has a copy
+	   cut down to "A" and "a" (tools/build-tile-faces.py, a KB or two; window.php hands over the list), and the tile
+	   draws in that copy under its own name; a face without one keeps its whole file, as before. The whole faces come
+	   when they are about to be needed: the styles' faces once the window is really opened, a tile's own the moment a
+	   finger or the pointer goes down on it (warmFaces, below), so a style put on finds its letters there. */
+	var TF = window.LDPTileFaces || null, tfDone = {}, tfSheet = null;
+	function tileFace(stack) {
+		if (!TF || !TF.faces || !stack) return stack;
+		var fams = String(stack).split(',').map(function (f) { return f.trim().replace(/^["']|["']$/g, ''); });
+		var fam = fams.filter(function (f) { return TF.faces[f]; })[0]; if (!fam) return stack;
+		if (!tfDone[fam]) {
+			tfDone[fam] = true;
+			if (!tfSheet) { tfSheet = document.createElement('style'); tfSheet.id = 'ldp-tile-faces'; document.head.appendChild(tfSheet); }
+			tfSheet.appendChild(document.createTextNode('@font-face { font-family: "LDP Aa ' + fam.replace(/"/g, '') + '"; font-style: normal; font-weight: ' + TF.faces[fam].weight + '; font-display: block; src: url("' + TF.base + TF.faces[fam].file + '") format("woff2"); }\n'));
+		}
+		var generic = fams.filter(function (f) { return /^(serif|sans-serif|monospace|system-ui|ui-monospace|cursive)$/.test(f); }).pop() || 'sans-serif';
+		return '"LDP Aa ' + fam.replace(/"/g, '') + '", ' + generic;
+	}
+	/* The whole faces a style puts on the page, fetched ahead: its reading face, its interface face, its roles' own.
+	   Asking the browser to load a face only fetches it once; after that it is in the cache and on every page. */
+	var warmed = {};
+	function warmFaces(id, all) { /* all: every face of the style and the italics (a tile touched); else its reading face alone (the window opened, as the tiles drew before) */
+		var x = St() && St().tile ? St().tile(id) : null; if (!x || !x.faces || !document.fonts || !document.fonts.load) return;
+		var italic = all;
+		(all ? x.faces : x.face ? [x.face] : []).forEach(function (stack) {
+			[['400', ''], italic ? ['400', 'italic '] : null].forEach(function (w) {
+				if (!w) return; var key = w[1] + stack; if (warmed[key]) return; warmed[key] = true;
+				try { document.fonts.load(w[1] + w[0] + ' 1em ' + stack).catch(function () {}); } catch (e) { /* the face stays as it was */ }
+			});
+		});
+	}
+	function warmShown() {
+		if (!win || !open) return;
+		Array.prototype.forEach.call(win.querySelectorAll('.ldpw-tile[data-style], .ldpw-tile[data-rstyle]'), function (b) { warmFaces(b.getAttribute('data-style') || b.getAttribute('data-rstyle'), false); });
+	}
 	/* ===== STYLES: the gallery, as the prototype's: the theme's own look, then what readers are shown, then what they are not ===== */
 	function tileHTML(id) {
 		var x = St().tile(id); if (!x) return '';
@@ -748,7 +785,7 @@
 		MENU[mk] = { label: t(x.label), items: tileItems(x), pick: function (a) { tileAct(x, a); } };
 		return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '" data-sid="' + esc(id) + '">' +
 			'<button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-style="' + esc(id) + '" data-f="style:' + esc(id) + '">' +
-				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(x.face) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
+				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
 				'<span class="ldpw-nm">' + esc(t(x.label)) + '</span>' + (x.isDefault ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') +
 			'</button>' +
 			'<button type="button" class="ldpw-tm" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + t(x.label)) + '">' + svg(GLYPH.more) + '</button>' +
@@ -1694,7 +1731,7 @@
 		var tiles = list.map(function (id) {
 			var x = s.tile(id); if (!x) return '';
 			return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"><button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-rstyle="' + esc(id) + '" data-f="rstyle:' + esc(id) + '">' +
-				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(x.face) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
+				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
 				'<span class="ldpw-nm">' + esc(t(x.label)) + (id === def ? ' <em class="ldpw-def">' + esc(t('Default')) + '</em>' : '') + '</span>' + /* the lab's: Default beside the name */
 			'</button></div>';
 		}).join('');
@@ -2087,6 +2124,7 @@
 			win.setAttribute('aria-labelledby', 'ldpw-title');
 			win.hidden = true;
 			win.addEventListener('click', onClick);
+			win.addEventListener('pointerdown', function (e) { var b = e.target.closest && e.target.closest('.ldpw-tile[data-style], .ldpw-tile[data-rstyle], .ldpw-origrow[data-style]'); if (b) warmFaces(b.getAttribute('data-style') || b.getAttribute('data-rstyle'), true); }, { passive: true }); /* a tile touched: its faces start coming before the press ends (THE TILES' "Aa") */
 			win.addEventListener('keydown', onKey);
 			win.addEventListener('input', onInput);
 			win.addEventListener('change', onChange);
@@ -2185,6 +2223,7 @@
 		place();
 		var morphs = morph.can(); if (morphs) morph.open(); /* the button becomes the window */
 		setTimeout(lap, morphs ? 420 : 160); /* once the window stands */
+		setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(warmShown, { timeout: 1000 }); }, morphs ? 420 : 160); /* the styles' whole faces, once the window stands (THE TILES' "Aa") */
 		if (door && door.setAttribute) door.setAttribute('aria-expanded', 'true');
 	}
 	function hide(keepFocus) {

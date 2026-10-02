@@ -243,6 +243,13 @@
 			return {
 				id: id, label: x.label, own: !!x.own, site: !!x.site, host: !!x.host,
 				paper: c.paper || pc.paper || m.paper, ink: c.ink || pc.ink || m.ink, accent: c.accent || pc.accent || m.accent, face: face,
+				faces: (function () { 
+					var F = window.ArchitraveFaces || [], ids = [w.face || x.face, w.sans || x.sans], roles = w.roles || x.roles || {}, out = [];
+					Object.keys(roles).forEach(function (r) { if (roles[r] && roles[r].face) ids.push(roles[r].face); });
+					if (x.hostFace) out.push(x.hostFace);
+					ids.forEach(function (fid) { var f = F.filter(function (y) { return y.id === fid; })[0]; if (f && out.indexOf(f.family) === -1) out.push(f.family); });
+					return out;
+				}()),
 				on: s.current() === id, edited: !!(s.adjusted && s.adjusted(id)), isDefault: s.visibleOrder()[0] === id, seen: !!(s.seenByReaders && s.seenByReaders(id))
 			};
 		},
