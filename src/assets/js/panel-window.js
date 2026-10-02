@@ -482,7 +482,7 @@
 	};
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; /* the prototype's order, loud to quiet */
-	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both'], cards: ['flat', 'box', 'raised', 'top'], quotes: ['plain', 'line', 'box'] };
+	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both'], cards: ['flat', 'box', 'raised', 'top', 'ticks'], quotes: ['plain', 'line', 'box'] };
 	var GUEST_REST = { tags: 'text', chosenitem: 'gray', quotes: 'line', notes: 'flat', fields: 'flat' }; /* on another theme the rest is the theme's own tags and mark, so it says so */
 	/* a strength under its switch, its stops the list's, in words where the list's numbers say nothing */
 	function levelRow(key, unit, sub) {

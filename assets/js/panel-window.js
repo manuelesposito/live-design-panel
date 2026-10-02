@@ -448,7 +448,7 @@
 	};
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; 
-	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both'], cards: ['flat', 'box', 'raised', 'top'], quotes: ['plain', 'line', 'box'] };
+	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both'], cards: ['flat', 'box', 'raised', 'top', 'ticks'], quotes: ['plain', 'line', 'box'] };
 	var GUEST_REST = { tags: 'text', chosenitem: 'gray', quotes: 'line', notes: 'flat', fields: 'flat' }; 
 	function levelRow(key, unit, sub) {
 		var x = setting(key) || {}, s = St();

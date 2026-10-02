@@ -1880,7 +1880,7 @@
 		if (has('data-dimensions') && title && !article.querySelector('.ldp-dim')) { title.parentNode.insertBefore(dim(''), title); if (lead) lead.appendChild(dim('ldp-under')); }
 		var content = article && article.querySelector('.wp-block-post-content');
 		if (has('data-bubbles') && content && !content.hasAttribute('data-ldp-marked')) {
-			var heads = content.querySelectorAll(':scope > h2, :scope > .wp-block-group h2');
+			var heads = content.querySelectorAll('h2'); /* every section heading, at any depth: an archived release post keeps its headings inside its own box (2026-10-02, live, the Moog post had none marked) */
 			Array.prototype.forEach.call(heads, function (h, i) { h.setAttribute('data-ldp-n', String(i + 1)); h.setAttribute('data-ldp-of', String(heads.length)); });
 			content.setAttribute('data-ldp-marked', '');
 		}

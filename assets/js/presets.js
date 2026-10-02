@@ -1149,7 +1149,7 @@
 		if (has('data-dimensions') && title && !article.querySelector('.ldp-dim')) { title.parentNode.insertBefore(dim(''), title); if (lead) lead.appendChild(dim('ldp-under')); }
 		var content = article && article.querySelector('.wp-block-post-content');
 		if (has('data-bubbles') && content && !content.hasAttribute('data-ldp-marked')) {
-			var heads = content.querySelectorAll(':scope > h2, :scope > .wp-block-group h2');
+			var heads = content.querySelectorAll('h2'); 
 			Array.prototype.forEach.call(heads, function (h, i) { h.setAttribute('data-ldp-n', String(i + 1)); h.setAttribute('data-ldp-of', String(heads.length)); });
 			content.setAttribute('data-ldp-marked', '');
 		}
