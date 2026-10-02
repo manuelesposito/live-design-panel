@@ -155,12 +155,12 @@
     "softlevel": "How far the reading text steps toward the paper, in percent: 10 to 45 in steps of 5. 15 is the rest. Only with soft.",
     "quietlevel": "How far the small text (dates, captions, meta) steps toward the paper with soft on, in percent: 25 to 50 in steps of 5. 25 is the rest. Only with soft, and only while smallsoft is not set; the row Small text writes smallsoft since 2026-09-27.",
     "smallsoft": "How far the small text (dates, captions, meta) steps toward the paper, in percent: 0 (the ink itself) to 50 in steps of 5, with soft on or off. 25 is the rest, the pair's own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.",
-    "links": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline) or bold (the ink on a thick underline in the accent, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
+    "links": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
     "grainlevel": "Strength of the grain, 1 to 10. 4 is the rest. Only with grain.",
     "vignette": "A darkening at the page's four edges, as a screen's glass has.",
     "vignettelevel": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
     "vignettereach": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
-    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), oldset (an old set's picture: grey, the contrast soft and the edge a little out of focus), hidden (no images; each article picture becomes a line that shows it).",
+    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), oldset (an old set's picture: grey, the contrast soft and the edge a little out of focus), riso (printed in the accent on the paper with a fine grain, as a one-ink risograph prints them), hidden (no images; each article picture becomes a line that shows it).",
     "picturehover": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
     "alternates": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
     "soft": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
@@ -549,6 +549,74 @@
           "paper": "#261613",
           "ink": "#f3e8d8",
           "accent": "#93c9a7"
+        }
+      }
+    },
+    "risograph": {
+      "architrave": 1,
+      "label": "Risograph",
+      "base": "risograph",
+      "space": "spacious",
+      "palette": "neutral",
+      "tint": "orange",
+      "button": "own",
+      "buttonshape": "pill",
+      "sans": "ibm-plex-mono",
+      "reading": "default",
+      "face": "ibm-plex-mono",
+      "leading": "default",
+      "justify": false,
+      "dropcap": false,
+      "rounded": true,
+      "lines": false,
+      "scope": "article",
+      "fills": false,
+      "soft": false,
+      "widepicture": true,
+      "pictureframe": false,
+      "pictures": "riso",
+      "links": "wash",
+      "roles": {
+        "head": {
+          "face": "caprasimo",
+          "weight": "regular",
+          "size": "72",
+          "leading": "tight",
+          "align": "center",
+          "colour": "own",
+          "members": {
+            "sub": {
+              "weight": "regular",
+              "align": "default"
+            }
+          }
+        },
+        "kicker": {
+          "face": "ibm-plex-mono",
+          "italic": false,
+          "weight": "regular",
+          "caps": false,
+          "align": "center",
+          "colour": "own"
+        },
+        "small": {
+          "face": "ibm-plex-mono"
+        },
+        "title": {
+          "face": "caprasimo",
+          "weight": "regular"
+        }
+      },
+      "colours": {
+        "light": {
+          "paper": "#f7eee3",
+          "ink": "#ea3323",
+          "accent": "#ea3323"
+        },
+        "dark": {
+          "paper": "#241512",
+          "ink": "#ff6b57",
+          "accent": "#ff6b57"
         }
       }
     },
@@ -1329,6 +1397,26 @@
         "paper": "#07070b",
         "ink": "#f1f1f7",
         "accent": "#ffd23f"
+      }
+    },
+    {
+      "id": "riso",
+      "label": "Riso red",
+      "light": {
+        "paper": "#f7eee3",
+        "ink": "#ea3323",
+        "accent": "#ea3323",
+        "head": "#ea3323",
+        "kicker": "#ea3323",
+        "button": "#ea3323"
+      },
+      "dark": {
+        "paper": "#241512",
+        "ink": "#ff6b57",
+        "accent": "#ff6b57",
+        "head": "#ff6b57",
+        "kicker": "#ff6b57",
+        "button": "#ff6b57"
       }
     },
     {

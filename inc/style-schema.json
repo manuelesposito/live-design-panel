@@ -14,6 +14,7 @@
     "storybook",
     "specimen",
     "terracotta",
+    "risograph",
     "arcade",
     "tube",
     "brochure"
@@ -305,6 +306,7 @@
     "pixel",
     "warm",
     "oldset",
+    "riso",
     "hidden"
   ],
   "capLines": [
@@ -424,7 +426,8 @@
     "both",
     "coloured",
     "underlined",
-    "bold"
+    "bold",
+    "wash"
   ],
   "measure": [
     "60",

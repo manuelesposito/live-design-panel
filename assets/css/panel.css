@@ -2831,6 +2831,15 @@ html:root[data-cap-face="title"] {
 :root[data-links="bold"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button):is(:hover, :focus-visible):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	color: var(--accent-contrast); background: var(--accent); text-decoration-color: transparent;
 }
+:root[data-links="wash"] {
+	--reading-link-ink: var(--text-primary);
+}
+:root[data-links="wash"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	text-decoration-line: none; background: var(--accent-muted); border-radius: var(--radius-xs); padding-inline: .12em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+:root[data-links="wash"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button):is(:hover, :focus-visible):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	color: var(--accent-contrast); background: var(--accent);
+}
 @media (prefers-reduced-motion: reduce) {
 	:root[data-shimmer] .ldp-shimmer, :root[data-static] .ldp-static {
 		display: none;
@@ -3545,6 +3554,12 @@ html:root[data-soft="on"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navi
 }
 :root[data-pictures="grain"] {
 	--picture-filter: url("#architrave-grain");
+}
+:root[data-pictures="riso"] {
+	--picture-filter: grayscale(1) contrast(1.1) url("#architrave-grain") url("#architrave-duotone"); --duo-dark: var(--accent); --duo-light: var(--surface-base);
+}
+:root[data-pictures="riso"][data-theme$="-dark"] {
+	--duo-dark: var(--surface-base); --duo-light: var(--accent);
 }
 :root[data-pictures="trace"] {
 	--picture-filter: url("#ldp-trace");

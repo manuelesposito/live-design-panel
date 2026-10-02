@@ -434,7 +434,7 @@
 		corners: { small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'Very large' },
 		linestyle: { solid: 'Solid', dashed: 'Dashed', dotted: 'Dotted' },
 		categories: { below: 'Below title', above: 'Above title', hidden: 'Hidden' },
-		links: { both: 'Coloured and underlined', coloured: 'Coloured', underlined: 'Underlined', bold: 'Bold line' },
+		links: { both: 'Coloured and underlined', coloured: 'Coloured', underlined: 'Underlined', bold: 'Bold line', wash: 'Highlighter' },
 		buttonshape: { cards: 'Match corners', square: 'Square', rounded: 'Rounded', pill: 'Pill' },
 		buttonstyle: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only', key: 'Arcade key' },
 		buttonmedium: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
@@ -446,7 +446,7 @@
 		quotes: { plain: 'Plain', line: 'Line at the side', box: 'Box' },
 		notes: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
 		fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
-		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', halftone: 'Halftone', dither: 'Pixels', onebit: '1 bit', grain: 'Grain', trace: 'Traced', pixel: 'Arcade pixels', oldset: 'Old set', warm: 'Sun-warmed', hidden: 'Hidden' },
+		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', halftone: 'Halftone', dither: 'Pixels', onebit: '1 bit', grain: 'Grain', trace: 'Traced', pixel: 'Arcade pixels', oldset: 'Old set', warm: 'Sun-warmed', riso: 'Risograph', hidden: 'Hidden' },
 		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
 		titlefinish: { flat: 'Flat', shine: 'Shine', accent: 'Accent colour', spectrum: 'Spectrum', violet: 'Blue to violet' },
 		headitalics: { same: 'Same font', serif: 'Serif', classic: 'Classic serif' },
@@ -504,7 +504,7 @@
 	var LOOK_DRAW = { buttonstyle: 'button', buttonmedium: 'button', buttonquiet: 'button', tags: 'tag', links: 'link', chosenitem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', notes: 'surface', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
 	var LOOK_SHORT = { shadow: 'Shadow', text: 'Text', key: 'Key' };
 	var LOOK_NOTE = { buttonstyle: 'The main action, like Subscribe', buttonmedium: 'A second choice next to it', buttonquiet: 'Small actions, like Share', links: 'In the text', chosenitem: 'The page you are on, the tab that is open', notes: 'Tips and remarks in a box', fields: 'Search, comment and sign-up fields' }; /* the prototype's line under a row */ /* a level's look under its small picture, short */
-	var PIC_FILTER = { plain: 'none', bw: 'grayscale(1)', sepia: 'sepia(.85) contrast(1.05)', duo: 'grayscale(1) sepia(1) saturate(1.6) hue-rotate(175deg) brightness(.95)', accent: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(200deg) saturate(2.2)', halftone: 'grayscale(1) contrast(1.6)', dither: 'contrast(1.5) saturate(1.3)', grain: 'contrast(1.1) saturate(.85)', trace: 'url(#ldp-trace)', pixel: 'url(#ldp-pixel)', warm: 'sepia(.18) saturate(1.12) contrast(1.02)' };
+	var PIC_FILTER = { plain: 'none', bw: 'grayscale(1)', sepia: 'sepia(.85) contrast(1.05)', duo: 'grayscale(1) sepia(1) saturate(1.6) hue-rotate(175deg) brightness(.95)', accent: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(200deg) saturate(2.2)', halftone: 'grayscale(1) contrast(1.6)', dither: 'contrast(1.5) saturate(1.3)', grain: 'contrast(1.1) saturate(.85)', trace: 'url(#ldp-trace)', pixel: 'url(#ldp-pixel)', warm: 'sepia(.18) saturate(1.12) contrast(1.02)', riso: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(320deg) saturate(2.4)' };
 	function lookColours() {
 		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('button');
 		var btn = who === 'ink' ? ink : who === 'own' ? s.colour('button') : accent;

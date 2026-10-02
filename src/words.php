@@ -274,6 +274,9 @@ function architrave_panel_words( $words ) {
 		'Lime night'    => _x( 'Lime night', 'a colour preset', 'live-design-panel' ), /* Instrument's (2026-09-20) */
 		'Lamplight'     => _x( 'Lamplight', 'a colour preset', 'live-design-panel' ), /* Book's (2026-10-02) */
 		'Riviera'       => _x( 'Riviera', 'a colour preset', 'live-design-panel' ), /* Aperitivo's (2026-10-02) */
+		'Riso red'      => _x( 'Riso red', 'a colour preset', 'live-design-panel' ), /* Risograph's (2026-10-02) */
+		'Risograph'     => __( 'Risograph', 'live-design-panel' ), /* the style, and the Pictures value (2026-10-02) */
+		'The pictures printed in the accent on the paper with a fine grain, as a one-ink press prints them.' => __( 'The pictures printed in the accent on the paper with a fine grain, as a one-ink press prints them.', 'live-design-panel' ),
 		'Cactus light'  => _x( 'Cactus light', 'a colour preset', 'live-design-panel' ),
 		'Mallow evening' => _x( 'Mallow evening', 'a colour preset', 'live-design-panel' ),
 		'Rust desert'   => _x( 'Rust desert', 'a colour preset', 'live-design-panel' ),
