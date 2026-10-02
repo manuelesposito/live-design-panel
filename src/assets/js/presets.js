@@ -2117,6 +2117,7 @@
 		var cs = window.getComputedStyle(root), get = function (k, d) { return (cs.getPropertyValue(k) || '').trim() || d; };
 		var pal = [get('--surface-base', '#000'), get('--surface-subtle', '#222'), 'var(--fx-second)', get('--accent', '#ff0'), get('--text-primary', '#fff')].map(function (v) { return v.indexOf('var(') === 0 ? cabinetRgbVar(v) : cabinetRgb(v); });
 		if (pal.some(function (x) { return !x; })) return;
+		pal.sort(function (a, b) { return (a[0] * .3 + a[1] * .59 + a[2] * .11) - (b[0] * .3 + b[1] * .59 + b[2] * .11); }); /* DARK TO LIGHT, whatever the side (0.15.45): the steps are the picture's light from dark to light, so the colours must stand in that order; by day the paper is the lightest, not the darkest, and a white screenshot came out near black */
 		var key = JSON.stringify(pal); if (key === cabinetKey && document.getElementById('ldp-pixel')) return; cabinetKey = key;
 		var svg = document.getElementById('ldp-pixel-svg');
 		if (!svg) { svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.id = 'ldp-pixel-svg'; svg.setAttribute('width', '0'); svg.setAttribute('height', '0'); svg.setAttribute('aria-hidden', 'true'); svg.style.position = 'absolute'; document.body.appendChild(svg); }
