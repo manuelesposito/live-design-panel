@@ -20,7 +20,7 @@
 	var have = {}, busy = {}, failed = {};
 	cfg.have.forEach(function (id) { have[id] = true; });
 	/* The family's own name, as the stack starts: "Mona Sans", system-ui, … */
-	var names = lib.map(function (f) { return { id: f.id, name: f.family.split(',')[0].trim() }; });
+	var names = lib.filter(function (f) { return !f.bundled; }).map(function (f) { /* a face the plugin ships (Fraunces, Routed Gothic) is never fetched: asking for it answered 404 (2026-10-02) */ return { id: f.id, name: f.family.split(',')[0].trim() }; });
 
 	function named() {
 		var face = root.getAttribute('data-face'), sans = root.getAttribute('data-sans'), style = root.getAttribute('style') || '';

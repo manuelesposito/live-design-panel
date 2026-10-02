@@ -39,7 +39,7 @@
     "tags": "How the tags at the end of an article look: text (the rest: words, as the theme sets them), or small pills that are filled, tinted, gray or outlined, made from the button colour. Tags follow the buttons gives the pills the buttons' corner.",
     "chosenitem": "How the chosen item is marked, the page you are on in the menu and the open tab: gray (the rest: the theme's own mark), filled with the button colour, outlined in it, or bold and underlined.",
     "linewidth": "Line width in px: 1 (the rest), 2, 3 or 5. Only with lines; fine lines only at 1.",
-    "cards": "How cards look: box (the rest: the card's fill and, with lines, its line), top (a line along the top only, no fill, square; only with lines), flat (the fill alone, no line) or raised (the paper, lifted by a shadow).",
+    "cards": "How cards look: box (the rest: the card's fill and, with lines, its line), top (a line along the top only, no fill, square; only with lines), flat (the fill alone, no line) or raised (the paper, lifted by a shadow), or ticks (only the four corners drawn, a drawing's crop marks, no fill; only with lines).",
     "quotes": "How quotes in an article look: a line at the side (the rest), plain, or in a box.",
     "notes": "How a box the writer coloured inside an article looks: flat (the rest: its fill), outlined, or raised by a shadow.",
     "fields": "How search, comment and sign-up fields look: flat (the rest: the fill, with lines its line), outlined on the paper, or raised by a shadow.",
@@ -83,6 +83,17 @@
     "legalline": "A small italic line at the foot of the page, an advertisement's small print: the copyright sign, the year, the site's name and its tagline. Only words the site already has. Off (the rest) or on.",
     "stripes": "How the rainbow bands between posts and at the page foot are drawn: solid (the rest, six stripes edge to edge) or gaps (six thinner stripes with paper between them, in softer hues).",
     "sitename": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it) or caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark).",
+    "sheetgrid": "Squared paper under the page, scrolling with it: off (the rest), squared (a hairline every 12px and a heavier one every fifth, engineering paper), fine (the small squares only) or dots (a point at each big crossing). Drawn in the ink by night, in a pale cut of it by day.",
+    "gridstrength": "How strongly the drawing grid shows: medium (the rest), faint or strong. Only with a drawing grid.",
+    "sheetborder": "The edge of a drawing sheet on the paper: off (the rest), line (a heavy line on the paper's edge) or zones (the line with zone numbers along the top and foot and letters down the sides, left out where the paper's corner squares sit). Architrave's paper only.",
+    "mottle": "The uneven exposure of a blueprint, large soft clouds over the paper (not grain): off (the rest), soft or strong. Dark appearance only.",
+    "printedges": "The paper darkening towards its edges, as an old print does: off (the rest), soft or strong. Half as strong in light appearance.",
+    "pen": "A stroke drawn round the letters of the title and the headings, which gives a single-weight face its weight: off (the rest), medium or bold.",
+    "dimensions": "A drawing's dimension line over the article's title (its width in pixels between two ticks) and under its opening picture: off (the rest) or on.",
+    "guidelines": "The two faint lines a draughtsman rules before lettering (the capital height and the baseline), under every line of the article's title and headings and out to the paper's edges: off (the rest) or on.",
+    "bubbles": "A drawing's detail mark before each of the article's section headings: a circle cut by a line, the section's number above, how many there are below. Off (the rest) or on.",
+    "titleblock": "The box every drawing carries, where the article ends: the site, the article's title, its author, its date, the scale, the sheet, the number of words and the revision, in the site's language. Off (the rest) or on.",
+    "scalerule": "How far the reader is, the drawing office's way: a scale rule along the paper's foot, as wide as the column, with a cursor that walks along it. Off (the rest) or on. Architrave's paper only.",
     "pillbuttons": "Retired 2026-09-26 and still read: true becomes buttonshape pill.",
     "centretitle": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.",
     "fadeedges": "which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.",
@@ -102,7 +113,7 @@
     "vignette": "A darkening at the page's four edges, as a screen's glass has.",
     "vignettelevel": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
     "vignettereach": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
-    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), grain (film grain), hidden (no images; each article picture becomes a line that shows it).",
+    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), hidden (no images; each article picture becomes a line that shows it).",
     "picturehover": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
     "alternates": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
     "soft": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
@@ -600,6 +611,7 @@
       "lines": false,
       "scope": "article",
       "fills": true,
+      "darkground": true,
       "widehead": true,
       "widepicture": true,
       "categories": "above",
@@ -972,14 +984,14 @@
       "id": "draft",
       "label": "Drafting blue",
       "light": {
-        "paper": "#edf1f6",
-        "ink": "#23395f",
-        "accent": "#2a5bc0"
+        "paper": "#f6f8fa",
+        "ink": "#173a72",
+        "accent": "#173a72"
       },
       "dark": {
-        "paper": "#133a7c",
-        "ink": "#eaf1ff",
-        "accent": "#a9cbff"
+        "paper": "#174b8d",
+        "ink": "#f3f8ff",
+        "accent": "#f3f8ff"
       }
     },
     {

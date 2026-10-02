@@ -199,7 +199,8 @@ window.ArchitraveFontLibrary = [
 		"range": [
 			100,
 			900
-		]
+		],
+		"bundled": true
 	},
 	{
 		"id": "source-serif-4",
@@ -774,5 +775,23 @@ window.ArchitraveFontLibrary = [
 		"family": "\"Caprasimo\", system-ui, sans-serif",
 		"italic": false,
 		"range": []
+	},
+	{
+		"id": "routed-gothic",
+		"label": "Routed Gothic",
+		"group": "display",
+		"family": "\"Routed Gothic\", system-ui, sans-serif",
+		"italic": true,
+		"range": [],
+		"bundled": true
+	},
+	{
+		"id": "routed-gothic-wide",
+		"label": "Routed Gothic Wide",
+		"group": "display",
+		"family": "\"Routed Gothic Wide\", system-ui, sans-serif",
+		"italic": false,
+		"range": [],
+		"bundled": true
 	}
 ];

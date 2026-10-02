@@ -18,7 +18,7 @@
 	var root = document.documentElement;
 	var have = {}, busy = {}, failed = {};
 	cfg.have.forEach(function (id) { have[id] = true; });
-	var names = lib.map(function (f) { return { id: f.id, name: f.family.split(',')[0].trim() }; });
+	var names = lib.filter(function (f) { return !f.bundled; }).map(function (f) {  return { id: f.id, name: f.family.split(',')[0].trim() }; });
 	function named() {
 		var face = root.getAttribute('data-face'), sans = root.getAttribute('data-sans'), style = root.getAttribute('style') || '';
 		return names.filter(function (f) {

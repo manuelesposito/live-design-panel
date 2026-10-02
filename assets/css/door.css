@@ -520,6 +520,8 @@
 @keyframes ldp-hum { 0% { opacity: 0 } 20% { opacity: calc(.05 * var(--ldp-hum-k, 1)) } 35% { opacity: calc(.01 * var(--ldp-hum-k, 1)) } 50% { opacity: calc(.06 * var(--ldp-hum-k, 1)) } 70% { opacity: calc(.02 * var(--ldp-hum-k, 1)) } 85% { opacity: calc(.05 * var(--ldp-hum-k, 1)) } 100% { opacity: 0 } }
 :root[data-theme$="-dark"] { --ldp-hum-k: .45; }
 .ldp-foot, .ldp-legal, .ldp-footband, .ldp-plate { display: none; }
+.ldp-trace-ink { flood-color: var(--text-primary); } 
+.ldp-sheet, .ldp-sheet > *, .ldp-zone, .ldp-tick, .ldp-rule, .ldp-dim, .ldp-titleblock { display: none; }
 @keyframes ldp-roll { to { top: 100%; } }
 @keyframes ldp-crawl { 0% { background-position: 0 0; } 25% { background-position: 37px -61px; } 50% { background-position: -83px 19px; } 75% { background-position: 51px 77px; } 100% { background-position: -29px -43px; } }
 @keyframes ldp-switch-on { 0% { transform: scaleY(.006) scaleX(.002); filter: brightness(6); } 30% { transform: scaleY(.006); filter: brightness(3); } 70% { transform: scaleY(1); filter: brightness(1.6); } 100% { transform: none; filter: none; } }

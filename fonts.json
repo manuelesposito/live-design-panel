@@ -286,6 +286,44 @@
 					]
 				}
 			]
+		},
+		{
+			"fontFamily": "\"Routed Gothic\", \"IBM Plex Sans\", system-ui, sans-serif",
+			"name": "Routed Gothic",
+			"slug": "font-routed-gothic",
+			"fontFace": [
+				{
+					"fontFamily": "Routed Gothic",
+					"fontStyle": "normal",
+					"fontWeight": "400",
+					"src": [
+						"fonts/routed-gothic-latin-400-normal.woff2"
+					]
+				},
+				{
+					"fontFamily": "Routed Gothic",
+					"fontStyle": "italic",
+					"fontWeight": "400",
+					"src": [
+						"fonts/routed-gothic-half-italic-latin-400-normal.woff2"
+					]
+				}
+			]
+		},
+		{
+			"fontFamily": "\"Routed Gothic Wide\", \"IBM Plex Sans\", system-ui, sans-serif",
+			"name": "Routed Gothic Wide",
+			"slug": "font-routed-gothic-wide",
+			"fontFace": [
+				{
+					"fontFamily": "Routed Gothic Wide",
+					"fontStyle": "normal",
+					"fontWeight": "400",
+					"src": [
+						"fonts/routed-gothic-wide-latin-400-normal.woff2"
+					]
+				}
+			]
 		}
 	]
 }

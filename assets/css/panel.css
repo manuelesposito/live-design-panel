@@ -149,6 +149,11 @@
 ) {
 	border-style: dashed;
 }
+:root[data-lines="on"][data-line-style="dashed"][data-bubbles="on"] :is(
+	.single-post-article .wp-block-post-content h2[data-ldp-n]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
+) {
+	border-style: dashed;
+}
 :root[data-lines="on"][data-line-style="dashed"][data-button-medium="outlined"] :is(
 	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
@@ -184,8 +189,18 @@
 ) {
 	border-style: dashed;
 }
+:root[data-lines="on"][data-line-style="dashed"][data-scale-rule="on"] :is(
+	.ldp-rule .ldp-cur:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
+) {
+	border-style: dashed;
+}
 :root[data-lines="on"][data-line-style="dashed"][data-tags] :is(
 	:is(#ldp-lv, .single-post-article .article-tags a):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-style: dashed;
+}
+:root[data-lines="on"][data-line-style="dashed"][data-title-block="on"] :is(
+	.ldp-titleblock:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dashed;
 }
@@ -236,6 +251,11 @@
 ) {
 	border-bottom-style: dashed;
 }
+:root[data-lines="on"][data-line-style="dashed"][data-title-block="on"] :is(
+	.ldp-titleblock > div:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-bottom-style: dashed;
+}
 :root[data-lines="on"][data-line-style="dashed"][data-guides] :is(
 	.single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
 ) {
@@ -257,11 +277,21 @@
 ) {
 	border-inline-start-style: dashed;
 }
+:root[data-lines="on"][data-line-style="dashed"][data-title-block="on"] :is(
+	.ldp-titleblock > div:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-right-style: dashed;
+}
 :root[data-lines="on"][data-line-style="dashed"] :is(
 	.about-numbers-row + .about-numbers-row:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.comments-fold-seam:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.comments-fold-body .comment-respond:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.jetpack-instant-search__search-result-minimal + .jetpack-instant-search__search-result-minimal:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
+) {
+	border-top-style: dashed;
+}
+:root[data-lines="on"][data-line-style="dashed"][data-scale-rule="on"] :is(
+	.ldp-rule .ldp-cur:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
 ) {
 	border-top-style: dashed;
 }
@@ -329,6 +359,13 @@
 		border-top-style: dashed;
 	}
 }
+@media (min-width: 1010px) {
+	:root[data-lines="on"][data-line-style="dashed"][data-scale-rule="on"] :is(
+	body.has-frame .frame-paper > .ldp-rule:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+		border-top-style: dashed;
+	}
+}
 :root[data-lines="on"][data-line-style="dotted"] :is(
 	.post-link-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.quire-menu:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
@@ -387,6 +424,11 @@
 ) {
 	border-style: dotted;
 }
+:root[data-lines="on"][data-line-style="dotted"][data-bubbles="on"] :is(
+	.single-post-article .wp-block-post-content h2[data-ldp-n]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
+) {
+	border-style: dotted;
+}
 :root[data-lines="on"][data-line-style="dotted"][data-button-medium="outlined"] :is(
 	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
@@ -422,8 +464,18 @@
 ) {
 	border-style: dotted;
 }
+:root[data-lines="on"][data-line-style="dotted"][data-scale-rule="on"] :is(
+	.ldp-rule .ldp-cur:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
+) {
+	border-style: dotted;
+}
 :root[data-lines="on"][data-line-style="dotted"][data-tags] :is(
 	:is(#ldp-lv, .single-post-article .article-tags a):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-style: dotted;
+}
+:root[data-lines="on"][data-line-style="dotted"][data-title-block="on"] :is(
+	.ldp-titleblock:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dotted;
 }
@@ -474,6 +526,11 @@
 ) {
 	border-bottom-style: dotted;
 }
+:root[data-lines="on"][data-line-style="dotted"][data-title-block="on"] :is(
+	.ldp-titleblock > div:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-bottom-style: dotted;
+}
 :root[data-lines="on"][data-line-style="dotted"][data-guides] :is(
 	.single-post-article:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
 ) {
@@ -495,11 +552,21 @@
 ) {
 	border-inline-start-style: dotted;
 }
+:root[data-lines="on"][data-line-style="dotted"][data-title-block="on"] :is(
+	.ldp-titleblock > div:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-right-style: dotted;
+}
 :root[data-lines="on"][data-line-style="dotted"] :is(
 	.about-numbers-row + .about-numbers-row:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.comments-fold-seam:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.comments-fold-body .comment-respond:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.jetpack-instant-search__search-result-minimal + .jetpack-instant-search__search-result-minimal:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
+) {
+	border-top-style: dotted;
+}
+:root[data-lines="on"][data-line-style="dotted"][data-scale-rule="on"] :is(
+	.ldp-rule .ldp-cur:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
 ) {
 	border-top-style: dotted;
 }
@@ -563,6 +630,13 @@
 @media (min-width: 1010px) {
 	:root[data-lines="on"][data-line-style="dotted"] :is(
 	body.has-frame .comments-side .comment-respond:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+		border-top-style: dotted;
+	}
+}
+@media (min-width: 1010px) {
+	:root[data-lines="on"][data-line-style="dotted"][data-scale-rule="on"] :is(
+	body.has-frame .frame-paper > .ldp-rule:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 		border-top-style: dotted;
 	}
@@ -1924,6 +1998,200 @@
 :root[data-site-name="caps"] :is(.sidebar-logo-section .wp-block-site-title a, .mobile-nav-bar .wp-block-site-title a, .ldp-plate-name):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	font-family: var(--title-face, var(--font-reading)); font-weight: 700; font-style: italic; text-transform: uppercase; letter-spacing: -0.04em;
 }
+:root[data-sheet-grid] {
+	--ldp-grid-c: var(--text-primary); --ldp-grid-minor: .07; --ldp-grid-major: .16;
+}
+:root[data-sheet-grid]:not([data-theme$="-dark"]) {
+	--ldp-grid-c: oklch(from var(--text-primary) calc(l + .32) calc(c * .9) h); --ldp-grid-minor: .09; --ldp-grid-major: .2;
+}
+:root[data-sheet-grid][data-grid-strength="faint"] {
+	--ldp-grid-minor: .035; --ldp-grid-major: .09;
+}
+:root[data-sheet-grid][data-grid-strength="faint"]:not([data-theme$="-dark"]) {
+	--ldp-grid-minor: .05; --ldp-grid-major: .13;
+}
+:root[data-sheet-grid][data-grid-strength="strong"] {
+	--ldp-grid-minor: .11; --ldp-grid-major: .24;
+}
+:root[data-sheet-grid][data-grid-strength="strong"]:not([data-theme$="-dark"]) {
+	--ldp-grid-minor: .14; --ldp-grid-major: .3;
+}
+:root[data-sheet-grid] body .content-column.content-column:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-attachment: local; background-position: -1px -1px;
+}
+:root[data-sheet-grid="squared"] body .content-column.content-column:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image:
+	linear-gradient(to right, rgb(from var(--ldp-grid-c) r g b / var(--ldp-grid-major)) 1px, transparent 1px),
+	linear-gradient(to bottom, rgb(from var(--ldp-grid-c) r g b / var(--ldp-grid-major)) 1px, transparent 1px),
+	linear-gradient(to right, rgb(from var(--ldp-grid-c) r g b / var(--ldp-grid-minor)) 1px, transparent 1px),
+	linear-gradient(to bottom, rgb(from var(--ldp-grid-c) r g b / var(--ldp-grid-minor)) 1px, transparent 1px);
+	background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+}
+:root[data-sheet-grid="fine"] body .content-column.content-column:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image:
+	linear-gradient(to right, rgb(from var(--ldp-grid-c) r g b / var(--ldp-grid-minor)) 1px, transparent 1px),
+	linear-gradient(to bottom, rgb(from var(--ldp-grid-c) r g b / var(--ldp-grid-minor)) 1px, transparent 1px);
+	background-size: 12px 12px;
+}
+:root[data-sheet-grid="dots"] body .content-column.content-column:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image: radial-gradient(circle at 1px 1px, rgb(from var(--ldp-grid-c) r g b / calc(var(--ldp-grid-major) * 2.4)) 1px, transparent 1.5px);
+	background-size: 24px 24px;
+}
+@media (min-width: 1010px) {
+	:root:is([data-sheet-border], [data-mottle], [data-print-edges]) body.has-frame .frame-paper > .ldp-sheet {
+		display: block; position: absolute; inset: 0; z-index: 4; pointer-events: none; border-radius: inherit; overflow: hidden;
+	}
+	:root[data-sheet-border] body.has-frame .frame-paper > .ldp-sheet {
+		box-shadow: inset 0 0 0 2px var(--text-primary);
+	}
+	:root[data-sheet-border="zones"] .ldp-sheet :is(.ldp-zone, .ldp-tick) {
+		display: block; position: absolute;
+	}
+	:root[data-sheet-border="zones"] .ldp-sheet .ldp-zone {
+		font: 400 10px/1 var(--small-face, var(--font-sans)); letter-spacing: .1em; color: var(--text-muted);
+	}
+	:root[data-sheet-border="zones"] .ldp-sheet .ldp-tick {
+		background: var(--text-primary);
+	}
+	:root[data-scale-rule="on"] body.has-frame .frame-paper > .ldp-rule {
+		display: block; position: absolute; z-index: 5; bottom: 10px; height: 26px; pointer-events: none; border-top: 1px solid var(--text-primary); background: var(--surface-base);
+	}
+}
+:root[data-mottle="soft"][data-theme$="-dark"] {
+	--ldp-mottle: .18;
+}
+:root[data-mottle="strong"][data-theme$="-dark"] {
+	--ldp-mottle: .32;
+}
+:root[data-mottle] .ldp-sheet .ldp-mottle {
+	display: block; position: absolute; inset: 0; opacity: var(--ldp-mottle, 0); mix-blend-mode: soft-light; background-size: 900px 900px;
+	background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='0.0045' numOctaves='4' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1'/></filter><rect width='900' height='900' filter='url(%23m)'/></svg>");
+}
+:root[data-print-edges="soft"] {
+	--ldp-print-edges: .25;
+}
+:root[data-print-edges="strong"] {
+	--ldp-print-edges: .45;
+}
+:root[data-print-edges] .ldp-sheet .ldp-edges {
+	display: block; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 50%, rgb(from var(--surface-base) calc(r * .12) calc(g * .12) calc(b * .25) / var(--ldp-print-edges)) 100%);
+}
+:root[data-print-edges]:not([data-theme$="-dark"]) .ldp-sheet .ldp-edges {
+	background: radial-gradient(ellipse at center, transparent 50%, rgb(from var(--text-primary) r g b / calc(var(--ldp-print-edges) * .5)) 100%);
+}
+:root[data-pen="medium"] {
+	--ldp-pen: .5px;
+}
+:root[data-pen="bold"] {
+	--ldp-pen: 1px;
+}
+:root[data-pen] .content-column :is(.wp-block-post-title, .wp-block-post-content :is(h2, h3, h4)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	-webkit-text-stroke: var(--ldp-pen) currentColor;
+}
+:root[data-pen] .content-column .wp-block-post-content :is(h2, h3, h4):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	-webkit-text-stroke-width: calc(var(--ldp-pen) * .6);
+}
+:root[data-dimensions="on"] .ldp-dim {
+	display: block; position: relative; block-size: 22px; margin-block: 0 14px; color: var(--text-muted);
+}
+:root[data-dimensions="on"] .ldp-dim.ldp-under {
+	margin-block: 14px 0;
+}
+:root[data-dimensions="on"] .ldp-dim::before {
+	content: ""; position: absolute; inset-inline: 0; top: 11px; block-size: 1px; background: currentColor;
+}
+:root[data-dimensions="on"] .ldp-dim i {
+	position: absolute; inset-block: 0; inline-size: 1px; background: currentColor;
+}
+:root[data-dimensions="on"] .ldp-dim i:first-child {
+	left: 0;
+}
+:root[data-dimensions="on"] .ldp-dim i:last-of-type {
+	right: 0;
+}
+:root[data-dimensions="on"] .ldp-dim i::after {
+	content: ""; position: absolute; left: -5px; top: 11px; inline-size: 11px; block-size: 1px; background: currentColor; transform: rotate(-45deg);
+}
+:root[data-dimensions="on"] .ldp-dim span {
+	position: absolute; left: 50%; top: 2px; transform: translateX(-50%); padding-inline: 10px; background: var(--surface-base); font: 400 12px/18px var(--small-face, var(--font-sans)); letter-spacing: .14em; text-transform: uppercase;
+}
+:root[data-guide-lines="on"] .content-column:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	overflow-x: clip;
+}
+:root[data-guide-lines="on"] .single-post-article {
+	isolation: isolate;
+}
+:root[data-guide-lines="on"] .single-post-article :is(.wp-block-post-title, .wp-block-post-content :is(h2, h3)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	position: relative; --ldp-g-lh: 1lh; --ldp-g-base: calc((1lh - (var(--ldp-g-a, .9) + var(--ldp-g-d, .25)) * 1em) / 2 + var(--ldp-g-a, .9) * 1em); --ldp-g-cap: calc(var(--ldp-g-base) - var(--ldp-g-c, .7) * 1em);
+}
+:root[data-guide-lines="on"] .single-post-article :is(.wp-block-post-title, .wp-block-post-content :is(h2, h3)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: ""; position: absolute; z-index: -1; pointer-events: none; inset-block: 0; left: -900px; right: -900px;
+	background: repeating-linear-gradient(to bottom, transparent 0 var(--ldp-g-cap), var(--ldp-guide) var(--ldp-g-cap) calc(var(--ldp-g-cap) + 1px), transparent calc(var(--ldp-g-cap) + 1px) var(--ldp-g-base), var(--ldp-guide) var(--ldp-g-base) calc(var(--ldp-g-base) + 1px), transparent calc(var(--ldp-g-base) + 1px) var(--ldp-g-lh));
+}
+:root[data-guide-lines="on"] {
+	--ldp-guide: rgb(from var(--text-primary) r g b / .3);
+}
+:root[data-bubbles="on"] .single-post-article .wp-block-post-content h2[data-ldp-n]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	position: relative; padding-inline-start: 58px;
+}
+:root[data-bubbles="on"] .single-post-article .wp-block-post-content h2[data-ldp-n]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	content: attr(data-ldp-n) "\A" attr(data-ldp-of);
+	position: absolute; left: 0; top: calc(.5lh - 21px);
+	inline-size: 42px; block-size: 42px; box-sizing: border-box; padding-block-start: 3px;
+	border: 1px solid var(--text-primary); border-radius: 50%;
+	background: linear-gradient(transparent calc(50% - .5px), var(--text-primary) calc(50% - .5px) calc(50% + .5px), transparent calc(50% + .5px));
+	white-space: pre; text-align: center; font: 400 12px/18px var(--small-face, var(--font-sans)); font-style: normal; letter-spacing: .04em; text-transform: none; -webkit-text-stroke: 0; color: var(--text-primary);
+}
+:root[data-title-block="on"] .ldp-titleblock {
+	display: grid; margin-block: 72px 0; margin-inline: auto 0; max-inline-size: 460px; border: 2px solid var(--text-primary); font: 400 10.5px/1.2 var(--small-face, var(--font-sans)); letter-spacing: .14em; text-transform: uppercase; color: var(--text-muted); grid-template-columns: 1fr 1fr 1fr;
+}
+:root[data-title-block="on"] .ldp-titleblock > div {
+	padding: 8px 10px 9px; margin: 0; border-right: 1px solid var(--text-primary); border-bottom: 1px solid var(--text-primary);
+}
+:root[data-title-block="on"] .ldp-titleblock > div:nth-child(3n) {
+	border-right: 0;
+}
+:root[data-title-block="on"] .ldp-titleblock > div:nth-last-child(-n+3) {
+	border-bottom: 0;
+}
+:root[data-title-block="on"] .ldp-titleblock > div.ldp-wide {
+	grid-column: 1 / -1; border-right: 0;
+}
+:root[data-title-block="on"] .ldp-titleblock b {
+	display: block; margin-top: 6px; font: 400 14px/1.25 var(--small-face, var(--font-sans)); letter-spacing: .08em; color: var(--text-primary);
+}
+:root[data-title-block="on"] .ldp-titleblock .ldp-wide b {
+	font-size: 18px;
+}
+:root[data-scale-rule="on"] .ldp-rule .ldp-ticks {
+	position: absolute; inset: 0; background:
+	linear-gradient(to right, var(--text-primary) 1px, transparent 1px) 0 0 / 60px 12px repeat-x,
+	linear-gradient(to right, var(--text-primary) 1px, transparent 1px) 0 0 / 30px 8px repeat-x,
+	linear-gradient(to right, rgb(from var(--text-primary) r g b / .6) 1px, transparent 1px) 0 0 / 6px 4px repeat-x;
+}
+:root[data-scale-rule="on"] .ldp-rule .ldp-n {
+	position: absolute; bottom: 2px; font: 400 9px/1 var(--small-face, var(--font-sans)); letter-spacing: .06em; color: var(--text-muted); transform: translateX(3px);
+}
+:root[data-scale-rule="on"] .ldp-rule .ldp-cur {
+	position: absolute; top: -8px; bottom: 0; inline-size: 1px; background: var(--text-primary); left: 0;
+}
+:root[data-scale-rule="on"] .ldp-rule .ldp-cur::before {
+	content: ""; position: absolute; left: -5px; top: 0; border: 5px solid transparent; border-bottom: 0; border-top: 7px solid var(--text-primary);
+}
+:root[data-scale-rule="on"] .ldp-rule .ldp-done {
+	position: absolute; left: 0; top: -1px; block-size: 2px; background: var(--text-primary); inline-size: 0;
+}
+:root[data-lines="on"][data-cards="ticks"] :is(.post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--ldp-tk: 14px;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	background:
+	linear-gradient(var(--line), var(--line)) top left / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) top left / 1px var(--ldp-tk) no-repeat,
+	linear-gradient(var(--line), var(--line)) top right / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) top right / 1px var(--ldp-tk) no-repeat,
+	linear-gradient(var(--line), var(--line)) bottom left / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) bottom left / 1px var(--ldp-tk) no-repeat,
+	linear-gradient(var(--line), var(--line)) bottom right / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) bottom right / 1px var(--ldp-tk) no-repeat;
+}
 @media (prefers-reduced-motion: reduce) {
 	:root[data-shimmer] .ldp-shimmer, :root[data-static] .ldp-static {
 		display: none;
@@ -2401,6 +2669,12 @@ html:root[data-soft="on"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navi
 }
 :root[data-pictures="grain"] {
 	--picture-filter: url("#architrave-grain");
+}
+:root[data-pictures="trace"] {
+	--picture-filter: url("#ldp-trace");
+}
+:root[data-pictures="trace"] .content-column :is(figure, a, div):has(> img):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-color: transparent;
 }
 :root[data-pictures="sepia"] {
 	--picture-filter: sepia(1) contrast(.95);

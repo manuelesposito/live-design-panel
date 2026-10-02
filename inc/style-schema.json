@@ -131,7 +131,9 @@
     "funnel-display",
     "gabarito",
     "climate-crisis",
-    "caprasimo"
+    "caprasimo",
+    "routed-gothic",
+    "routed-gothic-wide"
   ],
   "leading": [
     "solid",
@@ -279,7 +281,9 @@
     "funnel-display",
     "gabarito",
     "climate-crisis",
-    "caprasimo"
+    "caprasimo",
+    "routed-gothic",
+    "routed-gothic-wide"
   ],
   "scope": [
     "article",
@@ -294,6 +298,7 @@
     "halftone",
     "dither",
     "grain",
+    "trace",
     "hidden"
   ],
   "capLines": [
@@ -535,7 +540,8 @@
     "box",
     "top",
     "flat",
-    "raised"
+    "raised",
+    "ticks"
   ],
   "quotes": [
     "line",
@@ -749,6 +755,57 @@
   "sitename": [
     "plain",
     "caps"
+  ],
+  "sheetgrid": [
+    "off",
+    "squared",
+    "fine",
+    "dots"
+  ],
+  "gridstrength": [
+    "medium",
+    "faint",
+    "strong"
+  ],
+  "sheetborder": [
+    "off",
+    "line",
+    "zones"
+  ],
+  "mottle": [
+    "off",
+    "soft",
+    "strong"
+  ],
+  "printedges": [
+    "off",
+    "soft",
+    "strong"
+  ],
+  "pen": [
+    "off",
+    "medium",
+    "bold"
+  ],
+  "dimensions": [
+    "off",
+    "on"
+  ],
+  "guidelines": [
+    "off",
+    "on"
+  ],
+  "bubbles": [
+    "off",
+    "on"
+  ],
+  "titleblock": [
+    "off",
+    "on"
+  ],
+  "scalerule": [
+    "off",
+    "on"
   ],
   "unlinked": "boolean",
   "effects": {
@@ -1139,7 +1196,9 @@
         "funnel-display",
         "gabarito",
         "climate-crisis",
-        "caprasimo"
+        "caprasimo",
+        "routed-gothic",
+        "routed-gothic-wide"
       ],
       "weight": [
         "thin",
@@ -1418,7 +1477,9 @@
         "funnel-display",
         "gabarito",
         "climate-crisis",
-        "caprasimo"
+        "caprasimo",
+        "routed-gothic",
+        "routed-gothic-wide"
       ],
       "weight": [
         "thin",
@@ -1719,7 +1780,9 @@
         "funnel-display",
         "gabarito",
         "climate-crisis",
-        "caprasimo"
+        "caprasimo",
+        "routed-gothic",
+        "routed-gothic-wide"
       ],
       "weight": [
         "thin",
@@ -1915,7 +1978,9 @@
         "funnel-display",
         "gabarito",
         "climate-crisis",
-        "caprasimo"
+        "caprasimo",
+        "routed-gothic",
+        "routed-gothic-wide"
       ],
       "weight": [
         "thin",
@@ -2121,7 +2186,9 @@
         "funnel-display",
         "gabarito",
         "climate-crisis",
-        "caprasimo"
+        "caprasimo",
+        "routed-gothic",
+        "routed-gothic-wide"
       ],
       "weight": [
         "thin",
@@ -2619,7 +2686,9 @@
         "funnel-display",
         "gabarito",
         "climate-crisis",
-        "caprasimo"
+        "caprasimo",
+        "routed-gothic",
+        "routed-gothic-wide"
       ],
       "weight": [
         "thin",
@@ -3055,7 +3124,9 @@
         "funnel-display",
         "gabarito",
         "climate-crisis",
-        "caprasimo"
+        "caprasimo",
+        "routed-gothic",
+        "routed-gothic-wide"
       ],
       "weight": [
         "thin",
@@ -3681,7 +3752,9 @@
         "funnel-display",
         "gabarito",
         "climate-crisis",
-        "caprasimo"
+        "caprasimo",
+        "routed-gothic",
+        "routed-gothic-wide"
       ],
       "weight": [
         "thin",

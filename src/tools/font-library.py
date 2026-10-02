@@ -215,7 +215,7 @@ def main() -> int:
         stack = f'"{f["family"]}", {FALLBACK[f["group"]]}'
         if f.get("have"):
             first = THEME / f["have"]
-            entry = {"italic": False, "range": [100, 900]}
+            entry = {"italic": f.get("italic", False), "range": f.get("range", [100, 900]), "bundled": True}  # ships in the plugin (fonts.json): font-fetch.js never asks the server for it  # a bundled face says what it can do (Routed Gothic, 2026-10-02: one weight, a half italic)
         else:
             p = plans[f["id"]]
             manifest[f["id"]] = {
