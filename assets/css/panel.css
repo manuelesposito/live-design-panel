@@ -2630,7 +2630,7 @@ html:root[data-print-ink="warm"]:not([data-theme$="-dark"]), html:root[data-prin
 :root[data-title-mark][data-head-align="right"] .single-post-article > .wp-block-post-title:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	margin-inline: auto 0;
 }
-:root[data-dropcap="on"][data-rainbow-cap="on"] :is(.single-post-article .wp-block-post-content, .post-card :is(.post-body, .post-format-body) :is(.wp-block-post-excerpt, .entry-content)) > p:first-of-type:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::first-letter {
+:root[data-dropcap="on"][data-rainbow-cap="on"] :is(.single-post-article .wp-block-post-content, .post-card .post-body :is(.wp-block-post-excerpt, .entry-content)) > p:first-of-type:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::first-letter {
 	background-image: linear-gradient(to bottom, #9a9fd3 0 16.6%, #d8899c 16.6% 33.3%, #e39a74 33.3% 50%, #e2c577 50% 66.6%, #a3bd86 66.6% 83.3%, #8fb0d6 83.3%);
 	-webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; text-shadow: none;
 }
@@ -2729,7 +2729,7 @@ html:root[data-print-ink="warm"]:not([data-theme$="-dark"]), html:root[data-prin
 html:root[data-cap-face="title"] {
 	--reading-dropcap-face: var(--head-face, var(--font-reading)); --reading-dropcap-weight: min(900, calc(var(--head-weight, 600) + 200)); --reading-dropcap-settings: "opsz" 11;
 }
-:root[data-dropcap="on"][data-cap-face="title"] :is(.single-post-article .wp-block-post-content, .post-card :is(.post-body, .post-format-body) :is(.wp-block-post-excerpt, .entry-content)) > p:first-of-type::first-letter {
+:root[data-dropcap="on"][data-cap-face="title"] :is(.single-post-article .wp-block-post-content, .post-card .post-body :is(.wp-block-post-excerpt, .entry-content)) > p:first-of-type::first-letter {
 	font-style: var(--head-style, normal); color: var(--head-colour, inherit);
 }
 :root[data-site-name="title"] :is(.sidebar-logo-section .wp-block-site-title a, .mobile-nav-bar .wp-block-site-title a, .ldp-plate-name):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
