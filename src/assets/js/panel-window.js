@@ -1829,7 +1829,7 @@
 	}
 	/* A change from anywhere repaints once a frame, but never under a held slider or a field being typed in. */
 	function changed() {
-		if (!open) { if (primed && win) { win.classList.remove('is-primed'); win.hidden = true; } primed = false; return; }
+		if (!open) { if (primed && win) { win.classList.remove('is-primed'); win.hidden = true; } primed = false; primeSoon(); return; }
 		var a = document.activeElement;
 		if (holding || cmd || (a && win.contains(a) && a.matches('input[type="text"], input:not([type])'))) { dirty = true; return; }
 		if (frame) return;
@@ -2028,7 +2028,12 @@
 	   the click waited that long and the blob lost its first frames. It is drawn, still hidden, when the pointer
 	   comes to the button or the page is idle, and the click only starts the flow. A change to the style throws
 	   the drawing away. */
-	var primed = false;
+	var primed = false, primeT = 0;
+	/* BUILT AHEAD AGAIN AFTER A CHANGE (2026-10-02): a change on the page drops the copy built ahead (changed()), and
+	   while the page loads its scripts change <html> many times, so in three loads of five on elmastudio.de the copy
+	   made at the first idle moment was gone and the first press built the window itself (60 ms at a phone's speed).
+	   Now it is built again once the page has been quiet for a second. */
+	function primeSoon() { clearTimeout(primeT); primeT = setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(function () { prime(); }, { timeout: 2000 }); }, 1000); }
 	function prime() {
 		if (open || primed || !host || leaving) return; /* not while the sheet is on its way out: closing gives the button the focus, and a focused button primes */
 		ensureWin(); asking = false; phoneList = true; editing = null; menu = null; cmd = null;

@@ -1670,7 +1670,7 @@
 		win.querySelectorAll('.ldpw-nav[data-sec]').forEach(function (n) { n.classList.toggle('is-changed', !!secs[n.getAttribute('data-sec')]); });
 	}
 	function changed() {
-		if (!open) { if (primed && win) { win.classList.remove('is-primed'); win.hidden = true; } primed = false; return; }
+		if (!open) { if (primed && win) { win.classList.remove('is-primed'); win.hidden = true; } primed = false; primeSoon(); return; }
 		var a = document.activeElement;
 		if (holding || cmd || (a && win.contains(a) && a.matches('input[type="text"], input:not([type])'))) { dirty = true; return; }
 		if (frame) return;
@@ -1835,7 +1835,8 @@
 		}
 		return { can: can, open: openIt, close: closeIt, carried: carried, live: function () { return live; }, lit: lit, band: band };
 	}());
-	var primed = false;
+	var primed = false, primeT = 0;
+	function primeSoon() { clearTimeout(primeT); primeT = setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(function () { prime(); }, { timeout: 2000 }); }, 1000); }
 	function prime() {
 		if (open || primed || !host || leaving) return; 
 		ensureWin(); asking = false; phoneList = true; editing = null; menu = null; cmd = null;
