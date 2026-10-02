@@ -56,6 +56,9 @@ def _from_list() -> tuple[dict[str, str], set[str]]:
     absent: set[str] = set()
     marks = [(a, st, e.get("restValues") or {}) for e in listed["settings"] for a, st in (e.get("rest") or {}).items()]
     marks += [(a, st, {}) for a, st in listed.get("otherAttrs", {}).items()]
+    keys = (listed.get("engine") or {}).get("keys") or {}  # the engine's own stamps, kept since the seven colours (2026-10-03)
+    marks += [(a, "REST", {a: v}) for a, v in (keys.get("stamps") or {}).items()]
+    marks += [(a, "ABSENT", {}) for a in keys.get("absent") or []]
     for attr, status, values in marks:
         if status == "REST":
             rest[attr] = values[attr]
@@ -66,7 +69,7 @@ def _from_list() -> tuple[dict[str, str], set[str]]:
 
 # REST: Standard at rest, what the root carries with nothing stored. ABSENT: the dials the root does not carry at rest at all.
 REST, ABSENT = _from_list()
-ABSENT_PATTERNS = (re.compile(r"^data-fx-[a-z]+-[a-z]+$"), re.compile(r"^data-[a-z]+-leading$"), re.compile(r"^data-(head|kicker)-(align|colour)$"), re.compile(r"^data-[a-z]+-members$"), re.compile(r"^data-[a-z]+-m-[a-z]+-[a-z]+$"), re.compile(r"^data-code-[a-z]+$"), re.compile(r"^data-small-colour$"))  # the code role and Small text's colour (2026-10-02, the seven roles)
+ABSENT_PATTERNS = (re.compile(r"^data-fx-[a-z]+-[a-z]+$"), re.compile(r"^data-[a-z]+-leading$"), re.compile(r"^data-(head|kicker)-(align|colour)$"), re.compile(r"^data-[a-z]+-members$"), re.compile(r"^data-[a-z]+-m-[a-z]+-[a-z]+$"), re.compile(r"^data-code-[a-z]+$"), re.compile(r"^data-small-colour$"), re.compile(r"^data-(body|quote|interface|code)-colour$"))  # the code role and Small text's colour (2026-10-02, the seven roles); every role's colour (2026-10-03, the seven colours)
 # The colour rooms the theme has alone (color-mode.js, SHOWN without the plugin); None = no attribute yet.
 THEMES_ALONE = (None, "neutral-light", "neutral-dark")
 

@@ -54,9 +54,9 @@
 	}
 	function St() { return host && host.style; }
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
-	var OWN_LABEL = { smallsoft: 'Small text', links: 'Links', 'colours.{side}.inverse': 'Ground colour', 'colours.{side}.light': 'Light', 'colours.{side}.second': 'Second light' }; /* rows the current window draws without a label of the list's */
+	var OWN_LABEL = { links: 'Links' }; /* rows the current window draws without a label of the list's */
 	/* THE LAB'S WORDS for rows the list names otherwise (lab/panel-settings.js, 2026-09-28): the new window says what the lab says */
-	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
+	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 
 	/* THE SYMBOLS are Lucide's (ISC licence, lucide.dev), as the prototype's: 18 px on a
@@ -138,7 +138,7 @@
 		var x = setting(key) || {}, s = St();
 		return row(label(key), pop(key, label(key), s.get(key), (x.choices || []).map(function (id) { return [id, id === 'own' ? t('Own Colour…') : t(words[id] || id), false, wellOf ? wellOf(id) : '']; }), function (id) {
 			s.set(key, id);
-			if (id === 'own') editing = 'colours.{side}.' + key.replace('markercolour', 'marker');
+			if (id === 'own') editing = 'colours.{side}.' + key;
 		}, wellOf));
 	}
 	/* A SLIDER OVER NAMED STOPS: `stops` are { id, label }; `set` is what a stop does. */
@@ -151,7 +151,7 @@
 			'<div class="ldpw-rail">' + ticks + '<input type="range" min="0" max="' + Math.max(n, 0) + '" step="1" value="' + i + '" data-stop="' + key + '" data-f="stop:' + key + '" style="--p:' + (n ? i / n * 100 : 0) + '%" aria-label="' + esc(lb) + '" aria-valuetext="' + esc(word) + '"' + (pair ? ' data-pair="' + pair + '"' : '') + (n > 0 && !dead ? '' : ' disabled') + '></div></div>';
 	}
 	function wellRow(key, sub) {
-		var hex = St().colour(EDIT_KEY[key]);
+		var hex = St().colour(editKey(key));
 		return '<button type="button" class="ldpw-r ldpw-navrow" data-edit="' + key + '" data-f="edit:' + key + '"><span class="ldpw-lb">' + esc(label(key)) + (sub ? '<small>' + sub + '</small>' : '') + '</span>' +
 			'<span class="ldpw-val">' + esc(hex.toUpperCase()) + '</span><span class="ldpw-well" style="background:' + esc(hex) + '"></span><span class="ldpw-chev" aria-hidden="true"></span></button>';
 	}
@@ -181,38 +181,34 @@
 		return (hue >= 15 && hue < 75) || hue >= 330 ? 'warm' : 'cool';
 	}
 	var customView = null; /* the style whose colours are shown as wells without being its own yet */
+	/* THE SEVEN COLOURS (Manuel, 2026-10-03, lab/the-colours.html): the presets on top, then the seven,
+	   always shown, each for the side you are looking at; no Preset or Custom to switch between. */
 	function colourPage() {
-		var s = St(), side = s.side(), ink = s.colour('ink'), paper = s.colour('paper');
-		var out = box(row(t('Appearance'), seg('view', s.view(), [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')),
+		var s = St(), side = s.side();
+		var viewBox = box(row(t('Appearance'), seg('view', s.view(), [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')),
 				esc(t(side === 'dark' ? 'You are looking at the dark side. The style holds both; readers choose their own.' : 'You are looking at the light side. The style holds both; readers choose their own.'))) +
-			(s.editable() && s.custom() ? row(label('unlinked'), sw('unlinked', !s.get('unlinked'), label('unlinked'))) : '')); /* the lab's: only with your own colours */
+			(s.editable() ? row(label('unlinked'), sw('unlinked', !s.get('unlinked'), label('unlinked')), esc(t('Night is worked out from day'))) : ''));
 		if (!s.editable()) {
-			return out + box('<div class="ldpw-note"><p>' + esc(t('Original is the theme as it comes, and stays that way. Make a copy to change its colours.')) + '</p><button type="button" class="ldpw-blue" data-act="copy" data-f="act:copy">' + esc(t('Make a Copy')) + '</button></div>');
+			return viewBox + box('<div class="ldpw-note"><p>' + esc(t('Original is the theme as it comes, and stays that way. Make a copy to change its colours.')) + '</p><button type="button" class="ldpw-blue" data-act="copy" data-f="act:copy">' + esc(t('Make a Copy')) + '</button></div>');
 		}
-		var custom = s.custom() || customView === s.current();
-		out += box(row(t('Colours'), seg('custom', custom ? 'on' : 'off', [['off', t('Preset')], ['on', t('Custom')]], t('Colours'))));
-		if (custom) {
-			var q = s.contrast(ink, paper);
-			out += box(wellRow('colours.{side}.paper') + wellRow('colours.{side}.ink', q ? esc(readable(q)) : '') + wellRow('colours.{side}.accent') + wellRow('colours.{side}.ground', esc(t('Around the paper'))) + wellRow('colours.{side}.lift', esc(t('Menus, buttons and boxes'))));
-		} else {
-			/* IN THE PROTOTYPE'S GROUPS: the theme's own and the quiet ones, the warm, the cool, the bold, sorted by the day's paper */
-			var tile = function (p) {
-				return '<button type="button" class="ldpw-tile' + (p.on ? ' is-on' : '') + '" role="radio" aria-checked="' + !!p.on + '" data-preset="' + esc(p.id) + '" data-f="preset:' + esc(p.id) + '">' +
-					'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(titled(p.label)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(titled(p.label))) + '</span></button>';
-			};
-			var groups = { everyday: [], warm: [], cool: [], bold: [] };
-			s.presets().map(function (p, i) { return [labRank(p), i, p]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).forEach(function (x) { groups[presetGroup(x[2])].push(x[2]); });
-			PRESET_GROUPS.forEach(function (g) {
-				if (!groups[g[0]].length) return;
-				out += gtitle(t(g[1])) + '<div class="ldpw-tiles" role="radiogroup" aria-label="' + esc(t(g[1])) + '">' + groups[g[0]].map(tile).join('') + '</div>';
-			});
-		}
-		/* the prototype's order: the text's softness and the highlighter, then Show More: the small text and the ground (the links and the buttons' colour are on Buttons) */
-		var soft = s.get('soft'), marker = s.get('marker');
-		out += box(offSlider('soft', 'softlevel', t('Text softness'), ' %') + markerRow());
-		out += moreButton() + (more ? box(slider('smallsoft', ' %') + switchRow('darkground', side === 'dark', esc(t(side === 'dark' ? 'By day only' : 'The ground around the paper turns dark; the paper stays light'))) +
-			(s.get('darkground') && side === 'light' ? wellRow('colours.{side}.inverse', esc(t(s.own('inverse') ? 'Your own' : 'The night’s paper'))) : '')) : ''); /* the lab's Ground colour: the dark ground's own, by day */
-		return out;
+		var out = '';
+		/* IN THE PROTOTYPE'S GROUPS: the theme's own and the quiet ones, the warm, the cool, the bold, sorted by the day's paper */
+		var tile = function (p) {
+			return '<button type="button" class="ldpw-tile' + (p.on ? ' is-on' : '') + '" role="radio" aria-checked="' + !!p.on + '" data-preset="' + esc(p.id) + '" data-f="preset:' + esc(p.id) + '">' +
+				'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(titled(p.label)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(titled(p.label))) + '</span></button>';
+		};
+		var groups = { everyday: [], warm: [], cool: [], bold: [] };
+		s.presets().map(function (p, i) { return [labRank(p), i, p]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).forEach(function (x) { groups[presetGroup(x[2])].push(x[2]); });
+		PRESET_GROUPS.forEach(function (g) {
+			if (!groups[g[0]].length) return;
+			out += gtitle(t(g[1])) + '<div class="ldpw-tiles" role="radiogroup" aria-label="' + esc(t(g[1])) + '">' + groups[g[0]].map(tile).join('') + '</div>';
+		});
+		var q = s.contrast(s.colour('text'), s.colour('background'));
+		var ground = s.guest() ? t('Only shows where this theme has a second background.') : t('Around the paper');
+		if (s.groundNudged && s.groundNudged()) ground += ' · ' + t('Drawn a shade further, so its words read');
+		out += gtitle(t('Colours')) + box(wellRow('colours.{side}.background', esc(t('Where the text sits'))) + wellRow('colours.{side}.background2', esc(ground)) + wellRow('colours.{side}.card', esc(t('Menus, boxes and fields'))) +
+			wellRow('colours.{side}.text', q ? esc(readable(q)) : '') + wellRow('colours.{side}.mutedText', esc(t('Dates, captions, small facts'))) + wellRow('colours.{side}.accent', esc(t('Links and main buttons'))) + highlightRow());
+		return out + viewBox;
 	}
 	/* THE SHORTCUT IN ITS OWN COLUMN, as the lab and a Mac draw it: an item's words end at two spaces, the keys follow */
 	/* THE LAB'S MENU ICONS (Lucide, ISC) */
@@ -238,7 +234,8 @@
 	}
 
 	/* THE COLOUR EDITOR, as the Mac's: a big swatch, the hex, the pipette, three sliders, twenty named colours, Other… */
-	var EDIT_KEY = { 'colours.{side}.paper': 'paper', 'colours.{side}.ink': 'ink', 'colours.{side}.accent': 'accent', 'colours.{side}.ground': 'ground', 'colours.{side}.lift': 'lift', 'colours.{side}.button': 'button', 'colours.{side}.marker': 'marker', 'colours.{side}.head': 'head', 'colours.{side}.kicker': 'kicker', 'colours.{side}.inverse': 'inverse', 'colours.{side}.light': 'light', 'colours.{side}.second': 'second' };
+	/* The well a row or a pop-up's Own Colour… opens: the last word of its saved name (colours.{side}.background is background). */
+	function editKey(path) { return String(path || '').split('.').pop(); }
 	/* THE LAB'S NAMED COLOURS: for accents, and for papers and text by the side shown */
 	var LAB_ACCENTS = [['Blue','#0a84ff'],['Indigo','#5856d6'],['Purple','#af52de'],['Pink','#ff2d55'],['Red','#ff3b30'],['Orange','#ff9500'],['Yellow','#ffcc00'],['Green','#34c759'],['Mint','#00c7be'],['Teal','#30b0c7'],['Cyan','#32ade6'],['Brown','#a2845e'],['Graphite','#8e8e93'],['Terracotta','#c4472c'],['Olive','#6b7a2f'],['Coral','#ff7a59'],['Gold','#c9a227'],['Forest','#1f7a4c'],['Navy','#1f3a93'],['Rose','#e05a8a']];
 	var LAB_PAPERS = { light: [['White','#ffffff'],['Snow','#fafafa'],['Porcelain','#f6f5f2'],['Linen','#f7f1e8'],['Ivory','#fbf8ef'],['Cream','#f6ede3'],['Sand','#efe6d6'],['Mist','#eef1f4'],['Sage','#eef2ea'],['Blush','#f8eeee']],
@@ -246,11 +243,14 @@
 	var LAB_INKS = { light: [['Black','#000000'],['Ink','#111113'],['Graphite','#2c2c2e'],['Charcoal','#3a3a3c'],['Espresso','#2b2018'],['Navy','#14213d'],['Forest','#16301f'],['Plum','#2e1a33'],['Slate','#29323c'],['Walnut','#3b2a1e']],
 		dark: [['White','#ffffff'],['Snow','#f5f5f7'],['Porcelain','#ecebe8'],['Linen','#f5ece2'],['Mist','#dfe6ee'],['Sand','#e9dfcc'],['Mint','#e2ffe8'],['Blush','#f6e3e3'],['Lavender','#e7e1f7'],['Silver','#c7c7cc']] };
 	function editorPage() {
-		var s = St(), door0 = editing === 'door.own', k = door0 ? 'button' : EDIT_KEY[editing], v = door0 ? doorColour('own', s.button() || {}) : s.colour(k), hsl = hexToHsl(v);
-		var against = k === 'paper' ? s.colour('ink') : k === 'ink' || k === 'accent' || k === 'button' ? s.colour('paper') : '', q = against ? s.contrast(v, against) : 0;
-		var side0 = s.side() === 'dark' ? 'dark' : 'light', paperish = k === 'paper' || k === 'ground' || k === 'lift' || k === 'inverse';
-		var src = paperish ? LAB_PAPERS[side0] : k === 'ink' || k === 'head' || k === 'kicker' ? LAB_INKS[side0] : LAB_ACCENTS;
-		var list = src.map(function (c) { return { label: c[0], hex: c[1] }; }), named = list.filter(function (x) { return x.hex === v; })[0];
+		var s = St(), door0 = editing === 'door.own', k = door0 ? 'button' : editKey(editing), v = door0 ? doorColour('own', s.button() || {}) : s.colour(k), hsl = hexToHsl(v);
+		var against = k === 'background' ? s.colour('text') : k === 'text' || k === 'accent' || k === 'button' || k === 'mutedText' ? s.colour('background') : '', q = against ? s.contrast(v, against) : 0;
+		var side0 = s.side() === 'dark' ? 'dark' : 'light', paperish = k === 'background' || k === 'background2' || k === 'card';
+		var src = paperish ? LAB_PAPERS[side0] : k === 'text' || k === 'mutedText' ? LAB_INKS[side0] : LAB_ACCENTS;
+		var list = src.map(function (c) { return { label: c[0], hex: c[1] }; });
+		/* THE OTHER SIDE'S GROUND, one press away (2026-10-03, the dark ground as a colour): the night's ground by day, the day's by night */
+		if (k === 'background2' && s.otherGround) list.unshift({ label: side0 === 'light' ? 'Night’s Ground' : 'Day’s Ground', hex: s.otherGround() });
+		var named = list.filter(function (x) { return x.hex === v; })[0];
 		var listTitle = (paperish ? 'Papers' : src === LAB_ACCENTS ? 'Colours' : 'Text Colours') + (src !== LAB_ACCENTS ? (side0 === 'light' ? ' for Light' : ' for Dark') : '');
 		function hs(lb, key, max, val, track) {
 			return '<div class="ldpw-r ldpw-sl ldpw-hsl"><div class="ldpw-top"><span class="ldpw-lb">' + esc(t(lb)) + '</span><span class="ldpw-val" data-hsl-val="' + key + '">' + val + (key === 'h' ? '°' : '%') + '</span></div>' +
@@ -258,7 +258,7 @@
 		}
 		return '<div class="ldpw-pick"><span class="ldpw-big" style="background:' + v + '"></span><div><label for="ldpw-hex">' + esc(named ? t(named.label) : t('Hex')) + '</label><input id="ldpw-hex" data-hex data-f="hex" value="' + v.toUpperCase() + '" spellcheck="false" maxlength="7" autocomplete="off"></div>' +
 				(window.EyeDropper ? '<button type="button" class="ldpw-circ" data-act="pipette" data-f="act:pipette" aria-label="' + esc(t('Pick a colour from the page')) + '" title="' + esc(t('Pick a colour from the page')) + '">' + svg(GLYPH.pipette) + '</button>' : '') +
-				(q ? '<small data-ratio title="' + q.toFixed(1) + ':1">' + esc(readable(q) + ' ' + t(k === 'paper' ? 'against the text' : 'against the paper')) + '</small>' : '') + '</div>' +
+				(q ? '<small data-ratio title="' + q.toFixed(1) + ':1">' + esc(readable(q) + ' ' + t(k === 'background' ? 'against the text' : 'against the paper')) + '</small>' : '') + '</div>' +
 			box(hs('Hue', 'h', 360, hsl[0], 'linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)') +
 				hs('Saturation', 's', 100, hsl[1], 'linear-gradient(90deg,' + hslToHex(hsl[0], 0, hsl[2]) + ',' + hslToHex(hsl[0], 100, hsl[2]) + ')') +
 				hs('Lightness', 'l', 100, hsl[2], 'linear-gradient(90deg,#000,' + hslToHex(hsl[0], hsl[1], 50) + ',#fff)')) +
@@ -339,7 +339,7 @@
 				: row(t('Weight'), '<span class="ldpw-val">' + esc(weightWord(v.weight)) + '</span>', '', 'is-off')) +
 			(has('lineHeight') ? stepSlider(P + 'lineHeight', t('Line spacing'), s.typeLines.map(function (id) { return { id: id, label: t(LINE_WORD[id]) }; }), v.lineHeight, function (id) { s.setType(role, 'lineHeight', id); }, 'normal') : '') +
 			(has('align') ? row(t('Alignment'), seg('align', v.align || 'default', ALIGN.map(function (a) { return [a[0], t(a[1])]; }), t('Alignment'))) : '') +
-			(has('colour') ? row(t('Colour'), pop('rolecolour', t('Colour'), v.colour, [['ink', t('Text')], ['accent', t('Accent')]].concat([['own', t('Own Colour…'), false, s.roleColour ? (v.colour === 'own' ? s.roleColour(role) : '#ff9f0a') : '']]), function (id) {
+			(has('colour') ? row(t('Colour'), pop('rolecolour', t('Colour'), v.colour, [['text', t('Text')], ['mutedText', t('Soft text')], ['accent', t('Accent')]].concat([['own', t('Own Colour…'), false, s.roleColour ? (v.colour === 'own' ? s.roleColour(role) : '#ff9f0a') : '']]), function (id) {
 				s.setType(role, 'colour', id); if (id === 'own') editing = 'colours.{side}.' + role;
 			}, function (id) { return id === 'own' ? s.roleColour(role) : ''; })) : '')); /* the lab's: a well only for an own colour; Text and Accent are words */
 		out += '<button type="button" class="ldpw-more" aria-expanded="' + more + '" data-act="more" data-f="act:more">' + esc(t(more ? 'Show Less' : 'Show More')) + '</button>';
@@ -531,18 +531,16 @@
 			if (!s.get('rounded')) s.set('rounded', true);
 		}, 'medium', '', 'corners');
 	}
-	/* THE HIGHLIGHTER as the prototype's one pop-up: Off, then its colours */
-	function markerRow() {
-		var s = St(), x = setting('markercolour') || {}, on = s.get('marker');
-		var DOT = { yellow: '#fff347', green: '#9ff0a4', pink: '#ffb3d9', blue: '#a8d4ff', orange: '#ffc78a' }; /* the lab's pens, as dots in the menu */
-		var ownDot = on && s.get('markercolour') === 'own' ? s.colour('marker') : '#ffd60a';
-		var items = [['off', t('Off')]].concat((x.choices || []).map(function (id) { return id === 'own' ? ['own', t('Own Colour…'), false, ownDot] : [id, t(MARKER_WORD[id] || id), false, DOT[id] || '']; }));
-		return row(label('marker'), pop('marker', label('marker'), on ? s.get('markercolour') : 'off', items, function (id) {
-			if (id === 'off') { if (s.get('marker')) s.set('marker', false); return; }
-			if (s.get('markercolour') !== id) s.set('markercolour', id);
-			if (!s.get('marker')) s.set('marker', true);
-			if (id === 'own') editing = 'colours.{side}.marker';
-		}, function (v) { return v === 'off' ? 'transparent' : s.colour('marker'); }));
+	/* THE HIGHLIGHTER, ONE OF THE SEVEN (2026-10-03): Off, the five pens, or a colour of your own */
+	var PENS = { yellow: '#fff347', green: '#b4f07c', pink: '#ffb0d8', blue: '#a4d8ff', orange: '#ffc46e' };
+	function highlightRow() {
+		var s = St(), h = s.highlight ? s.highlight() : '', now = !h ? 'off' : Object.keys(PENS).filter(function (n) { return PENS[n] === h; })[0] || 'own';
+		var items = [['off', t('Off')]].concat(Object.keys(PENS).map(function (id) { return [id, t(MARKER_WORD[id]), false, PENS[id]]; }), [['own', t('Own Colour…'), false, now === 'own' ? h : '#ffd60a']]);
+		return row(label('colours.{side}.highlight'), pop('highlight', label('colours.{side}.highlight'), now, items, function (id) {
+			if (id === 'off') { s.setHighlight(''); return; }
+			if (id === 'own') { if (now === 'off') s.setHighlight('#ffd60a'); editing = 'colours.{side}.highlight'; return; }
+			s.setHighlight(PENS[id]);
+		}, function (v) { return v === 'off' ? 'transparent' : h; }), esc(t('Marked words and selected text')));
 	}
 	function layoutPage() {
 		var s = St(), guest = s.guest(), hidden = s.get('pictures') === 'hidden';
@@ -1036,7 +1034,7 @@
 	   Colour, the two lights' wells under Colour, the headings' and category line's colours under
 	   Colour, and a chosen preset nowhere, so Revert Colour reverted the lights and left the preset. */
 	var DRAWN_ON = { button: 'buttons', buttonshape: 'buttons', buttonstyle: 'buttons', buttonmedium: 'buttons', buttonquiet: 'buttons', tags: 'buttons', tagsfollow: 'buttons', links: 'buttons', chosenitem: 'buttons' };
-	var WELL_ON = { light: 'effects', second: 'effects', button: 'buttons', title: 'type', headings: 'type', meta: 'type' };
+	var WELL_ON = { button: 'buttons', title: 'type', headings: 'type', body: 'type', quote: 'type', meta: 'type', 'interface': 'type', code: 'type' };
 	function changeSection(path) {
 		var p = path.split('.'), k = p[0], x = setting(k);
 		if (k === 'colours') return WELL_ON[p[p.length - 1]] || 'colour';
@@ -1303,7 +1301,7 @@
 	   with ⌥ held, a thing on the page shows its setting's name; clicked, the window opens that row and lights it.
 	   The first match wins, so the specific parts come before the paragraph and the page. */
 	var TARGETS = [
-		['mark', 'colour', 'marker', 'Highlighter'],
+		['mark', 'colour', 'highlight', 'Highlighter'],
 		['.quire-button.primary, .rail-newsletter-trigger, [data-ldp-button="main"]', 'buttons', 'buttonstyle', 'Main buttons'],
 		['.quire-button.ghost', 'buttons', 'buttonquiet', 'Quiet buttons'],
 		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'buttonmedium', 'Other buttons'],
@@ -1354,7 +1352,6 @@
 		sq = null; cmd = null; /* a page asked for by name leaves the search (2026-10-01, the panel audit: the results stayed in front) */
 		section = x.section; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; more = false;
 		if (x.key.indexOf('role:') === 0) role = x.key.slice(5);
-		if (x.key === 'smallsoft' || x.key === 'darkground') more = true;
 		if (x.section === 'effects' && x.key.indexOf('role:') !== 0) fxFind = '="' + x.key + '"';
 		try { sessionStorage.setItem(KEY, section); } catch (e) { /* private window */ }
 		if (!open) { show(); render(); } else render(); /* drawn again after show(): a window built beforehand (prime) still showed the page it was built on, so ⌥-click on a heading opened on Styles */
@@ -2140,7 +2137,7 @@
 			clearTimeout(ownTimer); ownTimer = setTimeout(function () { St().setButton('own', hex).catch(function () {}); }, 350);
 			paintEditor(hex, fromSlider); return;
 		}
-		St().setColour(EDIT_KEY[editing], hex.toLowerCase()); paintEditor(hex.toLowerCase(), fromSlider);
+		St().setColour(editKey(editing), hex.toLowerCase()); paintEditor(hex.toLowerCase(), fromSlider);
 	}
 	function onClick(e) {
 		var b0 = e.target.closest && e.target.closest('button'), anim = !!(b0 && win.contains(b0) && !b0.disabled && open && (b0.getAttribute('role') === 'switch' || b0.hasAttribute('data-seg')));
@@ -2231,7 +2228,7 @@
 		if (act === 'current') { var id = b.getAttribute('data-sec'); hide(true); host.openCurrent(id); return; }
 		if (b.hasAttribute('data-seg')) {
 			var sg = b.getAttribute('data-seg'), v = b.getAttribute('data-v');
-			if (sg === 'view') s.setView(v); else if (sg === 'custom') { /* the lab's: Custom only shows the wells; nothing is written until a well is changed */ if (v === 'on') customView = s.current(); else { customView = null; if (s.custom()) s.setCustom(false); } }
+			if (sg === 'view') s.setView(v); else if (sg === 'custom') { /* no Preset or Custom since the seven colours (2026-10-03); kept for a page drawn before */ if (v === 'on') customView = s.current(); else { customView = null; if (s.custom()) s.setCustom(false); } }
 			else if (sg === 'who') { btnWrite(s.setButton('who', v), '[data-seg="who"][data-v="' + v + '"]'); return; }
 			else if (sg === 'bsize') { btnWrite(s.setButton('size', v), '[data-seg="bsize"][data-v="' + v + '"]'); return; }
 			else if (sg === 'plook') { prefs.look = v; savePrefs(); }

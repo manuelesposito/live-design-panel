@@ -3,7 +3,7 @@
     "architrave": "Always 1. Marks the JSON as a style record.",
     "label": "The name on the tile.",
     "base": "The built-in style this record starts from; every key left out rests on it. See examples for what each base is.",
-    "palette": "The colour pair (a light and a dark side designed together). colours overrides its paper, ink and accent.",
+    "palette": "Retired 2026-10-03 and still read: a pair other than neutral is written out as its background and text on both sides.",
     "reading": "The reading size step of the article, a fluid rung and not a pixel value; default is about 22px on a desktop. Do not set a size for a monospaced reading face, its phone floor is handled by the theme.",
     "face": "The font of the article body.",
     "sans": "The font of the interface: the rail, buttons, menus.",
@@ -15,8 +15,8 @@
     "lines": "Hairlines around cards, buttons and fields and between rows. false means no lines anywhere except link underlines.",
     "line": "Strength of those lines: the ink's share in the line colour, in per cent. 45 is the rest. Only with lines.",
     "corners": "medium, small or large corners. One step re-cuts every corner together; nested corners stay sums. Only with rounded.",
-    "marker": "A highlighter: marked words and selected text get a wash in the marker colour, and a short bar stands under the article title. Decoration only, never a text colour.",
-    "markercolour": "The highlighter's colour: yellow, green, pink, blue, orange, text (the reading text's colour), muted (the date's colour), or own (the well colours.<side>.marker, fitted to the other side's paper when set on one side only; its ink and bar follow from the pen). Only with marker.",
+    "marker": "Retired 2026-10-03 and still read: true becomes colours.<side>.highlight, the pen's colour; false none.",
+    "markercolour": "Retired 2026-10-03 and still read: the pen becomes the highlight's colour (text and muted become yellow).",
     "measure": "Line length of the reading text in letters: 60 to 88 in steps of 4. 72 is the rest.",
     "space": "The space of the page: xcompact, compact, standard, spacious or xspacious. Standard is the rest, the theme's own. Each kind of gap moves by its own amount: inside a group a little, between items more, between sections most, so what belongs together stays together. The reading text of an article keeps its own rhythm.",
     "framewidth": "Width of the frame around pictures in pixels: 4, 8, 12, 16, 24 or 32. 8 is the rest. Only with pictureframe.",
@@ -54,31 +54,33 @@
     "linestyle": "solid, dashed or dotted lines. Dashes are long only when rounded is false. Only with lines.",
     "fills": "Tinted fills on cards, buttons and fields. With lines and fills both false, controls are plain glyphs.",
     "fill": "Strength of the fills as a percentage of the colour pair's own steps; 100 is the rest. Only with fills.",
-    "softlevel": "How far the reading text steps toward the paper, in percent: 10 to 45 in steps of 5. 15 is the rest. Only with soft.",
-    "quietlevel": "How far the small text (dates, captions, meta) steps toward the paper with soft on, in percent: 25 to 50 in steps of 5. 25 is the rest. Only with soft, and only while smallsoft is not set; the row Small text writes smallsoft since 2026-09-27.",
-    "smallsoft": "How far the small text (dates, captions, meta) steps toward the paper, in percent: 0 (the ink itself) to 50 in steps of 5, with soft on or off. 25 is the rest, the pair's own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.",
+    "softlevel": "Retired 2026-10-03: Softer reading text's strength; the reading text takes Soft text's one shade.",
+    "quietlevel": "Retired 2026-10-03 and still read: with soft, the small text's strength becomes Soft text's own colour (colours.<side>.mutedText).",
+    "smallsoft": "Retired 2026-10-03 and still read: the small text's strength becomes Soft text's own colour (colours.<side>.mutedText), the text that far toward the background.",
     "links": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
     "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), oldset (an old set's picture: grey, the contrast soft and the edge a little out of focus), riso (printed in the accent on the paper with a fine grain, as a one-ink risograph prints them), hidden (no images; each article picture becomes a line that shows it).",
     "picturehover": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
     "alternates": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
-    "soft": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
+    "soft": "Retired 2026-10-03 and still read: true becomes roles.body.colour mutedText, and links underlined.",
     "picturedim": "Pictures are dimmed a little on the dark side. Applies to plain, bw, sepia and grain.",
     "picturefade": "The article's top picture fades out toward its bottom and sides, into the paper. Not with hidden pictures.",
     "pictureframe": "Pictures wear a frame: a mat in the fields' colour, and with lines a line around it. Off, a picture stands on the paper with its corner alone.",
-    "darkground": "By day, the ground around the page takes the style's night colours while the page stays light: the rails and the space around the paper. On other themes, the footer. Nothing changes by night.",
+    "darkground": "Retired 2026-10-03 and still read: true becomes the light side's background2, the night's own ground (or the dark ground's own colour).",
     "hairlines": "Every line at half a pixel: the cards' edges, the fields, the frame and the dividers thin to a hairline. Only with lines.",
-    "tint": "The accent colour by name, used for links and the primary button. colours.accent overrides it.",
+    "tint": "Retired 2026-10-03 and still read: the accent's name becomes the accent colour on both sides.",
     "scope": "Legacy. The theme always applies paragraph settings everywhere.",
     "unlinked": "true when the light and dark colours were set independently; false lets one side follow the other.",
     "effects": "The extras' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect's own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.",
-    "roles": "Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site's name. body: what people read (p, li); its font is the record's face and its line spacing the record's leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record's sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; title, headings and meta also colour. A dial left out is the theme's own. size is a step from the role's own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records of the seven say architrave 2; older records with the eight roles are read into the seven.",
-    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), title, headings and meta (the roles' own colours, with roles.<role>.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides."
+    "roles": "Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site's name. body: what people read (p, li); its font is the record's face and its line spacing the record's leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record's sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme's own. size is a step from the role's own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.",
+    "colours": "Seven colours per side, named for their job, as hex: background (Paper: the page the text sits on), background2 (Ground: the space around the page and the rails, a theme's second background), card (Cards: menus, boxes, fields standing on the page), text, mutedText (Soft text: dates, captions, small facts), accent (the brand colour: links and the main buttons) and highlight (the highlighter's colour; left out, none). Beside them the button's own colour and each type role's own (title, headings, body, quote, meta, interface, code), used with button own and roles.<role>.colour own. Leave out what you do not need: the rest is mixed from background and text. text on background must reach 4.5:1 and accent on background 3:1 on both sides. A background2 on the other side of its background (dark around a light page, light around a dark one) is a dark ground, worn around the page on wide screens with its own words, lines and links. Older records name paper, ink, ground, lift and marker; they are read as these. primary, foreground and muted-foreground are read as accent, text and mutedText."
   },
   "rules": [
     "Send only the keys you want to change from the base; a smaller record is a better record.",
     "A first visit opens on the dark side, so design the dark colours first and check both.",
-    "Contrast: ink on paper at 4.5:1 or better, accent on paper at 3:1 or better, on both sides.",
-    "A strength key (line, fill, softlevel, quietlevel, framewidth) does nothing unless its switch is true.",
+    "Colours: seven per side, named for their job. background is the page the text sits on (people see Paper); background2 the space around it and the rails, a second background a theme may have (Ground); card what stands on the page: menus, boxes, fields (Cards); text; mutedText the quiet text of dates and captions (Soft text); accent the brand colour of links and main buttons; highlight the highlighter, left out for none. Leave out what you do not need: the rest is worked out from background and text.",
+    "Contrast: text on background at 4.5:1 or better, accent on background at 3:1 or better, on both sides.",
+    "A background2 on the other side of the background (dark around a light page, or light around a dark one) is a dark ground: it is worn around the page on wide screens, with its own words, lines and links.",
+    "A strength key (line, fill, framewidth) does nothing unless its switch is true.",
     "Pick fonts from the listed ids only; the theme ships no others.",
     "To try a record without publishing it, open the site at /#style= followed by the base64url of the record JSON."
   ],
@@ -101,16 +103,14 @@
       "capitals": "true sets the role in capitals.",
       "italic": "true sets it in italic, where the face has one.",
       "align": "default (the start), center or right; title and headings.",
-      "colour": "ink (the text colour), accent, or own (the role's own well, colours.<side>.title, .headings or .meta)."
+      "colour": "text (the text colour), mutedText (Soft text, the quiet colour of dates and captions), accent (the brand colour), or own (the role's own colour, colours.<side>.<role>). Left out: text, and for meta mutedText."
     }
   },
   "examples": {
     "standard": {
-      "architrave": 2,
+      "architrave": 3,
       "label": "Original",
       "base": "standard",
-      "palette": "neutral",
-      "tint": "purple",
       "sans": "inter",
       "reading": "default",
       "face": "newsreader",
@@ -129,13 +129,13 @@
       "id": "chalk",
       "label": "Salt morning",
       "light": {
-        "paper": "#f7f7f5",
-        "ink": "#1f2124",
+        "background": "#f7f7f5",
+        "text": "#1f2124",
         "accent": "#4a5568"
       },
       "dark": {
-        "paper": "#17181a",
-        "ink": "#e8e8e6",
+        "background": "#17181a",
+        "text": "#e8e8e6",
         "accent": "#9aa7b8"
       }
     },
@@ -143,13 +143,13 @@
       "id": "sand",
       "label": "Evening dune",
       "light": {
-        "paper": "#f3e7d3",
-        "ink": "#2e2418",
+        "background": "#f3e7d3",
+        "text": "#2e2418",
         "accent": "#a35a1f"
       },
       "dark": {
-        "paper": "#241c12",
-        "ink": "#eadfcb",
+        "background": "#241c12",
+        "text": "#eadfcb",
         "accent": "#e0a35c"
       }
     },
@@ -157,13 +157,13 @@
       "id": "linen",
       "label": "Linen noon",
       "light": {
-        "paper": "#f1efe6",
-        "ink": "#26261f",
+        "background": "#f1efe6",
+        "text": "#26261f",
         "accent": "#6b6a4f"
       },
       "dark": {
-        "paper": "#1d1d18",
-        "ink": "#e6e4d8",
+        "background": "#1d1d18",
+        "text": "#e6e4d8",
         "accent": "#b5b489"
       }
     },
@@ -171,13 +171,13 @@
       "id": "moss",
       "label": "Jade valley",
       "light": {
-        "paper": "#eaf0e6",
-        "ink": "#1c2a1c",
+        "background": "#eaf0e6",
+        "text": "#1c2a1c",
         "accent": "#2f6b36"
       },
       "dark": {
-        "paper": "#141a14",
-        "ink": "#dfe8dc",
+        "background": "#141a14",
+        "text": "#dfe8dc",
         "accent": "#7fc98a"
       }
     },
@@ -185,13 +185,13 @@
       "id": "fog",
       "label": "Foggy morning",
       "light": {
-        "paper": "#eceff3",
-        "ink": "#1f262e",
+        "background": "#eceff3",
+        "text": "#1f262e",
         "accent": "#3d6b8f"
       },
       "dark": {
-        "paper": "#161a1f",
-        "ink": "#dfe6ee",
+        "background": "#161a1f",
+        "text": "#dfe6ee",
         "accent": "#86b6dd"
       }
     },
@@ -199,13 +199,13 @@
       "id": "brick",
       "label": "Ember rock",
       "light": {
-        "paper": "#f5e9e2",
-        "ink": "#2b1d18",
+        "background": "#f5e9e2",
+        "text": "#2b1d18",
         "accent": "#a8402a"
       },
       "dark": {
-        "paper": "#201715",
-        "ink": "#eddcd4",
+        "background": "#201715",
+        "text": "#eddcd4",
         "accent": "#e08268"
       }
     },
@@ -213,13 +213,13 @@
       "id": "cobalt",
       "label": "Blue hour",
       "light": {
-        "paper": "#eef1f8",
-        "ink": "#16203a",
+        "background": "#eef1f8",
+        "text": "#16203a",
         "accent": "#2743a8"
       },
       "dark": {
-        "paper": "#121727",
-        "ink": "#e1e7f5",
+        "background": "#121727",
+        "text": "#e1e7f5",
         "accent": "#8ba3f5"
       }
     },
@@ -227,13 +227,13 @@
       "id": "olive",
       "label": "Cactus light",
       "light": {
-        "paper": "#f0f0e2",
-        "ink": "#262a19",
+        "background": "#f0f0e2",
+        "text": "#262a19",
         "accent": "#5d6b1f"
       },
       "dark": {
-        "paper": "#1a1c14",
-        "ink": "#e5e7d5",
+        "background": "#1a1c14",
+        "text": "#e5e7d5",
         "accent": "#b6c563"
       }
     },
@@ -241,13 +241,13 @@
       "id": "meadow",
       "label": "Meadow morning",
       "light": {
-        "paper": "#9dd36f",
-        "ink": "#2c2e2a",
+        "background": "#9dd36f",
+        "text": "#2c2e2a",
         "accent": "#1d4d0a"
       },
       "dark": {
-        "paper": "#2f4a25",
-        "ink": "#f5f1e4",
+        "background": "#2f4a25",
+        "text": "#f5f1e4",
         "accent": "#9dd36f"
       }
     },
@@ -255,13 +255,13 @@
       "id": "lichen",
       "label": "Lichen night",
       "light": {
-        "paper": "#f7f7f5",
-        "ink": "#222f30",
+        "background": "#f7f7f5",
+        "text": "#222f30",
         "accent": "#46731a"
       },
       "dark": {
-        "paper": "#222f30",
-        "ink": "#ffffff",
+        "background": "#222f30",
+        "text": "#ffffff",
         "accent": "#cef79e"
       }
     },
@@ -269,13 +269,13 @@
       "id": "corten",
       "label": "Corten field",
       "light": {
-        "paper": "#b84b30",
-        "ink": "#f8f4e9",
+        "background": "#b84b30",
+        "text": "#f8f4e9",
         "accent": "#ffffff"
       },
       "dark": {
-        "paper": "#5f1d1a",
-        "ink": "#f8f4e9",
+        "background": "#5f1d1a",
+        "text": "#f8f4e9",
         "accent": "#f2b49c"
       }
     },
@@ -283,13 +283,13 @@
       "id": "sandstone",
       "label": "Sandstone",
       "light": {
-        "paper": "#f8f4e9",
-        "ink": "#b84b30",
+        "background": "#f8f4e9",
+        "text": "#b84b30",
         "accent": "#5f1d1a"
       },
       "dark": {
-        "paper": "#b84b30",
-        "ink": "#f8f4e9",
+        "background": "#b84b30",
+        "text": "#f8f4e9",
         "accent": "#ffffff"
       }
     },
@@ -297,13 +297,13 @@
       "id": "plum",
       "label": "Mallow evening",
       "light": {
-        "paper": "#f2ecf3",
-        "ink": "#271e2c",
+        "background": "#f2ecf3",
+        "text": "#271e2c",
         "accent": "#6f3a80"
       },
       "dark": {
-        "paper": "#1b161e",
-        "ink": "#e8dfea",
+        "background": "#1b161e",
+        "text": "#e8dfea",
         "accent": "#c496d6"
       }
     },
@@ -311,13 +311,13 @@
       "id": "rust",
       "label": "Rust desert",
       "light": {
-        "paper": "#f6ece3",
-        "ink": "#2c2018",
+        "background": "#f6ece3",
+        "text": "#2c2018",
         "accent": "#b4531d"
       },
       "dark": {
-        "paper": "#211915",
-        "ink": "#eee0d3",
+        "background": "#211915",
+        "text": "#eee0d3",
         "accent": "#e79355"
       }
     },
@@ -325,13 +325,13 @@
       "id": "navy",
       "label": "Sea night",
       "light": {
-        "paper": "#edf0f2",
-        "ink": "#14212b",
+        "background": "#edf0f2",
+        "text": "#14212b",
         "accent": "#0f4c70"
       },
       "dark": {
-        "paper": "#101a21",
-        "ink": "#dfe8ee",
+        "background": "#101a21",
+        "text": "#dfe8ee",
         "accent": "#6fb3d8"
       }
     },
@@ -339,13 +339,13 @@
       "id": "sage",
       "label": "Oasis light",
       "light": {
-        "paper": "#ecf1ed",
-        "ink": "#1e2a22",
+        "background": "#ecf1ed",
+        "text": "#1e2a22",
         "accent": "#3f7a5c"
       },
       "dark": {
-        "paper": "#151b17",
-        "ink": "#e0e9e3",
+        "background": "#151b17",
+        "text": "#e0e9e3",
         "accent": "#85c9a6"
       }
     },
@@ -353,13 +353,13 @@
       "id": "charcoal",
       "label": "Grey hour",
       "light": {
-        "paper": "#f0f0f0",
-        "ink": "#202020",
+        "background": "#f0f0f0",
+        "text": "#202020",
         "accent": "#555555"
       },
       "dark": {
-        "paper": "#141414",
-        "ink": "#e4e4e4",
+        "background": "#141414",
+        "text": "#e4e4e4",
         "accent": "#a0a0a0"
       }
     },
@@ -367,13 +367,13 @@
       "id": "midnight",
       "label": "Indigo night",
       "light": {
-        "paper": "#eaecf4",
-        "ink": "#171a2e",
+        "background": "#eaecf4",
+        "text": "#171a2e",
         "accent": "#303c8c"
       },
       "dark": {
-        "paper": "#0f1120",
-        "ink": "#dfe2f0",
+        "background": "#0f1120",
+        "text": "#dfe2f0",
         "accent": "#8f9bea"
       }
     },
@@ -381,13 +381,13 @@
       "id": "espresso",
       "label": "Earth shadow",
       "light": {
-        "paper": "#f2ebe4",
-        "ink": "#241a14",
+        "background": "#f2ebe4",
+        "text": "#241a14",
         "accent": "#7a4a26"
       },
       "dark": {
-        "paper": "#1b1512",
-        "ink": "#e8ded4",
+        "background": "#1b1512",
+        "text": "#e8ded4",
         "accent": "#c89468"
       }
     },
@@ -395,13 +395,13 @@
       "id": "carbon",
       "label": "Carbon night",
       "light": {
-        "paper": "#f6f5f2",
-        "ink": "#1b1a1c",
+        "background": "#f6f5f2",
+        "text": "#1b1a1c",
         "accent": "#3d4bb5"
       },
       "dark": {
-        "paper": "#1b1a1c",
-        "ink": "#f1f0ee",
+        "background": "#1b1a1c",
+        "text": "#f1f0ee",
         "accent": "#9aa5e8"
       }
     },
@@ -409,13 +409,13 @@
       "id": "graphite",
       "label": "Graphite",
       "light": {
-        "paper": "#fbfbfa",
-        "ink": "#262626",
+        "background": "#fbfbfa",
+        "text": "#262626",
         "accent": "#1a56c4"
       },
       "dark": {
-        "paper": "#161616",
-        "ink": "#d2d2d2",
+        "background": "#161616",
+        "text": "#d2d2d2",
         "accent": "#7aaaf7",
         "head": "#f6f6f6"
       }
@@ -424,13 +424,13 @@
       "id": "pure",
       "label": "Pure black and white",
       "light": {
-        "paper": "#ffffff",
-        "ink": "#000000",
+        "background": "#ffffff",
+        "text": "#000000",
         "accent": "#0037da"
       },
       "dark": {
-        "paper": "#000000",
-        "ink": "#e6e6e6",
+        "background": "#000000",
+        "text": "#e6e6e6",
         "accent": "#6aa6ff",
         "head": "#ffffff"
       }
@@ -439,13 +439,13 @@
       "id": "deepblue",
       "label": "Deep blue",
       "light": {
-        "paper": "#f4f7fa",
-        "ink": "#1a2a3a",
+        "background": "#f4f7fa",
+        "text": "#1a2a3a",
         "accent": "#1856c4"
       },
       "dark": {
-        "paper": "#0c1824",
-        "ink": "#c6d2de",
+        "background": "#0c1824",
+        "text": "#c6d2de",
         "accent": "#86b6ff",
         "head": "#f2f6fa"
       }
@@ -454,13 +454,13 @@
       "id": "vermilion",
       "label": "Vermilion",
       "light": {
-        "paper": "#b82a16",
-        "ink": "#fff6ec",
+        "background": "#b82a16",
+        "text": "#fff6ec",
         "accent": "#ffe680"
       },
       "dark": {
-        "paper": "#2a0a06",
-        "ink": "#ffd9cc",
+        "background": "#2a0a06",
+        "text": "#ffd9cc",
         "accent": "#ff7a5c"
       }
     },
@@ -468,13 +468,13 @@
       "id": "ultramarine",
       "label": "Ultramarine",
       "light": {
-        "paper": "#1f33c9",
-        "ink": "#f2f4ff",
+        "background": "#1f33c9",
+        "text": "#f2f4ff",
         "accent": "#ffd23f"
       },
       "dark": {
-        "paper": "#0a0f33",
-        "ink": "#dfe4ff",
+        "background": "#0a0f33",
+        "text": "#dfe4ff",
         "accent": "#8c98ff"
       }
     },
@@ -482,13 +482,13 @@
       "id": "cadmium",
       "label": "Cadmium yellow",
       "light": {
-        "paper": "#ffd23f",
-        "ink": "#231c00",
+        "background": "#ffd23f",
+        "text": "#231c00",
         "accent": "#b3124f"
       },
       "dark": {
-        "paper": "#1f1a05",
-        "ink": "#fff3c4",
+        "background": "#1f1a05",
+        "text": "#fff3c4",
         "accent": "#ffd23f"
       }
     },
@@ -496,13 +496,13 @@
       "id": "flamingo",
       "label": "Flamingo",
       "light": {
-        "paper": "#ffc9da",
-        "ink": "#3b0a1f",
+        "background": "#ffc9da",
+        "text": "#3b0a1f",
         "accent": "#b01d5c"
       },
       "dark": {
-        "paper": "#2a0b18",
-        "ink": "#ffe0ea",
+        "background": "#2a0b18",
+        "text": "#ffe0ea",
         "accent": "#ff79aa"
       }
     },
@@ -510,13 +510,13 @@
       "id": "viridian",
       "label": "Viridian",
       "light": {
-        "paper": "#0b6358",
-        "ink": "#eafff9",
+        "background": "#0b6358",
+        "text": "#eafff9",
         "accent": "#ffd59a"
       },
       "dark": {
-        "paper": "#062521",
-        "ink": "#cff5ec",
+        "background": "#062521",
+        "text": "#cff5ec",
         "accent": "#46d9c0"
       }
     },
@@ -524,13 +524,13 @@
       "id": "ultraviolet",
       "label": "Ultraviolet",
       "light": {
-        "paper": "#ece2ff",
-        "ink": "#24005c",
+        "background": "#ece2ff",
+        "text": "#24005c",
         "accent": "#6a12e8"
       },
       "dark": {
-        "paper": "#16002e",
-        "ink": "#eadcff",
+        "background": "#16002e",
+        "text": "#eadcff",
         "accent": "#c6ff3d"
       }
     },
@@ -538,13 +538,13 @@
       "id": "tangerine",
       "label": "Tangerine",
       "light": {
-        "paper": "#ff8a1f",
-        "ink": "#1f0e00",
+        "background": "#ff8a1f",
+        "text": "#1f0e00",
         "accent": "#3d1a8f"
       },
       "dark": {
-        "paper": "#2a1300",
-        "ink": "#ffe3c7",
+        "background": "#2a1300",
+        "text": "#ffe3c7",
         "accent": "#ff9a3d"
       }
     },
@@ -552,13 +552,13 @@
       "id": "lagoon",
       "label": "Lagoon",
       "light": {
-        "paper": "#b6f0de",
-        "ink": "#0b3b33",
+        "background": "#b6f0de",
+        "text": "#0b3b33",
         "accent": "#c2185b"
       },
       "dark": {
-        "paper": "#0a2a26",
-        "ink": "#c9f7ea",
+        "background": "#0a2a26",
+        "text": "#c9f7ea",
         "accent": "#6ff0c8"
       }
     }

@@ -6,8 +6,8 @@
     "dark"
   ],
   "means": {
-    "roles": "Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site's name. body: what people read (p, li); its font is the record's face and its line spacing the record's leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record's sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; title, headings and meta also colour. A dial left out is the theme's own. size is a step from the role's own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records of the seven say architrave 2; older records with the eight roles are read into the seven.",
-    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), title, headings and meta (the roles' own colours, with roles.<role>.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.",
+    "roles": "Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site's name. body: what people read (p, li); its font is the record's face and its line spacing the record's leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record's sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme's own. size is a step from the role's own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.",
+    "colours": "Seven colours per side, named for their job, as hex: background (Paper: the page the text sits on), background2 (Ground: the space around the page and the rails, a theme's second background), card (Cards: menus, boxes, fields standing on the page), text, mutedText (Soft text: dates, captions, small facts), accent (the brand colour: links and the main buttons) and highlight (the highlighter's colour; left out, none). Beside them the button's own colour and each type role's own (title, headings, body, quote, meta, interface, code), used with button own and roles.<role>.colour own. Leave out what you do not need: the rest is mixed from background and text. text on background must reach 4.5:1 and accent on background 3:1 on both sides. A background2 on the other side of its background (dark around a light page, light around a dark one) is a dark ground, worn around the page on wide screens with its own words, lines and links. Older records name paper, ink, ground, lift and marker; they are read as these. primary, foreground and muted-foreground are read as accent, text and mutedText.",
     "effects": "The extras' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect's own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look."
   },
   "order": {
@@ -15,7 +15,6 @@
       "architrave",
       "label",
       "base",
-      "palette",
       "reading",
       "face",
       "leading",
@@ -24,30 +23,23 @@
       "rounded",
       "lines",
       "fills",
-      "darkground",
       "widehead",
       "hairlines",
       "picturehover",
       "picturedim",
       "picturefade",
       "pictureframe",
-      "marker",
       "widepicture",
       "fullpicture",
       "categories",
       "tagsfollow",
-      "soft",
       "alternates",
-      "tint",
       "sans",
       "scope",
       "pictures",
       "capLines",
       "line",
       "fill",
-      "softlevel",
-      "quietlevel",
-      "smallsoft",
       "links",
       "measure",
       "space",
@@ -56,7 +48,6 @@
       "linestyle",
       "corners",
       "fadeedges",
-      "markercolour",
       "button",
       "buttonshape",
       "buttonstyle",
@@ -212,7 +203,8 @@
         "weight",
         "letterSpacing",
         "capitals",
-        "italic"
+        "italic",
+        "colour"
       ],
       "elsewhere": {
         "font": "face",
@@ -232,7 +224,8 @@
         "lineHeight",
         "letterSpacing",
         "capitals",
-        "italic"
+        "italic",
+        "colour"
       ]
     },
     {
@@ -264,7 +257,8 @@
         "lineHeight",
         "letterSpacing",
         "capitals",
-        "italic"
+        "italic",
+        "colour"
       ],
       "elsewhere": {
         "font": "sans"
@@ -283,7 +277,8 @@
         "lineHeight",
         "letterSpacing",
         "capitals",
-        "italic"
+        "italic",
+        "colour"
       ]
     }
   ],
@@ -326,7 +321,7 @@
       "capitals": "true sets the role in capitals.",
       "italic": "true sets it in italic, where the face has one.",
       "align": "default (the start), center or right; title and headings.",
-      "colour": "ink (the text colour), accent, or own (the role's own well, colours.<side>.title, .headings or .meta)."
+      "colour": "text (the text colour), mutedText (Soft text, the quiet colour of dates and captions), accent (the brand colour), or own (the role's own colour, colours.<side>.<role>). Left out: text, and for meta mutedText."
     }
   },
   "effects": [],
@@ -336,7 +331,7 @@
       "group": "record",
       "table": null,
       "kind": "const",
-      "def": 2,
+      "def": 3,
       "means": "Always 1. Marks the JSON as a style record.",
       "label": null,
       "page": null,
@@ -371,43 +366,6 @@
       "rest": false,
       "inStandardAtRest": null,
       "attrs": []
-    },
-    {
-      "key": "palette",
-      "group": "dial",
-      "table": "QuireModes.palettes",
-      "kind": "pick",
-      "choices": [
-        "neutral",
-        "godfather",
-        "fargo",
-        "matrix",
-        "dune",
-        "persona",
-        "paper",
-        "terminal",
-        "grey",
-        "news",
-        "arcade"
-      ],
-      "def": "neutral",
-      "means": "The colour pair (a light and a dark side designed together). colours overrides its paper, ink and accent.",
-      "label": "Presets",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "grid",
-        "line": 1998,
-        "in": "presetGrid"
-      },
-      "changesPage": "Colour",
-      "attrs": [
-        "data-theme"
-      ],
-      "rest": {
-        "data-theme": "THEMES_ALONE"
-      },
-      "inStandardAtRest": false
     },
     {
       "key": "reading",
@@ -768,38 +726,6 @@
       }
     },
     {
-      "key": "darkground",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "By day, the ground around the page takes the style's night colours while the page stays light: the rails and the space around the paper. On other themes, the footer. Nothing changes by night.",
-      "label": "Dark ground",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "switch",
-        "line": 1253,
-        "in": "colourMore"
-      },
-      "changesPage": "Colour",
-      "attrs": [
-        "data-darkground"
-      ],
-      "rest": {
-        "data-darkground": "REST"
-      },
-      "restValues": {
-        "data-darkground": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-darkground"
-        ],
-        "props": []
-      }
-    },
-    {
       "key": "widehead",
       "group": "opt",
       "table": "OPTS",
@@ -992,40 +918,6 @@
       }
     },
     {
-      "key": "soft",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
-      "label": "Softer reading text",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "switch",
-        "line": 1241,
-        "in": "colourMore"
-      },
-      "changesPage": "Colour",
-      "attrs": [
-        "data-links",
-        "data-soft"
-      ],
-      "rest": {
-        "data-links": "ABSENT",
-        "data-soft": "REST"
-      },
-      "restValues": {
-        "data-soft": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-soft"
-        ],
-        "props": []
-      }
-    },
-    {
       "key": "alternates",
       "group": "opt",
       "table": "OPTS",
@@ -1049,38 +941,6 @@
       "inStandardAtRest": {
         "attrs": [
           "data-alternates"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "marker",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "A highlighter: marked words and selected text get a wash in the marker colour, and a short bar stands under the article title. Decoration only, never a text colour.",
-      "label": "Highlighter",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "switch",
-        "line": 1245,
-        "in": "colourMore"
-      },
-      "changesPage": "Colour",
-      "attrs": [
-        "data-marker"
-      ],
-      "rest": {
-        "data-marker": "REST"
-      },
-      "restValues": {
-        "data-marker": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-marker"
         ],
         "props": []
       }
@@ -1145,41 +1005,6 @@
       "inStandardAtRest": {
         "attrs": [
           "data-tagsfollow"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "tint",
-      "group": "other",
-      "table": "TINTS",
-      "kind": "pick",
-      "choices": [
-        "purple",
-        "brown",
-        "green",
-        "blue",
-        "orange"
-      ],
-      "def": "purple",
-      "means": "The accent colour by name, used for links and the primary button. colours.accent overrides it.",
-      "label": null,
-      "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
-      "changesPage": "Colour",
-      "attrs": [
-        "data-tint"
-      ],
-      "rest": {
-        "data-tint": "REST"
-      },
-      "restValues": {
-        "data-tint": "purple"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-tint"
         ],
         "props": []
       }
@@ -2058,6 +1883,38 @@
       "inStandardAtRest": false
     },
     {
+      "key": "links",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "both",
+        "coloured",
+        "underlined",
+        "bold",
+        "wash"
+      ],
+      "def": "both",
+      "attr": "data-links",
+      "means": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
+      "label": "Links",
+      "page": "Colour",
+      "level": 4,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1244,
+        "in": "colourMore"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-links"
+      ],
+      "rest": {
+        "data-links": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
       "key": "line",
       "group": "level",
       "table": "LEVELS",
@@ -2133,144 +1990,6 @@
       ],
       "rest": {
         "data-fill": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "softlevel",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "10",
-        "15",
-        "20",
-        "25",
-        "30",
-        "35",
-        "40",
-        "45"
-      ],
-      "def": "15",
-      "attr": "data-soft-level",
-      "prop": "--soft-strength",
-      "means": "How far the reading text steps toward the paper, in percent: 10 to 45 in steps of 5. 15 is the rest. Only with soft.",
-      "label": "Softness",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "slider",
-        "line": 1242,
-        "in": "colourMore"
-      },
-      "changesPage": "Colour",
-      "attrs": [
-        "data-soft-level"
-      ],
-      "props": [
-        "--soft-strength"
-      ],
-      "rest": {
-        "data-soft-level": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "quietlevel",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "25",
-        "30",
-        "35",
-        "40",
-        "45",
-        "50"
-      ],
-      "def": "25",
-      "attr": "data-quiet-level",
-      "prop": "--quiet-strength",
-      "means": "How far the small text (dates, captions, meta) steps toward the paper with soft on, in percent: 25 to 50 in steps of 5. 25 is the rest. Only with soft, and only while smallsoft is not set; the row Small text writes smallsoft since 2026-09-27.",
-      "label": null,
-      "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
-      "changesPage": "Colour",
-      "attrs": [
-        "data-quiet-level"
-      ],
-      "props": [
-        "--quiet-strength"
-      ],
-      "rest": {
-        "data-quiet-level": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "smallsoft",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "0",
-        "5",
-        "10",
-        "15",
-        "20",
-        "25",
-        "30",
-        "35",
-        "40",
-        "45",
-        "50"
-      ],
-      "def": "25",
-      "attr": "data-small-soft",
-      "prop": "--small-strength",
-      "means": "How far the small text (dates, captions, meta) steps toward the paper, in percent: 0 (the ink itself) to 50 in steps of 5, with soft on or off. 25 is the rest, the pair's own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.",
-      "label": null,
-      "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
-      "changesPage": "Colour",
-      "attrs": [
-        "data-small-soft"
-      ],
-      "props": [
-        "--small-strength"
-      ],
-      "rest": {
-        "data-small-soft": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "links",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "both",
-        "coloured",
-        "underlined",
-        "bold",
-        "wash"
-      ],
-      "def": "both",
-      "attr": "data-links",
-      "means": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
-      "label": null,
-      "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
-      "changesPage": "Colour",
-      "attrs": [
-        "data-links"
-      ],
-      "rest": {
-        "data-links": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -2359,40 +2078,6 @@
       ],
       "rest": {
         "data-fade-edges": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "markercolour",
-      "group": "other",
-      "table": "MARKERS",
-      "kind": "pick",
-      "choices": [
-        "yellow",
-        "green",
-        "pink",
-        "blue",
-        "orange",
-        "text",
-        "muted",
-        "own"
-      ],
-      "def": "yellow",
-      "means": "The highlighter's colour: yellow, green, pink, blue, orange, text (the reading text's colour), muted (the date's colour), or own (the well colours.<side>.marker, fitted to the other side's paper when set on one side only; its ink and bar follow from the pen). Only with marker.",
-      "label": "Highlighter colour",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1246,
-        "in": "colourMore"
-      },
-      "changesPage": "Colour",
-      "attrs": [
-        "data-marker-colour"
-      ],
-      "rest": {
-        "data-marker-colour": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -3396,10 +3081,15 @@
       "roles": [
         "title",
         "headings",
-        "meta"
+        "body",
+        "quote",
+        "meta",
+        "interface",
+        "code"
       ],
       "choices": [
-        "ink",
+        "text",
+        "mutedText",
         "accent",
         "own"
       ],
@@ -3412,29 +3102,41 @@
       "level": 3,
       "changesPage": "Type › {role}",
       "attrs": [
+        "data-body-colour",
+        "data-code-colour",
         "data-head-colour",
         "data-head-m-sub-colour",
         "data-head-members",
+        "data-interface-colour",
         "data-kicker-colour",
+        "data-quote-colour",
         "data-small-colour"
       ],
       "props": [
+        "--body-colour",
+        "--code-colour",
         "--head-colour",
         "--head-colour-sub",
+        "--interface-colour",
         "--kicker-colour",
+        "--quote-colour",
         "--small-colour"
       ],
       "rest": {
+        "data-body-colour": "ABSENT_PATTERNS",
+        "data-code-colour": "ABSENT_PATTERNS",
         "data-head-colour": "ABSENT_PATTERNS",
         "data-head-m-sub-colour": "ABSENT_PATTERNS",
         "data-head-members": "ABSENT_PATTERNS",
+        "data-interface-colour": "ABSENT_PATTERNS",
         "data-kicker-colour": "ABSENT_PATTERNS",
+        "data-quote-colour": "ABSENT_PATTERNS",
         "data-small-colour": "ABSENT_PATTERNS"
       },
       "inStandardAtRest": false
     },
     {
-      "key": "colours.{side}.paper",
+      "key": "colours.{side}.background",
       "group": "colour",
       "table": "colours",
       "kind": "colour",
@@ -3447,21 +3149,17 @@
       "defMeans": "absent: the colour pair's own",
       "means": null,
       "meansFrom": "colours",
-      "label": "Paper",
+      "label": null,
       "page": "Colour",
       "level": 4,
-      "row": {
-        "drawn": "well",
-        "line": 2137,
-        "in": "level4"
-      },
+      "pageFrom": "markChanged",
       "changesPage": "Colour",
       "attrs": [],
       "rest": false,
       "inStandardAtRest": false
     },
     {
-      "key": "colours.{side}.ink",
+      "key": "colours.{side}.background2",
       "group": "colour",
       "table": "colours",
       "kind": "colour",
@@ -3474,17 +3172,106 @@
       "defMeans": "absent: the colour pair's own",
       "means": null,
       "meansFrom": "colours",
-      "label": "Ink",
+      "label": null,
       "page": "Colour",
       "level": 4,
-      "row": {
-        "drawn": "well",
-        "line": 2138,
-        "in": "level4"
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours",
+        "data-darkground",
+        "data-night-ground"
+      ],
+      "rest": {
+        "data-colours": "ABSENT",
+        "data-darkground": "REST",
+        "data-night-ground": "ABSENT"
       },
+      "restValues": {
+        "data-darkground": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-darkground"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "colours.{side}.card",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.text",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
       "changesPage": "Colour",
       "attrs": [],
       "rest": false,
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.mutedText",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
       "inStandardAtRest": false
     },
     {
@@ -3521,6 +3308,45 @@
         "data-accent-own": false
       },
       "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.highlight",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": null,
+      "page": "Colour",
+      "level": 4,
+      "pageFrom": "markChanged",
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours",
+        "data-marker",
+        "data-marker-colour"
+      ],
+      "rest": {
+        "data-colours": "ABSENT",
+        "data-marker": "REST",
+        "data-marker-colour": "ABSENT"
+      },
+      "restValues": {
+        "data-marker": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-marker"
+        ],
+        "props": []
+      }
     },
     {
       "key": "colours.{side}.button",
@@ -3616,6 +3442,68 @@
       "inStandardAtRest": false
     },
     {
+      "key": "colours.{side}.body",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Colour › Own colour…",
+      "page": "Type › ",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up item",
+        "line": 1585,
+        "in": "colourMenu"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.quote",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Colour › Own colour…",
+      "page": "Type › Quotes",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up item",
+        "line": 1585,
+        "in": "colourMenu"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
       "key": "colours.{side}.meta",
       "group": "colour",
       "table": "colours",
@@ -3647,7 +3535,7 @@
       "inStandardAtRest": false
     },
     {
-      "key": "colours.{side}.ground",
+      "key": "colours.{side}.interface",
       "group": "colour",
       "table": "colours",
       "kind": "colour",
@@ -3660,71 +3548,13 @@
       "defMeans": "absent: the colour pair's own",
       "means": null,
       "meansFrom": "colours",
-      "label": "Ground",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "well",
-        "line": 2145,
-        "in": "level4"
-      },
-      "changesPage": "Colour",
-      "attrs": [
-        "data-colours"
-      ],
-      "rest": {
-        "data-colours": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "colours.{side}.lift",
-      "group": "colour",
-      "table": "colours",
-      "kind": "colour",
-      "sides": [
-        "light",
-        "dark"
-      ],
-      "format": "hex",
-      "def": null,
-      "defMeans": "absent: the colour pair's own",
-      "means": null,
-      "meansFrom": "colours",
-      "label": "Card",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "well",
-        "line": 2146,
-        "in": "level4"
-      },
-      "changesPage": "Colour",
-      "attrs": [],
-      "rest": false,
-      "inStandardAtRest": false
-    },
-    {
-      "key": "colours.{side}.marker",
-      "group": "colour",
-      "table": "colours",
-      "kind": "colour",
-      "sides": [
-        "light",
-        "dark"
-      ],
-      "format": "hex",
-      "def": null,
-      "defMeans": "absent: the colour pair's own",
-      "means": null,
-      "meansFrom": "colours",
-      "label": "Highlighter colour › Own colour…",
-      "page": "Colour",
-      "level": 4,
+      "label": "Colour › Own colour…",
+      "page": "Type › ",
+      "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1248,
-        "in": "colourMore"
+        "line": 1585,
+        "in": "colourMenu"
       },
       "changesPage": "Colour",
       "attrs": [
@@ -3736,7 +3566,7 @@
       "inStandardAtRest": false
     },
     {
-      "key": "colours.{side}.inverse",
+      "key": "colours.{side}.code",
       "group": "colour",
       "table": "colours",
       "kind": "colour",
@@ -3749,10 +3579,14 @@
       "defMeans": "absent: the colour pair's own",
       "means": null,
       "meansFrom": "colours",
-      "label": null,
-      "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
+      "label": "Colour › Own colour…",
+      "page": "Type › ",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up item",
+        "line": 1585,
+        "in": "colourMenu"
+      },
       "changesPage": "Colour",
       "attrs": [
         "data-colours"
@@ -3764,6 +3598,18 @@
     }
   ],
   "retired": [
+    {
+      "key": "palette",
+      "means": "Retired 2026-10-03 and still read: a pair other than neutral is written out as its background and text on both sides."
+    },
+    {
+      "key": "marker",
+      "means": "Retired 2026-10-03 and still read: true becomes colours.<side>.highlight, the pen's colour; false none."
+    },
+    {
+      "key": "markercolour",
+      "means": "Retired 2026-10-03 and still read: the pen becomes the highlight's colour (text and muted become yellow)."
+    },
     {
       "key": "kickerabove",
       "means": "Retired 2026-09-27 and still read: true becomes categories above."
@@ -3783,6 +3629,30 @@
     {
       "key": "centretitle",
       "means": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default."
+    },
+    {
+      "key": "softlevel",
+      "means": "Retired 2026-10-03: Softer reading text's strength; the reading text takes Soft text's one shade."
+    },
+    {
+      "key": "quietlevel",
+      "means": "Retired 2026-10-03 and still read: with soft, the small text's strength becomes Soft text's own colour (colours.<side>.mutedText)."
+    },
+    {
+      "key": "smallsoft",
+      "means": "Retired 2026-10-03 and still read: the small text's strength becomes Soft text's own colour (colours.<side>.mutedText), the text that far toward the background."
+    },
+    {
+      "key": "soft",
+      "means": "Retired 2026-10-03 and still read: true becomes roles.body.colour mutedText, and links underlined."
+    },
+    {
+      "key": "darkground",
+      "means": "Retired 2026-10-03 and still read: true becomes the light side's background2, the night's own ground (or the dark ground's own colour)."
+    },
+    {
+      "key": "tint",
+      "means": "Retired 2026-10-03 and still read: the accent's name becomes the accent colour on both sides."
     }
   ],
   "engine": {
@@ -4066,7 +3936,46 @@
     "colours": [
       "ink",
       "accent",
-      "own"
-    ]
+      "own",
+      "muted"
+    ],
+    "keys": {
+      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them.",
+      "dials": [
+        "palette"
+      ],
+      "lists": {
+        "TINTS": [
+          "purple",
+          "brown",
+          "green",
+          "blue",
+          "orange"
+        ],
+        "MARKERS": [
+          "yellow",
+          "green",
+          "pink",
+          "blue",
+          "orange",
+          "text",
+          "muted",
+          "own"
+        ]
+      },
+      "stamps": {
+        "data-darkground": "off",
+        "data-soft": "off",
+        "data-marker": "off",
+        "data-tint": "purple"
+      },
+      "absent": [
+        "data-marker-colour",
+        "data-night-ground",
+        "data-soft-level",
+        "data-quiet-level",
+        "data-small-soft"
+      ]
+    }
   }
 }

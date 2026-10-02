@@ -23,12 +23,13 @@
 	var root = document.documentElement;
 	var PALETTE = '[data-quire-modes="palette"] ';
 	var versionsHeld = null; /* the site's kept versions, fetched when the Versions page opens */
-	var PAIRS = ['neutral', 'paper', 'terminal', 'grey', 'arcade'];
-	var PAIR_LABELS = window.ArchitravePairLabels || { neutral: 'Violet light', paper: 'Sun clay', terminal: 'Radar night', grey: 'Ash blue', arcade: 'Night fire' };
-	/* Where each well's colour stands on the page while the style has none of its own. */
-	var TOKEN = { paper: '--surface-base', ink: '--text-primary', accent: '--accent', ground: '--surface-canvas', lift: '--surface-subtle', button: '--accent', marker: '--marker' };
-	var OWN_BESIDE_PRESET = ['button', 'marker', 'title', 'headings', 'meta', 'inverse', 'light', 'second']; /* the button's, the pen's and the roles' own colours sit beside a preset */
-	TOKEN.title = '--text-primary'; TOKEN.headings = '--text-primary'; TOKEN.meta = '--text-primary';
+	/* Where each well's colour stands on the page while the style has none of its own (the seven colours, 2026-10-03). */
+	var TOKEN = { background: '--surface-base', text: '--text-primary', accent: '--accent', background2: '--surface-canvas', card: '--surface-subtle', mutedText: '--text-muted', button: '--accent', highlight: '--marker' };
+	var ROLE_WELLS = ['title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'];
+	ROLE_WELLS.forEach(function (r) { TOKEN[r] = '--text-primary'; });
+	var OWN_BESIDE_PRESET = ['button', 'highlight', 'mutedText'].concat(ROLE_WELLS); /* the button's, the pen's, soft text's and the roles' own colours sit beside a preset */
+	var ORIGINAL = { light: ['#ffffff', '#232323', '#7444b4'], dark: ['#373737', '#dfdfdf', '#9a73ff'] }; /* Original's paper, text and accent, as measured (2026-10-03) */
+	var PUBLIC = { paper: 'background', ink: 'text', ground: 'background2', lift: 'card', marker: 'highlight', muted: 'mutedText' }; /* the engine's names, as the seven */
 	/* THE SETTINGS WITH A READ AND A WRITE OF THEIR OWN in the engine (the rest are switches, levels or PICKS) */
 	var PICK = { markercolour: ['markerColour', 'setMarkerColour'], button: ['buttonColour', 'setButtonColour'], fadeedges: ['fadeEdges', 'setFadeEdges'], linestyle: ['lineStyle', 'setLineStyle'], corners: ['corners', 'setCorners'], pictures: ['picturesNow', 'setPictures'], framepattern: ['framePattern', 'setFramePattern'] };
 	function ask(method, url, body) {
@@ -43,11 +44,13 @@
 	/* A press on the theme's own hidden control, marked as ours (today's window does the same). */
 	function press(selector) { var el = document.querySelector(selector); if (el) el.click(); }
 	var hexCanvas = null;
-	function cssHex(token, el) {
+	function cssHex(token, el, under) {
 		try {
 			var v = getComputedStyle(el || root).getPropertyValue(token).trim(); if (!v) return '';
 			if (!hexCanvas) hexCanvas = document.createElement('canvas').getContext('2d', { willReadFrequently: true });
-			hexCanvas.fillStyle = '#000'; hexCanvas.fillStyle = v; hexCanvas.clearRect(0, 0, 1, 1); hexCanvas.fillRect(0, 0, 1, 1);
+			hexCanvas.clearRect(0, 0, 1, 1);
+			if (under) { hexCanvas.fillStyle = under; hexCanvas.fillRect(0, 0, 1, 1); } /* a see-through colour (Original's soft text is its text at half) is read as it stands on the paper */
+			hexCanvas.fillStyle = '#000'; hexCanvas.fillStyle = v; hexCanvas.fillRect(0, 0, 1, 1);
 			var d = hexCanvas.getImageData(0, 0, 1, 1).data;
 			return '#' + [d[0], d[1], d[2]].map(function (x) { return ('0' + x.toString(16)).slice(-2); }).join('');
 		} catch (e) { return ''; }
@@ -64,8 +67,7 @@
 	function palette() { return String(root.getAttribute('data-theme') || (Modes() ? Modes().default : 'neutral-light')).split('-')[0]; }
 	function currentStyle() { var s = S(); if (!s) return null; var id = s.current(); return s.list.filter(function (x) { return x.id === id; })[0] || null; }
 	/* the tile of the colours the style came with: its preset, or its pair (never the tweaks since) */
-	function ownPreset() { var c = currentStyle(); if (!c || c.host || c.bare) return ''; return c.preset ? 'preset:' + c.preset : 'pair:' + (c.palette || 'neutral'); }
-	function ownColours() { var s = S(); return (s && s.colours ? s.colours()[side()] : null) || {}; }
+	function ownColours() { var s = S(), c = (s && s.colours ? s.colours()[side()] : null) || {}, out = {}; Object.keys(c).forEach(function (k) { out[PUBLIC[k] || k] = c[k]; }); return out; }
 	/* A mode's three for its picture: the paper, the ink carried almost to the paper's opposite, the tint it was drawn with. */
 	function modeTriple(id, sd) {
 		var m = ((Modes() && Modes().modes) || []).filter(function (x) { return x.palette === id && x.side === sd; })[0] || {};
@@ -125,58 +127,66 @@
 
 		/* PRESET OR CUSTOM, and the presets as little pages of the side shown */
 		custom: function () { var s = S(); return !!(s && s.custom && s.custom()); },
-		setCustom: function (on) { var s = S(); if (s && s.setCustom) s.setCustom(!!on, on ? { paper: cssHex(TOKEN.paper), ink: cssHex(TOKEN.ink), accent: cssHex(TOKEN.accent) } : null); },
+		setCustom: function (on) { var s = S(); if (s && s.setCustom) s.setCustom(!!on, on ? { paper: cssHex(TOKEN.background), ink: cssHex(TOKEN.text), accent: cssHex(TOKEN.accent) } : null); },
 		presets: function () {
 			var s = S(); if (!s) return [];
-			var sd = side(), c = currentStyle(), now = s.preset ? s.preset() : '', pal = palette();
-			var pairs = c && (c.host || c.bare) ? [] : (PAIRS.indexOf(pal) === -1 ? PAIRS.concat([pal]) : PAIRS).map(function (id) {
-				var pic = modeTriple(id, sd);
-				return { id: 'pair:' + id, label: PAIR_LABELS[id] || id, paper: pic.paper, ink: pic.ink, accent: pic.accent, on: !now && id === pal };
-			});
-			var all = pairs.concat((s.presets ? s.presets() : []).map(function (p) {
+			var sd = side(), c = currentStyle(), now = s.preset ? s.preset() : '';
+			var all = (s.presets ? s.presets() : []).map(function (p) {
 				return { id: 'preset:' + p.id, label: p.label, paper: p[sd].paper, ink: p[sd].ink, accent: p[sd].accent, day: p.light.paper, on: now === p.id, fresh: !!p.fresh, group: p.group || '' }; /* day: the light paper, which sorts it into its group on either side */
-			}));
-			/* STANDARD FIRST (2026-09-28, the lab's first tile): the colours the style came with, under that name,
-			   in place of the tile that showed them under a colour's name */
-			var mine = ownPreset();
-			if (!mine) return all;
-			var twin = all.filter(function (x) { return x.id === mine; })[0];
-			if (!twin) return all;
-			return [{ id: 'own', label: 'Standard', paper: twin.paper, ink: twin.ink, accent: twin.accent, on: twin.on, group: 'everyday' }].concat(all.filter(function (x) { return x !== twin; }));
+			});
+			/* STANDARD FIRST (2026-09-28, the lab's first tile): the colours the style came with. Since the seven
+			   colours (2026-10-03) it is the theme's own three, and choosing it lets every colour set by hand go. */
+			if (!c || c.host) return all;
+			if (c.preset) { var twin = all.filter(function (x) { return x.id === 'preset:' + c.preset; })[0]; if (!twin) return all; return [{ id: 'own', label: 'Standard', paper: twin.paper, ink: twin.ink, accent: twin.accent, on: twin.on, group: 'everyday' }].concat(all.filter(function (x) { return x !== twin; })); }
+			var mine = ownColours(), hc = c.bare && c.colours && c.colours[sd], O = hc && hc.paper ? [hc.paper, hc.ink || ORIGINAL[sd][1], hc.accent || hc.ink || ORIGINAL[sd][2]] : ORIGINAL[sd]; /* a copy of another theme's own look: that theme's three, as measured */
+			var bare = !now && !['background', 'text', 'accent'].some(function (k) { return isHex(mine[k]); });
+			return [{ id: 'own', label: 'Standard', paper: O[0], ink: O[1], accent: O[2], on: bare, group: 'everyday' }].concat(all);
 		},
 		choosePreset: function (id) {
 			var s = S(); if (!s) return;
-			if (id === 'own') { id = ownPreset(); if (!id) return; }
+			var c = currentStyle();
+			if (id === 'own' && c && c.preset) id = 'preset:' + c.preset;
+			if (id === 'own') {
+				/* the theme's own three again: the preset let go and the colours set by hand with it */
+				if (s.preset && s.preset()) s.setPreset('');
+				['light', 'dark'].forEach(function (sd) { ['background', 'text', 'accent', 'background2', 'card', 'mutedText'].forEach(function (k) { s.clearColour(sd, k); }); });
+				return;
+			}
 			var kind = id.split(':')[0], v = id.slice(kind.length + 1);
-			if (kind === 'preset') { s.setPreset(v); return; }
-			if (s.preset && s.preset()) s.setPreset('');
-			press(PALETTE + '[data-palette="' + v + '"]');
-			var tint = s.pairTint ? s.pairTint(v) : '';
-			if (tint && s.setTint) s.setTint(tint);
+			if (kind === 'preset') s.setPreset(v);
 		},
 
 		/* THE WELLS: the colour on the side shown, and whether it is the style's own */
-		colour: function (key) { var c = ownColours(); if (isHex(c[key])) return c[key].toLowerCase(); if (key === 'inverse') { var g = document.querySelector('.ground-dark'); return cssHex('--surface-base', g || root) || '#000000'; } return cssHex(TOKEN[key] || '--accent') || '#000000'; }, /* inverse: the dark ground's, where it is worn */
-		own: function (key) { return isHex(ownColours()[key]); },
+		colour: function (key) {
+			var c = ownColours(); key = PUBLIC[key] || key;
+			if (isHex(c[key])) return c[key].toLowerCase();
+			if (key === 'highlight') { var h = S() && S().highlight ? S().highlight() : ''; return isHex(h) ? h : '#fff347'; }
+			return cssHex(TOKEN[key] || '--accent', key === 'mutedText' ? document.body : null, key === 'mutedText' ? cssHex('--surface-base') : '') || '#000000'; /* soft text's rung is said on body, and read on the paper */
+		},
+		own: function (key) { return isHex(ownColours()[PUBLIC[key] || key]); },
+		highlight: function () { var s = S(); return s && s.highlight ? s.highlight() : ''; },
+		setHighlight: function (hex) { var s = S(); if (s && s.setHighlight) s.setHighlight(hex); },
+		groundNudged: function () { var s = S(); return !!(s && s.groundNudged && s.groundNudged(side())); },
+		otherGround: function () { var s = S(); return s && s.otherGround ? s.otherGround(side()) : ''; },
 		setColour: function (key, hex) {
 			var s = S(); if (!s || !isHex(hex)) return;
 			var sd = side();
+			key = PUBLIC[key] || key;
 			/* The pair is written whole: a paper alone, over the room's ink, would leave the ladder half this style's. */
-			if (key === 'paper' || key === 'ink') {
-				var other = key === 'paper' ? 'ink' : 'paper', otherHex = cssHex(TOKEN[other]);
+			if (key === 'background' || key === 'text') {
+				var other = key === 'background' ? 'text' : 'background', otherHex = cssHex(TOKEN[other]);
 				if (!isHex(ownColours()[other]) && isHex(otherHex)) s.setColour(sd, other, otherHex);
 			}
 			s.setColour(sd, key, hex.toLowerCase());
 			if (key === 'accent' && s.setAccent && s.accent && !s.accent()) s.setAccent(true);
 			if (key === 'button' && s.buttonColour() !== 'own') s.setButtonColour('own');
-			if (key === 'marker' && s.markerColour() !== 'own') s.setMarkerColour('own');
-			if (['title', 'headings', 'meta'].indexOf(key) !== -1 && s.type(key).colour !== 'own') s.setType(key, 'colour', 'own');
+			if (ROLE_WELLS.indexOf(key) !== -1 && s.type(key).colour !== 'own') s.setType(key, 'colour', 'own');
 		},
 		ownBesidePreset: function (key) { return OWN_BESIDE_PRESET.indexOf(key) !== -1; },
 		/* Twenty named colours for a well, on the side shown. */
 		swatches: function (key) {
 			var s = S(), sd = side(), one = currentStyle() && currentStyle().host && currentStyle().hostSide;
-			var list = s && s.swatchList ? s.swatchList(key === 'lift' || key === 'ground' ? 'paper' : key === 'button' || key === 'marker' || key === 'light' || key === 'second' ? 'accent' : key) : [];
+			var list = s && s.swatchList ? s.swatchList(PUBLIC[key] || key) : [];
 			return list.map(function (x) { return { label: x.label, hex: String(x[one || sd] || '').toLowerCase() }; }).filter(function (x) { return isHex(x.hex); });
 		},
 		contrast: function (a, b) { var s = S(); return s && s.contrast && isHex(a) && isHex(b) ? s.contrast(a, b) : 0; },
@@ -199,7 +209,7 @@
 		faceOf: function (face) { var s = S(); return s && s.faceOf ? s.faceOf(face) : face; },
 		capLines: function () { return root.getAttribute('data-dropcap-lines') || '3'; },
 		setCapLines: function (v) { var s = S(); if (s && s.setCapLines) s.setCapLines(v); },
-		roleColour: function (id) { var r = S() ? S().type(id) : {}; return r.colour === 'accent' ? cssHex('--accent') : r.colour === 'own' ? (isHex(ownColours()[id]) ? ownColours()[id] : cssHex('--accent')) : cssHex('--text-primary'); },
+		roleColour: function (id) { var r = S() ? S().type(id) : {}; return r.colour === 'accent' ? cssHex('--accent') : r.colour === 'own' ? (isHex(ownColours()[id]) ? ownColours()[id] : cssHex('--accent')) : r.colour === 'mutedText' ? cssHex('--text-muted', document.body, cssHex('--surface-base')) : cssHex('--text-primary'); },
 
 		/* THE STYLES: the gallery, in the order readers meet them, and what an owner does with one */
 		styles: function () {
@@ -339,6 +349,9 @@
 				Object.keys(x || {}).forEach(function (k) {
 					if (!p && skip[k]) return;
 					var q = p ? p + '.' + k : k, u = x[k], v = y ? y[k] : undefined;
+					/* inside the colours and the roles a key left out is the rest, so one named against one left out differs (2026-10-03: the highlighter is a colour now, written only when on) */
+					var inner = /^(colours|roles)(\.|$)/.test(q) && q.indexOf('.') !== -1;
+					if (v === undefined && inner) { if (u && typeof u === 'object' && !Array.isArray(u)) walk(u, {}, q); else out.push(q); return; }
 					if (v === undefined) return;
 					if (u && typeof u === 'object' && !Array.isArray(u) && v && typeof v === 'object') walk(u, v, q);
 					else if (JSON.stringify(u) !== JSON.stringify(v)) out.push(q);

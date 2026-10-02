@@ -155,6 +155,14 @@ function architrave_site_style_record( $record ) {
 		'id'    => isset( $record['id'] ) ? $record['id'] : '',
 		'label' => isset( $record['label'] ) ? $record['label'] : '',
 	) + $record;
+
+	if ( isset( $record['colours'] ) && is_array( $record['colours'] ) ) {
+		foreach ( $record['colours'] as $side => $colours ) {
+			if ( is_array( $colours ) && isset( $colours['muted-foreground'] ) && ! isset( $colours['mutedText'] ) ) {
+				$record['colours'][ $side ]['mutedText'] = $colours['muted-foreground'];
+			}
+		}
+	}
 	$clean = architrave_site_style_values( $record, 0 );
 	if ( ! is_array( $clean ) ) {
 		return null;
@@ -169,7 +177,7 @@ function architrave_site_style_record( $record ) {
 	}
 	$clean['id']         = $id;
 	$clean['label']      = $label;
-	$clean['architrave'] = isset( $clean['architrave'] ) && 2 === (int) $clean['architrave'] ? 2 : 1;
+	$clean['architrave'] = isset( $clean['architrave'] ) && in_array( (int) $clean['architrave'], array( 2, 3 ), true ) ? (int) $clean['architrave'] : 1;
 	unset( $clean['own'], $clean['site'] );
 	return $clean;
 }
@@ -623,7 +631,7 @@ function architrave_site_styles_schema_route() {
 				$guide  = file_exists( $gfile ) ? json_decode( (string) file_get_contents( $gfile ), true ) : null; // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 				return rest_ensure_response(
 					array(
-						'about'   => 'A style is a record of dials, switches, type roles and colours. Every key is optional; a missing one rests on the base style. Values are the ids listed under record; a field marked boolean takes true or false, hex takes a colour like #f4efe6, and roles holds one table per type role (title, headings, body, quote, meta, interface, code) with the fields listed for it; a field left out is the theme\'s own. Write architrave 2. guide.typography says what each role styles and what each step means.',
+						'about'   => 'A style is a record of dials, switches, type roles and colours. Every key is optional; a missing one rests on the base style. Values are the ids listed under record; a field marked boolean takes true or false, hex takes a colour like #f4efe6, and roles holds one table per type role (title, headings, body, quote, meta, interface, code) with the fields listed for it; a field left out is the theme\'s own. colours holds light and dark, each with the seven colours named for their job (background, background2, card, text, mutedText, accent, highlight) and the button\'s and the roles\' own; leave out what you do not need. Write architrave 3. guide.typography says what each role styles and what each step means; guide.rules says what each colour is for.',
 						'read'    => array(
 							'all' => rest_url( 'architrave/v1/site-styles' ),
 							'one' => rest_url( 'architrave/v1/site-styles/{id}' ),

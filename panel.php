@@ -93,16 +93,17 @@ function architrave_panel_guest_palette_css() {
 	foreach ( $grey as $slug => $value ) {
 		$at = ( $from - $value ) / $span;
 		if ( $slug === $page || abs( $at ) < 0.02 ) {
-			$to = 'var(--surface-canvas)';
+
+			$to = 'var(--surface-base)';
 		} elseif ( $slug === $text || $at > 0.98 ) {
 			$to = 'var(--text-primary)';
 		} elseif ( $at < 0 ) {
 			$to = 'var(--surface-base)';
 		} elseif ( $at < 0.15 ) {
 
-			$to = 'var(--ldp-lift, color-mix(in srgb, var(--text-primary) ' . round( $at * 100 ) . '%, var(--surface-canvas)))';
+			$to = 'var(--ldp-ground, var(--ldp-lift, color-mix(in srgb, var(--text-primary) ' . round( $at * 100 ) . '%, var(--surface-base))))';
 		} else {
-			$to = 'color-mix(in srgb, var(--text-primary) ' . round( $at * 100 ) . '%, var(--surface-canvas))';
+			$to = 'color-mix(in srgb, var(--text-primary) ' . round( $at * 100 ) . '%, var(--surface-base))';
 		}
 		$lines[] = "\t" . $slug . ': ' . $to . ';';
 	}

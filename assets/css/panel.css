@@ -478,6 +478,7 @@
 	--line: color-mix(in srgb, var(--text-primary) var(--line-strength), transparent);
 }
 :root[data-darkground="on"] :is(.ground-dark, .ground-light) {
+	--wp--preset--color--surface-base: var(--surface-base);
 	--wp--preset--color--text-primary: var(--text-primary);
 	--wp--preset--color--text-secondary: var(--text-secondary);
 	--wp--preset--color--text-muted: var(--text-muted);
@@ -4123,6 +4124,21 @@ button.reading-row {
 }
 :root[data-small-colour] :is(.post-card .post-meta, .single-post-article .article-meta, .single-post-article .article-tags, .single-post-article .article-categories, .post-link-card .card-sub, .related-row-date, :is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content :where(figcaption, .wp-element-caption, .wp-caption-text), .arch-row-date, .readers-note-date, .theme-card .card-sub):not(:where(.reading-panel, .reading-panel *)), :root[data-small-colour] :is(.post-card .post-meta, .single-post-article .article-meta, .single-post-article .article-tags, .single-post-article .article-categories, .post-link-card .card-sub, .related-row-date, :is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content :where(figcaption, .wp-element-caption, .wp-caption-text), .arch-row-date, .readers-note-date, .theme-card .card-sub) a:not(:where(.reading-panel, .reading-panel *)) {
 	color: var(--small-colour) !important;
+}
+:root[data-body-colour] :is(.wp-block-post-content, .wp-block-post-excerpt, .wp-block-comment-content), :root[data-body-colour] :is(.wp-block-post-content, .wp-block-post-excerpt, .wp-block-comment-content) :is(p, li, dd, dt, td):not(.has-text-color) {
+	color: var(--body-colour);
+}
+:root[data-body-colour] :is(.wp-block-post-content, .wp-block-post-excerpt, .wp-block-comment-content) :is(strong, b):not(.has-text-color) {
+	color: var(--text-primary);
+}
+:root[data-quote-colour] .wp-block-post-content :is(.wp-block-quote, .wp-block-pullquote, blockquote):not(.has-text-color), :root[data-quote-colour] .wp-block-post-content :is(.wp-block-quote, .wp-block-pullquote, blockquote) :is(p, cite):not(.has-text-color) {
+	color: var(--quote-colour) !important;
+}
+html:root[data-interface-colour] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navigation-item__content, .wp-block-pages-list__item__link):not(:where(.current-menu-item > *, .current_page_item > *, [aria-current="page"], .reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	color: var(--interface-colour);
+}
+:root[data-code-colour] :is(.wp-block-post-content :is(code, pre, kbd), .comments-section .wp-block-comment-content :is(pre.comment-code, code)) {
+	color: var(--code-colour);
 }
 :root[data-small-leading] :is(.arch-row-date, .author-box .wp-block-post-author__name, .readers-note-date, .theme-card .card-sub) {
 	line-height: calc(var(--text-base-line-height) * var(--small-leading, 1));

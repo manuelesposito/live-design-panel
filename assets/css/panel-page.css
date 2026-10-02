@@ -227,6 +227,12 @@
 /* SMALL TEXT'S COLOUR reaches its dates and captions as well as the category line */
 :root[data-small-colour] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-post-author-name, figcaption, .wp-element-caption):not([data-ldp-designed]),
 :root[data-small-colour] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-post-author-name) a { color: var(--small-colour) !important; }
+/* EVERY ROLE'S COLOUR (2026-10-03, the seven colours): Reading text, Quotes, Interface and Code, off their rest only */
+:root[data-body-colour] :is(.wp-block-post-content, .entry-content, .wp-block-post-excerpt, .wp-block-comment-content) :is(p, li, dd, dt, td):not(.has-text-color, [data-ldp-designed]) { color: var(--body-colour) !important; }
+:root[data-quote-colour] :is(.wp-block-quote, .wp-block-pullquote):not(.has-text-color, [data-ldp-designed]),
+:root[data-quote-colour] :is(.wp-block-quote, .wp-block-pullquote):not(.has-text-color) :is(p, cite):not(.has-text-color) { color: var(--quote-colour) !important; }
+:root[data-interface-colour] :is(.wp-block-navigation-item__content, .wp-block-pages-list__item__link):not([data-ldp-designed], [aria-current="page"]) { color: var(--interface-colour) !important; }
+:root[data-code-colour] :is(.wp-block-code, .wp-block-code code, .wp-block-preformatted, .wp-block-post-content :is(code, pre, kbd), .entry-content :is(code, pre, kbd)) { color: var(--code-colour) !important; }
 :root[data-kicker-colour] .wp-block-post-terms:not([data-ldp-designed]),
 :root[data-kicker-colour] .wp-block-post-terms a {
 	color: var(--kicker-colour) !important;
@@ -698,7 +704,7 @@
    The date takes the look's quiet ink and Reply takes its link ink, the same
    two the panel gives the same jobs on Architrave. */
 :root[data-chosen] :is(.wp-block-post-date, .entry-meta, .wp-block-post-date a, .entry-meta a, .wp-block-post-date time, .entry-meta time, .wp-block-comment-date, .wp-block-comment-date a, figcaption, .wp-element-caption) {
-	color: var(--text-secondary) !important;
+	color: var(--ldp-muted, var(--text-secondary)) !important; /* Soft text's own colour, where it is set (2026-10-03) */
 }
 /* A CLASSIC THEME'S HEADER (Kadence, 2026-09-23). A block theme's header is
    template parts that stand on the page's own colour. A classic theme's
@@ -1254,21 +1260,6 @@
 	:root[data-chosen] :is(.wp-block-post-title, .wp-block-post-excerpt) {
 		min-inline-size: 0;
 	}
-}
-
-/* ── Dark ground: the footer takes the night ─────────────────────────────
-   (Manuel, 2026-09-26, for Specimen: the reference's light page ending on a
-   black band.) On Architrave the switch darkens the ground around the paper;
-   a stock theme has no ground but it has a foot, so presets.js gives the
-   footer part the style's night colours (the `.ground-dark` scope) and this
-   paints it. By day only: presets.js leaves the class off by night. The
-   footer's own coloured groups keep their colours; its words follow the ink. */
-:root[data-darkground="on"] .wp-site-blocks > footer.ground-dark {
-	background-color: var(--surface-base) !important;
-	color: var(--text-primary) !important;
-}
-:root[data-darkground="on"] .wp-site-blocks > footer.ground-dark :where(p, li, a, h1, h2, h3, h4, h5, h6, .wp-block-site-title, .wp-block-site-tagline, .wp-block-navigation-item__content):not(:where(.has-text-color, .has-text-color *, .has-background *)) {
-	color: inherit !important;
 }
 
 /* THE BUTTON LEVELS ON ANOTHER THEME (2026-09-27, style.css THE BUTTON LEVELS):

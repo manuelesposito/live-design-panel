@@ -161,7 +161,7 @@
 			str = String(str || '').replace(/-/g, '+').replace(/_/g, '/');
 			while (str.length % 4) str += '=';
 			var data = JSON.parse(decodeURIComponent(escape(atob(str))));
-			return data && (data.architrave === 1 || data.architrave === 2) ? data : null;
+			return data && (data.architrave === 1 || data.architrave === 2 || data.architrave === 3) ? data : null;
 		} catch (e) { return null; }
 	}
 	/* A record as a tile of the reader's own: the whitelist Paste style… reads
@@ -191,7 +191,7 @@
 	   reader turned a style's centring off; on a record false was only written
 	   because every export wrote every switch, and means nothing. The tweak's
 	   members replace the style's (roleOf), so the style's are copied first. */
-	function liftCentre(rec, style) { return liftType(liftCentreOnly(rec, style)); }
+	function liftCentre(rec, style) { return liftColours(liftType(liftCentreOnly(rec, style)), style); }
 	/* THE SEVEN ROLES REPLACED THE EIGHT (Manuel, 2026-10-02, lab/the-typography-roles.html):
 	   a record, link, published style or tweak written before then names the old roles
 	   (head, read, quote, kicker, small, comment, ui, title) with their members and old
@@ -212,7 +212,7 @@
 		});
 		var R = rec.roles && typeof rec.roles === 'object' ? rec.roles : null, sub = rec.subcolour;
 		delete rec.subcolour;
-		if (!R || rec.architrave === 2) return rec;
+		if (!R || rec.architrave >= 2) return rec;
 		var ids = Object.keys(R), NEWER = ['headings', 'body', 'meta', 'interface', 'code'];
 		var oldDial = /^(face|tracking|words|caps|leading|members)$/;
 		var old = ids.some(function (k) { return ['head', 'read', 'kicker', 'small', 'comment', 'ui'].indexOf(k) !== -1; }) ||
@@ -272,6 +272,81 @@
 		rec.architrave = 2;
 		return rec;
 	}
+	/* THE SEVEN COLOURS REPLACED THE OLD ONES (Manuel, 2026-10-03, lab/the-colours.html):
+	   background (Paper), background2 (Ground), card (Cards), text, mutedText (Soft text),
+	   accent and highlight (Highlighter), each per side, and a colour on every type role.
+	   A record, link, published style or tweak written before then is read into them here,
+	   once: the wells renamed (paper, ink, ground, lift, marker), the hidden pairs and the
+	   accent names written out as colours, Softer reading text as Reading text in Soft text,
+	   the small text's softness as Soft text's own colour, the highlighter's switch and pen
+	   as its colour, and the dark ground as the day's Ground (the night's own ground, as it was drawn). What does not survive, on
+	   purpose: the reading text's softness in between (one soft shade), the "like the text"
+	   pens (yellow), a dark ground by day that is not the night's paper on another theme's
+	   footer, and the hidden pairs' finer greys. The common words an AI may write are read
+	   too (primary, foreground, muted-foreground). Self-contained, as liftType. */
+	function liftColours(rec, style) {
+		if (!rec || typeof rec !== 'object') return rec;
+		var NAMES = { paper: 'background', ink: 'text', ground: 'background2', lift: 'card', marker: 'highlight', muted: 'mutedText', primary: 'accent', foreground: 'text', 'muted-foreground': 'mutedText', mutedForeground: 'mutedText', surface: 'card' };
+		var PAIRS = { neutral: [['#ffffff', '#232323'], ['#373737', '#dfdfdf']], godfather: [['#fff9f2', '#2c200f'], ['#3a3630', '#f0e4d5']], fargo: [['#f7fbfe', '#1b242c'], ['#34373a', '#dfe7f0']], matrix: [['#f3fdf4', '#132818'], ['#323933', '#d9ecdc']], dune: [['#fff8f8', '#311d1b'], ['#3c3434', '#f6e1de']], persona: [['#fefefe', '#0c0c0c'], ['#202020', '#ededed']], paper: [['#f3e1c6', '#342817'], ['#504739', '#faecd8']], terminal: [['#ddffdc', '#003400'], ['#001902', '#4dff5e']], grey: [['#ffffff', '#2a2a30'], ['#4a4a4d', '#ebebf6']], news: [['#f2efe8', '#1d1c1a'], ['#1e1c19', '#e6e1d6']], arcade: [['#eef1ff', '#12124a'], ['#10113a', '#eaeeff']] };
+		var TINT = { purple: ['#7444b4', '#9a73ff'], brown: ['#8b5727', '#e0b490'], green: ['#03791f', '#5af169'], blue: ['#0000ff', '#6b7fff'], orange: ['#c24400', '#ff9a2e'] };
+		var PAIR_TINT = { neutral: 'purple', paper: 'brown', grey: 'blue', terminal: 'green', arcade: 'orange' };
+		var PEN = { yellow: '#fff347', green: '#b4f07c', pink: '#ffb0d8', blue: '#a4d8ff', orange: '#ffc46e' };
+		var SIDES = ['light', 'dark'], had = false;
+		var C = rec.colours && typeof rec.colours === 'object' ? rec.colours : null;
+		if (C) SIDES.forEach(function (side) {
+			var c = C[side]; if (!c || typeof c !== 'object') return;
+			Object.keys(NAMES).forEach(function (k) { if (c[k] === undefined) return; if (c[NAMES[k]] === undefined) c[NAMES[k]] = c[k]; delete c[k]; had = true; });
+		});
+		var KEYS = ['palette', 'tint', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'marker', 'markercolour', 'darkground'];
+		var inv = C && SIDES.some(function (sd) { return C[sd] && C[sd].inverse !== undefined; });
+		if (!KEYS.some(function (k) { return rec[k] !== undefined; }) && !inv) { if (rec.architrave) rec.architrave = 3; return rec; }
+		var own = function (side) { var a = rec.colours && rec.colours[side], b = style && style.colours && style.colours[side]; return function (k) { return (a && a[k]) || (b && (b[k] || b[{ background: 'paper', text: 'ink' }[k]])) || ''; }; };
+		var col = function (side) { rec.colours = rec.colours || {}; return (rec.colours[side] = rec.colours[side] || {}); };
+		/* the hidden pair, written out where the style says no paper or text of its own */
+		var pal = PAIRS[rec.palette] ? rec.palette : 'neutral';
+		if (rec.palette && rec.palette !== 'neutral' && PAIRS[rec.palette]) SIDES.forEach(function (side, i) {
+			var o = own(side);
+			if (!o('background')) col(side).background = PAIRS[pal][i][0];
+			if (!o('text')) col(side).text = PAIRS[pal][i][1];
+		});
+		/* the accent's name, or the pair's own tint */
+		var tint = TINT[rec.tint] ? rec.tint : rec.palette && PAIR_TINT[rec.palette] ? PAIR_TINT[rec.palette] : '';
+		if (tint && tint !== 'purple') SIDES.forEach(function (side, i) { if (!own(side)('accent')) col(side).accent = TINT[tint][i]; });
+		/* Softer reading text: Reading text in Soft text, and the links it underlined */
+		if (rec.soft === true) {
+			rec.roles = rec.roles && typeof rec.roles === 'object' ? rec.roles : {};
+			var body = rec.roles.body && typeof rec.roles.body === 'object' ? rec.roles.body : (rec.roles.body = {});
+			if (body.colour === undefined) body.colour = 'mutedText';
+			if (rec.links === undefined) rec.links = 'underlined';
+		}
+		/* the small text's softness: Soft text's own colour, the text that far toward the paper */
+		var ss = rec.smallsoft !== undefined ? rec.smallsoft : rec.soft === true && rec.quietlevel !== undefined ? rec.quietlevel : undefined;
+		if (ss !== undefined && String(ss) !== '25' && !isNaN(+ss)) SIDES.forEach(function (side, i) {
+			var o = own(side), P = o('background') || PAIRS[pal][i][0], I = o('text') || PAIRS[pal][i][1];
+			if (!o('mutedText') && /^#[0-9a-f]{6}$/i.test(P) && /^#[0-9a-f]{6}$/i.test(I)) col(side).mutedText = mixHex(I, P, +ss / 100);
+		});
+		/* the highlighter: off, a pen, or its own colour */
+		if (rec.marker === true) {
+			var pen = PEN[rec.markercolour] || (rec.markercolour === 'own' ? '' : PEN.yellow);
+			SIDES.forEach(function (side) { var c = rec.colours && rec.colours[side]; if (pen) col(side).highlight = pen; else if (!(c && c.highlight)) col(side).highlight = PEN.yellow; });
+		} else if (rec.marker === false || rec.marker === undefined && rec.markercolour !== undefined) {
+			SIDES.forEach(function (side) { if (rec.colours && rec.colours[side]) delete rec.colours[side].highlight; });
+		}
+		/* the dark ground: the day's Ground, its own colour or the night's paper */
+		if (rec.darkground === true) {
+			/* what the ground wore: the night's own ground, as the night's set drew it around its paper */
+			var od = own('dark'), cl = rec.colours && rec.colours.light;
+			var night = od('background2') || (od('background') ? sink(od('background'), 0.05) : pal === 'neutral' ? '#2b2b2b' : sink(PAIRS[pal][1][0], 0.05));
+			col('light').background2 = (cl && cl.inverse) || night;
+		}
+		SIDES.forEach(function (side) { var c = rec.colours && rec.colours[side]; if (!c) return; delete c.inverse; if (!Object.keys(c).length) delete rec.colours[side]; });
+		if (rec.colours && !Object.keys(rec.colours).length) delete rec.colours;
+		var hadPalette = rec.palette !== undefined;
+		KEYS.forEach(function (k) { delete rec[k]; });
+		if (hadPalette && rec.id) rec.palette = 'neutral'; /* a saved style keeps the engine's one pair; a record or a tweak names none */
+		if (rec.architrave) rec.architrave = 3;
+		return rec;
+	}
 	function liftCentreOnly(rec, style) {
 		if (!rec || typeof rec !== 'object') return rec;
 		/* CORNERS' PILL STEP SPLIT OFF (Manuel, 2026-09-26, "pill buttons with large
@@ -326,9 +401,10 @@
 		data.label = named;
 		var entry = { id: 'own-' + Date.now().toString(36), label: data.label.slice(0, 40) || t('My style'), own: true, base: byId(data.base) ? data.base : STYLES[0].id };
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
-		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean') entry[k] = data[k]; });
+		if (entry.palette === undefined) entry.palette = 'neutral';
+		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean' && inRecord(k)) entry[k] = data[k]; });
 		['tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
-		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 2; }
+		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 3; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } /* only known details, only off their rest */
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
 		var shape = function (x) { var c = {}; Object.keys(x).forEach(function (k) { if (k !== 'id') c[k] = x[k]; }); return JSON.stringify(c); };
@@ -386,7 +462,7 @@
 	/* Do not edit between the markers: change plugin/settings.json and run `node tools/settings-list.mjs`,
 	   which writes this block and then the list again from the running code; --check fails when they part. */
 	var DIALS = ['palette', 'reading', 'face', 'leading'];
-	var OPTS = ['justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'soft', 'alternates', 'marker', 'widepicture', 'tagsfollow'];
+	var OPTS = ['justify', 'dropcap', 'rounded', 'lines', 'fills', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'alternates', 'widepicture', 'tagsfollow'];
 	var TINTS = ['purple', 'brown', 'green', 'blue', 'orange'];
 	var SCOPE = ['article', 'all'];
 	var PICTURES = ['plain', 'bw', 'sepia', 'duo', 'accent', 'grain', 'warm', 'hidden'];
@@ -402,9 +478,6 @@
 	var LEVELS = {
 		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
 		fill: { stops: ['25', '50', '75', '100', '125', '150', '200', '300'], rest: '100', attr: 'data-fill', steps: true },
-		softlevel: { stops: ['10', '15', '20', '25', '30', '35', '40', '45'], rest: '15', attr: 'data-soft-level', prop: '--soft-strength' },
-		quietlevel: { stops: ['25', '30', '35', '40', '45', '50'], rest: '25', attr: 'data-quiet-level', prop: '--quiet-strength' },
-		smallsoft: { stops: ['0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50'], rest: '25', attr: 'data-small-soft', prop: '--small-strength' },
 		measure: { stops: ['60', '64', '68', '72', '76', '80', '84', '88'], rest: '72', attr: 'data-measure', prop: '--measure-factor' },
 		space: { stops: ['xcompact', 'compact', 'standard', 'spacious', 'xspacious'], rest: 'standard', attr: 'data-space', prop: '--space-step' },
 		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' }
@@ -413,17 +486,17 @@
 	var TYPE_DIALS = {
 		title: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'align', 'colour'],
 		headings: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'align', 'colour'],
-		body: ['size', 'weight', 'letterSpacing', 'capitals', 'italic'],
-		quote: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'],
+		body: ['size', 'weight', 'letterSpacing', 'capitals', 'italic', 'colour'],
+		quote: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'colour'],
 		meta: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'colour'],
-		interface: ['size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'],
-		code: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic']
+		interface: ['size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'colour'],
+		code: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'colour']
 	};
 	var TYPE_SIZES = ['-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4', '+5', '+6'];
 	var TYPE_LINE = { tight: 'dense', snug: 'tight', normal: 'default', relaxed: 'airy', loose: 'wide' };
 	var TYPE_LETTER = { tighter: 'm5', tight: 'm2', normal: 'default', wide: 'p2', wider: 'p5', widest: 'p10' };
 	var TYPE_BASE = { title: 64, headings: 36, body: 22, quote: 26, meta: 16, interface: 13, code: 18 };
-	var TYPE_MEANS = { roles: { title: 'The one big line of a page: the article\'s title, a page\'s name.', headings: 'The headings inside the text, and the site\'s name.', body: 'What people read: paragraphs, lists, excerpts, the comments\' words.', quote: 'Quotations and pull quotes.', meta: 'Small facts around the text: dates, authors, categories, tags, captions, names in comments.', interface: 'The site around the text: menus, buttons, fields, labels, section titles.', code: 'Code and keys, inline and in blocks.' }, dials: { font: 'A face id from the list, or body / interface to follow the reading or the interface font. Left out: the theme\'s own.', size: 'Steps from the role\'s own size, each 1.125 times the one before: -1 a little smaller, +1 a little larger, +3 about half again as large. 0 or left out: the theme\'s own.', weight: 'thin 100 to black 900; a face offers the weights it has and falls to the nearest.', lineHeight: 'tight for big titles, snug for headings, normal is the theme\'s own, relaxed for long reading, loose for airy small text.', letterSpacing: 'tighter and tight close large type up, normal is the theme\'s own, wide to widest open small capitals and labels.', capitals: 'true sets the role in capitals.', italic: 'true sets it in italic, where the face has one.', align: 'default (the start), center or right; title and headings.', colour: 'ink (the text colour), accent, or own (the role\'s own well, colours.<side>.title, .headings or .meta).' } };
+	var TYPE_MEANS = { roles: { title: 'The one big line of a page: the article\'s title, a page\'s name.', headings: 'The headings inside the text, and the site\'s name.', body: 'What people read: paragraphs, lists, excerpts, the comments\' words.', quote: 'Quotations and pull quotes.', meta: 'Small facts around the text: dates, authors, categories, tags, captions, names in comments.', interface: 'The site around the text: menus, buttons, fields, labels, section titles.', code: 'Code and keys, inline and in blocks.' }, dials: { font: 'A face id from the list, or body / interface to follow the reading or the interface font. Left out: the theme\'s own.', size: 'Steps from the role\'s own size, each 1.125 times the one before: -1 a little smaller, +1 a little larger, +3 about half again as large. 0 or left out: the theme\'s own.', weight: 'thin 100 to black 900; a face offers the weights it has and falls to the nearest.', lineHeight: 'tight for big titles, snug for headings, normal is the theme\'s own, relaxed for long reading, loose for airy small text.', letterSpacing: 'tighter and tight close large type up, normal is the theme\'s own, wide to widest open small capitals and labels.', capitals: 'true sets the role in capitals.', italic: 'true sets it in italic, where the face has one.', align: 'default (the start), center or right; title and headings.', colour: 'text (the text colour), mutedText (Soft text, the quiet colour of dates and captions), accent (the brand colour), or own (the role\'s own colour, colours.<side>.<role>). Left out: text, and for meta mutedText.' } };
 	var ROLES = ['head', 'read', 'quote', 'kicker', 'small', 'comment', 'ui', 'title'];
 	var ROLE_DEFAULT = {
 		head: { face: 'read', weight: 'bold', size: '64', tracking: 'default', words: 'default', caps: false, italic: false, leading: 'default', align: 'default', colour: 'ink', members: {} },
@@ -480,17 +553,17 @@
 	var WORDS_ALIAS = { tighter: 'm10', tight: 'm5', loose: 'p5', wide: 'p10', widest: 'p15' };
 	var WEIGHT_ALIAS = { lighter: 'light', normal: 'regular', heavy: 'extrabold' };
 	var FOLLOW_ALIAS = { inherit: 'read' };
-	var ROLE_COLOURS = ['ink', 'accent', 'own'];
+	var ROLE_COLOURS = ['ink', 'accent', 'own', 'muted'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'unlinked', 'effects', 'roles', 'colours'],
-		choices: { tint: TINTS, scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], button: BUTTONS, linestyle: LINE_STYLE, corners: CORNERS, fadeedges: FADE_EDGES, markercolour: MARKERS, framepattern: FRAME_PATTERNS },
-		wells: ['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse'],
+		schema: ['architrave', 'label', 'base', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'alternates', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'links', 'measure', 'space', 'framewidth', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'unlinked', 'effects', 'roles', 'colours'],
+		choices: { scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], button: BUTTONS, linestyle: LINE_STYLE, corners: CORNERS, fadeedges: FADE_EDGES, framepattern: FRAME_PATTERNS },
+		wells: ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight', 'button', 'title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'],
 		meaning: {
 			architrave: 'Always 1. Marks the JSON as a style record.',
 			label: 'The name on the tile.',
 			base: 'The built-in style this record starts from; every key left out rests on it. See examples for what each base is.',
-			palette: 'The colour pair (a light and a dark side designed together). colours overrides its paper, ink and accent.',
+			palette: 'Retired 2026-10-03 and still read: a pair other than neutral is written out as its background and text on both sides.',
 			reading: 'The reading size step of the article, a fluid rung and not a pixel value; default is about 22px on a desktop. Do not set a size for a monospaced reading face, its phone floor is handled by the theme.',
 			face: 'The font of the article body.',
 			sans: 'The font of the interface: the rail, buttons, menus.',
@@ -502,8 +575,8 @@
 			lines: 'Hairlines around cards, buttons and fields and between rows. false means no lines anywhere except link underlines.',
 			line: 'Strength of those lines: the ink\'s share in the line colour, in per cent. 45 is the rest. Only with lines.',
 			corners: 'medium, small or large corners. One step re-cuts every corner together; nested corners stay sums. Only with rounded.',
-			marker: 'A highlighter: marked words and selected text get a wash in the marker colour, and a short bar stands under the article title. Decoration only, never a text colour.',
-			markercolour: 'The highlighter\'s colour: yellow, green, pink, blue, orange, text (the reading text\'s colour), muted (the date\'s colour), or own (the well colours.<side>.marker, fitted to the other side\'s paper when set on one side only; its ink and bar follow from the pen). Only with marker.',
+			marker: 'Retired 2026-10-03 and still read: true becomes colours.<side>.highlight, the pen\'s colour; false none.',
+			markercolour: 'Retired 2026-10-03 and still read: the pen becomes the highlight\'s colour (text and muted become yellow).',
 			measure: 'Line length of the reading text in letters: 60 to 88 in steps of 4. 72 is the rest.',
 			space: 'The space of the page: xcompact, compact, standard, spacious or xspacious. Standard is the rest, the theme\'s own. Each kind of gap moves by its own amount: inside a group a little, between items more, between sections most, so what belongs together stays together. The reading text of an article keeps its own rhythm.',
 			framewidth: 'Width of the frame around pictures in pixels: 4, 8, 12, 16, 24 or 32. 8 is the rest. Only with pictureframe.',
@@ -541,28 +614,63 @@
 			linestyle: 'solid, dashed or dotted lines. Dashes are long only when rounded is false. Only with lines.',
 			fills: 'Tinted fills on cards, buttons and fields. With lines and fills both false, controls are plain glyphs.',
 			fill: 'Strength of the fills as a percentage of the colour pair\'s own steps; 100 is the rest. Only with fills.',
-			softlevel: 'How far the reading text steps toward the paper, in percent: 10 to 45 in steps of 5. 15 is the rest. Only with soft.',
-			quietlevel: 'How far the small text (dates, captions, meta) steps toward the paper with soft on, in percent: 25 to 50 in steps of 5. 25 is the rest. Only with soft, and only while smallsoft is not set; the row Small text writes smallsoft since 2026-09-27.',
-			smallsoft: 'How far the small text (dates, captions, meta) steps toward the paper, in percent: 0 (the ink itself) to 50 in steps of 5, with soft on or off. 25 is the rest, the pair\'s own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.',
+			softlevel: 'Retired 2026-10-03: Softer reading text\'s strength; the reading text takes Soft text\'s one shade.',
+			quietlevel: 'Retired 2026-10-03 and still read: with soft, the small text\'s strength becomes Soft text\'s own colour (colours.<side>.mutedText).',
+			smallsoft: 'Retired 2026-10-03 and still read: the small text\'s strength becomes Soft text\'s own colour (colours.<side>.mutedText), the text that far toward the background.',
 			links: 'How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.',
 			pictures: 'How every image on the site is shown: plain as published, bw, sepia, duo (the pair\'s paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style\'s own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), oldset (an old set\'s picture: grey, the contrast soft and the edge a little out of focus), riso (printed in the accent on the paper with a fine grain, as a one-ink risograph prints them), hidden (no images; each article picture becomes a line that shows it).',
 			picturehover: 'The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.',
 			alternates: 'Inter\'s alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face\'s letters.',
-			soft: 'The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.',
+			soft: 'Retired 2026-10-03 and still read: true becomes roles.body.colour mutedText, and links underlined.',
 			picturedim: 'Pictures are dimmed a little on the dark side. Applies to plain, bw, sepia and grain.',
 			picturefade: 'The article\'s top picture fades out toward its bottom and sides, into the paper. Not with hidden pictures.',
 			pictureframe: 'Pictures wear a frame: a mat in the fields\' colour, and with lines a line around it. Off, a picture stands on the paper with its corner alone.',
-			darkground: 'By day, the ground around the page takes the style\'s night colours while the page stays light: the rails and the space around the paper. On other themes, the footer. Nothing changes by night.',
+			darkground: 'Retired 2026-10-03 and still read: true becomes the light side\'s background2, the night\'s own ground (or the dark ground\'s own colour).',
 			hairlines: 'Every line at half a pixel: the cards\' edges, the fields, the frame and the dividers thin to a hairline. Only with lines.',
-			tint: 'The accent colour by name, used for links and the primary button. colours.accent overrides it.',
+			tint: 'Retired 2026-10-03 and still read: the accent\'s name becomes the accent colour on both sides.',
 			scope: 'Legacy. The theme always applies paragraph settings everywhere.',
 			unlinked: 'true when the light and dark colours were set independently; false lets one side follow the other.',
 			effects: 'The extras\' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect\'s own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.',
-			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li); its font is the record\'s face and its line spacing the record\'s leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record\'s sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; title, headings and meta also colour. A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records of the seven say architrave 2; older records with the eight roles are read into the seven.',
-			colours: 'The style\'s own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), title, headings and meta (the roles\' own colours, with roles.<role>.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.'
+			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li); its font is the record\'s face and its line spacing the record\'s leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record\'s sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.',
+			colours: 'Seven colours per side, named for their job, as hex: background (Paper: the page the text sits on), background2 (Ground: the space around the page and the rails, a theme\'s second background), card (Cards: menus, boxes, fields standing on the page), text, mutedText (Soft text: dates, captions, small facts), accent (the brand colour: links and the main buttons) and highlight (the highlighter\'s colour; left out, none). Beside them the button\'s own colour and each type role\'s own (title, headings, body, quote, meta, interface, code), used with button own and roles.<role>.colour own. Leave out what you do not need: the rest is mixed from background and text. text on background must reach 4.5:1 and accent on background 3:1 on both sides. A background2 on the other side of its background (dark around a light page, light around a dark one) is a dark ground, worn around the page on wide screens with its own words, lines and links. Older records name paper, ink, ground, lift and marker; they are read as these. primary, foreground and muted-foreground are read as accent, text and mutedText.'
 		}
 	};
 	/* <<< THE LIST'S TABLES */
+	/* THE SEVEN COLOURS (Manuel, 2026-10-03, lab/the-colours.html): records, links, tweaks and the
+	   window name them background (Paper), background2 (Ground), card (Cards), text, mutedText (Soft
+	   text), accent and highlight (Highlighter), with the button's and each type role's own colour
+	   beside them. The engine below keeps the names it was written with (paper, ink, ground, lift,
+	   marker, muted); coloursOf reads either and setColour writes the new ones. Softer reading text,
+	   the highlighter's switch and pen, the dark ground and the accent's name are no settings of
+	   their own any more: the engine still stamps them, worked out from the colours (optionOn). */
+	var COLOUR_ENGINE = { background: 'paper', text: 'ink', background2: 'ground', card: 'lift', highlight: 'marker', mutedText: 'muted' };
+	var COLOUR_PUBLIC = { paper: 'background', ink: 'text', ground: 'background2', lift: 'card', marker: 'highlight', muted: 'mutedText' };
+	var COLOUR_KEYS = ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight'];
+	var ROLE_WELLS = ['title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'];
+	var WELL_KEYS = COLOUR_KEYS.concat(['button'], ROLE_WELLS);
+	var BESIDE_PRESET = ['button', 'highlight', 'mutedText'].concat(ROLE_WELLS); /* wells that sit beside a preset: choosing one keeps the preset */
+	var ENGINE_WELLS = ['paper', 'ink', 'accent', 'button', 'ground', 'lift', 'marker', 'muted', 'inverse'].concat(ROLE_WELLS);
+	var PENS = { yellow: '#fff347', green: '#b4f07c', pink: '#ffb0d8', blue: '#a4d8ff', orange: '#ffc46e' };
+	function penOf(hex) { var h = String(hex || '').toLowerCase(); return Object.keys(PENS).filter(function (n) { return PENS[n] === h; })[0] || ''; }
+	var TYPE_COLOURS = ['text', 'mutedText', 'accent', 'own'];
+	function typeColourRest(role) { return role === 'meta' ? 'mutedText' : 'text'; } /* small text rests on Soft text, every other role on the text */
+	var ENGINE_ONLY = ['palette', 'tint', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'marker', 'markercolour', 'darkground'];
+	function inRecord(k) { return ENGINE_ONLY.indexOf(k) === -1; }
+	function colourKey(k) { return COLOUR_PUBLIC[k] || k; }
+	function engineSide(o) { var out = {}; Object.keys(o || {}).forEach(function (k) { if (o[k] !== undefined) out[COLOUR_ENGINE[k] || k] = o[k]; }); return out; }
+	function publicSide(o) { var out = {}; Object.keys(o || {}).forEach(function (k) { if (o[k] !== undefined && k !== 'inverse') out[COLOUR_PUBLIC[k] || k] = o[k]; }); return out; }
+	/* A ground on the other side of the paper (dark around a light paper, or light around a dark one)
+	   is the dark ground: it is worn around the paper as the switch wore it (applyGround). */
+	function groundFlip(G, P, I) {
+		if (!G || !P || !/^#[0-9a-f]{6}$/i.test(G) || !/^#[0-9a-f]{6}$/i.test(P)) return false;
+		var other = lum(P) > 0.18 ? '#dfdfdf' : '#232323'; /* the other side's words */
+		I = /^#[0-9a-f]{6}$/i.test(I || '') ? I : lum(P) > 0.18 ? '#232323' : '#dfdfdf';
+		return contrast(other, G) > contrast(I, G); /* across: the other side's words read better on it than this side's */
+	}
+	/* Original's own paper, text and ground, as measured on its two sides (2026-10-03); the one pair left */
+	function paperNow(side) { return side === 'dark' ? '#373737' : '#ffffff'; }
+	function inkOf(side) { return side === 'dark' ? '#dfdfdf' : '#232323'; }
+	function canvasOf(side) { return side === 'dark' ? '#2b2b2b' : '#ebebeb'; }
 	/* THE QUOTE'S SLANT RESTS WHERE THE THEME PUTS IT (2026-09-27, found by the new
 	   window's check): Architrave sets its quotes in italic, so its rest is italic and the
 	   switch reads on; it read off while every quote on the page leaned, and turning it
@@ -967,7 +1075,7 @@
 		if (dial === 'letterSpacing') return !!TYPE_LETTER[v];
 		if (dial === 'capitals' || dial === 'italic') return typeof v === 'boolean';
 		if (dial === 'align') return ALIGNS.indexOf(v) !== -1;
-		if (dial === 'colour') return ROLE_COLOURS.indexOf(v) !== -1;
+		if (dial === 'colour') return TYPE_COLOURS.indexOf(v) !== -1;
 		return false;
 	}
 	/* The seven as a record or a tweak carries them, known values only. */
@@ -994,6 +1102,7 @@
 		if (dial === 'lineHeight') return TYPE_LINE[v];
 		if (dial === 'letterSpacing') return TYPE_LETTER[v];
 		if (dial === 'capitals' || dial === 'italic') return !!v;
+		if (dial === 'colour') return v === 'text' ? 'ink' : v === 'mutedText' ? 'muted' : v;
 		return v;
 	}
 	function memberRest(role, m, d) {
@@ -1043,11 +1152,12 @@
 	function engineOf(src) { return engineFrom(typeOf(src), false); }
 	/* The names that ARE the theme's own: a value that says one of them is no value. */
 	var TYPE_REST = { size: '0', lineHeight: 'normal', letterSpacing: 'normal', align: 'default' };
+	function typeRest(role, d) { return d === 'colour' ? typeColourRest(role) : TYPE_REST[d]; }
 	/* A style's seven with a tweak over them, as a record writes them: what is left out is the theme's own. */
 	function typeMerged(s, tw) {
 		var a = typeOf(s), b = typeOf(tw), out = {};
 		Object.keys(b).forEach(function (r) { a[r] = a[r] || {}; Object.keys(b[r]).forEach(function (d) { a[r][d] = b[r][d]; }); });
-		Object.keys(a).forEach(function (r) { var o = {}; Object.keys(a[r]).forEach(function (d) { if (TYPE_REST[d] !== a[r][d]) o[d] = a[r][d]; }); if (Object.keys(o).length) out[r] = o; });
+		Object.keys(a).forEach(function (r) { var o = {}; Object.keys(a[r]).forEach(function (d) { if (typeRest(r, d) !== a[r][d]) o[d] = a[r][d]; }); if (Object.keys(o).length) out[r] = o; });
 		return out;
 	}
 	/* A tweak's seven: only what differs from the style's own (or, where the style names none, from the theme's). */
@@ -1057,7 +1167,7 @@
 			var o = {};
 			Object.keys(t[r]).forEach(function (d) {
 				var mine = own[r] && own[r][d];
-				if (mine !== undefined ? t[r][d] !== mine : TYPE_REST[d] !== t[r][d]) o[d] = t[r][d];
+				if (mine !== undefined ? t[r][d] !== mine : typeRest(r, d) !== t[r][d]) o[d] = t[r][d];
 			});
 			if (Object.keys(o).length) out[r] = o;
 		});
@@ -1261,7 +1371,7 @@
 							else if (d === 'face') { val = faceValue(own.face); said = own.face; }
 							else if (d === 'italic') { val = own.italic && hasItalic(own.face || v.face) ? 'italic' : 'normal'; said = own.italic ? 'on' : 'off'; }
 							else if (d === 'leading') { val = String(LEAD[own.leading] || 1); said = own.leading; }
-							else if (d === 'colour') { val = own.colour === 'accent' ? 'var(--accent)' : own.colour === 'own' ? 'var(--headings-own-colour, var(--accent))' : 'var(--text-primary)'; said = own.colour; }
+							else if (d === 'colour') { val = own.colour === 'accent' ? 'var(--accent)' : own.colour === 'own' ? 'var(--headings-own-colour, var(--accent))' : own.colour === 'muted' ? 'var(--ldp-muted, var(--text-muted, color-mix(in oklab, currentColor 62%, transparent)))' : 'var(--text-primary)'; said = own.colour; }
 							else val = TRACK[own.tracking] || '0';
 						}
 						if (val === null) { st.removeProperty(tok); root.removeAttribute(attr); } else { any = true; st.setProperty(tok, val); root.setAttribute(attr, said !== null ? said : d === 'size' ? own.size : d === 'align' ? own.align : String(val)); }
@@ -1273,7 +1383,7 @@
 			if (v.tracking === rest.tracking && hostTw.tracking === undefined) st.removeProperty(p + 'tracking'); else st.setProperty(p + 'tracking', TRACK[v.tracking] || '0');
 			if (v.words === rest.words && hostTw.words === undefined) st.removeProperty(p + 'words'); else st.setProperty(p + 'words', WORDS[v.words] || 'normal');
 			st.setProperty(p + 'case', v.caps ? 'uppercase' : 'none');
-			if (rest.colour !== undefined) { if (v.colour === rest.colour) { st.removeProperty(p + 'colour'); root.removeAttribute('data-' + role + '-colour'); } else { st.setProperty(p + 'colour', v.colour === 'accent' ? 'var(--accent)' : 'var(--' + role + '-own-colour, var(--accent))'); root.setAttribute('data-' + role + '-colour', v.colour); } }
+			if (rest.colour !== undefined) { if (v.colour === rest.colour) { st.removeProperty(p + 'colour'); root.removeAttribute('data-' + role + '-colour'); } else { st.setProperty(p + 'colour', v.colour === 'accent' ? 'var(--accent)' : v.colour === 'muted' ? 'var(--ldp-muted, var(--text-muted, color-mix(in oklab, currentColor 62%, transparent)))' : 'var(--' + role + '-own-colour, var(--accent))'); root.setAttribute('data-' + role + '-colour', v.colour); } }
 			if (rest.align !== undefined) { if (v.align === rest.align) { st.removeProperty(p + 'align'); root.removeAttribute('data-' + role + '-align'); } else { st.setProperty(p + 'align', ALIGN[v.align]); root.setAttribute('data-' + role + '-align', v.align); } }
 			/* A QUOTE IN A FACE WITHOUT AN ITALIC STANDS UPRIGHT (2026-09-19): the stylesheet slants a quote at rest, and a face that ships no italic was slanted by the browser, which the ITALICS list exists to prevent. */
 			/* AND A QUOTE AT ITS REST WRITES NOTHING (2026-09-27): the stylesheet's own slant stands, italic in the article and upright on a quote post's card; off writes upright, since the stylesheet's fallback is italic and removing the property would leave it leaning. */
@@ -1369,8 +1479,16 @@
 		put('tracking', 'tracking', c.letterSpacing !== undefined && c.letterSpacing !== 'normal' ? TRACK[TYPE_LETTER[c.letterSpacing]] : null, c.letterSpacing);
 		put('caps', 'case', c.capitals ? 'uppercase' : null, 'on');
 		put('italic', 'style', c.italic !== undefined ? (c.italic && (!f || hasItalic(f)) ? 'italic' : 'normal') : null, c.italic ? 'on' : 'off');
-		if (meta.colour && meta.colour !== 'ink') { st.setProperty('--small-colour', meta.colour === 'accent' ? 'var(--accent)' : 'var(--kicker-own-colour, var(--accent))'); root.setAttribute('data-small-colour', meta.colour); }
+		var colourOf = function (v, own) { return v === 'accent' ? 'var(--accent)' : v === 'mutedText' ? 'var(--ldp-muted, var(--text-muted, color-mix(in oklab, currentColor 62%, transparent)))' : v === 'own' ? 'var(--' + own + '-own-colour, var(--accent))' : 'var(--text-primary)'; };
+		if (meta.colour && meta.colour !== 'mutedText') { st.setProperty('--small-colour', colourOf(meta.colour, 'kicker')); root.setAttribute('data-small-colour', meta.colour); }
 		else { st.removeProperty('--small-colour'); root.removeAttribute('data-small-colour'); }
+		/* EVERY ROLE HAS A COLOUR (2026-10-03, the seven colours): Reading text, Quotes, Interface and Code
+		   write theirs here, off their rest only; panel-page.css spends them, a guest's page included. */
+		['body', 'quote', 'interface', 'code'].forEach(function (r) {
+			var v = (typeNow()[r] || {}).colour;
+			if (v && v !== typeColourRest(r)) { st.setProperty('--' + r + '-colour', colourOf(v, r)); root.setAttribute('data-' + r + '-colour', v); }
+			else { st.removeProperty('--' + r + '-colour'); root.removeAttribute('data-' + r + '-colour'); }
+		});
 	}
 	function trackingOf() { return roleOf('read').tracking; }
 	function applyTracking() { applyRoles(); }
@@ -1454,7 +1572,7 @@
 		   yes to two sliders and no colour, the dots always the look's own ink).
 		   Only with Dotted background. 24 and 13 are the grid's rest. */
 	};
-	Object.keys(LEVEL_CSS).forEach(function (k) { LEVELS[k].css = LEVEL_CSS[k]; });
+	Object.keys(LEVEL_CSS).forEach(function (k) { if (LEVELS[k]) LEVELS[k].css = LEVEL_CSS[k]; }); /* the softness steps left with the seven colours (2026-10-03) */
 	/* THE LINES' REST IS 45, NOT 14 (2026-09-19, Manuel on the slider: "when I turn it down to make the lines lighter, sometimes it goes a little bit up again"). At the rest nothing is written and the stylesheet's own value stands, and with Lines on that value is 45 % in EVERY style (style.css, the Lines block), not Terminal's alone as 1.3.267 believed; 14 is the hairline of a page with Lines off. So the stop called 14 wrote nothing and the page went back to 45: lighter, lighter, then darker. A style's own `line`, or its base's, is its rest. */
 	function levelRest(k) {
 		var L = LEVELS[k], s = byId(current), b = s && byId(baseOf(s));
@@ -1464,11 +1582,11 @@
 		   works with soft on or off. Until a style or a hand sets it, it stands
 		   where Softer reading text's second slider (`quietlevel`) put the small
 		   text, so no saved style and no reader's changes move. */
-		if (k === 'smallsoft') return optionOn('soft') ? levelOf('quietlevel') : L.rest;
 		return L.rest;
 	}
 	function levelOf(k) {
 		var L = LEVELS[k], tw = readTweaks()[current];
+		if (!L) return ''; /* the softness steps left the list with the seven colours (2026-10-03) */
 		if (tw && L.stops.indexOf(tw[k]) !== -1) return tw[k];
 		return levelRest(k);
 	}
@@ -1521,11 +1639,9 @@
 	   highlighter colours with the ink of the day side over it, not a fourth
 	   well. Record key `markercolour`, stamped as data-marker-colour off the rest. */
 	/* MARKERS: the list's tables above (plugin/settings.json). */ /* own (2026-09-26, round one): the well colours.<side>.marker; its ink and its bar follow from the pen (markerBody). text and muted (Manuel, 2026-09-26: "like the reading text or the year in the same color"): the pen is the reading text's colour or the date's, read from each side's own rungs in style.css, so it holds by day and by night */
-	function markerColourOf() {
-		var s = byId(current), tw = readTweaks()[current];
-		if (tw && MARKERS.indexOf(tw.markercolour) !== -1) return tw.markercolour;
-		return (s && MARKERS.indexOf(s.markercolour) !== -1) ? s.markercolour : MARKERS[0];
-	}
+	/* THE HIGHLIGHTER IS A COLOUR (2026-10-03): none is off; one of the five pens is that pen; any other is a pen of its own */
+	function highlightNow() { var c = coloursOf(null, true); return c.light.marker || c.dark.marker || ''; }
+	function markerColourOf() { var h = highlightNow(); return h ? (penOf(h) || 'own') : MARKERS[0]; }
 	/* THE FRAME'S PATTERN (Manuel, 2026-09-25: the reference's checkerboard "is a distinctive style … maybe on the frame around the images"): what the mat around a picture shows, plain (the rest), the page's dot grid, or a checkerboard, the transparency grid of a design tool. Record key `framepattern`, data-frame-pattern off the rest. Only with Frame around pictures. */
 	/* FRAME_PATTERNS: the list's tables above (plugin/settings.json). */
 	function framePatternOf() {
@@ -1566,10 +1682,7 @@
 	   neither the style nor a hand names now. An export leaves those out. */
 	function followers() {
 		var s = byId(current), b = s && byId(baseOf(s)), tw = readTweaks()[current] || {};
-		return [['links', PICKS.links.list], ['smallsoft', LEVELS.smallsoft.stops]].filter(function (x) {
-			var k = x[0], ok = function (o) { return o && x[1].indexOf(o[k]) !== -1; };
-			return !ok(tw) && !ok(s) && !(k === 'smallsoft' && ok(b));
-		}).map(function (x) { return x[0]; });
+		return []; /* the rows that followed Softer reading text (links, the small text) went with it, 2026-10-03 */
 	}
 	function pickRest(key) { return key === 'links' && optionOn('soft') ? 'underlined' : PICKS[key].list[0]; }
 	function pickOf(key) {
@@ -2015,6 +2128,10 @@
 		return !!OPT_ON[k];
 	}
 	function optionOn(k) {
+		/* THE COLOURS' OWN SWITCHES (2026-10-03): worked out from the colours, never stored */
+		if (k === 'soft') return false; /* Reading text in Soft text is the role's colour now (applyTypeExtras) */
+		if (k === 'marker') return !!highlightNow();
+		if (k === 'darkground') { var gs = groundSides(); return gs.light || gs.dark; }
 		var tw = readTweaks()[current];
 		if (tw && typeof tw[k] === 'boolean') return tw[k];
 		return restOf(k);
@@ -2025,7 +2142,8 @@
 		   fires the observers, and one press re-rendered the panel three
 		   times (the audit, 2026-09-12). */
 		function stampAttr(name, value) { if (root.getAttribute(name) !== value) root.setAttribute(name, value); }
-		OPTS.forEach(function (k) { stampAttr('data-' + k, optionOn(k) ? 'on' : 'off'); });
+		OPTS.concat(['darkground', 'soft', 'marker'].filter(function (k) { return OPTS.indexOf(k) === -1; })).forEach(function (k) { stampAttr('data-' + k, optionOn(k) ? 'on' : 'off'); }); /* the three the colours stand for now are stamped as before */
+		applyColourStamps();
 		/* THE STYLE'S OWN TEXT SIZE (Manuel, 2026-09-25, of the big A: "what would
 		   Apple do?", then "yes, do both"). A reader's size step makes the letters
 		   bigger or smaller and the column keeps the width the style gave it, as a
@@ -2070,7 +2188,7 @@
 	   and this one no longer reads (bold, wide, hyphens, tracking at the top
 	   level) and unaliased role values stayed in a reader's record and kept a
 	   style "adjusted" with nothing to reset. Only what is read survives. */
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -2091,13 +2209,15 @@
 			if (e.colours && typeof e.colours === 'object') {
 				var colours = {};
 				['light', 'dark'].forEach(function (side) {
-					var c = e.colours[side]; if (!c || typeof c !== 'object') return;
-					var keptC = {};
-					['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { /* button, head, kicker, ground, lift, marker: the wells of 2026-09-26 */
+					var c0 = e.colours[side]; if (!c0 || typeof c0 !== 'object') return;
+					var keptC = {}, c = {}, sc = s.colours && s.colours[side];
+					Object.keys(c0).forEach(function (k) { c[colourKey(k)] = c0[k]; }); /* the seven's names, whichever a tweak was written in */
+					var own = function (k) { return sc && (sc[k] !== undefined ? sc[k] : sc[COLOUR_ENGINE[k]]); };
+					WELL_KEYS.forEach(function (k) { /* the seven, the button's and the roles' own (2026-10-03) */
 						var v = c[k];
-						if (v === '' && s.colours && s.colours[side] && s.colours[side][k]) { keptC[k] = ''; return; }
+						if (v === '' && own(k)) { keptC[k] = ''; return; }
 						if (typeof v !== 'string' || !/^#[0-9a-f]{6}$/i.test(v)) return;
-						var rest = s.colours && s.colours[side] && s.colours[side][k];
+						var rest = own(k);
 						if (String(v).toLowerCase() !== String(rest || '').toLowerCase()) keptC[k] = v.toLowerCase();
 					});
 					if (Object.keys(keptC).length) colours[side] = keptC;
@@ -2106,7 +2226,7 @@
 			}
 			if (e.roles && typeof e.roles === 'object') {
 				var roles = typeTweak(e, s);
-				if (Object.keys(roles).length) { clean.roles = roles; clean.architrave = 2; }
+				if (Object.keys(roles).length) { clean.roles = roles; clean.architrave = 3; }
 			}
 			/* THE EXTRAS' DETAILS: known effects and details, values from their list, and
 			   only what differs from the style's own (or from the rest, where it names none). */
@@ -2208,9 +2328,9 @@
 			/* A RECIPE MAY NAME A PRESET (2026-09-19): its six colours are the style's own, read from the list and not restated in the recipe. Not while the reader has let the preset go (a tweak's empty `preset`), when the colours are whatever they then set. */
 			/* A RECIPE MAY NAME A PRESET AND A WELL OF ITS OWN BESIDE IT (2026-09-26, Gallery's second blue on its button): the preset's six come first, the recipe's own wells over them. */
 			var named = (s && s.preset && tw.preset === undefined) ? presetById(s.preset) : null;
-			var base = {}, t = (tw.colours && tw.colours[side]) || {};
-			[(named && named[side]) || {}, (s && s.colours && s.colours[side]) || {}].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
-			['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
+			var base = {}, t = engineSide((tw.colours && tw.colours[side]) || {}); /* the seven's names or the engine's, read as the engine's */
+			[(named && named[side]) || {}, engineSide(s && s.colours && s.colours[side])].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
+			ENGINE_WELLS.forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
 		return out;
 	}
@@ -2372,7 +2492,7 @@
 		{ id: 'slate', label: 'Slate', light: '#0f172a', dark: '#f1f5f9' },
 		{ id: 'stone', label: 'Stone', light: '#1c1917', dark: '#f5f5f4' }
 	];
-	var LISTS = { paper: PAPERS, ink: INKS, accent: ACCENTS, button: ACCENTS, head: ACCENTS, kicker: ACCENTS, ground: PAPERS, lift: PAPERS, marker: ACCENTS, light: ACCENTS, second: ACCENTS }; /* the button's, the roles' and the pen's own colours pick from the accent's twenty; the ground and the card from the paper's */
+	var LISTS = { paper: PAPERS, ink: INKS, accent: ACCENTS, button: ACCENTS, ground: PAPERS, lift: PAPERS, marker: ACCENTS, muted: INKS, title: ACCENTS, headings: ACCENTS, body: ACCENTS, quote: ACCENTS, meta: ACCENTS, 'interface': ACCENTS, code: ACCENTS }; /* the button's, the roles' and the pen's own colours pick from the accent's twenty; the ground and the card from the paper's; soft text from the ink's (the engine's names, 2026-10-03) */ /* the button's, the roles' and the pen's own colours pick from the accent's twenty; the ground and the card from the paper's */
 	/* WHICH ROW OF A LIST IS ON: the colour the style holds on both sides, found
 	   in that list. A style wearing a preset holds the preset's colours, which
 	   are not these, so nothing is marked; a style wearing its own tint holds no
@@ -2380,6 +2500,7 @@
 	   marked here (Manuel, 2026-09-16, reversing the tint fallback of the day
 	   before: "the answer is no"). */
 	function listColourOf(key) {
+		key = COLOUR_ENGINE[key] || key;
 		var c = coloursOf(null, true), light = (c.light || {})[key], dark = (c.dark || {})[key];
 		if (!light || !dark) return '';
 		var hit = (LISTS[key] || []).filter(function (x) { return x.light === light && x.dark === dark; })[0];
@@ -2457,25 +2578,35 @@
 		var out = coloursOf(id, true); out.derived = { light: [], dark: [] };
 		[['light', 'dark'], ['dark', 'light']].forEach(function (pair) {
 			var from = pair[0], to = pair[1];
-			['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'light', 'second'].forEach(function (k) {
-				if (out[from][k] && !out[to][k] && out.derived[from].indexOf(k) === -1) { out[to][k] = deriveColour(out[from][k], k === 'paper' || k === 'ink' ? k : k === 'ground' || k === 'lift' ? 'paper' : 'accent', to); out.derived[to].push(k); }
-				/* the pen crosses over and is fitted to that side's paper below */
-				if (out[from].marker && !out[to].marker && out.derived[from].indexOf('marker') === -1) { out[to].marker = out[from].marker; out.derived[to].push('marker'); }
+			['paper', 'ink', 'accent', 'button', 'ground', 'lift'].concat(ROLE_WELLS).forEach(function (k) {
+				if (!out[from][k] || out[to][k] || out.derived[from].indexOf(k) !== -1) return;
+				/* A DARK GROUND STAYS ON ITS SIDE (2026-10-03): a ground across from its own paper is that
+				   side's dark (or light) ground, and makes no ground for the other side, which keeps its own. */
+				if (k === 'ground' && groundFlip(out[from].ground, out[from].paper || paperNow(from), out[from].ink)) return;
+				out[to][k] = deriveColour(out[from][k], k === 'paper' || k === 'ink' ? k : k === 'ground' || k === 'lift' ? 'paper' : 'accent', to); out.derived[to].push(k);
 			});
+			/* the pen crosses over and is fitted to that side's paper below; a named pen is the same pen on both sides */
+			if (out[from].marker && !out[to].marker && out.derived[from].indexOf('marker') === -1) { out[to].marker = out[from].marker; out.derived[to].push('marker'); }
+			/* SOFT TEXT CROSSES AS FAR TOWARD ITS PAPER as it stood on its own side */
+			if (out[from].muted && !out[to].muted && out.derived[from].indexOf('muted') === -1) {
+				var fP = hexToOklch(out[from].paper || paperNow(from)).L, fI = hexToOklch(out[from].ink || inkOf(from)).L, f = fI === fP ? 0.5 : (hexToOklch(out[from].muted).L - fI) / (fP - fI);
+				out.derived[to].push('muted'); out[to].muted = '#pending:' + Math.max(0, Math.min(1, f)) + ':' + out[from].muted;
+			}
 		});
 		/* The accent last, once each side's paper is known: the pair's own paper
 		   where the style sets none, read off the registry's swatch. */
 		['light', 'dark'].forEach(function (side) {
 			var paper = out[side].paper || paperOf(side);
 			if (out.derived[side].indexOf('accent') !== -1) out[side].accent = accentForPaper(out[side].accent, paper);
-			['button', 'title', 'headings', 'meta', 'light', 'second'].forEach(function (k) { if (out.derived[side].indexOf(k) !== -1) out[side][k] = accentForPaper(out[side][k], paper); }); /* the button's and the roles' own colours follow to the other side as the accent does */
+			['button'].concat(ROLE_WELLS).forEach(function (k) { if (out.derived[side].indexOf(k) !== -1) out[side][k] = accentForPaper(out[side][k], paper); }); /* the button's and the roles' own colours follow to the other side as the accent does */
+			if (/^#pending:/.test(out[side].muted || '')) { var mp = out[side].muted.split(':'), ink = out[side].ink || inkOf(side), o = hexToOklch(mp[2]); var pp = out[side].paper || paperNow(side); o.L = hexToOklch(ink).L + (hexToOklch(pp).L - hexToOklch(ink).L) * +mp[1]; out[side].muted = oklchToHex(o); }
 			/* THE PEN FOLLOWS THE SIDE TOO (Manuel, 2026-09-26: a cream pen "is not really
 			   adjusting. What works on dark is not working on light"). It kept one colour on
 			   both sides, and the bar under the title, a line on the paper, all but vanished
 			   on the other one. Now it keeps its hue and moves in lightness until it stands
 			   at 3:1 on that side's paper, the measure for a line; a pen set by hand on both
 			   sides keeps each. */
-			if (out.derived[side].indexOf('marker') !== -1) out[side].marker = accentForPaper(out[side].marker, paper, 3);
+			if (out.derived[side].indexOf('marker') !== -1 && !penOf(out[side].marker)) out[side].marker = accentForPaper(out[side].marker, paper, 3);
 		});
 		return out;
 	}
@@ -2570,25 +2701,14 @@
 	   the dark ground's two scopes (THE DARK GROUND). */
 	/* What a set says about its own grounds, for its side (pairBody, pairCss). */
 	function pairLooks(c, side) {
-		/* THE GROUND CAN BE THE PAPER (Manuel, 2026-09-26, Gallery on TT5: the page
-		   came out #eeeeee under a white paper). A set that says ground: 'paper'
-		   keeps the page itself on the paper, as the white-gallery reference does;
-		   every other set sinks the ground a step below it, as before. */
-		var pre = PRESETS.filter(function (x) { return x.id === presetOf(); })[0], flat = !!(window.architravePanelGuest && pre && pre.ground === 'paper');
-		/* A SET MAY NAME ITS OWN GROUND AND LIFT (Manuel, 2026-09-26, Storybook:
-		   "the green and the sand, then nice white stuff on it"). ground[side] is
-		   the page around the paper and under the rail, instead of a step sunk
-		   below the paper; lift[side] is what stands on the paper (menus, buttons,
-		   filled boxes, the hover), instead of a mix darker than it. Only while
-		   the set's own paper and ink are in use: a set the owner has recoloured
-		   goes back to the derived grounds, since a green chosen for a sand paper
-		   says nothing about another. */
-		var mine = pre && pre[side] && String(c.paper).toLowerCase() === pre[side].paper && String(c.ink).toLowerCase() === pre[side].ink;
-		/* THE GROUND AND THE CARD AS ROWS (Manuel, 2026-09-26, round one of the settings plan, "go with your recommendation"): Colour › Custom has a Ground row and a Card row, wells `colours.<side>.ground` and `.lift`, which stand before the set's own. */
-		var G = c.ground || (mine && pre.ground && typeof pre.ground === 'object' ? pre.ground[side] : ''), F = c.lift || (mine && pre.lift ? pre.lift[side] : '');
-		/* A GROUND FOR THE FRAME ONLY (Manuel, 2026-09-26, Gallery by night, A2): a set whose ground is the paper on other themes may still name the ground Architrave draws around its paper, frame[side], so the paper does not melt into the page there. */
-		if (!G && mine && pre.frame && pre.frame[side] && !window.architravePanelGuest) G = pre.frame[side]; /* GUESTS ONLY (Manuel, 2026-09-26, "keep going" on the recommendation): on another theme the ground IS the page; on Architrave it is the frame around the paper, and a white one would erase the paper's edge */
-		return { flat: flat, G: G, F: F };
+		/* THE GROUND AND THE CARD (Manuel, 2026-09-26, then the seven colours, 2026-10-03): background2
+		   is the page around the paper and under the rail, instead of a step sunk below the paper; card
+		   is what stands on the paper. A ground across from its paper is the dark ground and is worn
+		   around the paper only (applyGround), never on the root, where a phone would read dark text on it.
+		   ON ANOTHER THEME THE PAPER IS THE PAGE (2026-10-03): the ground does not sink below it there;
+		   it is the theme's second background, where the theme has one (panel.php). */
+		var G = c.ground && !groundFlip(c.ground, c.paper, c.ink) ? c.ground : '';
+		return { flat: !!window.architravePanelGuest, G: G, F: c.lift || '' };
 	}
 	function pairBody(c, side) {
 		var P = c.paper, I = c.ink, Ig = I, dark = lum(P) < lum(I); /* Ig: the ink the greys are mixed from (the greys' tint left with Instrument, 2026-10-02) */
@@ -2612,6 +2732,7 @@
 			'--surface-pressed:color-mix(in srgb, ' + P + ', ' + Ig + ' var(--step-surface-pressed, 16%));' +
 			'--surface-track:color-mix(in srgb, ' + P + ', ' + Ig + ' var(--step-surface-hover, 6%));' +
 			'--surface-track-selected:color-mix(in srgb, ' + P + ', ' + Ig + ' var(--step-track-selected, 12%));' +
+			(G ? '--ldp-ground:' + G + ';' : '') + /* another theme's second background (panel.php) */
 			'--text-secondary:' + mix(Ig, P, 15) + ';--text-muted:' + mix(Ig, P, 25) + ';--text-subtle:' + mix(Ig, P, 61) + ';--text-disabled:' + mix(Ig, P, 72) + ';' +
 			'--border-subtle:' + mix(P, Ig, 7) + ';--border-default:' + mix(P, Ig, 14) + ';--border-strong:' + mix(P, Ig, 29) + ';--border-control:' + mix(P, Ig, 52) + ';' +
 			'--code-surface:' + (F && dark ? F : field(P, dark ? 0.06 : 0.04, 0.12)) + ';' + /* by night a set's own lift is the code's box too (2026-09-26, Gallery's black paper: the field came out #060606) */ '--code-plain:' + I + ';' +
@@ -2730,8 +2851,82 @@
 		var p = lab(x), q = lab(y), m = [0, 1, 2].map(function (i) { return p[i] + (q[i] - p[i]) * w; });
 		return oklchToHex({ L: m[0], C: Math.sqrt(m[1] * m[1] + m[2] * m[2]), h: Math.atan2(m[2], m[1]) });
 	}
+	/* WHICH SIDES WEAR THEIR GROUND AROUND THE PAPER (the dark ground, 2026-10-03): a side whose
+	   Ground stands across from its paper. Read from the colours as they are now. */
+	function groundSides(c) {
+		c = c || coloursResolved();
+		var out = {};
+		['light', 'dark'].forEach(function (side) { out[side] = groundFlip(c[side].ground, c[side].paper || paperNow(side), c[side].ink); });
+		return out;
+	}
+	/* The ground worn around the paper, and the words, lines and links on it: the other side's own
+	   set where the ground is that side's own ground (so a dark ground by day that is the night's
+	   reads exactly as the night), else a set made from the ground alone, its ink whichever reads
+	   best on it, its accent fitted to it. A ground in the middle, where no ink reads at 4.5:1, is
+	   drawn a little further toward its end until one does (the colour kept stays as chosen). */
+	var GROUND_NUDGED = { light: false, dark: false };
+	function groundSet(c, side) {
+		var other = side === 'light' ? 'dark' : 'light', o = c[other], G = c[side].ground;
+		var oCanvas = o.ground && !groundFlip(o.ground, o.paper || paperNow(other), o.ink) ? o.ground : o.paper ? sink(o.paper, 0.05) : canvasOf(other);
+		GROUND_NUDGED[side] = false;
+		if (String(G).toLowerCase() === String(oCanvas).toLowerCase() || String(G).toLowerCase() === String(o.paper || paperNow(other)).toLowerCase()) return null; /* the other side's own */
+		var inks = [o.ink || inkOf(other), c[side].paper || paperNow(side), '#ffffff', '#111111'];
+		var best = function (g) { return inks.reduce(function (b, x) { return contrast(x, g) > contrast(b, g) + 0.5 ? x : b; }); };
+		var GP = G, GI = best(GP);
+		if (contrast(GI, GP) < 4.5) {
+			var og = hexToOklch(GP), toDark = lum(GP) < 0.18;
+			for (var i = 0; i < 40 && contrast(GI, GP) < 4.5; i++) { og.L = Math.max(0, Math.min(1, og.L + (toDark ? -0.015 : 0.015))); GP = oklchToHex(og); GI = best(GP); }
+			GROUND_NUDGED[side] = true;
+		}
+		var GA = accentForPaper(o.accent || c[side].accent || GI, GP); /* no accent of the style's own: its words' colour, as the dark ground's own colour drew it */
+		return pairBody({ paper: GP, ink: GI, ground: GP }, lum(GP) < lum(GI) ? 'dark' : 'light') + accentBody(GA, GP, GI);
+	}
+	/* A WELL SET ON BOTH SIDES AT ONCE ('' clears it): the highlighter's pens are the same on both. */
+	function setBothSides(key, hex) {
+		var all = readTweaks(), entry = all[current] || {}, s = byId(current);
+		entry.colours = entry.colours || {};
+		['light', 'dark'].forEach(function (side) {
+			var c = entry.colours[side] = entry.colours[side] || {};
+			delete c[COLOUR_ENGINE[key]];
+			if (hex) c[key] = hex.toLowerCase();
+			else if (s && s.colours && s.colours[side] && (s.colours[side][key] || s.colours[side][COLOUR_ENGINE[key]])) c[key] = ''; /* masks the saved style's own */
+			else delete c[key];
+			if (!Object.keys(c).length) delete entry.colours[side];
+		});
+		if (!Object.keys(entry.colours).length) delete entry.colours;
+		if (Object.keys(entry).length) all[current] = entry; else delete all[current];
+		writeTweaks(all);
+		applyColours(); mark();
+	}
+	/* WHAT THE COLOURS STAMP (2026-10-03): the dark ground on the side that wears one, and the highlighter. */
+	function applyColourStamps() {
+		var put = function (n, v) { if (v === null) root.removeAttribute(n); else if (root.getAttribute(n) !== v) root.setAttribute(n, v); };
+		var gs = groundSides();
+		put('data-darkground', gs.light || gs.dark ? 'on' : 'off');
+		put('data-night-ground', gs.dark ? 'inverted' : null);
+		put('data-marker', highlightNow() ? 'on' : 'off');
+		applyMarkerColour();
+	}
 	function applyColours() {
 		var c = coloursResolved(), css = '';
+		/* A GROUND OR A CARD ALONE STANDS ON THE PAIR'S OWN PAPER AND TEXT (2026-10-03: no Custom switch
+		   writes them first any more), which is what that switch wrote: the page's own. A dark ground
+		   alone needs no pair: it is worn around the paper. */
+		['light', 'dark'].forEach(function (side) {
+			var v = c[side];
+			if ((v.paper && v.ink) || !((v.ground && !groundFlip(v.ground, v.paper || paperNow(side), v.ink)) || v.lift)) return;
+			if (!v.paper) v.paper = paperNow(side);
+			if (!v.ink) v.ink = inkOf(side);
+		});
+		var flips = groundSides(c);
+		/* A GROUND ON ITS OWN SIDE THE WORDS CANNOT READ ON (a middle grey): drawn a shade further from
+		   them until they do, as the dark ground's own set is; the colour kept stays as chosen. */
+		['light', 'dark'].forEach(function (side) {
+			var v = c[side]; GROUND_NUDGED[side] = false;
+			if (!v.ground || flips[side] || !v.ink) return;
+			var o = hexToOklch(v.ground), toLight = lum(v.ink) < lum(v.ground), i = 0;
+			while (contrast(v.ink, v.ground) < 4.5 && i++ < 60) { o.L = Math.max(0, Math.min(1, o.L + (toLight ? 0.01 : -0.01))); v.ground = oklchToHex(o); GROUND_NUDGED[side] = true; }
+		});
 		['light', 'dark'].forEach(function (side) {
 			var v = c[side];
 			if (v.paper && v.ink) css += pairCss(side, v);
@@ -2752,11 +2947,13 @@
 			/* THE ROLES' OWN COLOURS: one token each, spent by the role's colour token (applyRoles). */
 			if (v.title) css += sideRule(side, '', '', '--head-own-colour:' + v.title + ';');
 			if (v.headings) css += sideRule(side, '', '', '--headings-own-colour:' + v.headings + ';');
-			/* THE GROUND'S OWN COLOUR AS A TOKEN (2026-10-02, Aperitivo's awning): what stands around the paper, by day under Dark ground the set's inverse, else the set's own ground; spent by style.css THE AWNING, the ground a step below the paper where the set names none. */
-			var FLD = (side === 'light' && v.inverse) || pairLooks(v, side).G; if (FLD) css += sideRule(side, '', '', '--ldp-field:' + FLD + ';');
+			['body', 'quote', 'interface', 'code'].forEach(function (r) { if (v[r]) css += sideRule(side, '', '', '--' + r + '-own-colour:' + v[r] + ';'); });
+			/* SOFT TEXT'S OWN COLOUR: the small text's rung, said on body as the small text's softness was */
+			if (v.muted) css += sideRule(side, '', '', '--ldp-muted:' + v.muted + ';') + sideRule(side, '', ' body', '--text-muted:' + v.muted + ';--wp--preset--color--text-muted:' + v.muted + ';--ldp-muted:' + v.muted + ';'); /* on the root too: a role's colour is resolved there */
+			/* (--ldp-field, the ground's colour for Aperitivo's awning, left with that style; nothing reads it) */
 			/* THE PEN OF YOUR OWN (2026-09-26): the pen, the ink read over it (dark on a
 			   light pen, light on a dark one) and the bar's deeper tone for the day. */
-			if (v.marker) css += sideRule(side, '[data-marker-colour="own"]', '', markerBody(v.marker));
+			if (v.marker && !penOf(v.marker)) css += sideRule(side, '[data-marker-colour="own"]', '', markerBody(v.marker)); /* a named pen is the stylesheet's own */
 			if (v.meta) css += sideRule(side, '', '', '--kicker-own-colour:' + v.meta + ';');
 		});
 		/* THE DARK GROUND'S OWN COLOURS: the night side on the ground, the day
@@ -2766,19 +2963,13 @@
 			css += on + ' .ground-dark{' + pairBody(c.dark, 'dark') + (c.dark.accent ? accentBody(c.dark.accent, c.dark.paper, c.dark.ink) : '') + '}' +
 				on + ' .ground-light{' + pairBody(c.light, 'light') + (c.light.accent ? accentBody(c.light.accent, c.light.paper, c.light.ink) : '') + '}';
 		}
-		/* THE DARK GROUND'S OWN COLOUR (the lab's Ground colour under Dark ground,
-		   2026-09-28): by day the ground takes this colour instead of the night's
-		   paper, with whichever of the night's ink and the day's paper reads better
-		   on it, and the night's accent fitted to it. Nothing while it is unset. */
-		if (c.light.inverse) {
-			/* A SET MAY NAME THE GROUND'S INK ITSELF (Manuel, 2026-10-02, Aperitivo: the rail's words cream like its paper, not the white the
-			   choice below finds): only while the ground is still the set's own inverse, and only at 4.5:1 or better; every other set and a
-			   ground chosen by hand keep the choice below. */
-			var preGI = presetById(presetOf()), ownGI = preGI && preGI.groundInk && preGI.light && String(c.light.inverse).toLowerCase() === String(preGI.light.inverse || '').toLowerCase() && contrast(preGI.groundInk, c.light.inverse) >= 4.5 ? preGI.groundInk : '';
-			var GP = c.light.inverse, GI = ownGI || [c.dark.ink, c.light.paper, '#ffffff', '#111111'].filter(Boolean).reduce(function (best, x) { return contrast(x, GP) > contrast(best, GP) + 0.5 ? x : best; });
-			var GA = accentForPaper(c.dark.accent || c.light.accent || GI, GP);
-			css += 'html:root[data-darkground="on"] .ground-dark{' + pairBody({ paper: GP, ink: GI, ground: GP }, lum(GP) < lum(GI) ? 'dark' : 'light') + accentBody(GA, GP, GI) + '}';
-		}
+		/* THE DARK GROUND'S OWN COLOURS (2026-09-28, as a colour since 2026-10-03): a ground made from
+		   its colour alone, on its own side only (both sides may wear one). */
+		['light', 'dark'].forEach(function (side) {
+			if (!flips[side]) return;
+			var body = groundSet(c, side);
+			if (body) css += sideRule(side, '[data-darkground="on"]', side === 'light' ? ' .ground-dark' : ' .ground-light', body);
+		});
 		/* A DARK ROOM ON THE PAGE TAKES THE STYLE'S NIGHT ACCENT (2026-09-26,
 		   Manuel, the newsletter page's Subscribe in the tint's orange while the
 		   style had its own colours: "not really connected to the styles"). The
@@ -2794,6 +2985,7 @@
 		if (typeof markerLine === 'function' && document.readyState !== 'loading') markerLine(); /* your own paper may have changed under the pen's bar (THE BAR ON A STRONG PAPER) */
 		if (css) { if (root.getAttribute('data-colours') !== 'on') root.setAttribute('data-colours', 'on'); }
 		else root.removeAttribute('data-colours');
+		if (root.hasAttribute('data-darkground')) applyColourStamps(); /* once the options have been stamped: a colour moved may move the ground and the pen */
 		/* AN ACCENT YOU PICKED, SAID ON THE ROOT FOR A GUEST (2026-09-24, the audit: on
 		   Twenty Twenty-Five the article's links wear the text colour, so an accent
 		   had nothing to show on). The guest sheet colours the article's links with it. */
@@ -2900,7 +3092,7 @@
 		groundWorn.forEach(function (w) { w.el.classList.remove(w.cls, w.scope); });
 		groundWorn = [];
 		if (!body || root.getAttribute('data-darkground') !== 'on') return;
-		var day = root.getAttribute('data-theme') || 'neutral-light';
+		var day = root.getAttribute('data-theme') || 'neutral-light', gs = groundSides();
 		var M = window.QuireModes;
 		var wear = function (el, mode, scope) { if (!el) return; el.classList.add('theme-' + mode, scope); groundWorn.push({ el: el, cls: 'theme-' + mode, scope: scope }); };
 		/* AND BY NIGHT THE OTHER WAY ROUND (pick nightground, Manuel 2026-10-01 on
@@ -2909,17 +3101,18 @@
 		   Inverted, the rail and the ground take the day's colours beside the
 		   night's paper. Architrave's framed page only; a guest's foot stays dark. */
 		if (/-dark$/.test(day)) {
-			if (root.getAttribute('data-night-ground') !== 'inverted' || GUEST) return;
+			if (!gs.dark || GUEST) return;
 			if (!body.classList.contains('has-frame') || (GROUND_WIDE && !GROUND_WIDE.matches)) return;
 			var light = M && M.resolve ? M.resolve(day, 'light') : day.replace(/-dark$/, '-light');
 			wear(body, light, 'ground-light');
 			Array.prototype.forEach.call(document.querySelectorAll(ON_PAPER), function (el) { wear(el, day, 'ground-dark'); });
 			return;
 		}
-		if (!/-light$/.test(day)) return;
+		if (!/-light$/.test(day) || !gs.light) return;
 		var night = M && M.resolve ? M.resolve(day, 'dark') : day.replace(/-light$/, '-dark');
-		/* A GUEST HAS A FOOT: its footer part wears the night, at every width. */
-		if (GUEST) { wear(document.querySelector('.wp-site-blocks > footer'), night, 'ground-dark'); return; }
+		/* A GUEST'S FOOT WORE THE NIGHT until 2026-10-03; the ground is a colour now, and another
+		   theme's second background shows it where the theme has one (panel.php). */
+		if (GUEST) return;
 		if (!body.classList.contains('has-frame') || (GROUND_WIDE && !GROUND_WIDE.matches)) return;
 		wear(body, night, 'ground-dark');
 		Array.prototype.forEach.call(document.querySelectorAll(ON_PAPER), function (el) { wear(el, day, 'ground-light'); });
@@ -2989,13 +3182,15 @@
 		};
 	}
 	function same(a, b) {
-		return DIALS.every(function (d) { return a[d] === b[d]; });
+		var v = function (o, d) { return o[d] === undefined && d === 'palette' ? 'neutral' : o[d]; }; /* a record of the seven colours names no pair: the one left (2026-10-03) */
+		return DIALS.every(function (d) { return v(a, d) === v(b, d); });
 	}
 	// The dials a style wants: its recipe, or the reader's own version of it.
 	function wanted(s) {
 		var tw = readTweaks()[s.id];
 		var out = {};
 		DIALS.forEach(function (d) { out[d] = (tw && tw[d]) || s[d]; });
+		if (!out.palette) out.palette = 'neutral'; /* the one pair left (2026-10-03): a record of the seven colours names none */
 		return out;
 	}
 
@@ -3177,12 +3372,12 @@
 		TYPE_ROLES.forEach(function (role) {
 			var a = ra[role] || {}, b = rb[role] || {}, r = {};
 			TYPE_DIALS[role].forEach(function (d) {
-				var want = a[d] !== undefined ? a[d] : TYPE_REST[d], was = b[d] !== undefined ? b[d] : TYPE_REST[d];
+				var want = a[d] !== undefined ? a[d] : typeRest(role, d), was = b[d] !== undefined ? b[d] : typeRest(role, d);
 				if (J(want) !== J(was) && want !== undefined) r[d] = want;
 			});
 			if (Object.keys(r).length) roles[role] = r;
 		});
-		if (Object.keys(roles).length) { e.roles = roles; e.architrave = 2; }
+		if (Object.keys(roles).length) { e.roles = roles; e.architrave = 3; }
 		var fxs = {};
 		Object.keys(EFFECTS).forEach(function (fid) {
 			var a = (rec.effects || {})[fid] || {}, b = (base.effects || {})[fid] || {}, r = {};
@@ -3285,10 +3480,10 @@
 			Object.keys(LIST.meaning).forEach(function (k) { meaning[k] = LIST.meaning[k]; });
 			var recipes = {};
 			STYLES.filter(function (x) { return !x.own && !x.site && SHOWN.indexOf(x.id) !== -1; }).forEach(function (x) {
-				var rec = { architrave: 2, label: x.label, base: x.id };
-				Object.keys(x).forEach(function (k) { if (k !== 'id' && k !== 'label' && k !== 'bold' && k !== 'preset') rec[k] = x[k]; });
+				var rec = { architrave: 3, label: x.label, base: x.id };
+				Object.keys(x).forEach(function (k) { if (k !== 'id' && k !== 'label' && k !== 'bold' && k !== 'preset' && inRecord(k)) rec[k] = x[k]; });
 				var p = x.preset && presetById(x.preset);
-				if (p) rec.colours = { light: { paper: p.light.paper, ink: p.light.ink, accent: p.light.accent }, dark: { paper: p.dark.paper, ink: p.dark.ink, accent: p.dark.accent } };
+				if (p) rec.colours = { light: { background: p.light.paper, text: p.light.ink, accent: p.light.accent }, dark: { background: p.dark.paper, text: p.dark.ink, accent: p.dark.accent } };
 				recipes[x.id] = rec;
 			});
 			return {
@@ -3296,15 +3491,17 @@
 				rules: [
 					'Send only the keys you want to change from the base; a smaller record is a better record.',
 					'A first visit opens on the dark side, so design the dark colours first and check both.',
-					'Contrast: ink on paper at 4.5:1 or better, accent on paper at 3:1 or better, on both sides.',
-					'A strength key (line, fill, softlevel, quietlevel, framewidth) does nothing unless its switch is true.',
+					'Colours: seven per side, named for their job. background is the page the text sits on (people see Paper); background2 the space around it and the rails, a second background a theme may have (Ground); card what stands on the page: menus, boxes, fields (Cards); text; mutedText the quiet text of dates and captions (Soft text); accent the brand colour of links and main buttons; highlight the highlighter, left out for none. Leave out what you do not need: the rest is worked out from background and text.',
+					'Contrast: text on background at 4.5:1 or better, accent on background at 3:1 or better, on both sides.',
+					'A background2 on the other side of the background (dark around a light page, or light around a dark one) is a dark ground: it is worn around the page on wide screens, with its own words, lines and links.',
+					'A strength key (line, fill, framewidth) does nothing unless its switch is true.',
 					'Pick fonts from the listed ids only; the theme ships no others.',
 					'To try a record without publishing it, open the site at /#style= followed by the base64url of the record JSON.'
 				],
 				/* THE SEVEN ROLES, said for a model (2026-10-02): what each role styles and what each dial's steps mean, one line each */
 				typography: TYPE_MEANS,
 				examples: recipes,
-				colourPresets: PRESETS.map(function (p) { return { id: p.id, label: p.label, light: p.light, dark: p.dark }; })
+				colourPresets: PRESETS.map(function (p) { return { id: p.id, label: p.label, light: publicSide(p.light), dark: publicSide(p.dark) }; })
 			};
 		},
 		schema: function () {
@@ -3315,16 +3512,16 @@
 			TYPE_ROLES.forEach(function (r) {
 				var o = {};
 				TYPE_DIALS[r].forEach(function (d) {
-					o[d] = d === 'font' ? (r === 'code' ? [] : ['body', 'interface']).concat(Object.keys(FAMILY)) : d === 'size' ? TYPE_SIZES : d === 'weight' ? Object.keys(WEIGHT) : d === 'lineHeight' ? Object.keys(TYPE_LINE) : d === 'letterSpacing' ? Object.keys(TYPE_LETTER) : d === 'align' ? ALIGNS : d === 'colour' ? ROLE_COLOURS : 'boolean';
+					o[d] = d === 'font' ? (r === 'code' ? [] : ['body', 'interface']).concat(Object.keys(FAMILY)) : d === 'size' ? TYPE_SIZES : d === 'weight' ? Object.keys(WEIGHT) : d === 'lineHeight' ? Object.keys(TYPE_LINE) : d === 'letterSpacing' ? Object.keys(TYPE_LETTER) : d === 'align' ? ALIGNS : d === 'colour' ? TYPE_COLOURS : 'boolean';
 				});
 				roles[r] = o;
 			});
-			var side = {}; LIST.wells.forEach(function (w) { side[w] = 'hex'; });
+			var side = {}; WELL_KEYS.forEach(function (w) { side[w] = 'hex'; });
 			/* THE FIELDS COME FROM THE LIST (plugin/settings.json, step 4): its keys in the order
 			   the schema prints them, each answered by its table. What is not a table of the list
 			   is read where it lives: the styles, the colour pairs, the reading sizes, the faces. */
 			var from = {
-				architrave: 2,
+				architrave: 3,
 				label: 'string, at most ' + LIST.labelMax + ' characters',
 				base: STYLES.filter(function (x) { return !x.own && !x.site; }).map(function (x) { return x.id; }),
 				palette: Modes && Modes.palettes ? Modes.palettes.map(function (p) { return p.id; }) : [],
@@ -3526,6 +3723,17 @@
 		},
 		/* THE COLOURS (Manuel, 2026-09-14): the wells on the Farbe page. */
 		colours: coloursResolved, /* with the following side filled in and named in .derived; saving reads coloursOf, what was set alone */
+		/* THE SEVEN COLOURS' OWN (2026-10-03): the highlighter on both sides, whether a ground was drawn a
+		   shade further so its words read, and the other side's ground for the Ground list's first row. */
+		highlight: highlightNow,
+		setHighlight: function (hex) { if (hex && !/^#[0-9a-f]{6}$/i.test(hex)) return; setBothSides('highlight', hex || ''); },
+		groundNudged: function (side) { return !!GROUND_NUDGED[side || ((root.getAttribute('data-theme') || '').split('-')[1] === 'dark' ? 'dark' : 'light')]; },
+		otherGround: function (side) {
+			side = side || ((root.getAttribute('data-theme') || '').split('-')[1] === 'dark' ? 'dark' : 'light');
+			var other = side === 'light' ? 'dark' : 'light', o = coloursResolved()[other];
+			return o.ground && !groundFlip(o.ground, o.paper || paperNow(other), o.ink) ? o.ground : o.paper ? sink(o.paper, 0.05) : canvasOf(other);
+		},
+		groundSides: function () { return groundSides(); },
 		/* THE PRESETS: fifteen pairs authored here, beside the five the design
 		   system registers. Choosing one writes its six colours into the style,
 		   both sides at once, so the chain has nothing to follow and the ladder
@@ -3537,17 +3745,18 @@
 		   colour chosen here is written on both sides at once, so the chain has
 		   nothing to follow, and it leaves whatever preset was on: a preset is
 		   picked whole, a part is picked here. */
-		swatchList: function (key) { return (LISTS[key] || []).map(function (x) { return { id: x.id, label: x.label, light: x.light, dark: x.dark }; }); },
+		swatchList: function (key) { return (LISTS[COLOUR_ENGINE[key] || key] || []).map(function (x) { return { id: x.id, label: x.label, light: x.light, dark: x.dark }; }); },
 		listColour: listColourOf,
 		setListColour: function (key, id) {
-			var x = (LISTS[key] || []).filter(function (c) { return c.id === id; })[0];
+			key = colourKey(key);
+			var x = (LISTS[COLOUR_ENGINE[key] || key] || []).filter(function (c) { return c.id === id; })[0];
 			if (!x) return;
 			var all = readTweaks(), entry = all[current] || {};
 			entry.colours = entry.colours || {};
 			/* the theme's own look has one side, its own: that side's colour on both (2026-09-24) */
 			var cur = byId(current), one = cur && cur.host && cur.hostSide;
-			['light', 'dark'].forEach(function (side) { entry.colours[side] = entry.colours[side] || {}; entry.colours[side][key] = x[one || side]; });
-			if (['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); /* a part chosen by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
+			['light', 'dark'].forEach(function (side) { entry.colours[side] = entry.colours[side] || {}; delete entry.colours[side][COLOUR_ENGINE[key]]; entry.colours[side][key] = x[one || side]; });
+			if (BESIDE_PRESET.indexOf(key) === -1) letGoPreset(entry); /* a part chosen by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
 			/* The chain is left as the reader set it: a row here carries a colour
 			   for each side, so neither side has anything to follow, and the
 			   wheel under the list still edits the side that is shown. */
@@ -3574,10 +3783,10 @@
 			var s0 = byId(current);
 			if (s0 && s0.host) {
 				var e0 = (readTweaks()[current] || {}).colours || {};
-				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(k) === -1 && !!e0[sd][k]; }); });
+				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return BESIDE_PRESET.indexOf(colourKey(k)) === -1 && !!e0[sd][k]; }); });
 			}
 			var c = coloursOf(null, true);
-			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return ['button', 'title', 'headings', 'meta', 'marker'].indexOf(k) === -1; }); }); /* the button's, the roles' and the pen's own colours are not Custom */
+			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return BESIDE_PRESET.indexOf(colourKey(k)) === -1; }); }); /* the button's, the roles', soft text's and the pen's own colours are not Custom */
 		},
 		/* Crossing over keeps what is on the page. Going to Eigene takes the
 		   preset's own six colours with it, so nothing moves on the crossing and
@@ -3622,7 +3831,7 @@
 				var own = (s && (s.own || s.site) && s.colours && s.colours[side]) || null;
 				if (!own) return;
 				entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {};
-				['paper', 'ink', 'accent'].forEach(function (k) { if (own[k]) entry.colours[side][k] = ''; });
+				['background', 'text', 'accent'].forEach(function (k) { if (own[k] || own[COLOUR_ENGINE[k]]) entry.colours[side][k] = ''; });
 			});
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
@@ -3649,7 +3858,10 @@
 				if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 				writeTweaks(all); applyColours(); mark(); return;
 			}
-			entry.colours = { light: { paper: p.light.paper, ink: p.light.ink, accent: p.light.accent }, dark: { paper: p.dark.paper, ink: p.dark.ink, accent: p.dark.accent } };
+			/* the preset's three, the wells beside a preset kept (2026-10-03: a highlighter, soft text or a role's own colour stays) */
+			var keep = entry.colours || {};
+			entry.colours = { light: { background: p.light.paper, text: p.light.ink, accent: p.light.accent }, dark: { background: p.dark.paper, text: p.dark.ink, accent: p.dark.accent } };
+			['light', 'dark'].forEach(function (sd) { Object.keys(keep[sd] || {}).forEach(function (k) { if (BESIDE_PRESET.indexOf(colourKey(k)) !== -1) entry.colours[sd][colourKey(k)] = keep[sd][k]; }); });
 			entry.preset = p.id;
 			delete entry.unlinked; /* both sides are written, so the chain is at rest */
 			all[current] = entry;
@@ -3662,7 +3874,8 @@
 		contrast: contrast,
 		paperOf: paperOf,
 		setColour: function (side, key, hex) {
-			if (['light', 'dark'].indexOf(side) === -1 || ['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
+			key = colourKey(key); /* the engine's old names are read as the seven's (paper is background …) */
+			if (['light', 'dark'].indexOf(side) === -1 || WELL_KEYS.indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
 			var all = readTweaks(), entry = all[current] || {};
 			entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {};
 			/* LINKED MEANS THE OTHER SIDE FOLLOWS, EVERY TIME (Manuel,
@@ -3677,19 +3890,22 @@
 			   one; broken, both sides keep what they have. */
 			if (!unlinkedOf()) {
 				var other = side === 'dark' ? 'light' : 'dark';
-				if (entry.colours[other]) { delete entry.colours[other][key]; if (!Object.keys(entry.colours[other]).length) delete entry.colours[other]; }
+				/* A DARK GROUND IS ITS SIDE'S OWN (2026-10-03): the other side's ground is left as it is */
+				if (entry.colours[other] && !(key === 'background2' && groundFlip(hex, (coloursResolved()[side] || {}).paper || paperNow(side)))) { delete entry.colours[other][key]; delete entry.colours[other][COLOUR_ENGINE[key]]; if (!Object.keys(entry.colours[other]).length) delete entry.colours[other]; }
 			}
+			delete entry.colours[side][COLOUR_ENGINE[key]];
 			entry.colours[side][key] = hex.toLowerCase();
-			if (['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); /* a colour moved by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
+			if (BESIDE_PRESET.indexOf(key) === -1) letGoPreset(entry); /* a colour moved by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
 			all[current] = entry; writeTweaks(all);
 			applyColours(); mark();
 		},
 		clearColour: function (side, key) {
+			key = colourKey(key);
 			var all = readTweaks(), entry = all[current] || {}, s = byId(current);
-			if (entry.colours && entry.colours[side]) { delete entry.colours[side][key]; if (!Object.keys(entry.colours[side]).length) delete entry.colours[side]; }
+			if (entry.colours && entry.colours[side]) { delete entry.colours[side][key]; delete entry.colours[side][COLOUR_ENGINE[key]]; if (!Object.keys(entry.colours[side]).length) delete entry.colours[side]; }
 			if (entry.colours && !Object.keys(entry.colours).length) delete entry.colours;
 			/* On a saved style the well goes back to the saved colour; clearing means: no colour of my own, the pair's. */
-			if (s && (s.own || s.site) && s.colours && s.colours[side] && s.colours[side][key]) { entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {}; entry.colours[side][key] = ''; }
+			if (s && (s.own || s.site) && s.colours && s.colours[side] && (s.colours[side][key] || s.colours[side][COLOUR_ENGINE[key]])) { entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {}; entry.colours[side][key] = ''; }
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
 			applyColours(); mark();
@@ -3705,7 +3921,7 @@
 		   and a version on it so a paste can be told from any other text. */
 		exportStyle: function () {
 			var s = byId(current); if (!s) return '';
-			var tw = readTweaks()[current] || {}, w = wanted(s), out = { architrave: 2, label: s.label, base: baseOf(s) };
+			var tw = readTweaks()[current] || {}, w = wanted(s), out = { architrave: 3, label: s.label, base: baseOf(s) };
 			DIALS.forEach(function (d) { out[d] = w[d]; });
 			OPTS.forEach(function (k) { out[k] = optionOn(k); });
 			var loose = followers();
@@ -3715,7 +3931,8 @@
 			out.roles = typeMerged(s, tw);
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
 			var c = coloursOf(null, true); out.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = c[side]; });
+			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = publicSide(c[side]); });
+			ENGINE_ONLY.forEach(function (k) { delete out[k]; }); /* worked out from the colours now: no key of a record */
 			return JSON.stringify(out);
 		},
 		/* A pasted style becomes a tile of the reader's own and is put on at
@@ -3723,7 +3940,7 @@
 		importStyle: function (text, name) {
 			var data;
 			try { data = JSON.parse(String(text || '').trim()); } catch (e) { return null; }
-			if (!data || (data.architrave !== 1 && data.architrave !== 2)) return null;
+			if (!data || [1, 2, 3].indexOf(data.architrave) === -1) return null;
 			var entry = ownFromRecord(data, name);
 			renderHosts();
 			apply(entry, entry);
@@ -3755,7 +3972,7 @@
 			if (!/^site-[a-z0-9]+$/.test(id) || !window.fetch) return Promise.resolve(null);
 			return fetch(url.origin + '/?rest_route=' + encodeURIComponent('/architrave/v1/site-styles/' + id), { mode: 'cors' })
 				.then(function (r) { return r.ok ? r.json() : null; })
-				.then(function (rec) { return rec && (rec.architrave === 1 || rec.architrave === 2) ? self.importStyle(JSON.stringify(rec)) : null; })
+				.then(function (rec) { return rec && [1, 2, 3].indexOf(rec.architrave) !== -1 ? self.importStyle(JSON.stringify(rec)) : null; })
 				.catch(function () { return null; });
 		},
 		/* DUPLICATE (Manuel, 2026-09-24): a copy of any style as one of your own, as it stands
@@ -3777,11 +3994,11 @@
 				var fxDup = effectsOf(s, tw); if (Object.keys(fxDup).length) record.effects = fxDup; else delete record.effects;
 				DIALS.forEach(function (d) { record[d] = w[d]; });
 				record.roles = typeMerged(s, tw);
-				record.architrave = 2;
+				record.architrave = 3;
 				record.base = baseOf(s);
 				/* ITS COLOURS AS THEY STAND, its preset's six included (2026-10-01, the panel audit): the record named `preset`, which a copy does not carry, and the tweak's partial `colours` replaced the style's own, so Duplicate on Instrument while another style was on gave a copy without its colours. */
 				var cDup = coloursOf(id, true); record.colours = {};
-				['light', 'dark'].forEach(function (side) { if (Object.keys(cDup[side]).length) record.colours[side] = cDup[side]; });
+				['light', 'dark'].forEach(function (side) { if (Object.keys(cDup[side]).length) record.colours[side] = publicSide(cDup[side]); });
 				if (!Object.keys(record.colours).length) delete record.colours;
 				delete record.preset; delete record.was;
 			}
@@ -3807,10 +4024,11 @@
 			var loose = followers();
 			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); entry.space = levelOf('space'); entry.framewidth = levelOf('framewidth'); entry.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete entry[k]; }); /* a row that only follows soft is not written, so it goes on following */
-			entry.roles = typeMerged(s, tw); entry.architrave = 2;
+			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete entry[k]; }); /* worked out from the colours (2026-10-03) */
+			entry.roles = typeMerged(s, tw); entry.architrave = 3;
 			var fxSave = effectsOf(s, tw); if (Object.keys(fxSave).length) entry.effects = fxSave;
 			var c = coloursOf(null, true); entry.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = c[side]; });
+			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = publicSide(c[side]); });
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			STYLES.push(entry); writeOwn(); renderHosts();
 			apply(entry, entry);
@@ -3827,10 +4045,11 @@
 			var loose = followers();
 			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.line = levelOf('line'); s.fill = levelOf('fill'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); s.space = levelOf('space'); s.framewidth = levelOf('framewidth'); s.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete s[k]; }); /* a row that only follows soft is not written, so it goes on following */
-			s.roles = typeMerged(s, tw); s.architrave = 2;
+			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete s[k]; }); /* worked out from the colours (2026-10-03) */
+			s.roles = typeMerged(s, tw); s.architrave = 3;
 			var fxUp = effectsOf(s, tw); if (Object.keys(fxUp).length) s.effects = fxUp; else delete s.effects;
 			var c = coloursOf(null, true); s.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = c[side]; });
+			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = publicSide(c[side]); });
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			writeOwn(); apply(s, s);
 			return true;
@@ -3850,6 +4069,11 @@
 		},
 		option: optionOn,
 		setOption: function (k, on) {
+			/* THE THREE THAT ARE COLOURS NOW (2026-10-03), pressed by the old window: Softer reading text is
+			   Reading text in Soft text, the highlighter a pen on both sides, the dark ground the day's Ground. */
+			if (k === 'soft') { this.setType('body', 'colour', on ? 'mutedText' : 'text'); return; }
+			if (k === 'marker') { setBothSides('highlight', on ? (highlightNow() || PENS.yellow) : ''); return; }
+			if (k === 'darkground') { var cr = coloursResolved(); if (on) this.setColour('light', 'background2', cr.dark.ground && !groundFlip(cr.dark.ground, cr.dark.paper || paperNow('dark')) ? cr.dark.ground : cr.dark.paper ? sink(cr.dark.paper, 0.05) : canvasOf('dark')); else if (groundSides(cr).light) this.clearColour('light', 'background2'); return; }
 			if (OPTS.indexOf(k) === -1) return;
 			/* Measured against the REST, not the recipe alone (Manuel, 2026-09-12:
 			   "I cannot turn the lines off when I'm in the poster mode"): Poster's
@@ -3948,7 +4172,7 @@
 		   dial as a tweak, gone when it equals the style's own. The body's font and line
 		   spacing and the interface's font go through their own dials (face, leading, sans). */
 		typeRoles: TYPE_ROLES,
-		typeDials: function (role) { return TYPE_DIALS[role] ? (role === 'body' ? ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'] : role === 'interface' ? ['font'].concat(TYPE_DIALS[role]) : TYPE_DIALS[role]).slice() : []; },
+		typeDials: function (role) { return TYPE_DIALS[role] ? (role === 'body' ? ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'colour'] : role === 'interface' ? ['font'].concat(TYPE_DIALS[role]) : TYPE_DIALS[role]).slice() : []; },
 		typeSizes: function (role) { return TYPE_SIZES.map(function (st) { return { id: st, px: Math.round((TYPE_BASE[role] || 16) * typeFactor(st)) }; }); },
 		typeLines: Object.keys(TYPE_LINE),
 		typeLetters: Object.keys(TYPE_LETTER),
@@ -3968,7 +4192,7 @@
 			};
 			out.px = Math.round((TYPE_BASE[role] || 16) * typeFactor(out.size));
 			if (TYPE_DIALS[role].indexOf('align') !== -1) out.align = P.align !== undefined ? P.align : 'default';
-			if (TYPE_DIALS[role].indexOf('colour') !== -1) out.colour = P.colour !== undefined ? P.colour : 'ink';
+			if (TYPE_DIALS[role].indexOf('colour') !== -1) out.colour = P.colour !== undefined ? P.colour : typeColourRest(role);
 			out.own = Object.keys(typeMerged(byId(current), readTweaks()[current])[role] || {}); /* the dials this style sets, for the changed marks */
 			return out;
 		},
@@ -3982,9 +4206,9 @@
 			if (!typeOk(role, dial, v)) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {}, own = typeOf(s)[role] || {};
 			entry.roles = entry.roles || {}; entry.roles[role] = entry.roles[role] || {};
-			if (own[dial] !== undefined ? v === own[dial] : TYPE_REST[dial] === v) delete entry.roles[role][dial]; else entry.roles[role][dial] = v;
+			if (own[dial] !== undefined ? v === own[dial] : typeRest(role, dial) === v) delete entry.roles[role][dial]; else entry.roles[role][dial] = v;
 			if (!Object.keys(entry.roles[role]).length) delete entry.roles[role];
-			if (!Object.keys(entry.roles).length) delete entry.roles; else entry.architrave = 2;
+			if (!Object.keys(entry.roles).length) delete entry.roles; else entry.architrave = 3;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
 			applyRoles(); mark();
@@ -4046,7 +4270,7 @@
 			writeTweaks(all);
 			applyCapLines(); mark();
 		},
-		levels: { line: LEVELS.line.stops, fill: LEVELS.fill.stops, softlevel: LEVELS.softlevel.stops, quietlevel: LEVELS.quietlevel.stops, smallsoft: LEVELS.smallsoft.stops, measure: LEVELS.measure.stops, space: LEVELS.space.stops, framewidth: LEVELS.framewidth.stops,  },
+		levels: { line: LEVELS.line.stops, fill: LEVELS.fill.stops, measure: LEVELS.measure.stops, space: LEVELS.space.stops, framewidth: LEVELS.framewidth.stops,  },
 		level: function (k) { return LEVELS[k] ? levelOf(k) : ''; },
 		setLevel: function (k, v) {
 			var L = LEVELS[k]; if (!L || L.stops.indexOf(v) === -1) return;
@@ -4122,6 +4346,8 @@
 		markerColour: markerColourOf,
 		setMarkerColour: function (v) {
 			if (MARKERS.indexOf(v) === -1) return;
+			if (v !== 'own') { setBothSides('highlight', PENS[v] || PENS.yellow); return; } /* the pen is the highlight's colour (2026-10-03); own keeps the colour set by hand */
+			if (highlightNow()) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (v === ((s && MARKERS.indexOf(s.markercolour) !== -1) ? s.markercolour : MARKERS[0])) delete entry.markercolour; else entry.markercolour = v;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];

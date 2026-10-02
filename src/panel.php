@@ -216,7 +216,9 @@ function architrave_panel_guest_palette_css() {
 	foreach ( $grey as $slug => $value ) {
 		$at = ( $from - $value ) / $span; /* 0 at the page, 1 at the text */
 		if ( $slug === $page || abs( $at ) < 0.02 ) {
-			$to = 'var(--surface-canvas)';
+			/* THE PAPER IS THE PAGE (Manuel, 2026-10-03, the seven colours): the theme's page takes the
+			   look's Paper on every theme; Ground is the theme's second background, below. */
+			$to = 'var(--surface-base)';
 		} elseif ( $slug === $text || $at > 0.98 ) {
 			$to = 'var(--text-primary)';
 		} elseif ( $at < 0 ) {
@@ -228,9 +230,11 @@ function architrave_panel_guest_palette_css() {
 			   hundredths above the look's page, and on a black page that is black.
 			   A look that names its card colour (--ldp-lift, a set's lift or the
 			   Card row) puts the box on that; any other keeps the mix. */
-			$to = 'var(--ldp-lift, color-mix(in srgb, var(--text-primary) ' . round( $at * 100 ) . '%, var(--surface-canvas)))';
+			/* AND A GROUND OF YOUR OWN COMES FIRST (2026-10-03): the grey just off the page is the theme's
+			   second background, its bands and boxes, and Ground is written for exactly that (--ldp-ground). */
+			$to = 'var(--ldp-ground, var(--ldp-lift, color-mix(in srgb, var(--text-primary) ' . round( $at * 100 ) . '%, var(--surface-base))))';
 		} else {
-			$to = 'color-mix(in srgb, var(--text-primary) ' . round( $at * 100 ) . '%, var(--surface-canvas))';
+			$to = 'color-mix(in srgb, var(--text-primary) ' . round( $at * 100 ) . '%, var(--surface-base))';
 		}
 		$lines[] = "\t" . $slug . ': ' . $to . ';';
 	}

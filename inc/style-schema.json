@@ -1,21 +1,8 @@
 {
-  "architrave": 2,
+  "architrave": 3,
   "label": "string, at most 40 characters",
   "base": [
     "standard"
-  ],
-  "palette": [
-    "neutral",
-    "godfather",
-    "fargo",
-    "matrix",
-    "dune",
-    "persona",
-    "paper",
-    "terminal",
-    "grey",
-    "news",
-    "arcade"
   ],
   "reading": [
     "tiny",
@@ -144,14 +131,12 @@
   "rounded": "boolean",
   "lines": "boolean",
   "fills": "boolean",
-  "darkground": "boolean",
   "widehead": "boolean",
   "hairlines": "boolean",
   "picturehover": "boolean",
   "picturedim": "boolean",
   "picturefade": "boolean",
   "pictureframe": "boolean",
-  "marker": "boolean",
   "widepicture": "boolean",
   "fullpicture": [
     "off",
@@ -163,15 +148,7 @@
     "hidden"
   ],
   "tagsfollow": "boolean",
-  "soft": "boolean",
   "alternates": "boolean",
-  "tint": [
-    "purple",
-    "brown",
-    "green",
-    "blue",
-    "orange"
-  ],
   "sans": [
     "inter",
     "hyperlegible",
@@ -308,37 +285,6 @@
     "200",
     "300"
   ],
-  "softlevel": [
-    "10",
-    "15",
-    "20",
-    "25",
-    "30",
-    "35",
-    "40",
-    "45"
-  ],
-  "quietlevel": [
-    "25",
-    "30",
-    "35",
-    "40",
-    "45",
-    "50"
-  ],
-  "smallsoft": [
-    "0",
-    "5",
-    "10",
-    "15",
-    "20",
-    "25",
-    "30",
-    "35",
-    "40",
-    "45",
-    "50"
-  ],
   "links": [
     "both",
     "coloured",
@@ -391,16 +337,6 @@
     "sides",
     "bottom",
     "all"
-  ],
-  "markercolour": [
-    "yellow",
-    "green",
-    "pink",
-    "blue",
-    "orange",
-    "text",
-    "muted",
-    "own"
   ],
   "button": [
     "accent",
@@ -660,7 +596,8 @@
         "right"
       ],
       "colour": [
-        "ink",
+        "text",
+        "mutedText",
         "accent",
         "own"
       ]
@@ -812,7 +749,8 @@
         "right"
       ],
       "colour": [
-        "ink",
+        "text",
+        "mutedText",
         "accent",
         "own"
       ]
@@ -851,7 +789,13 @@
         "widest"
       ],
       "capitals": "boolean",
-      "italic": "boolean"
+      "italic": "boolean",
+      "colour": [
+        "text",
+        "mutedText",
+        "accent",
+        "own"
+      ]
     },
     "quote": {
       "font": [
@@ -993,7 +937,13 @@
         "widest"
       ],
       "capitals": "boolean",
-      "italic": "boolean"
+      "italic": "boolean",
+      "colour": [
+        "text",
+        "mutedText",
+        "accent",
+        "own"
+      ]
     },
     "meta": {
       "font": [
@@ -1137,7 +1087,8 @@
       "capitals": "boolean",
       "italic": "boolean",
       "colour": [
-        "ink",
+        "text",
+        "mutedText",
         "accent",
         "own"
       ]
@@ -1183,7 +1134,13 @@
         "widest"
       ],
       "capitals": "boolean",
-      "italic": "boolean"
+      "italic": "boolean",
+      "colour": [
+        "text",
+        "mutedText",
+        "accent",
+        "own"
+      ]
     },
     "code": {
       "font": [
@@ -1323,35 +1280,49 @@
         "widest"
       ],
       "capitals": "boolean",
-      "italic": "boolean"
+      "italic": "boolean",
+      "colour": [
+        "text",
+        "mutedText",
+        "accent",
+        "own"
+      ]
     }
   },
   "colours": {
     "light": {
-      "paper": "hex",
-      "ink": "hex",
+      "background": "hex",
+      "background2": "hex",
+      "card": "hex",
+      "text": "hex",
+      "mutedText": "hex",
       "accent": "hex",
+      "highlight": "hex",
       "button": "hex",
       "title": "hex",
       "headings": "hex",
+      "body": "hex",
+      "quote": "hex",
       "meta": "hex",
-      "ground": "hex",
-      "lift": "hex",
-      "marker": "hex",
-      "inverse": "hex"
+      "interface": "hex",
+      "code": "hex"
     },
     "dark": {
-      "paper": "hex",
-      "ink": "hex",
+      "background": "hex",
+      "background2": "hex",
+      "card": "hex",
+      "text": "hex",
+      "mutedText": "hex",
       "accent": "hex",
+      "highlight": "hex",
       "button": "hex",
       "title": "hex",
       "headings": "hex",
+      "body": "hex",
+      "quote": "hex",
       "meta": "hex",
-      "ground": "hex",
-      "lift": "hex",
-      "marker": "hex",
-      "inverse": "hex"
+      "interface": "hex",
+      "code": "hex"
     }
   }
 }
