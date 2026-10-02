@@ -834,3 +834,28 @@
 @keyframes ldp-jitter { 0%, 31%, 32.2%, 74%, 74.6%, 100% { transform: none; } 31.4% { transform: translateX(3px); } 31.8% { transform: translateX(-2px); } 74.3% { transform: translateX(-4px) skewX(-.6deg); } }
 @keyframes ldp-blink { to { opacity: 0; } }
 :root { --ldp-bezel: var(--space-8); --ldp-curve: calc(var(--space-3) * 2); /* 24px; --space-6 is not on the root of every page (measured 0 on the playground, 2026-09-30) */ --ldp-ts-fringe: 0 0 0 transparent; --ldp-bs-fringe: none; --ldp-ts-bloom: 0 0 0 transparent; --ldp-vig-ink: var(--text-primary); --ldp-scan-layer: none; --ldp-grille-layer: none; }
+/* TERMINAL B (2026-10-02): the terminal's colours, and the parts presets.js terminalPage builds, resting hidden until their setting is on (style.css TERMINAL B) */
+:root { --ldp-ansi-green: #1d7a34; --ldp-ansi-yellow: #8a5a00; --ldp-ansi-cyan: #0b6c76; }
+:root[data-theme$="-dark"] { --ldp-ansi-green: #7fd18b; --ldp-ansi-yellow: #e3c08a; --ldp-ansi-cyan: #73cfd6; }
+.ldp-tbar, .ldp-tstatus, .ldp-prompt, .ldp-fence, .ldp-src, .ldp-gutter { display: none; }
+.ldp-tbar { position: absolute; inset: 0 0 auto; z-index: 2; height: var(--ldp-tbar-h, 52px); align-items: center; justify-content: center; gap: .35em; box-sizing: border-box; padding: 0 120px; background: color-mix(in srgb, var(--surface-base), var(--text-primary) 4%); border-bottom: 1px solid var(--border-strong); color: var(--text-muted); font: 500 13px/1 -apple-system, BlinkMacSystemFont, system-ui, sans-serif; letter-spacing: 0; white-space: nowrap; overflow: hidden; pointer-events: none; }
+.ldp-tbar b { font-weight: 600; color: var(--text-primary); }
+.ldp-tstatus { position: absolute; inset: auto 0 0; z-index: 2; box-sizing: border-box; padding: 0 var(--ldp-tstatus-end, 32px) 12px var(--ldp-tstatus-in, 32px); align-items: flex-start; background: var(--surface-base); color: var(--text-primary); font-family: var(--font-reading); font-size: var(--ldp-tsize, 16px); line-height: var(--ldp-tline, 1.6em); pointer-events: none; }
+.ldp-tstatus i { font-style: normal; background: var(--text-primary); color: var(--surface-base); padding: 0 1ch; white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+.ldp-tstatus em { font-style: normal; margin-inline-start: auto; padding-inline-start: 2ch; white-space: pre; }
+.ldp-tstatus em.ldp-tcur { margin-inline-start: 0; padding: 0; }
+.ldp-prompt { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text-primary); margin: 0 0 var(--ldp-tline, 1.6em); }
+.ldp-prompt.ldp-end { margin: calc(var(--ldp-tline, 1.6em) * 2) 0 0; }
+.ldp-prompt .ldp-pu { color: var(--ldp-ansi-green); font-weight: 700; }
+.ldp-prompt .ldp-pd { color: var(--accent); font-weight: 700; }
+.ldp-tcur { display: inline-block; width: 1ch; height: var(--ldp-tline, 1.6em); vertical-align: top; background: currentColor; animation: ldp-tblink 1.06s steps(2, jump-none) infinite; }
+@keyframes ldp-tblink { 50% { opacity: 0; } }
+:root[data-cursor-shape="still"] .ldp-tcur { animation: none; }
+:root[data-cursor-shape="bar"] .ldp-tcur { width: 2px; } /* a text cursor's bar, the width the system draws it */
+@keyframes ldp-print { from { clip-path: inset(0 0 calc(100% - var(--ldp-print-top, 40px)) 0); } to { clip-path: inset(0 0 calc(100% - var(--ldp-print-top, 40px) - var(--ldp-print-h, 900px)) 0); } }
+.ldp-fence { color: var(--text-subtle); }
+.ldp-src { color: var(--text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ldp-src span { color: var(--text-muted); }
+.ldp-gutter { position: absolute; inset-inline-start: 0; top: 0; width: 2ch; overflow: hidden; color: var(--ldp-ansi-green); white-space: pre; pointer-events: none; user-select: none; }
+@media (max-width: 781px) { .ldp-tbar, .ldp-tstatus { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .ldp-tcur { animation: none; } :root[data-ldp-printing] .frame-paper :is(.single-post-article, .wp-block-query) { clip-path: none !important; animation: none !important; } :root[data-ldp-printing] .frame-paper .content-column > * { visibility: visible !important; } }

@@ -144,6 +144,14 @@
       "codemarks",
       "coderain",
       "headwidth",
+      "textgrid",
+      "mdmarks",
+      "frontmatter",
+      "textmode",
+      "windowbar",
+      "statusline",
+      "prompt",
+      "cursorshape",
       "extrusion",
       "pixelcorners",
       "powerbar",
@@ -269,6 +277,14 @@
       "codemarks",
       "coderain",
       "headwidth",
+      "textgrid",
+      "mdmarks",
+      "frontmatter",
+      "textmode",
+      "windowbar",
+      "statusline",
+      "prompt",
+      "cursorshape",
       "extrusion",
       "pixelcorners",
       "powerbar",
@@ -1486,7 +1502,7 @@
       "level": 4,
       "row": {
         "drawn": "grid",
-        "line": 2012,
+        "line": 2013,
         "in": "presetGrid"
       },
       "changesPage": "Colour",
@@ -1519,7 +1535,7 @@
       "level": 1,
       "row": {
         "drawn": "stepper",
-        "line": 865,
+        "line": 866,
         "in": "level1"
       },
       "changesPage": "Type › Reading text",
@@ -1639,7 +1655,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1557,
+        "line": 1558,
         "in": "fontRow"
       },
       "changesPage": "Type › Reading text",
@@ -1680,7 +1696,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1937,
+        "line": 1938,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1704,7 +1720,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1964,
+        "line": 1965,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1740,7 +1756,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1967,
+        "line": 1968,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1772,7 +1788,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1194,
+        "line": 1195,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1804,7 +1820,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1202,
+        "line": 1203,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1836,7 +1852,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1210,
+        "line": 1211,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1868,7 +1884,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1267,
+        "line": 1268,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1900,7 +1916,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1189,
+        "line": 1190,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1932,7 +1948,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1208,
+        "line": 1209,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1964,7 +1980,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1122,
+        "line": 1123,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -1996,7 +2012,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1123,
+        "line": 1124,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2028,7 +2044,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1179,
+        "line": 1180,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2060,7 +2076,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1129,
+        "line": 1130,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2092,7 +2108,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1221,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2124,7 +2140,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1222,
+        "line": 1223,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2156,7 +2172,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1223,
+        "line": 1224,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2188,7 +2204,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1225,
+        "line": 1226,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2220,7 +2236,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1255,
+        "line": 1256,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2282,7 +2298,7 @@
       "level": 17,
       "row": {
         "drawn": "switch",
-        "line": 1224,
+        "line": 1225,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -2314,7 +2330,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1259,
+        "line": 1260,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2346,7 +2362,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1189,
+        "line": 1190,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2378,7 +2394,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1199,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2541,7 +2557,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1557,
+        "line": 1558,
         "in": "fontRow"
       },
       "changesPage": "Type › Interface",
@@ -2610,19 +2626,20 @@
         "accent",
         "halftone",
         "dither",
+        "onebit",
         "grain",
         "trace",
         "pixel",
         "hidden"
       ],
       "def": "plain",
-      "means": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), hidden (no images; each article picture becomes a line that shows it).",
+      "means": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), hidden (no images; each article picture becomes a line that shows it).",
       "label": "Picture effects",
       "page": "Pictures",
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1236,
+        "line": 1237,
         "in": "picturesBody"
       },
       "changesPage": "Pictures",
@@ -2656,7 +2673,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1968,
+        "line": 1969,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -2685,7 +2702,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1272,
+        "line": 1273,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2714,7 +2731,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1189,
+        "line": 1190,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2744,7 +2761,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1187,
+        "line": 1188,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2775,7 +2792,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1199,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2809,7 +2826,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1201,
+        "line": 1202,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2842,7 +2859,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1201,
+        "line": 1202,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2875,7 +2892,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1201,
+        "line": 1202,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2907,7 +2924,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1201,
+        "line": 1202,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2938,7 +2955,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1201,
+        "line": 1202,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2969,7 +2986,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1205,
+        "line": 1206,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3001,7 +3018,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1209,
+        "line": 1210,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3031,7 +3048,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1209,
+        "line": 1210,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3061,7 +3078,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1209,
+        "line": 1210,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3091,7 +3108,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1209,
+        "line": 1210,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -3123,7 +3140,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3155,7 +3172,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3185,7 +3202,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3215,7 +3232,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3245,7 +3262,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3277,7 +3294,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3307,7 +3324,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3338,7 +3355,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3368,7 +3385,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3397,7 +3414,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3428,7 +3445,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3461,7 +3478,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3491,7 +3508,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3522,7 +3539,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3552,7 +3569,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3583,7 +3600,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3612,7 +3629,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3642,7 +3659,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3671,7 +3688,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3701,7 +3718,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3730,7 +3747,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3760,7 +3777,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3793,7 +3810,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3853,7 +3870,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3884,7 +3901,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3913,7 +3930,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3942,7 +3959,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -3971,7 +3988,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4000,7 +4017,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4029,7 +4046,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4059,7 +4076,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4088,7 +4105,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4120,7 +4137,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4150,7 +4167,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4180,7 +4197,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4209,7 +4226,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4238,7 +4255,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4267,7 +4284,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4296,7 +4313,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4327,7 +4344,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4357,7 +4374,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4387,7 +4404,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4417,7 +4434,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4447,7 +4464,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4477,7 +4494,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4506,7 +4523,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4535,7 +4552,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4564,7 +4581,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4593,7 +4610,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4622,7 +4639,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4653,7 +4670,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4682,7 +4699,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4712,7 +4729,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4742,7 +4759,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4772,7 +4789,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1969,
+        "line": 1970,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -4803,7 +4820,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1966,
+        "line": 1967,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -4832,7 +4849,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4861,7 +4878,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4891,7 +4908,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4921,7 +4938,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4951,7 +4968,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4981,7 +4998,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -4990,6 +5007,242 @@
       ],
       "rest": {
         "data-head-width": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "textgrid",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "double",
+        "one"
+      ],
+      "def": "off",
+      "attr": "data-text-grid",
+      "means": "The article set as a terminal sets it: one face at one size, every space a whole line, a blank line between paragraphs, no letter spacing and no capitals: off (the rest), double (the title alone at twice the size, as the old double-height line) or one (the title at the text's size too). On Architrave's page.",
+      "label": "Text grid",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-text-grid"
+      ],
+      "rest": {
+        "data-text-grid": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "mdmarks",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-md-marks",
+      "means": "The article shown as its own Markdown file: off (the rest) or on (a dim # before the title, ## before the headings, underscores round emphasis, asterisks round bold, backticks round code, dashes for the list's dots, a > before every line of a quote and a ![alt](file) line over each picture). On Architrave's page.",
+      "label": "Markdown marks",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-md-marks"
+      ],
+      "rest": {
+        "data-md-marks": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "frontmatter",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-front-matter",
+      "means": "The category and the date set as the head of a Markdown file, between two --- lines, the keys dim and the values in the terminal's yellow: off (the rest) or on. On Architrave's page.",
+      "label": "Front matter",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-front-matter"
+      ],
+      "rest": {
+        "data-front-matter": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "textmode",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-text-mode",
+      "means": "The page's parts drawn as a terminal draws them: off (the rest) or on (buttons as [ Words ], boxes as single-line dialogs with their name cut into the top line, links and buttons turned over under the pointer, the rail's sections as folders). On Architrave's page.",
+      "label": "Text-mode parts",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-text-mode"
+      ],
+      "rest": {
+        "data-text-mode": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "windowbar",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-window-bar",
+      "means": "A terminal window's title bar across the top of the paper, holding the paper's own squares, with the page's file, the program and the window's columns and rows: off (the rest) or on. On Architrave's framed page.",
+      "label": "Window bar",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-window-bar"
+      ],
+      "rest": {
+        "data-window-bar": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "statusline",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "pager",
+        "bar"
+      ],
+      "def": "off",
+      "attr": "data-status-line",
+      "means": "A line at the foot of the paper that follows the scroll: off (the rest), pager (the file's name, the lines shown and how far in, turned over, as a pager prints it) or bar (an editor's coloured status bar). On Architrave's framed page.",
+      "label": "Status line",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-status-line"
+      ],
+      "rest": {
+        "data-status-line": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "prompt",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "still",
+        "typed"
+      ],
+      "def": "off",
+      "attr": "data-prompt",
+      "means": "A shell's prompt before the page with the command that shows it, and an empty prompt with the cursor after it: off (the rest), still, or typed (the command typed on arrival, then the page printed a line at a time). Nothing moves for readers who ask for less motion. On Architrave's page.",
+      "label": "Prompt",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-prompt"
+      ],
+      "rest": {
+        "data-prompt": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "cursorshape",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "blink",
+        "still",
+        "bar"
+      ],
+      "def": "blink",
+      "attr": "data-cursor-shape",
+      "means": "The terminal's cursor in the prompt and the status line: blink (a blinking block, the rest), still (a block) or bar (a thin bar).",
+      "label": "Cursor",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-cursor-shape"
+      ],
+      "rest": {
+        "data-cursor-shape": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -5011,7 +5264,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5040,7 +5293,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5069,7 +5322,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5098,7 +5351,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5127,7 +5380,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5157,7 +5410,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5186,7 +5439,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5215,7 +5468,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5244,7 +5497,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5273,7 +5526,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5302,7 +5555,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5332,7 +5585,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5362,7 +5615,7 @@
       "level": 17,
       "row": {
         "drawn": "pop-up",
-        "line": 1228,
+        "line": 1229,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5400,7 +5653,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1221,
+        "line": 1222,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5440,7 +5693,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1203,
+        "line": 1204,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -5479,7 +5732,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1211,
+        "line": 1212,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -5520,7 +5773,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1222,
+        "line": 1223,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5561,7 +5814,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1223,
+        "line": 1224,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5602,7 +5855,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1225,
+        "line": 1226,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5639,7 +5892,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1225,
+        "line": 1226,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -5678,7 +5931,7 @@
       "level": 4,
       "row": {
         "drawn": "slider",
-        "line": 1256,
+        "line": 1257,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -5808,7 +6061,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1206,
+        "line": 1207,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -5838,7 +6091,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1196,
+        "line": 1197,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -5867,7 +6120,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1180,
+        "line": 1181,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -5901,7 +6154,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1260,
+        "line": 1261,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -5930,7 +6183,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1131,
+        "line": 1132,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -5966,7 +6219,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1185,
+        "line": 1186,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -6002,7 +6255,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1175,
+        "line": 1176,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -6039,7 +6292,7 @@
       "level": 16,
       "row": {
         "drawn": "slider",
-        "line": 1131,
+        "line": 1132,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -6073,7 +6326,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1224,
+        "line": 1225,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -6109,7 +6362,7 @@
       "level": 17,
       "row": {
         "drawn": "slider",
-        "line": 1224,
+        "line": 1225,
         "in": "effectsBody"
       },
       "changesPage": "Effects",
@@ -6136,7 +6389,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 2094,
+        "line": 2095,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -6393,7 +6646,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1557,
+        "line": 1558,
         "in": "fontRow"
       },
       "changesPage": "Type › {role}",
@@ -6495,7 +6748,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1591,
+        "line": 1592,
         "in": "weightRow"
       },
       "changesPage": "Type › {role}",
@@ -6636,7 +6889,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1632,
+        "line": 1633,
         "in": "sizeBlock"
       },
       "changesPage": "Type › {role}",
@@ -6726,7 +6979,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1950,
+        "line": 1951,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -6808,7 +7061,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1951,
+        "line": 1952,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -6860,7 +7113,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1578,
+        "line": 1579,
         "in": "capsRow"
       },
       "changesPage": "Type › {role}",
@@ -6927,7 +7180,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1574,
+        "line": 1575,
         "in": "italicRow"
       },
       "changesPage": "Type › {role}",
@@ -6994,7 +7247,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1937,
+        "line": 1938,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -7037,7 +7290,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1603,
+        "line": 1604,
         "in": "switchRows"
       },
       "changesPage": "Type › {role}",
@@ -7075,7 +7328,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1597,
+        "line": 1598,
         "in": "colourRow"
       },
       "changesPage": "Type › {role}",
@@ -7198,7 +7451,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1851,
+        "line": 1852,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7278,7 +7531,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1852,
+        "line": 1853,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7342,7 +7595,7 @@
       "level": 11,
       "row": {
         "drawn": "switch + switch",
-        "line": 1792,
+        "line": 1793,
         "in": "OWN_WORD"
       },
       "changesPage": "Type › {role}",
@@ -7439,7 +7692,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1853,
+        "line": 1854,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7503,7 +7756,7 @@
       "level": 11,
       "row": {
         "drawn": "pop-up",
-        "line": 1849,
+        "line": 1850,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -7539,7 +7792,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2151,
+        "line": 2152,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7566,7 +7819,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2152,
+        "line": 2153,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7593,7 +7846,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2153,
+        "line": 2154,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7628,7 +7881,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1277,
+        "line": 1278,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -7659,7 +7912,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1601,
+        "line": 1602,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -7690,7 +7943,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1601,
+        "line": 1602,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -7721,7 +7974,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2159,
+        "line": 2160,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7748,7 +8001,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2160,
+        "line": 2161,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7775,7 +8028,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1262,
+        "line": 1263,
         "in": "colourMore"
       },
       "changesPage": "Colour",

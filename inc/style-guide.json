@@ -106,6 +106,14 @@
     "codemarks": "A terminal's marks in the article: off (the rest), prompt (a prompt before the category line and the headings, a blinking cursor after the date, dashes for the list's dots) or glyphs (the prompt with a run of mirrored code glyphs beside the category line and as the list's markers).",
     "coderain": "Falling lines of code on the paper beside the article, never under its words: off (the rest), faint or clear. In the ink, each line's head in the accent. Still for readers who ask for less motion.",
     "headwidth": "The title's and the headings' letters drawn narrower, where the heading face has a width axis (Martian Mono has): normal (the rest), narrow or narrowest. The site's name takes it too.",
+    "textgrid": "The article set as a terminal sets it: one face at one size, every space a whole line, a blank line between paragraphs, no letter spacing and no capitals: off (the rest), double (the title alone at twice the size, as the old double-height line) or one (the title at the text's size too). On Architrave's page.",
+    "mdmarks": "The article shown as its own Markdown file: off (the rest) or on (a dim # before the title, ## before the headings, underscores round emphasis, asterisks round bold, backticks round code, dashes for the list's dots, a > before every line of a quote and a ![alt](file) line over each picture). On Architrave's page.",
+    "frontmatter": "The category and the date set as the head of a Markdown file, between two --- lines, the keys dim and the values in the terminal's yellow: off (the rest) or on. On Architrave's page.",
+    "textmode": "The page's parts drawn as a terminal draws them: off (the rest) or on (buttons as [ Words ], boxes as single-line dialogs with their name cut into the top line, links and buttons turned over under the pointer, the rail's sections as folders). On Architrave's page.",
+    "windowbar": "A terminal window's title bar across the top of the paper, holding the paper's own squares, with the page's file, the program and the window's columns and rows: off (the rest) or on. On Architrave's framed page.",
+    "statusline": "A line at the foot of the paper that follows the scroll: off (the rest), pager (the file's name, the lines shown and how far in, turned over, as a pager prints it) or bar (an editor's coloured status bar). On Architrave's framed page.",
+    "prompt": "A shell's prompt before the page with the command that shows it, and an empty prompt with the cursor after it: off (the rest), still, or typed (the command typed on arrival, then the page printed a line at a time). Nothing moves for readers who ask for less motion. On Architrave's page.",
+    "cursorshape": "The terminal's cursor in the prompt and the status line: blink (a blinking block, the rest), still (a block) or bar (a thin bar).",
     "extrusion": "The title and the headings standing out of the page on a hard block of the second light, one step a pixel, no blur, as an arcade marquee's letters: off (the rest), diagonal or down. The title three steps deep, a heading two. Composes with the glow, the bloom and the fringe.",
     "pixelcorners": "The corner a pixel screen draws when it rounds: the paper's corners and the pictures' cut in stairs of whole pixels. Off (the rest) or on. Best with square corners.",
     "powerbar": "How far the reader is, the arcade's way: twenty blocks along the paper's foot, one lit for every twentieth read, the last one lit in the second light. Off (the rest) or on. Architrave's paper only.",
@@ -138,7 +146,7 @@
     "vignette": "A darkening at the page's four edges, as a screen's glass has.",
     "vignettelevel": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
     "vignettereach": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
-    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), hidden (no images; each article picture becomes a line that shows it).",
+    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), hidden (no images; each article picture becomes a line that shows it).",
     "picturehover": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
     "alternates": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
     "soft": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
@@ -1098,6 +1106,51 @@
         "paper": "#1b1a1c",
         "ink": "#f1f0ee",
         "accent": "#9aa5e8"
+      }
+    },
+    {
+      "id": "graphite",
+      "label": "Graphite",
+      "light": {
+        "paper": "#fbfbfa",
+        "ink": "#262626",
+        "accent": "#1a56c4"
+      },
+      "dark": {
+        "paper": "#161616",
+        "ink": "#d2d2d2",
+        "accent": "#7aaaf7",
+        "head": "#f6f6f6"
+      }
+    },
+    {
+      "id": "pure",
+      "label": "Pure black and white",
+      "light": {
+        "paper": "#ffffff",
+        "ink": "#000000",
+        "accent": "#0037da"
+      },
+      "dark": {
+        "paper": "#000000",
+        "ink": "#e6e6e6",
+        "accent": "#6aa6ff",
+        "head": "#ffffff"
+      }
+    },
+    {
+      "id": "deepblue",
+      "label": "Deep blue",
+      "light": {
+        "paper": "#f4f7fa",
+        "ink": "#1a2a3a",
+        "accent": "#1856c4"
+      },
+      "dark": {
+        "paper": "#0c1824",
+        "ink": "#c6d2de",
+        "accent": "#86b6ff",
+        "head": "#f2f6fa"
       }
     },
     {

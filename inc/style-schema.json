@@ -299,6 +299,7 @@
     "accent",
     "halftone",
     "dither",
+    "onebit",
     "grain",
     "trace",
     "pixel",
@@ -882,6 +883,42 @@
     "normal",
     "narrow",
     "narrowest"
+  ],
+  "textgrid": [
+    "off",
+    "double",
+    "one"
+  ],
+  "mdmarks": [
+    "off",
+    "on"
+  ],
+  "frontmatter": [
+    "off",
+    "on"
+  ],
+  "textmode": [
+    "off",
+    "on"
+  ],
+  "windowbar": [
+    "off",
+    "on"
+  ],
+  "statusline": [
+    "off",
+    "pager",
+    "bar"
+  ],
+  "prompt": [
+    "off",
+    "still",
+    "typed"
+  ],
+  "cursorshape": [
+    "blink",
+    "still",
+    "bar"
   ],
   "extrusion": [
     "off",
