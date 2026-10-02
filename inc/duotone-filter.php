@@ -55,8 +55,11 @@ function architrave_duotone_filter() {
 		. '<feFlood x="0" y="6.5" width="1.5" height="1.5" flood-color="#000" result="c3"/>'
 		. '<feFlood x="6.5" y="6.5" width="1.5" height="1.5" flood-color="#000" result="c4"/>'
 		. '<feMerge x="0" y="0" width="8" height="8" result="cell"><feMergeNode in="w"/><feMergeNode in="c"/><feMergeNode in="c1"/><feMergeNode in="c2"/><feMergeNode in="c3"/><feMergeNode in="c4"/></feMerge>'
-		. '<feTile in="cell" result="grid"/>'
-		. '<feGaussianBlur in="grid" stdDeviation="1.5" result="soft"/>'
+
+		. '<feTile in="cell" x="0" y="0" width="24" height="24" result="grid3"/>'
+		. '<feGaussianBlur in="grid3" stdDeviation="1.5" x="0" y="0" width="24" height="24" result="soft3"/>'
+		. '<feOffset in="soft3" dx="0" dy="0" x="8" y="8" width="8" height="8" result="softcell"/>'
+		. '<feTile in="softcell" result="soft"/>'
 		. '<feComponentTransfer in="soft" result="screen">' . $cut( '2.4', '-1.28' ) . '</feComponentTransfer>'
 		. '<feColorMatrix in="SourceGraphic" type="saturate" values="0" result="g"/>'
 		. '<feComposite in="g" in2="screen"' . $mix

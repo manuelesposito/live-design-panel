@@ -2649,23 +2649,26 @@ html:root[data-print-ink="warm"]:not([data-theme$="-dark"]), html:root[data-prin
 :root[data-awning][data-theme$="-dark"] {
 	--ldp-stripe: color-mix(in oklab, var(--text-primary), var(--surface-base) 22%);
 }
-:root[data-awning] body.has-frame .frame-paper > .ldp-awning {
-	display: block; position: absolute; z-index: 3; inset-block-start: 0; inset-inline: 0; block-size: 64px; max-inline-size: none; margin: 0; pointer-events: none;
+:root[data-awning] body.has-frame .frame-paper > .content-column {
+	position: relative; overscroll-behavior-block: none;
+}
+:root[data-awning] body.has-frame .content-column > .ldp-awning {
+	display: block; position: absolute; z-index: 3; inset-block-start: 0; inset-inline: 0; block-size: 44px; max-inline-size: none; margin: 0; pointer-events: none;
 }
 :root[data-awning] .ldp-awning::before {
-	content: ""; position: absolute; z-index: 1; inset-inline: 0; inset-block-start: 0; block-size: 7px; background: var(--ldp-field, var(--surface-canvas)); box-shadow: 0 2px 0 rgb(0 0 0 / .08);
+	content: ""; position: absolute; z-index: 1; inset-inline: 0; inset-block-start: 0; block-size: 5px; background: var(--ldp-field, var(--surface-canvas)); box-shadow: 0 1px 0 rgb(0 0 0 / .08);
 }
 :root[data-awning] .ldp-awning > .ldp-stripes {
-	position: absolute; inset: 0 0 13px; background: linear-gradient(to bottom, rgb(0 0 0 / .1), transparent 40%), repeating-linear-gradient(90deg, var(--ldp-field, var(--surface-canvas)) 0 28px, var(--ldp-stripe) 28px 56px);
+	position: absolute; inset: 0 0 10px; background: linear-gradient(to bottom, rgb(0 0 0 / .1), transparent 40%), repeating-linear-gradient(90deg, var(--ldp-field, var(--surface-canvas)) 0 20px, var(--ldp-stripe) 20px 40px);
 }
 :root[data-awning] .ldp-awning > .ldp-scallop {
-	position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 13px; background: radial-gradient(circle at 14px 0, var(--ldp-field, var(--surface-canvas)) 13.5px, transparent 14px) 0 0 / 56px 13px repeat-x, radial-gradient(circle at 42px 0, var(--ldp-stripe) 13.5px, transparent 14px) 0 0 / 56px 13px repeat-x;
+	position: absolute; inset-inline: 0; inset-block-end: 0; block-size: 10px; background: radial-gradient(circle at 10px 0, var(--ldp-field, var(--surface-canvas)) 9.5px, transparent 10px) 0 0 / 40px 10px repeat-x, radial-gradient(circle at 30px 0, var(--ldp-stripe) 9.5px, transparent 10px) 0 0 / 40px 10px repeat-x;
 }
 :root[data-awning="scallops"] .ldp-awning > .ldp-stripes {
 	background: var(--ldp-field, var(--surface-canvas));
 }
 :root[data-awning="scallops"] .ldp-awning > .ldp-scallop {
-	background: radial-gradient(circle at 14px 0, var(--ldp-field, var(--surface-canvas)) 13.5px, transparent 14px) 0 0 / 28px 13px repeat-x;
+	background: radial-gradient(circle at 10px 0, var(--ldp-field, var(--surface-canvas)) 9.5px, transparent 10px) 0 0 / 20px 10px repeat-x;
 }
 :root[data-awning] body.has-frame .frame-paper > .content-column {
 	padding-block-start: var(--ldp-awning-room, 0px);
@@ -2757,11 +2760,22 @@ html:root[data-cap-face="title"] {
 :root[data-button-style="key"][data-button-style] :is(.quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	box-shadow: 4px 4px 0 var(--fx-second); text-transform: uppercase; letter-spacing: .06em; transition-property: background-color, color;
 }
+@media (hover: hover) {
+	:root[data-button-style="key"][data-button-style] :is(.quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):hover:not(:active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+		transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--fx-second);
+	}
+}
 :root[data-button-style="key"][data-button-style] :is(.quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):active:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	transform: translate(4px, 4px); box-shadow: 0 0 0 var(--fx-second);
 }
 :root[data-pictures="pixel"] {
 	--picture-filter: url("#ldp-pixel");
+}
+:root[data-pictures="pixel"] :is(.post-card .post-media img, .single-post-article .article-media img, :is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	border: 2px solid var(--text-primary); padding: 0; border-radius: 0; background: none; outline: none; box-shadow: none;
+}
+:root[data-pictures="pixel"][data-pixel-corners="on"] :is(.post-card .post-media img, .single-post-article .article-media img, :is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	clip-path: polygon(2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px, 100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%, 2px calc(100% - 2px), 0 calc(100% - 2px), 0 2px, 2px 2px);
 }
 :root[data-scanlines="on"][data-scan-style="dark"] {
 	--ldp-scan-layer: repeating-linear-gradient(to bottom, rgb(0 0 0 / calc(var(--surface-scanlines) * 6)) 0 1px, transparent 1px 3px);
@@ -3000,8 +3014,14 @@ html:root[data-cap-face="title"] {
 :root[data-box-buttons="link"] :is(.support-box-controls, .release-actions) .quire-button:not(.primary):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: transparent; box-shadow: none; border-color: transparent; color: var(--accent); padding-inline: var(--space-1);
 }
-:root[data-box-buttons="link"] :is(.support-box-controls, .release-actions) .quire-button:not(.primary):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-box-buttons="link"] :is(.support-box-controls, .release-actions) .quire-button:not(.primary):is(:hover, :focus-visible):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: transparent; text-decoration: underline; text-underline-offset: 0.2em;
+}
+:root:root:root:root:root[data-box-buttons="link"] :is(.support-box-controls, .release-actions) .quire-button:not(.primary):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-color: transparent;
+}
+:root[data-box-buttons="link"] :is(.support-box-controls, .release-actions) .quire-button:not(.primary):active:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	opacity: .6;
 }
 :root[data-box-buttons="link"] .support-box-controls .quire-button:not(.primary):not(:has(svg)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	content: "\203A"; margin-inline-start: -0.15em; font-size: 1.25em; line-height: 0; position: relative; top: 0.04em;
@@ -3559,6 +3579,9 @@ html:root[data-soft="on"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navi
 	outline: var(--border-width-default) solid color-mix(in srgb, var(--text-primary) 8%, transparent);
 	outline-offset: calc(-1 * var(--border-width-default));
 	background: none;
+}
+:root[data-pictureframe="off"]:not([data-pictures="pixel"], [data-pictures="onebit"]) :is(.post-card .post-media img, .single-post-article .article-media img, :is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot)).ldp-blends {
+	outline-color: color-mix(in srgb, var(--text-primary) 20%, transparent);
 }
 :root[data-pictureframe="off"][data-picturefade="on"] .single-post-article .article-media img {
 	outline: none;
@@ -4204,13 +4227,13 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 		box-shadow: inset 0 0 0 var(--border-width-default) var(--line);
 	}
 	:root[data-lines="on"][data-fills="off"] :is(.quire-menu-item.is-open, .quire-menu-item:hover, .quire-nav-item:hover, .wp-block-navigation-item__content:hover, .jetpack-instant-search .jetpack-instant-search__search-result-minimal:hover, .jetpack-instant-search .jetpack-instant-search__search-result-minimal:focus-within, .index-pagination a.page-numbers:hover, .reading-stepper button:hover, .rail-more-trigger:hover, button.reading-row:hover, .comments-pill:hover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-lines="on"][data-fills="off"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navigation-item__content, .wp-block-pages-list__item__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-		background: transparent;
+		background: var(--ink-alpha-weak);
 	}
 	:root[data-lines="on"][data-fills="off"] :is(.quire-button:not(.primary, .comments-pill):hover, .paper-stack-btn:hover, .reading-side-btn:hover, .reading-back:hover, .rail-collapse-corner .quire-icon-button:hover, .rail-expand .quire-icon-button:hover, .rail-expand-search .quire-icon-button:hover, .code-block-controls .quire-icon-button:hover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		border-color: var(--text-primary);
 	}
 	:root[data-lines="on"][data-fills="off"] :is(.quire-button:not(.primary, .comments-pill):hover, .paper-stack-btn:hover, .reading-side-btn:hover, .reading-back:hover, .rail-collapse-corner .quire-icon-button:hover, .rail-expand .quire-icon-button:hover, .rail-expand-search .quire-icon-button:hover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-		background: transparent;
+		background: var(--ink-alpha-weak);
 	}
 	:root[data-lines="on"] .reading-tile:not([aria-checked="true"]):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		border-color: var(--line);

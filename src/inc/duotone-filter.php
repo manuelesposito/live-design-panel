@@ -84,8 +84,11 @@ function architrave_duotone_filter() {
 		. '<feFlood x="0" y="6.5" width="1.5" height="1.5" flood-color="#000" result="c3"/>'
 		. '<feFlood x="6.5" y="6.5" width="1.5" height="1.5" flood-color="#000" result="c4"/>'
 		. '<feMerge x="0" y="0" width="8" height="8" result="cell"><feMergeNode in="w"/><feMergeNode in="c"/><feMergeNode in="c1"/><feMergeNode in="c2"/><feMergeNode in="c3"/><feMergeNode in="c4"/></feMerge>'
-		. '<feTile in="cell" result="grid"/>'
-		. '<feGaussianBlur in="grid" stdDeviation="1.5" result="soft"/>'
+		/* THE EDGE GETS WHOLE DOTS (2026-10-02, the styles review): blurring the screen across the whole picture read the nothing beyond its edge, so the outer row of dots came out faint and ragged. The screen repeats every 8px, so one cell is blurred amid its eight neighbours and that blurred cell is what repeats. */
+		. '<feTile in="cell" x="0" y="0" width="24" height="24" result="grid3"/>'
+		. '<feGaussianBlur in="grid3" stdDeviation="1.5" x="0" y="0" width="24" height="24" result="soft3"/>'
+		. '<feOffset in="soft3" dx="0" dy="0" x="8" y="8" width="8" height="8" result="softcell"/>'
+		. '<feTile in="softcell" result="soft"/>'
 		. '<feComponentTransfer in="soft" result="screen">' . $cut( '2.4', '-1.28' ) . '</feComponentTransfer>'
 		. '<feColorMatrix in="SourceGraphic" type="saturate" values="0" result="g"/>'
 		. '<feComposite in="g" in2="screen"' . $mix
