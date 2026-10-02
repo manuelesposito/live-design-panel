@@ -297,6 +297,7 @@
 #ldp-window .ldpw-lv[data-lk="gray"] { background: color-mix(in oklab, var(--li) 9%, var(--lp)); color: var(--li); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--li) 18%, transparent); }
 #ldp-window .ldpw-lv[data-lk="outlined"] { color: color-mix(in oklab, var(--lb) 80%, var(--li)); box-shadow: inset 0 0 0 1.5px var(--lb); }
 #ldp-window .ldpw-lv[data-lk="shadow"] { background: var(--lp); color: var(--li); box-shadow: inset 0 0 0 1.5px var(--li), 3px 3px 0 var(--li); }
+#ldp-window .ldpw-lv[data-lk="key"] { background: var(--lb); color: var(--lo); box-shadow: 3px 3px 0 color-mix(in oklab, var(--lb), #ff3d8b 60%); }
 #ldp-window .ldpw-lv[data-lk="text"] { color: color-mix(in oklab, var(--lb) 80%, var(--li)); padding-inline: 4px; }
 #ldp-window .ldpw-looks [data-look="tags"] .ldpw-lv { border-radius: 999px; }
 #ldp-window .ldpw-looks [data-look="tags"] .ldpw-lv[data-lk="text"] { color: color-mix(in oklab, var(--li) 55%, var(--lp)); font-weight: 500; }

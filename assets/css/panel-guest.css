@@ -1695,7 +1695,7 @@
 :root[data-monitor-frame][data-fx-monitor-sheen="on"] .ldp-bezel::after {
 	content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(70% 45% at 10% 0%, rgb(255 255 255 / .06), transparent 60%);
 }
-:root:is([data-pictures="dither"], [data-pictures="halftone"]) :is(.post-link-card img, .link-card img, .avatar, img.avatar, .custom-logo, .wp-block-site-logo img, .wp-block-avatar img, .comment img, .rail img, .sidebar-column img, .theme-card img):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-pictures="dither"], [data-pictures="halftone"], [data-pictures="pixel"]) :is(.post-link-card img, .link-card img, .avatar, img.avatar, .custom-logo, .wp-block-site-logo img, .wp-block-avatar img, .comment img, .rail img, .sidebar-column img, .theme-card img):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	filter: none;
 }
 :root[data-monitor-frame] body.has-frame {
@@ -2295,6 +2295,64 @@ html:root[data-print-ink="warm"]:not([data-theme$="-dark"]), html:root[data-prin
 :root[data-coupon="on"] .content-column > .ldp-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
 	content: "\2702\FE0E"; position: absolute; top: -.72em; left: calc(var(--ldp-col-inset, 0px) + 28px); padding: 0 8px;
 	font: 20px/1 var(--font-reading); color: color-mix(in oklab, var(--text-primary) 70%, transparent); background: var(--surface-base);
+}
+:root[data-extrusion="diagonal"] {
+	--ldp-ext-1: 2px 2px 0 var(--fx-second), 4px 4px 0 var(--fx-second), 6px 6px 0 var(--fx-second); --ldp-ext-2: 2px 2px 0 var(--fx-second), 4px 4px 0 var(--fx-second);
+}
+:root[data-extrusion="down"] {
+	--ldp-ext-1: 0 2px 0 var(--fx-second), 0 4px 0 var(--fx-second), 0 6px 0 var(--fx-second); --ldp-ext-2: 0 2px 0 var(--fx-second), 0 4px 0 var(--fx-second);
+}
+:root:root:root[data-extrusion] :is(.single-post-article > .wp-block-post-title, .content-column .archive-page > h1, body.single .entry-title):not(:where(.reading-panel *, .architrave-panel-opener *, #ldp-window *, #wpadminbar *, .ldp-boot *, .ldp-card *, .ldp-coin *)) {
+	text-shadow: var(--ldp-ext-1), var(--ldp-ts-bloom), var(--ldp-ts-fringe);
+}
+:root:root:root[data-extrusion] :is(.single-post-article .wp-block-post-content :is(h2, h3, h4), .post-card .wp-block-post-title, body.single .entry-content :is(h2, h3, h4)):not(:where(.reading-panel *, .architrave-panel-opener *, #ldp-window *, #wpadminbar *, .ldp-boot *, .ldp-card *, .ldp-coin *)) {
+	text-shadow: var(--ldp-ext-2), var(--ldp-ts-bloom), var(--ldp-ts-fringe);
+}
+:root:root:root[data-extrusion][data-glow="on"][data-theme$="-dark"] :is(.single-post-article > .wp-block-post-title, .content-column .archive-page > h1, body.single .entry-title):not(:where(.reading-panel *, .architrave-panel-opener *, #ldp-window *, #wpadminbar *, .ldp-boot *, .ldp-card *, .ldp-coin *)) {
+	text-shadow: var(--ldp-ext-1), 0 0 var(--surface-glow-spread) rgb(from currentColor r g b / var(--surface-glow-level, var(--surface-glow))), 0 0 var(--surface-glow-core) rgb(from currentColor r g b / calc(var(--surface-glow-level, var(--surface-glow)) * 0.65)), var(--ldp-ts-bloom), var(--ldp-ts-fringe);
+}
+:root:root:root[data-extrusion][data-glow="on"][data-theme$="-dark"] :is(.single-post-article .wp-block-post-content :is(h2, h3, h4), .post-card .wp-block-post-title, body.single .entry-content :is(h2, h3, h4)):not(:where(.reading-panel *, .architrave-panel-opener *, #ldp-window *, #wpadminbar *, .ldp-boot *, .ldp-card *, .ldp-coin *)) {
+	text-shadow: var(--ldp-ext-2), 0 0 var(--surface-glow-spread) rgb(from currentColor r g b / var(--surface-glow-level, var(--surface-glow))), 0 0 var(--surface-glow-core) rgb(from currentColor r g b / calc(var(--surface-glow-level, var(--surface-glow)) * 0.65)), var(--ldp-ts-bloom), var(--ldp-ts-fringe);
+}
+@media (min-width: 1010px) {
+	:root[data-pixel-corners="on"] body.has-frame .frame-paper {
+		border-radius: 0; clip-path: polygon(0 12px, 4px 12px, 4px 8px, 8px 8px, 8px 4px, 12px 4px, 12px 0, calc(100% - 12px) 0, calc(100% - 12px) 4px, calc(100% - 8px) 4px, calc(100% - 8px) 8px, calc(100% - 4px) 8px, calc(100% - 4px) 12px, 100% 12px, 100% calc(100% - 12px), calc(100% - 4px) calc(100% - 12px), calc(100% - 4px) calc(100% - 8px), calc(100% - 8px) calc(100% - 8px), calc(100% - 8px) calc(100% - 4px), calc(100% - 12px) calc(100% - 4px), calc(100% - 12px) 100%, 12px 100%, 12px calc(100% - 4px), 8px calc(100% - 4px), 8px calc(100% - 8px), 4px calc(100% - 8px), 4px calc(100% - 12px), 0 calc(100% - 12px));
+	}
+}
+:root[data-pixel-corners="on"] .content-column :is(figure img, .post-card img):not(:where(.post-link-card img, .link-card img, .avatar, img.avatar, .wp-block-avatar img, .custom-logo, .wp-block-site-logo img, .reading-panel *, .architrave-panel-opener *)) {
+	border-radius: 0; clip-path: polygon(0 8px, 4px 8px, 4px 4px, 8px 4px, 8px 0, calc(100% - 8px) 0, calc(100% - 8px) 4px, calc(100% - 4px) 4px, calc(100% - 4px) 8px, 100% 8px, 100% calc(100% - 8px), calc(100% - 4px) calc(100% - 8px), calc(100% - 4px) calc(100% - 4px), calc(100% - 8px) calc(100% - 4px), calc(100% - 8px) 100%, 8px 100%, 8px calc(100% - 4px), 4px calc(100% - 4px), 4px calc(100% - 8px), 0 calc(100% - 8px));
+}
+:root[data-button-style="key"][data-button-style] :is(.quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	box-shadow: 4px 4px 0 var(--fx-second); text-transform: uppercase; letter-spacing: .06em; transition-property: background-color, color;
+}
+:root[data-button-style="key"][data-button-style] :is(.quire-button.primary, .rail-newsletter-trigger, .quire-icon-button.filled):active:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	transform: translate(4px, 4px); box-shadow: 0 0 0 var(--fx-second);
+}
+:root[data-pictures="pixel"] {
+	--picture-filter: url("#ldp-pixel");
+}
+:root[data-scanlines="on"][data-scan-style="dark"] {
+	--ldp-scan-layer: repeating-linear-gradient(to bottom, rgb(0 0 0 / calc(var(--surface-scanlines) * 6)) 0 1px, transparent 1px 3px);
+}
+:root[data-scanlines="on"][data-scan-style="dark"]:not([data-theme$="-dark"]) {
+	--ldp-scan-layer: repeating-linear-gradient(to bottom, rgb(from var(--text-primary) r g b / var(--surface-scanlines)) 0 1px, transparent 1px 3px);
+}
+:root[data-scan-style="dark"][data-theme$="-dark"]:not([data-edges]) {
+	--ldp-vig-ink: #000;
+}
+@media (min-width: 1010px) {
+	:root[data-power-bar="on"] body.has-frame .frame-paper > .ldp-power {
+		display: grid; grid-template-columns: repeat(20, 1fr); gap: 4px; position: absolute; z-index: 5; inset-inline: 64px; bottom: 16px; pointer-events: none;
+	}
+}
+:root[data-power-bar="on"] .ldp-power i {
+	display: block; block-size: 8px; background: var(--border-strong);
+}
+:root[data-power-bar="on"] .ldp-power i.ldp-lit {
+	background: var(--button-colour, var(--accent));
+}
+:root[data-power-bar="on"] .ldp-power i.ldp-lit.ldp-tip {
+	background: var(--fx-second);
 }
 @media (prefers-reduced-motion: reduce) {
 	:root[data-shimmer] .ldp-shimmer, :root[data-static] .ldp-static {

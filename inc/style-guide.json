@@ -33,7 +33,7 @@
     "inkbutton": "Retired 2026-09-26 and still read: true becomes button ink.",
     "buttonshape": "The buttons' and hover pills' corner: cards (the corner size's own, the rest), square, rounded (8 px) or pill. Only with rounded. The cards keep the corner size.",
     "tagsfollow": "The tags take the buttons' corner instead of staying round.",
-    "buttonstyle": "How the main buttons look: filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray or text (text only), in the button colour where it has one.",
+    "buttonstyle": "How the main buttons look: filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray, text (text only) or key (an arcade cabinet's button: filled, standing on a hard block of the second light, pushed into it when pressed), in the button colour where it has one.",
     "buttonmedium": "How the other buttons (the gray secondary ones) look: gray (the rest), filled, tinted, outlined, shadow (outlined with a hard shadow) or text (text only), in the button colour where it has one.",
     "buttonquiet": "How the quiet buttons (small actions without a fill) look: text (the rest), filled, tinted, gray, outlined or shadow (outlined with a hard shadow). Architrave's alone; another theme has no quiet kind.",
     "tags": "How the tags at the end of an article look: text (the rest: words, as the theme sets them), or small pills that are filled, tinted, gray or outlined, made from the button colour. Tags follow the buttons gives the pills the buttons' corner.",
@@ -56,7 +56,7 @@
     "monitorframe": "A black bezel around the page with rounded corners, an old monitor's frame: off (the rest), thin, medium or thick.",
     "fringe": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, slip (print's one magenta ghost on all text) or sliptitle (that ghost on the titles and headings only, the reading left sharp).",
     "crisp": "Letters drawn without smoothing, the stair-step of an old screen: off (the rest), headings, or all text.",
-    "scanstyle": "How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille) or both. Only with scanlines.",
+    "scanstyle": "How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille), both, or dark (the dark gaps between a colour screen's rows: by night they show on what is lit and vanish on the black, and the vignette darkens; by day faint lines in the ink). Only with scanlines.",
     "shimmer": "The screen's brightness moving: off (the rest), soft (a slow hum) or roll (a faint band drifting down). Still for readers who ask for less motion.",
     "warp": "The page bent like a tube's glass: off (the rest), slight, bulged or strong. The page is redrawn as a picture, so text softens a little.",
     "switchon": "The screen collapses to a line and blinks back when the side changes: off (the rest) or on.",
@@ -65,7 +65,7 @@
     "jitter": "The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.",
     "graincrawl": "The grain standing still (the rest) or moving, as a tube's noise crawls. Only with grain.",
     "typedtitle": "The article's title arrives letter by letter behind a block cursor: off (the rest), on, or decode (each letter of the title and of the article's headings runs through scrambled code glyphs before it settles, the headings as they come into view). Nothing moves for readers who ask for less motion.",
-    "bootscreen": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks), card (a television's test card with the site's name on its plate), rain (falling lines of green code that thin away to the page) or wake (three lines typed on a black screen).",
+    "bootscreen": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks), card (a television's test card with the site's name on its plate), rain (falling lines of green code that thin away to the page), wake (three lines typed on a black screen), or coin (an arcade cabinet's attract screen: the site's name in the heading's face standing on the second light, PRESS START blinking, the credit line).",
     "roomglass": "A window reflected across the top corner of the glass: off (the rest) or on.",
     "phosphor": "The whole night screen in one phosphor: off (the rest, the style's own colours), blue, green, amber, white or black.",
     "static": "A burst of noise while the set switches on: off (the rest) or on. Only with switchon.",
@@ -104,6 +104,9 @@
     "codemarks": "A terminal's marks in the article: off (the rest), prompt (a prompt before the category line and the headings, a blinking cursor after the date, dashes for the list's dots) or glyphs (the prompt with a run of mirrored code glyphs beside the category line and as the list's markers).",
     "coderain": "Falling lines of code on the paper beside the article, never under its words: off (the rest), faint or clear. In the ink, each line's head in the accent. Still for readers who ask for less motion.",
     "headwidth": "The title's and the headings' letters drawn narrower, where the heading face has a width axis (Martian Mono has): normal (the rest), narrow or narrowest. The site's name takes it too.",
+    "extrusion": "The title and the headings standing out of the page on a hard block of the second light, one step a pixel, no blur, as an arcade marquee's letters: off (the rest), diagonal or down. The title three steps deep, a heading two. Composes with the glow, the bloom and the fringe.",
+    "pixelcorners": "The corner a pixel screen draws when it rounds: the paper's corners and the pictures' cut in stairs of whole pixels. Off (the rest) or on. Best with square corners.",
+    "powerbar": "How far the reader is, the arcade's way: twenty blocks along the paper's foot, one lit for every twentieth read, the last one lit in the second light. Off (the rest) or on. Architrave's paper only.",
     "pillbuttons": "Retired 2026-09-26 and still read: true becomes buttonshape pill.",
     "centretitle": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.",
     "fadeedges": "which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.",
@@ -123,7 +126,7 @@
     "vignette": "A darkening at the page's four edges, as a screen's glass has.",
     "vignettelevel": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
     "vignettereach": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
-    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), hidden (no images; each article picture becomes a line that shows it).",
+    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), hidden (no images; each article picture becomes a line that shows it).",
     "picturehover": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
     "alternates": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
     "soft": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
@@ -504,6 +507,96 @@
           "paper": "#5f1d1a",
           "ink": "#f8f4e9",
           "accent": "#f2b49c"
+        }
+      }
+    },
+    "arcade": {
+      "architrave": 1,
+      "label": "Arcade",
+      "base": "arcade",
+      "measure": "60",
+      "palette": "neutral",
+      "tint": "orange",
+      "colours": {
+        "light": {
+          "paper": "#f1efe8",
+          "ink": "#16141d",
+          "accent": "#16141d"
+        },
+        "dark": {
+          "paper": "#07070b",
+          "ink": "#f1f1f7",
+          "accent": "#ffd23f"
+        }
+      },
+      "sans": "space-grotesk",
+      "reading": "default",
+      "face": "space-grotesk",
+      "leading": "default",
+      "justify": false,
+      "dropcap": false,
+      "rounded": false,
+      "lines": false,
+      "scope": "article",
+      "fills": true,
+      "soft": true,
+      "button": "own",
+      "buttonstyle": "key",
+      "pictures": "pixel",
+      "scanlines": true,
+      "scan": "5",
+      "scanstyle": "dark",
+      "vignette": true,
+      "vignettelevel": "2",
+      "glow": true,
+      "crisp": "headings",
+      "extrusion": "diagonal",
+      "pixelcorners": "on",
+      "powerbar": "on",
+      "bootscreen": "coin",
+      "effects": {
+        "glow": {
+          "reach": "headings"
+        }
+      },
+      "roles": {
+        "head": {
+          "face": "press-start-2p",
+          "weight": "regular",
+          "caps": true,
+          "size": "32",
+          "leading": "open",
+          "tracking": "default",
+          "colour": "accent",
+          "members": {
+            "sub": {
+              "size": "24",
+              "weight": "regular"
+            }
+          }
+        },
+        "kicker": {
+          "face": "press-start-2p",
+          "weight": "regular",
+          "italic": false,
+          "caps": true,
+          "size": "16",
+          "tracking": "default",
+          "colour": "accent"
+        },
+        "small": {
+          "caps": true,
+          "tracking": "p5",
+          "members": {
+            "author": {
+              "caps": false,
+              "tracking": "default"
+            }
+          }
+        },
+        "title": {
+          "caps": true,
+          "tracking": "p10"
         }
       }
     },
@@ -1077,6 +1170,20 @@
         "paper": "#1e1a15",
         "ink": "#f1e8d6",
         "accent": "#f1e8d6"
+      }
+    },
+    {
+      "id": "cabinet",
+      "label": "Cabinet",
+      "light": {
+        "paper": "#f1efe8",
+        "ink": "#16141d",
+        "accent": "#16141d"
+      },
+      "dark": {
+        "paper": "#07070b",
+        "ink": "#f1f1f7",
+        "accent": "#ffd23f"
       }
     },
     {

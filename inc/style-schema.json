@@ -301,6 +301,7 @@
     "dither",
     "grain",
     "trace",
+    "pixel",
     "hidden"
   ],
   "capLines": [
@@ -501,7 +502,8 @@
     "shadow",
     "tinted",
     "gray",
-    "text"
+    "text",
+    "key"
   ],
   "buttonmedium": [
     "gray",
@@ -636,7 +638,8 @@
   "scanstyle": [
     "lines",
     "grille",
-    "both"
+    "both",
+    "dark"
   ],
   "shimmer": [
     "off",
@@ -681,7 +684,8 @@
     "on",
     "card",
     "rain",
-    "wake"
+    "wake",
+    "coin"
   ],
   "roomglass": [
     "off",
@@ -859,6 +863,19 @@
     "normal",
     "narrow",
     "narrowest"
+  ],
+  "extrusion": [
+    "off",
+    "diagonal",
+    "down"
+  ],
+  "pixelcorners": [
+    "off",
+    "on"
+  ],
+  "powerbar": [
+    "off",
+    "on"
   ],
   "unlinked": "boolean",
   "effects": {

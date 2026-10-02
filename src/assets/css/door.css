@@ -811,6 +811,21 @@
 /* THE DRAWING OFFICE (2026-10-02, Blueprint): the parts presets.js drawingOffice() builds rest hidden; their picks show them (style.css THE DRAWING OFFICE) */
 .ldp-trace-ink { flood-color: var(--text-primary); } /* the traced pictures' lines, in the ink of whatever surface they sit on */
 .ldp-sheet, .ldp-sheet > *, .ldp-zone, .ldp-tick, .ldp-rule, .ldp-dim, .ldp-titleblock { display: none; }
+/* THE CABINET (2026-10-02, Arcade B): the power bar presets.js cabinet() builds rests hidden, the pick shows it (style.css THE CABINET); the extrusion's two depths rest empty. */
+.ldp-power { display: none; }
+:root { --ldp-ext-1: 0 0 0 transparent; --ldp-ext-2: 0 0 0 transparent; }
+/* INSERT COIN (bootscreen coin): an arcade cabinet's attract screen, on the page's own paper. The site's name in the heading's face standing on the second light, PRESS START blinking, the credit line; the name steps down a size where the window is narrow (presets.js bootScreen). */
+:root[data-ldp-booting="coin"]::before { background: var(--surface-base, #07070b); }
+.ldp-coin { position: fixed; inset: 0; z-index: 2147483600; display: grid; place-content: center; text-align: center; padding: 24px; background: var(--surface-base, #07070b); color: var(--text-primary, #f1f1f7); font-family: var(--head-face, var(--font-sans, monospace)); text-transform: uppercase; transition: opacity .4s ease; cursor: pointer; }
+.ldp-coin.ldp-gone { opacity: 0; }
+.ldp-coin p { margin: 0; font-family: inherit; letter-spacing: 0; text-shadow: none; }
+.ldp-coin .ldp-coin-name { font-size: 48px; line-height: 1.3; margin-bottom: 56px; color: var(--accent); text-shadow: 3px 3px 0 var(--fx-second), 6px 6px 0 var(--fx-second); overflow-wrap: anywhere; }
+.ldp-coin.ldp-coin-small .ldp-coin-name { font-size: 32px; }
+.ldp-coin.ldp-coin-smaller .ldp-coin-name { font-size: 24px; }
+.ldp-coin .ldp-coin-press { font-size: 16px; line-height: 1.5; margin-bottom: 72px; animation: ldp-blink .9s steps(2) infinite; }
+.ldp-coin .ldp-coin-credit { font-size: 16px; line-height: 2; color: var(--text-muted, #8d8d9e); }
+.ldp-coin .ldp-coin-credit b { font-weight: inherit; color: var(--fx-second); }
+@media (prefers-reduced-motion: reduce) { .ldp-coin .ldp-coin-press { animation: none; } }
 @keyframes ldp-roll { to { top: 100%; } }
 @keyframes ldp-crawl { 0% { background-position: 0 0; } 25% { background-position: 37px -61px; } 50% { background-position: -83px 19px; } 75% { background-position: 51px 77px; } 100% { background-position: -29px -43px; } }
 @keyframes ldp-switch-on { 0% { transform: scaleY(.006) scaleX(.002); filter: brightness(6); } 30% { transform: scaleY(.006); filter: brightness(3); } 70% { transform: scaleY(1); filter: brightness(1.6); } 100% { transform: none; filter: none; } }
