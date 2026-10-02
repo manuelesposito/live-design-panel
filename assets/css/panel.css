@@ -2641,8 +2641,8 @@ html:root[data-print-ink="warm"]:not([data-theme$="-dark"]), html:root[data-prin
 :root[data-awning][data-theme$="-dark"] {
 	--ldp-stripe: color-mix(in oklab, var(--text-primary), var(--surface-base) 22%);
 }
-:root[data-awning] body.has-frame .frame-paper > .content-column > .ldp-awning {
-	display: block; position: absolute; z-index: 0; inset-block-start: 0; inset-inline: 0; block-size: 64px; max-inline-size: none; margin: 0; pointer-events: none;
+:root[data-awning] body.has-frame .frame-paper > .ldp-awning {
+	display: block; position: absolute; z-index: 3; inset-block-start: 0; inset-inline: 0; block-size: 64px; max-inline-size: none; margin: 0; pointer-events: none;
 }
 :root[data-awning] .ldp-awning::before {
 	content: ""; position: absolute; z-index: 1; inset-inline: 0; inset-block-start: 0; block-size: 7px; background: var(--ldp-field, var(--surface-canvas)); box-shadow: 0 2px 0 rgb(0 0 0 / .08);

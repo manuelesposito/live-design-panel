@@ -656,7 +656,7 @@
 			extrusion: 'The title and the headings standing out of the page on a hard block of the second light, one step a pixel, no blur, as an arcade marquee\'s letters: off (the rest), diagonal or down. The title three steps deep, a heading two. Composes with the glow, the bloom and the fringe.',
 			pixelcorners: 'The corner a pixel screen draws when it rounds: the paper\'s corners and the pictures\' cut in stairs of whole pixels. Off (the rest) or on. Best with square corners.',
 			powerbar: 'How far the reader is, the arcade\'s way: twenty blocks along the paper\'s foot, one lit for every twentieth read, the last one lit in the second light. Off (the rest) or on. Architrave\'s paper only.',
-			awning: 'A café\'s awning across the top of the paper, in the ground\'s colour and the paper\'s, scrolling away with the page: off (the rest), stripes (striped, its edge cut in scallops) or scallops (one colour, the scalloped edge only). Architrave\'s paper only.',
+			awning: 'A café\'s awning across the top of the paper, in the ground\'s colour and the paper\'s, pinned there while the page scrolls under it: off (the rest), stripes (striped, its edge cut in scallops) or scallops (one colour, the scalloped edge only). Architrave\'s paper only.',
 			stamp: 'A round stamp on the corner of an article\'s opening picture, as on a postcard: the site\'s name and the article\'s first category around it, the name\'s first letter inside, in the title\'s colour. Off (the rest) or on. Architrave\'s articles only.',
 			titlesign: 'A small mark under the article\'s title, in the title\'s colour, standing where the highlighter\'s bar stands: off (the rest), wave (a short wave, the sea in front of the café) or star (a six-pointed star).',
 			headstar: 'A small star over each of the article\'s section headings, in the accent: off (the rest) or on.',
@@ -2203,8 +2203,8 @@
 		});
 	}
 	/* THE AWNING AND THE STAMP (2026-10-02, Aperitivo; lab/the-article-in-terracotta.html). Built once each, the
-	   first time their pick is on, and left in place (they rest hidden in door.css): the awning as the framed
-	   paper's column's first child, so it scrolls away with the page; the stamp on the article's opening picture,
+	   first time their pick is on, and left in place (they rest hidden in door.css): the awning on the framed
+	   paper itself, pinned while the column scrolls under it (2026-10-02, Manuel); the stamp on the article's opening picture,
 	   the site's name and the article's first category set around a circle, the name's first letter inside. */
 	/* THE AWNING'S ROOM: the first words on the page start this far below the paper's top (the awning's 64 and
 	   a line of air); whatever is already there counts, so a template that sets them low gets nothing added. */
@@ -2219,10 +2219,10 @@
 		if (!cafeWatched) { cafeWatched = true; var t = null; window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(cafeRoom, 120); }, { passive: true }); if (document.fonts && document.fonts.ready) document.fonts.ready.then(cafeRoom); }
 	}
 	function cafeParts() {
-		var col = document.querySelector('body.has-frame .frame-paper > .content-column');
-		if (col && root.hasAttribute('data-awning') && !col.querySelector(':scope > .ldp-awning')) {
+		var paper = document.querySelector('body.has-frame .frame-paper');
+		if (paper && root.hasAttribute('data-awning') && !paper.querySelector(':scope > .ldp-awning')) {
 			var a = document.createElement('div'); a.className = 'ldp-awning'; a.setAttribute('aria-hidden', 'true'); a.innerHTML = '<i class="ldp-stripes"></i><i class="ldp-scallop"></i>';
-			col.insertBefore(a, col.firstChild);
+			paper.appendChild(a); /* the paper's, so it stays while the column scrolls under it */
 		}
 		cafeRoom();
 		var lead = document.querySelector('.single-post-article > figure.wp-block-post-featured-image');
