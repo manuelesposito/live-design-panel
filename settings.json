@@ -147,6 +147,13 @@
       "extrusion",
       "pixelcorners",
       "powerbar",
+      "opening",
+      "widefigures",
+      "arrival",
+      "glassbar",
+      "boxbuttons",
+      "listtiles",
+      "tilehover",
       "unlinked",
       "effects",
       "roles",
@@ -262,6 +269,13 @@
       "extrusion",
       "pixelcorners",
       "powerbar",
+      "opening",
+      "widefigures",
+      "arrival",
+      "glassbar",
+      "boxbuttons",
+      "listtiles",
+      "tilehover",
       "pillbuttons",
       "centretitle",
       "fadeedges",
@@ -3091,11 +3105,13 @@
       "choices": [
         "flat",
         "shine",
-        "accent"
+        "accent",
+        "spectrum",
+        "violet"
       ],
       "def": "flat",
       "attr": "data-title-finish",
-      "means": "How the title and the headings are drawn: flat (the rest: their colour), shine (from the full colour to half of it, top left to bottom right, as brushed metal) or accent (from their colour into the accent).",
+      "means": "How the title and the headings are drawn: flat (the rest: their colour), shine (from the full colour to half of it, top left to bottom right, as brushed metal), accent (from their colour into the accent), spectrum (a gradient from blue through violet and pink to orange, a step brighter by night) or violet (a gradient from blue to violet).",
       "label": "Title finish",
       "page": "Effects",
       "level": 17,
@@ -5056,6 +5072,210 @@
       ],
       "rest": {
         "data-power-bar": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "opening",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "big"
+      ],
+      "def": "off",
+      "attr": "data-opening",
+      "means": "The article's first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave's page only.",
+      "label": "Opening sentence",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-opening"
+      ],
+      "rest": {
+        "data-opening": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "widefigures",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-wide-figures",
+      "means": "The pictures in the article's text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave's page only.",
+      "label": "Wide pictures in the text",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-wide-figures"
+      ],
+      "rest": {
+        "data-wide-figures": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "arrival",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "rise",
+        "zoom"
+      ],
+      "def": "none",
+      "attr": "data-arrival",
+      "means": "How the article's parts and the list's posts come into view as the page scrolls: none (the rest: they are simply there), rise (each rises 40px into place, once; the title, its date and its picture one after another on arrival) or zoom (the same, the pictures coming in from a small zoom). Nothing moves for readers who ask for less motion. Architrave's page only.",
+      "label": "Arrival on scroll",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-arrival"
+      ],
+      "rest": {
+        "data-arrival": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "glassbar",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-glass-bar",
+      "means": "Once the paper scrolls, its top turns to frosted glass under the corner squares, and the words run under it: off (the rest) or on. Architrave's framed paper only.",
+      "label": "Glass at the top",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-glass-bar"
+      ],
+      "rest": {
+        "data-glass-bar": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "boxbuttons",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "pill",
+        "link"
+      ],
+      "def": "pill",
+      "attr": "data-box-buttons",
+      "means": "The quiet buttons inside the article's boxes (the support box, a release's actions): pill (the rest: as the other buttons) or link (the accent's text links ending on a chevron, as a 'Learn more' link; the filled button stays the one button). Architrave's page only.",
+      "label": "Buttons in boxes",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-box-buttons"
+      ],
+      "rest": {
+        "data-box-buttons": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "listtiles",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-list-tiles",
+      "means": "Each post of a list on its own tile in the card colour, as wide as the wide top picture plus a gutter, its corner the picture's plus that gutter; the boxes on a tile take the paper: off (the rest) or on. Architrave's page only.",
+      "label": "Posts on tiles",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-list-tiles"
+      ],
+      "rest": {
+        "data-list-tiles": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "tilehover",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "grow"
+      ],
+      "def": "off",
+      "attr": "data-tile-hover",
+      "means": "Link cards and the list's tiles under the pointer: off (the rest: their colour changes as ever) or grow (they grow by one percent with a soft shadow). Architrave's page only.",
+      "label": "Tiles under the pointer",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-tile-hover"
+      ],
+      "rest": {
+        "data-tile-hover": "ABSENT"
       },
       "inStandardAtRest": false
     },

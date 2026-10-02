@@ -532,6 +532,7 @@
 .ldp-trace-ink { flood-color: var(--text-primary); } 
 .ldp-sheet, .ldp-sheet > *, .ldp-zone, .ldp-tick, .ldp-rule, .ldp-dim, .ldp-titleblock { display: none; }
 .ldp-power { display: none; }
+.ldp-glass { display: none; }
 :root { --ldp-ext-1: 0 0 0 transparent; --ldp-ext-2: 0 0 0 transparent; }
 :root[data-ldp-booting="coin"]::before { background: var(--surface-base, #07070b); }
 .ldp-coin { position: fixed; inset: 0; z-index: 2147483600; display: grid; place-content: center; text-align: center; padding: 24px; background: var(--surface-base, #07070b); color: var(--text-primary, #f1f1f7); font-family: var(--head-face, var(--font-sans, monospace)); text-transform: uppercase; transition: opacity .4s ease; cursor: pointer; }

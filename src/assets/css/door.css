@@ -813,6 +813,8 @@
 .ldp-sheet, .ldp-sheet > *, .ldp-zone, .ldp-tick, .ldp-rule, .ldp-dim, .ldp-titleblock { display: none; }
 /* THE CABINET (2026-10-02, Arcade B): the power bar presets.js cabinet() builds rests hidden, the pick shows it (style.css THE CABINET); the extrusion's two depths rest empty. */
 .ldp-power { display: none; }
+/* THE GALLERY (2026-10-02, Gallery B): the glass presets.js galleryWays() lays on the paper rests hidden, the pick shows it (style.css THE GALLERY). */
+.ldp-glass { display: none; }
 :root { --ldp-ext-1: 0 0 0 transparent; --ldp-ext-2: 0 0 0 transparent; }
 /* INSERT COIN (bootscreen coin): an arcade cabinet's attract screen, on the page's own paper. The site's name in the heading's face standing on the second light, PRESS START blinking, the credit line; the name steps down a size where the window is narrow (presets.js bootScreen). */
 :root[data-ldp-booting="coin"]::before { background: var(--surface-base, #07070b); }

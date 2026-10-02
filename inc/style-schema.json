@@ -565,7 +565,9 @@
   "titlefinish": [
     "flat",
     "shine",
-    "accent"
+    "accent",
+    "spectrum",
+    "violet"
   ],
   "headitalics": [
     "same",
@@ -887,6 +889,35 @@
   "powerbar": [
     "off",
     "on"
+  ],
+  "opening": [
+    "off",
+    "big"
+  ],
+  "widefigures": [
+    "off",
+    "on"
+  ],
+  "arrival": [
+    "none",
+    "rise",
+    "zoom"
+  ],
+  "glassbar": [
+    "off",
+    "on"
+  ],
+  "boxbuttons": [
+    "pill",
+    "link"
+  ],
+  "listtiles": [
+    "off",
+    "on"
+  ],
+  "tilehover": [
+    "off",
+    "grow"
   ],
   "unlinked": "boolean",
   "effects": {
