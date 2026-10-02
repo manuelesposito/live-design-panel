@@ -974,6 +974,10 @@
     "cards",
     "square"
   ],
+  "pictureshadow": [
+    "off",
+    "soft"
+  ],
   "subcolour": [
     "title",
     "ink"

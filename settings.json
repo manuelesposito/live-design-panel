@@ -162,6 +162,7 @@
       "titlesign",
       "headstar",
       "piccorners",
+      "pictureshadow",
       "subcolour",
       "opening",
       "widefigures",
@@ -308,6 +309,7 @@
       "titlesign",
       "headstar",
       "piccorners",
+      "pictureshadow",
       "subcolour",
       "opening",
       "widefigures",
@@ -5573,6 +5575,35 @@
       ],
       "rest": {
         "data-pic-corners": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "pictureshadow",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "soft"
+      ],
+      "def": "off",
+      "attr": "data-picture-shadow",
+      "means": "A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave's page only.",
+      "label": "Picture shadow",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1231,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-picture-shadow"
+      ],
+      "rest": {
+        "data-picture-shadow": "ABSENT"
       },
       "inStandardAtRest": false
     },

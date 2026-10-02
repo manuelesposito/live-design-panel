@@ -612,6 +612,7 @@ function architrave_panel_words( $words ) {
 		'Star' => __( 'Star', 'live-design-panel' ),
 		'Star over headings' => __( 'Star over headings', 'live-design-panel' ),
 		'Picture corners' => __( 'Picture corners', 'live-design-panel' ),
+		'Picture shadow' => __( 'Picture shadow', 'live-design-panel' ),
 		'Sun-warmed' => __( 'Sun-warmed', 'live-design-panel' ),
 		'The pictures in their own colours, a little warmer, as in late afternoon light.' => __( 'The pictures in their own colours, a little warmer, as in late afternoon light.', 'live-design-panel' ),
 		'Title font' => __( 'Title font', 'live-design-panel' ),

@@ -124,6 +124,7 @@
     "titlesign": "A small mark under the article's title, in the title's colour, standing where the highlighter's bar stands: off (the rest), wave (a short wave, the sea in front of the café) or star (a six-pointed star).",
     "headstar": "A small star over each of the article's section headings, in the accent: off (the rest) or on.",
     "piccorners": "The pictures' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).",
+    "pictureshadow": "A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave's page only.",
     "subcolour": "The colour of the article's section headings when the headings' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text's colour, so only the title stands in the colour).",
     "opening": "The article's first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave's page only.",
     "widefigures": "The pictures in the article's text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave's page only.",
