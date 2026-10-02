@@ -3523,6 +3523,9 @@ html:root[data-soft="on"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navi
 :root[data-pictures="onebit"][data-theme$="-dark"] {
 	--duo-dark: var(--surface-base); --duo-light: var(--text-primary);
 }
+:root[data-pictures="onebit"] .content-column :is(figure, .post-link-card, .wp-block-post-featured-image, .article-media) img:not(.avatar):not(:where(.reading-panel *, .architrave-panel-opener *)) {
+	outline: 1px solid var(--text-primary) !important; outline-offset: -1px !important;
+}
 :root[data-pictures="trace"] .content-column :is(figure, a, div):has(> img):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background-color: transparent;
 }

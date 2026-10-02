@@ -576,6 +576,7 @@
 :root[data-cursor-shape="still"] .ldp-tcur { animation: none; }
 :root[data-cursor-shape="bar"] .ldp-tcur { width: 2px; } 
 @keyframes ldp-print { from { clip-path: inset(0 0 calc(100% - var(--ldp-print-top, 40px)) 0); } to { clip-path: inset(0 0 calc(100% - var(--ldp-print-top, 40px) - var(--ldp-print-h, 900px)) 0); } }
+:root[data-ldp-printing="wait"] .frame-paper .content-column img { visibility: hidden; } 
 .ldp-fence { color: var(--text-subtle); }
 .ldp-src { color: var(--text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ldp-src span { color: var(--text-muted); }

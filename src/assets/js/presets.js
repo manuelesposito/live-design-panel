@@ -1840,9 +1840,10 @@
 		root.style.setProperty('--ldp-print-top', Math.round(top.getBoundingClientRect().bottom - first.getBoundingClientRect().top + 2) + 'px');
 		root.setAttribute('data-ldp-printing', 'wait');
 		var cur = document.createElement('span'); cur.className = 'ldp-tcur';
+		var t0 = Date.now(), per = Math.min(30, 1100 / Math.max(cmd.length, 1)); /* BY THE CLOCK (2026-10-02): the letters due by now are shown, so a busy page types as fast as a calm one, about a second in all */
 		var step = function () {
-			i++; termPrompt(top, place, cmd.slice(0, i)); top.appendChild(cur);
-			if (i < cmd.length) { termTyping = setTimeout(step, 14 + Math.random() * 32); return; }
+			i = Math.min(cmd.length, Math.max(i + 1, Math.floor((Date.now() - t0) / per))); termPrompt(top, place, cmd.slice(0, i)); top.appendChild(cur);
+			if (i < cmd.length) { termTyping = setTimeout(step, per * (0.5 + Math.random())); return; }
 			termTyping = setTimeout(function () {
 				termPrompt(top, place, cmd);
 				var cell = termCell(), h = Math.max(0, Math.min(first.getBoundingClientRect().bottom, window.innerHeight) - top.getBoundingClientRect().bottom), n = Math.max(6, Math.round(h / cell.h));
