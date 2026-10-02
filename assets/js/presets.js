@@ -1894,7 +1894,7 @@
 		{ id: 'television', label: 'Television', light: { paper: '#e6e8ec', ink: '#14161a', accent: '#14161a' }, dark: { paper: '#0e1014', ink: '#e6eaf1', accent: '#ffffff' } },  
 		{ id: 'newsprint', label: 'Newsprint', light: { paper: '#ebe3d1', ink: '#1c1a17', accent: '#1c1a17' }, dark: { paper: '#1e1a15', ink: '#f1e8d6', accent: '#f1e8d6' } }, 
 		{ id: 'cabinet', label: 'Cabinet', light: { paper: '#f1efe8', ink: '#16141d', accent: '#16141d' }, dark: { paper: '#07070b', ink: '#f1f1f7', accent: '#ffd23f' } }, 
-		{ id: 'riviera', label: 'Riviera', light: { paper: '#f7efe2', ink: '#2f1b15', accent: '#2d6a4c', head: '#a83e22', kicker: '#a83e22', button: '#a83e22', inverse: '#b84b30' }, dark: { paper: '#261613', ink: '#f3e8d8', accent: '#93c9a7', head: '#ef9f7d', kicker: '#ef9f7d', button: '#ef9f7d' }, ground: { dark: '#4f1915' } }, 
+		{ id: 'riviera', label: 'Riviera', light: { paper: '#f7efe2', ink: '#2f1b15', accent: '#2d6a4c', head: '#a83e22', kicker: '#a83e22', button: '#a83e22', inverse: '#b84b30' }, dark: { paper: '#261613', ink: '#f3e8d8', accent: '#93c9a7', head: '#ef9f7d', kicker: '#ef9f7d', button: '#ef9f7d' }, ground: { dark: '#4f1915' }, groundInk: '#f8f4e9' },  
 		{ id: 'film', label: 'Film green', light: { paper: '#e8f4ea', ink: '#04260f', accent: '#007a28', head: '#04260f' }, dark: { paper: '#020a04', ink: '#00ff41', accent: '#d4ffdf', head: '#4dff7a' } }, 
 		{ id: 'vellum', label: 'Vellum', light: { paper: '#f6f6f4', ink: '#2c2c26', accent: '#6f6c42' }, dark: { paper: '#23231f', ink: '#f2f1ea', accent: '#c9c48a' } }, 
 		{ id: 'vermilion', label: 'Vermilion', light: { paper: '#b82a16', ink: '#fff6ec', accent: '#ffe680' }, dark: { paper: '#2a0a06', ink: '#ffd9cc', accent: '#ff7a5c' }, fresh: true, group: 'bold' },
@@ -2200,7 +2200,8 @@
 				on + ' .ground-light{' + pairBody(c.light, 'light') + (c.light.accent ? accentBody(c.light.accent, c.light.paper, c.light.ink) : '') + '}';
 		}
 		if (c.light.inverse) {
-			var GP = c.light.inverse, GI = [c.dark.ink, c.light.paper, '#ffffff', '#111111'].filter(Boolean).reduce(function (best, x) { return contrast(x, GP) > contrast(best, GP) + 0.5 ? x : best; });
+			var preGI = presetById(presetOf()), ownGI = preGI && preGI.groundInk && preGI.light && String(c.light.inverse).toLowerCase() === String(preGI.light.inverse || '').toLowerCase() && contrast(preGI.groundInk, c.light.inverse) >= 4.5 ? preGI.groundInk : '';
+			var GP = c.light.inverse, GI = ownGI || [c.dark.ink, c.light.paper, '#ffffff', '#111111'].filter(Boolean).reduce(function (best, x) { return contrast(x, GP) > contrast(best, GP) + 0.5 ? x : best; });
 			var GA = accentForPaper(c.dark.accent || c.light.accent || GI, GP);
 			css += 'html:root[data-darkground="on"] .ground-dark{' + pairBody({ paper: GP, ink: GI, ground: GP }, lum(GP) < lum(GI) ? 'dark' : 'light') + accentBody(GA, GP, GI) + '}';
 		}
