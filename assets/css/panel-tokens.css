@@ -175,6 +175,7 @@
 	--reading-link-ink: var(--accent);
 	--groove-page: var(--surface-track);
 	--chip-page: var(--surface-track-selected);
+	--code-line-height: 1.5;
 	--surface-layer: none;
 	--surface-grain: 0;
 	--surface-scanlines: 0;

@@ -1052,5 +1052,15 @@ function live_design_window_words() {
 		'The line of categories the article is filed under' => __( 'The line of categories the article is filed under', 'live-design-panel' ),
 		'Text is as wide as the reading column. Wide steps out on both sides. Full reaches the edges of the paper.' => __( 'Text is as wide as the reading column. Wide steps out on both sides. Full reaches the edges of the paper.', 'live-design-panel' ),
 		'A surface on the other side of the page, like a dark section on light paper, passes its own colours to the text and buttons inside it.' => __( 'A surface on the other side of the page, like a dark section on light paper, passes its own colours to the text and buttons inside it.', 'live-design-panel' ),
+		/* THE SEVEN ROLES (2026-10-02): the new role, the code font's rest, and what each role styles */
+		'The one big line of a page: the article\'s title, a page\'s name.' => __( 'The one big line of a page: the article\'s title, a page\'s name.', 'live-design-panel' ),
+		'The headings inside the text, and the site\'s name.' => __( 'The headings inside the text, and the site\'s name.', 'live-design-panel' ),
+		'What people read: paragraphs, lists, excerpts, the comments\' words.' => __( 'What people read: paragraphs, lists, excerpts, the comments\' words.', 'live-design-panel' ),
+		'Quotations and pull quotes.' => __( 'Quotations and pull quotes.', 'live-design-panel' ),
+		'Small facts around the text: dates, authors, categories, tags, captions, names in comments.' => __( 'Small facts around the text: dates, authors, categories, tags, captions, names in comments.', 'live-design-panel' ),
+		'The site around the text: menus, buttons, fields, labels, section titles.' => __( 'The site around the text: menus, buttons, fields, labels, section titles.', 'live-design-panel' ),
+		'Code and keys, inline and in blocks.' => __( 'Code and keys, inline and in blocks.', 'live-design-panel' ),
+		'Code' => __( 'Code', 'live-design-panel' ),
+		'Theme Monospace' => __( 'Theme Monospace', 'live-design-panel' ),
 	);
 }

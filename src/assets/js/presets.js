@@ -161,7 +161,7 @@
 			str = String(str || '').replace(/-/g, '+').replace(/_/g, '/');
 			while (str.length % 4) str += '=';
 			var data = JSON.parse(decodeURIComponent(escape(atob(str))));
-			return data && data.architrave === 1 ? data : null;
+			return data && (data.architrave === 1 || data.architrave === 2) ? data : null;
 		} catch (e) { return null; }
 	}
 	/* A record as a tile of the reader's own: the whitelist Paste style… reads
@@ -191,7 +191,88 @@
 	   reader turned a style's centring off; on a record false was only written
 	   because every export wrote every switch, and means nothing. The tweak's
 	   members replace the style's (roleOf), so the style's are copied first. */
-	function liftCentre(rec, style) {
+	function liftCentre(rec, style) { return liftType(liftCentreOnly(rec, style)); }
+	/* THE SEVEN ROLES REPLACED THE EIGHT (Manuel, 2026-10-02, lab/the-typography-roles.html):
+	   a record, link, published style or tweak written before then names the old roles
+	   (head, read, quote, kicker, small, comment, ui, title) with their members and old
+	   dial names; it is read here into the seven (title, headings, body, quote, meta,
+	   interface, code), once, before anything else looks at it. What does not survive,
+	   on purpose: word spacing, every member but the headings', the comments' own role,
+	   and where two old roles become one, the second one's dials where the first set
+	   its own (Small text wins over Category line, Interface over Interface titles).
+	   A record of the seven says `architrave: 2`; a lone `roles.title` without it is the
+	   old Interface titles. Self-contained: it runs before the tables below exist. */
+	function liftType(rec) {
+		if (!rec || typeof rec !== 'object') return rec;
+		['light', 'dark'].forEach(function (side) {
+			var c = rec.colours && rec.colours[side];
+			if (!c || typeof c !== 'object') return;
+			if (c.head !== undefined) { if (c.title === undefined) c.title = c.head; delete c.head; }
+			if (c.kicker !== undefined) { if (c.meta === undefined) c.meta = c.kicker; delete c.kicker; }
+		});
+		var R = rec.roles && typeof rec.roles === 'object' ? rec.roles : null, sub = rec.subcolour;
+		delete rec.subcolour;
+		if (!R || rec.architrave === 2) return rec;
+		var ids = Object.keys(R), NEWER = ['headings', 'body', 'meta', 'interface', 'code'];
+		var oldDial = /^(face|tracking|words|caps|leading|members)$/;
+		var old = ids.some(function (k) { return ['head', 'read', 'kicker', 'small', 'comment', 'ui'].indexOf(k) !== -1; }) ||
+			ids.some(function (k) { var o = R[k]; return o && typeof o === 'object' && Object.keys(o).some(function (d) { return oldDial.test(d) || (d === 'size' && /^[0-9a-z]+$/.test(String(o[d]))); }); }) ||
+			(R.title && !ids.some(function (k) { return NEWER.indexOf(k) !== -1; }));
+		if (!old) return rec;
+		var RUNGS = [11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 32, 36, 40, 44, 48, 56, 64, 72, 80, 96, 112, 128];
+		var PCT = { '50': 50, '65': 65, '90': 90, '100': 100, '110': 110, '120': 120, '135': 135, '150': 150, xs: 80, s: 90, m: 100, l: 110, xl: 120 };
+		var EM = { 25: 0.25, 22: 0.225, 20: 0.2, 17: 0.175, 15: 0.15, 12: 0.125, 10: 0.1, 7: 0.075, 5: 0.05, 2: 0.025, 1: 0.0125 };
+		var TRACK_OLD = { tightest: 'm7', tighter: 'm5', tight: 'm2', loose: 'p2', wide: 'p5', widest: 'p10' };
+		var LETTER = [['tighter', -0.05], ['tight', -0.025], ['normal', 0], ['wide', 0.025], ['wider', 0.05], ['widest', 0.1]];
+		var LINE = { solid: 'tight', packed: 'tight', close: 'tight', densest: 'tight', dense: 'tight', tight: 'snug', relaxed: 'relaxed', airy: 'relaxed', wider: 'relaxed', wide: 'loose', open: 'loose', loose: 'loose', loosest: 'loose' };
+		var WEIGHTS = { lighter: 'light', normal: 'regular', heavy: 'extrabold' };
+		var P = {};
+		var put = function (role, dial, v) { if (v === undefined || v === null) return; P[role] = P[role] || {}; if (P[role][dial] === undefined) P[role][dial] = v; };
+		var step = function (v, base) {
+			var px = /^\d+$/.test(String(v)) && RUNGS.indexOf(+v) !== -1 ? +v : PCT[v] ? base * PCT[v] / 100 : v === 'text' ? base : 0;
+			if (!px) return undefined;
+			var n = Math.max(-4, Math.min(6, Math.round(Math.log(px / base) / Math.log(1.125))));
+			return n ? (n > 0 ? '+' + n : String(n)) : undefined;
+		};
+		var letter = function (v) {
+			v = TRACK_OLD[v] || v;
+			var m = /^([mp])(\d+)$/.exec(String(v)); if (!m || !EM[m[2]]) return undefined;
+			var em = (m[1] === 'm' ? -1 : 1) * EM[m[2]], best = LETTER[0];
+			LETTER.forEach(function (x) { if (Math.abs(x[1] - em) < Math.abs(best[1] - em)) best = x; });
+			return best[0] === 'normal' ? undefined : best[0];
+		};
+		var conv = function (to, o, base, only) {
+			if (!o || typeof o !== 'object') return;
+			var want = function (d) { return !only || only.indexOf(d) !== -1; };
+			if (want('font') && o.face !== undefined) put(to, 'font', o.face === 'read' || o.face === 'inherit' ? 'body' : o.face === 'ui' ? 'interface' : o.face);
+			if (want('weight') && o.weight !== undefined) put(to, 'weight', WEIGHTS[o.weight] || o.weight);
+			if (want('size') && o.size !== undefined) put(to, 'size', step(o.size, base));
+			if (want('letterSpacing') && o.tracking !== undefined) put(to, 'letterSpacing', letter(o.tracking));
+			if (want('capitals') && typeof o.caps === 'boolean') put(to, 'capitals', o.caps || undefined);
+			if (want('italic') && typeof o.italic === 'boolean') put(to, 'italic', o.italic);
+			if (want('lineHeight') && o.leading !== undefined) put(to, 'lineHeight', LINE[o.leading]);
+			if (want('align') && o.align !== undefined && o.align !== 'default') put(to, 'align', o.align);
+			if (want('colour') && o.colour !== undefined && o.colour !== 'ink') put(to, 'colour', o.colour);
+		};
+		var head = R.head, subm = head && head.members && head.members.sub;
+		conv('title', head, 64);
+		/* the headings inside the article followed the title until the member had its own */
+		conv('headings', subm, 36, ['weight', 'size', 'letterSpacing', 'capitals', 'align']);
+		conv('headings', head, 64, ['font', 'weight', 'size', 'letterSpacing', 'capitals', 'italic', 'lineHeight', 'align']);
+		if (head && head.colour && head.colour !== 'ink') put('headings', 'colour', sub === 'ink' ? 'ink' : head.colour);
+		conv('body', R.read, 22);
+		conv('quote', R.quote, 26);
+		conv('meta', R.small, 16);
+		conv('meta', R.kicker, 26, ['font', 'weight', 'size', 'letterSpacing', 'capitals', 'italic', 'lineHeight', 'colour']);
+		if (R.kicker && R.kicker.align && R.kicker.align !== 'default') put('title', 'align', R.kicker.align);
+		conv('interface', R.ui, 13);
+		conv('interface', R.title, 11);
+		Object.keys(P).forEach(function (r) { Object.keys(P[r]).forEach(function (d) { if (P[r][d] === undefined) delete P[r][d]; }); if (!Object.keys(P[r]).length) delete P[r]; });
+		rec.roles = P;
+		rec.architrave = 2;
+		return rec;
+	}
+	function liftCentreOnly(rec, style) {
 		if (!rec || typeof rec !== 'object') return rec;
 		/* CORNERS' PILL STEP SPLIT OFF (Manuel, 2026-09-26, "pill buttons with large
 		   cards"): pill was the fourth corner step and pinned the cards to medium;
@@ -246,8 +327,8 @@
 		var entry = { id: 'own-' + Date.now().toString(36), label: data.label.slice(0, 40) || t('My style'), own: true, base: byId(data.base) ? data.base : STYLES[0].id };
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean') entry[k] = data[k]; });
-		['tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
-		if (data.roles && typeof data.roles === 'object') entry.roles = data.roles;
+		['tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 2; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } /* only known details, only off their rest */
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
 		var shape = function (x) { var c = {}; Object.keys(x).forEach(function (k) { if (k !== 'id') c[k] = x[k]; }); return JSON.stringify(c); };
@@ -316,7 +397,7 @@
 	var FADE_EDGES = ['sides', 'bottom', 'all'];
 	var MARKERS = ['yellow', 'green', 'pink', 'blue', 'orange', 'text', 'muted', 'own'];
 	var FRAME_PATTERNS = ['plain', 'dots', 'checker'];
-	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised', 'ticks'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, subcolour: { attr: 'data-sub-colour', list: ['title', 'ink'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] } };
+	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised', 'ticks'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] } };
 	var EFFECTS = {};
 	var LEVELS = {
 		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
@@ -328,6 +409,21 @@
 		space: { stops: ['xcompact', 'compact', 'standard', 'spacious', 'xspacious'], rest: 'standard', attr: 'data-space', prop: '--space-step' },
 		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' }
 	};
+	var TYPE_ROLES = ['title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'];
+	var TYPE_DIALS = {
+		title: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'align', 'colour'],
+		headings: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'align', 'colour'],
+		body: ['size', 'weight', 'letterSpacing', 'capitals', 'italic'],
+		quote: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'],
+		meta: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'colour'],
+		interface: ['size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'],
+		code: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic']
+	};
+	var TYPE_SIZES = ['-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4', '+5', '+6'];
+	var TYPE_LINE = { tight: 'dense', snug: 'tight', normal: 'default', relaxed: 'airy', loose: 'wide' };
+	var TYPE_LETTER = { tighter: 'm5', tight: 'm2', normal: 'default', wide: 'p2', wider: 'p5', widest: 'p10' };
+	var TYPE_BASE = { title: 64, headings: 36, body: 22, quote: 26, meta: 16, interface: 13, code: 18 };
+	var TYPE_MEANS = { roles: { title: 'The one big line of a page: the article\'s title, a page\'s name.', headings: 'The headings inside the text, and the site\'s name.', body: 'What people read: paragraphs, lists, excerpts, the comments\' words.', quote: 'Quotations and pull quotes.', meta: 'Small facts around the text: dates, authors, categories, tags, captions, names in comments.', interface: 'The site around the text: menus, buttons, fields, labels, section titles.', code: 'Code and keys, inline and in blocks.' }, dials: { font: 'A face id from the list, or body / interface to follow the reading or the interface font. Left out: the theme\'s own.', size: 'Steps from the role\'s own size, each 1.125 times the one before: -1 a little smaller, +1 a little larger, +3 about half again as large. 0 or left out: the theme\'s own.', weight: 'thin 100 to black 900; a face offers the weights it has and falls to the nearest.', lineHeight: 'tight for big titles, snug for headings, normal is the theme\'s own, relaxed for long reading, loose for airy small text.', letterSpacing: 'tighter and tight close large type up, normal is the theme\'s own, wide to widest open small capitals and labels.', capitals: 'true sets the role in capitals.', italic: 'true sets it in italic, where the face has one.', align: 'default (the start), center or right; title and headings.', colour: 'ink (the text colour), accent, or own (the role\'s own well, colours.<side>.title, .headings or .meta).' } };
 	var ROLES = ['head', 'read', 'quote', 'kicker', 'small', 'comment', 'ui', 'title'];
 	var ROLE_DEFAULT = {
 		head: { face: 'read', weight: 'bold', size: '64', tracking: 'default', words: 'default', caps: false, italic: false, leading: 'default', align: 'default', colour: 'ink', members: {} },
@@ -387,9 +483,9 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { tint: TINTS, scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], button: BUTTONS, linestyle: LINE_STYLE, corners: CORNERS, fadeedges: FADE_EDGES, markercolour: MARKERS, framepattern: FRAME_PATTERNS },
-		wells: ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse'],
+		wells: ['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse'],
 		meaning: {
 			architrave: 'Always 1. Marks the JSON as a style record.',
 			label: 'The name on the tile.',
@@ -436,7 +532,7 @@
 			hyphenate: 'Where words break at the line\'s end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).',
 			piccorners: 'The pictures\' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).',
 			pictureshadow: 'A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave\'s page only.',
-			subcolour: 'The colour of the article\'s section headings when the headings\' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text\'s colour, so only the title stands in the colour).',
+			subcolour: 'Retired 2026-10-02 and still read: ink keeps the headings in the ink under a coloured title (roles.headings.colour ink).',
 			opening: 'The article\'s first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave\'s page only.',
 			widefigures: 'The pictures in the article\'s text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave\'s page only.',
 			pillbuttons: 'Retired 2026-09-26 and still read: true becomes buttonshape pill.',
@@ -462,8 +558,8 @@
 			scope: 'Legacy. The theme always applies paragraph settings everywhere.',
 			unlinked: 'true when the light and dark colours were set independently; false lets one side follow the other.',
 			effects: 'The extras\' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect\'s own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.',
-			roles: 'Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme\'s own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.',
-			colours: 'The style\'s own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles\' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.'
+			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li); its font is the record\'s face and its line spacing the record\'s leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record\'s sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; title, headings and meta also colour. A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records of the seven say architrave 2; older records with the eight roles are read into the seven.',
+			colours: 'The style\'s own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), title, headings and meta (the roles\' own colours, with roles.<role>.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.'
 		}
 	};
 	/* <<< THE LIST'S TABLES */
@@ -831,8 +927,142 @@
 	   `--<role>-colour`, written off the rest as var(--accent) or the well's
 	   token; style.css spends it on the role's elements and their links. */
 	/* ROLE_COLOURS: the list's tables above (plugin/settings.json). */
-	function memberDialsOf(role) { return ROLE_DEFAULT[role] && ROLE_DEFAULT[role].align !== undefined ? MEMBER_DIALS.concat('align') : MEMBER_DIALS; }
+	/* A MEMBER THAT FOLLOWS ANOTHER OF THE SEVEN (2026-10-02): the headings inside the
+	   article answer to Headings while the title answers to Title, and the comments'
+	   parts to Headings, Small text and Interface while their text is Reading text.
+	   They take the font and the slant as well (written by engineFrom only), and the
+	   headings their line spacing and colour too. */
+	var MEMBER_MORE = { 'head.sub': ['face', 'italic', 'leading', 'colour'], 'comment.title': ['face', 'italic'], 'comment.name': ['face', 'italic'], 'comment.small': ['face', 'italic'], 'comment.form': ['face', 'italic'] };
+	function memberDialsOf(role, id) {
+		var base = ROLE_DEFAULT[role] && ROLE_DEFAULT[role].align !== undefined ? MEMBER_DIALS.concat('align') : MEMBER_DIALS;
+		return id && MEMBER_MORE[role + '.' + id] ? base.concat(MEMBER_MORE[role + '.' + id]) : base;
+	}
 	function membersOf(role) { return MEMBERS[role] || []; }
+	/* THE SEVEN ROLES (Manuel, 2026-10-02, lab/the-typography-roles.html: "it's actually
+	   made for the AI"). What a record, a tweak, the window and an assistant speak:
+	   seven roles named for their job and tied to the HTML every site has, the same
+	   dials on each, short scales with plain names, and NO parts. The eight roles and
+	   their members below stay as the engine that draws the page: engineFrom() turns
+	   the seven into them, and an empty seven is an empty engine, so a style that sets
+	   nothing looks exactly as before.
+
+	   A dial left out is the theme's own. Sizes are steps from each part's own size,
+	   1.125 apart (a step is about one rung of the type scale), so one Small text can
+	   move a 16px date and a 26px category line together and both keep their place.
+	   Line spacing and letter spacing are named steps whose `normal` is the theme's
+	   own. The body's font and line spacing are the record's `face` and `leading`, and
+	   the interface's font is `sans`: the first paint reads those three. */
+	/* TYPE_ROLES, TYPE_DIALS, TYPE_SIZES, TYPE_LINE, TYPE_LETTER, TYPE_BASE, TYPE_MEANS: the list's tables above (plugin/settings.json, `roles` and `type`). */
+	/* The engine's roles, each answering to one of the seven, and the members that answer to another. */
+	var TYPE_LEADS = { head: 'title', read: 'body', comment: 'body', quote: 'quote', small: 'meta', kicker: 'meta', ui: 'interface', title: 'interface' };
+	var TYPE_PARTS = [['headings', 'head', 'sub'], ['headings', 'comment', 'title'], ['meta', 'comment', 'name'], ['meta', 'comment', 'small'], ['interface', 'comment', 'form']];
+	var ENGINE_DIAL = { font: 'face', size: 'factor', weight: 'weight', lineHeight: 'leading', letterSpacing: 'tracking', capitals: 'caps', italic: 'italic', align: 'align', colour: 'colour' };
+	function typeFactor(step) { var n = parseInt(step, 10); return isNaN(n) ? 1 : Math.pow(1.125, n); }
+	function typeOk(role, dial, v) {
+		if (v === undefined || v === null || TYPE_DIALS[role].indexOf(dial) === -1) return false;
+		if (dial === 'font') return typeof v === 'string' && (v === 'body' || v === 'interface' || !!FAMILY[v]);
+		if (dial === 'weight') return !!WEIGHT[WEIGHT_ALIAS[v] || v];
+		if (dial === 'size') return TYPE_SIZES.indexOf(String(v)) !== -1;
+		if (dial === 'lineHeight') return !!TYPE_LINE[v];
+		if (dial === 'letterSpacing') return !!TYPE_LETTER[v];
+		if (dial === 'capitals' || dial === 'italic') return typeof v === 'boolean';
+		if (dial === 'align') return ALIGNS.indexOf(v) !== -1;
+		if (dial === 'colour') return ROLE_COLOURS.indexOf(v) !== -1;
+		return false;
+	}
+	/* The seven as a record or a tweak carries them, known values only. */
+	function typeOf(src) {
+		var out = {}, R = src && src.roles;
+		if (!R || typeof R !== 'object') return out;
+		TYPE_ROLES.forEach(function (r) {
+			var o = R[r], k = {};
+			if (!o || typeof o !== 'object') return;
+			TYPE_DIALS[r].forEach(function (d) { if (typeOk(r, d, o[d])) k[d] = d === 'weight' ? WEIGHT_ALIAS[o[d]] || o[d] : d === 'size' ? String(o[d]) : o[d]; });
+			if (Object.keys(k).length) out[r] = k;
+		});
+		return out;
+	}
+	/* The style's seven with this browser's changes over them. */
+	function typeNow() {
+		var a = typeOf(byId(current)), b = typeOf(readTweaks()[current]);
+		Object.keys(b).forEach(function (r) { a[r] = a[r] || {}; Object.keys(b[r]).forEach(function (d) { a[r][d] = b[r][d]; }); });
+		return a;
+	}
+	function engineValue(dial, v) {
+		if (dial === 'font') return v === 'body' ? 'read' : v === 'interface' ? 'ui' : v;
+		if (dial === 'size') return typeFactor(v);
+		if (dial === 'lineHeight') return TYPE_LINE[v];
+		if (dial === 'letterSpacing') return TYPE_LETTER[v];
+		if (dial === 'capitals' || dial === 'italic') return !!v;
+		return v;
+	}
+	function memberRest(role, m, d) {
+		if (d === 'factor') return 1;
+		if (d === 'weight') return m.weight || ROLE_DEFAULT[role].weight;
+		if (d === 'caps') return false;
+		if (d === 'tracking' || d === 'leading') return 'default';
+		if (d === 'align') return 'default';
+		if (d === 'colour') return 'ink';
+		return ROLE_DEFAULT[role][d];
+	}
+	/* THE SEVEN, AS THE ENGINE'S EIGHT. A role's dial goes to every engine role that
+	   answers to it; a member that answers to another of the seven takes that one's
+	   value, and where its own engine role moved and its own of the seven did not, it
+	   is held at its rest, so the comment's name stays where it was when Reading text
+	   grows. `bodyFace`: the reading face is not the theme's own, so the comments' text,
+	   which is Reading text now, reads in it as well. */
+	function engineFrom(P, bodyFace) {
+		var E = {};
+		Object.keys(TYPE_LEADS).forEach(function (er) {
+			var pub = P[TYPE_LEADS[er]] || {}, o = {};
+			Object.keys(pub).forEach(function (d) {
+				var ed = ENGINE_DIAL[d];
+				if (er === 'kicker' && d === 'align') return; /* the category line stands with the title */
+				if (ed !== 'factor' && !(ed in ROLE_DEFAULT[er])) return;
+				o[ed] = engineValue(d, pub[d]);
+			});
+			if (er === 'kicker' && P.title && P.title.align !== undefined) o.align = P.title.align;
+			if (er === 'comment' && bodyFace && o.face === undefined) o.face = 'read';
+			if (Object.keys(o).length) E[er] = o;
+		});
+		TYPE_PARTS.forEach(function (pt) {
+			var own = P[pt[0]] || {}, lead = P[TYPE_LEADS[pt[1]]] || {}, m = membersOf(pt[1]).filter(function (x) { return x.id === pt[2]; })[0], mo = {};
+			if (!m) return;
+			memberDialsOf(pt[1], pt[2]).forEach(function (ed) {
+				var key = ed === 'size' ? 'factor' : ed, pd = Object.keys(ENGINE_DIAL).filter(function (k) { return ENGINE_DIAL[k] === key; })[0];
+				if (!pd) return;
+				if (own[pd] !== undefined) mo[key] = engineValue(pd, own[pd]);
+				else if (lead[pd] !== undefined || (key === 'face' && pt[1] === 'comment' && E.comment && E.comment.face !== undefined) || (key === 'align' && pt[1] === 'head' && P.title && P.title.align !== undefined)) mo[key] = memberRest(pt[1], m, key);
+			});
+			if (Object.keys(mo).length) { E[pt[1]] = E[pt[1]] || {}; (E[pt[1]].members = E[pt[1]].members || {})[pt[2]] = mo; }
+		});
+		return E;
+	}
+	function bodyFaceMoved() { var f = realFace('read'); return !!f && f !== 'newsreader' && f !== 'host'; }
+	function engineNow() { return engineFrom(typeNow(), bodyFaceMoved()); }
+	function engineOf(src) { return engineFrom(typeOf(src), false); }
+	/* The names that ARE the theme's own: a value that says one of them is no value. */
+	var TYPE_REST = { size: '0', lineHeight: 'normal', letterSpacing: 'normal', align: 'default' };
+	/* A style's seven with a tweak over them, as a record writes them: what is left out is the theme's own. */
+	function typeMerged(s, tw) {
+		var a = typeOf(s), b = typeOf(tw), out = {};
+		Object.keys(b).forEach(function (r) { a[r] = a[r] || {}; Object.keys(b[r]).forEach(function (d) { a[r][d] = b[r][d]; }); });
+		Object.keys(a).forEach(function (r) { var o = {}; Object.keys(a[r]).forEach(function (d) { if (TYPE_REST[d] !== a[r][d]) o[d] = a[r][d]; }); if (Object.keys(o).length) out[r] = o; });
+		return out;
+	}
+	/* A tweak's seven: only what differs from the style's own (or, where the style names none, from the theme's). */
+	function typeTweak(e, s) {
+		var t = typeOf(e), own = typeOf(s), out = {};
+		Object.keys(t).forEach(function (r) {
+			var o = {};
+			Object.keys(t[r]).forEach(function (d) {
+				var mine = own[r] && own[r][d];
+				if (mine !== undefined ? t[r][d] !== mine : TYPE_REST[d] !== t[r][d]) o[d] = t[r][d];
+			});
+			if (Object.keys(o).length) out[r] = o;
+		});
+		return out;
+	}
 	/* ONE LADDER, AND EVERY ROLE GETS ALL OF IT (Manuel, 2026-09-17: "for the
 	   font size setting in general, do we make always the max amount of possible
 	   settings available? That regards all typo rows").
@@ -925,8 +1155,8 @@
 	var LEAD = { solid: 0.56, packed: 0.62, close: 0.69, densest: 0.75, dense: 0.85, tight: 0.92, snug: 0.96, 'default': 1, relaxed: 1.06, airy: 1.1, wider: 1.15, wide: 1.25, open: 1.37, loose: 1.5, loosest: 1.62 }; /* fifteen since 2026-09-18, the reading text's own fifteen: each is that step's line height over 1.6 */ /* nine, with the reading text's own nine (2026-09-16) */
 	/* Has the reader (or a copy of the theme's look) set this role's slant itself. */
 	function ownItalic(role) {
-		var s = byId(current), tw = readTweaks()[current];
-		return !!((s && s.roles && s.roles[role] && s.roles[role].italic !== undefined) || (tw && tw.roles && tw.roles[role] && tw.roles[role].italic !== undefined));
+		var E = engineNow()[role];
+		return !!(E && E.italic !== undefined);
 	}
 	/* The theme's own slant for a role, read off the first part the plugin's italic rule
 	   would reach (panel-page.css), with our own stamp lifted while it is read. */
@@ -940,39 +1170,22 @@
 		if (had !== null) root.setAttribute(a, had);
 		return it;
 	}
+	/* AN ENGINE ROLE, as the seven make it now (engineFrom): its dials over its rest,
+	   its members, and the factor its size step writes. */
 	function roleOf(role) {
-		var s = byId(current), tw = readTweaks()[current], out = {};
+		var E = engineNow()[role] || {}, out = {};
 		Object.keys(ROLE_DEFAULT[role]).forEach(function (k) {
 			out[k] = ROLE_DEFAULT[role][k];
-			if (s && s.roles && s.roles[role] && s.roles[role][k] !== undefined) out[k] = s.roles[role][k];
-			if (tw && tw.roles && tw.roles[role] && tw.roles[role][k] !== undefined) out[k] = tw.roles[role][k];
+			if (k !== 'members' && E[k] !== undefined) out[k] = E[k];
 		});
 		if (FOLLOW_ALIAS[out.face]) out.face = FOLLOW_ALIAS[out.face]; /* 'inherit' (2026-09-16 to 2026-09-19) is 'read' */
-		/* The members: the style's released ones, or the tweak's whole set
-		   (a press writes the set as it stands, so the tweak replaces). */
-		if (membersOf(role).length) {
-			var mem = {};
-			var take = function (src) {
-				if (!src || typeof src !== 'object') return; mem = {};
-				Object.keys(src).forEach(function (id) {
-					var m = src[id], o = {}; if (!m || typeof m !== 'object') return;
-					if (m.size !== undefined) o.size = rungFor(role, m.size);
-					if (m.weight !== undefined) o.weight = WEIGHT_ALIAS[m.weight] || m.weight;
-					if (m.caps !== undefined) o.caps = !!m.caps;
-					if (m.tracking !== undefined) o.tracking = TRACK_ALIAS[m.tracking] || m.tracking;
-					if (m.align !== undefined && ALIGNS.indexOf(m.align) !== -1 && memberDialsOf(role).indexOf('align') !== -1) o.align = m.align;
-					if (Object.keys(o).length) mem[id] = o;
-				});
-			};
-			take(s && s.roles && s.roles[role] && s.roles[role].members);
-			take(tw && tw.roles && tw.roles[role] && tw.roles[role].members);
-			out.members = mem;
-		} else delete out.members;
+		if (membersOf(role).length) out.members = E.members || {}; else delete out.members;
+		out.factor = E.factor !== undefined ? E.factor : 1;
 		/* The two faces that are dials of their own already. */
 		if (role === 'read') out.face = root.getAttribute('data-face') || 'newsreader';
 		if (role === 'ui') out.face = sansOf();
 		out.weight = fitWeight(out.face, WEIGHT_ALIAS[out.weight] || out.weight);
-		out.size = rungFor(role, out.size); /* every size is a rung now, and rungFor reads the retired 'text' as the role's own (2026-09-17) */
+		out.size = Math.abs(out.factor - 1) > 0.0001 ? String(Math.round((ROLE_BASE[role] || ROLE_BASE.read) * out.factor)) : rungFor(role, out.size); /* the number the step lands on, for whoever shows it */
 		out.tracking = TRACK_ALIAS[out.tracking] || out.tracking; /* the seven names of 1.3.116 and before (2026-09-16) */
 		out.words = WORDS_ALIAS[out.words] || out.words;
 		/* ON A STRANGER'S THEME, UNDER ITS OWN LOOK, THE SLANT IS WHAT THE PAGE SHOWS
@@ -1000,7 +1213,8 @@
 		ROLES.forEach(function (role) {
 			var v = roleOf(role), p = '--' + role + '-', rest = ROLE_DEFAULT[role], s0 = byId(current);
 			/* what the reader set by hand under a guest's own look: stamped even when it equals our rest (see setRole) */
-			var hostTw = window.architravePanelGuest && !isLook(current) ? ((readTweaks()[current] || {}).roles || {})[role] || {} : {};
+			var hostTw = window.architravePanelGuest && !isLook(current) ? engineOf(readTweaks()[current] || {})[role] || {} : {};
+			var styleE = engineOf(s0)[role] || {};
 			/* A FOLLOWER'S FACE IS ALWAYS WRITTEN OUT (2026-09-22), the anchor's
 			   token or the pinned family, never left to a stylesheet fallback:
 			   the fallbacks say six different things (--font-reading here,
@@ -1018,7 +1232,7 @@
 			if (role === 'small') { if (v.face !== rest.face) root.setAttribute('data-small-face-own', ''); else root.removeAttribute('data-small-face-own'); }
 			if (v.weight === rest.weight && hostTw.weight === undefined) st.removeProperty(p + 'weight'); else st.setProperty(p + 'weight', String(WEIGHT[v.weight] || 400));
 			if (role === 'read' || role === 'ui' || role === 'comment') { if (v.weight === rest.weight) root.removeAttribute('data-' + role + '-weight'); else root.setAttribute('data-' + role + '-weight', v.weight); }
-			st.setProperty(p + 'size', String(sizeFactor(role, v.size)));
+			st.setProperty(p + 'size', String(v.factor));
 			/* THE READER'S OWN SIZE, APART FROM THE STYLE'S (2026-09-27, found by the new
 			   window's check on Twenty Twenty-Five under Classic: Category line, Small text
 			   and Interface moved nothing). On a stranger's theme a look leaves the size
@@ -1027,25 +1241,30 @@
 			   the reader's move alone, the size now over the style's own for the role, 1
 			   while the style is as it came, and guest-size.js spends it there. */
 			if (window.architravePanelGuest) {
-				var mine = sizeFactor(role, v.size) / sizeFactor(role, rungFor(role, (s0 && s0.roles && s0.roles[role] && s0.roles[role].size) || rest.size));
+				var mine = v.factor / (styleE.factor || 1);
 				if (Math.abs(mine - 1) < 0.0001) st.removeProperty(p + 'size-mine'); else st.setProperty(p + 'size-mine', String(mine));
 			}
 			if (role === 'head') root.removeAttribute('data-head-size'); /* the 'text' stop is retired (2026-09-17); the attribute is cleared off styles that still carry it */
-			if (role === 'ui' || role === 'comment') { if (v.size === rest.size) root.removeAttribute('data-' + role + '-size'); else root.setAttribute('data-' + role + '-size', v.size); }
+			if (role === 'ui' || role === 'comment') { if (Math.abs(v.factor - 1) < 0.0001) root.removeAttribute('data-' + role + '-size'); else root.setAttribute('data-' + role + '-size', v.size); }
 			if (membersOf(role).length) {
 				var free = 0;
 				membersOf(role).forEach(function (m) {
 					var own = (!m.lead && v.members && v.members[m.id]) || {}, any = false;
-					memberDialsOf(role).forEach(function (d) {
-						var tok = p + (d === 'caps' ? 'case' : d) + '-' + m.id, attr = 'data-' + role + '-m-' + m.id + '-' + d, val = null;
-						if (own[d] !== undefined) {
+					memberDialsOf(role, m.id).forEach(function (d) {
+						var tok = p + ({ caps: 'case', italic: 'style' }[d] || d) + '-' + m.id, attr = 'data-' + role + '-m-' + m.id + '-' + d, val = null, said = null;
+						if (d === 'size' && own.factor !== undefined) { val = String(own.factor); said = String(Math.round(m.rest * own.factor)); }
+						else if (own[d] !== undefined) {
 							if (d === 'size') val = String((+own.size || m.rest) / m.rest);
-							else if (d === 'weight') val = String(WEIGHT[fitWeight(v.face, own.weight)] || WEIGHT[own.weight] || 400);
+							else if (d === 'weight') val = String(WEIGHT[fitWeight(own.face || v.face, own.weight)] || WEIGHT[own.weight] || 400);
 							else if (d === 'caps') val = own.caps ? 'uppercase' : 'none';
 							else if (d === 'align') val = ALIGN[own.align] || 'start';
+							else if (d === 'face') { val = faceValue(own.face); said = own.face; }
+							else if (d === 'italic') { val = own.italic && hasItalic(own.face || v.face) ? 'italic' : 'normal'; said = own.italic ? 'on' : 'off'; }
+							else if (d === 'leading') { val = String(LEAD[own.leading] || 1); said = own.leading; }
+							else if (d === 'colour') { val = own.colour === 'accent' ? 'var(--accent)' : own.colour === 'own' ? 'var(--headings-own-colour, var(--accent))' : 'var(--text-primary)'; said = own.colour; }
 							else val = TRACK[own.tracking] || '0';
 						}
-						if (val === null) { st.removeProperty(tok); root.removeAttribute(attr); } else { any = true; st.setProperty(tok, val); root.setAttribute(attr, d === 'size' ? own.size : d === 'align' ? own.align : String(val)); }
+						if (val === null) { st.removeProperty(tok); root.removeAttribute(attr); } else { any = true; st.setProperty(tok, val); root.setAttribute(attr, said !== null ? said : d === 'size' ? own.size : d === 'align' ? own.align : String(val)); }
 					});
 					if (any) free++;
 				});
@@ -1059,7 +1278,7 @@
 			/* A QUOTE IN A FACE WITHOUT AN ITALIC STANDS UPRIGHT (2026-09-19): the stylesheet slants a quote at rest, and a face that ships no italic was slanted by the browser, which the ITALICS list exists to prevent. */
 			/* AND A QUOTE AT ITS REST WRITES NOTHING (2026-09-27): the stylesheet's own slant stands, italic in the article and upright on a quote post's card; off writes upright, since the stylesheet's fallback is italic and removing the property would leave it leaning. */
 			if (role === 'quote' && !hasItalic(v.face)) st.setProperty(p + 'style', 'normal');
-			else if (role === 'quote' && v.italic === rest.italic && !(s0 && s0.roles && s0.roles.quote && s0.roles.quote.italic !== undefined)) st.removeProperty(p + 'style'); /* a style that asks for the slant itself (Blueprint) keeps it on its quote cards too */
+			else if (role === 'quote' && v.italic === rest.italic && styleE.italic === undefined) st.removeProperty(p + 'style'); /* a style that asks for the slant itself (Blueprint) keeps it on its quote cards too */
 			else if (v.italic) st.setProperty(p + 'style', 'italic');
 			else if (role === 'quote') st.setProperty(p + 'style', 'normal');
 			else st.removeProperty(p + 'style');
@@ -1121,7 +1340,7 @@
 					weight: v.weight !== rest.weight || look || hostTw.weight !== undefined,
 					tracking: v.tracking !== rest.tracking || hostTw.tracking !== undefined,
 					words: v.words !== rest.words || hostTw.words !== undefined,
-					size: String(v.size) !== String(rest.size) || hostTw.size !== undefined,
+					size: Math.abs(v.factor - 1) > 0.0001 || hostTw.factor !== undefined,
 					caps: !!v.caps,
 					italic: look ? (v.italic !== rest.italic || v.italic) : ownItalic(role) /* under the theme's own look only the reader's own pick is stamped; the rest is the theme's */
 				};
@@ -1131,6 +1350,27 @@
 				});
 			}
 		});
+		applyTypeExtras();
+	}
+	/* CODE, THE SEVENTH ROLE (2026-10-02): code, pre and kbd had no role of their own.
+	   It writes nothing at rest, so the theme's monospace, its 0.8em chip and its 18px
+	   block stand; each dial moved writes its token and an attribute of its own, and
+	   style.css (THE CODE ROLE) spends them on every code surface, a guest's included.
+	   And Small text's colour reaches the dates and captions as well as the category
+	   line (the category line is the engine's kicker, which has a colour of its own). */
+	function applyTypeExtras() {
+		var st = root.style, c = typeNow().code || {}, meta = typeNow().meta || {};
+		var put = function (d, tok, val, said) { if (val === null) { st.removeProperty('--code-' + tok); root.removeAttribute('data-code-' + d); } else { st.setProperty('--code-' + tok, val); root.setAttribute('data-code-' + d, said); } };
+		var f = c.font !== undefined ? engineValue('font', c.font) : null;
+		put('face', 'face', f ? faceValue(f) : null, c.font);
+		put('size', 'size', c.size !== undefined && c.size !== '0' ? String(typeFactor(c.size)) : null, c.size);
+		put('weight', 'weight', c.weight !== undefined ? String(WEIGHT[fitWeight(f || 'mono', c.weight)] || 400) : null, c.weight);
+		put('leading', 'leading', c.lineHeight !== undefined && c.lineHeight !== 'normal' ? String(LEAD[TYPE_LINE[c.lineHeight]]) : null, c.lineHeight);
+		put('tracking', 'tracking', c.letterSpacing !== undefined && c.letterSpacing !== 'normal' ? TRACK[TYPE_LETTER[c.letterSpacing]] : null, c.letterSpacing);
+		put('caps', 'case', c.capitals ? 'uppercase' : null, 'on');
+		put('italic', 'style', c.italic !== undefined ? (c.italic && (!f || hasItalic(f)) ? 'italic' : 'normal') : null, c.italic ? 'on' : 'off');
+		if (meta.colour && meta.colour !== 'ink') { st.setProperty('--small-colour', meta.colour === 'accent' ? 'var(--accent)' : 'var(--kicker-own-colour, var(--accent))'); root.setAttribute('data-small-colour', meta.colour); }
+		else { st.removeProperty('--small-colour'); root.removeAttribute('data-small-colour'); }
 	}
 	function trackingOf() { return roleOf('read').tracking; }
 	function applyTracking() { applyRoles(); }
@@ -1830,7 +2070,7 @@
 	   and this one no longer reads (bold, wide, hyphens, tracking at the top
 	   level) and unaliased role values stayed in a reader's record and kept a
 	   style "adjusted" with nothing to reset. Only what is read survives. */
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -1853,7 +2093,7 @@
 				['light', 'dark'].forEach(function (side) {
 					var c = e.colours[side]; if (!c || typeof c !== 'object') return;
 					var keptC = {};
-					['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { /* button, head, kicker, ground, lift, marker: the wells of 2026-09-26 */
+					['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { /* button, head, kicker, ground, lift, marker: the wells of 2026-09-26 */
 						var v = c[k];
 						if (v === '' && s.colours && s.colours[side] && s.colours[side][k]) { keptC[k] = ''; return; }
 						if (typeof v !== 'string' || !/^#[0-9a-f]{6}$/i.test(v)) return;
@@ -1865,26 +2105,8 @@
 				if (Object.keys(colours).length) clean.colours = colours;
 			}
 			if (e.roles && typeof e.roles === 'object') {
-				var roles = {};
-				ROLES.forEach(function (role) {
-					var r = e.roles[role]; if (!r || typeof r !== 'object') return;
-					var kept = {};
-					Object.keys(ROLE_DEFAULT[role]).forEach(function (d) {
-						if (r[d] === undefined) return;
-						var v = r[d];
-						if (d === 'align' && ALIGNS.indexOf(v) === -1) return;
-						if (d === 'colour' && ROLE_COLOURS.indexOf(v) === -1) return;
-						if (d === 'weight') v = WEIGHT_ALIAS[v] || v;
-						if (d === 'size') v = rungFor(role, v);
-						var rest = ROLE_DEFAULT[role][d];
-						if (s.roles && s.roles[role] && s.roles[role][d] !== undefined) rest = s.roles[role][d];
-						if (d === 'weight') rest = WEIGHT_ALIAS[rest] || rest;
-						if (d === 'size') rest = rungFor(role, rest);
-						if (v !== rest || (window.architravePanelGuest && (s.host || s.bare))) kept[d] = v; /* a guest's own look keeps a pick equal to our rest (see setRole) */
-					});
-					if (Object.keys(kept).length) roles[role] = kept;
-				});
-				if (Object.keys(roles).length) clean.roles = roles;
+				var roles = typeTweak(e, s);
+				if (Object.keys(roles).length) { clean.roles = roles; clean.architrave = 2; }
 			}
 			/* THE EXTRAS' DETAILS: known effects and details, values from their list, and
 			   only what differs from the style's own (or from the rest, where it names none). */
@@ -1988,7 +2210,7 @@
 			var named = (s && s.preset && tw.preset === undefined) ? presetById(s.preset) : null;
 			var base = {}, t = (tw.colours && tw.colours[side]) || {};
 			[(named && named[side]) || {}, (s && s.colours && s.colours[side]) || {}].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
-			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
+			['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
 		return out;
 	}
@@ -2235,7 +2457,7 @@
 		var out = coloursOf(id, true); out.derived = { light: [], dark: [] };
 		[['light', 'dark'], ['dark', 'light']].forEach(function (pair) {
 			var from = pair[0], to = pair[1];
-			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'light', 'second'].forEach(function (k) {
+			['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'light', 'second'].forEach(function (k) {
 				if (out[from][k] && !out[to][k] && out.derived[from].indexOf(k) === -1) { out[to][k] = deriveColour(out[from][k], k === 'paper' || k === 'ink' ? k : k === 'ground' || k === 'lift' ? 'paper' : 'accent', to); out.derived[to].push(k); }
 				/* the pen crosses over and is fitted to that side's paper below */
 				if (out[from].marker && !out[to].marker && out.derived[from].indexOf('marker') === -1) { out[to].marker = out[from].marker; out.derived[to].push('marker'); }
@@ -2246,7 +2468,7 @@
 		['light', 'dark'].forEach(function (side) {
 			var paper = out[side].paper || paperOf(side);
 			if (out.derived[side].indexOf('accent') !== -1) out[side].accent = accentForPaper(out[side].accent, paper);
-			['button', 'head', 'kicker', 'light', 'second'].forEach(function (k) { if (out.derived[side].indexOf(k) !== -1) out[side][k] = accentForPaper(out[side][k], paper); }); /* the button's and the roles' own colours follow to the other side as the accent does */
+			['button', 'title', 'headings', 'meta', 'light', 'second'].forEach(function (k) { if (out.derived[side].indexOf(k) !== -1) out[side][k] = accentForPaper(out[side][k], paper); }); /* the button's and the roles' own colours follow to the other side as the accent does */
 			/* THE PEN FOLLOWS THE SIDE TOO (Manuel, 2026-09-26: a cream pen "is not really
 			   adjusting. What works on dark is not working on light"). It kept one colour on
 			   both sides, and the bar under the title, a line on the paper, all but vanished
@@ -2528,13 +2750,14 @@
 				if (LF && contrast(v.button, LF) < 1.3) css += sideRule(side, ':not([data-fills="off"])', LIFT_CARDS, buttonBody(contrast(v.paper, LF) >= 1.3 ? v.paper : v.ink, v.paper, v.ink));
 			}
 			/* THE ROLES' OWN COLOURS: one token each, spent by the role's colour token (applyRoles). */
-			if (v.head) css += sideRule(side, '', '', '--head-own-colour:' + v.head + ';');
+			if (v.title) css += sideRule(side, '', '', '--head-own-colour:' + v.title + ';');
+			if (v.headings) css += sideRule(side, '', '', '--headings-own-colour:' + v.headings + ';');
 			/* THE GROUND'S OWN COLOUR AS A TOKEN (2026-10-02, Aperitivo's awning): what stands around the paper, by day under Dark ground the set's inverse, else the set's own ground; spent by style.css THE AWNING, the ground a step below the paper where the set names none. */
 			var FLD = (side === 'light' && v.inverse) || pairLooks(v, side).G; if (FLD) css += sideRule(side, '', '', '--ldp-field:' + FLD + ';');
 			/* THE PEN OF YOUR OWN (2026-09-26): the pen, the ink read over it (dark on a
 			   light pen, light on a dark one) and the bar's deeper tone for the day. */
 			if (v.marker) css += sideRule(side, '[data-marker-colour="own"]', '', markerBody(v.marker));
-			if (v.kicker) css += sideRule(side, '', '', '--kicker-own-colour:' + v.kicker + ';');
+			if (v.meta) css += sideRule(side, '', '', '--kicker-own-colour:' + v.meta + ';');
 		});
 		/* THE DARK GROUND'S OWN COLOURS: the night side on the ground, the day
 		   side given back to the paper (see THE DARK GROUND). */
@@ -2950,16 +3173,16 @@
 		var base = savedRecord() || {}, e = {}, J = JSON.stringify;
 		if (DIALS.some(function (d) { return rec[d] !== undefined && rec[d] !== base[d]; })) DIALS.forEach(function (d) { e[d] = rec[d] !== undefined ? rec[d] : base[d]; });
 		TWEAK_KEYS.forEach(function (k) { if (DIALS.indexOf(k) !== -1 || k === 'roles' || k === 'colours' || k === 'effects' || k === 'was') return; if (rec[k] !== undefined && J(rec[k]) !== J(base[k])) e[k] = rec[k]; });
-		var roles = {};
-		ROLES.forEach(function (role) {
-			var a = (rec.roles || {})[role] || {}, b = (base.roles || {})[role] || {}, r = {};
-			Object.keys(ROLE_DEFAULT[role]).forEach(function (d) {
-				var want = a[d] !== undefined ? a[d] : ROLE_DEFAULT[role][d], was = b[d] !== undefined ? b[d] : ROLE_DEFAULT[role][d];
-				if (J(want) !== J(was)) r[d] = want;
+		var roles = {}, ra = typeOf(rec), rb = typeOf(base);
+		TYPE_ROLES.forEach(function (role) {
+			var a = ra[role] || {}, b = rb[role] || {}, r = {};
+			TYPE_DIALS[role].forEach(function (d) {
+				var want = a[d] !== undefined ? a[d] : TYPE_REST[d], was = b[d] !== undefined ? b[d] : TYPE_REST[d];
+				if (J(want) !== J(was) && want !== undefined) r[d] = want;
 			});
 			if (Object.keys(r).length) roles[role] = r;
 		});
-		if (Object.keys(roles).length) e.roles = roles;
+		if (Object.keys(roles).length) { e.roles = roles; e.architrave = 2; }
 		var fxs = {};
 		Object.keys(EFFECTS).forEach(function (fid) {
 			var a = (rec.effects || {})[fid] || {}, b = (base.effects || {})[fid] || {}, r = {};
@@ -3062,7 +3285,7 @@
 			Object.keys(LIST.meaning).forEach(function (k) { meaning[k] = LIST.meaning[k]; });
 			var recipes = {};
 			STYLES.filter(function (x) { return !x.own && !x.site && SHOWN.indexOf(x.id) !== -1; }).forEach(function (x) {
-				var rec = { architrave: 1, label: x.label, base: x.id };
+				var rec = { architrave: 2, label: x.label, base: x.id };
 				Object.keys(x).forEach(function (k) { if (k !== 'id' && k !== 'label' && k !== 'bold' && k !== 'preset') rec[k] = x[k]; });
 				var p = x.preset && presetById(x.preset);
 				if (p) rec.colours = { light: { paper: p.light.paper, ink: p.light.ink, accent: p.light.accent }, dark: { paper: p.dark.paper, ink: p.dark.ink, accent: p.dark.accent } };
@@ -3078,41 +3301,30 @@
 					'Pick fonts from the listed ids only; the theme ships no others.',
 					'To try a record without publishing it, open the site at /#style= followed by the base64url of the record JSON.'
 				],
+				/* THE SEVEN ROLES, said for a model (2026-10-02): what each role styles and what each dial's steps mean, one line each */
+				typography: TYPE_MEANS,
 				examples: recipes,
 				colourPresets: PRESETS.map(function (p) { return { id: p.id, label: p.label, light: p.light, dark: p.dark }; })
 			};
 		},
 		schema: function () {
 			var faces = (window.ArchitraveFaces || []).map(function (f) { return f.id; });
-			var role = function (r) {
-				return {
-					face: (r === 'read' || r === 'ui' ? [] : ['read', 'ui']).concat(Object.keys(FAMILY)), /* a follower may name its anchor (2026-09-22); 'inherit', the old word for 'read', is still read */
-					weight: Object.keys(WEIGHT),
-					size: sizesFor(r),
-					tracking: Object.keys(TRACK),
-					words: Object.keys(WORDS),
-					caps: 'boolean',
-					italic: 'boolean',
-					leading: r === 'read' ? undefined : Object.keys(LEAD),
-					align: ROLE_DEFAULT[r].align !== undefined ? ALIGNS : undefined,
-					colour: ROLE_DEFAULT[r].colour !== undefined ? ROLE_COLOURS : undefined
-				};
-			};
-			var roles = {}; ROLES.forEach(function (r) { roles[r] = role(r); });
-			/* The members, with each one's resting size, so an assistant can write
-			   a whole hierarchy: a member named here is released at that size; a
-			   member left out follows the lead. */
-			Object.keys(MEMBERS).forEach(function (r) {
-				var mem = {};
-				MEMBERS[r].forEach(function (m) { if (!m.lead) { mem[m.id] = { size: sizesFor(r), weight: Object.keys(WEIGHT), caps: 'boolean', tracking: Object.keys(TRACK), rest: m.rest }; if (memberDialsOf(r).indexOf('align') !== -1) mem[m.id].align = ALIGNS; } });
-				roles[r].members = mem;
+			/* THE SEVEN (2026-10-02): every role the same dials, the steps by name; body's font
+			   and line spacing are `face` and `leading`, the interface's font is `sans`. */
+			var roles = {};
+			TYPE_ROLES.forEach(function (r) {
+				var o = {};
+				TYPE_DIALS[r].forEach(function (d) {
+					o[d] = d === 'font' ? (r === 'code' ? [] : ['body', 'interface']).concat(Object.keys(FAMILY)) : d === 'size' ? TYPE_SIZES : d === 'weight' ? Object.keys(WEIGHT) : d === 'lineHeight' ? Object.keys(TYPE_LINE) : d === 'letterSpacing' ? Object.keys(TYPE_LETTER) : d === 'align' ? ALIGNS : d === 'colour' ? ROLE_COLOURS : 'boolean';
+				});
+				roles[r] = o;
 			});
 			var side = {}; LIST.wells.forEach(function (w) { side[w] = 'hex'; });
 			/* THE FIELDS COME FROM THE LIST (plugin/settings.json, step 4): its keys in the order
 			   the schema prints them, each answered by its table. What is not a table of the list
 			   is read where it lives: the styles, the colour pairs, the reading sizes, the faces. */
 			var from = {
-				architrave: 1,
+				architrave: 2,
 				label: 'string, at most ' + LIST.labelMax + ' characters',
 				base: STYLES.filter(function (x) { return !x.own && !x.site; }).map(function (x) { return x.id; }),
 				palette: Modes && Modes.palettes ? Modes.palettes.map(function (p) { return p.id; }) : [],
@@ -3335,7 +3547,7 @@
 			/* the theme's own look has one side, its own: that side's colour on both (2026-09-24) */
 			var cur = byId(current), one = cur && cur.host && cur.hostSide;
 			['light', 'dark'].forEach(function (side) { entry.colours[side] = entry.colours[side] || {}; entry.colours[side][key] = x[one || side]; });
-			if (['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); /* a part chosen by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
+			if (['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); /* a part chosen by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
 			/* The chain is left as the reader set it: a row here carries a colour
 			   for each side, so neither side has anything to follow, and the
 			   wheel under the list still edits the side that is shown. */
@@ -3362,10 +3574,10 @@
 			var s0 = byId(current);
 			if (s0 && s0.host) {
 				var e0 = (readTweaks()[current] || {}).colours || {};
-				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(k) === -1 && !!e0[sd][k]; }); });
+				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(k) === -1 && !!e0[sd][k]; }); });
 			}
 			var c = coloursOf(null, true);
-			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker'].indexOf(k) === -1; }); }); /* the button's, the roles' and the pen's own colours are not Custom */
+			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return ['button', 'title', 'headings', 'meta', 'marker'].indexOf(k) === -1; }); }); /* the button's, the roles' and the pen's own colours are not Custom */
 		},
 		/* Crossing over keeps what is on the page. Going to Eigene takes the
 		   preset's own six colours with it, so nothing moves on the crossing and
@@ -3450,7 +3662,7 @@
 		contrast: contrast,
 		paperOf: paperOf,
 		setColour: function (side, key, hex) {
-			if (['light', 'dark'].indexOf(side) === -1 || ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
+			if (['light', 'dark'].indexOf(side) === -1 || ['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
 			var all = readTweaks(), entry = all[current] || {};
 			entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {};
 			/* LINKED MEANS THE OTHER SIDE FOLLOWS, EVERY TIME (Manuel,
@@ -3468,7 +3680,7 @@
 				if (entry.colours[other]) { delete entry.colours[other][key]; if (!Object.keys(entry.colours[other]).length) delete entry.colours[other]; }
 			}
 			entry.colours[side][key] = hex.toLowerCase();
-			if (['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); /* a colour moved by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
+			if (['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); /* a colour moved by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
 			all[current] = entry; writeTweaks(all);
 			applyColours(); mark();
 		},
@@ -3493,20 +3705,14 @@
 		   and a version on it so a paste can be told from any other text. */
 		exportStyle: function () {
 			var s = byId(current); if (!s) return '';
-			var tw = readTweaks()[current] || {}, w = wanted(s), out = { architrave: 1, label: s.label, base: baseOf(s) };
+			var tw = readTweaks()[current] || {}, w = wanted(s), out = { architrave: 2, label: s.label, base: baseOf(s) };
 			DIALS.forEach(function (d) { out[d] = w[d]; });
 			OPTS.forEach(function (k) { out[k] = optionOn(k); });
 			var loose = followers();
 			out.tint = tintOf(); out.sans = sansOf(); out.scope = scopeOf(); out.pictures = picturesOf(); out.capLines = capLinesOf(); out.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { out[k] = pickOf(k); }); out.line = levelOf('line'); out.fill = levelOf('fill'); out.softlevel = levelOf('softlevel'); out.quietlevel = levelOf('quietlevel'); out.smallsoft = levelOf('smallsoft'); out.linestyle = lineStyleOf(); out.corners = cornersOf(); out.fadeedges = fadeEdgesOf(); out.markercolour = markerColourOf(); out.framepattern = framePatternOf(); out.measure = levelOf('measure'); out.space = levelOf('space'); out.framewidth = levelOf('framewidth');
 			loose.forEach(function (k) { delete out[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			if (unlinkedOf()) out.unlinked = true; /* save and update carried it, the text did not: a shared or published style arrived with its sides linked (2026-09-26) */
-			out.roles = {};
-			ROLES.forEach(function (role) {
-				var r = {};
-				if (s.roles && s.roles[role]) Object.keys(s.roles[role]).forEach(function (k) { r[k] = s.roles[role][k]; });
-				if (tw.roles && tw.roles[role]) Object.keys(tw.roles[role]).forEach(function (k) { r[k] = tw.roles[role][k]; });
-				if (Object.keys(r).length) out.roles[role] = r;
-			});
+			out.roles = typeMerged(s, tw);
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
 			var c = coloursOf(null, true); out.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = c[side]; });
@@ -3517,7 +3723,7 @@
 		importStyle: function (text, name) {
 			var data;
 			try { data = JSON.parse(String(text || '').trim()); } catch (e) { return null; }
-			if (!data || data.architrave !== 1) return null;
+			if (!data || (data.architrave !== 1 && data.architrave !== 2)) return null;
 			var entry = ownFromRecord(data, name);
 			renderHosts();
 			apply(entry, entry);
@@ -3549,7 +3755,7 @@
 			if (!/^site-[a-z0-9]+$/.test(id) || !window.fetch) return Promise.resolve(null);
 			return fetch(url.origin + '/?rest_route=' + encodeURIComponent('/architrave/v1/site-styles/' + id), { mode: 'cors' })
 				.then(function (r) { return r.ok ? r.json() : null; })
-				.then(function (rec) { return rec && rec.architrave === 1 ? self.importStyle(JSON.stringify(rec)) : null; })
+				.then(function (rec) { return rec && (rec.architrave === 1 || rec.architrave === 2) ? self.importStyle(JSON.stringify(rec)) : null; })
 				.catch(function () { return null; });
 		},
 		/* DUPLICATE (Manuel, 2026-09-24): a copy of any style as one of your own, as it stands
@@ -3570,14 +3776,8 @@
 				Object.keys(tw).forEach(function (k) { if (k !== 'roles' && k !== 'effects') record[k] = tw[k]; });
 				var fxDup = effectsOf(s, tw); if (Object.keys(fxDup).length) record.effects = fxDup; else delete record.effects;
 				DIALS.forEach(function (d) { record[d] = w[d]; });
-				var roles = {};
-				ROLES.forEach(function (role) {
-					var r = {};
-					if (s.roles && s.roles[role]) Object.keys(s.roles[role]).forEach(function (k) { r[k] = s.roles[role][k]; });
-					if (tw.roles && tw.roles[role]) Object.keys(tw.roles[role]).forEach(function (k) { r[k] = tw.roles[role][k]; });
-					if (Object.keys(r).length) roles[role] = r;
-				});
-				record.roles = roles;
+				record.roles = typeMerged(s, tw);
+				record.architrave = 2;
 				record.base = baseOf(s);
 				/* ITS COLOURS AS THEY STAND, its preset's six included (2026-10-01, the panel audit): the record named `preset`, which a copy does not carry, and the tweak's partial `colours` replaced the style's own, so Duplicate on Instrument while another style was on gave a copy without its colours. */
 				var cDup = coloursOf(id, true); record.colours = {};
@@ -3607,13 +3807,7 @@
 			var loose = followers();
 			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); entry.space = levelOf('space'); entry.framewidth = levelOf('framewidth'); entry.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete entry[k]; }); /* a row that only follows soft is not written, so it goes on following */
-			entry.roles = {};
-			ROLES.forEach(function (role) {
-				var r = {};
-				if (s.roles && s.roles[role]) Object.keys(s.roles[role]).forEach(function (k) { r[k] = s.roles[role][k]; });
-				if (tw.roles && tw.roles[role]) Object.keys(tw.roles[role]).forEach(function (k) { r[k] = tw.roles[role][k]; });
-				if (Object.keys(r).length) entry.roles[role] = r;
-			});
+			entry.roles = typeMerged(s, tw); entry.architrave = 2;
 			var fxSave = effectsOf(s, tw); if (Object.keys(fxSave).length) entry.effects = fxSave;
 			var c = coloursOf(null, true); entry.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = c[side]; });
@@ -3633,8 +3827,7 @@
 			var loose = followers();
 			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.line = levelOf('line'); s.fill = levelOf('fill'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); s.space = levelOf('space'); s.framewidth = levelOf('framewidth'); s.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete s[k]; }); /* a row that only follows soft is not written, so it goes on following */
-			s.roles = s.roles || {};
-			ROLES.forEach(function (role) { if (tw.roles && tw.roles[role]) { s.roles[role] = s.roles[role] || {}; Object.keys(tw.roles[role]).forEach(function (k) { s.roles[role][k] = tw.roles[role][k]; }); } });
+			s.roles = typeMerged(s, tw); s.architrave = 2;
 			var fxUp = effectsOf(s, tw); if (Object.keys(fxUp).length) s.effects = fxUp; else delete s.effects;
 			var c = coloursOf(null, true); s.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = c[side]; });
@@ -3722,6 +3915,7 @@
 		   whole member. The tweak carries the set as it stands after the
 		   press, and none when it equals the style's own. */
 		setMember: function (role, id, dial, value) {
+			return; /* the members left the record on 2026-10-02 (THE SEVEN ROLES); their own dials are the seven's now */
 			var m = membersOf(role).filter(function (x) { return x.id === id; })[0];
 			if (!m || m.lead) return;
 			var v = roleOf(role), set = {};
@@ -3748,30 +3942,65 @@
 			writeTweaks(all);
 			applyRoles(); mark();
 		},
-		setRole: function (role, dial, v) {
-			if (ROLES.indexOf(role) === -1 || !(dial in ROLE_DEFAULT[role]) || dial === 'members') return;
-			if (dial === 'align' && ALIGNS.indexOf(v) === -1) return;
-			if (dial === 'colour' && ROLE_COLOURS.indexOf(v) === -1) return;
-			if (dial === 'face' && role === 'read') { press('[data-architrave-face] [data-face-choice="' + v + '"]'); return; }
-			if (dial === 'face' && role === 'ui') { this.setSans(v); return; }
-			var s = byId(current), all = readTweaks(), entry = all[current] || {}, rest = ROLE_DEFAULT[role][dial];
-			if (s && s.roles && s.roles[role] && s.roles[role][dial] !== undefined) rest = s.roles[role][dial];
-			if (dial === 'weight') { v = WEIGHT_ALIAS[v] || v; rest = WEIGHT_ALIAS[rest] || rest; }
-			if (dial === 'size') { v = rungFor(role, v); rest = rungFor(role, rest); }
-			if (dial === 'tracking') { v = TRACK_ALIAS[v] || v; rest = TRACK_ALIAS[rest] || rest; }
-			if (dial === 'words') { v = WORDS_ALIAS[v] || v; rest = WORDS_ALIAS[rest] || rest; }
+		/* THE SEVEN, AS THE WINDOW AND AN ASSISTANT USE THEM (2026-10-02). type(role) is what
+		   the role shows now, every dial filled in (a dial the style leaves out says the
+		   theme's own: the engine role's current value, or the rest name); setType writes one
+		   dial as a tweak, gone when it equals the style's own. The body's font and line
+		   spacing and the interface's font go through their own dials (face, leading, sans). */
+		typeRoles: TYPE_ROLES,
+		typeDials: function (role) { return TYPE_DIALS[role] ? (role === 'body' ? ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'] : role === 'interface' ? ['font'].concat(TYPE_DIALS[role]) : TYPE_DIALS[role]).slice() : []; },
+		typeSizes: function (role) { return TYPE_SIZES.map(function (st) { return { id: st, px: Math.round((TYPE_BASE[role] || 16) * typeFactor(st)) }; }); },
+		typeLines: Object.keys(TYPE_LINE),
+		typeLetters: Object.keys(TYPE_LETTER),
+		type: function (role) {
+			if (!TYPE_DIALS[role]) return {};
+			var P = typeNow()[role] || {}, lead = { title: 'head', headings: 'head', body: 'read', quote: 'quote', meta: 'small', 'interface': 'ui' }[role], e = lead ? roleOf(lead) : {};
+			var back = function (f) { return f === 'read' ? 'body' : f === 'ui' ? 'interface' : f; };
+			var LINE_BACK = { dense: 'tight', tight: 'snug', 'default': 'normal', airy: 'relaxed', wide: 'loose' };
+			var out = {
+				font: role === 'body' ? (root.getAttribute('data-face') || 'newsreader') : role === 'interface' ? sansOf() : P.font !== undefined ? P.font : role === 'code' ? '' : role === 'headings' ? back(ROLE_DEFAULT.head.face) : back(e.face),
+				size: P.size !== undefined ? P.size : '0',
+				weight: P.weight !== undefined ? P.weight : role === 'headings' ? 'semibold' : role === 'code' ? 'regular' : e.weight,
+				lineHeight: role === 'body' ? (LINE_BACK[root.getAttribute('data-leading') || 'default'] || 'normal') : P.lineHeight !== undefined ? P.lineHeight : 'normal',
+				letterSpacing: P.letterSpacing !== undefined ? P.letterSpacing : 'normal',
+				capitals: P.capitals !== undefined ? P.capitals : role === 'headings' || role === 'code' ? false : !!e.caps,
+				italic: P.italic !== undefined ? P.italic : role === 'headings' || role === 'code' ? false : !!e.italic
+			};
+			out.px = Math.round((TYPE_BASE[role] || 16) * typeFactor(out.size));
+			if (TYPE_DIALS[role].indexOf('align') !== -1) out.align = P.align !== undefined ? P.align : 'default';
+			if (TYPE_DIALS[role].indexOf('colour') !== -1) out.colour = P.colour !== undefined ? P.colour : 'ink';
+			out.own = Object.keys(typeMerged(byId(current), readTweaks()[current])[role] || {}); /* the dials this style sets, for the changed marks */
+			return out;
+		},
+		setType: function (role, dial, v) {
+			if (!TYPE_DIALS[role]) return;
+			if (role === 'body' && dial === 'font') { press('[data-architrave-face] [data-face-choice="' + v + '"]'); return; }
+			if (role === 'interface' && dial === 'font') { this.setSans(v); return; }
+			if (role === 'body' && dial === 'lineHeight') { if (TYPE_LINE[v]) press('[data-architrave-leading] [data-leading-step="' + TYPE_LINE[v] + '"]'); return; }
+			if (dial === 'size') v = String(v);
+			if (dial === 'weight') v = WEIGHT_ALIAS[v] || v;
+			if (!typeOk(role, dial, v)) return;
+			var s = byId(current), all = readTweaks(), entry = all[current] || {}, own = typeOf(s)[role] || {};
 			entry.roles = entry.roles || {}; entry.roles[role] = entry.roles[role] || {};
-			/* ON A STRANGER'S THEME, UNDER ITS OWN LOOK, A PICK EQUAL TO OUR REST IS STILL A
-			   PICK (2026-09-23, the audit on Astra: its headings stand at 600, Bold is
-			   Classic's rest, so moving the slider to Bold was taken for "no change" and
-			   nothing reached the page). The rest here is the host's, which we do not own. */
-			var hostLook = window.architravePanelGuest && s && (s.host || s.bare); /* and a copy of it (2026-09-27: Italic on a copy of Twenty Twenty-Five's look was dropped as equal to our rest) */
-			if (v === rest && !hostLook) delete entry.roles[role][dial]; else entry.roles[role][dial] = v;
+			if (own[dial] !== undefined ? v === own[dial] : TYPE_REST[dial] === v) delete entry.roles[role][dial]; else entry.roles[role][dial] = v;
 			if (!Object.keys(entry.roles[role]).length) delete entry.roles[role];
-			if (!Object.keys(entry.roles).length) delete entry.roles;
+			if (!Object.keys(entry.roles).length) delete entry.roles; else entry.architrave = 2;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
 			applyRoles(); mark();
+		},
+		/* AN ENGINE ROLE'S DIAL, PRESSED BY THE OLD WINDOW: the one of the seven it belongs to now. */
+		setRole: function (role, dial, v) {
+			if (ROLES.indexOf(role) === -1) return;
+			if (dial === 'face' && role === 'read') { press('[data-architrave-face] [data-face-choice="' + v + '"]'); return; }
+			if (dial === 'face' && role === 'ui') { this.setSans(v); return; }
+			var to = TYPE_LEADS[role], d = { face: 'font', caps: 'capitals', tracking: 'letterSpacing', leading: 'lineHeight' }[dial] || dial;
+			if (!to || TYPE_DIALS[to].indexOf(d) === -1) return;
+			if (d === 'font') v = v === 'read' ? 'body' : v === 'ui' ? 'interface' : v;
+			if (d === 'size') { var n = Math.max(-4, Math.min(6, Math.round(Math.log((+v || ROLE_BASE[role]) / ROLE_BASE[role]) / Math.log(1.125)))); v = n > 0 ? '+' + n : String(n); }
+			if (d === 'letterSpacing') { var em = parseFloat(TRACK[TRACK_ALIAS[v] || v]) || 0, best = 'normal'; Object.keys(TYPE_LETTER).forEach(function (k) { if (Math.abs(parseFloat(TRACK[TYPE_LETTER[k]]) - em) < Math.abs(parseFloat(TRACK[TYPE_LETTER[best]]) - em)) best = k; }); v = best; }
+			if (d === 'lineHeight') { var f = LEAD[v] || 1, bl = 'normal'; Object.keys(TYPE_LINE).forEach(function (k) { if (Math.abs(LEAD[TYPE_LINE[k]] - f) < Math.abs(LEAD[TYPE_LINE[bl]] - f)) bl = k; }); v = bl; }
+			this.setType(to, d, v);
 		},
 		scope: SCOPE,
 		scopeNow: scopeOf,
@@ -3999,7 +4228,7 @@
 		changes: function () {
 			var s = byId(current) || {}, e = readTweaks()[current] || {}, out = {};
 			/* the four dials are kept as a set when any one moves (remember), so a dial equal to the recipe is no change */
-			Object.keys(e).forEach(function (k) { if (k !== 'was' && !(DIALS.indexOf(k) !== -1 && e[k] === s[k])) out[k] = e[k]; });
+			Object.keys(e).forEach(function (k) { if (k !== 'was' && k !== 'architrave' && !(DIALS.indexOf(k) !== -1 && e[k] === s[k])) out[k] = e[k]; });
 			return out;
 		},
 		resetPaths: function (paths) {

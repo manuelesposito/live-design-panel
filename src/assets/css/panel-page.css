@@ -134,13 +134,13 @@
 /* ── Headings ─────────────────────────────────────────────────────────────
    The post title and the headings inside the article. `.wp-block-heading` is
    what core gives a heading block anywhere on the page. */
-:root[data-head-face] :is(.wp-block-post-title, .entry-title, .wp-block-post-title a, .entry-title a, .wp-block-heading, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)) {
+:root[data-head-face] :is(.wp-block-post-title, .entry-title, .wp-block-post-title a, .entry-title a, .wp-block-heading, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title) {
 	font-family: var(--head-face) !important;
 }
-:root[data-head-weight] :is(.wp-block-post-title, .entry-title, .wp-block-post-title a, .entry-title a, .wp-block-heading, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed], [data-ldp-designed] *) {
+:root[data-head-weight] :is(.wp-block-post-title, .entry-title, .wp-block-post-title a, .entry-title a, .wp-block-heading, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed], [data-ldp-designed] *) {
 	font-weight: var(--head-weight) !important;
 }
-:root[data-head-leading] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+:root[data-head-leading] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) {
 	line-height: calc(var(--line-height-article-heading, 1.25) * var(--head-leading)) !important;
 }
 /* A ROLE'S LINE SPACING IS A FACTOR (presets.js LEAD: each step over the rest, Airy 1.1),
@@ -150,13 +150,13 @@
 :root[data-head-leading][data-head-leading] :is(.wp-block-post-title, .entry-title):not([data-ldp-designed]) { /* the attribute twice: the rule above weighs (0,3,1) through its `h1` branch */
 	line-height: calc(var(--line-height-article-title, 1.12) * var(--head-leading)) !important;
 }
-:root[data-head-caps] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+:root[data-head-caps] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) {
 	text-transform: var(--head-case) !important;
 }
-:root[data-head-tracking] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+:root[data-head-tracking] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) {
 	letter-spacing: var(--head-tracking) !important;
 }
-:root[data-head-words] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
+:root[data-head-words] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) {
 	word-spacing: var(--head-words) !important;
 }
 
@@ -214,7 +214,19 @@
 :root[data-head-colour] :is(.wp-block-post-title, .entry-title) a {
 	color: var(--head-colour) !important;
 }
-:root[data-head-colour][data-sub-colour="ink"] :is(.wp-block-post-content, .entry-content) :is(h1, h2, h3, h4, h5, h6):not([data-ldp-designed]) { color: var(--wp--preset--color--contrast, currentColor) !important; } /* the section headings back in the text's colour, only the title in the role's (Arcade, 2026-10-02) */
+/* HEADINGS APART FROM THE TITLE (2026-10-02, the seven roles): the headings, the site's name and
+   the comments' title take Headings' own values through the engine's member `sub`, the attribute
+   twice so it outranks the title's role rule above; the post title keeps Title's. */
+:root[data-head-m-sub-colour][data-head-m-sub-colour] :is(.wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) { color: var(--head-colour-sub) !important; }
+:root[data-head-m-sub-face][data-head-m-sub-face] :is(.wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title) { font-family: var(--head-face-sub) !important; }
+:root[data-head-m-sub-weight][data-head-m-sub-weight] :is(.wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed], [data-ldp-designed] *) { font-weight: var(--head-weight-sub) !important; }
+:root[data-head-m-sub-caps][data-head-m-sub-caps] :is(.wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) { text-transform: var(--head-case-sub) !important; }
+:root[data-head-m-sub-tracking][data-head-m-sub-tracking] :is(.wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) { letter-spacing: var(--head-tracking-sub) !important; }
+:root[data-head-m-sub-italic][data-head-m-sub-italic] :is(.wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) { font-style: var(--head-style-sub) !important; }
+:root[data-head-m-sub-leading][data-head-m-sub-leading] :is(.wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) { line-height: calc(var(--line-height-article-heading, 1.25) * var(--head-leading-sub, 1)) !important; }
+/* SMALL TEXT'S COLOUR reaches its dates and captions as well as the category line */
+:root[data-small-colour] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-post-author-name, figcaption, .wp-element-caption):not([data-ldp-designed]),
+:root[data-small-colour] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-post-author-name) a { color: var(--small-colour) !important; }
 :root[data-kicker-colour] .wp-block-post-terms:not([data-ldp-designed]),
 :root[data-kicker-colour] .wp-block-post-terms a {
 	color: var(--kicker-colour) !important;
@@ -248,45 +260,54 @@
    they stayed in the host's own sans while everything round them had changed
    (Manuel, 2026-09-22: "there are still fonts that are not attached, otherwise
    they would be green"). */
-:root[data-small-face] :is(.wp-block-post-date, .entry-meta, .wp-block-post-date a, .entry-meta a, .wp-block-post-date time, .entry-meta time, .wp-block-comment-date, .wp-block-comment-date a, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+:root[data-small-face] :is(.wp-block-post-date, .entry-meta, .wp-block-post-date a, .entry-meta a, .wp-block-post-date time, .entry-meta time, .wp-block-comment-date, .wp-block-comment-date a, .wp-block-comment-author-name, .wp-block-comment-author-name a, .wp-block-comment-reply-link, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
 	font-family: var(--small-face) !important;
 }
-:root[data-small-weight] :is(.wp-block-post-date, .entry-meta, .wp-block-post-date a, .entry-meta a, .wp-block-post-date time, .entry-meta time, .wp-block-comment-date, .wp-block-comment-date a, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+:root[data-small-weight] :is(.wp-block-post-date, .entry-meta, .wp-block-post-date a, .entry-meta a, .wp-block-post-date time, .entry-meta time, .wp-block-comment-date, .wp-block-comment-date a, .wp-block-comment-author-name, .wp-block-comment-author-name a, .wp-block-comment-reply-link, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
 	font-weight: var(--small-weight) !important;
 }
-:root[data-small-leading] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+:root[data-small-leading] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-comment-reply-link, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
 	line-height: calc(var(--text-base-line-height, 1.5) * var(--small-leading)) !important;
 }
-:root[data-small-caps] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+:root[data-small-caps] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-comment-reply-link, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
 	text-transform: var(--small-case) !important;
 }
-:root[data-small-tracking] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+:root[data-small-tracking] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-comment-reply-link, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
 	letter-spacing: var(--small-tracking) !important;
 }
-:root[data-small-words] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
+:root[data-small-words] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-comment-reply-link, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
 	word-spacing: var(--small-words) !important;
 }
 
 /* ── Comments ─────────────────────────────────────────────────────────────
-   The names, the words, the dates and the form under the article. */
-:root[data-comment-face] :is(.wp-block-comment-author-name, .wp-block-comment-author-name a, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-date a, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title, .wp-block-post-comments-form :is(label, p, .comment-reply-title)) {
+   The words of a comment are Reading text since the seven roles (2026-10-02),
+   through the engine's comment role; its names and dates are Small text, its
+   title is Headings and its form is Interface, each in that role's lists. */
+:root[data-comment-face] .wp-block-comment-content {
 	font-family: var(--comment-face) !important;
 }
-:root[data-comment-weight] :is(.wp-block-comment-author-name, .wp-block-comment-author-name a, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title, .wp-block-post-comments-form :is(label, p, .comment-reply-title)) {
+:root[data-comment-weight] .wp-block-comment-content {
 	font-weight: var(--comment-weight) !important;
 }
-:root[data-comment-leading] :is(.wp-block-comment-content, .wp-block-post-comments-form p) {
+:root[data-comment-leading] .wp-block-comment-content {
 	line-height: calc(var(--text-base-line-height, 1.5) * var(--comment-leading)) !important;
 }
-:root[data-comment-caps] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) {
+:root[data-comment-caps] .wp-block-comment-content {
 	text-transform: var(--comment-case) !important;
 }
-:root[data-comment-tracking] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) {
+:root[data-comment-tracking] .wp-block-comment-content {
 	letter-spacing: var(--comment-tracking) !important;
 }
-:root[data-comment-words] :is(.wp-block-comment-content, .wp-block-post-comments-form p) {
-	word-spacing: var(--comment-words) !important;
-}
+
+/* ── Code ─────────────────────────────────────────────────────────────────
+   The seventh role (2026-10-02): code, pre and kbd, inline and in blocks. Its
+   size is guest-size.js's, as every size here. */
+:root[data-code-face] :is(.wp-block-code, .wp-block-code code, .wp-block-preformatted, .wp-block-post-content :is(code, pre, kbd), .entry-content :is(code, pre, kbd)) { font-family: var(--code-face) !important; }
+:root[data-code-weight] :is(.wp-block-code, .wp-block-code code, .wp-block-preformatted, .wp-block-post-content :is(code, pre, kbd), .entry-content :is(code, pre, kbd)) { font-weight: var(--code-weight) !important; }
+:root[data-code-leading] :is(.wp-block-code, .wp-block-preformatted, .wp-block-post-content pre, .entry-content pre) { line-height: calc(var(--text-base-line-height, 1.5) * var(--code-leading)) !important; }
+:root[data-code-caps] :is(.wp-block-code, .wp-block-code code, .wp-block-preformatted, .wp-block-post-content :is(code, pre, kbd), .entry-content :is(code, pre, kbd)) { text-transform: var(--code-case) !important; }
+:root[data-code-tracking] :is(.wp-block-code, .wp-block-code code, .wp-block-preformatted, .wp-block-post-content :is(code, pre, kbd), .entry-content :is(code, pre, kbd)) { letter-spacing: var(--code-tracking) !important; }
+:root[data-code-italic] :is(.wp-block-code, .wp-block-code code, .wp-block-preformatted, .wp-block-post-content :is(code, pre, kbd), .entry-content :is(code, pre, kbd)) { font-style: var(--code-style) !important; }
 
 /* YOUR ACCENT ON THE ARTICLE'S LINKS (2026-09-24, the audit): a theme whose links
    wear the text colour gave a picked accent nothing to show on. Only an accent
@@ -305,22 +326,22 @@
    `.skip-link` is in the list because it is the one piece of interface a reader
    only ever sees under the keyboard, and it was the last thing on a stock page
    still standing in the host's own face. */
-:root:is([data-chosen], [data-sans-own], :not([data-sans="inter"])) :is(.wp-block-navigation, .wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-site-title a, .wp-block-site-tagline, .wp-block-query-pagination, .wp-block-post-navigation-link, .skip-link, .wp-block-search__label, .wp-block-search__input, .wp-block-search__button) {
+:root:is([data-chosen], [data-sans-own], :not([data-sans="inter"])) :is(.wp-block-navigation, .wp-block-navigation-item__content, .wp-block-button__link, .wp-block-post-comments-form :is(label, p), .comment-form :is(label, p), .wp-block-site-tagline, .wp-block-query-pagination, .wp-block-post-navigation-link, .skip-link, .wp-block-search__label, .wp-block-search__input, .wp-block-search__button) {
 	font-family: var(--font-sans) !important;
 }
-:root[data-ui-weight] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title a, .wp-block-query-pagination, .wp-block-post-navigation-link) {
+:root[data-ui-weight] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-post-comments-form :is(label, p), .comment-form :is(label, p), .wp-block-query-pagination, .wp-block-post-navigation-link) {
 	font-weight: var(--ui-weight) !important;
 }
-:root[data-ui-leading] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-query-pagination) {
+:root[data-ui-leading] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-post-comments-form :is(label, p), .comment-form :is(label, p), .wp-block-query-pagination) {
 	line-height: calc(var(--text-base-line-height, 1.5) * var(--ui-leading)) !important;
 }
-:root[data-ui-caps] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) {
+:root[data-ui-caps] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-post-comments-form :is(label, p), .comment-form :is(label, p), .wp-block-query-pagination, .wp-block-post-navigation-link) {
 	text-transform: var(--ui-case) !important;
 }
-:root[data-ui-tracking] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) {
+:root[data-ui-tracking] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-post-comments-form :is(label, p), .comment-form :is(label, p), .wp-block-query-pagination, .wp-block-post-navigation-link) {
 	letter-spacing: var(--ui-tracking) !important;
 }
-:root[data-ui-words] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) {
+:root[data-ui-words] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-post-comments-form :is(label, p), .comment-form :is(label, p), .wp-block-query-pagination, .wp-block-post-navigation-link) {
 	word-spacing: var(--ui-words) !important;
 }
 
@@ -334,18 +355,18 @@
    two that had one fell back to italic when the slant was switched off. */
 :root[data-read-italic="on"] :is(:is(.wp-block-post-content, .entry-content) :is(p, li), .wp-block-post-excerpt) { font-style: italic !important; }
 :root[data-read-italic="false"] :is(:is(.wp-block-post-content, .entry-content) :is(p, li), .wp-block-post-excerpt) { font-style: normal !important; }
-:root[data-head-italic="on"] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) { font-style: italic !important; }
-:root[data-head-italic="false"] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) { font-style: normal !important; }
+:root[data-head-italic="on"] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) { font-style: italic !important; }
+:root[data-head-italic="false"] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6), .wp-block-site-title, .wp-block-site-title a, .wp-block-comments-title, .comment-reply-title):not([data-ldp-designed]) { font-style: normal !important; }
 :root[data-quote-italic="on"] :is(.wp-block-quote, .wp-block-pullquote) { font-style: italic !important; }
 :root[data-quote-italic="false"] :is(.wp-block-quote, .wp-block-pullquote) { font-style: normal !important; }
 :root[data-kicker-italic="on"] .wp-block-post-terms { font-style: italic !important; }
 :root[data-kicker-italic="false"] .wp-block-post-terms { font-style: normal !important; }
-:root[data-small-italic="on"] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) { font-style: italic !important; }
-:root[data-small-italic="false"] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) { font-style: normal !important; }
-:root[data-comment-italic="on"] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) { font-style: italic !important; }
-:root[data-comment-italic="false"] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) { font-style: normal !important; }
-:root[data-ui-italic="on"] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) { font-style: italic !important; }
-:root[data-ui-italic="false"] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) { font-style: normal !important; }
+:root[data-small-italic="on"] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-comment-reply-link, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) { font-style: italic !important; }
+:root[data-small-italic="false"] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-comment-author-name, .wp-block-comment-reply-link, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) { font-style: normal !important; }
+:root[data-comment-italic="on"] .wp-block-comment-content { font-style: italic !important; }
+:root[data-comment-italic="false"] .wp-block-comment-content { font-style: normal !important; }
+:root[data-ui-italic="on"] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-post-comments-form :is(label, p), .comment-form :is(label, p), .wp-block-query-pagination, .wp-block-post-navigation-link) { font-style: italic !important; }
+:root[data-ui-italic="false"] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-post-comments-form :is(label, p), .comment-form :is(label, p), .wp-block-query-pagination, .wp-block-post-navigation-link) { font-style: normal !important; }
 
 /* ── Hovers, under a look ──────────────────────────────────────────────────
    A hover belongs to whoever owns the page (Manuel, 2026-09-22: "the hover

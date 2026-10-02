@@ -47,25 +47,7 @@ function architrave_panel_asset_version( $rel ) {
 
 function architrave_panel_guest_gone() {
 
-	$gone = array( 'role:title' );
-
-	$all = array(
-		'ui'      => array( 'masthead', 'cards', 'linkcard', 'newsletter', 'fields', 'menus', 'labels', 'credit' ),
-		'head'    => array( 'title', 'sub' ),
-		'small'   => array( 'date', 'author', 'terms', 'captions', 'carddates', 'release' ),
-		'comment' => array( 'title', 'name', 'text', 'small', 'form' ),
-		'read'    => array( 'text', 'excerpts', 'boxes' ),
-		'title'   => array( 'sections', 'years', 'release' ),
-	);
-	$has = architrave_panel_guest_members();
-	foreach ( $all as $role => $ids ) {
-		foreach ( $ids as $id ) {
-			if ( ! in_array( $role . ':' . $id, $has, true ) ) {
-				$gone[] = 'member:' . $role . ':' . $id;
-			}
-		}
-	}
-	return apply_filters( 'live_design_panel_guest_gone', $gone );
+	return apply_filters( 'live_design_panel_guest_gone', array() );
 }
 
 function architrave_panel_guest_limits() {
@@ -415,6 +397,8 @@ function architrave_panel_guest_sizes() {
 				array( 'sel' => '.wp-block-heading:not(.wp-block-comments-title), .wp-block-query-title', 'role' => 'head', 'member' => 'sub', 'step' => 'h2' ),
 
 				array( 'sel' => '.wp-block-quote, .wp-block-pullquote, :is(.wp-block-quote, .wp-block-pullquote) :is(p, li, cite)', 'role' => 'quote', 'step' => 'body', 'rest' => 26 ),
+
+				array( 'sel' => '.wp-block-code, .wp-block-preformatted, ' . sprintf( $article, 'pre' ), 'role' => 'code', 'step' => '' ),
 				array( 'sel' => sprintf( $article, 'p' ) . ', ' . sprintf( $article, 'li' ), 'role' => 'read', 'member' => 'text', 'step' => 'body' ),
 				array( 'sel' => '.wp-block-post-excerpt', 'role' => 'read', 'member' => 'excerpts', 'step' => 'body' ),
 				array( 'sel' => '.wp-block-post-terms', 'role' => 'kicker', 'step' => '', 'rest' => 26 ),
@@ -428,20 +412,12 @@ function architrave_panel_guest_sizes() {
 				array( 'sel' => '.wp-block-comment-content', 'role' => 'comment', 'member' => 'text', 'step' => '', 'rest' => 14 ),
 				array( 'sel' => '.wp-block-comment-date, .wp-block-comment-reply-link', 'role' => 'comment', 'member' => 'small', 'step' => '', 'rest' => 13 ),
 				array( 'sel' => '.wp-block-post-comments-form label, .wp-block-post-comments-form p, .comment-form label, .comment-form p', 'role' => 'comment', 'member' => 'form', 'step' => '', 'rest' => 13 ),
-				array( 'sel' => '.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-site-tagline, .wp-block-query-pagination, .wp-block-post-navigation-link, .skip-link, .wp-block-search__label, .wp-block-search__input, .wp-block-search__button', 'role' => 'ui', 'step' => '' ),
+
+				array( 'sel' => '.wp-block-site-title', 'role' => 'head', 'member' => 'sub', 'step' => '' ),
+				array( 'sel' => '.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-tagline, .wp-block-query-pagination, .wp-block-post-navigation-link, .skip-link, .wp-block-search__label, .wp-block-search__input, .wp-block-search__button', 'role' => 'ui', 'step' => '' ),
 			)
 		)
 	);
-}
-
-function architrave_panel_guest_members() {
-	$has = array();
-	foreach ( architrave_panel_guest_sizes() as $group ) {
-		if ( ! empty( $group['member'] ) ) {
-			$has[] = $group['role'] . ':' . $group['member'];
-		}
-	}
-	return array_values( array_unique( $has ) );
 }
 
 function architrave_panel_host_style() {

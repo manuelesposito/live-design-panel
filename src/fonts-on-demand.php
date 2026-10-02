@@ -213,7 +213,7 @@ function architrave_fonts_published() {
 	foreach ( $records as $record ) {
 		$names = array( $record['face'] ?? '', $record['sans'] ?? '' );
 		foreach ( (array) ( $record['roles'] ?? array() ) as $role ) {
-			$names[] = is_array( $role ) ? ( $role['face'] ?? '' ) : '';
+			$names[] = is_array( $role ) ? ( $role['font'] ?? ( $role['face'] ?? '' ) ) : ''; /* `font` since the seven roles (2026-10-02); an older record says `face` */
 		}
 		foreach ( $names as $n ) {
 			if ( is_string( $n ) && '' !== $n ) {

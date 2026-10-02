@@ -30,7 +30,7 @@
 	'use strict';
 	var host = null, win = null, door = null, open = false, asking = false, phoneList = true;
 	var editing = null, menu = null, holding = false, dirty = false, frame = 0, lastPage = '';
-	var role = null, member = null, fontFor = null, more = false, fontq = ''; /* where Type stands: a role's page, a member's, the font list */
+	var role = null, fontFor = null, more = false, fontq = ''; /* where Type stands: a role's page, the font list */
 	var MENU = {}, STOP = {};
 	var showChanges = false; /* the page of changes stands over the section it was opened from */
 	var showVersions = false, verSel = 'now'; /* the page of versions, the same way; the row whose version is on the page */
@@ -284,28 +284,24 @@
 	/* ===== TYPE ===== */
 	var WEIGHT_LABEL = { thin: 'Thin', extralight: 'Extra Light', light: 'Weight Light', regular: 'Regular', medium: 'Medium', semibold: 'Semi Bold', bold: 'Bold', extrabold: 'Extra Bold', black: 'Black' };
 	var WEIGHT_NUMBER = { thin: 100, extralight: 200, light: 300, regular: 400, medium: 500, semibold: 600, bold: 700, extrabold: 800, black: 900 };
-	var SPACING = ['m25', 'm22', 'm20', 'm17', 'm15', 'm12', 'm10', 'm7', 'm5', 'm2', 'default', 'p2', 'p5', 'p7', 'p10', 'p12', 'p15', 'p17', 'p20', 'p22', 'p25'];
-	function spacingWord(id) { if (id === 'default') return '0%'; var n = id.slice(1); n = ({ '1': '1.25', '2': '2.5', '7': '7.5', '12': '12.5', '17': '17.5', '22': '22.5' })[n] || n; return (id.charAt(0) === 'm' ? '−' : '+') + n + '%'; }
-	/* the letter spacing has a half step either side of normal; the word spacing does not */
-	var TRACKING = SPACING.slice(0, 10).concat(['m1', 'default', 'p1'], SPACING.slice(11)).map(function (id) { return { id: id, label: spacingWord(id) }; });
-	var WORDSPACE = SPACING.map(function (id) { return { id: id, label: spacingWord(id) }; });
+	/* THE SEVEN ROLES' STEPS (2026-10-02, lab/the-typography-roles.html): named, few, and `normal` is the theme's own */
+	var LINE_WORD = { tight: 'Tight', snug: 'Snug', normal: 'Normal', relaxed: 'Relaxed', loose: 'Loose' };
+	var LETTER_WORD = { tighter: 'Tighter', tight: 'Tight', normal: 'Normal', wide: 'Wide', wider: 'Wider', widest: 'Widest' };
 	var ALIGN = [['default', 'Left'], ['center', 'Centre'], ['right', 'Right']];
-	var OWN_WORD = { size: 'Own size', weight: 'Own weight', caps: 'Own capitals', tracking: 'Own character spacing', align: 'Own alignment' };
 	var FACE_GROUPS = [['sans', 'Sans Serif'], ['serif', 'Serif'], ['mono', 'Monospaced'], ['pixel', 'Pixel'], ['display', 'Display']]; /* the lab's names */
-	var FOLLOW = { read: 'Same as reading text', ui: 'Same as interface', inherit: 'Same as reading text' };
-	var FOLLOW_SHORT = { read: 'Reading text', ui: 'Interface', inherit: 'Reading text' };
+	var FOLLOW = { body: 'Same as reading text', 'interface': 'Same as interface' };
 	/* the article from the top down, then the site's furniture */
-	var ROLE_GROUPS = [['Article', ['head', 'kicker', 'read', 'quote', 'small', 'comment']], ['Site', ['ui', 'title']]];
+	var ROLE_GROUPS = [['Article', ['title', 'headings', 'body', 'quote', 'meta', 'code']], ['Site', ['interface']]];
 	function roles() { return (host && host.settings && host.settings.roles) || []; }
-	function roleMeta(id) { return roles().filter(function (r) { return r.id === id; })[0] || { id: id, label: id, dials: [], members: [] }; }
+	function roleMeta(id) { return roles().filter(function (r) { return r.id === id; })[0] || { id: id, label: id, dials: [] }; }
 	function weightWord(w) { return t(WEIGHT_LABEL[w] || w); }
-	function faceName(id) { if (FOLLOW[id]) return t(FOLLOW[id]); var f = St().faces(id).filter(function (x) { return x.id === id; })[0]; return f ? f.label : id; }
+	function faceName(id) { if (FOLLOW[id]) return t(FOLLOW[id]); if (!id) return t('Theme Monospace'); var f = St().faces(id).filter(function (x) { return x.id === id; })[0]; return f ? f.label : id; }
 	/* the font a role really wears, a follower's leader's (the lab names the face, "Newsreader · Semi Bold") */
-	function realFace(id) { for (var i = 0; i < 3 && FOLLOW[id]; i++) id = St().role(id === 'ui' ? 'ui' : 'read').face; return FOLLOW[id] ? 'inter' : id; }
+	function realFace(id) { for (var i = 0; i < 3 && FOLLOW[id]; i++) id = St().type(id).font; return FOLLOW[id] ? 'inter' : id; }
 	/* WHAT READERS DOWNLOAD (the lab's line under Fonts): the font files this page fetched, as the browser counts them */
 	function fontCost() {
 		var s = St(), faces = {}, files = [], fams = {};
-		roles().forEach(function (r) { var f = realFace((s.role(r.id) || {}).face); if (f) faces[f] = 1; }); /* the faces this style's roles wear; the panel's own fonts are not the readers' */
+		roles().forEach(function (r) { var f = realFace((s.type(r.id) || {}).font); if (f) faces[f] = 1; }); /* the faces this style's roles wear; the panel's own fonts are not the readers' */
 		try { files = performance.getEntriesByType('resource').filter(function (e) {
 			if (!/\.(woff2?|ttf|otf)(\?|$)/i.test(e.name)) return false;
 			return Object.keys(faces).some(function (f) { if (new RegExp('/' + f + '(-latin|/)').test(e.name)) { fams[f] = 1; return true; } return false; });
@@ -313,91 +309,63 @@
 		var kb = Math.round(files.reduce(function (a, e) { return a + (e.decodedBodySize || e.encodedBodySize || e.transferSize || 0); }, 0) / 1024);
 		return { fonts: Object.keys(fams).length, files: files.length, kb: kb };
 	}
-	function faceShort(id) { return FOLLOW_SHORT[id] ? t(FOLLOW_SHORT[id]) : faceName(id); }
 	function navRow(attrs, lb, val, sub) {
 		return '<button type="button" class="ldpw-r ldpw-navrow" ' + attrs + '><span class="ldpw-lb">' + esc(lb) + (sub ? '<small>' + esc(sub) + '</small>' : '') + '</span><span class="ldpw-val">' + esc(val) + '</span><span class="ldpw-chev" aria-hidden="true"></span></button>';
 	}
 	function swBtn(attr, on, lb, off) { return '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + !!on + '" ' + attr + ' data-f="' + attr.replace(/[="]/g, '') + '" aria-label="' + esc(lb) + '"' + (off ? ' disabled' : '') + '></button>'; }
 	/* THE TYPE PAGE, as the prototype's: the two fonts, then the roles in two boxes, each with the face and weight it is set in */
 	function typePage() {
-		var s = St(), read = s.role('read'), ui = s.role('ui');
+		var s = St(), body = s.type('body'), ui = s.type('interface');
 		var fc = fontCost();
-		var out = gtitle(t('Fonts')) + box(navRow('data-font="read" data-f="font:read"', t('Reading font'), faceName(read.face)) + navRow('data-font="ui" data-f="font:ui"', t('Interface font'), faceName(ui.face))) +
+		var out = gtitle(t('Fonts')) + box(navRow('data-font="body" data-f="font:body"', t('Reading font'), faceName(body.font)) + navRow('data-font="interface" data-f="font:interface"', t('Interface font'), faceName(ui.font))) +
 			(fc.files && fc.kb ? '<p class="ldpw-hint' + (fc.kb > 400 ? ' is-warn' : '') + '">' + esc(t(fc.kb > 400 ? 'Readers download {fonts}, {files}, {kb} KB: heavy, pages open more slowly on phones.' : 'Readers download {fonts}, {files}, {kb} KB.').replace('{fonts}', fc.fonts === 1 ? t('1 font') : t('{n} fonts').replace('{n}', fc.fonts)).replace('{files}', fc.files === 1 ? t('1 file') : t('{n} files').replace('{n}', fc.files)).replace('{kb}', fc.kb)) + '</p>' : '');
 		ROLE_GROUPS.forEach(function (g) {
 			var ids = g[1].filter(function (id) { return roles().some(function (r) { return r.id === id; }) && !s.gone('role:' + id); });
 			if (!ids.length) return;
-			out += gtitle(t(g[0])) + box(ids.map(function (id) { var v = s.role(id), off = s.dead('role:' + id); return navRow('data-role="' + id + '" data-f="role:' + id + '"' + (off ? ' disabled' : ''), t(roleMeta(id).label), faceName(realFace(v.face)) + ' · ' + weightWord(v.weight)); }).join(''));
+			out += gtitle(t(g[0])) + box(ids.map(function (id) { var v = s.type(id), off = s.dead('role:' + id); return navRow('data-role="' + id + '" data-f="role:' + id + '"' + (off ? ' disabled' : ''), t(roleMeta(id).label), faceName(realFace(v.font)) + ' · ' + weightWord(v.weight)); }).join(''));
 		});
 		return out;
 	}
-	/* A ROLE'S PAGE: the face, the size, the weight, the line, alignment and colour where it has them; the finer dials under Show More; the paragraph's switches on the reading text; the members last */
+	/* A ROLE'S PAGE (2026-10-02): every role the same shape. The font, the size, the weight, the line spacing,
+	   the alignment and colour where it has them; letter spacing, italic and capitals under Show More; the
+	   paragraph's switches on the reading text. No parts: what a role styles is said under its name. */
 	function rolePage() {
-		var s = St(), r = roleMeta(role), v = s.role(role), has = function (d) { return r.dials.indexOf(d) !== -1; };
-		var P = 'roles.' + role + '.', weights = s.weights(v.face);
-		var fv = FOLLOW[v.face] ? t(v.face === 'ui' ? 'Interface font' : 'Reading font') + ' · ' + faceName(realFace(v.face)) : faceName(v.face); /* the lab's: "Reading font · Newsreader" */
-		var out = box(navRow('data-font="' + role + '" data-f="font:' + role + '"', t('Font'), fv) +
-			(s.dead('size:' + role) ? row(t('Size'), '<span class="ldpw-val">' + esc(v.size + ' px') + '</span>', '', 'is-off') : stepSlider(P + 'size', t('Size'), s.sizes(role).map(function (id) { return { id: String(id), label: id + ' px' }; }), String(v.size), function (id) { s.setRole(role, 'size', id); })) +
-			(weights.length ? stepSlider(P + 'weight', t('Weight'), weights.map(function (w) { return { id: w, label: weightWord(w) + ' ' + WEIGHT_NUMBER[w] }; }), v.weight, function (id) { s.setRole(role, 'weight', id); })
+		var s = St(), r = roleMeta(role), v = s.type(role), has = function (d) { return s.typeDials(role).indexOf(d) !== -1; };
+		var P = 'roles.' + role + '.', face = realFace(v.font), weights = s.weights(face);
+		var fv = FOLLOW[v.font] ? t(v.font === 'interface' ? 'Interface font' : 'Reading font') + ' · ' + faceName(face) : faceName(v.font); /* the lab's: "Reading font · Newsreader" */
+		var out = (r.where ? '<p class="ldpw-hint">' + esc(t(r.where)) + '</p>' : '') + box(navRow('data-font="' + role + '" data-f="font:' + role + '"', t('Font'), fv) +
+			(s.dead('size:' + role) ? row(t('Size'), '<span class="ldpw-val">' + esc(v.px + ' px') + '</span>', '', 'is-off') : stepSlider(P + 'size', t('Size'), s.typeSizes(role).map(function (x) { return { id: x.id, label: x.px + ' px' }; }), v.size, function (id) { s.setType(role, 'size', id); }, '0')) +
+			(weights.length ? stepSlider(P + 'weight', t('Weight'), weights.map(function (w) { return { id: w, label: weightWord(w) + ' ' + WEIGHT_NUMBER[w] }; }), v.weight, function (id) { s.setType(role, 'weight', id); })
 				: row(t('Weight'), '<span class="ldpw-val">' + esc(weightWord(v.weight)) + '</span>', '', 'is-off')) +
-			(has('leading') || role === 'read' ? stepSlider(P + 'leading', t('Line spacing'), s.leadings(role, v.leading || 'default'), v.leading || 'default', function (id) { s.setRole(role, 'leading', id); }, 'default') : '') +
+			(has('lineHeight') ? stepSlider(P + 'lineHeight', t('Line spacing'), s.typeLines.map(function (id) { return { id: id, label: t(LINE_WORD[id]) }; }), v.lineHeight, function (id) { s.setType(role, 'lineHeight', id); }, 'normal') : '') +
 			(has('align') ? row(t('Alignment'), seg('align', v.align || 'default', ALIGN.map(function (a) { return [a[0], t(a[1])]; }), t('Alignment'))) : '') +
-			(has('colour') ? row(t('Colour'), pop('rolecolour', t('Colour'), v.colour, (role === 'kicker' ? [['accent', t('Accent')], ['ink', t('Text')]] : [['ink', t('Text')], ['accent', t('Accent')]]).concat([['own', t('Own Colour…'), false, St().roleColour ? (v.colour === 'own' ? St().roleColour(role) : '#ff9f0a') : '']]), function (id) {
-				s.setRole(role, 'colour', id); if (id === 'own') editing = 'colours.{side}.' + role;
-			}, function (id) { return id === 'own' ? s.roleColour(role) : ''; })) : '') + (role === 'head' && v.colour && v.colour !== 'ink' ? pickRow('subcolour') : '')); /* the lab's: a well only for an own colour; Text and Accent are words */
+			(has('colour') ? row(t('Colour'), pop('rolecolour', t('Colour'), v.colour, [['ink', t('Text')], ['accent', t('Accent')]].concat([['own', t('Own Colour…'), false, s.roleColour ? (v.colour === 'own' ? s.roleColour(role) : '#ff9f0a') : '']]), function (id) {
+				s.setType(role, 'colour', id); if (id === 'own') editing = 'colours.{side}.' + role;
+			}, function (id) { return id === 'own' ? s.roleColour(role) : ''; })) : '')); /* the lab's: a well only for an own colour; Text and Accent are words */
 		out += '<button type="button" class="ldpw-more" aria-expanded="' + more + '" data-act="more" data-f="act:more">' + esc(t(more ? 'Show Less' : 'Show More')) + '</button>';
 		if (more) {
-			var italic = s.hasItalic(v.face);
-			out += box(stepSlider(P + 'tracking', t('Character spacing'), TRACKING, v.tracking || 'default', function (id) { s.setRole(role, 'tracking', id); }, 'default') +
-				stepSlider(P + 'words', t('Word spacing'), WORDSPACE, v.words || 'default', function (id) { s.setRole(role, 'words', id); }, 'default') +
+			var italic = s.hasItalic(face);
+			out += box(stepSlider(P + 'letterSpacing', t('Character spacing'), s.typeLetters.map(function (id) { return { id: id, label: t(LETTER_WORD[id]) }; }), v.letterSpacing, function (id) { s.setType(role, 'letterSpacing', id); }, 'normal') +
 				row(t('Italic'), swBtn('data-rset="italic"', italic && v.italic, t('Italic'), !italic), '', italic ? '' : 'is-off') +
-				row(t('Capitals'), swBtn('data-rset="caps"', v.caps, t('Capitals'))));
+				row(t('Capitals'), swBtn('data-rset="capitals"', v.capitals, t('Capitals'))));
 		}
-		if (role === 'read') {
+		if (role === 'body') {
 			var drop = s.get('dropcap');
 			out += gtitle(t('Paragraph')) + box(row(t('Justified text'), sw('justify', s.get('justify'), t('Justified text'))) + pickRow('hyphenate') + row(t('Drop cap'), sw('dropcap', drop, t('Drop cap'))) +
 				(drop ? row(t('Drop cap height'), pop('caplines', t('Drop cap height'), s.capLines(), ['2', '3', '4'].map(function (n) { return [n, t('{n} lines').replace('{n}', n)]; }), function (id) { s.setCapLines(id); })) + pickRow('capface') : '') + pickRow('paragraphs') + (s.guest() ? '' : pickRow('opening'))); /* Hyphens and Drop cap font (2026-10-02, Book B); Paragraphs and Opening sentence from the Effects page (2026-10-02) */
 		}
-		var list = s.members(role).filter(function (m) { return !s.gone('member:' + role + ':' + m.id); });
-		if (list.length > 1) { /* a lead with nobody following it is not a group */
-			out += gtitle(t('Members')) + box(list.map(function (m) {
-				var meta = s.memberMeta(role, m.id), lb = t(meta.label);
-				if (m.lead) return '<div class="ldpw-r"><span class="ldpw-lb">' + esc(lb) + ' <em class="ldpw-lead">' + esc(t('Lead size')) + '</em>' + (meta.where ? '<small>' + esc(t(meta.where)) + '</small>' : '') + '</span><span class="ldpw-val">' + esc(m.size + ' px') + '</span></div>';
-				return navRow('data-member="' + m.id + '" data-f="member:' + m.id + '"', lb, m.size + ' px', meta.where ? t(meta.where) : '');
-			}).join('')) + '<p class="ldpw-hint">' + esc(t('Members follow {role} until you give one its own size, weight, capitals or spacing.').replace('{role}', t(r.label))) + '</p>';
-		}
 		return out;
-	}
-	/* A MEMBER'S PAGE: for each dial a switch, Own size and so on; on, its control opens under it */
-	function memberPage() {
-		/* THE LAB'S MEMBER PAGE (2026-09-28): a line that says what it follows, then one box; each dial follows the
-		   role ("Follows Headings") until its switch gives the member its own, and then its control stands under it */
-		var s = St(), v = s.role(role), m = s.members(role).filter(function (x) { return x.id === member; })[0];
-		if (!m) return '';
-		var rl = t(roleMeta(role).label), mm = s.memberMeta(role, member), order = ['size', 'weight', 'align', 'caps', 'tracking'];
-		var dials = s.memberDials(role).slice().sort(function (a, b) { return order.indexOf(a) - order.indexOf(b); });
-		return '<p class="ldpw-hint">' + esc(t('{member} follows {role}. Give it its own setting where it should differ.').replace('{member}', t(mm.label)).replace('{role}', rl)) + '</p>' + box(dials.map(function (d) {
-			var own = !!(m.own && m.own[d] !== undefined);
-			var head = row(t(OWN_WORD[d]), swBtn('data-mown="' + d + '"', own, t(OWN_WORD[d])), own ? '' : esc(t('Follows {role}').replace('{role}', rl)));
-			if (!own) return head;
-			var K = 'members.' + member + '.' + d, set = function (id) { s.setMember(role, member, d, id); };
-			var ctl = d === 'size' ? stepSlider(K, t('Size'), s.sizes(role).map(function (id) { return { id: String(id), label: id + ' px' }; }), String(m.size), set)
-				: d === 'weight' ? stepSlider(K, t('Weight'), s.weights(v.face).map(function (w) { return { id: w, label: weightWord(w) + ' ' + WEIGHT_NUMBER[w] }; }), m.weight, set)
-				: d === 'caps' ? row(t('All caps'), swBtn('data-mcaps', m.caps, t('All caps')))
-				: d === 'align' ? row(t('Alignment'), seg('malign', m.align || 'default', ALIGN.map(function (a) { return [a[0], t(a[1])]; }), t('Alignment')))
-				: stepSlider(K, t('Character spacing'), TRACKING, m.tracking || 'default', set, 'default');
-			return head + ctl;
-		}).join(''));
 	}
 	/* THE FONT LIST, as a page: a search on top, the anchors a role may follow, the faces in their groups, in the panel's own type */
 	var fontGet = {}; /* a library face while it is fetched ('busy') and once it is on the site ('got') */
 	function fontPage() {
-		var s = St(), v = s.role(fontFor), cur = v.face === 'inherit' ? 'read' : v.face, q = fontq.toLowerCase();
-		var faces = s.faces(v.face).filter(function (f) { return !q || f.label.toLowerCase().indexOf(q) !== -1; });
+		var s = St(), cur = s.type(fontFor).font, q = fontq.toLowerCase();
+		var faces = s.faces(cur).filter(function (f) { return !q || f.label.toLowerCase().indexOf(q) !== -1; });
 		function frow(id, lb) { var on = id === cur; return '<button type="button" class="ldpw-r ldpw-navrow ldpw-frow" role="radio" aria-checked="' + on + '" data-face="' + esc(id) + '" data-f="face:' + esc(id) + '"><span class="ldpw-lb">' + esc(lb) + '</span>' + (on ? '<span class="ldpw-fcheck" aria-hidden="true">✓</span>' : '') + '</button>'; } /* the lab's: the check at the end */
-		var follower = fontFor !== 'read' && fontFor !== 'ui';
+		var follower = fontFor !== 'body' && fontFor !== 'interface' && fontFor !== 'code';
 		var out = '<label class="ldpw-search"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-fontq data-f="fontq" placeholder="' + esc(t('Search Fonts')) + '" aria-label="' + esc(t('Search Fonts')) + '" value="' + esc(fontq) + '" autocomplete="off" spellcheck="false"></label>';
-		if (follower && !q) out += box(frow('read', t(FOLLOW.read)) + frow('ui', t(FOLLOW.ui)));
+		if (follower && !q) out += box(frow('body', t(FOLLOW.body)) + frow('interface', t(FOLLOW['interface'])));
+		if (fontFor === 'code' && !q) out += box(frow('', t('Theme Monospace')));
 		/* THE FONTS ON THE SITE FIRST, THEN THE LIBRARY (2026-09-28, the lab's): a library face not fetched yet is
 		   listed apart with Get; getting it fetches its files once, and it then shows in its own face with Use */
 		var F = s.fonts, lib = F && F.can() ? F.library() : [], away = function (f) { return lib.indexOf(f.id) !== -1 && f.id !== cur && (!F.have(f.id) || !!fontGet[f.id]); }; /* one just fetched stays where it was got, saying Use */
@@ -1036,14 +1004,13 @@
 	function btnWrite(p, focus) { render(focus); p.then(function () { render(focus); }, failed); }
 
 	/* ===== CHANGES: what differs from the style as it was saved or published, each with its own way back ===== */
-	var DIAL_WORD = { face: 'Font', weight: 'Weight', size: 'Size', tracking: 'Character spacing', words: 'Word spacing', caps: 'Capitals', italic: 'Italic', leading: 'Line spacing', align: 'Alignment', colour: 'Colour' };
+	var DIAL_WORD = { font: 'Font', weight: 'Weight', size: 'Size', letterSpacing: 'Character spacing', capitals: 'Capitals', italic: 'Italic', lineHeight: 'Line spacing', align: 'Alignment', colour: 'Colour' };
 	var TOP_WORD = { face: 'Reading font', sans: 'Interface font', reading: 'Size', leading: 'Line spacing', palette: 'Colour', preset: 'Colour', tint: 'Colour', accent: 'Accent', capLines: 'Drop cap height', unlinked: 'Same colours for light and dark' };
 	var TOP_SECTION = { face: 'type', sans: 'type', reading: 'type', leading: 'type', roles: 'type', capLines: 'type', justify: 'type', dropcap: 'type', hyphenate: 'type', capface: 'type', palette: 'colour', preset: 'colour', tint: 'colour', accent: 'colour', colours: 'colour', unlinked: 'colour', effects: 'effects' };
 	function changeName(path) {
 		var p = path.split('.'), s = St();
 		if (p[0] === 'roles') {
 			var r = t(roleMeta(p[1]).label);
-			if (p[2] === 'members') return r + ' › ' + t(s.memberMeta(p[1], p[3]).label) + ' › ' + t(DIAL_WORD[p[4]] || p[4]);
 			return r + ' › ' + t(DIAL_WORD[p[2]] || p[2]);
 		}
 		if (p[0] === 'colours') return label('colours.{side}.' + p[2]) + ' › ' + t(p[1] === 'dark' ? 'Dark' : 'Light');
@@ -1057,6 +1024,10 @@
 		if (v === '' || v === null || v === undefined) return t('Default');
 		if (isHex(v)) return v.toUpperCase();
 		var w = (PICK_WORD[path] && PICK_WORD[path][v]) || (PICK_WORD[k] && PICK_WORD[k][v]) || (LEVEL_WORD[k] && LEVEL_WORD[k][v]) || (k === 'weight' && WEIGHT_LABEL[v]) || (k === 'markercolour' && MARKER_WORD[v]) || (k === 'button' && BUTTON_WORD[v]);
+		if (path.indexOf('roles.') === 0 && k === 'size') { var px = (St().typeSizes(path.split('.')[1]).filter(function (x) { return x.id === String(v); })[0] || {}).px; return px ? px + ' px' : String(v); }
+		if (path.indexOf('roles.') === 0 && k === 'lineHeight' && LINE_WORD[v]) return t(LINE_WORD[v]);
+		if (path.indexOf('roles.') === 0 && k === 'letterSpacing' && LETTER_WORD[v]) return t(LETTER_WORD[v]);
+		if (path.indexOf('roles.') === 0 && k === 'font') return faceName(v);
 		return w ? t(w) : k === 'size' ? v + ' px' : String(v);
 	}
 	/* WHERE A CHANGE IS DRAWN, one answer for the list of changes, the blue dots and Revert <page>
@@ -1065,11 +1036,10 @@
 	   Colour, the two lights' wells under Colour, the headings' and category line's colours under
 	   Colour, and a chosen preset nowhere, so Revert Colour reverted the lights and left the preset. */
 	var DRAWN_ON = { button: 'buttons', buttonshape: 'buttons', buttonstyle: 'buttons', buttonmedium: 'buttons', buttonquiet: 'buttons', tags: 'buttons', tagsfollow: 'buttons', links: 'buttons', chosenitem: 'buttons' };
-	var WELL_ON = { light: 'effects', second: 'effects', button: 'buttons', head: 'type', kicker: 'type' };
+	var WELL_ON = { light: 'effects', second: 'effects', button: 'buttons', title: 'type', headings: 'type', meta: 'type' };
 	function changeSection(path) {
 		var p = path.split('.'), k = p[0], x = setting(k);
 		if (k === 'colours') return WELL_ON[p[p.length - 1]] || 'colour';
-		if (k === 'members') return 'type';
 		return DRAWN_ON[k] || TOP_SECTION[k] || (x && x.section) || '';
 	}
 	function sectionName(id) { var l = sections().filter(function (x) { return x.id === id; })[0]; return l ? l.name : ''; }
@@ -1114,7 +1084,7 @@
 		else if (a === 'aim') { var b = win.querySelector('[data-act="aim"]'); if (b) b.click(); }
 		else if (a === 'commit') commitPress();
 		else if (a === 'share') askShare();
-		else if (a === 'settings') { sq = null; section = 'settings'; role = null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on, [data-menu="barmore"]'); }
+		else if (a === 'settings') { sq = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on, [data-menu="barmore"]'); }
 		else if (a === 'ask') { asking = true; render('x'); }
 	}
 	/* on the panel's Settings page: the way back to a style's pages, the search and the current window */
@@ -1227,7 +1197,7 @@
 	function firstText(el) { var n = el.firstChild; while (n && n.nodeType !== 3) n = n.nextSibling; return (n ? n.textContent : el.textContent).trim(); }
 	function buildIndex() {
 		var keepSq = sq; sq = null;
-		var keep = { section: section, role: role, member: member, fontFor: fontFor, editing: editing, more: more, showChanges: showChanges, showVersions: showVersions, menu: menu };
+		var keep = { section: section, role: role, fontFor: fontFor, editing: editing, more: more, showChanges: showChanges, showVersions: showVersions, menu: menu };
 		var out = [], seen = {}, holder = document.createElement('div');
 		function collect(where, go) {
 			holder.innerHTML = pageBody(current());
@@ -1239,7 +1209,7 @@
 				out.push({ label: lb, where: where, go: go });
 			});
 		}
-		editing = null; member = null; fontFor = null; showChanges = false; showVersions = false; menu = null;
+		editing = null; fontFor = null; showChanges = false; showVersions = false; menu = null;
 		['styles'].concat(sections().map(function (x) { return x.id; }), ['readers', 'button', 'settings']).forEach(function (id) {
 			section = id; role = null; more = id === 'colour'; fxAll = id === 'effects'; /* what Colour keeps under Show More is found too, and opens it */
 			var name = current().name;
@@ -1248,7 +1218,7 @@
 			if (id === 'type') roles().forEach(function (r) { if (St().gone('role:' + r.id)) return; role = r.id; more = true; collect(name + ' › ' + t(r.label), { section: 'type', role: r.id }); });
 		});
 		fxAll = false;
-		section = keep.section; role = keep.role; member = keep.member; fontFor = keep.fontFor; editing = keep.editing; more = keep.more; showChanges = keep.showChanges; showVersions = keep.showVersions; menu = keep.menu;
+		section = keep.section; role = keep.role; fontFor = keep.fontFor; editing = keep.editing; more = keep.more; showChanges = keep.showChanges; showVersions = keep.showVersions; menu = keep.menu;
 		MENU = {}; STOP = {}; viewsMenu(); sq = keepSq;
 		return out;
 	}
@@ -1280,7 +1250,7 @@
 	function pickCmd(i) { goTo(cmdResults()[i]); }
 	function goTo(e) {
 		if (!e) return; sq = null;
-		cmd = null; section = e.go.section; role = e.go.role || null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; more = !!(e.go.role || e.go.more); phoneList = false;
+		cmd = null; section = e.go.section; role = e.go.role || null; fontFor = null; editing = null; showChanges = false; showVersions = false; more = !!(e.go.role || e.go.more); phoneList = false;
 		try { sessionStorage.setItem(KEY, section); } catch (x) { /* private window */ }
 		if (section === 'effects' && e.where) fxFind = '>' + esc(e.label) + '<';
 		render();
@@ -1338,23 +1308,30 @@
 		['.quire-button.ghost', 'buttons', 'buttonquiet', 'Quiet buttons'],
 		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'buttonmedium', 'Other buttons'],
 		['.article-tags a, .taxonomy-post_tag a', 'buttons', 'tags', 'Tags'],
-		/* THE SITE'S NAME BEFORE THE CHOSEN ITEM (2026-10-02, Manuel: "on the page title I would like to have the setting for the page title but instead I get the button"): on the home page WordPress marks the name's link aria-current="page", so the Chosen item row below caught it. Its own type is Interface › Masthead. */
-		['.wp-block-site-title', 'type', 'role:ui/masthead', 'Site name'],
+		/* THE SITE'S NAME BEFORE THE CHOSEN ITEM (2026-10-02, Manuel: "on the page title I would like to have the setting for the page title but instead I get the button"): on the home page WordPress marks the name's link aria-current="page", so the Chosen item row below caught it. It follows Headings since the seven roles (lab/the-site-name.html). */
+		['.wp-block-site-title', 'type', 'role:headings', 'Site name'],
 		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'chosenitem', 'Chosen item'],
 		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictures', 'Pictures'],
 		['.post-link-card, .support-box, .release-panel, .theme-card', 'corners-and-lines', 'cards', 'Cards'],
 		['.wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'notes', 'Notes'],
 		['input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea, .quire-search-field', 'corners-and-lines', 'fields', 'Fields'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li) a', 'buttons', 'links', 'Links'],
-		['h1, .wp-block-post-title', 'type', 'role:head', 'Headings'], [':is(.wp-block-post-content, .entry-content) :is(h2, h3, h4)', 'type', 'role:head', 'Headings'],
-		['.article-kicker, .post-kicker, .taxonomy-category', 'type', 'role:kicker', 'Category line'],
-		['.article-meta, .post-meta, .wp-block-post-date, figcaption', 'type', 'role:small', 'Small text'],
+		/* THE SEVEN ROLES (2026-10-02): each part opens the role it answers to; the comments' parts too. Code before
+		   the paragraph it sits in. */
+		['code, pre, kbd', 'type', 'role:code', 'Code'],
+		['.wp-block-comment-author-name, .wp-block-comment-date, .wp-block-comment-reply-link', 'type', 'role:meta', 'Small text'],
+		['.comment-form, .comment-respond form, .form-submit', 'type', 'role:interface', 'Interface'],
+		['.wp-block-comments-title, .comment-reply-title, .comments-side-title', 'type', 'role:headings', 'Headings'],
+		['h1, .wp-block-post-title', 'type', 'role:title', 'Title'],
+		[':is(.wp-block-post-content, .entry-content) :is(h2, h3, h4, h5, h6), .wp-block-heading', 'type', 'role:headings', 'Headings'],
+		['.article-kicker, .post-kicker, .taxonomy-category', 'type', 'role:meta', 'Small text'],
+		['.article-meta, .post-meta, .wp-block-post-date, .wp-block-post-terms, figcaption', 'type', 'role:meta', 'Small text'],
 		['blockquote', 'type', 'role:quote', 'Quotes'],
-		['.comment, .wp-block-comment-template, .comment-respond', 'type', 'role:comment', 'Comments'],
+		['.wp-block-comment-content, .comment-content', 'type', 'role:body', 'Reading text'],
 		/* THE SMALL WORDS THAT HAD NO ROW OF THEIR OWN HERE (Manuel, 2026-10-01: "I can't click that little text with our tool to find out which setting it is"): the rail's section titles fell through to the whole rail as Interface, and the plate at the page's foot to Colour. */
-		['.quire-nav-section-heading, .quire-nav-section-head', 'type', 'role:title', 'Interface titles'],
-		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:ui', 'Interface'],
-		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:read', 'Reading text'],
+		['.quire-nav-section-heading, .quire-nav-section-head', 'type', 'role:interface', 'Interface'],
+		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:interface', 'Interface'],
+		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:body', 'Reading text'],
 		['main, .content-column, .wp-site-blocks, body', 'colour', '', 'Colour']
 	];
 	var aiming = false, aimBox = null;
@@ -1375,8 +1352,8 @@
 	function aimSet(on) { aiming = on; document.documentElement.classList.toggle('ldp-aiming', on); if (!on) aimShow(null); var b = win && win.querySelector('[data-act="aim"]'); if (b) { b.classList.toggle('is-aim', on); b.setAttribute('aria-pressed', String(on)); } }
 	function openTarget(x) {
 		sq = null; cmd = null; /* a page asked for by name leaves the search (2026-10-01, the panel audit: the results stayed in front) */
-		section = x.section; role = null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; more = false;
-		if (x.key.indexOf('role:') === 0) { role = x.key.slice(5).split('/')[0]; member = x.key.split('/')[1] || null; } /* role:<role>/<member> opens the member's page */
+		section = x.section; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; more = false;
+		if (x.key.indexOf('role:') === 0) role = x.key.slice(5);
 		if (x.key === 'smallsoft' || x.key === 'darkground') more = true;
 		if (x.section === 'effects' && x.key.indexOf('role:') !== 0) fxFind = '="' + x.key + '"';
 		try { sessionStorage.setItem(KEY, section); } catch (e) { /* private window */ }
@@ -1562,7 +1539,7 @@
 		if (x.id === 'colour' && St()) return editing ? editorPage() : colourPage();
 		var PAGES = { layout: layoutPage, 'corners-and-lines': shapePage, buttons: buttonsPage, pictures: picturesPage, effects: effectsPage };
 		if (PAGES[x.id] && St()) return editing ? editorPage() : PAGES[x.id](); /* A WELL OPENS ITS EDITOR ON EVERY PAGE (Manuel, 2026-09-30: the two lights on Effects "just move up to the top of the screen"): the head said Light, the page stayed Effects, scrolled to its top. The same for the button colour on Buttons and the highlighter's own on Pictures */
-		if (x.id === 'type' && St()) return editing ? editorPage() : fontFor ? fontPage() : member ? memberPage() : role ? rolePage() : typePage();
+		if (x.id === 'type' && St()) return editing ? editorPage() : fontFor ? fontPage() : role ? rolePage() : typePage();
 		var can = host.canOpenCurrent && host.canOpenCurrent(x.id);
 		return '<div class="ldpw-box ldpw-empty">' +
 			'<p class="ldpw-empty-title">' + esc(t('Not built yet')) + '</p>' +
@@ -1577,7 +1554,7 @@
 		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), [['#', t('Site')], ['readers', nameOf('readers')], ['button', nameOf('button')]]);
 		MENU.secs = { label: t('Sections'), value: x.id, search: true, items: items, pick: function (id) {
 			if (id.indexOf('hit:') === 0) { var e = MENU.secs.hits[+id.slice(4)]; menuQ = ''; goTo(e); return; }
-			sq = null; section = id; phoneList = false; editing = null; role = null; member = null; fontFor = null; more = false; showChanges = false; showVersions = false;
+			sq = null; section = id; phoneList = false; editing = null; role = null; fontFor = null; more = false; showChanges = false; showVersions = false;
 			try { sessionStorage.setItem(KEY, id); } catch (e) { /* private window */ }
 			render('[data-menu="secs"]');
 		} };
@@ -1586,8 +1563,8 @@
 	function detailHTML() {
 		var x = current(), s = St(), built = BUILT.indexOf(x.id) !== -1 && (x.id === 'settings' || s);
 		var deep = showChanges || showVersions || (x.id === 'type' && (role || fontFor));
-		var name = sq && sq.q.trim() ? t('Search') : showChanges ? t('Changes') : showVersions ? t('Versions') : editing ? label(editing) : x.id !== 'type' ? x.name : fontFor ? (role ? t('Font') : t(fontFor === 'read' ? 'Reading Font' : 'Interface Font')) : member ? t(St().memberMeta(role, member).label) : role ? t(roleMeta(role).label) : x.name;
-		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (s.tile(s.current()) && s.tile(s.current()).edited ? ' · ' + t('Edited') : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /head|kicker/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : x.id !== 'colour' && x.id !== 'type' ? x.name : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : member ? t('Type') + ' › ' + t(roleMeta(role).label) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
+		var name = sq && sq.q.trim() ? t('Search') : showChanges ? t('Changes') : showVersions ? t('Versions') : editing ? label(editing) : x.id !== 'type' ? x.name : fontFor ? (role ? t('Font') : t(fontFor === 'body' ? 'Reading Font' : 'Interface Font')) : role ? t(roleMeta(role).label) : x.name;
+		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (s.tile(s.current()) && s.tile(s.current()).edited ? ' · ' + t('Edited') : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /title|headings|meta/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : x.id !== 'colour' && x.id !== 'type' ? x.name : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
 		var back = editing || deep || phone();
 		var undo = built && s ? '<button type="button" class="ldpw-circ" data-act="undo" data-f="act:undo"' + (s.canUndo() ? '' : ' disabled') + ' aria-label="' + esc(undoName()) + '" title="' + esc(undoName()) + '">' + svg(GLYPH.undo) + '</button>' : '';
 		return '<div class="ldpw-detail">' +
@@ -1722,7 +1699,7 @@
 			if (f0) f0.focus({ preventScroll: true });
 			return;
 		}
-		var small = phone(), page = [current().id, role, member, fontFor, editing, showChanges, showVersions].join('|');
+		var small = phone(), page = [current().id, role, fontFor, editing, showChanges, showVersions].join('|');
 		if (!showVersions && !comparing && St() && St().previewing()) St().previewVersion(null); /* a look at a version ends when its page is left */
 		if (!menu) { menuQ = ''; menuIndex = null; }
 		MENU = {}; STOP = {}; viewsMenu();
@@ -2151,7 +2128,6 @@
 		else if (showChanges) { to = '[data-menu="barmore"]'; showChanges = false; }
 		else if (showVersions) { to = '[data-menu="barmore"]'; showVersions = false; }
 		else if (fontFor) { to = '[data-font="' + fontFor + '"]'; fontFor = null; fontq = ''; }
-		else if (member) { to = '[data-member="' + member + '"]'; member = null; }
 		else if (role) { to = '[data-role="' + role + '"]'; role = null; more = false; }
 		render(to);
 	}
@@ -2192,14 +2168,14 @@
 		if (act === 'find') { openCmd(); return; }
 		if (b.hasAttribute('data-fontget')) {
 			var fid = b.getAttribute('data-fontget');
-			if (fontGet[fid] === 'got') { s.setRole(fontFor, 'face', fid); render(); return; } /* Use: it becomes the font, as a press on its row does */
+			if (fontGet[fid] === 'got') { s.setType(fontFor, 'font', fid); render(); return; } /* Use: it becomes the font, as a press on its row does */
 			fontGet[fid] = 'busy'; render('[data-f="fontget:' + fid + '"]');
 			s.fonts.get(fid).then(function () { fontGet[fid] = 'got'; render('[data-f="fontget:' + fid + '"]'); }, function () { delete fontGet[fid]; done(t('Could not get the font. Try again.')); render(); });
 			return;
 		}
 		if (act === 'fontprune') {
 			asking = { title: t('Remove unused fonts?'), text: t('The downloaded fonts no style uses are removed. You can get them again from the library.'), go: t('Remove'), danger: true, back: '[data-act="fontprune"]', run: function () {
-				var keep = []; roles().forEach(function (r) { var f = realFace((s.role(r.id) || {}).face); if (f) keep.push(f); });
+				var keep = []; roles().forEach(function (r) { var f = realFace((s.type(r.id) || {}).font); if (f) keep.push(f); });
 				return s.fonts.prune(keep).then(function (j) { fontGet = {}; var n = (j.removed || []).length; done(n ? t('{n} fonts removed').replace('{n}', n) : t('Nothing to remove')); });
 			} };
 			render('[data-act="ask-go"]'); return;
@@ -2208,7 +2184,7 @@
 		if (act === 'sqclear') { sq = null; render('[data-sideq]'); return; }
 		if (b.hasAttribute('data-sqhit')) { goTo(sqResults()[+b.getAttribute('data-sqhit')]); return; }
 		if (act === 'share') { askShare(); return; }
-		if (act === 'settings') { section = 'settings'; role = null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('[data-f="bset:aurora"], .ldpw-nav.is-on'); return; }
+		if (act === 'settings') { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('[data-f="bset:aurora"], .ldpw-nav.is-on'); return; }
 		if (act === 'revertpage') { var sp = St(); pagePaths(current().id).forEach(function (pth) { sp.revertPath(pth); }); done(t('Reverted')); render('.ldpw-nav.is-on'); return; }
 		if (act === 'counting') {
 			var was = countsHeld ? !!countsHeld.counting : true;
@@ -2259,7 +2235,7 @@
 			else if (sg === 'who') { btnWrite(s.setButton('who', v), '[data-seg="who"][data-v="' + v + '"]'); return; }
 			else if (sg === 'bsize') { btnWrite(s.setButton('size', v), '[data-seg="bsize"][data-v="' + v + '"]'); return; }
 			else if (sg === 'plook') { prefs.look = v; savePrefs(); }
-			else if (sg === 'align') s.setRole(role, 'align', v); else if (sg === 'malign') s.setMember(role, member, 'align', v);
+			else if (sg === 'align') s.setType(role, 'align', v);
 			render('[data-seg="' + sg + '"][data-v="' + v + '"]'); return;
 		}
 		if (b.hasAttribute('data-set')) {
@@ -2279,7 +2255,7 @@
 		if (b.hasAttribute('data-ver')) { pickVersion(b.getAttribute('data-ver')); return; }
 		if (b.hasAttribute('data-restore')) { restoreVersion(b.getAttribute('data-restore')); return; }
 		if (b.hasAttribute('data-revert')) { s.revertPath(b.getAttribute('data-revert')); render('.ldpw-scroll [data-revert], [data-act="back"]'); return; }
-		if (b.hasAttribute('data-goto')) { section = b.getAttribute('data-goto'); showChanges = false; showVersions = false; role = null; member = null; fontFor = null; render('.ldpw-nav.is-on'); return; }
+		if (b.hasAttribute('data-goto')) { section = b.getAttribute('data-goto'); showChanges = false; showVersions = false; role = null; fontFor = null; render('.ldpw-nav.is-on'); return; }
 		if (b.hasAttribute('data-bset')) { var bk = b.getAttribute('data-bset'); btnWrite(s.setButton(bk, b.getAttribute('aria-checked') !== 'true'), '[data-bset="' + bk + '"]'); return; }
 		if (b.hasAttribute('data-spot')) {
 			/* THE LAB'S: the little button flies to the place, the real one moves there, and the window follows it, all
@@ -2300,24 +2276,16 @@
 		if (b.hasAttribute('data-copyon')) { btnWrite(s.setReadersCopy(b.getAttribute('aria-checked') !== 'true'), '[data-copyon]'); return; }
 		if (b.hasAttribute('data-seen')) { var sid = b.getAttribute('data-seen'), on = b.getAttribute('aria-checked') !== 'true'; btnWrite(s.setSeen(sid, on)); return; }
 		if (b.hasAttribute('data-style')) { s.choose(b.getAttribute('data-style')); render('[data-style="' + b.getAttribute('data-style') + '"]'); return; }
-		if (b.hasAttribute('data-role')) { role = b.getAttribute('data-role'); member = null; more = false; render('[data-act="back"]'); return; }
-		if (b.hasAttribute('data-member')) { member = b.getAttribute('data-member'); render('[data-act="back"]'); return; }
+		if (b.hasAttribute('data-role')) { role = b.getAttribute('data-role'); more = false; render('[data-act="back"]'); return; }
 		if (b.hasAttribute('data-font')) { fontFor = b.getAttribute('data-font'); fontq = ''; render('.ldpw-scroll [aria-checked="true"]'); return; }
-		if (b.hasAttribute('data-face')) { s.setRole(fontFor, 'face', b.getAttribute('data-face')); render(); return; }
-		if (b.hasAttribute('data-rset')) { var d = b.getAttribute('data-rset'); s.setRole(role, d, !s.role(role)[d]); render(); return; }
-		if (b.hasAttribute('data-mown')) {
-			var md = b.getAttribute('data-mown'), mm = s.members(role).filter(function (x) { return x.id === member; })[0];
-			/* released at what it reads at now, so nothing moves on the press; bound again, it follows the role */
-			if (mm) s.setMember(role, member, md, mm.own && mm.own[md] !== undefined ? null : mm[md]);
-			render(); return;
-		}
-		if (b.hasAttribute('data-mcaps')) { var mc = s.members(role).filter(function (x) { return x.id === member; })[0]; if (mc) s.setMember(role, member, 'caps', !mc.caps); render(); return; }
+		if (b.hasAttribute('data-face')) { s.setType(fontFor, 'font', b.getAttribute('data-face')); render(); return; }
+		if (b.hasAttribute('data-rset')) { var d = b.getAttribute('data-rset'); s.setType(role, d, !s.type(role)[d]); render(); return; }
 		if (b.hasAttribute('data-preset')) { s.choosePreset(b.getAttribute('data-preset')); render(); return; }
 		if (b.hasAttribute('data-edit')) { editing = b.getAttribute('data-edit'); render('[data-act="back"]'); return; }
 		if (b.hasAttribute('data-hex-pick')) { setHex(b.getAttribute('data-hex-pick')); render(); return; }
 		var sec = b.getAttribute('data-sec');
 		if (sec) {
-			sq = null; section = sec; phoneList = false; editing = null; role = null; member = null; fontFor = null; more = false; showChanges = false; showVersions = false;
+			sq = null; section = sec; phoneList = false; editing = null; role = null; fontFor = null; more = false; showChanges = false; showVersions = false;
 			try { sessionStorage.setItem(KEY, sec); } catch (x) { /* private window */ }
 			render(phone() ? '[data-act="list"]' : '.ldpw-nav.is-on');
 		}
@@ -2405,7 +2373,7 @@
 		e.stopPropagation();
 		if (menu) { var m = menu; menu = null; render('[data-menu="' + m + '"]'); return; }
 		if (asking) { var back3 = asking.back; asking = false; render(back3 || '[data-act="ask"]'); return; }
-		if (editing || showChanges || showVersions || fontFor || member || role) { goBack(); return; }
+		if (editing || showChanges || showVersions || fontFor || role) { goBack(); return; }
 		hide();
 	}
 	document.addEventListener('keydown', function (e) { if (!open || e.key !== 'Escape' || win.contains(e.target)) return; if (menu) { var m = menu; menu = null; render('[data-menu="' + m + '"]'); return; } hide(); }); /* an open menu closes first, wherever the focus is */
@@ -2433,7 +2401,7 @@
 		if (e.key === '=' || e.key === '+') { e.preventDefault(); zoomBy('bigger'); return; }
 		if (e.key === '-') { e.preventDefault(); zoomBy('smaller'); return; }
 		if (e.key === '0') { e.preventDefault(); zoomBy('actual'); return; }
-		if (e.key === ',') { e.preventDefault(); sq = null; cmd = null; section = 'settings'; role = null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); }
+		if (e.key === ',') { e.preventDefault(); sq = null; cmd = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); }
 	});
 	/* ? shows the keyboard shortcuts */
 	document.addEventListener('keydown', function (e) {

@@ -130,7 +130,6 @@ function live_design_window_roles() {
 			'label'   => isset( $role['label'] ) ? (string) $role['label'] : (string) $role['id'],
 			'where'   => isset( $role['where'] ) ? (string) $role['where'] : '',
 			'dials'   => isset( $role['dials'] ) ? array_values( (array) $role['dials'] ) : array(),
-			'members' => isset( $role['members'] ) ? array_values( (array) $role['members'] ) : array(),
 		);
 	}
 	return $out;

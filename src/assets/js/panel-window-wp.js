@@ -27,53 +27,10 @@
 	var PAIR_LABELS = window.ArchitravePairLabels || { neutral: 'Violet light', paper: 'Sun clay', terminal: 'Radar night', grey: 'Ash blue', arcade: 'Night fire' };
 	/* Where each well's colour stands on the page while the style has none of its own. */
 	var TOKEN = { paper: '--surface-base', ink: '--text-primary', accent: '--accent', ground: '--surface-canvas', lift: '--surface-subtle', button: '--accent', marker: '--marker' };
-	var OWN_BESIDE_PRESET = ['button', 'marker', 'head', 'kicker', 'inverse', 'light', 'second']; /* the button's, the pen's and the roles' own colours sit beside a preset */
-	TOKEN.head = '--text-primary'; TOKEN.kicker = '--text-primary';
+	var OWN_BESIDE_PRESET = ['button', 'marker', 'title', 'headings', 'meta', 'inverse', 'light', 'second']; /* the button's, the pen's and the roles' own colours sit beside a preset */
+	TOKEN.title = '--text-primary'; TOKEN.headings = '--text-primary'; TOKEN.meta = '--text-primary';
 	/* THE SETTINGS WITH A READ AND A WRITE OF THEIR OWN in the engine (the rest are switches, levels or PICKS) */
 	var PICK = { markercolour: ['markerColour', 'setMarkerColour'], button: ['buttonColour', 'setButtonColour'], fadeedges: ['fadeEdges', 'setFadeEdges'], linestyle: ['lineStyle', 'setLineStyle'], corners: ['corners', 'setCorners'], pictures: ['picturesNow', 'setPictures'], framepattern: ['framePattern', 'setFramePattern'] };
-	/* THE TYPE'S TABLES, as today's window keeps them (reading-panel.js) */
-	var LEADING = [['solid', '0.9'], ['packed', '1.0'], ['close', '1.1'], ['densest', '1.2'], ['dense', '1.3'], ['tight', '1.45'], ['snug', '1.5'], ['default', '1.6'], ['relaxed', '1.7'], ['airy', '1.8'], ['wider', '1.9'], ['wide', '2.0'], ['open', '2.2'], ['loose', '2.4'], ['loosest', '2.6']];
-	var LEAD_SHARE = { solid: 0.56, packed: 0.62, close: 0.69, densest: 0.75, dense: 0.85, tight: 0.92, snug: 0.96, 'default': 1, relaxed: 1.06, airy: 1.1, wider: 1.15, wide: 1.25, open: 1.37, loose: 1.5, loosest: 1.62 };
-	var ROLE_PROBE = {
-		head: '.single-post-article .wp-block-post-content > :is(h1, h2, h3), .single-post-article .wp-block-post-title, .post-card .wp-block-post-title, .wp-block-post-title, .wp-block-heading',
-		read: '.single-post-article .wp-block-post-content > p, .post-card :is(.wp-block-post-excerpt, .entry-content) > p, .wp-block-post-content p',
-		quote: '.single-post-article .wp-block-post-content blockquote > p, blockquote.wp-block-quote > p',
-		kicker: '.single-post-article .article-kicker, .post-card .post-kicker, .wp-block-post-terms',
-		small: '.single-post-article .article-meta, .post-card .post-meta, .related-row-date, .wp-block-post-date',
-		comment: '.wp-block-comment-content, .wp-block-comment-author-name',
-		ui: ':is(.sidebar-column, .mobile-panel) .wp-block-navigation-item__content, .wp-block-navigation-item__content',
-		title: ':is(.sidebar-column, .mobile-panel) .quire-nav-section-head'
-	};
-	var MEMBER_META = {
-		'ui.masthead': { label: 'Masthead', where: 'Top of the left sidebar' },
-		'ui.cards': { label: 'Card titles', where: 'Left sidebar, under articles, search, ruler' },
-		'ui.linkcard': { label: 'Large card titles', where: 'Link cards and theme cards' },
-		'ui.newsletter': { label: 'Newsletter card', where: 'Its title and text in the left sidebar' },
-		'ui.fields': { label: 'Fields', where: 'The search field in the left sidebar' },
-		'ui.menus': { label: 'Menus and buttons', where: 'Navigation, fields, switches' },
-		'ui.labels': { label: 'Labels', where: 'Tooltips, badges, key hints' },
-		'ui.credit': { label: 'Credit', where: 'Foot of the right comments sidebar' },
-		'head.title': { label: 'Article title', where: 'The title of the article, on the page and the cards' },
-		'head.sub': { label: 'Subheadings', where: window.architravePanelGuest ? 'Every heading but the article\'s title' : 'The headings inside the article' },
-		'small.date': { label: 'Date line', where: 'The date of the article' },
-		'small.author': { label: 'Author', where: 'Name and bio under the article' },
-		'small.terms': { label: 'Categories and tags', where: 'The lines at the end of the article' },
-		'small.captions': { label: 'Captions', where: 'Under pictures, and the source of a quote' },
-		'small.carddates': { label: 'Card dates', where: 'Sidebar rows, related rows, cards' },
-		'small.release': { label: 'Release notes', where: 'Version line and banner on a release post' },
-		'comment.title': { label: 'Comment title', where: 'Over the comments and the form' },
-		'comment.name': { label: 'Name', where: 'Who wrote the comment' },
-		'comment.text': { label: 'Comment text', where: 'The words of the comment' },
-		'comment.small': { label: 'Comment lines', where: 'Dates and reply links' },
-		'comment.form': { label: 'Form', where: 'Labels, notes and the buttons under the comments' },
-		'read.text': { label: 'Paragraphs', where: 'The paragraphs and lists of the article' },
-		'read.excerpts': { label: 'Excerpts', where: 'The text on the front page\'s cards' },
-		'read.boxes': { label: 'Boxes', where: 'Notes and buttons in a box inside the article' },
-		'title.sections': { label: 'Section titles', where: 'The small titles in the left sidebar' },
-		'title.years': { label: 'Year titles', where: 'The years in the archive' },
-		'title.release': { label: 'Release titles', where: 'Over the demo and download buttons' }
-	};
-
 	function ask(method, url, body) {
 		return fetch(url, { method: method, credentials: 'same-origin', headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': W.nonce }, body: body ? JSON.stringify(body) : undefined })
 			.then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); });
@@ -158,7 +115,10 @@
 		   all three lists are empty. Names: 'role:<id>', 'member:<role>:<id>', 'option:<key>', 'size:<role>'. */
 		gone: function (what) { return (window.architravePanelGuestGone || []).indexOf(what) !== -1; },
 		dead: function (what) {
-			if ((window.architravePanelGuestLimits || []).indexOf(what) !== -1) return true;
+			/* a size row of the seven is dead while every engine role it moves is (guest-size.js takes a role off once it finds something to measure) */
+			var SIZE_OF = { title: ['head'], headings: ['head'], body: ['read', 'comment'], quote: ['quote'], meta: ['small', 'kicker'], 'interface': ['ui'], code: ['code'] }, lim = window.architravePanelGuestLimits || [];
+			if (/^size:/.test(what) && SIZE_OF[what.slice(5)]) return SIZE_OF[what.slice(5)].every(function (r) { return lim.indexOf('size:' + r) !== -1; });
+			if (lim.indexOf(what) !== -1) return true;
 			var s = S();
 			return (window.architravePanelGuestHostLimits || []).indexOf(what) !== -1 && !!(s && s.current && s.current() === 'host');
 		},
@@ -210,7 +170,7 @@
 			if (key === 'accent' && s.setAccent && s.accent && !s.accent()) s.setAccent(true);
 			if (key === 'button' && s.buttonColour() !== 'own') s.setButtonColour('own');
 			if (key === 'marker' && s.markerColour() !== 'own') s.setMarkerColour('own');
-			if ((key === 'head' || key === 'kicker') && s.role(key).colour !== 'own') s.setRole(key, 'colour', 'own');
+			if (['title', 'headings', 'meta'].indexOf(key) !== -1 && s.type(key).colour !== 'own') s.setType(key, 'colour', 'own');
 		},
 		ownBesidePreset: function (key) { return OWN_BESIDE_PRESET.indexOf(key) !== -1; },
 		/* Twenty named colours for a well, on the side shown. */
@@ -221,26 +181,15 @@
 		},
 		contrast: function (a, b) { var s = S(); return s && s.contrast && isHex(a) && isHex(b) ? s.contrast(a, b) : 0; },
 
-		/* TYPE: the eight roles, by the list's names (roles.<role>.<dial>), and their members */
-		role: function (id) { var s = S(); if (!s) return {}; var v = s.role(id), o = {}; for (var k in v) o[k] = v[k]; if (id === 'read') o.leading = root.getAttribute('data-leading') || 'default'; return o; },
-		setRole: function (id, dial, v) {
-			var s = S(); if (!s) return;
-			/* the reading text's line spacing is the page's own ladder (data-leading), as today's window sets it */
-			if (id === 'read' && dial === 'leading') { press('[data-architrave-leading] [data-leading-step="' + v + '"]'); return; }
-			s.setRole(id, dial, v);
-		},
-		sizes: function (id) { var s = S(); return s ? s.sizesFor(id) : []; },
+		/* TYPE: the seven roles, by the list's names (roles.<role>.<dial>, 2026-10-02) */
+		type: function (id) { var s = S(); return s && s.type ? s.type(id) : {}; },
+		setType: function (id, dial, v) { var s = S(); if (s && s.setType) s.setType(id, dial, v); },
+		typeDials: function (id) { var s = S(); return s && s.typeDials ? s.typeDials(id) : []; },
+		typeSizes: function (id) { var s = S(); return s && s.typeSizes ? s.typeSizes(id) : []; },
+		typeLines: ['tight', 'snug', 'normal', 'relaxed', 'loose'],
+		typeLetters: ['tighter', 'tight', 'normal', 'wide', 'wider', 'widest'],
 		weights: function (face) { var s = S(); return s ? s.weightsFor(face) : []; },
 		hasItalic: function (face) { var s = S(); return !!(s && s.hasItalic(face)); },
-		/* A role's line spacing in numbers: the reading text's steps are line heights; another
-		   role's step is a share of its own, so its number is measured on the page and scaled. */
-		leadings: function (id, now) {
-			if (id === 'read') return LEADING.map(function (x) { return { id: x[0], label: x[1] }; });
-			var el = ROLE_PROBE[id] ? document.querySelector(ROLE_PROBE[id]) : null, ratio = 0;
-			if (el) { var cs = getComputedStyle(el), px = parseFloat(cs.fontSize), lh = parseFloat(cs.lineHeight); if (px > 0 && lh > 0) ratio = lh / px; }
-			var base = ratio && LEAD_SHARE[now] ? ratio / LEAD_SHARE[now] : 0;
-			return LEADING.map(function (x) { return { id: x[0], label: base ? (base * LEAD_SHARE[x[0]]).toFixed(2) : x[1] }; });
-		},
 		/* Every face the site offers, in its group; the one a role wears is listed even when hidden. */
 		faces: function (wearing) {
 			var s = S(), all = (window.ArchitraveFaces || []).map(function (f) { return { id: f.id, label: f.label, group: f.group, listed: f.listed !== false }; });
@@ -248,13 +197,9 @@
 			return all.filter(function (f) { return f.listed || f.id === wearing; });
 		},
 		faceOf: function (face) { var s = S(); return s && s.faceOf ? s.faceOf(face) : face; },
-		members: function (id) { var s = S(); return s && s.members ? s.members(id) : []; },
-		memberDials: function (id) { var s = S(); return s && s.memberDialsFor ? s.memberDialsFor(id) : ['size', 'weight', 'caps', 'tracking']; },
-		memberMeta: function (id, m) { return MEMBER_META[id + '.' + m] || { label: m, where: '' }; },
-		setMember: function (id, m, dial, v) { var s = S(); if (s) s.setMember(id, m, dial, v); },
 		capLines: function () { return root.getAttribute('data-dropcap-lines') || '3'; },
 		setCapLines: function (v) { var s = S(); if (s && s.setCapLines) s.setCapLines(v); },
-		roleColour: function (id) { var r = S() ? S().role(id) : {}; return r.colour === 'accent' ? cssHex('--accent') : r.colour === 'own' ? (isHex(ownColours()[id]) ? ownColours()[id] : cssHex('--accent')) : cssHex('--text-primary'); },
+		roleColour: function (id) { var r = S() ? S().type(id) : {}; return r.colour === 'accent' ? cssHex('--accent') : r.colour === 'own' ? (isHex(ownColours()[id]) ? ownColours()[id] : cssHex('--accent')) : cssHex('--text-primary'); },
 
 		/* THE STYLES: the gallery, in the order readers meet them, and what an owner does with one */
 		styles: function () {
@@ -277,7 +222,7 @@
 				paper: c.paper || pc.paper || m.paper, ink: c.ink || pc.ink || m.ink, accent: c.accent || pc.accent || m.accent, face: face,
 				faces: (function () { /* the whole faces it puts on the page, for fetching ahead (panel-window.js warmFaces) */
 					var F = window.ArchitraveFaces || [], ids = [w.face || x.face, w.sans || x.sans], roles = w.roles || x.roles || {}, out = [];
-					Object.keys(roles).forEach(function (r) { if (roles[r] && roles[r].face) ids.push(roles[r].face); });
+					Object.keys(roles).forEach(function (r) { if (roles[r] && roles[r].font) ids.push(roles[r].font); });
 					if (x.hostFace) out.push(x.hostFace);
 					ids.forEach(function (fid) { var f = F.filter(function (y) { return y.id === fid; })[0]; if (f && out.indexOf(f.family) === -1) out.push(f.family); });
 					return out;

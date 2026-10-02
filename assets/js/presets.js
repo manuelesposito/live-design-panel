@@ -105,7 +105,7 @@
 			str = String(str || '').replace(/-/g, '+').replace(/_/g, '/');
 			while (str.length % 4) str += '=';
 			var data = JSON.parse(decodeURIComponent(escape(atob(str))));
-			return data && data.architrave === 1 ? data : null;
+			return data && (data.architrave === 1 || data.architrave === 2) ? data : null;
 		} catch (e) { return null; }
 	}
 	
@@ -118,7 +118,77 @@
 		return out;
 	}
 	function plainName(x) { return String(x || '').replace(/[<>"'`\\&]/g, '').trim(); }
-	function liftCentre(rec, style) {
+	function liftCentre(rec, style) { return liftType(liftCentreOnly(rec, style)); }
+	function liftType(rec) {
+		if (!rec || typeof rec !== 'object') return rec;
+		['light', 'dark'].forEach(function (side) {
+			var c = rec.colours && rec.colours[side];
+			if (!c || typeof c !== 'object') return;
+			if (c.head !== undefined) { if (c.title === undefined) c.title = c.head; delete c.head; }
+			if (c.kicker !== undefined) { if (c.meta === undefined) c.meta = c.kicker; delete c.kicker; }
+		});
+		var R = rec.roles && typeof rec.roles === 'object' ? rec.roles : null, sub = rec.subcolour;
+		delete rec.subcolour;
+		if (!R || rec.architrave === 2) return rec;
+		var ids = Object.keys(R), NEWER = ['headings', 'body', 'meta', 'interface', 'code'];
+		var oldDial = /^(face|tracking|words|caps|leading|members)$/;
+		var old = ids.some(function (k) { return ['head', 'read', 'kicker', 'small', 'comment', 'ui'].indexOf(k) !== -1; }) ||
+			ids.some(function (k) { var o = R[k]; return o && typeof o === 'object' && Object.keys(o).some(function (d) { return oldDial.test(d) || (d === 'size' && /^[0-9a-z]+$/.test(String(o[d]))); }); }) ||
+			(R.title && !ids.some(function (k) { return NEWER.indexOf(k) !== -1; }));
+		if (!old) return rec;
+		var RUNGS = [11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 32, 36, 40, 44, 48, 56, 64, 72, 80, 96, 112, 128];
+		var PCT = { '50': 50, '65': 65, '90': 90, '100': 100, '110': 110, '120': 120, '135': 135, '150': 150, xs: 80, s: 90, m: 100, l: 110, xl: 120 };
+		var EM = { 25: 0.25, 22: 0.225, 20: 0.2, 17: 0.175, 15: 0.15, 12: 0.125, 10: 0.1, 7: 0.075, 5: 0.05, 2: 0.025, 1: 0.0125 };
+		var TRACK_OLD = { tightest: 'm7', tighter: 'm5', tight: 'm2', loose: 'p2', wide: 'p5', widest: 'p10' };
+		var LETTER = [['tighter', -0.05], ['tight', -0.025], ['normal', 0], ['wide', 0.025], ['wider', 0.05], ['widest', 0.1]];
+		var LINE = { solid: 'tight', packed: 'tight', close: 'tight', densest: 'tight', dense: 'tight', tight: 'snug', relaxed: 'relaxed', airy: 'relaxed', wider: 'relaxed', wide: 'loose', open: 'loose', loose: 'loose', loosest: 'loose' };
+		var WEIGHTS = { lighter: 'light', normal: 'regular', heavy: 'extrabold' };
+		var P = {};
+		var put = function (role, dial, v) { if (v === undefined || v === null) return; P[role] = P[role] || {}; if (P[role][dial] === undefined) P[role][dial] = v; };
+		var step = function (v, base) {
+			var px = /^\d+$/.test(String(v)) && RUNGS.indexOf(+v) !== -1 ? +v : PCT[v] ? base * PCT[v] / 100 : v === 'text' ? base : 0;
+			if (!px) return undefined;
+			var n = Math.max(-4, Math.min(6, Math.round(Math.log(px / base) / Math.log(1.125))));
+			return n ? (n > 0 ? '+' + n : String(n)) : undefined;
+		};
+		var letter = function (v) {
+			v = TRACK_OLD[v] || v;
+			var m = /^([mp])(\d+)$/.exec(String(v)); if (!m || !EM[m[2]]) return undefined;
+			var em = (m[1] === 'm' ? -1 : 1) * EM[m[2]], best = LETTER[0];
+			LETTER.forEach(function (x) { if (Math.abs(x[1] - em) < Math.abs(best[1] - em)) best = x; });
+			return best[0] === 'normal' ? undefined : best[0];
+		};
+		var conv = function (to, o, base, only) {
+			if (!o || typeof o !== 'object') return;
+			var want = function (d) { return !only || only.indexOf(d) !== -1; };
+			if (want('font') && o.face !== undefined) put(to, 'font', o.face === 'read' || o.face === 'inherit' ? 'body' : o.face === 'ui' ? 'interface' : o.face);
+			if (want('weight') && o.weight !== undefined) put(to, 'weight', WEIGHTS[o.weight] || o.weight);
+			if (want('size') && o.size !== undefined) put(to, 'size', step(o.size, base));
+			if (want('letterSpacing') && o.tracking !== undefined) put(to, 'letterSpacing', letter(o.tracking));
+			if (want('capitals') && typeof o.caps === 'boolean') put(to, 'capitals', o.caps || undefined);
+			if (want('italic') && typeof o.italic === 'boolean') put(to, 'italic', o.italic);
+			if (want('lineHeight') && o.leading !== undefined) put(to, 'lineHeight', LINE[o.leading]);
+			if (want('align') && o.align !== undefined && o.align !== 'default') put(to, 'align', o.align);
+			if (want('colour') && o.colour !== undefined && o.colour !== 'ink') put(to, 'colour', o.colour);
+		};
+		var head = R.head, subm = head && head.members && head.members.sub;
+		conv('title', head, 64);
+		conv('headings', subm, 36, ['weight', 'size', 'letterSpacing', 'capitals', 'align']);
+		conv('headings', head, 64, ['font', 'weight', 'size', 'letterSpacing', 'capitals', 'italic', 'lineHeight', 'align']);
+		if (head && head.colour && head.colour !== 'ink') put('headings', 'colour', sub === 'ink' ? 'ink' : head.colour);
+		conv('body', R.read, 22);
+		conv('quote', R.quote, 26);
+		conv('meta', R.small, 16);
+		conv('meta', R.kicker, 26, ['font', 'weight', 'size', 'letterSpacing', 'capitals', 'italic', 'lineHeight', 'colour']);
+		if (R.kicker && R.kicker.align && R.kicker.align !== 'default') put('title', 'align', R.kicker.align);
+		conv('interface', R.ui, 13);
+		conv('interface', R.title, 11);
+		Object.keys(P).forEach(function (r) { Object.keys(P[r]).forEach(function (d) { if (P[r][d] === undefined) delete P[r][d]; }); if (!Object.keys(P[r]).length) delete P[r]; });
+		rec.roles = P;
+		rec.architrave = 2;
+		return rec;
+	}
+	function liftCentreOnly(rec, style) {
 		if (!rec || typeof rec !== 'object') return rec;
 		if (rec.corners === 'pill') { delete rec.corners; if (typeof rec.pillbuttons !== 'boolean') rec.pillbuttons = true; }
 		if (rec.pillbuttons !== undefined) { var pb = rec.pillbuttons === true; delete rec.pillbuttons; if (pb) { if (rec.buttonshape === undefined) rec.buttonshape = 'pill'; } else if (style && rec.buttonshape === undefined) rec.buttonshape = 'cards'; }
@@ -151,8 +221,8 @@
 		var entry = { id: 'own-' + Date.now().toString(36), label: data.label.slice(0, 40) || t('My style'), own: true, base: byId(data.base) ? data.base : STYLES[0].id };
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean') entry[k] = data[k]; });
-		['tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
-		if (data.roles && typeof data.roles === 'object') entry.roles = data.roles;
+		['tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 2; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } 
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
 		var shape = function (x) { var c = {}; Object.keys(x).forEach(function (k) { if (k !== 'id') c[k] = x[k]; }); return JSON.stringify(c); };
@@ -186,7 +256,7 @@
 	var FADE_EDGES = ['sides', 'bottom', 'all'];
 	var MARKERS = ['yellow', 'green', 'pink', 'blue', 'orange', 'text', 'muted', 'own'];
 	var FRAME_PATTERNS = ['plain', 'dots', 'checker'];
-	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised', 'ticks'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, subcolour: { attr: 'data-sub-colour', list: ['title', 'ink'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] } };
+	var PICKS = { fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, cards: { attr: 'data-cards', list: ['box', 'top', 'flat', 'raised', 'ticks'] }, quotes: { attr: 'data-quotes', list: ['line', 'plain', 'box'] }, notes: { attr: 'data-notes', list: ['flat', 'box', 'raised'] }, fields: { attr: 'data-fields', list: ['flat', 'box', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] } };
 	var EFFECTS = {};
 	var LEVELS = {
 		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
@@ -198,6 +268,21 @@
 		space: { stops: ['xcompact', 'compact', 'standard', 'spacious', 'xspacious'], rest: 'standard', attr: 'data-space', prop: '--space-step' },
 		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' }
 	};
+	var TYPE_ROLES = ['title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'];
+	var TYPE_DIALS = {
+		title: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'align', 'colour'],
+		headings: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'align', 'colour'],
+		body: ['size', 'weight', 'letterSpacing', 'capitals', 'italic'],
+		quote: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'],
+		meta: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic', 'colour'],
+		interface: ['size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'],
+		code: ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic']
+	};
+	var TYPE_SIZES = ['-4', '-3', '-2', '-1', '0', '+1', '+2', '+3', '+4', '+5', '+6'];
+	var TYPE_LINE = { tight: 'dense', snug: 'tight', normal: 'default', relaxed: 'airy', loose: 'wide' };
+	var TYPE_LETTER = { tighter: 'm5', tight: 'm2', normal: 'default', wide: 'p2', wider: 'p5', widest: 'p10' };
+	var TYPE_BASE = { title: 64, headings: 36, body: 22, quote: 26, meta: 16, interface: 13, code: 18 };
+	var TYPE_MEANS = { roles: { title: 'The one big line of a page: the article\'s title, a page\'s name.', headings: 'The headings inside the text, and the site\'s name.', body: 'What people read: paragraphs, lists, excerpts, the comments\' words.', quote: 'Quotations and pull quotes.', meta: 'Small facts around the text: dates, authors, categories, tags, captions, names in comments.', interface: 'The site around the text: menus, buttons, fields, labels, section titles.', code: 'Code and keys, inline and in blocks.' }, dials: { font: 'A face id from the list, or body / interface to follow the reading or the interface font. Left out: the theme\'s own.', size: 'Steps from the role\'s own size, each 1.125 times the one before: -1 a little smaller, +1 a little larger, +3 about half again as large. 0 or left out: the theme\'s own.', weight: 'thin 100 to black 900; a face offers the weights it has and falls to the nearest.', lineHeight: 'tight for big titles, snug for headings, normal is the theme\'s own, relaxed for long reading, loose for airy small text.', letterSpacing: 'tighter and tight close large type up, normal is the theme\'s own, wide to widest open small capitals and labels.', capitals: 'true sets the role in capitals.', italic: 'true sets it in italic, where the face has one.', align: 'default (the start), center or right; title and headings.', colour: 'ink (the text colour), accent, or own (the role\'s own well, colours.<side>.title, .headings or .meta).' } };
 	var ROLES = ['head', 'read', 'quote', 'kicker', 'small', 'comment', 'ui', 'title'];
 	var ROLE_DEFAULT = {
 		head: { face: 'read', weight: 'bold', size: '64', tracking: 'default', words: 'default', caps: false, italic: false, leading: 'default', align: 'default', colour: 'ink', members: {} },
@@ -257,9 +342,9 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'palette', 'reading', 'face', 'leading', 'justify', 'dropcap', 'rounded', 'lines', 'fills', 'darkground', 'widehead', 'hairlines', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'marker', 'widepicture', 'fullpicture', 'categories', 'tagsfollow', 'soft', 'alternates', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'measure', 'space', 'framewidth', 'framepattern', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { tint: TINTS, scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], button: BUTTONS, linestyle: LINE_STYLE, corners: CORNERS, fadeedges: FADE_EDGES, markercolour: MARKERS, framepattern: FRAME_PATTERNS },
-		wells: ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse'],
+		wells: ['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse'],
 		meaning: {
 			architrave: 'Always 1. Marks the JSON as a style record.',
 			label: 'The name on the tile.',
@@ -306,7 +391,7 @@
 			hyphenate: 'Where words break at the line\'s end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).',
 			piccorners: 'The pictures\' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).',
 			pictureshadow: 'A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave\'s page only.',
-			subcolour: 'The colour of the article\'s section headings when the headings\' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text\'s colour, so only the title stands in the colour).',
+			subcolour: 'Retired 2026-10-02 and still read: ink keeps the headings in the ink under a coloured title (roles.headings.colour ink).',
 			opening: 'The article\'s first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave\'s page only.',
 			widefigures: 'The pictures in the article\'s text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave\'s page only.',
 			pillbuttons: 'Retired 2026-09-26 and still read: true becomes buttonshape pill.',
@@ -332,8 +417,8 @@
 			scope: 'Legacy. The theme always applies paragraph settings everywhere.',
 			unlinked: 'true when the light and dark colours were set independently; false lets one side follow the other.',
 			effects: 'The extras\' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect\'s own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.',
-			roles: 'Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme\'s own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.',
-			colours: 'The style\'s own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles\' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.'
+			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li); its font is the record\'s face and its line spacing the record\'s leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record\'s sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; title, headings and meta also colour. A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records of the seven say architrave 2; older records with the eight roles are read into the seven.',
+			colours: 'The style\'s own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), title, headings and meta (the roles\' own colours, with roles.<role>.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.'
 		}
 	};
 	
@@ -464,8 +549,111 @@
 	var ALIGN = { 'default': 'start', center: 'center', right: 'right' };
 	var ALIGNS = Object.keys(ALIGN);
 	
-	function memberDialsOf(role) { return ROLE_DEFAULT[role] && ROLE_DEFAULT[role].align !== undefined ? MEMBER_DIALS.concat('align') : MEMBER_DIALS; }
+	var MEMBER_MORE = { 'head.sub': ['face', 'italic', 'leading', 'colour'], 'comment.title': ['face', 'italic'], 'comment.name': ['face', 'italic'], 'comment.small': ['face', 'italic'], 'comment.form': ['face', 'italic'] };
+	function memberDialsOf(role, id) {
+		var base = ROLE_DEFAULT[role] && ROLE_DEFAULT[role].align !== undefined ? MEMBER_DIALS.concat('align') : MEMBER_DIALS;
+		return id && MEMBER_MORE[role + '.' + id] ? base.concat(MEMBER_MORE[role + '.' + id]) : base;
+	}
 	function membersOf(role) { return MEMBERS[role] || []; }
+	
+	var TYPE_LEADS = { head: 'title', read: 'body', comment: 'body', quote: 'quote', small: 'meta', kicker: 'meta', ui: 'interface', title: 'interface' };
+	var TYPE_PARTS = [['headings', 'head', 'sub'], ['headings', 'comment', 'title'], ['meta', 'comment', 'name'], ['meta', 'comment', 'small'], ['interface', 'comment', 'form']];
+	var ENGINE_DIAL = { font: 'face', size: 'factor', weight: 'weight', lineHeight: 'leading', letterSpacing: 'tracking', capitals: 'caps', italic: 'italic', align: 'align', colour: 'colour' };
+	function typeFactor(step) { var n = parseInt(step, 10); return isNaN(n) ? 1 : Math.pow(1.125, n); }
+	function typeOk(role, dial, v) {
+		if (v === undefined || v === null || TYPE_DIALS[role].indexOf(dial) === -1) return false;
+		if (dial === 'font') return typeof v === 'string' && (v === 'body' || v === 'interface' || !!FAMILY[v]);
+		if (dial === 'weight') return !!WEIGHT[WEIGHT_ALIAS[v] || v];
+		if (dial === 'size') return TYPE_SIZES.indexOf(String(v)) !== -1;
+		if (dial === 'lineHeight') return !!TYPE_LINE[v];
+		if (dial === 'letterSpacing') return !!TYPE_LETTER[v];
+		if (dial === 'capitals' || dial === 'italic') return typeof v === 'boolean';
+		if (dial === 'align') return ALIGNS.indexOf(v) !== -1;
+		if (dial === 'colour') return ROLE_COLOURS.indexOf(v) !== -1;
+		return false;
+	}
+	function typeOf(src) {
+		var out = {}, R = src && src.roles;
+		if (!R || typeof R !== 'object') return out;
+		TYPE_ROLES.forEach(function (r) {
+			var o = R[r], k = {};
+			if (!o || typeof o !== 'object') return;
+			TYPE_DIALS[r].forEach(function (d) { if (typeOk(r, d, o[d])) k[d] = d === 'weight' ? WEIGHT_ALIAS[o[d]] || o[d] : d === 'size' ? String(o[d]) : o[d]; });
+			if (Object.keys(k).length) out[r] = k;
+		});
+		return out;
+	}
+	function typeNow() {
+		var a = typeOf(byId(current)), b = typeOf(readTweaks()[current]);
+		Object.keys(b).forEach(function (r) { a[r] = a[r] || {}; Object.keys(b[r]).forEach(function (d) { a[r][d] = b[r][d]; }); });
+		return a;
+	}
+	function engineValue(dial, v) {
+		if (dial === 'font') return v === 'body' ? 'read' : v === 'interface' ? 'ui' : v;
+		if (dial === 'size') return typeFactor(v);
+		if (dial === 'lineHeight') return TYPE_LINE[v];
+		if (dial === 'letterSpacing') return TYPE_LETTER[v];
+		if (dial === 'capitals' || dial === 'italic') return !!v;
+		return v;
+	}
+	function memberRest(role, m, d) {
+		if (d === 'factor') return 1;
+		if (d === 'weight') return m.weight || ROLE_DEFAULT[role].weight;
+		if (d === 'caps') return false;
+		if (d === 'tracking' || d === 'leading') return 'default';
+		if (d === 'align') return 'default';
+		if (d === 'colour') return 'ink';
+		return ROLE_DEFAULT[role][d];
+	}
+	function engineFrom(P, bodyFace) {
+		var E = {};
+		Object.keys(TYPE_LEADS).forEach(function (er) {
+			var pub = P[TYPE_LEADS[er]] || {}, o = {};
+			Object.keys(pub).forEach(function (d) {
+				var ed = ENGINE_DIAL[d];
+				if (er === 'kicker' && d === 'align') return; 
+				if (ed !== 'factor' && !(ed in ROLE_DEFAULT[er])) return;
+				o[ed] = engineValue(d, pub[d]);
+			});
+			if (er === 'kicker' && P.title && P.title.align !== undefined) o.align = P.title.align;
+			if (er === 'comment' && bodyFace && o.face === undefined) o.face = 'read';
+			if (Object.keys(o).length) E[er] = o;
+		});
+		TYPE_PARTS.forEach(function (pt) {
+			var own = P[pt[0]] || {}, lead = P[TYPE_LEADS[pt[1]]] || {}, m = membersOf(pt[1]).filter(function (x) { return x.id === pt[2]; })[0], mo = {};
+			if (!m) return;
+			memberDialsOf(pt[1], pt[2]).forEach(function (ed) {
+				var key = ed === 'size' ? 'factor' : ed, pd = Object.keys(ENGINE_DIAL).filter(function (k) { return ENGINE_DIAL[k] === key; })[0];
+				if (!pd) return;
+				if (own[pd] !== undefined) mo[key] = engineValue(pd, own[pd]);
+				else if (lead[pd] !== undefined || (key === 'face' && pt[1] === 'comment' && E.comment && E.comment.face !== undefined) || (key === 'align' && pt[1] === 'head' && P.title && P.title.align !== undefined)) mo[key] = memberRest(pt[1], m, key);
+			});
+			if (Object.keys(mo).length) { E[pt[1]] = E[pt[1]] || {}; (E[pt[1]].members = E[pt[1]].members || {})[pt[2]] = mo; }
+		});
+		return E;
+	}
+	function bodyFaceMoved() { var f = realFace('read'); return !!f && f !== 'newsreader' && f !== 'host'; }
+	function engineNow() { return engineFrom(typeNow(), bodyFaceMoved()); }
+	function engineOf(src) { return engineFrom(typeOf(src), false); }
+	var TYPE_REST = { size: '0', lineHeight: 'normal', letterSpacing: 'normal', align: 'default' };
+	function typeMerged(s, tw) {
+		var a = typeOf(s), b = typeOf(tw), out = {};
+		Object.keys(b).forEach(function (r) { a[r] = a[r] || {}; Object.keys(b[r]).forEach(function (d) { a[r][d] = b[r][d]; }); });
+		Object.keys(a).forEach(function (r) { var o = {}; Object.keys(a[r]).forEach(function (d) { if (TYPE_REST[d] !== a[r][d]) o[d] = a[r][d]; }); if (Object.keys(o).length) out[r] = o; });
+		return out;
+	}
+	function typeTweak(e, s) {
+		var t = typeOf(e), own = typeOf(s), out = {};
+		Object.keys(t).forEach(function (r) {
+			var o = {};
+			Object.keys(t[r]).forEach(function (d) {
+				var mine = own[r] && own[r][d];
+				if (mine !== undefined ? t[r][d] !== mine : TYPE_REST[d] !== t[r][d]) o[d] = t[r][d];
+			});
+			if (Object.keys(o).length) out[r] = o;
+		});
+		return out;
+	}
 	
 	var ALL_RUNGS = [12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 32, 36, 40, 44, 48, 56, 64, 72];
 	var UI_RUNGS = [11].concat(ALL_RUNGS);
@@ -503,8 +691,8 @@
 	var WORDS = { m25: '-0.25em', m22: '-0.225em', m20: '-0.2em', m17: '-0.175em', m15: '-0.15em', m12: '-0.125em', m10: '-0.1em', m7: '-0.075em', m5: '-0.05em', m2: '-0.025em', 'default': 'normal', p2: '0.025em', p5: '0.05em', p7: '0.075em', p10: '0.1em', p12: '0.125em', p15: '0.15em', p17: '0.175em', p20: '0.2em', p22: '0.225em', p25: '0.25em' };
 	var LEAD = { solid: 0.56, packed: 0.62, close: 0.69, densest: 0.75, dense: 0.85, tight: 0.92, snug: 0.96, 'default': 1, relaxed: 1.06, airy: 1.1, wider: 1.15, wide: 1.25, open: 1.37, loose: 1.5, loosest: 1.62 };  
 	function ownItalic(role) {
-		var s = byId(current), tw = readTweaks()[current];
-		return !!((s && s.roles && s.roles[role] && s.roles[role].italic !== undefined) || (tw && tw.roles && tw.roles[role] && tw.roles[role].italic !== undefined));
+		var E = engineNow()[role];
+		return !!(E && E.italic !== undefined);
 	}
 	var SLANT_PART = { read: '.wp-block-post-content p, .entry-content p', head: '.wp-block-post-title, .entry-title, .wp-block-heading', quote: '.wp-block-quote, .wp-block-pullquote', kicker: '.wp-block-post-terms', small: '.wp-block-post-date, .entry-meta, figcaption', comment: '.wp-block-comment-content', ui: '.wp-block-navigation-item__content, .wp-block-site-title' };
 	function hostSlant(role) {
@@ -517,35 +705,18 @@
 		return it;
 	}
 	function roleOf(role) {
-		var s = byId(current), tw = readTweaks()[current], out = {};
+		var E = engineNow()[role] || {}, out = {};
 		Object.keys(ROLE_DEFAULT[role]).forEach(function (k) {
 			out[k] = ROLE_DEFAULT[role][k];
-			if (s && s.roles && s.roles[role] && s.roles[role][k] !== undefined) out[k] = s.roles[role][k];
-			if (tw && tw.roles && tw.roles[role] && tw.roles[role][k] !== undefined) out[k] = tw.roles[role][k];
+			if (k !== 'members' && E[k] !== undefined) out[k] = E[k];
 		});
 		if (FOLLOW_ALIAS[out.face]) out.face = FOLLOW_ALIAS[out.face]; 
-		if (membersOf(role).length) {
-			var mem = {};
-			var take = function (src) {
-				if (!src || typeof src !== 'object') return; mem = {};
-				Object.keys(src).forEach(function (id) {
-					var m = src[id], o = {}; if (!m || typeof m !== 'object') return;
-					if (m.size !== undefined) o.size = rungFor(role, m.size);
-					if (m.weight !== undefined) o.weight = WEIGHT_ALIAS[m.weight] || m.weight;
-					if (m.caps !== undefined) o.caps = !!m.caps;
-					if (m.tracking !== undefined) o.tracking = TRACK_ALIAS[m.tracking] || m.tracking;
-					if (m.align !== undefined && ALIGNS.indexOf(m.align) !== -1 && memberDialsOf(role).indexOf('align') !== -1) o.align = m.align;
-					if (Object.keys(o).length) mem[id] = o;
-				});
-			};
-			take(s && s.roles && s.roles[role] && s.roles[role].members);
-			take(tw && tw.roles && tw.roles[role] && tw.roles[role].members);
-			out.members = mem;
-		} else delete out.members;
+		if (membersOf(role).length) out.members = E.members || {}; else delete out.members;
+		out.factor = E.factor !== undefined ? E.factor : 1;
 		if (role === 'read') out.face = root.getAttribute('data-face') || 'newsreader';
 		if (role === 'ui') out.face = sansOf();
 		out.weight = fitWeight(out.face, WEIGHT_ALIAS[out.weight] || out.weight);
-		out.size = rungFor(role, out.size); 
+		out.size = Math.abs(out.factor - 1) > 0.0001 ? String(Math.round((ROLE_BASE[role] || ROLE_BASE.read) * out.factor)) : rungFor(role, out.size); 
 		out.tracking = TRACK_ALIAS[out.tracking] || out.tracking; 
 		out.words = WORDS_ALIAS[out.words] || out.words;
 		if (window.architravePanelGuest && !isLook(current) && !ownItalic(role)) out.italic = hostSlant(role);
@@ -558,32 +729,38 @@
 		var st = root.style;
 		ROLES.forEach(function (role) {
 			var v = roleOf(role), p = '--' + role + '-', rest = ROLE_DEFAULT[role], s0 = byId(current);
-			var hostTw = window.architravePanelGuest && !isLook(current) ? ((readTweaks()[current] || {}).roles || {})[role] || {} : {};
+			var hostTw = window.architravePanelGuest && !isLook(current) ? engineOf(readTweaks()[current] || {})[role] || {} : {};
+			var styleE = engineOf(s0)[role] || {};
 			if (role !== 'read' && role !== 'ui') st.setProperty(p + 'face', faceValue(v.face));
 			if (role === 'small') { if (v.face !== rest.face) root.setAttribute('data-small-face-own', ''); else root.removeAttribute('data-small-face-own'); }
 			if (v.weight === rest.weight && hostTw.weight === undefined) st.removeProperty(p + 'weight'); else st.setProperty(p + 'weight', String(WEIGHT[v.weight] || 400));
 			if (role === 'read' || role === 'ui' || role === 'comment') { if (v.weight === rest.weight) root.removeAttribute('data-' + role + '-weight'); else root.setAttribute('data-' + role + '-weight', v.weight); }
-			st.setProperty(p + 'size', String(sizeFactor(role, v.size)));
+			st.setProperty(p + 'size', String(v.factor));
 			if (window.architravePanelGuest) {
-				var mine = sizeFactor(role, v.size) / sizeFactor(role, rungFor(role, (s0 && s0.roles && s0.roles[role] && s0.roles[role].size) || rest.size));
+				var mine = v.factor / (styleE.factor || 1);
 				if (Math.abs(mine - 1) < 0.0001) st.removeProperty(p + 'size-mine'); else st.setProperty(p + 'size-mine', String(mine));
 			}
 			if (role === 'head') root.removeAttribute('data-head-size'); 
-			if (role === 'ui' || role === 'comment') { if (v.size === rest.size) root.removeAttribute('data-' + role + '-size'); else root.setAttribute('data-' + role + '-size', v.size); }
+			if (role === 'ui' || role === 'comment') { if (Math.abs(v.factor - 1) < 0.0001) root.removeAttribute('data-' + role + '-size'); else root.setAttribute('data-' + role + '-size', v.size); }
 			if (membersOf(role).length) {
 				var free = 0;
 				membersOf(role).forEach(function (m) {
 					var own = (!m.lead && v.members && v.members[m.id]) || {}, any = false;
-					memberDialsOf(role).forEach(function (d) {
-						var tok = p + (d === 'caps' ? 'case' : d) + '-' + m.id, attr = 'data-' + role + '-m-' + m.id + '-' + d, val = null;
-						if (own[d] !== undefined) {
+					memberDialsOf(role, m.id).forEach(function (d) {
+						var tok = p + ({ caps: 'case', italic: 'style' }[d] || d) + '-' + m.id, attr = 'data-' + role + '-m-' + m.id + '-' + d, val = null, said = null;
+						if (d === 'size' && own.factor !== undefined) { val = String(own.factor); said = String(Math.round(m.rest * own.factor)); }
+						else if (own[d] !== undefined) {
 							if (d === 'size') val = String((+own.size || m.rest) / m.rest);
-							else if (d === 'weight') val = String(WEIGHT[fitWeight(v.face, own.weight)] || WEIGHT[own.weight] || 400);
+							else if (d === 'weight') val = String(WEIGHT[fitWeight(own.face || v.face, own.weight)] || WEIGHT[own.weight] || 400);
 							else if (d === 'caps') val = own.caps ? 'uppercase' : 'none';
 							else if (d === 'align') val = ALIGN[own.align] || 'start';
+							else if (d === 'face') { val = faceValue(own.face); said = own.face; }
+							else if (d === 'italic') { val = own.italic && hasItalic(own.face || v.face) ? 'italic' : 'normal'; said = own.italic ? 'on' : 'off'; }
+							else if (d === 'leading') { val = String(LEAD[own.leading] || 1); said = own.leading; }
+							else if (d === 'colour') { val = own.colour === 'accent' ? 'var(--accent)' : own.colour === 'own' ? 'var(--headings-own-colour, var(--accent))' : 'var(--text-primary)'; said = own.colour; }
 							else val = TRACK[own.tracking] || '0';
 						}
-						if (val === null) { st.removeProperty(tok); root.removeAttribute(attr); } else { any = true; st.setProperty(tok, val); root.setAttribute(attr, d === 'size' ? own.size : d === 'align' ? own.align : String(val)); }
+						if (val === null) { st.removeProperty(tok); root.removeAttribute(attr); } else { any = true; st.setProperty(tok, val); root.setAttribute(attr, said !== null ? said : d === 'size' ? own.size : d === 'align' ? own.align : String(val)); }
 					});
 					if (any) free++;
 				});
@@ -596,7 +773,7 @@
 			if (rest.align !== undefined) { if (v.align === rest.align) { st.removeProperty(p + 'align'); root.removeAttribute('data-' + role + '-align'); } else { st.setProperty(p + 'align', ALIGN[v.align]); root.setAttribute('data-' + role + '-align', v.align); } }
 			
 			if (role === 'quote' && !hasItalic(v.face)) st.setProperty(p + 'style', 'normal');
-			else if (role === 'quote' && v.italic === rest.italic && !(s0 && s0.roles && s0.roles.quote && s0.roles.quote.italic !== undefined)) st.removeProperty(p + 'style'); 
+			else if (role === 'quote' && v.italic === rest.italic && styleE.italic === undefined) st.removeProperty(p + 'style'); 
 			else if (v.italic) st.setProperty(p + 'style', 'italic');
 			else if (role === 'quote') st.setProperty(p + 'style', 'normal');
 			else st.removeProperty(p + 'style');
@@ -617,7 +794,7 @@
 					weight: v.weight !== rest.weight || look || hostTw.weight !== undefined,
 					tracking: v.tracking !== rest.tracking || hostTw.tracking !== undefined,
 					words: v.words !== rest.words || hostTw.words !== undefined,
-					size: String(v.size) !== String(rest.size) || hostTw.size !== undefined,
+					size: Math.abs(v.factor - 1) > 0.0001 || hostTw.factor !== undefined,
 					caps: !!v.caps,
 					italic: look ? (v.italic !== rest.italic || v.italic) : ownItalic(role) 
 				};
@@ -627,6 +804,21 @@
 				});
 			}
 		});
+		applyTypeExtras();
+	}
+	function applyTypeExtras() {
+		var st = root.style, c = typeNow().code || {}, meta = typeNow().meta || {};
+		var put = function (d, tok, val, said) { if (val === null) { st.removeProperty('--code-' + tok); root.removeAttribute('data-code-' + d); } else { st.setProperty('--code-' + tok, val); root.setAttribute('data-code-' + d, said); } };
+		var f = c.font !== undefined ? engineValue('font', c.font) : null;
+		put('face', 'face', f ? faceValue(f) : null, c.font);
+		put('size', 'size', c.size !== undefined && c.size !== '0' ? String(typeFactor(c.size)) : null, c.size);
+		put('weight', 'weight', c.weight !== undefined ? String(WEIGHT[fitWeight(f || 'mono', c.weight)] || 400) : null, c.weight);
+		put('leading', 'leading', c.lineHeight !== undefined && c.lineHeight !== 'normal' ? String(LEAD[TYPE_LINE[c.lineHeight]]) : null, c.lineHeight);
+		put('tracking', 'tracking', c.letterSpacing !== undefined && c.letterSpacing !== 'normal' ? TRACK[TYPE_LETTER[c.letterSpacing]] : null, c.letterSpacing);
+		put('caps', 'case', c.capitals ? 'uppercase' : null, 'on');
+		put('italic', 'style', c.italic !== undefined ? (c.italic && (!f || hasItalic(f)) ? 'italic' : 'normal') : null, c.italic ? 'on' : 'off');
+		if (meta.colour && meta.colour !== 'ink') { st.setProperty('--small-colour', meta.colour === 'accent' ? 'var(--accent)' : 'var(--kicker-own-colour, var(--accent))'); root.setAttribute('data-small-colour', meta.colour); }
+		else { st.removeProperty('--small-colour'); root.removeAttribute('data-small-colour'); }
 	}
 	function trackingOf() { return roleOf('read').tracking; }
 	function applyTracking() { applyRoles(); }
@@ -1038,7 +1230,7 @@
 		try { localStorage.removeItem('architrave-links'); } catch (e) {  }
 	}
 	
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'subcolour', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']);
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -1052,7 +1244,7 @@
 				['light', 'dark'].forEach(function (side) {
 					var c = e.colours[side]; if (!c || typeof c !== 'object') return;
 					var keptC = {};
-					['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { 
+					['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { 
 						var v = c[k];
 						if (v === '' && s.colours && s.colours[side] && s.colours[side][k]) { keptC[k] = ''; return; }
 						if (typeof v !== 'string' || !/^#[0-9a-f]{6}$/i.test(v)) return;
@@ -1064,26 +1256,8 @@
 				if (Object.keys(colours).length) clean.colours = colours;
 			}
 			if (e.roles && typeof e.roles === 'object') {
-				var roles = {};
-				ROLES.forEach(function (role) {
-					var r = e.roles[role]; if (!r || typeof r !== 'object') return;
-					var kept = {};
-					Object.keys(ROLE_DEFAULT[role]).forEach(function (d) {
-						if (r[d] === undefined) return;
-						var v = r[d];
-						if (d === 'align' && ALIGNS.indexOf(v) === -1) return;
-						if (d === 'colour' && ROLE_COLOURS.indexOf(v) === -1) return;
-						if (d === 'weight') v = WEIGHT_ALIAS[v] || v;
-						if (d === 'size') v = rungFor(role, v);
-						var rest = ROLE_DEFAULT[role][d];
-						if (s.roles && s.roles[role] && s.roles[role][d] !== undefined) rest = s.roles[role][d];
-						if (d === 'weight') rest = WEIGHT_ALIAS[rest] || rest;
-						if (d === 'size') rest = rungFor(role, rest);
-						if (v !== rest || (window.architravePanelGuest && (s.host || s.bare))) kept[d] = v; 
-					});
-					if (Object.keys(kept).length) roles[role] = kept;
-				});
-				if (Object.keys(roles).length) clean.roles = roles;
+				var roles = typeTweak(e, s);
+				if (Object.keys(roles).length) { clean.roles = roles; clean.architrave = 2; }
 			}
 			if (e.effects && typeof e.effects === 'object') {
 				var fx = {};
@@ -1167,7 +1341,7 @@
 			var named = (s && s.preset && tw.preset === undefined) ? presetById(s.preset) : null;
 			var base = {}, t = (tw.colours && tw.colours[side]) || {};
 			[(named && named[side]) || {}, (s && s.colours && s.colours[side]) || {}].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
-			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
+			['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
 		return out;
 	}
@@ -1328,7 +1502,7 @@
 		var out = coloursOf(id, true); out.derived = { light: [], dark: [] };
 		[['light', 'dark'], ['dark', 'light']].forEach(function (pair) {
 			var from = pair[0], to = pair[1];
-			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'light', 'second'].forEach(function (k) {
+			['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'light', 'second'].forEach(function (k) {
 				if (out[from][k] && !out[to][k] && out.derived[from].indexOf(k) === -1) { out[to][k] = deriveColour(out[from][k], k === 'paper' || k === 'ink' ? k : k === 'ground' || k === 'lift' ? 'paper' : 'accent', to); out.derived[to].push(k); }
 				if (out[from].marker && !out[to].marker && out.derived[from].indexOf('marker') === -1) { out[to].marker = out[from].marker; out.derived[to].push('marker'); }
 			});
@@ -1336,7 +1510,7 @@
 		['light', 'dark'].forEach(function (side) {
 			var paper = out[side].paper || paperOf(side);
 			if (out.derived[side].indexOf('accent') !== -1) out[side].accent = accentForPaper(out[side].accent, paper);
-			['button', 'head', 'kicker', 'light', 'second'].forEach(function (k) { if (out.derived[side].indexOf(k) !== -1) out[side][k] = accentForPaper(out[side][k], paper); }); 
+			['button', 'title', 'headings', 'meta', 'light', 'second'].forEach(function (k) { if (out.derived[side].indexOf(k) !== -1) out[side][k] = accentForPaper(out[side][k], paper); }); 
 			if (out.derived[side].indexOf('marker') !== -1) out[side].marker = accentForPaper(out[side].marker, paper, 3);
 		});
 		return out;
@@ -1479,10 +1653,11 @@
 				var LF = pairLooks(v, side).F;
 				if (LF && contrast(v.button, LF) < 1.3) css += sideRule(side, ':not([data-fills="off"])', LIFT_CARDS, buttonBody(contrast(v.paper, LF) >= 1.3 ? v.paper : v.ink, v.paper, v.ink));
 			}
-			if (v.head) css += sideRule(side, '', '', '--head-own-colour:' + v.head + ';');
+			if (v.title) css += sideRule(side, '', '', '--head-own-colour:' + v.title + ';');
+			if (v.headings) css += sideRule(side, '', '', '--headings-own-colour:' + v.headings + ';');
 			var FLD = (side === 'light' && v.inverse) || pairLooks(v, side).G; if (FLD) css += sideRule(side, '', '', '--ldp-field:' + FLD + ';');
 			if (v.marker) css += sideRule(side, '[data-marker-colour="own"]', '', markerBody(v.marker));
-			if (v.kicker) css += sideRule(side, '', '', '--kicker-own-colour:' + v.kicker + ';');
+			if (v.meta) css += sideRule(side, '', '', '--kicker-own-colour:' + v.meta + ';');
 		});
 		if (c.light.paper && c.light.ink && c.dark.paper && c.dark.ink) {
 			var on = 'html:root[data-colours="on"]';
@@ -1744,16 +1919,16 @@
 		var base = savedRecord() || {}, e = {}, J = JSON.stringify;
 		if (DIALS.some(function (d) { return rec[d] !== undefined && rec[d] !== base[d]; })) DIALS.forEach(function (d) { e[d] = rec[d] !== undefined ? rec[d] : base[d]; });
 		TWEAK_KEYS.forEach(function (k) { if (DIALS.indexOf(k) !== -1 || k === 'roles' || k === 'colours' || k === 'effects' || k === 'was') return; if (rec[k] !== undefined && J(rec[k]) !== J(base[k])) e[k] = rec[k]; });
-		var roles = {};
-		ROLES.forEach(function (role) {
-			var a = (rec.roles || {})[role] || {}, b = (base.roles || {})[role] || {}, r = {};
-			Object.keys(ROLE_DEFAULT[role]).forEach(function (d) {
-				var want = a[d] !== undefined ? a[d] : ROLE_DEFAULT[role][d], was = b[d] !== undefined ? b[d] : ROLE_DEFAULT[role][d];
-				if (J(want) !== J(was)) r[d] = want;
+		var roles = {}, ra = typeOf(rec), rb = typeOf(base);
+		TYPE_ROLES.forEach(function (role) {
+			var a = ra[role] || {}, b = rb[role] || {}, r = {};
+			TYPE_DIALS[role].forEach(function (d) {
+				var want = a[d] !== undefined ? a[d] : TYPE_REST[d], was = b[d] !== undefined ? b[d] : TYPE_REST[d];
+				if (J(want) !== J(was) && want !== undefined) r[d] = want;
 			});
 			if (Object.keys(r).length) roles[role] = r;
 		});
-		if (Object.keys(roles).length) e.roles = roles;
+		if (Object.keys(roles).length) { e.roles = roles; e.architrave = 2; }
 		var fxs = {};
 		Object.keys(EFFECTS).forEach(function (fid) {
 			var a = (rec.effects || {})[fid] || {}, b = (base.effects || {})[fid] || {}, r = {};
@@ -1819,7 +1994,7 @@
 			Object.keys(LIST.meaning).forEach(function (k) { meaning[k] = LIST.meaning[k]; });
 			var recipes = {};
 			STYLES.filter(function (x) { return !x.own && !x.site && SHOWN.indexOf(x.id) !== -1; }).forEach(function (x) {
-				var rec = { architrave: 1, label: x.label, base: x.id };
+				var rec = { architrave: 2, label: x.label, base: x.id };
 				Object.keys(x).forEach(function (k) { if (k !== 'id' && k !== 'label' && k !== 'bold' && k !== 'preset') rec[k] = x[k]; });
 				var p = x.preset && presetById(x.preset);
 				if (p) rec.colours = { light: { paper: p.light.paper, ink: p.light.ink, accent: p.light.accent }, dark: { paper: p.dark.paper, ink: p.dark.ink, accent: p.dark.accent } };
@@ -1835,35 +2010,24 @@
 					'Pick fonts from the listed ids only; the theme ships no others.',
 					'To try a record without publishing it, open the site at /#style= followed by the base64url of the record JSON.'
 				],
+				typography: TYPE_MEANS,
 				examples: recipes,
 				colourPresets: PRESETS.map(function (p) { return { id: p.id, label: p.label, light: p.light, dark: p.dark }; })
 			};
 		},
 		schema: function () {
 			var faces = (window.ArchitraveFaces || []).map(function (f) { return f.id; });
-			var role = function (r) {
-				return {
-					face: (r === 'read' || r === 'ui' ? [] : ['read', 'ui']).concat(Object.keys(FAMILY)), 
-					weight: Object.keys(WEIGHT),
-					size: sizesFor(r),
-					tracking: Object.keys(TRACK),
-					words: Object.keys(WORDS),
-					caps: 'boolean',
-					italic: 'boolean',
-					leading: r === 'read' ? undefined : Object.keys(LEAD),
-					align: ROLE_DEFAULT[r].align !== undefined ? ALIGNS : undefined,
-					colour: ROLE_DEFAULT[r].colour !== undefined ? ROLE_COLOURS : undefined
-				};
-			};
-			var roles = {}; ROLES.forEach(function (r) { roles[r] = role(r); });
-			Object.keys(MEMBERS).forEach(function (r) {
-				var mem = {};
-				MEMBERS[r].forEach(function (m) { if (!m.lead) { mem[m.id] = { size: sizesFor(r), weight: Object.keys(WEIGHT), caps: 'boolean', tracking: Object.keys(TRACK), rest: m.rest }; if (memberDialsOf(r).indexOf('align') !== -1) mem[m.id].align = ALIGNS; } });
-				roles[r].members = mem;
+			var roles = {};
+			TYPE_ROLES.forEach(function (r) {
+				var o = {};
+				TYPE_DIALS[r].forEach(function (d) {
+					o[d] = d === 'font' ? (r === 'code' ? [] : ['body', 'interface']).concat(Object.keys(FAMILY)) : d === 'size' ? TYPE_SIZES : d === 'weight' ? Object.keys(WEIGHT) : d === 'lineHeight' ? Object.keys(TYPE_LINE) : d === 'letterSpacing' ? Object.keys(TYPE_LETTER) : d === 'align' ? ALIGNS : d === 'colour' ? ROLE_COLOURS : 'boolean';
+				});
+				roles[r] = o;
 			});
 			var side = {}; LIST.wells.forEach(function (w) { side[w] = 'hex'; });
 			var from = {
-				architrave: 1,
+				architrave: 2,
 				label: 'string, at most ' + LIST.labelMax + ' characters',
 				base: STYLES.filter(function (x) { return !x.own && !x.site; }).map(function (x) { return x.id; }),
 				palette: Modes && Modes.palettes ? Modes.palettes.map(function (p) { return p.id; }) : [],
@@ -2027,7 +2191,7 @@
 			entry.colours = entry.colours || {};
 			var cur = byId(current), one = cur && cur.host && cur.hostSide;
 			['light', 'dark'].forEach(function (side) { entry.colours[side] = entry.colours[side] || {}; entry.colours[side][key] = x[one || side]; });
-			if (['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); 
+			if (['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); 
 			all[current] = entry;
 			writeTweaks(all);
 			if (key === 'accent' && !accentOn()) { try { localStorage.removeItem(ACCENT_KEY); } catch (e) {  } applyAccent(); }
@@ -2039,10 +2203,10 @@
 			var s0 = byId(current);
 			if (s0 && s0.host) {
 				var e0 = (readTweaks()[current] || {}).colours || {};
-				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(k) === -1 && !!e0[sd][k]; }); });
+				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(k) === -1 && !!e0[sd][k]; }); });
 			}
 			var c = coloursOf(null, true);
-			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker'].indexOf(k) === -1; }); }); 
+			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return ['button', 'title', 'headings', 'meta', 'marker'].indexOf(k) === -1; }); }); 
 		},
 		setCustom: function (on, seed) {
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
@@ -2101,7 +2265,7 @@
 		contrast: contrast,
 		paperOf: paperOf,
 		setColour: function (side, key, hex) {
-			if (['light', 'dark'].indexOf(side) === -1 || ['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
+			if (['light', 'dark'].indexOf(side) === -1 || ['paper', 'ink', 'accent', 'button', 'title', 'headings', 'meta', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
 			var all = readTweaks(), entry = all[current] || {};
 			entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {};
 			if (!unlinkedOf()) {
@@ -2109,7 +2273,7 @@
 				if (entry.colours[other]) { delete entry.colours[other][key]; if (!Object.keys(entry.colours[other]).length) delete entry.colours[other]; }
 			}
 			entry.colours[side][key] = hex.toLowerCase();
-			if (['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); 
+			if (['button', 'title', 'headings', 'meta', 'marker', 'inverse', 'light', 'second'].indexOf(key) === -1) letGoPreset(entry); 
 			all[current] = entry; writeTweaks(all);
 			applyColours(); mark();
 		},
@@ -2125,20 +2289,14 @@
 		
 		exportStyle: function () {
 			var s = byId(current); if (!s) return '';
-			var tw = readTweaks()[current] || {}, w = wanted(s), out = { architrave: 1, label: s.label, base: baseOf(s) };
+			var tw = readTweaks()[current] || {}, w = wanted(s), out = { architrave: 2, label: s.label, base: baseOf(s) };
 			DIALS.forEach(function (d) { out[d] = w[d]; });
 			OPTS.forEach(function (k) { out[k] = optionOn(k); });
 			var loose = followers();
 			out.tint = tintOf(); out.sans = sansOf(); out.scope = scopeOf(); out.pictures = picturesOf(); out.capLines = capLinesOf(); out.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { out[k] = pickOf(k); }); out.line = levelOf('line'); out.fill = levelOf('fill'); out.softlevel = levelOf('softlevel'); out.quietlevel = levelOf('quietlevel'); out.smallsoft = levelOf('smallsoft'); out.linestyle = lineStyleOf(); out.corners = cornersOf(); out.fadeedges = fadeEdgesOf(); out.markercolour = markerColourOf(); out.framepattern = framePatternOf(); out.measure = levelOf('measure'); out.space = levelOf('space'); out.framewidth = levelOf('framewidth');
 			loose.forEach(function (k) { delete out[k]; }); 
 			if (unlinkedOf()) out.unlinked = true; 
-			out.roles = {};
-			ROLES.forEach(function (role) {
-				var r = {};
-				if (s.roles && s.roles[role]) Object.keys(s.roles[role]).forEach(function (k) { r[k] = s.roles[role][k]; });
-				if (tw.roles && tw.roles[role]) Object.keys(tw.roles[role]).forEach(function (k) { r[k] = tw.roles[role][k]; });
-				if (Object.keys(r).length) out.roles[role] = r;
-			});
+			out.roles = typeMerged(s, tw);
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
 			var c = coloursOf(null, true); out.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = c[side]; });
@@ -2147,7 +2305,7 @@
 		importStyle: function (text, name) {
 			var data;
 			try { data = JSON.parse(String(text || '').trim()); } catch (e) { return null; }
-			if (!data || data.architrave !== 1) return null;
+			if (!data || (data.architrave !== 1 && data.architrave !== 2)) return null;
 			var entry = ownFromRecord(data, name);
 			renderHosts();
 			apply(entry, entry);
@@ -2171,7 +2329,7 @@
 			if (!/^site-[a-z0-9]+$/.test(id) || !window.fetch) return Promise.resolve(null);
 			return fetch(url.origin + '/?rest_route=' + encodeURIComponent('/architrave/v1/site-styles/' + id), { mode: 'cors' })
 				.then(function (r) { return r.ok ? r.json() : null; })
-				.then(function (rec) { return rec && rec.architrave === 1 ? self.importStyle(JSON.stringify(rec)) : null; })
+				.then(function (rec) { return rec && (rec.architrave === 1 || rec.architrave === 2) ? self.importStyle(JSON.stringify(rec)) : null; })
 				.catch(function () { return null; });
 		},
 		duplicate: function (id) {
@@ -2187,14 +2345,8 @@
 				Object.keys(tw).forEach(function (k) { if (k !== 'roles' && k !== 'effects') record[k] = tw[k]; });
 				var fxDup = effectsOf(s, tw); if (Object.keys(fxDup).length) record.effects = fxDup; else delete record.effects;
 				DIALS.forEach(function (d) { record[d] = w[d]; });
-				var roles = {};
-				ROLES.forEach(function (role) {
-					var r = {};
-					if (s.roles && s.roles[role]) Object.keys(s.roles[role]).forEach(function (k) { r[k] = s.roles[role][k]; });
-					if (tw.roles && tw.roles[role]) Object.keys(tw.roles[role]).forEach(function (k) { r[k] = tw.roles[role][k]; });
-					if (Object.keys(r).length) roles[role] = r;
-				});
-				record.roles = roles;
+				record.roles = typeMerged(s, tw);
+				record.architrave = 2;
 				record.base = baseOf(s);
 				var cDup = coloursOf(id, true); record.colours = {};
 				['light', 'dark'].forEach(function (side) { if (Object.keys(cDup[side]).length) record.colours[side] = cDup[side]; });
@@ -2216,13 +2368,7 @@
 			var loose = followers();
 			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); entry.space = levelOf('space'); entry.framewidth = levelOf('framewidth'); entry.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete entry[k]; }); 
-			entry.roles = {};
-			ROLES.forEach(function (role) {
-				var r = {};
-				if (s.roles && s.roles[role]) Object.keys(s.roles[role]).forEach(function (k) { r[k] = s.roles[role][k]; });
-				if (tw.roles && tw.roles[role]) Object.keys(tw.roles[role]).forEach(function (k) { r[k] = tw.roles[role][k]; });
-				if (Object.keys(r).length) entry.roles[role] = r;
-			});
+			entry.roles = typeMerged(s, tw); entry.architrave = 2;
 			var fxSave = effectsOf(s, tw); if (Object.keys(fxSave).length) entry.effects = fxSave;
 			var c = coloursOf(null, true); entry.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = c[side]; });
@@ -2239,8 +2385,7 @@
 			var loose = followers();
 			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.line = levelOf('line'); s.fill = levelOf('fill'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); s.space = levelOf('space'); s.framewidth = levelOf('framewidth'); s.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete s[k]; }); 
-			s.roles = s.roles || {};
-			ROLES.forEach(function (role) { if (tw.roles && tw.roles[role]) { s.roles[role] = s.roles[role] || {}; Object.keys(tw.roles[role]).forEach(function (k) { s.roles[role][k] = tw.roles[role][k]; }); } });
+			s.roles = typeMerged(s, tw); s.architrave = 2;
 			var fxUp = effectsOf(s, tw); if (Object.keys(fxUp).length) s.effects = fxUp; else delete s.effects;
 			var c = coloursOf(null, true); s.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = c[side]; });
@@ -2314,6 +2459,7 @@
 		memberDialsFor: memberDialsOf,
 		aligns: ALIGNS,
 		setMember: function (role, id, dial, value) {
+			return; 
 			var m = membersOf(role).filter(function (x) { return x.id === id; })[0];
 			if (!m || m.lead) return;
 			var v = roleOf(role), set = {};
@@ -2340,26 +2486,59 @@
 			writeTweaks(all);
 			applyRoles(); mark();
 		},
-		setRole: function (role, dial, v) {
-			if (ROLES.indexOf(role) === -1 || !(dial in ROLE_DEFAULT[role]) || dial === 'members') return;
-			if (dial === 'align' && ALIGNS.indexOf(v) === -1) return;
-			if (dial === 'colour' && ROLE_COLOURS.indexOf(v) === -1) return;
-			if (dial === 'face' && role === 'read') { press('[data-architrave-face] [data-face-choice="' + v + '"]'); return; }
-			if (dial === 'face' && role === 'ui') { this.setSans(v); return; }
-			var s = byId(current), all = readTweaks(), entry = all[current] || {}, rest = ROLE_DEFAULT[role][dial];
-			if (s && s.roles && s.roles[role] && s.roles[role][dial] !== undefined) rest = s.roles[role][dial];
-			if (dial === 'weight') { v = WEIGHT_ALIAS[v] || v; rest = WEIGHT_ALIAS[rest] || rest; }
-			if (dial === 'size') { v = rungFor(role, v); rest = rungFor(role, rest); }
-			if (dial === 'tracking') { v = TRACK_ALIAS[v] || v; rest = TRACK_ALIAS[rest] || rest; }
-			if (dial === 'words') { v = WORDS_ALIAS[v] || v; rest = WORDS_ALIAS[rest] || rest; }
+		typeRoles: TYPE_ROLES,
+		typeDials: function (role) { return TYPE_DIALS[role] ? (role === 'body' ? ['font', 'size', 'weight', 'lineHeight', 'letterSpacing', 'capitals', 'italic'] : role === 'interface' ? ['font'].concat(TYPE_DIALS[role]) : TYPE_DIALS[role]).slice() : []; },
+		typeSizes: function (role) { return TYPE_SIZES.map(function (st) { return { id: st, px: Math.round((TYPE_BASE[role] || 16) * typeFactor(st)) }; }); },
+		typeLines: Object.keys(TYPE_LINE),
+		typeLetters: Object.keys(TYPE_LETTER),
+		type: function (role) {
+			if (!TYPE_DIALS[role]) return {};
+			var P = typeNow()[role] || {}, lead = { title: 'head', headings: 'head', body: 'read', quote: 'quote', meta: 'small', 'interface': 'ui' }[role], e = lead ? roleOf(lead) : {};
+			var back = function (f) { return f === 'read' ? 'body' : f === 'ui' ? 'interface' : f; };
+			var LINE_BACK = { dense: 'tight', tight: 'snug', 'default': 'normal', airy: 'relaxed', wide: 'loose' };
+			var out = {
+				font: role === 'body' ? (root.getAttribute('data-face') || 'newsreader') : role === 'interface' ? sansOf() : P.font !== undefined ? P.font : role === 'code' ? '' : role === 'headings' ? back(ROLE_DEFAULT.head.face) : back(e.face),
+				size: P.size !== undefined ? P.size : '0',
+				weight: P.weight !== undefined ? P.weight : role === 'headings' ? 'semibold' : role === 'code' ? 'regular' : e.weight,
+				lineHeight: role === 'body' ? (LINE_BACK[root.getAttribute('data-leading') || 'default'] || 'normal') : P.lineHeight !== undefined ? P.lineHeight : 'normal',
+				letterSpacing: P.letterSpacing !== undefined ? P.letterSpacing : 'normal',
+				capitals: P.capitals !== undefined ? P.capitals : role === 'headings' || role === 'code' ? false : !!e.caps,
+				italic: P.italic !== undefined ? P.italic : role === 'headings' || role === 'code' ? false : !!e.italic
+			};
+			out.px = Math.round((TYPE_BASE[role] || 16) * typeFactor(out.size));
+			if (TYPE_DIALS[role].indexOf('align') !== -1) out.align = P.align !== undefined ? P.align : 'default';
+			if (TYPE_DIALS[role].indexOf('colour') !== -1) out.colour = P.colour !== undefined ? P.colour : 'ink';
+			out.own = Object.keys(typeMerged(byId(current), readTweaks()[current])[role] || {}); 
+			return out;
+		},
+		setType: function (role, dial, v) {
+			if (!TYPE_DIALS[role]) return;
+			if (role === 'body' && dial === 'font') { press('[data-architrave-face] [data-face-choice="' + v + '"]'); return; }
+			if (role === 'interface' && dial === 'font') { this.setSans(v); return; }
+			if (role === 'body' && dial === 'lineHeight') { if (TYPE_LINE[v]) press('[data-architrave-leading] [data-leading-step="' + TYPE_LINE[v] + '"]'); return; }
+			if (dial === 'size') v = String(v);
+			if (dial === 'weight') v = WEIGHT_ALIAS[v] || v;
+			if (!typeOk(role, dial, v)) return;
+			var s = byId(current), all = readTweaks(), entry = all[current] || {}, own = typeOf(s)[role] || {};
 			entry.roles = entry.roles || {}; entry.roles[role] = entry.roles[role] || {};
-			var hostLook = window.architravePanelGuest && s && (s.host || s.bare); 
-			if (v === rest && !hostLook) delete entry.roles[role][dial]; else entry.roles[role][dial] = v;
+			if (own[dial] !== undefined ? v === own[dial] : TYPE_REST[dial] === v) delete entry.roles[role][dial]; else entry.roles[role][dial] = v;
 			if (!Object.keys(entry.roles[role]).length) delete entry.roles[role];
-			if (!Object.keys(entry.roles).length) delete entry.roles;
+			if (!Object.keys(entry.roles).length) delete entry.roles; else entry.architrave = 2;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
 			applyRoles(); mark();
+		},
+		setRole: function (role, dial, v) {
+			if (ROLES.indexOf(role) === -1) return;
+			if (dial === 'face' && role === 'read') { press('[data-architrave-face] [data-face-choice="' + v + '"]'); return; }
+			if (dial === 'face' && role === 'ui') { this.setSans(v); return; }
+			var to = TYPE_LEADS[role], d = { face: 'font', caps: 'capitals', tracking: 'letterSpacing', leading: 'lineHeight' }[dial] || dial;
+			if (!to || TYPE_DIALS[to].indexOf(d) === -1) return;
+			if (d === 'font') v = v === 'read' ? 'body' : v === 'ui' ? 'interface' : v;
+			if (d === 'size') { var n = Math.max(-4, Math.min(6, Math.round(Math.log((+v || ROLE_BASE[role]) / ROLE_BASE[role]) / Math.log(1.125)))); v = n > 0 ? '+' + n : String(n); }
+			if (d === 'letterSpacing') { var em = parseFloat(TRACK[TRACK_ALIAS[v] || v]) || 0, best = 'normal'; Object.keys(TYPE_LETTER).forEach(function (k) { if (Math.abs(parseFloat(TRACK[TYPE_LETTER[k]]) - em) < Math.abs(parseFloat(TRACK[TYPE_LETTER[best]]) - em)) best = k; }); v = best; }
+			if (d === 'lineHeight') { var f = LEAD[v] || 1, bl = 'normal'; Object.keys(TYPE_LINE).forEach(function (k) { if (Math.abs(LEAD[TYPE_LINE[k]] - f) < Math.abs(LEAD[TYPE_LINE[bl]] - f)) bl = k; }); v = bl; }
+			this.setType(to, d, v);
 		},
 		scope: SCOPE,
 		scopeNow: scopeOf,
@@ -2560,7 +2739,7 @@
 		
 		changes: function () {
 			var s = byId(current) || {}, e = readTweaks()[current] || {}, out = {};
-			Object.keys(e).forEach(function (k) { if (k !== 'was' && !(DIALS.indexOf(k) !== -1 && e[k] === s[k])) out[k] = e[k]; });
+			Object.keys(e).forEach(function (k) { if (k !== 'was' && k !== 'architrave' && !(DIALS.indexOf(k) !== -1 && e[k] === s[k])) out[k] = e[k]; });
 			return out;
 		},
 		resetPaths: function (paths) {

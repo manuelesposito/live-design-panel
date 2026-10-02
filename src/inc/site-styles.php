@@ -228,7 +228,7 @@ function architrave_site_style_record( $record ) {
 	}
 	$clean['id']         = $id;
 	$clean['label']      = $label;
-	$clean['architrave'] = 1;
+	$clean['architrave'] = isset( $clean['architrave'] ) && 2 === (int) $clean['architrave'] ? 2 : 1; /* 2: a record of the seven type roles (2026-10-02); the panel reads a 1 into them */
 	unset( $clean['own'], $clean['site'] );
 	return $clean;
 }
@@ -845,7 +845,7 @@ function architrave_site_styles_schema_route() {
 				$guide  = file_exists( $gfile ) ? json_decode( (string) file_get_contents( $gfile ), true ) : null; // phpcs:ignore WordPressVIPMinimum.Performance.FetchingRemoteData.FileGetContentsUnknown
 				return rest_ensure_response(
 					array(
-						'about'   => 'A style is a record of dials, switches, type roles and colours. Every key is optional; a missing one rests on the base style. Values are the ids listed under record; a field marked boolean takes true or false, hex takes a colour like #f4efe6, and roles holds one table per role with the fields listed for it. Under roles.ui, members names the sizes that follow Interface\'s own: a member written there is released at that size, a member left out follows the lead at its rest times the lead\'s step.',
+						'about'   => 'A style is a record of dials, switches, type roles and colours. Every key is optional; a missing one rests on the base style. Values are the ids listed under record; a field marked boolean takes true or false, hex takes a colour like #f4efe6, and roles holds one table per type role (title, headings, body, quote, meta, interface, code) with the fields listed for it; a field left out is the theme\'s own. Write architrave 2. guide.typography says what each role styles and what each step means.',
 						'read'    => array(
 							'all' => rest_url( 'architrave/v1/site-styles' ),
 							'one' => rest_url( 'architrave/v1/site-styles/{id}' ),

@@ -172,8 +172,8 @@ function live_design_window_settings() {
 }
 
 /**
- * The roles of the type, from plugin/settings.json: each one's name, where it
- * shows, its dials and its members, in the order the list gives them.
+ * The roles of the type, from plugin/settings.json: each one's name, what it
+ * styles and its dials, in the order the list gives them (the seven, 2026-10-02).
  *
  * @return array
  */
@@ -190,7 +190,6 @@ function live_design_window_roles() {
 			'label'   => isset( $role['label'] ) ? (string) $role['label'] : (string) $role['id'],
 			'where'   => isset( $role['where'] ) ? (string) $role['where'] : '',
 			'dials'   => isset( $role['dials'] ) ? array_values( (array) $role['dials'] ) : array(),
-			'members' => isset( $role['members'] ) ? array_values( (array) $role['members'] ) : array(),
 		);
 	}
 	return $out;

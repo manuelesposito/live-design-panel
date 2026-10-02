@@ -6,8 +6,8 @@
     "dark"
   ],
   "means": {
-    "roles": "Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme's own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.",
-    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.",
+    "roles": "Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site's name. body: what people read (p, li); its font is the record's face and its line spacing the record's leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record's sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; title, headings and meta also colour. A dial left out is the theme's own. size is a step from the role's own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records of the seven say architrave 2; older records with the eight roles are read into the seven.",
+    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), title, headings and meta (the roles' own colours, with roles.<role>.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides.",
     "effects": "The extras' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect's own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look."
   },
   "order": {
@@ -74,7 +74,6 @@
       "hyphenate",
       "piccorners",
       "pictureshadow",
-      "subcolour",
       "opening",
       "widefigures",
       "unlinked",
@@ -156,14 +155,6 @@
       "effects",
       "roles",
       "colours"
-    ],
-    "members": [
-      "ui",
-      "head",
-      "small",
-      "comment",
-      "read",
-      "title"
     ]
   },
   "otherAttrs": {
@@ -175,441 +166,169 @@
   },
   "roles": [
     {
-      "id": "head",
-      "label": "Headings",
-      "where": "Applies to the title and the headings in the article.",
+      "id": "title",
+      "label": "Title",
+      "where": "The one big line of a page: the article's title, a page's name.",
+      "html": "h1, .wp-block-post-title",
+      "base": 64,
       "dials": [
-        "face",
-        "weight",
+        "font",
         "size",
-        "tracking",
-        "words",
-        "caps",
+        "weight",
+        "lineHeight",
+        "letterSpacing",
+        "capitals",
         "italic",
-        "leading",
         "align",
         "colour"
-      ],
-      "members": [
-        {
-          "id": "title",
-          "label": "Article title",
-          "rest": 64,
-          "lead": true,
-          "dials": []
-        },
-        {
-          "id": "sub",
-          "label": "Subheadings",
-          "rest": 36,
-          "weight": "semibold",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking",
-            "align"
-          ]
-        }
       ]
     },
     {
-      "id": "read",
-      "label": "Reading text",
-      "where": "Applies to the paragraphs of the article.",
+      "id": "headings",
+      "label": "Headings",
+      "where": "The headings inside the text, and the site's name.",
+      "html": "h2, h3, h4, h5, h6, .wp-block-heading, .wp-block-site-title",
+      "base": 36,
       "dials": [
-        "face",
-        "weight",
+        "font",
         "size",
-        "tracking",
-        "words",
-        "caps",
+        "weight",
+        "lineHeight",
+        "letterSpacing",
+        "capitals",
+        "italic",
+        "align",
+        "colour"
+      ]
+    },
+    {
+      "id": "body",
+      "label": "Reading text",
+      "where": "What people read: paragraphs, lists, excerpts, the comments' words.",
+      "html": "p, li, dd, td",
+      "base": 22,
+      "dials": [
+        "size",
+        "weight",
+        "letterSpacing",
+        "capitals",
         "italic"
       ],
-      "members": [
-        {
-          "id": "text",
-          "label": "Paragraphs",
-          "rest": 22,
-          "lead": true,
-          "dials": []
-        },
-        {
-          "id": "excerpts",
-          "label": "Excerpts",
-          "rest": 22,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "boxes",
-          "label": "Boxes",
-          "rest": 18,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        }
-      ],
-      "restOnly": {
-        "leading": "default"
+      "elsewhere": {
+        "font": "face",
+        "lineHeight": "leading"
       }
     },
     {
       "id": "quote",
       "label": "Quotes",
-      "where": "The quotes.",
+      "where": "Quotations and pull quotes.",
+      "html": "blockquote, .wp-block-pullquote",
+      "base": 26,
       "dials": [
-        "face",
-        "weight",
+        "font",
         "size",
-        "tracking",
-        "words",
-        "caps",
-        "italic",
-        "leading"
-      ],
-      "members": []
+        "weight",
+        "lineHeight",
+        "letterSpacing",
+        "capitals",
+        "italic"
+      ]
     },
     {
-      "id": "kicker",
-      "label": "Category line",
-      "where": "The category under the title, on the cards and in the article.",
-      "dials": [
-        "face",
-        "weight",
-        "size",
-        "tracking",
-        "words",
-        "caps",
-        "italic",
-        "leading",
-        "align",
-        "colour"
-      ],
-      "members": []
-    },
-    {
-      "id": "small",
+      "id": "meta",
       "label": "Small text",
-      "where": "Dates, categories, captions and tags.",
+      "where": "Small facts around the text: dates, authors, categories, tags, captions, names in comments.",
+      "html": "time, figcaption, small, .wp-block-post-date, .wp-block-post-terms",
+      "base": 16,
       "dials": [
-        "face",
-        "weight",
+        "font",
         "size",
-        "tracking",
-        "words",
-        "caps",
+        "weight",
+        "lineHeight",
+        "letterSpacing",
+        "capitals",
         "italic",
-        "leading"
-      ],
-      "members": [
-        {
-          "id": "date",
-          "label": "Date line",
-          "rest": 16,
-          "lead": true,
-          "dials": []
-        },
-        {
-          "id": "author",
-          "label": "Author",
-          "rest": 16,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "terms",
-          "label": "Categories and tags",
-          "rest": 13,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "captions",
-          "label": "Captions",
-          "rest": 13,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "carddates",
-          "label": "Card dates",
-          "rest": 13,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "release",
-          "label": "Release notes",
-          "rest": 16,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        }
+        "colour"
       ]
     },
     {
-      "id": "comment",
-      "label": "Comments",
-      "where": "The names, the words and the form under the article.",
-      "dials": [
-        "face",
-        "weight",
-        "size",
-        "tracking",
-        "words",
-        "caps",
-        "italic",
-        "leading"
-      ],
-      "members": [
-        {
-          "id": "title",
-          "label": "Comment title",
-          "rest": 18,
-          "weight": "medium",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "name",
-          "label": "Name",
-          "rest": 16,
-          "weight": "medium",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "text",
-          "label": "Comment text",
-          "rest": 14,
-          "lead": true,
-          "dials": []
-        },
-        {
-          "id": "small",
-          "label": "Comment lines",
-          "rest": 13,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "form",
-          "label": "Form",
-          "rest": 13,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        }
-      ]
-    },
-    {
-      "id": "ui",
+      "id": "interface",
       "label": "Interface",
-      "where": "The sidebar, the menus, the buttons and the cards.",
+      "where": "The site around the text: menus, buttons, fields, labels, section titles.",
+      "html": "nav, button, label, input",
+      "base": 13,
       "dials": [
-        "face",
-        "weight",
         "size",
-        "tracking",
-        "words",
-        "caps",
-        "italic",
-        "leading"
+        "weight",
+        "lineHeight",
+        "letterSpacing",
+        "capitals",
+        "italic"
       ],
-      "members": [
-        {
-          "id": "masthead",
-          "label": "Masthead",
-          "rest": 20,
-          "weight": "semibold",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "cards",
-          "label": "Card titles",
-          "rest": 13,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "linkcard",
-          "label": "Large card titles",
-          "rest": 18,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "newsletter",
-          "label": "Newsletter card",
-          "rest": 16,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "fields",
-          "label": "Fields",
-          "rest": 13,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "menus",
-          "label": "Menus and buttons",
-          "rest": 13,
-          "lead": true,
-          "dials": []
-        },
-        {
-          "id": "labels",
-          "label": "Labels",
-          "rest": 11,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "credit",
-          "label": "Credit",
-          "rest": 11,
-          "weight": "regular",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        }
-      ]
+      "elsewhere": {
+        "font": "sans"
+      }
     },
     {
-      "id": "title",
-      "label": "Interface titles",
-      "where": "The section and group titles.",
+      "id": "code",
+      "label": "Code",
+      "where": "Code and keys, inline and in blocks.",
+      "html": "code, pre, kbd",
+      "base": 18,
       "dials": [
-        "face",
-        "weight",
+        "font",
         "size",
-        "tracking",
-        "words",
-        "caps",
-        "italic",
-        "leading"
-      ],
-      "members": [
-        {
-          "id": "sections",
-          "label": "Section titles",
-          "rest": 11,
-          "lead": true,
-          "dials": []
-        },
-        {
-          "id": "years",
-          "label": "Year titles",
-          "rest": 16,
-          "weight": "medium",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        },
-        {
-          "id": "release",
-          "label": "Release titles",
-          "rest": 16,
-          "weight": "semibold",
-          "dials": [
-            "size",
-            "weight",
-            "caps",
-            "tracking"
-          ]
-        }
+        "weight",
+        "lineHeight",
+        "letterSpacing",
+        "capitals",
+        "italic"
       ]
     }
   ],
+  "type": {
+    "ratio": 1.125,
+    "sizes": [
+      "-4",
+      "-3",
+      "-2",
+      "-1",
+      "0",
+      "+1",
+      "+2",
+      "+3",
+      "+4",
+      "+5",
+      "+6"
+    ],
+    "lines": {
+      "tight": "dense",
+      "snug": "tight",
+      "normal": "default",
+      "relaxed": "airy",
+      "loose": "wide"
+    },
+    "letters": {
+      "tighter": "m5",
+      "tight": "m2",
+      "normal": "default",
+      "wide": "p2",
+      "wider": "p5",
+      "widest": "p10"
+    },
+    "means": {
+      "font": "A face id from the list, or body / interface to follow the reading or the interface font. Left out: the theme's own.",
+      "size": "Steps from the role's own size, each 1.125 times the one before: -1 a little smaller, +1 a little larger, +3 about half again as large. 0 or left out: the theme's own.",
+      "weight": "thin 100 to black 900; a face offers the weights it has and falls to the nearest.",
+      "lineHeight": "tight for big titles, snug for headings, normal is the theme's own, relaxed for long reading, loose for airy small text.",
+      "letterSpacing": "tighter and tight close large type up, normal is the theme's own, wide to widest open small capitals and labels.",
+      "capitals": "true sets the role in capitals.",
+      "italic": "true sets it in italic, where the face has one.",
+      "align": "default (the start), center or right; title and headings.",
+      "colour": "ink (the text colour), accent, or own (the role's own well, colours.<side>.title, .headings or .meta)."
+    }
+  },
   "effects": [],
   "settings": [
     {
@@ -617,7 +336,7 @@
       "group": "record",
       "table": null,
       "kind": "const",
-      "def": 1,
+      "def": 2,
       "means": "Always 1. Marks the JSON as a style record.",
       "label": null,
       "page": null,
@@ -2281,35 +2000,6 @@
       "inStandardAtRest": false
     },
     {
-      "key": "subcolour",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "title",
-        "ink"
-      ],
-      "def": "title",
-      "attr": "data-sub-colour",
-      "means": "The colour of the article's section headings when the headings' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text's colour, so only the title stands in the colour).",
-      "label": "Section headings",
-      "page": "Type › Headings",
-      "level": 3,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1961,
-        "in": "level3"
-      },
-      "changesPage": "Type › Headings",
-      "attrs": [
-        "data-sub-colour"
-      ],
-      "rest": {
-        "data-sub-colour": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
       "key": "opening",
       "group": "pick",
       "table": "PICKS",
@@ -2868,33 +2558,28 @@
       "inStandardAtRest": false
     },
     {
-      "key": "roles.{role}.face",
+      "key": "roles.{role}.font",
       "group": "role",
-      "table": "ROLE_DEFAULT",
+      "table": "TYPE_DIALS",
       "kind": "pick",
       "roles": [
-        "head",
-        "read",
+        "title",
+        "headings",
         "quote",
-        "kicker",
-        "small",
-        "comment",
-        "ui",
-        "title"
+        "meta",
+        "code"
       ],
       "choicesByRoles": [
         {
           "roles": [
-            "head",
+            "title",
+            "headings",
             "quote",
-            "kicker",
-            "small",
-            "comment",
-            "title"
+            "meta"
           ],
           "choices": [
-            "read",
-            "ui",
+            "body",
+            "interface",
             "inter",
             "hyperlegible",
             "geist",
@@ -2994,8 +2679,7 @@
         },
         {
           "roles": [
-            "read",
-            "ui"
+            "code"
           ],
           "choices": [
             "inter",
@@ -3096,94 +2780,186 @@
           ]
         }
       ],
-      "defByRole": {
-        "head": "read",
-        "read": "newsreader",
-        "quote": "read",
-        "kicker": "read",
-        "small": "ui",
-        "comment": "ui",
-        "ui": "inter",
-        "title": "ui"
-      },
-      "aliases": {
-        "inherit": "read"
-      },
+      "def": null,
+      "defMeans": "absent: the theme's own",
       "means": null,
       "meansFrom": "roles",
       "label": "Font",
       "page": "Type › {role}",
       "level": 3,
-      "row": {
-        "drawn": "list",
-        "line": 1541,
-        "in": "fontRow"
-      },
       "changesPage": "Type › {role}",
       "attrs": [
-        "data-{role}-face-own"
+        "data-code-face",
+        "data-comment-m-name-face",
+        "data-comment-m-small-face",
+        "data-comment-m-title-face",
+        "data-comment-members",
+        "data-head-m-sub-face",
+        "data-head-members",
+        "data-small-face-own"
       ],
       "guestAttrs": [
-        "data-{role}-face",
-        "data-{role}-italic"
+        "data-head-face",
+        "data-kicker-face",
+        "data-kicker-italic",
+        "data-quote-face",
+        "data-small-face"
       ],
       "props": [
-        "--{role}-face",
-        "--{role}-style"
+        "--code-face",
+        "--comment-face-name",
+        "--comment-face-small",
+        "--comment-face-title",
+        "--head-face",
+        "--head-face-sub",
+        "--kicker-face",
+        "--kicker-style",
+        "--quote-face",
+        "--quote-style",
+        "--small-face"
       ],
       "rest": {
-        "data-head-face-own": false,
-        "data-read-face-own": false,
-        "data-quote-face-own": false,
-        "data-kicker-face-own": false,
+        "data-code-face": "ABSENT_PATTERNS",
+        "data-comment-m-name-face": "ABSENT_PATTERNS",
+        "data-comment-m-small-face": "ABSENT_PATTERNS",
+        "data-comment-m-title-face": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-head-m-sub-face": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
         "data-small-face-own": "ABSENT",
-        "data-comment-face-own": false,
-        "data-ui-face-own": false,
-        "data-title-face-own": false,
         "data-head-face": false,
-        "data-read-face": false,
-        "data-quote-face": false,
         "data-kicker-face": false,
-        "data-small-face": false,
-        "data-comment-face": false,
-        "data-ui-face": false,
-        "data-title-face": false,
-        "data-head-italic": false,
-        "data-read-italic": false,
-        "data-quote-italic": false,
         "data-kicker-italic": false,
-        "data-small-italic": false,
-        "data-comment-italic": false,
-        "data-ui-italic": false,
-        "data-title-italic": false
+        "data-quote-face": false,
+        "data-small-face": false
       },
       "inStandardAtRest": {
         "attrs": [],
         "props": [
           "--head-face",
-          "--quote-face",
           "--kicker-face",
-          "--small-face",
-          "--comment-face",
-          "--title-face",
-          "--kicker-style"
+          "--kicker-style",
+          "--quote-face",
+          "--small-face"
+        ]
+      }
+    },
+    {
+      "key": "roles.{role}.size",
+      "group": "role",
+      "table": "TYPE_DIALS",
+      "kind": "dial",
+      "roles": [
+        "title",
+        "headings",
+        "body",
+        "quote",
+        "meta",
+        "interface",
+        "code"
+      ],
+      "steps": [
+        "-4",
+        "-3",
+        "-2",
+        "-1",
+        "0",
+        "+1",
+        "+2",
+        "+3",
+        "+4",
+        "+5",
+        "+6"
+      ],
+      "def": null,
+      "defMeans": "absent: the theme's own",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Size",
+      "page": "Type › {role}",
+      "level": 3,
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-code-size",
+        "data-comment-m-form-size",
+        "data-comment-m-name-size",
+        "data-comment-m-small-size",
+        "data-comment-m-title-size",
+        "data-comment-members",
+        "data-comment-size",
+        "data-head-m-sub-size",
+        "data-head-members",
+        "data-ui-size"
+      ],
+      "guestAttrs": [
+        "data-head-size",
+        "data-kicker-size",
+        "data-quote-size",
+        "data-read-size",
+        "data-small-size",
+        "data-title-size"
+      ],
+      "props": [
+        "--code-size",
+        "--comment-size",
+        "--comment-size-form",
+        "--comment-size-name",
+        "--comment-size-small",
+        "--comment-size-title",
+        "--head-size",
+        "--head-size-sub",
+        "--kicker-size",
+        "--quote-size",
+        "--read-size",
+        "--small-size",
+        "--title-size",
+        "--ui-size"
+      ],
+      "rest": {
+        "data-code-size": "ABSENT_PATTERNS",
+        "data-comment-m-form-size": "ABSENT_PATTERNS",
+        "data-comment-m-name-size": "ABSENT_PATTERNS",
+        "data-comment-m-small-size": "ABSENT_PATTERNS",
+        "data-comment-m-title-size": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-comment-size": "ABSENT",
+        "data-head-m-sub-size": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
+        "data-ui-size": "ABSENT",
+        "data-head-size": "ABSENT",
+        "data-kicker-size": false,
+        "data-quote-size": false,
+        "data-read-size": false,
+        "data-small-size": false,
+        "data-title-size": false
+      },
+      "inStandardAtRest": {
+        "attrs": [],
+        "props": [
+          "--comment-size",
+          "--head-size",
+          "--kicker-size",
+          "--quote-size",
+          "--read-size",
+          "--small-size",
+          "--title-size",
+          "--ui-size"
         ]
       }
     },
     {
       "key": "roles.{role}.weight",
       "group": "role",
-      "table": "ROLE_DEFAULT",
+      "table": "TYPE_DIALS",
       "kind": "dial",
       "roles": [
-        "head",
-        "read",
+        "title",
+        "headings",
+        "body",
         "quote",
-        "kicker",
-        "small",
-        "comment",
-        "ui",
-        "title"
+        "meta",
+        "interface",
+        "code"
       ],
       "steps": [
         "thin",
@@ -3196,16 +2972,8 @@
         "extrabold",
         "black"
       ],
-      "defByRole": {
-        "head": "bold",
-        "read": "regular",
-        "quote": "regular",
-        "kicker": "regular",
-        "small": "regular",
-        "comment": "regular",
-        "ui": "regular",
-        "title": "medium"
-      },
+      "def": null,
+      "defMeans": "absent: the theme's own",
       "aliases": {
         "lighter": "light",
         "normal": "regular",
@@ -3216,260 +2984,209 @@
       "label": "Weight",
       "page": "Type › {role}",
       "level": 3,
-      "row": {
-        "drawn": "slider",
-        "line": 1575,
-        "in": "weightRow"
-      },
       "changesPage": "Type › {role}",
       "attrs": [
-        "data-{role}-weight"
+        "data-code-weight",
+        "data-comment-m-form-weight",
+        "data-comment-m-name-weight",
+        "data-comment-m-small-weight",
+        "data-comment-m-title-weight",
+        "data-comment-members",
+        "data-comment-weight",
+        "data-head-m-sub-weight",
+        "data-head-members",
+        "data-read-weight",
+        "data-ui-weight"
+      ],
+      "guestAttrs": [
+        "data-head-weight",
+        "data-kicker-weight",
+        "data-quote-weight",
+        "data-small-weight",
+        "data-title-weight"
       ],
       "props": [
-        "--{role}-weight"
+        "--code-weight",
+        "--comment-weight",
+        "--comment-weight-form",
+        "--comment-weight-name",
+        "--comment-weight-small",
+        "--comment-weight-title",
+        "--head-weight",
+        "--head-weight-sub",
+        "--kicker-weight",
+        "--quote-weight",
+        "--read-weight",
+        "--small-weight",
+        "--title-weight",
+        "--ui-weight"
       ],
       "rest": {
-        "data-head-weight": false,
-        "data-read-weight": "ABSENT",
-        "data-quote-weight": false,
-        "data-kicker-weight": false,
-        "data-small-weight": false,
+        "data-code-weight": "ABSENT_PATTERNS",
+        "data-comment-m-form-weight": "ABSENT_PATTERNS",
+        "data-comment-m-name-weight": "ABSENT_PATTERNS",
+        "data-comment-m-small-weight": "ABSENT_PATTERNS",
+        "data-comment-m-title-weight": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
         "data-comment-weight": "ABSENT",
+        "data-head-m-sub-weight": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
+        "data-read-weight": "ABSENT",
         "data-ui-weight": "ABSENT",
+        "data-head-weight": false,
+        "data-kicker-weight": false,
+        "data-quote-weight": false,
+        "data-small-weight": false,
         "data-title-weight": false
       },
       "inStandardAtRest": false
     },
     {
-      "key": "roles.{role}.size",
+      "key": "roles.{role}.lineHeight",
       "group": "role",
-      "table": "ROLE_DEFAULT",
+      "table": "TYPE_DIALS",
       "kind": "dial",
       "roles": [
-        "head",
-        "read",
+        "title",
+        "headings",
         "quote",
-        "kicker",
-        "small",
-        "comment",
-        "ui",
-        "title"
-      ],
-      "stepsByRoles": [
-        {
-          "roles": [
-            "head"
-          ],
-          "steps": [
-            "12",
-            "13",
-            "14",
-            "16",
-            "18",
-            "20",
-            "22",
-            "24",
-            "26",
-            "28",
-            "32",
-            "36",
-            "40",
-            "44",
-            "48",
-            "56",
-            "64",
-            "72",
-            "80",
-            "96",
-            "112",
-            "128"
-          ]
-        },
-        {
-          "roles": [
-            "read",
-            "quote",
-            "kicker",
-            "small",
-            "comment"
-          ],
-          "steps": [
-            "12",
-            "13",
-            "14",
-            "16",
-            "18",
-            "20",
-            "22",
-            "24",
-            "26",
-            "28",
-            "32",
-            "36",
-            "40",
-            "44",
-            "48",
-            "56",
-            "64",
-            "72"
-          ]
-        },
-        {
-          "roles": [
-            "ui",
-            "title"
-          ],
-          "steps": [
-            "11",
-            "12",
-            "13",
-            "14",
-            "16",
-            "18",
-            "20",
-            "22",
-            "24",
-            "26",
-            "28",
-            "32",
-            "36",
-            "40",
-            "44",
-            "48",
-            "56",
-            "64",
-            "72"
-          ]
-        }
-      ],
-      "defByRole": {
-        "head": "64",
-        "read": "22",
-        "quote": "26",
-        "kicker": "26",
-        "small": "16",
-        "comment": "14",
-        "ui": "13",
-        "title": "11"
-      },
-      "means": null,
-      "meansFrom": "roles",
-      "label": "Size",
-      "page": "Type › {role}",
-      "level": 3,
-      "row": {
-        "drawn": "slider",
-        "line": 1616,
-        "in": "sizeBlock"
-      },
-      "changesPage": "Type › {role}",
-      "attrs": [
-        "data-{role}-size"
-      ],
-      "props": [
-        "--{role}-size"
-      ],
-      "rest": {
-        "data-head-size": "ABSENT",
-        "data-read-size": false,
-        "data-quote-size": false,
-        "data-kicker-size": false,
-        "data-small-size": false,
-        "data-comment-size": "ABSENT",
-        "data-ui-size": "ABSENT",
-        "data-title-size": false
-      },
-      "inStandardAtRest": {
-        "attrs": [],
-        "props": [
-          "--head-size",
-          "--read-size",
-          "--quote-size",
-          "--kicker-size",
-          "--small-size",
-          "--comment-size",
-          "--ui-size",
-          "--title-size"
-        ]
-      }
-    },
-    {
-      "key": "roles.{role}.tracking",
-      "group": "role",
-      "table": "ROLE_DEFAULT",
-      "kind": "dial",
-      "roles": [
-        "head",
-        "read",
-        "quote",
-        "kicker",
-        "small",
-        "comment",
-        "ui",
-        "title"
+        "meta",
+        "interface",
+        "code"
       ],
       "steps": [
-        "m25",
-        "m22",
-        "m20",
-        "m17",
-        "m15",
-        "m12",
-        "m10",
-        "m7",
-        "m5",
-        "m2",
-        "m1",
-        "default",
-        "p1",
-        "p2",
-        "p5",
-        "p7",
-        "p10",
-        "p12",
-        "p15",
-        "p17",
-        "p20",
-        "p22",
-        "p25"
+        "tight",
+        "snug",
+        "normal",
+        "relaxed",
+        "loose"
       ],
-      "def": "default",
-      "aliases": {
-        "tightest": "m7",
-        "tighter": "m5",
-        "tight": "m2",
-        "loose": "p2",
-        "wide": "p5",
-        "widest": "p10"
+      "def": null,
+      "defMeans": "absent: the theme's own",
+      "means": null,
+      "meansFrom": "roles",
+      "label": "Line spacing",
+      "page": "Type › {role}",
+      "level": 3,
+      "changesPage": "Type › {role}",
+      "attrs": [
+        "data-code-leading",
+        "data-head-leading",
+        "data-head-m-sub-leading",
+        "data-head-members",
+        "data-kicker-leading",
+        "data-quote-leading",
+        "data-small-leading",
+        "data-title-leading",
+        "data-ui-leading"
+      ],
+      "props": [
+        "--code-leading",
+        "--head-leading",
+        "--head-leading-sub",
+        "--kicker-leading",
+        "--quote-leading",
+        "--small-leading",
+        "--title-leading",
+        "--ui-leading"
+      ],
+      "rest": {
+        "data-code-leading": "ABSENT_PATTERNS",
+        "data-head-leading": "ABSENT_PATTERNS",
+        "data-head-m-sub-leading": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
+        "data-kicker-leading": "ABSENT_PATTERNS",
+        "data-quote-leading": "ABSENT_PATTERNS",
+        "data-small-leading": "ABSENT_PATTERNS",
+        "data-title-leading": "ABSENT_PATTERNS",
+        "data-ui-leading": "ABSENT_PATTERNS"
       },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "roles.{role}.letterSpacing",
+      "group": "role",
+      "table": "TYPE_DIALS",
+      "kind": "dial",
+      "roles": [
+        "title",
+        "headings",
+        "body",
+        "quote",
+        "meta",
+        "interface",
+        "code"
+      ],
+      "steps": [
+        "tighter",
+        "tight",
+        "normal",
+        "wide",
+        "wider",
+        "widest"
+      ],
+      "def": null,
+      "defMeans": "absent: the theme's own",
       "means": null,
       "meansFrom": "roles",
       "label": "Character spacing",
       "page": "Type › {role}",
       "level": 3,
-      "row": {
-        "drawn": "slider",
-        "line": 1934,
-        "in": "level3"
-      },
       "changesPage": "Type › {role}",
-      "attrs": [],
+      "attrs": [
+        "data-code-tracking",
+        "data-comment-m-form-tracking",
+        "data-comment-m-name-tracking",
+        "data-comment-m-small-tracking",
+        "data-comment-m-title-tracking",
+        "data-comment-members",
+        "data-head-m-sub-tracking",
+        "data-head-members"
+      ],
       "guestAttrs": [
-        "data-{role}-tracking"
+        "data-comment-tracking",
+        "data-head-tracking",
+        "data-kicker-tracking",
+        "data-quote-tracking",
+        "data-read-tracking",
+        "data-small-tracking",
+        "data-title-tracking",
+        "data-ui-tracking"
       ],
       "props": [
+        "--code-tracking",
+        "--comment-tracking",
+        "--comment-tracking-form",
+        "--comment-tracking-name",
+        "--comment-tracking-small",
+        "--comment-tracking-title",
+        "--head-tracking",
+        "--head-tracking-sub",
+        "--kicker-tracking",
+        "--quote-tracking",
+        "--read-tracking",
         "--reading-tracking",
-        "--{role}-tracking"
+        "--small-tracking",
+        "--title-tracking",
+        "--ui-tracking"
       ],
       "rest": {
-        "data-head-tracking": false,
-        "data-read-tracking": false,
-        "data-quote-tracking": false,
-        "data-kicker-tracking": false,
-        "data-small-tracking": false,
+        "data-code-tracking": "ABSENT_PATTERNS",
+        "data-comment-m-form-tracking": "ABSENT_PATTERNS",
+        "data-comment-m-name-tracking": "ABSENT_PATTERNS",
+        "data-comment-m-small-tracking": "ABSENT_PATTERNS",
+        "data-comment-m-title-tracking": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-head-m-sub-tracking": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
         "data-comment-tracking": false,
-        "data-ui-tracking": false,
-        "data-title-tracking": false
+        "data-head-tracking": false,
+        "data-kicker-tracking": false,
+        "data-quote-tracking": false,
+        "data-read-tracking": false,
+        "data-small-tracking": false,
+        "data-title-tracking": false,
+        "data-ui-tracking": false
       },
       "inStandardAtRest": {
         "attrs": [],
@@ -3479,299 +3196,194 @@
       }
     },
     {
-      "key": "roles.{role}.words",
+      "key": "roles.{role}.capitals",
       "group": "role",
-      "table": "ROLE_DEFAULT",
-      "kind": "dial",
-      "roles": [
-        "head",
-        "read",
-        "quote",
-        "kicker",
-        "small",
-        "comment",
-        "ui",
-        "title"
-      ],
-      "steps": [
-        "m25",
-        "m22",
-        "m20",
-        "m17",
-        "m15",
-        "m12",
-        "m10",
-        "m7",
-        "m5",
-        "m2",
-        "default",
-        "p2",
-        "p5",
-        "p7",
-        "p10",
-        "p12",
-        "p15",
-        "p17",
-        "p20",
-        "p22",
-        "p25"
-      ],
-      "def": "default",
-      "aliases": {
-        "tighter": "m10",
-        "tight": "m5",
-        "loose": "p5",
-        "wide": "p10",
-        "widest": "p15"
-      },
-      "means": null,
-      "meansFrom": "roles",
-      "label": "Word spacing",
-      "page": "Type › {role}",
-      "level": 3,
-      "row": {
-        "drawn": "slider",
-        "line": 1935,
-        "in": "level3"
-      },
-      "changesPage": "Type › {role}",
-      "attrs": [],
-      "guestAttrs": [
-        "data-{role}-words"
-      ],
-      "props": [
-        "--reading-word-gap",
-        "--{role}-words"
-      ],
-      "rest": {
-        "data-head-words": false,
-        "data-read-words": false,
-        "data-quote-words": false,
-        "data-kicker-words": false,
-        "data-small-words": false,
-        "data-comment-words": false,
-        "data-ui-words": false,
-        "data-title-words": false
-      },
-      "inStandardAtRest": {
-        "attrs": [],
-        "props": [
-          "--reading-word-gap"
-        ]
-      }
-    },
-    {
-      "key": "roles.{role}.caps",
-      "group": "role",
-      "table": "ROLE_DEFAULT",
+      "table": "TYPE_DIALS",
       "kind": "switch",
       "roles": [
-        "head",
-        "read",
+        "title",
+        "headings",
+        "body",
         "quote",
-        "kicker",
-        "small",
-        "comment",
-        "ui",
-        "title"
+        "meta",
+        "interface",
+        "code"
       ],
-      "def": false,
+      "def": null,
+      "defMeans": "absent: the theme's own",
       "means": null,
       "meansFrom": "roles",
       "label": "Capitals",
       "page": "Type › {role}",
       "level": 3,
-      "row": {
-        "drawn": "switch",
-        "line": 1562,
-        "in": "capsRow"
-      },
       "changesPage": "Type › {role}",
-      "attrs": [],
+      "attrs": [
+        "data-code-caps",
+        "data-comment-m-form-caps",
+        "data-comment-m-name-caps",
+        "data-comment-m-small-caps",
+        "data-comment-m-title-caps",
+        "data-comment-members",
+        "data-head-m-sub-caps",
+        "data-head-members"
+      ],
       "guestAttrs": [
-        "data-{role}-caps"
+        "data-comment-caps",
+        "data-head-caps",
+        "data-kicker-caps",
+        "data-quote-caps",
+        "data-read-caps",
+        "data-small-caps",
+        "data-title-caps",
+        "data-ui-caps"
       ],
       "props": [
-        "--{role}-case"
+        "--code-case",
+        "--comment-case",
+        "--comment-case-form",
+        "--comment-case-name",
+        "--comment-case-small",
+        "--comment-case-title",
+        "--head-case",
+        "--head-case-sub",
+        "--kicker-case",
+        "--quote-case",
+        "--read-case",
+        "--small-case",
+        "--title-case",
+        "--ui-case"
       ],
       "rest": {
-        "data-head-caps": false,
-        "data-read-caps": false,
-        "data-quote-caps": false,
-        "data-kicker-caps": false,
-        "data-small-caps": false,
+        "data-code-caps": "ABSENT_PATTERNS",
+        "data-comment-m-form-caps": "ABSENT_PATTERNS",
+        "data-comment-m-name-caps": "ABSENT_PATTERNS",
+        "data-comment-m-small-caps": "ABSENT_PATTERNS",
+        "data-comment-m-title-caps": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-head-m-sub-caps": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
         "data-comment-caps": false,
-        "data-ui-caps": false,
-        "data-title-caps": false
+        "data-head-caps": false,
+        "data-kicker-caps": false,
+        "data-quote-caps": false,
+        "data-read-caps": false,
+        "data-small-caps": false,
+        "data-title-caps": false,
+        "data-ui-caps": false
       },
       "inStandardAtRest": {
         "attrs": [],
         "props": [
-          "--head-case",
-          "--read-case",
-          "--quote-case",
-          "--kicker-case",
-          "--small-case",
           "--comment-case",
-          "--ui-case",
-          "--title-case"
+          "--head-case",
+          "--kicker-case",
+          "--quote-case",
+          "--read-case",
+          "--small-case",
+          "--title-case",
+          "--ui-case"
         ]
       }
     },
     {
       "key": "roles.{role}.italic",
       "group": "role",
-      "table": "ROLE_DEFAULT",
+      "table": "TYPE_DIALS",
       "kind": "switch",
       "roles": [
-        "head",
-        "read",
+        "title",
+        "headings",
+        "body",
         "quote",
-        "kicker",
-        "small",
-        "comment",
-        "ui",
-        "title"
+        "meta",
+        "interface",
+        "code"
       ],
-      "defByRole": {
-        "head": false,
-        "read": false,
-        "quote": true,
-        "kicker": true,
-        "small": false,
-        "comment": false,
-        "ui": false,
-        "title": false
-      },
+      "def": null,
+      "defMeans": "absent: the theme's own",
       "means": null,
       "meansFrom": "roles",
       "label": "Italic",
       "page": "Type › {role}",
       "level": 3,
-      "row": {
-        "drawn": "switch",
-        "line": 1558,
-        "in": "italicRow"
-      },
-      "changesPage": "Type › {role}",
-      "attrs": [],
-      "guestAttrs": [
-        "data-{role}-italic"
-      ],
-      "props": [
-        "--{role}-style"
-      ],
-      "rest": {
-        "data-head-italic": false,
-        "data-read-italic": false,
-        "data-quote-italic": false,
-        "data-kicker-italic": false,
-        "data-small-italic": false,
-        "data-comment-italic": false,
-        "data-ui-italic": false,
-        "data-title-italic": false
-      },
-      "inStandardAtRest": {
-        "attrs": [],
-        "props": [
-          "--kicker-style"
-        ]
-      }
-    },
-    {
-      "key": "roles.{role}.leading",
-      "group": "role",
-      "table": "ROLE_DEFAULT",
-      "kind": "dial",
-      "roles": [
-        "head",
-        "quote",
-        "kicker",
-        "small",
-        "comment",
-        "ui",
-        "title"
-      ],
-      "steps": [
-        "solid",
-        "packed",
-        "close",
-        "densest",
-        "dense",
-        "tight",
-        "snug",
-        "default",
-        "relaxed",
-        "airy",
-        "wider",
-        "wide",
-        "open",
-        "loose",
-        "loosest"
-      ],
-      "def": "default",
-      "means": null,
-      "meansFrom": "roles",
-      "label": "Line spacing",
-      "page": "Type › {role}",
-      "level": 3,
-      "row": {
-        "drawn": "slider",
-        "line": 1921,
-        "in": "level3"
-      },
       "changesPage": "Type › {role}",
       "attrs": [
-        "data-{role}-leading"
+        "data-code-italic",
+        "data-comment-m-form-italic",
+        "data-comment-m-name-italic",
+        "data-comment-m-small-italic",
+        "data-comment-m-title-italic",
+        "data-comment-members",
+        "data-head-m-sub-italic",
+        "data-head-members"
+      ],
+      "guestAttrs": [
+        "data-head-italic",
+        "data-quote-italic",
+        "data-read-italic"
       ],
       "props": [
-        "--{role}-leading"
+        "--code-style",
+        "--comment-style-form",
+        "--comment-style-name",
+        "--comment-style-small",
+        "--comment-style-title",
+        "--head-style",
+        "--head-style-sub",
+        "--read-style"
       ],
       "rest": {
-        "data-head-leading": "ABSENT_PATTERNS",
-        "data-quote-leading": "ABSENT_PATTERNS",
-        "data-kicker-leading": "ABSENT_PATTERNS",
-        "data-small-leading": "ABSENT_PATTERNS",
-        "data-comment-leading": "ABSENT_PATTERNS",
-        "data-ui-leading": "ABSENT_PATTERNS",
-        "data-title-leading": "ABSENT_PATTERNS"
+        "data-code-italic": "ABSENT_PATTERNS",
+        "data-comment-m-form-italic": "ABSENT_PATTERNS",
+        "data-comment-m-name-italic": "ABSENT_PATTERNS",
+        "data-comment-m-small-italic": "ABSENT_PATTERNS",
+        "data-comment-m-title-italic": "ABSENT_PATTERNS",
+        "data-comment-members": "ABSENT_PATTERNS",
+        "data-head-m-sub-italic": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
+        "data-head-italic": false,
+        "data-quote-italic": false,
+        "data-read-italic": false
       },
       "inStandardAtRest": false
     },
     {
       "key": "roles.{role}.align",
       "group": "role",
-      "table": "ROLE_DEFAULT",
+      "table": "TYPE_DIALS",
       "kind": "pick",
       "roles": [
-        "head",
-        "kicker"
+        "title",
+        "headings"
       ],
       "choices": [
         "default",
         "center",
         "right"
       ],
-      "def": "default",
+      "def": null,
+      "defMeans": "absent: the theme's own",
       "means": null,
       "meansFrom": "roles",
       "label": "Alignment",
       "page": "Type › {role}",
       "level": 3,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1587,
-        "in": "switchRows"
-      },
       "changesPage": "Type › {role}",
       "attrs": [
-        "data-{role}-align"
+        "data-head-align",
+        "data-head-m-sub-align",
+        "data-head-members",
+        "data-kicker-align"
       ],
       "props": [
-        "--{role}-align"
+        "--head-align",
+        "--head-align-sub",
+        "--kicker-align"
       ],
       "rest": {
         "data-head-align": "ABSENT_PATTERNS",
+        "data-head-m-sub-align": "ABSENT_PATTERNS",
+        "data-head-members": "ABSENT_PATTERNS",
         "data-kicker-align": "ABSENT_PATTERNS"
       },
       "inStandardAtRest": false
@@ -3779,467 +3391,45 @@
     {
       "key": "roles.{role}.colour",
       "group": "role",
-      "table": "ROLE_DEFAULT",
+      "table": "TYPE_DIALS",
       "kind": "pick",
       "roles": [
-        "head",
-        "kicker"
+        "title",
+        "headings",
+        "meta"
       ],
       "choices": [
         "ink",
         "accent",
         "own"
       ],
-      "def": "ink",
+      "def": null,
+      "defMeans": "absent: the theme's own",
       "means": null,
       "meansFrom": "roles",
       "label": "Colour",
       "page": "Type › {role}",
       "level": 3,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1581,
-        "in": "colourRow"
-      },
       "changesPage": "Type › {role}",
       "attrs": [
-        "data-{role}-colour"
+        "data-head-colour",
+        "data-head-m-sub-colour",
+        "data-head-members",
+        "data-kicker-colour",
+        "data-small-colour"
       ],
       "props": [
-        "--{role}-colour"
+        "--head-colour",
+        "--head-colour-sub",
+        "--kicker-colour",
+        "--small-colour"
       ],
       "rest": {
         "data-head-colour": "ABSENT_PATTERNS",
-        "data-kicker-colour": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "roles.{role}.members.{member}.size",
-      "group": "role",
-      "table": "MEMBERS",
-      "kind": "dial",
-      "roles": [
-        "head",
-        "read",
-        "small",
-        "comment",
-        "ui",
-        "title"
-      ],
-      "stepsByRoles": [
-        {
-          "roles": [
-            "head"
-          ],
-          "steps": [
-            "12",
-            "13",
-            "14",
-            "16",
-            "18",
-            "20",
-            "22",
-            "24",
-            "26",
-            "28",
-            "32",
-            "36",
-            "40",
-            "44",
-            "48",
-            "56",
-            "64",
-            "72",
-            "80",
-            "96",
-            "112",
-            "128"
-          ]
-        },
-        {
-          "roles": [
-            "read",
-            "small",
-            "comment"
-          ],
-          "steps": [
-            "12",
-            "13",
-            "14",
-            "16",
-            "18",
-            "20",
-            "22",
-            "24",
-            "26",
-            "28",
-            "32",
-            "36",
-            "40",
-            "44",
-            "48",
-            "56",
-            "64",
-            "72"
-          ]
-        },
-        {
-          "roles": [
-            "ui",
-            "title"
-          ],
-          "steps": [
-            "11",
-            "12",
-            "13",
-            "14",
-            "16",
-            "18",
-            "20",
-            "22",
-            "24",
-            "26",
-            "28",
-            "32",
-            "36",
-            "40",
-            "44",
-            "48",
-            "56",
-            "64",
-            "72"
-          ]
-        }
-      ],
-      "def": null,
-      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
-      "means": null,
-      "meansFrom": "roles",
-      "label": "Size",
-      "page": "Type › {role} › {member}",
-      "level": 11,
-      "row": {
-        "drawn": "slider",
-        "line": 1835,
-        "in": "level11"
-      },
-      "changesPage": "Type › {role}",
-      "attrs": [
-        "data-{role}-m-{member}-size",
-        "data-{role}-members"
-      ],
-      "props": [
-        "--{role}-size-{member}"
-      ],
-      "rest": {
-        "data-head-m-sub-size": "ABSENT_PATTERNS",
-        "data-read-m-excerpts-size": "ABSENT_PATTERNS",
-        "data-read-m-boxes-size": "ABSENT_PATTERNS",
-        "data-small-m-author-size": "ABSENT_PATTERNS",
-        "data-small-m-terms-size": "ABSENT_PATTERNS",
-        "data-small-m-captions-size": "ABSENT_PATTERNS",
-        "data-small-m-carddates-size": "ABSENT_PATTERNS",
-        "data-small-m-release-size": "ABSENT_PATTERNS",
-        "data-comment-m-title-size": "ABSENT_PATTERNS",
-        "data-comment-m-name-size": "ABSENT_PATTERNS",
-        "data-comment-m-small-size": "ABSENT_PATTERNS",
-        "data-comment-m-form-size": "ABSENT_PATTERNS",
-        "data-ui-m-masthead-size": "ABSENT_PATTERNS",
-        "data-ui-m-cards-size": "ABSENT_PATTERNS",
-        "data-ui-m-linkcard-size": "ABSENT_PATTERNS",
-        "data-ui-m-newsletter-size": "ABSENT_PATTERNS",
-        "data-ui-m-fields-size": "ABSENT_PATTERNS",
-        "data-ui-m-labels-size": "ABSENT_PATTERNS",
-        "data-ui-m-credit-size": "ABSENT_PATTERNS",
-        "data-title-m-years-size": "ABSENT_PATTERNS",
-        "data-title-m-release-size": "ABSENT_PATTERNS",
+        "data-head-m-sub-colour": "ABSENT_PATTERNS",
         "data-head-members": "ABSENT_PATTERNS",
-        "data-read-members": "ABSENT_PATTERNS",
-        "data-small-members": "ABSENT_PATTERNS",
-        "data-comment-members": "ABSENT_PATTERNS",
-        "data-ui-members": "ABSENT_PATTERNS",
-        "data-title-members": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "roles.{role}.members.{member}.weight",
-      "group": "role",
-      "table": "MEMBERS",
-      "kind": "dial",
-      "roles": [
-        "head",
-        "read",
-        "small",
-        "comment",
-        "ui",
-        "title"
-      ],
-      "steps": [
-        "thin",
-        "extralight",
-        "light",
-        "regular",
-        "medium",
-        "semibold",
-        "bold",
-        "extrabold",
-        "black"
-      ],
-      "aliases": {
-        "lighter": "light",
-        "normal": "regular",
-        "heavy": "extrabold"
-      },
-      "def": null,
-      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
-      "means": null,
-      "meansFrom": "roles",
-      "label": "Weight",
-      "page": "Type › {role} › {member}",
-      "level": 11,
-      "row": {
-        "drawn": "slider",
-        "line": 1836,
-        "in": "level11"
-      },
-      "changesPage": "Type › {role}",
-      "attrs": [
-        "data-{role}-m-{member}-weight",
-        "data-{role}-members"
-      ],
-      "props": [
-        "--{role}-weight-{member}"
-      ],
-      "rest": {
-        "data-head-m-sub-weight": "ABSENT_PATTERNS",
-        "data-read-m-excerpts-weight": "ABSENT_PATTERNS",
-        "data-read-m-boxes-weight": "ABSENT_PATTERNS",
-        "data-small-m-author-weight": "ABSENT_PATTERNS",
-        "data-small-m-terms-weight": "ABSENT_PATTERNS",
-        "data-small-m-captions-weight": "ABSENT_PATTERNS",
-        "data-small-m-carddates-weight": "ABSENT_PATTERNS",
-        "data-small-m-release-weight": "ABSENT_PATTERNS",
-        "data-comment-m-title-weight": "ABSENT_PATTERNS",
-        "data-comment-m-name-weight": "ABSENT_PATTERNS",
-        "data-comment-m-small-weight": "ABSENT_PATTERNS",
-        "data-comment-m-form-weight": "ABSENT_PATTERNS",
-        "data-ui-m-masthead-weight": "ABSENT_PATTERNS",
-        "data-ui-m-cards-weight": "ABSENT_PATTERNS",
-        "data-ui-m-linkcard-weight": "ABSENT_PATTERNS",
-        "data-ui-m-newsletter-weight": "ABSENT_PATTERNS",
-        "data-ui-m-fields-weight": "ABSENT_PATTERNS",
-        "data-ui-m-labels-weight": "ABSENT_PATTERNS",
-        "data-ui-m-credit-weight": "ABSENT_PATTERNS",
-        "data-title-m-years-weight": "ABSENT_PATTERNS",
-        "data-title-m-release-weight": "ABSENT_PATTERNS",
-        "data-head-members": "ABSENT_PATTERNS",
-        "data-read-members": "ABSENT_PATTERNS",
-        "data-small-members": "ABSENT_PATTERNS",
-        "data-comment-members": "ABSENT_PATTERNS",
-        "data-ui-members": "ABSENT_PATTERNS",
-        "data-title-members": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "roles.{role}.members.{member}.caps",
-      "group": "role",
-      "table": "MEMBERS",
-      "kind": "switch",
-      "roles": [
-        "head",
-        "read",
-        "small",
-        "comment",
-        "ui",
-        "title"
-      ],
-      "def": null,
-      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
-      "means": null,
-      "meansFrom": "roles",
-      "label": "Own capitals",
-      "page": "Type › {role} › {member}",
-      "level": 11,
-      "row": {
-        "drawn": "switch + switch",
-        "line": 1776,
-        "in": "OWN_WORD"
-      },
-      "changesPage": "Type › {role}",
-      "attrs": [
-        "data-{role}-m-{member}-caps",
-        "data-{role}-members"
-      ],
-      "props": [
-        "--{role}-case-{member}"
-      ],
-      "rest": {
-        "data-head-m-sub-caps": "ABSENT_PATTERNS",
-        "data-read-m-excerpts-caps": "ABSENT_PATTERNS",
-        "data-read-m-boxes-caps": "ABSENT_PATTERNS",
-        "data-small-m-author-caps": "ABSENT_PATTERNS",
-        "data-small-m-terms-caps": "ABSENT_PATTERNS",
-        "data-small-m-captions-caps": "ABSENT_PATTERNS",
-        "data-small-m-carddates-caps": "ABSENT_PATTERNS",
-        "data-small-m-release-caps": "ABSENT_PATTERNS",
-        "data-comment-m-title-caps": "ABSENT_PATTERNS",
-        "data-comment-m-name-caps": "ABSENT_PATTERNS",
-        "data-comment-m-small-caps": "ABSENT_PATTERNS",
-        "data-comment-m-form-caps": "ABSENT_PATTERNS",
-        "data-ui-m-masthead-caps": "ABSENT_PATTERNS",
-        "data-ui-m-cards-caps": "ABSENT_PATTERNS",
-        "data-ui-m-linkcard-caps": "ABSENT_PATTERNS",
-        "data-ui-m-newsletter-caps": "ABSENT_PATTERNS",
-        "data-ui-m-fields-caps": "ABSENT_PATTERNS",
-        "data-ui-m-labels-caps": "ABSENT_PATTERNS",
-        "data-ui-m-credit-caps": "ABSENT_PATTERNS",
-        "data-title-m-years-caps": "ABSENT_PATTERNS",
-        "data-title-m-release-caps": "ABSENT_PATTERNS",
-        "data-head-members": "ABSENT_PATTERNS",
-        "data-read-members": "ABSENT_PATTERNS",
-        "data-small-members": "ABSENT_PATTERNS",
-        "data-comment-members": "ABSENT_PATTERNS",
-        "data-ui-members": "ABSENT_PATTERNS",
-        "data-title-members": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "roles.{role}.members.{member}.tracking",
-      "group": "role",
-      "table": "MEMBERS",
-      "kind": "dial",
-      "roles": [
-        "head",
-        "read",
-        "small",
-        "comment",
-        "ui",
-        "title"
-      ],
-      "steps": [
-        "m25",
-        "m22",
-        "m20",
-        "m17",
-        "m15",
-        "m12",
-        "m10",
-        "m7",
-        "m5",
-        "m2",
-        "m1",
-        "default",
-        "p1",
-        "p2",
-        "p5",
-        "p7",
-        "p10",
-        "p12",
-        "p15",
-        "p17",
-        "p20",
-        "p22",
-        "p25"
-      ],
-      "aliases": {
-        "tightest": "m7",
-        "tighter": "m5",
-        "tight": "m2",
-        "loose": "p2",
-        "wide": "p5",
-        "widest": "p10"
-      },
-      "def": null,
-      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
-      "means": null,
-      "meansFrom": "roles",
-      "label": "Character spacing",
-      "page": "Type › {role} › {member}",
-      "level": 11,
-      "row": {
-        "drawn": "slider",
-        "line": 1837,
-        "in": "level11"
-      },
-      "changesPage": "Type › {role}",
-      "attrs": [
-        "data-{role}-m-{member}-tracking",
-        "data-{role}-members"
-      ],
-      "props": [
-        "--{role}-tracking-{member}"
-      ],
-      "rest": {
-        "data-head-m-sub-tracking": "ABSENT_PATTERNS",
-        "data-read-m-excerpts-tracking": "ABSENT_PATTERNS",
-        "data-read-m-boxes-tracking": "ABSENT_PATTERNS",
-        "data-small-m-author-tracking": "ABSENT_PATTERNS",
-        "data-small-m-terms-tracking": "ABSENT_PATTERNS",
-        "data-small-m-captions-tracking": "ABSENT_PATTERNS",
-        "data-small-m-carddates-tracking": "ABSENT_PATTERNS",
-        "data-small-m-release-tracking": "ABSENT_PATTERNS",
-        "data-comment-m-title-tracking": "ABSENT_PATTERNS",
-        "data-comment-m-name-tracking": "ABSENT_PATTERNS",
-        "data-comment-m-small-tracking": "ABSENT_PATTERNS",
-        "data-comment-m-form-tracking": "ABSENT_PATTERNS",
-        "data-ui-m-masthead-tracking": "ABSENT_PATTERNS",
-        "data-ui-m-cards-tracking": "ABSENT_PATTERNS",
-        "data-ui-m-linkcard-tracking": "ABSENT_PATTERNS",
-        "data-ui-m-newsletter-tracking": "ABSENT_PATTERNS",
-        "data-ui-m-fields-tracking": "ABSENT_PATTERNS",
-        "data-ui-m-labels-tracking": "ABSENT_PATTERNS",
-        "data-ui-m-credit-tracking": "ABSENT_PATTERNS",
-        "data-title-m-years-tracking": "ABSENT_PATTERNS",
-        "data-title-m-release-tracking": "ABSENT_PATTERNS",
-        "data-head-members": "ABSENT_PATTERNS",
-        "data-read-members": "ABSENT_PATTERNS",
-        "data-small-members": "ABSENT_PATTERNS",
-        "data-comment-members": "ABSENT_PATTERNS",
-        "data-ui-members": "ABSENT_PATTERNS",
-        "data-title-members": "ABSENT_PATTERNS"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "roles.{role}.members.{member}.align",
-      "group": "role",
-      "table": "MEMBERS",
-      "kind": "pick",
-      "roles": [
-        "head"
-      ],
-      "choices": [
-        "default",
-        "center",
-        "right"
-      ],
-      "def": null,
-      "defMeans": "absent: the member follows its role's own dial (members[].rest gives its resting size)",
-      "means": null,
-      "meansFrom": "roles",
-      "label": "Alignment",
-      "page": "Type › {role} › {member}",
-      "level": 11,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1833,
-        "in": "level11"
-      },
-      "changesPage": "Type › {role}",
-      "attrs": [
-        "data-{role}-m-{member}-align",
-        "data-{role}-members"
-      ],
-      "props": [
-        "--{role}-align-{member}"
-      ],
-      "rest": {
-        "data-head-m-sub-align": "ABSENT_PATTERNS",
-        "data-head-members": "ABSENT_PATTERNS"
+        "data-kicker-colour": "ABSENT_PATTERNS",
+        "data-small-colour": "ABSENT_PATTERNS"
       },
       "inStandardAtRest": false
     },
@@ -4364,7 +3554,7 @@
       "inStandardAtRest": false
     },
     {
-      "key": "colours.{side}.head",
+      "key": "colours.{side}.title",
       "group": "colour",
       "table": "colours",
       "kind": "colour",
@@ -4378,7 +3568,7 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
-      "page": "Type › Headings",
+      "page": "Type › Interface titles",
       "level": 3,
       "row": {
         "drawn": "pop-up item",
@@ -4395,7 +3585,7 @@
       "inStandardAtRest": false
     },
     {
-      "key": "colours.{side}.kicker",
+      "key": "colours.{side}.headings",
       "group": "colour",
       "table": "colours",
       "kind": "colour",
@@ -4409,7 +3599,38 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
-      "page": "Type › Category line",
+      "page": "Type › ",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up item",
+        "line": 1585,
+        "in": "colourMenu"
+      },
+      "changesPage": "Colour",
+      "attrs": [
+        "data-colours"
+      ],
+      "rest": {
+        "data-colours": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colours.{side}.meta",
+      "group": "colour",
+      "table": "colours",
+      "kind": "colour",
+      "sides": [
+        "light",
+        "dark"
+      ],
+      "format": "hex",
+      "def": null,
+      "defMeans": "absent: the colour pair's own",
+      "means": null,
+      "meansFrom": "colours",
+      "label": "Colour › Own colour…",
+      "page": "Type › ",
       "level": 3,
       "row": {
         "drawn": "pop-up item",
@@ -4552,6 +3773,10 @@
       "means": "Retired 2026-09-26 and still read: true becomes button ink."
     },
     {
+      "key": "subcolour",
+      "means": "Retired 2026-10-02 and still read: ink keeps the headings in the ink under a coloured title (roles.headings.colour ink)."
+    },
+    {
       "key": "pillbuttons",
       "means": "Retired 2026-09-26 and still read: true becomes buttonshape pill."
     },
@@ -4559,5 +3784,289 @@
       "key": "centretitle",
       "means": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default."
     }
-  ]
+  ],
+  "engine": {
+    "about": "The engine that draws the page, under the seven: eight roles with their members, each answering to one of the seven (presets.js engineFrom). Not saved in a record, not in the schema. Hand-kept: the block in presets.js is written from here.",
+    "roles": [
+      "head",
+      "read",
+      "quote",
+      "kicker",
+      "small",
+      "comment",
+      "ui",
+      "title"
+    ],
+    "defaults": {
+      "head": {
+        "face": "read",
+        "weight": "bold",
+        "size": "64",
+        "tracking": "default",
+        "words": "default",
+        "caps": false,
+        "italic": false,
+        "leading": "default",
+        "align": "default",
+        "colour": "ink",
+        "members": {}
+      },
+      "read": {
+        "face": "newsreader",
+        "weight": "regular",
+        "size": "22",
+        "tracking": "default",
+        "words": "default",
+        "caps": false,
+        "italic": false,
+        "leading": "default",
+        "members": {}
+      },
+      "quote": {
+        "face": "read",
+        "weight": "regular",
+        "size": "26",
+        "tracking": "default",
+        "words": "default",
+        "caps": false,
+        "italic": true,
+        "leading": "default"
+      },
+      "kicker": {
+        "face": "read",
+        "weight": "regular",
+        "size": "26",
+        "tracking": "default",
+        "words": "default",
+        "caps": false,
+        "italic": true,
+        "leading": "default",
+        "align": "default",
+        "colour": "ink"
+      },
+      "small": {
+        "face": "ui",
+        "weight": "regular",
+        "size": "16",
+        "tracking": "default",
+        "words": "default",
+        "caps": false,
+        "italic": false,
+        "leading": "default",
+        "members": {}
+      },
+      "comment": {
+        "face": "ui",
+        "weight": "regular",
+        "size": "14",
+        "tracking": "default",
+        "words": "default",
+        "caps": false,
+        "italic": false,
+        "leading": "default",
+        "members": {}
+      },
+      "ui": {
+        "face": "inter",
+        "weight": "regular",
+        "size": "13",
+        "tracking": "default",
+        "words": "default",
+        "caps": false,
+        "italic": false,
+        "leading": "default",
+        "members": {}
+      },
+      "title": {
+        "face": "ui",
+        "weight": "medium",
+        "size": "11",
+        "tracking": "default",
+        "words": "default",
+        "caps": false,
+        "italic": false,
+        "leading": "default",
+        "members": {}
+      }
+    },
+    "members": {
+      "ui": [
+        {
+          "id": "masthead",
+          "rest": 20,
+          "weight": "semibold"
+        },
+        {
+          "id": "cards",
+          "rest": 13,
+          "weight": "regular"
+        },
+        {
+          "id": "linkcard",
+          "rest": 18,
+          "weight": "regular"
+        },
+        {
+          "id": "newsletter",
+          "rest": 16,
+          "weight": "regular"
+        },
+        {
+          "id": "fields",
+          "rest": 13,
+          "weight": "regular"
+        },
+        {
+          "id": "menus",
+          "rest": 13,
+          "lead": true
+        },
+        {
+          "id": "labels",
+          "rest": 11,
+          "weight": "regular"
+        },
+        {
+          "id": "credit",
+          "rest": 11,
+          "weight": "regular"
+        }
+      ],
+      "head": [
+        {
+          "id": "title",
+          "rest": 64,
+          "lead": true
+        },
+        {
+          "id": "sub",
+          "rest": 36,
+          "weight": "semibold"
+        }
+      ],
+      "small": [
+        {
+          "id": "date",
+          "rest": 16,
+          "lead": true
+        },
+        {
+          "id": "author",
+          "rest": 16,
+          "weight": "regular"
+        },
+        {
+          "id": "terms",
+          "rest": 13,
+          "weight": "regular"
+        },
+        {
+          "id": "captions",
+          "rest": 13,
+          "weight": "regular"
+        },
+        {
+          "id": "carddates",
+          "rest": 13,
+          "weight": "regular"
+        },
+        {
+          "id": "release",
+          "rest": 16,
+          "weight": "regular"
+        }
+      ],
+      "comment": [
+        {
+          "id": "title",
+          "rest": 18,
+          "weight": "medium"
+        },
+        {
+          "id": "name",
+          "rest": 16,
+          "weight": "medium"
+        },
+        {
+          "id": "text",
+          "rest": 14,
+          "lead": true
+        },
+        {
+          "id": "small",
+          "rest": 13,
+          "weight": "regular"
+        },
+        {
+          "id": "form",
+          "rest": 13,
+          "weight": "regular"
+        }
+      ],
+      "read": [
+        {
+          "id": "text",
+          "rest": 22,
+          "lead": true
+        },
+        {
+          "id": "excerpts",
+          "rest": 22,
+          "weight": "regular"
+        },
+        {
+          "id": "boxes",
+          "rest": 18,
+          "weight": "regular"
+        }
+      ],
+      "title": [
+        {
+          "id": "sections",
+          "rest": 11,
+          "lead": true
+        },
+        {
+          "id": "years",
+          "rest": 16,
+          "weight": "medium"
+        },
+        {
+          "id": "release",
+          "rest": 16,
+          "weight": "semibold"
+        }
+      ]
+    },
+    "aliases": {
+      "tracking": {
+        "tightest": "m7",
+        "tighter": "m5",
+        "tight": "m2",
+        "loose": "p2",
+        "wide": "p5",
+        "widest": "p10"
+      },
+      "words": {
+        "tighter": "m10",
+        "tight": "m5",
+        "loose": "p5",
+        "wide": "p10",
+        "widest": "p15"
+      },
+      "weight": {
+        "lighter": "light",
+        "normal": "regular",
+        "heavy": "extrabold"
+      },
+      "face": {
+        "inherit": "read"
+      }
+    },
+    "colours": [
+      "ink",
+      "accent",
+      "own"
+    ]
+  }
 }

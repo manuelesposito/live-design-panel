@@ -122,33 +122,11 @@ function architrave_panel_asset_version( $rel ) {
  * already is.
  */
 function architrave_panel_guest_gone() {
-	/* Interface titles is Architrave's rail with its titled sections; a plain
-	   block theme prints no such thing, so panel-page.css has no address for it
-	   and never will. */
-	$gone = array( 'role:title' );
-	/* AND THE MEMBERS THAT NAME ARCHITRAVE'S OWN PARTS (2026-09-22). This list
-	   mirrors presets.js MEMBERS. A member with an address in
-	   architrave_panel_guest_sizes() is live on a guest, because that address is
-	   a core block class WordPress prints on every block theme; the rest name
-	   the rail, the cards, the link and theme cards and the release posts, and
-	   there is nothing behind those rows on a stranger's page. */
-	$all = array(
-		'ui'      => array( 'masthead', 'cards', 'linkcard', 'newsletter', 'fields', 'menus', 'labels', 'credit' ),
-		'head'    => array( 'title', 'sub' ),
-		'small'   => array( 'date', 'author', 'terms', 'captions', 'carddates', 'release' ),
-		'comment' => array( 'title', 'name', 'text', 'small', 'form' ),
-		'read'    => array( 'text', 'excerpts', 'boxes' ),
-		'title'   => array( 'sections', 'years', 'release' ),
-	);
-	$has = architrave_panel_guest_members();
-	foreach ( $all as $role => $ids ) {
-		foreach ( $ids as $id ) {
-			if ( ! in_array( $role . ':' . $id, $has, true ) ) {
-				$gone[] = 'member:' . $role . ':' . $id;
-			}
-		}
-	}
-	return apply_filters( 'live_design_panel_guest_gone', $gone );
+	/* EVERY ONE OF THE SEVEN HAS AN ADDRESS ON A BLOCK THEME (2026-10-02): the
+	   roles are named for the HTML every site has, so none is left out any more.
+	   Interface titles, Architrave's rail, went into Interface; the members went
+	   into the roles they answer to. The filter stays for a theme that knows. */
+	return apply_filters( 'live_design_panel_guest_gone', array() );
 }
 
 function architrave_panel_guest_limits() {
@@ -697,6 +675,9 @@ function architrave_panel_guest_sizes() {
 				 * stands first.
 				 */
 				array( 'sel' => '.wp-block-quote, .wp-block-pullquote, :is(.wp-block-quote, .wp-block-pullquote) :is(p, li, cite)', 'role' => 'quote', 'step' => 'body', 'rest' => 26 ),
+				/* CODE, THE SEVENTH ROLE (2026-10-02): its blocks, at the theme's own size. Code inside a
+				   sentence keeps the sentence's, as it always did: sized here it left the line. */
+				array( 'sel' => '.wp-block-code, .wp-block-preformatted, ' . sprintf( $article, 'pre' ), 'role' => 'code', 'step' => '' ),
 				array( 'sel' => sprintf( $article, 'p' ) . ', ' . sprintf( $article, 'li' ), 'role' => 'read', 'member' => 'text', 'step' => 'body' ),
 				array( 'sel' => '.wp-block-post-excerpt', 'role' => 'read', 'member' => 'excerpts', 'step' => 'body' ),
 				array( 'sel' => '.wp-block-post-terms', 'role' => 'kicker', 'step' => '', 'rest' => 26 ),
@@ -717,37 +698,12 @@ function architrave_panel_guest_sizes() {
 				array( 'sel' => '.wp-block-comment-content', 'role' => 'comment', 'member' => 'text', 'step' => '', 'rest' => 14 ),
 				array( 'sel' => '.wp-block-comment-date, .wp-block-comment-reply-link', 'role' => 'comment', 'member' => 'small', 'step' => '', 'rest' => 13 ),
 				array( 'sel' => '.wp-block-post-comments-form label, .wp-block-post-comments-form p, .comment-form label, .comment-form p', 'role' => 'comment', 'member' => 'form', 'step' => '', 'rest' => 13 ),
-				array( 'sel' => '.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-site-tagline, .wp-block-query-pagination, .wp-block-post-navigation-link, .skip-link, .wp-block-search__label, .wp-block-search__input, .wp-block-search__button', 'role' => 'ui', 'step' => '' ),
+				/* THE SITE'S NAME FOLLOWS HEADINGS (2026-10-02, lab/the-site-name.html) */
+				array( 'sel' => '.wp-block-site-title', 'role' => 'head', 'member' => 'sub', 'step' => '' ),
+				array( 'sel' => '.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-tagline, .wp-block-query-pagination, .wp-block-post-navigation-link, .skip-link, .wp-block-search__label, .wp-block-search__input, .wp-block-search__button', 'role' => 'ui', 'step' => '' ),
 			)
 		)
 	);
-}
-
-/**
- * THE MEMBERS A BLOCK THEME CAN ANSWER FOR (2026-09-22).
- *
- * Manuel: "on Architrave every size has its own switch, but here we have two
- * different sizes which have the same switch, and I'm wondering why." Because
- * a member names a part, and on Architrave the panel knows the theme's parts by
- * name. It cannot know a stranger's. But it does not have to: a member only
- * needs an address, and the addresses above are CORE BLOCK classes, printed by
- * WordPress itself and not by any theme. `.wp-block-post-title`, the headings
- * inside `.wp-block-post-content`, `.wp-block-post-date`, the five comment
- * blocks: every block theme has them, because they come with the blocks.
- *
- * So the members that HAVE an address up there are live on a guest, and the
- * rest are not shown at all. What is left out is left out for a reason a reader
- * could see: Architrave's own rail, its cards, its link and theme cards, its
- * release posts. There is nothing behind those rows on a stranger's page.
- */
-function architrave_panel_guest_members() {
-	$has = array();
-	foreach ( architrave_panel_guest_sizes() as $group ) {
-		if ( ! empty( $group['member'] ) ) {
-			$has[] = $group['role'] . ':' . $group['member'];
-		}
-	}
-	return array_values( array_unique( $has ) );
 }
 
 /**

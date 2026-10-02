@@ -45,7 +45,7 @@
     "hyphenate": "Where words break at the line's end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).",
     "piccorners": "The pictures' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).",
     "pictureshadow": "A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave's page only.",
-    "subcolour": "The colour of the article's section headings when the headings' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text's colour, so only the title stands in the colour).",
+    "subcolour": "Retired 2026-10-02 and still read: ink keeps the headings in the ink under a coloured title (roles.headings.colour ink).",
     "opening": "The article's first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave's page only.",
     "widefigures": "The pictures in the article's text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave's page only.",
     "pillbuttons": "Retired 2026-09-26 and still read: true becomes buttonshape pill.",
@@ -71,8 +71,8 @@
     "scope": "Legacy. The theme always applies paragraph settings everywhere.",
     "unlinked": "true when the light and dark colours were set independently; false lets one side follow the other.",
     "effects": "The extras' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect's own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.",
-    "roles": "Typography by role. head: titles and headings. read: article body. quote: block quotes. kicker: the category line under a title. small: dates, tags, captions, the author line. comment: the comment thread. ui: the interface. title: section titles in the rail and archive. Each role takes face, weight, size (px at desktop width), tracking (m25 to p25, letter spacing in per mille steps, default is none), words (word spacing, same steps), caps, italic, leading. head and kicker also take align (default, the theme's own start; center; right) and colour (ink, the rest; accent; own, the well colours.<side>.head or .kicker). members are named sub-groups of a role that may take their own size, weight, caps and tracking, and under head also align, so the headings inside an article (sub) can stay left under a centred title; a member left out follows its role.",
-    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), head and kicker (the roles' own colours, with roles.head.colour or roles.kicker.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides."
+    "roles": "Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site's name. body: what people read (p, li); its font is the record's face and its line spacing the record's leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record's sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; title, headings and meta also colour. A dial left out is the theme's own. size is a step from the role's own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records of the seven say architrave 2; older records with the eight roles are read into the seven.",
+    "colours": "The style's own paper (page background), ink (text) and accent (links) per side, as hex; also, since 2026-09-26, button (the filled buttons), title, headings and meta (the roles' own colours, with roles.<role>.colour own), ground (the page around the paper) and lift (what stands on the paper: menus, buttons, filled boxes). Every other colour is mixed from these. Ink on paper must reach 4.5:1 and accent on paper 3:1 on both sides."
   },
   "rules": [
     "Send only the keys you want to change from the base; a smaller record is a better record.",
@@ -82,9 +82,31 @@
     "Pick fonts from the listed ids only; the theme ships no others.",
     "To try a record without publishing it, open the site at /#style= followed by the base64url of the record JSON."
   ],
+  "typography": {
+    "roles": {
+      "title": "The one big line of a page: the article's title, a page's name.",
+      "headings": "The headings inside the text, and the site's name.",
+      "body": "What people read: paragraphs, lists, excerpts, the comments' words.",
+      "quote": "Quotations and pull quotes.",
+      "meta": "Small facts around the text: dates, authors, categories, tags, captions, names in comments.",
+      "interface": "The site around the text: menus, buttons, fields, labels, section titles.",
+      "code": "Code and keys, inline and in blocks."
+    },
+    "dials": {
+      "font": "A face id from the list, or body / interface to follow the reading or the interface font. Left out: the theme's own.",
+      "size": "Steps from the role's own size, each 1.125 times the one before: -1 a little smaller, +1 a little larger, +3 about half again as large. 0 or left out: the theme's own.",
+      "weight": "thin 100 to black 900; a face offers the weights it has and falls to the nearest.",
+      "lineHeight": "tight for big titles, snug for headings, normal is the theme's own, relaxed for long reading, loose for airy small text.",
+      "letterSpacing": "tighter and tight close large type up, normal is the theme's own, wide to widest open small capitals and labels.",
+      "capitals": "true sets the role in capitals.",
+      "italic": "true sets it in italic, where the face has one.",
+      "align": "default (the start), center or right; title and headings.",
+      "colour": "ink (the text colour), accent, or own (the role's own well, colours.<side>.title, .headings or .meta)."
+    }
+  },
   "examples": {
     "standard": {
-      "architrave": 1,
+      "architrave": 2,
       "label": "Original",
       "base": "standard",
       "palette": "neutral",
