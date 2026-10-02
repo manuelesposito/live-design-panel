@@ -99,6 +99,8 @@
     "titlemark": "The six rainbow stripes as a small mark under the article's title: off (the rest), short or wide (as wide as the reading).",
     "rainbowlinks": "The links in the reading underlined in the six rainbow stripes: off (the rest), hover (when the pointer is on a link) or always.",
     "rainbowcap": "The drop cap's letter filled with the six rainbow stripes: off (the rest) or on. Shows with Drop cap on.",
+    "capface": "The drop cap's letter: text (the rest, the reading text's own face and weight), bold (the reading face in bold, as the title) or fraunces (a soft old-style display capital). Shows with Drop cap on.",
+    "hyphenate": "Where words break at the line's end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).",
     "coupon": "A dashed cut line with scissors above the page's foot, as old advertisements ended with an order coupon: off (the rest) or on.",
     "fold": "A soft crease on the paper, as a folded brochure: off (the rest), one (down the middle) or three (two creases, three panels). On a light paper only.",
     "codemarks": "A terminal's marks in the article: off (the rest), prompt (a prompt before the category line and the headings, a blinking cursor after the date, dashes for the list's dots) or glyphs (the prompt with a run of mirrored code glyphs beside the category line and as the list's markers).",
@@ -1100,6 +1102,20 @@
         "paper": "#174b8d",
         "ink": "#f3f8ff",
         "accent": "#f3f8ff"
+      }
+    },
+    {
+      "id": "lamplight",
+      "label": "Lamplight",
+      "light": {
+        "paper": "#f3e1c6",
+        "ink": "#342817",
+        "accent": "#8b5727"
+      },
+      "dark": {
+        "paper": "#221d17",
+        "ink": "#faecd8",
+        "accent": "#e0b490"
       }
     },
     {

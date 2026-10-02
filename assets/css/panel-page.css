@@ -636,6 +636,29 @@
 	-webkit-initial-letter: var(--reading-dropcap, 3);
 	margin-inline-end: var(--reading-dropcap-gap, 0.3em);
 }
+/* HYPHENS AND THE INITIAL'S FONT (2026-10-02, the picks hyphenate and capface):
+   the reader's choice on any theme, as style.css says it for Architrave. */
+:root[data-hyphenate="few"] :is(.wp-block-post-content, .entry-content) > p:not([class*="has-text-align"]),
+:root[data-hyphenate="any"] :is(.wp-block-post-content, .entry-content) > p:not([class*="has-text-align"]) {
+	hyphens: auto !important;
+}
+:root[data-hyphenate="few"] :is(.wp-block-post-content, .entry-content) > p:not([class*="has-text-align"]) {
+	hyphenate-limit-chars: 10 4 4;
+	-webkit-hyphenate-limit-before: 4;
+	-webkit-hyphenate-limit-after: 4;
+	-webkit-hyphenate-limit-lines: 1;
+}
+:root[data-hyphenate="off"] :is(.wp-block-post-content, .entry-content) > p:not([class*="has-text-align"]) {
+	hyphens: manual !important;
+}
+:root[data-dropcap="on"][data-cap-face="bold"] :is(.wp-block-post-content, .entry-content) > p:first-of-type::first-letter {
+	font-weight: 700;
+}
+:root[data-dropcap="on"][data-cap-face="fraunces"] :is(.wp-block-post-content, .entry-content) > p:first-of-type::first-letter {
+	font-family: var(--wp--preset--font-family--font-fraunces, serif);
+	font-weight: 500;
+	font-variation-settings: "SOFT" 60, "WONK" 1, "opsz" 144;
+}
 
 /* ── The words the host theme greys out ───────────────────────────────────
    A look changes the page's ink, and two kinds of text were missing it

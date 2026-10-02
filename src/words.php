@@ -272,6 +272,7 @@ function architrave_panel_words( $words ) {
 		'Carbon night'  => _x( 'Carbon night', 'a colour preset', 'live-design-panel' ), /* Terminal's (2026-09-19) */
 		'Drafting blue' => _x( 'Drafting blue', 'a colour preset', 'live-design-panel' ), /* Blueprint's (2026-09-19) */
 		'Lime night'    => _x( 'Lime night', 'a colour preset', 'live-design-panel' ), /* Instrument's (2026-09-20) */
+		'Lamplight'     => _x( 'Lamplight', 'a colour preset', 'live-design-panel' ), /* Book's (2026-10-02) */
 		'Cactus light'  => _x( 'Cactus light', 'a colour preset', 'live-design-panel' ),
 		'Mallow evening' => _x( 'Mallow evening', 'a colour preset', 'live-design-panel' ),
 		'Rust desert'   => _x( 'Rust desert', 'a colour preset', 'live-design-panel' ),
@@ -605,6 +606,15 @@ function architrave_panel_words( $words ) {
 		'Rainbow links' => __( 'Rainbow links', 'live-design-panel' ),
 		'On hover' => __( 'On hover', 'live-design-panel' ),
 		'Rainbow capital' => __( 'Rainbow capital', 'live-design-panel' ),
+		/* Book B (2026-10-02): the paragraph's two new pop-ups */
+		'Hyphens' => __( 'Hyphens', 'live-design-panel' ),
+		'Drop cap font' => __( 'Drop cap font', 'live-design-panel' ),
+		'Text font' => __( 'Text font', 'live-design-panel' ),
+		'Text font, bold' => __( 'Text font, bold', 'live-design-panel' ),
+		'With justified text' => __( 'With justified text', 'live-design-panel' ),
+		'Long words only' => __( 'Long words only', 'live-design-panel' ),
+		'Wherever possible' => __( 'Wherever possible', 'live-design-panel' ),
+		'Never' => __( 'Never', 'live-design-panel' ),
 		'Coupon line' => __( 'Coupon line', 'live-design-panel' ),
 		'Folded brochure' => __( 'Folded brochure', 'live-design-panel' ),
 		'One fold' => __( 'One fold', 'live-design-panel' ),

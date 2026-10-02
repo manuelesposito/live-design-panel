@@ -137,6 +137,8 @@
       "titlemark",
       "rainbowlinks",
       "rainbowcap",
+      "capface",
+      "hyphenate",
       "coupon",
       "fold",
       "codemarks",
@@ -250,6 +252,8 @@
       "titlemark",
       "rainbowlinks",
       "rainbowcap",
+      "capface",
+      "hyphenate",
       "coupon",
       "fold",
       "codemarks",
@@ -1462,7 +1466,7 @@
       "level": 4,
       "row": {
         "drawn": "grid",
-        "line": 2008,
+        "line": 2012,
         "in": "presetGrid"
       },
       "changesPage": "Colour",
@@ -1716,7 +1720,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1965,
+        "line": 1967,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -2632,7 +2636,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1966,
+        "line": 1968,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -4727,6 +4731,67 @@
       "inStandardAtRest": false
     },
     {
+      "key": "capface",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "text",
+        "bold",
+        "fraunces"
+      ],
+      "def": "text",
+      "attr": "data-cap-face",
+      "means": "The drop cap's letter: text (the rest, the reading text's own face and weight), bold (the reading face in bold, as the title) or fraunces (a soft old-style display capital). Shows with Drop cap on.",
+      "label": "Drop cap font",
+      "page": "Type › Reading text",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1969,
+        "in": "level3"
+      },
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-cap-face"
+      ],
+      "rest": {
+        "data-cap-face": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "hyphenate",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "auto",
+        "few",
+        "any",
+        "off"
+      ],
+      "def": "auto",
+      "attr": "data-hyphenate",
+      "means": "Where words break at the line's end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).",
+      "label": "Hyphens",
+      "page": "Type › Reading text",
+      "level": 3,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1966,
+        "in": "level3"
+      },
+      "changesPage": "Type › Reading text",
+      "attrs": [
+        "data-hyphenate"
+      ],
+      "rest": {
+        "data-hyphenate": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
       "key": "rainbowcap",
       "group": "pick",
       "table": "PICKS",
@@ -5748,7 +5813,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 2090,
+        "line": 2094,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7151,7 +7216,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2147,
+        "line": 2151,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7178,7 +7243,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2148,
+        "line": 2152,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7205,7 +7270,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2149,
+        "line": 2153,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7333,7 +7398,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2155,
+        "line": 2159,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -7360,7 +7425,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2156,
+        "line": 2160,
         "in": "level4"
       },
       "changesPage": "Colour",

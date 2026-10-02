@@ -840,6 +840,17 @@
     "off",
     "on"
   ],
+  "capface": [
+    "text",
+    "bold",
+    "fraunces"
+  ],
+  "hyphenate": [
+    "auto",
+    "few",
+    "any",
+    "off"
+  ],
   "coupon": [
     "off",
     "on"

@@ -2931,13 +2931,8 @@ html:root[data-soft="on"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navi
 :root[data-style="book"] {
 	--text-small-floor: 16px;
 	--reading-numerals: oldstyle-nums proportional-nums;
-	--reading-align: justify;
-	--reading-hyphens: auto;
 	--reading-dropcap: 3;
 	--reading-dropcap-gap: 0.3em;
-	--reading-dropcap-face: var(--wp--preset--font-family--font-fraunces);
-	--reading-dropcap-weight: 500;
-	--reading-dropcap-settings: "SOFT" 60, "WONK" 1, "opsz" 144;
 }
 :root[data-theme^="paper-"] {
 
@@ -2968,6 +2963,26 @@ html:root[data-soft="on"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navi
 	:root[data-style="book"][data-justify="on"] :is(.single-post-article .wp-block-post-content, .post-card :is(.post-body, .post-format-body) :is(.wp-block-post-excerpt, .entry-content)) > p:not([class*="has-text-align"]) {
 		text-wrap: pretty;
 	}
+}
+html:root[data-hyphenate="few"], html:root[data-hyphenate="any"] {
+	--reading-hyphens: auto;
+}
+html:root[data-hyphenate="off"] {
+	--reading-hyphens: manual;
+}
+html:root[data-hyphenate="few"] :is(.single-post-article .wp-block-post-content, .post-card :is(.post-body, .post-format-body) :is(.wp-block-post-excerpt, .entry-content)) > p {
+	hyphenate-limit-chars: 10 4 4;
+	-webkit-hyphenate-limit-before: 4;
+	-webkit-hyphenate-limit-after: 4;
+	-webkit-hyphenate-limit-lines: 1;
+}
+html:root[data-cap-face="bold"] {
+	--reading-dropcap-weight: 700;
+}
+html:root[data-cap-face="fraunces"] {
+	--reading-dropcap-face: var(--wp--preset--font-family--font-fraunces);
+	--reading-dropcap-weight: 500;
+	--reading-dropcap-settings: "SOFT" 60, "WONK" 1, "opsz" 144;
 }
 :root[data-read-m-excerpts-size] .post-card :is(.post-body, .post-format-body) :is(.wp-block-post-excerpt, .entry-content) > p {
 	font-size: max(var(--text-floor-content), calc(var(--text-reading-body) * var(--read-size-excerpts)));
