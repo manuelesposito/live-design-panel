@@ -2073,6 +2073,15 @@
 :root[data-text-mode] .frame-paper .content-column a:not(.quire-button):not(.card-cover):hover {
 	background: var(--accent) !important; color: var(--surface-base) !important; text-decoration: none !important;
 }
+:root[data-text-mode] .frame-paper .content-column a:not(.quire-button):not(.card-cover):hover, :root[data-text-mode] .frame-paper .content-column a:not(.quire-button):not(.card-cover):hover * {
+	color: var(--surface-base) !important; -webkit-text-fill-color: var(--surface-base) !important; text-decoration-color: var(--surface-base) !important; text-shadow: none !important; background-clip: border-box !important;
+}
+:root[data-window-bar]:not([data-focus-on]) body.has-frame .frame-paper {
+	outline: var(--border-width-default, 1px) solid var(--border-strong); outline-offset: calc(var(--border-width-default, 1px) * -1);
+}
+:root[data-window-bar]:not([data-focus-on]) body.has-frame .frame-paper > .ldp-tbar {
+	border: var(--border-width-default, 1px) solid var(--border-strong); border-start-start-radius: inherit; border-start-end-radius: inherit;
+}
 :root[data-text-mode] .frame-paper .content-column :is(h1, h2) a:not(:hover) {
 	color: inherit !important; text-decoration: none !important;
 }
