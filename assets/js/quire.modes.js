@@ -309,7 +309,7 @@
         "side": "light",
         "scheme": "light",
         "className": "theme-grey-light",
-        "swatch": "#e6e6ec",
+        "swatch": "#ffffff",
         "swatchInk": "#3b4ad4",
         "swatchEdge": "#c9c9cf"
       },

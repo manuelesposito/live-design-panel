@@ -405,6 +405,11 @@
     "50"
   ],
   "smallsoft": [
+    "0",
+    "5",
+    "10",
+    "15",
+    "20",
     "25",
     "30",
     "35",
@@ -415,7 +420,8 @@
   "links": [
     "both",
     "coloured",
-    "underlined"
+    "underlined",
+    "bold"
   ],
   "measure": [
     "60",
@@ -918,6 +924,20 @@
   "tilehover": [
     "off",
     "grow"
+  ],
+  "headblock": [
+    "off",
+    "on"
+  ],
+  "sectionrules": [
+    "off",
+    "thin",
+    "thick"
+  ],
+  "sectionnumbers": [
+    "off",
+    "written",
+    "counted"
   ],
   "unlinked": "boolean",
   "effects": {

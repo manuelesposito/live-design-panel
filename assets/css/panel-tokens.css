@@ -629,13 +629,13 @@
 :root[data-theme="grey-light"], .theme-grey-light {
 	--surface-canvas: #d6d6dc;
 	--surface-plane: #dedee4;
-	--surface-base: #e6e6ec;
-	--surface-subtle: #d7d7dd;
-	--surface-raised: #e6e6ec;
-	--surface-hover: #d3d3d9;
-	--surface-selected: #c8c8ce;
-	--surface-track: #d3d3d9;
-	--surface-track-selected: #c4c4ca;
+	--surface-base: #ffffff;
+	--surface-subtle: #f0f0f4;
+	--surface-raised: #ffffff;
+	--surface-hover: #ebebf0;
+	--surface-selected: #e1e1e7;
+	--surface-track: #ebebf0;
+	--surface-track-selected: #dcdce2;
 	--surface-floating: #f2f2f6;
 	--text-primary: #2a2a30;
 	--text-secondary: #424349;
@@ -648,7 +648,7 @@
 	--accent: #3b4ad4;
 	--accent-contrast: #ffffff;
 	--surface-inverse: #2a2a30;
-	--text-inverse: #e6e6ec;
+	--text-inverse: #ffffff;
 	--ink-alpha-weak: rgba(42, 42, 48, 0.06);
 	--ink-alpha-soft: rgba(42, 42, 48, 0.12);
 	--ink-alpha-medium: rgba(42, 42, 48, 0.24);

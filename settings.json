@@ -154,6 +154,9 @@
       "boxbuttons",
       "listtiles",
       "tilehover",
+      "headblock",
+      "sectionrules",
+      "sectionnumbers",
       "unlinked",
       "effects",
       "roles",
@@ -276,6 +279,9 @@
       "boxbuttons",
       "listtiles",
       "tilehover",
+      "headblock",
+      "sectionrules",
+      "sectionnumbers",
       "pillbuttons",
       "centretitle",
       "fadeedges",
@@ -5280,6 +5286,95 @@
       "inStandardAtRest": false
     },
     {
+      "key": "headblock",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-head-block",
+      "means": "A solid block of the accent over the article's head, the mark a poster opens with: off (the rest) or on. Above the categories when they stand over the title.",
+      "label": "Colour block",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-head-block"
+      ],
+      "rest": {
+        "data-head-block": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "sectionrules",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "thin",
+        "thick"
+      ],
+      "def": "off",
+      "attr": "data-section-rules",
+      "means": "A rule in the ink over each of the article's section headings, the way a poster divides its fields: off (the rest), thin (2px) or thick (6px).",
+      "label": "Section rules",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-section-rules"
+      ],
+      "rest": {
+        "data-section-rules": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "sectionnumbers",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "written",
+        "counted"
+      ],
+      "def": "off",
+      "attr": "data-section-numbers",
+      "means": "Each section heading's number stands over it, big and in the accent: off (the rest), written (only a number the heading already begins with, \"1. …\", taken out of its line) or counted (every section numbered, a written number kept).",
+      "label": "Section numbers",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1228,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-section-numbers"
+      ],
+      "rest": {
+        "data-section-numbers": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
       "key": "scan",
       "group": "level",
       "table": "LEVELS",
@@ -5637,6 +5732,11 @@
       "table": "LEVELS",
       "kind": "dial",
       "steps": [
+        "0",
+        "5",
+        "10",
+        "15",
+        "20",
         "25",
         "30",
         "35",
@@ -5647,7 +5747,7 @@
       "def": "25",
       "attr": "data-small-soft",
       "prop": "--small-strength",
-      "means": "How far the small text (dates, captions, meta) steps toward the paper, in percent: 25 to 50 in steps of 5, with soft on or off. 25 is the rest, the pair's own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.",
+      "means": "How far the small text (dates, captions, meta) steps toward the paper, in percent: 0 (the ink itself) to 50 in steps of 5, with soft on or off. 25 is the rest, the pair's own rung. Not set, it follows quietlevel while soft is on, and an export leaves it out.",
       "label": null,
       "page": "Colour",
       "level": 4,
@@ -5672,11 +5772,12 @@
       "choices": [
         "both",
         "coloured",
-        "underlined"
+        "underlined",
+        "bold"
       ],
       "def": "both",
       "attr": "data-links",
-      "means": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer) or underlined (the ink with a quiet underline). Not set, a style with soft marks them underlined, and an export leaves it out.",
+      "means": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline) or bold (the ink on a thick underline in the accent, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
       "label": null,
       "page": "Colour",
       "level": 4,
