@@ -2639,10 +2639,13 @@ html:root[data-print-ink="warm"]:not([data-theme$="-dark"]), html:root[data-prin
 }
 :root[data-coupon="on"] .content-column > .ldp-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
 	content: ""; display: block; margin: 0 var(--ldp-col-inset, 0px) 36px; border-top: 1.5px dashed color-mix(in oklab, var(--text-primary) 42%, transparent);
+	-webkit-mask: linear-gradient(to right, currentColor 28px, transparent 28px 64px, currentColor 64px); mask: linear-gradient(to right, currentColor 28px, transparent 28px 64px, currentColor 64px);
 }
 :root[data-coupon="on"] .content-column > .ldp-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
-	content: "\2702\FE0E"; position: absolute; top: -.72em; left: calc(var(--ldp-col-inset, 0px) + 28px); padding: 0 8px;
-	font: 20px/1 var(--font-reading); color: color-mix(in oklab, var(--text-primary) 70%, transparent); background: var(--surface-base);
+	content: ""; position: absolute; top: calc(.75px - 10px); left: calc(var(--ldp-col-inset, 0px) + 36px); inline-size: 20px; block-size: 20px;
+	color: color-mix(in oklab, var(--text-primary) 70%, transparent); background: currentColor;
+	-webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'><circle cx='6' cy='6.5' r='3'/><circle cx='6' cy='17.5' r='3'/><path d='M8.6 8.2 21 17M8.6 15.8 21 7'/></svg>") center / contain no-repeat;
+	mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'><circle cx='6' cy='6.5' r='3'/><circle cx='6' cy='17.5' r='3'/><path d='M8.6 8.2 21 17M8.6 15.8 21 7'/></svg>") center / contain no-repeat;
 }
 :root[data-awning] {
 	--ldp-stripe: color-mix(in oklab, var(--surface-base), #ffffff 55%);
