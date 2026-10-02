@@ -1450,6 +1450,11 @@
 	var actx = null, lastTick = {}, lastHover = 0, hoverKey = null;
 	function wake() { try { if (actx && actx.state === 'suspended') actx.resume(); } catch (e) {  } }
 	['pointerdown', 'keydown'].forEach(function (ev) { document.addEventListener(ev, function () { if (prefs.sound === 'off') return; try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return; } wake(); }, true); });
+	if (prefs.sound !== 'off' && (window.AudioContext || window.webkitAudioContext)) {
+		var soundSoon = function () { if (actx || prefs.sound === 'off') return; try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {  } };
+		var whenIdle = function () { if (window.requestIdleCallback) window.requestIdleCallback(soundSoon, { timeout: 4000 }); else setTimeout(soundSoon, 1500); };
+		if (document.readyState === 'complete') whenIdle(); else window.addEventListener('load', whenIdle);
+	}
 	function tone(f1, f2, dur, vol, type) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); wake(); var t0 = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
 		o.type = type || 'sine'; o.frequency.setValueAtTime(f1, t0); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
 		g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);

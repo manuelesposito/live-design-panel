@@ -1575,6 +1575,15 @@
 	   each tone and on the first press or key anywhere, which is when the browser lets it wake. */
 	function wake() { try { if (actx && actx.state === 'suspended') actx.resume(); } catch (e) { /* no sound here */ } }
 	['pointerdown', 'keydown'].forEach(function (ev) { document.addEventListener(ev, function () { if (prefs.sound === 'off') return; try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { return; } wake(); }, true); });
+	/* MADE BEFORE THE FIRST PRESS, WHILE THE PAGE IS IDLE (2026-10-02, Manuel: "check the panel opening speed on my
+	   phone"). Chrome takes 5 to 120 ms to make the sound engine the first time, at a phone's speed, and that was done
+	   inside the first press, so the first opening of a visit waited for it (80 to 150 ms against 30 to 70 after).
+	   Made while the page is idle it rests asleep, plays nothing, and the first press only wakes it, as above. */
+	if (prefs.sound !== 'off' && (window.AudioContext || window.webkitAudioContext)) {
+		var soundSoon = function () { if (actx || prefs.sound === 'off') return; try { actx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { /* no sound here */ } };
+		var whenIdle = function () { if (window.requestIdleCallback) window.requestIdleCallback(soundSoon, { timeout: 4000 }); else setTimeout(soundSoon, 1500); };
+		if (document.readyState === 'complete') whenIdle(); else window.addEventListener('load', whenIdle);
+	}
 	function tone(f1, f2, dur, vol, type) { try { actx = actx || new (window.AudioContext || window.webkitAudioContext)(); wake(); var t0 = actx.currentTime, o = actx.createOscillator(), g = actx.createGain();
 		o.type = type || 'sine'; o.frequency.setValueAtTime(f1, t0); if (f2) o.frequency.exponentialRampToValueAtTime(f2, t0 + dur);
 		g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
