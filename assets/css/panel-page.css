@@ -214,6 +214,7 @@
 :root[data-head-colour] :is(.wp-block-post-title, .entry-title) a {
 	color: var(--head-colour) !important;
 }
+:root[data-head-colour][data-sub-colour="ink"] :is(.wp-block-post-content, .entry-content) :is(h1, h2, h3, h4, h5, h6):not([data-ldp-designed]) { color: var(--wp--preset--color--contrast, currentColor) !important; } /* the section headings back in the text's colour, only the title in the role's (Arcade, 2026-10-02) */
 :root[data-kicker-colour] .wp-block-post-terms:not([data-ldp-designed]),
 :root[data-kicker-colour] .wp-block-post-terms a {
 	color: var(--kicker-colour) !important;

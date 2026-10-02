@@ -82,7 +82,7 @@
     "menuline": "The side column's menu links: plain (the rest) or underlined in the ink, as a printed page sets its navigation.",
     "legalline": "A small italic line at the foot of the page, an advertisement's small print: the copyright sign, the year, the site's name and its tagline. Only words the site already has. Off (the rest) or on.",
     "stripes": "How the rainbow bands between posts and at the page foot are drawn: solid (the rest, six stripes edge to edge) or gaps (six thinner stripes with paper between them, in softer hues).",
-    "sitename": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it) or caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark).",
+    "sitename": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark) or marquee (in the headings' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet's marquee).",
     "sheetgrid": "Squared paper under the page, scrolling with it: off (the rest), squared (a hairline every 12px and a heavier one every fifth, engineering paper), fine (the small squares only) or dots (a point at each big crossing). Drawn in the ink by night, in a pale cut of it by day.",
     "gridstrength": "How strongly the drawing grid shows: medium (the rest), faint or strong. Only with a drawing grid.",
     "sheetborder": "The edge of a drawing sheet on the paper: off (the rest), line (a heavy line on the paper's edge) or zones (the line with zone numbers along the top and foot and letters down the sides, left out where the paper's corner squares sit). Architrave's paper only.",
@@ -117,6 +117,7 @@
     "extrusion": "The title and the headings standing out of the page on a hard block of the second light, one step a pixel, no blur, as an arcade marquee's letters: off (the rest), diagonal or down. The title three steps deep, a heading two. Composes with the glow, the bloom and the fringe.",
     "pixelcorners": "The corner a pixel screen draws when it rounds: the paper's corners and the pictures' cut in stairs of whole pixels. Off (the rest) or on. Best with square corners.",
     "powerbar": "How far the reader is, the arcade's way: twenty blocks along the paper's foot, one lit for every twentieth read, the last one lit in the second light. Off (the rest) or on. Architrave's paper only.",
+    "subcolour": "The colour of the article's section headings when the headings' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text's colour, so only the title stands in the colour).",
     "opening": "The article's first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave's page only.",
     "widefigures": "The pictures in the article's text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave's page only.",
     "arrival": "How the article's parts and the list's posts come into view as the page scrolls: none (the rest: they are simply there), rise (each rises 40px into place, once; the title, its date and its picture one after another on arrival) or zoom (the same, the pictures coming in from a small zoom). Nothing moves for readers who ask for less motion. Architrave's page only.",
@@ -574,6 +575,8 @@
       "pixelcorners": "on",
       "powerbar": "on",
       "bootscreen": "coin",
+      "subcolour": "ink",
+      "sitename": "marquee",
       "effects": {
         "glow": {
           "reach": "headings"

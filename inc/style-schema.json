@@ -772,7 +772,8 @@
   ],
   "sitename": [
     "plain",
-    "caps"
+    "caps",
+    "marquee"
   ],
   "sheetgrid": [
     "off",
@@ -932,6 +933,10 @@
   "powerbar": [
     "off",
     "on"
+  ],
+  "subcolour": [
+    "title",
+    "ink"
   ],
   "opening": [
     "off",

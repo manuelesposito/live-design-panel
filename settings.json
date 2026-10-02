@@ -155,6 +155,7 @@
       "extrusion",
       "pixelcorners",
       "powerbar",
+      "subcolour",
       "opening",
       "widefigures",
       "arrival",
@@ -288,6 +289,7 @@
       "extrusion",
       "pixelcorners",
       "powerbar",
+      "subcolour",
       "opening",
       "widefigures",
       "arrival",
@@ -4303,11 +4305,12 @@
       "kind": "pick",
       "choices": [
         "plain",
-        "caps"
+        "caps",
+        "marquee"
       ],
       "def": "plain",
       "attr": "data-site-name",
-      "means": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it) or caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark).",
+      "means": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark) or marquee (in the headings' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet's marquee).",
       "label": "Site name",
       "page": "Effects",
       "level": 17,
@@ -5331,6 +5334,35 @@
       ],
       "rest": {
         "data-power-bar": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "subcolour",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "title",
+        "ink"
+      ],
+      "def": "title",
+      "attr": "data-sub-colour",
+      "means": "The colour of the article's section headings when the headings' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text's colour, so only the title stands in the colour).",
+      "label": "Section headings",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1229,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-sub-colour"
+      ],
+      "rest": {
+        "data-sub-colour": "ABSENT"
       },
       "inStandardAtRest": false
     },
