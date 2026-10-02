@@ -87,6 +87,10 @@ function architrave_site_styles_clean( $state ) {
 	if ( isset( $state['readers'] ) && is_array( $state['readers'] ) ) {
 		$readers = array();
 		foreach ( $state['readers'] as $reader_id ) {
+
+			if ( is_string( $reader_id ) && 0 === strpos( $reader_id, 'site-' ) && ! isset( $seen[ $reader_id ] ) ) {
+				continue;
+			}
 			if ( is_string( $reader_id ) && preg_match( '/^[a-z0-9-]{1,48}$/', $reader_id ) && ! in_array( $reader_id, $readers, true ) ) {
 				$readers[] = $reader_id;
 			}
@@ -193,7 +197,7 @@ function architrave_site_style_values( $value, $depth ) {
 				$out[ $key ] = $clean;
 			}
 
-			if ( count( $out ) >= 128 ) {
+			if ( count( $out ) >= 256 ) {
 				break;
 			}
 		}
@@ -460,6 +464,32 @@ function architrave_reader_counts() {
 	);
 }
 
+function architrave_reader_count_known( $id ) {
+	if ( 'host' === $id ) {
+		return true;
+	}
+	$state = architrave_site_styles();
+	foreach ( $state['styles'] as $style ) {
+		if ( $style['id'] === $id ) {
+			return true;
+		}
+	}
+	static $builtin = null;
+	if ( null === $builtin ) {
+		$builtin = array();
+		$file    = defined( 'ARCHITRAVE_PANEL_FILE' ) ? plugin_dir_path( ARCHITRAVE_PANEL_FILE ) . 'settings.json' : '';
+		$list    = $file && is_readable( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : null; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file of the plugin's own.
+		foreach ( ( is_array( $list ) && isset( $list['settings'] ) ? $list['settings'] : array() ) as $setting ) {
+			if ( isset( $setting['key'], $setting['choices'] ) && 'base' === $setting['key'] && is_array( $setting['choices'] ) ) {
+				foreach ( $setting['choices'] as $choice ) {
+					$builtin[] = is_array( $choice ) ? ( isset( $choice['id'] ) ? $choice['id'] : '' ) : (string) $choice;
+				}
+			}
+		}
+	}
+	return in_array( $id, $builtin, true );
+}
+
 function architrave_reader_count_routes() {
 	register_rest_route(
 		'architrave/v1',
@@ -479,6 +509,18 @@ function architrave_reader_count_routes() {
 					return new WP_REST_Response( null, 204 );
 				}
 				$id   = (string) $request['style'];
+
+				if ( ! architrave_reader_count_known( $id ) ) {
+					return new WP_REST_Response( null, 204 );
+				}
+
+				$who   = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+				$throt = 'ldp_count_' . substr( md5( wp_salt( 'nonce' ) . $who ), 0, 20 );
+				$sent  = (int) get_transient( $throt );
+				if ( $sent >= 30 ) {
+					return new WP_REST_Response( null, 204 );
+				}
+				set_transient( $throt, $sent + 1, HOUR_IN_SECONDS );
 				$days = architrave_reader_count_days();
 				$day  = gmdate( 'Y-m-d' );
 				$seen = isset( $days[ $day ] ) ? $days[ $day ] : array();
@@ -624,6 +666,10 @@ function architrave_site_styles_handle( $request ) {
 			if ( ! is_array( $record ) ) {
 				return new WP_Error( 'architrave_no_record', __( 'No style was sent.', 'live-design-panel' ), array( 'status' => 400 ) );
 			}
+
+			if ( isset( $state['styles'] ) && is_array( $state['styles'] ) && count( $state['styles'] ) >= 24 ) {
+				return new WP_Error( 'architrave_too_many', __( 'The site holds 24 styles. Remove one before publishing another.', 'live-design-panel' ), array( 'status' => 400 ) );
+			}
 			$name = trim( (string) $request->get_param( 'name' ) );
 			if ( '' !== $name ) {
 				$record['label'] = $name;
@@ -717,7 +763,8 @@ function architrave_as_reader_head() {
 	$words = array(
 		'bar' => __( 'Preview as Reader. Nothing you pick here is kept.', 'live-design-panel' ),
 	);
-	wp_print_inline_script_tag( '(function(){try{var h={},i,k;for(i=0;i<localStorage.length;i++){k=localStorage.key(i);h[k]=localStorage.getItem(k);}localStorage.clear();window.addEventListener("pagehide",function(){try{localStorage.clear();Object.keys(h).forEach(function(k){localStorage.setItem(k,h[k]);});}catch(e){}});}catch(e){}window.architraveAsReader=true;document.documentElement.setAttribute("data-ldp-as-reader","");document.addEventListener("DOMContentLoaded",function(){var b=document.createElement("div");b.className="ldp-preview-bar";b.setAttribute("role","status");b.textContent=' . wp_json_encode( $words['bar'] ) . ';document.body.appendChild(b);});})();' );
+
+	wp_print_inline_script_tag( '(function(){var m={},S={getItem:function(k){k=String(k);return Object.prototype.hasOwnProperty.call(m,k)?m[k]:null;},setItem:function(k,v){m[String(k)]=String(v);},removeItem:function(k){delete m[String(k)];},clear:function(){m={};},key:function(i){var a=Object.keys(m);return i<a.length?a[i]:null;}};Object.defineProperty(S,"length",{get:function(){return Object.keys(m).length;}});var own=false;try{Object.defineProperty(window,"localStorage",{configurable:true,get:function(){return S;}});own=window.localStorage===S;}catch(e){}if(!own){try{var h={},i,k;for(i=0;i<localStorage.length;i++){k=localStorage.key(i);h[k]=localStorage.getItem(k);}localStorage.clear();window.addEventListener("pagehide",function(){try{localStorage.clear();Object.keys(h).forEach(function(k){localStorage.setItem(k,h[k]);});}catch(e){}});}catch(e){}}window.architraveAsReader=true;document.documentElement.setAttribute("data-ldp-as-reader","");document.addEventListener("DOMContentLoaded",function(){var b=document.createElement("div");b.className="ldp-preview-bar";b.setAttribute("role","status");b.textContent=' . wp_json_encode( $words['bar'] ) . ';document.body.appendChild(b);});})();' );
 }
 add_action( 'wp_head', 'architrave_as_reader_head', 0 );
 

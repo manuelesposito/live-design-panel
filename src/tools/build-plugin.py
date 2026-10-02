@@ -298,6 +298,11 @@ def main() -> int:
     probe = subprocess.run([sys.executable, str(THEME / "tools" / "check-site-styles.py")], cwd=THEME)
     if probe.returncode:
         return probe.returncode
+    # NO THEME RULE MAY LOSE TO THE PLUGIN'S SHEET BY LOAD ORDER ALONE (2026-10-01):
+    # Book's block beat "Justified text: off" on every site, never on the test site.
+    order = subprocess.run([sys.executable, str(THEME / "tools" / "check-split-order.py")], cwd=THEME)
+    if order.returncode:
+        return order.returncode
 
     files = members()
     missing = [rel for p, rel in files if not p.is_file()]

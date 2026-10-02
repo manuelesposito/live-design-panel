@@ -214,7 +214,9 @@
 	   a mid-fade grey on the dark header). */
 	var settled = 0;
 	function rewear() { siteColour(); if (docked === 'slot') wear(); else if (docked) dock(); }
-	new MutationObserver(function () { cancelAnimationFrame(wearing); wearing = requestAnimationFrame(rewear); clearTimeout(settled); settled = setTimeout(rewear, 500); })
+	/* not for what changes no look (2026-10-02, the panel audit): the window's own aiming class and the passing marks of a crossing or a boot screen docked the button again each time */
+	var NO_LOOK = /^(class|data-ldp-crossing|data-ldp-booting|data-rail-ready|data-comments-side)$/;
+	new MutationObserver(function (ms) { if (ms.every(function (m) { return NO_LOOK.test(m.attributeName || ''); })) return; cancelAnimationFrame(wearing); wearing = requestAnimationFrame(rewear); clearTimeout(settled); settled = setTimeout(rewear, 500); })
 		.observe(document.documentElement, { attributes: true }); /* a look writes many switches on the root; any of them may redraw the neighbour */
 	/* A SQUARE BESIDE THE MENU (Manuel, 2026-09-24, lab/the-button-on-tt5.html: "I
 	   would go for the icon for the square"). The door is a tool, not a page, so on
@@ -256,7 +258,10 @@
 					box.remove(); menuItem = null;
 					var any = nav.querySelectorAll('li > a'), lastAny = any[any.length - 1];
 					item = item || (lastAny && lastAny.closest('li')); list = list || (item && item.parentElement);
-					if (!item || !list) continue;
+					/* A ROW OF LINKS WITH NO LIST to fold into: the button goes home before the next menu is
+					   tried (2026-10-01, the panel audit). It left with the box, `docked` was never set, so
+					   undock() did nothing and the button was gone from the page for good. */
+					if (!item || !list) { home.parentNode.insertBefore(pill, home.nextSibling); pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded'); continue; }
 					row = false; pill.setAttribute('data-folded', '');
 				}
 			}
@@ -306,6 +311,12 @@
 	var PHONE_SLOT = '.mobile-live-design-slot[data-live-design-slot], [data-live-design-slot="phone"]';
 	function phone() { return window.matchMedia('(max-width: 781px)').matches; } /* where WordPress's own bars turn into a phone's */
 	function dock() {
+		/* THE FOCUS STAYS WITH IT (2026-10-01, the panel audit): every change on the root and every resize docks it again, which moves it in the page, and a moved element loses the keyboard's focus. */
+		var had = document.activeElement === pill;
+		dockNow();
+		if (had && document.activeElement !== pill && shown(pill)) pill.focus({ preventScroll: true });
+	}
+	function dockNow() {
 		undock();
 		var byHand = S.place !== 'auto';
 		pill.setAttribute('data-match', 'true'); /* before it is measured in the row: a square beside a menu is drawn by the row's rules, and measured by hand's it came out wide and was folded into the menu */

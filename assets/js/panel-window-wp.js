@@ -247,6 +247,7 @@
 			};
 		},
 		current: function () { var s = S(); return s ? s.current() : ''; },
+		greyTintable: function () { var s = S(); return !(s && s.greyTintable) || s.greyTintable(); },
 		fonts: {
 			library: function () { return (window.ArchitraveFontLibrary || []).map(function (f) { return f.id; }); },
 			can: function () { return !!(window.architraveFonts && window.architraveFonts.url); },

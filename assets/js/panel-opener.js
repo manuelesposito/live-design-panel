@@ -126,7 +126,8 @@
 	var wearing = 0;
 	var settled = 0;
 	function rewear() { siteColour(); if (docked === 'slot') wear(); else if (docked) dock(); }
-	new MutationObserver(function () { cancelAnimationFrame(wearing); wearing = requestAnimationFrame(rewear); clearTimeout(settled); settled = setTimeout(rewear, 500); })
+	var NO_LOOK = /^(class|data-ldp-crossing|data-ldp-booting|data-rail-ready|data-comments-side)$/;
+	new MutationObserver(function (ms) { if (ms.every(function (m) { return NO_LOOK.test(m.attributeName || ''); })) return; cancelAnimationFrame(wearing); wearing = requestAnimationFrame(rewear); clearTimeout(settled); settled = setTimeout(rewear, 500); })
 		.observe(document.documentElement, { attributes: true }); 
 	function toMenu() {
 		if (!window.architravePanelGuest) return false; 
@@ -151,7 +152,7 @@
 					box.remove(); menuItem = null;
 					var any = nav.querySelectorAll('li > a'), lastAny = any[any.length - 1];
 					item = item || (lastAny && lastAny.closest('li')); list = list || (item && item.parentElement);
-					if (!item || !list) continue;
+					if (!item || !list) { home.parentNode.insertBefore(pill, home.nextSibling); pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded'); continue; }
 					row = false; pill.setAttribute('data-folded', '');
 				}
 			}
@@ -182,6 +183,11 @@
 	var PHONE_SLOT = '.mobile-live-design-slot[data-live-design-slot], [data-live-design-slot="phone"]';
 	function phone() { return window.matchMedia('(max-width: 781px)').matches; } 
 	function dock() {
+		var had = document.activeElement === pill;
+		dockNow();
+		if (had && document.activeElement !== pill && shown(pill)) pill.focus({ preventScroll: true });
+	}
+	function dockNow() {
 		undock();
 		var byHand = S.place !== 'auto';
 		pill.setAttribute('data-match', 'true'); 

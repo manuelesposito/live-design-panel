@@ -3776,10 +3776,12 @@
       },
       "changesPage": "Effects",
       "attrs": [
-        "data-boot-screen"
+        "data-boot-screen",
+        "data-ldp-booting"
       ],
       "rest": {
-        "data-boot-screen": "ABSENT"
+        "data-boot-screen": "ABSENT",
+        "data-ldp-booting": false
       },
       "inStandardAtRest": false
     },

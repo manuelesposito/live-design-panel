@@ -910,6 +910,8 @@
 		if (!arrive) return;
 		var scope = root.getAttribute('data-fx-arrival-scope');
 		var blocks = scope ? document.querySelectorAll('.single-post-article .wp-block-post-content > p' + (scope === 'all' ? ', .single-post-article .wp-block-post-content > :is(figure, .wp-block-image, .wp-block-gallery), .single-post-article .article-media' : '')) : [];
+		var keep = Array.prototype.slice.call(blocks);
+		Array.prototype.forEach.call(document.querySelectorAll('.ldp-arrive-block'), function (b) { if (keep.indexOf(b) === -1) { b.classList.remove('ldp-arrive-block', 'ldp-in'); arriveSeen.unobserve(b); } });
 		Array.prototype.forEach.call(blocks, function (b) { if (!b.classList.contains('ldp-arrive-block')) { b.classList.add('ldp-arrive-block'); arriveSeen.observe(b); } });
 	}
 	document.addEventListener('pointermove', function (ev) {
@@ -981,7 +983,7 @@
 		if (root.getAttribute('data-typed-title') === 'decode') { if (root.hasAttribute('data-ldp-booting')) setTimeout(function () { decodeHeadings(h); }, 1700); else decodeHeadings(h); return; } 
 		var text = h.textContent, html = h.innerHTML, i = 0, step;
 		h.classList.add('ldp-typing');
-		step = function () { i++; h.textContent = text.slice(0, i); var c = document.createElement('span'); c.className = 'ldp-cursor'; h.appendChild(c); if (i < text.length) setTimeout(step, 45 + Math.random() * 55); else setTimeout(function () { h.innerHTML = html; h.classList.remove('ldp-typing'); }, 1200); };
+		step = function () { if (!root.hasAttribute('data-typed-title')) { h.innerHTML = html; h.classList.remove('ldp-typing'); return; }  i++; h.textContent = text.slice(0, i); var c = document.createElement('span'); c.className = 'ldp-cursor'; h.appendChild(c); if (i < text.length) setTimeout(step, 45 + Math.random() * 55); else setTimeout(function () { h.innerHTML = html; h.classList.remove('ldp-typing'); }, 1200); };
 		step();
 	}
 	function codeRain(cv, o) {
@@ -1272,7 +1274,6 @@
 		typedTitle(); bootScreen(); 
 	}
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', screenEffects); else screenEffects();
-	(function () { var d = PICKS.bootscreen; if (d && pickOf('bootscreen') !== d.list[0]) { var seen = false; try { seen = sessionStorage.getItem('ldp-boot') === '1'; } catch (e) {} if (!seen) root.setAttribute('data-ldp-booting', pickOf('bootscreen') === 'card' || pickOf('bootscreen') === 'coin' ? pickOf('bootscreen') : pickOf('bootscreen') === 'rain' || pickOf('bootscreen') === 'wake' ? 'code' : ''); } })();
 	function applyButton() { var v = buttonOf(); if (v === BUTTONS[0]) root.removeAttribute('data-button'); else if (root.getAttribute('data-button') !== v) root.setAttribute('data-button', v); }
 	function applyMarkerColour() { var v = markerColourOf(); if (v === MARKERS[0]) root.removeAttribute('data-marker-colour'); else if (root.getAttribute('data-marker-colour') !== v) root.setAttribute('data-marker-colour', v); }
 	function applyFadeEdges() { var v = fadeEdgesOf(); if (v === FADE_EDGES[0]) root.removeAttribute('data-fade-edges'); else if (root.getAttribute('data-fade-edges') !== v) root.setAttribute('data-fade-edges', v); }
@@ -1385,7 +1386,7 @@
 		else root.removeAttribute('data-look');
 	}
 	
-	var KEEP_HOME = ['quire-side', 'architrave-opener-spot', HIDDEN_KEY];
+	var KEEP_HOME = ['quire-side', 'architrave-opener-spot', HIDDEN_KEY, 'architrave-versions', 'architrave-panel-anchor', 'architrave-panel-place', 'architrave-panel-glow', 'architrave-panel-goo', 'architrave-goo', 'architrave-button-settings', 'architrave-door-ghosts', 'architrave-font-files-css', 'architrave-font-fetch-busy'];
 	function goHome() {
 		var kill = [];
 		try {
@@ -1598,6 +1599,7 @@
 	applyMarkerColour();
 	applyButton();
 	applyPicks();
+	(function () { var d = PICKS.bootscreen; if (d && pickOf('bootscreen') !== d.list[0]) { var seen = false; try { seen = sessionStorage.getItem('ldp-boot') === '1'; } catch (e) {} if (!seen) root.setAttribute('data-ldp-booting', pickOf('bootscreen') === 'card' || pickOf('bootscreen') === 'coin' ? pickOf('bootscreen') : pickOf('bootscreen') === 'rain' || pickOf('bootscreen') === 'wake' ? 'code' : ''); } })();
 	applyEffects();
 	applyFramePattern();
 	applyCorners();
@@ -1605,7 +1607,7 @@
 	
 	var Focus = window.ArchitraveFocus || { on: function () { return false; }, motion: function () { return 0; }, retime: function () { return 0; }, set: function () {} };
 	
-	function coloursOf(id) {
+	function coloursOf(id, own) {
 		var s = byId(id || current), tw = readTweaks()[(s && s.id) || current] || {}, out = { light: {}, dark: {} };
 		['light', 'dark'].forEach(function (side) {
 			
@@ -1614,7 +1616,7 @@
 			[(named && named[side]) || {}, (s && s.colours && s.colours[side]) || {}].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
 			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
-		if (!id || id === current) { var ph = PHOSPHOR[pickOf('phosphor')]; if (ph) { out.dark.paper = ph[0]; out.dark.ink = ph[1]; out.dark.accent = ph[2]; } }
+		if (!own && (!id || id === current)) { var ph = PHOSPHOR[pickOf('phosphor')]; if (ph) { out.dark.paper = ph[0]; out.dark.ink = ph[1]; out.dark.accent = ph[2]; } }
 		return out;
 	}
 	var PHOSPHOR = { blue: ['#3535a0', '#fcf9f3', '#fcf9f3'], green: ['#061a0c', '#62ff85', '#b6ffc4'], amber: ['#1a1104', '#ffb340', '#ffd48a'], white: ['#0f1012', '#ececec', '#ffffff'], black: ['#000000', '#fcf9f3', '#ffffff'] };
@@ -1726,7 +1728,7 @@
 	];
 	var LISTS = { paper: PAPERS, ink: INKS, accent: ACCENTS, button: ACCENTS, head: ACCENTS, kicker: ACCENTS, ground: PAPERS, lift: PAPERS, marker: ACCENTS, light: ACCENTS, second: ACCENTS }; 
 	function listColourOf(key) {
-		var c = coloursOf(), light = (c.light || {})[key], dark = (c.dark || {})[key];
+		var c = coloursOf(null, true), light = (c.light || {})[key], dark = (c.dark || {})[key];
 		if (!light || !dark) return '';
 		var hit = (LISTS[key] || []).filter(function (x) { return x.light === light && x.dark === dark; })[0];
 		return hit ? hit.id : ''; 
@@ -1779,7 +1781,7 @@
 		return best;
 	}
 	function coloursResolved(id) {
-		var out = coloursOf(id); out.derived = { light: [], dark: [] };
+		var out = coloursOf(id, true); out.derived = { light: [], dark: [] };
 		[['light', 'dark'], ['dark', 'light']].forEach(function (pair) {
 			var from = pair[0], to = pair[1];
 			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'light', 'second'].forEach(function (k) {
@@ -1787,6 +1789,8 @@
 				if (out[from].marker && !out[to].marker && out.derived[from].indexOf('marker') === -1) { out[to].marker = out[from].marker; out.derived[to].push('marker'); }
 			});
 		});
+		var phNow = coloursOf(id);
+		['paper', 'ink', 'accent'].forEach(function (k) { if (phNow.dark[k] && phNow.dark[k] !== out.dark[k] && PHOSPHOR[pickOf('phosphor')]) { out.dark[k] = phNow.dark[k]; var at = out.derived.dark.indexOf(k); if (at !== -1) out.derived.dark.splice(at, 1); } });
 		['light', 'dark'].forEach(function (side) {
 			var paper = out[side].paper || paperOf(side);
 			if (out.derived[side].indexOf('accent') !== -1) out[side].accent = accentForPaper(out[side].accent, paper);
@@ -1960,8 +1964,9 @@
 		if (typeof markerLine === 'function' && document.readyState !== 'loading') markerLine(); 
 		if (css) { if (root.getAttribute('data-colours') !== 'on') root.setAttribute('data-colours', 'on'); }
 		else root.removeAttribute('data-colours');
-		var tw = (readTweaks()[current] || {}).colours || {};
-		var ownAccent = window.architravePanelGuest && ((tw.light && tw.light.accent) || (tw.dark && tw.dark.accent));
+		
+		var tw = (readTweaks()[current] || {}).colours || {}, rec = (byId(current) || {}).colours || {};
+		var ownAccent = window.architravePanelGuest && ((tw.light && tw.light.accent) || (tw.dark && tw.dark.accent) || (rec.light && rec.light.accent) || (rec.dark && rec.dark.accent));
 		if (ownAccent) root.setAttribute('data-accent-own', ''); else root.removeAttribute('data-accent-own');
 	}
 	
@@ -2236,7 +2241,7 @@
 			method: 'POST', credentials: 'same-origin',
 			headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': PUBLISH.nonce },
 			body: JSON.stringify(body)
-		}).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error((j && j.message) || r.status); return j; }); })
+		}).then(function (r) { return r.json().then(function (j) { if (!r.ok) { var e = new Error((j && j.message) || r.status); e.said = !!(j && j.code && j.message); throw e; } return j; }); }) 
 		.then(function (state) { if (mine === SENT) { takeSite(state); renderHosts(); } return state; });
 	}
 	window.ArchitraveStyles = {
@@ -2489,13 +2494,13 @@
 				var e0 = (readTweaks()[current] || {}).colours || {};
 				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(k) === -1 && !!e0[sd][k]; }); });
 			}
-			var c = coloursOf();
+			var c = coloursOf(null, true);
 			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker'].indexOf(k) === -1; }); }); 
 		},
 		setCustom: function (on, seed) {
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (on) {
-				var c = coloursOf();
+				var c = coloursOf(null, true); 
 				if (entry.preset) { entry.was = entry.preset; delete entry.preset; }
 				else if (s && s.preset && entry.preset === undefined) { entry.was = s.preset; entry.preset = ''; var preG = presetById(s.preset); ['light', 'dark'].forEach(function (sd) { if (preG && preG.ground && typeof preG.ground === 'object' && preG.ground[sd]) c[sd].ground = preG.ground[sd]; if (preG && preG.lift && preG.lift[sd]) c[sd].lift = preG.lift[sd]; });  entry.colours = { light: { paper: c.light.paper, ink: c.light.ink, accent: c.light.accent, ground: c.light.ground, lift: c.light.lift }, dark: { paper: c.dark.paper, ink: c.dark.ink, ground: c.dark.ground, lift: c.dark.lift, accent: c.dark.accent } }; }
 				if (s && s.host) {
@@ -2588,7 +2593,7 @@
 				if (Object.keys(r).length) out.roles[role] = r;
 			});
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
-			var c = coloursOf(); out.colours = {};
+			var c = coloursOf(null, true); out.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = c[side]; });
 			return JSON.stringify(out);
 		},
@@ -2644,6 +2649,10 @@
 				});
 				record.roles = roles;
 				record.base = baseOf(s);
+				var cDup = coloursOf(id, true); record.colours = {};
+				['light', 'dark'].forEach(function (side) { if (Object.keys(cDup[side]).length) record.colours[side] = cDup[side]; });
+				if (!Object.keys(record.colours).length) delete record.colours;
+				delete record.preset; delete record.was;
 			}
 			var entry = ownFromRecord(record, name);
 			if (s.host || s.bare) { entry.bare = true; entry.hostFace = s.hostFace; if (!entry.colours) entry.colours = s.colours; writeOwn(); }
@@ -2668,7 +2677,7 @@
 				if (Object.keys(r).length) entry.roles[role] = r;
 			});
 			var fxSave = effectsOf(s, tw); if (Object.keys(fxSave).length) entry.effects = fxSave;
-			var c = coloursOf(); entry.colours = {};
+			var c = coloursOf(null, true); entry.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = c[side]; });
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			STYLES.push(entry); writeOwn(); renderHosts();
@@ -2686,7 +2695,7 @@
 			s.roles = s.roles || {};
 			ROLES.forEach(function (role) { if (tw.roles && tw.roles[role]) { s.roles[role] = s.roles[role] || {}; Object.keys(tw.roles[role]).forEach(function (k) { s.roles[role][k] = tw.roles[role][k]; }); } });
 			var fxUp = effectsOf(s, tw); if (Object.keys(fxUp).length) s.effects = fxUp; else delete s.effects;
-			var c = coloursOf(); s.colours = {};
+			var c = coloursOf(null, true); s.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = c[side]; });
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			writeOwn(); apply(s, s);
@@ -2699,6 +2708,7 @@
 			if (current === id) apply(STYLES[0], wanted(STYLES[0]));
 		},
 		current: function () { return current; },
+		greyTintable: function () { var c = coloursResolved(), hex = /^#[0-9a-f]{6}$/i; return ['light', 'dark'].some(function (sd) { var v = c[sd] || {}; return hex.test(v.paper || '') && hex.test(v.ink || '') && hex.test(v.accent || ''); }); },
 		restSize: function (role) { return ROLE_DEFAULT[role] ? rungFor(role, ROLE_DEFAULT[role].size) : null; }, 
 		adjusted: function (id) {
 			var s = byId(id); if (!s) return false;

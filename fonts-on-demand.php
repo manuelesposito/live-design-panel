@@ -153,7 +153,16 @@ function architrave_fonts_published() {
 	if ( ! function_exists( 'architrave_site_styles' ) ) {
 		return $used;
 	}
-	foreach ( architrave_site_styles()['styles'] as $record ) {
+	$records = architrave_site_styles()['styles'];
+
+	if ( function_exists( 'architrave_preview_links' ) ) {
+		foreach ( architrave_preview_links() as $link ) {
+			if ( is_array( $link['record'] ) ) {
+				$records[] = $link['record'];
+			}
+		}
+	}
+	foreach ( $records as $record ) {
 		$names = array( $record['face'] ?? '', $record['sans'] ?? '' );
 		foreach ( (array) ( $record['roles'] ?? array() ) as $role ) {
 			$names[] = is_array( $role ) ? ( $role['face'] ?? '' ) : '';

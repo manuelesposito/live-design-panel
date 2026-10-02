@@ -141,7 +141,14 @@
 	font-weight: var(--head-weight) !important;
 }
 :root[data-head-leading] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
-	line-height: var(--head-leading) !important;
+	line-height: calc(var(--line-height-article-heading, 1.25) * var(--head-leading)) !important;
+}
+/* A ROLE'S LINE SPACING IS A FACTOR (presets.js LEAD: each step over the rest, Airy 1.1),
+   multiplied by the part's own line height as Architrave's sheet does. Written here as the
+   line height itself until 2026-10-01 (the panel audit), so every step set lines far closer
+   than at rest: Airy on the comments went from 25 to 20px on Twenty Twenty-Five. */
+:root[data-head-leading][data-head-leading] :is(.wp-block-post-title, .entry-title):not([data-ldp-designed]) { /* the attribute twice: the rule above weighs (0,3,1) through its `h1` branch */
+	line-height: calc(var(--line-height-article-title, 1.12) * var(--head-leading)) !important;
 }
 :root[data-head-caps] :is(.wp-block-post-title, .entry-title, .wp-block-heading, .wp-block-query-title, .wp-block-post-content :is(h1, h2, h3, h4, h5, h6), .entry-content :is(h1, h2, h3, h4, h5, h6)):not([data-ldp-designed]) {
 	text-transform: var(--head-case) !important;
@@ -165,7 +172,7 @@
 	font-weight: var(--quote-weight) !important;
 }
 :root[data-quote-leading] :is(.wp-block-quote, .wp-block-pullquote) {
-	line-height: var(--quote-leading) !important;
+	line-height: calc(var(--line-height-article-lead, 1.45) * var(--quote-leading)) !important;
 }
 :root[data-quote-caps] :is(.wp-block-quote, .wp-block-pullquote) {
 	text-transform: var(--quote-case) !important;
@@ -218,7 +225,7 @@
 	font-weight: var(--kicker-weight) !important;
 }
 :root[data-kicker-leading] .wp-block-post-terms {
-	line-height: var(--kicker-leading) !important;
+	line-height: calc(var(--line-height-article-label, 1.4) * var(--kicker-leading)) !important;
 }
 :root[data-kicker-caps] .wp-block-post-terms:not([data-ldp-designed]) {
 	text-transform: var(--kicker-case) !important;
@@ -247,7 +254,7 @@
 	font-weight: var(--small-weight) !important;
 }
 :root[data-small-leading] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
-	line-height: var(--small-leading) !important;
+	line-height: calc(var(--text-base-line-height, 1.5) * var(--small-leading)) !important;
 }
 :root[data-small-caps] :is(.wp-block-post-date, .entry-meta, .wp-block-comment-date, .wp-block-post-author-name, .has-small-font-size:not(.wp-block-navigation), figcaption, .wp-element-caption) {
 	text-transform: var(--small-case) !important;
@@ -268,7 +275,7 @@
 	font-weight: var(--comment-weight) !important;
 }
 :root[data-comment-leading] :is(.wp-block-comment-content, .wp-block-post-comments-form p) {
-	line-height: var(--comment-leading) !important;
+	line-height: calc(var(--text-base-line-height, 1.5) * var(--comment-leading)) !important;
 }
 :root[data-comment-caps] :is(.wp-block-comment-author-name, .wp-block-comment-content, .wp-block-comment-date, .wp-block-comment-reply-link, .wp-block-comments-title, .comment-reply-title) {
 	text-transform: var(--comment-case) !important;
@@ -304,7 +311,7 @@
 	font-weight: var(--ui-weight) !important;
 }
 :root[data-ui-leading] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-query-pagination) {
-	line-height: var(--ui-leading) !important;
+	line-height: calc(var(--text-base-line-height, 1.5) * var(--ui-leading)) !important;
 }
 :root[data-ui-caps] :is(.wp-block-navigation-item__content, .wp-block-button__link, .wp-block-site-title, .wp-block-query-pagination, .wp-block-post-navigation-link) {
 	text-transform: var(--ui-case) !important;
@@ -824,7 +831,7 @@
 :root[data-chosen] [data-ldp-badge][data-ldp-badge][data-ldp-badge]:not(:where(.reading-panel, .reading-panel *)) {
 	font-family: var(--kicker-face, var(--font-sans)) !important;
 	font-weight: var(--kicker-weight, 500) !important;
-	line-height: var(--kicker-leading, 1.5) !important;
+	line-height: calc(var(--line-height-article-label, 1.4) * var(--kicker-leading, 1.07)) !important; /* 1.5 at rest, as before */
 	text-transform: var(--kicker-case, none) !important;
 	letter-spacing: var(--kicker-tracking, normal) !important;
 	background-color: var(--surface-hover) !important;

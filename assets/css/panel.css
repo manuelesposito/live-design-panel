@@ -744,7 +744,7 @@
 :root[data-marker-colour="own"]:not([data-theme$="-dark"]):not([data-marker-bright]) {
 	--marker-line: var(--marker-line-own, var(--marker));
 }
-:root[data-marker-bright] {
+:root:root[data-marker-bright] {
 	--marker-line: var(--marker);
 }
 :root[data-marker-colour="text"], :root[data-marker-colour="text"] body {

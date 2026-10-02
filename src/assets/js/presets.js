@@ -1625,6 +1625,9 @@
 		if (!arrive) return;
 		var scope = root.getAttribute('data-fx-arrival-scope');
 		var blocks = scope ? document.querySelectorAll('.single-post-article .wp-block-post-content > p' + (scope === 'all' ? ', .single-post-article .wp-block-post-content > :is(figure, .wp-block-image, .wp-block-gallery), .single-post-article .article-media' : '')) : [];
+		/* A NARROWER SCOPE LETS GO OF WHAT IT NO LONGER NAMES (2026-10-01, the panel audit): from All back to the headings, the paragraphs and pictures below the fold stayed marked and kept arriving until a reload. */
+		var keep = Array.prototype.slice.call(blocks);
+		Array.prototype.forEach.call(document.querySelectorAll('.ldp-arrive-block'), function (b) { if (keep.indexOf(b) === -1) { b.classList.remove('ldp-arrive-block', 'ldp-in'); arriveSeen.unobserve(b); } });
 		Array.prototype.forEach.call(blocks, function (b) { if (!b.classList.contains('ldp-arrive-block')) { b.classList.add('ldp-arrive-block'); arriveSeen.observe(b); } });
 	}
 	/* THE POINTER'S LIGHT (effects.pointer): the card under the pointer learns where it is. */
@@ -1702,7 +1705,7 @@
 		if (root.getAttribute('data-typed-title') === 'decode') { if (root.hasAttribute('data-ldp-booting')) setTimeout(function () { decodeHeadings(h); }, 1700); else decodeHeadings(h); return; } /* under a start screen the title decodes as the screen thins away */
 		var text = h.textContent, html = h.innerHTML, i = 0, step;
 		h.classList.add('ldp-typing');
-		step = function () { i++; h.textContent = text.slice(0, i); var c = document.createElement('span'); c.className = 'ldp-cursor'; h.appendChild(c); if (i < text.length) setTimeout(step, 45 + Math.random() * 55); else setTimeout(function () { h.innerHTML = html; h.classList.remove('ldp-typing'); }, 1200); };
+		step = function () { if (!root.hasAttribute('data-typed-title')) { h.innerHTML = html; h.classList.remove('ldp-typing'); return; } /* switched off while typing: the title whole at once, no cursor left behind (2026-10-01, the panel audit) */ i++; h.textContent = text.slice(0, i); var c = document.createElement('span'); c.className = 'ldp-cursor'; h.appendChild(c); if (i < text.length) setTimeout(step, 45 + Math.random() * 55); else setTimeout(function () { h.innerHTML = html; h.classList.remove('ldp-typing'); }, 1200); };
 		step();
 	}
 	/* CODE RAIN (2026-10-02, Matrix; pick `coderain`, and the start screen `rain`): columns of glyphs falling on a canvas, each line's head in the accent and its trail in the ink, fading by erasing so whatever lies under the canvas shows. Twenty frames a second. Returns its stop. */
@@ -2004,8 +2007,6 @@
 		typedTitle(); bootScreen(); /* the columns need no script: the headings span every column (column-span: all), so each section balances on its own */
 	}
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', screenEffects); else screenEffects();
-	/* the boot screen must cover the first paint: presets.js runs in the head, so the root says it is booting before the body exists and door.css paints the blue over everything until the screen itself is built */
-	(function () { var d = PICKS.bootscreen; if (d && pickOf('bootscreen') !== d.list[0]) { var seen = false; try { seen = sessionStorage.getItem('ldp-boot') === '1'; } catch (e) {} if (!seen) root.setAttribute('data-ldp-booting', pickOf('bootscreen') === 'card' || pickOf('bootscreen') === 'coin' ? pickOf('bootscreen') : pickOf('bootscreen') === 'rain' || pickOf('bootscreen') === 'wake' ? 'code' : ''); } })();
 	function applyButton() { var v = buttonOf(); if (v === BUTTONS[0]) root.removeAttribute('data-button'); else if (root.getAttribute('data-button') !== v) root.setAttribute('data-button', v); }
 	function applyMarkerColour() { var v = markerColourOf(); if (v === MARKERS[0]) root.removeAttribute('data-marker-colour'); else if (root.getAttribute('data-marker-colour') !== v) root.setAttribute('data-marker-colour', v); }
 	function applyFadeEdges() { var v = fadeEdgesOf(); if (v === FADE_EDGES[0]) root.removeAttribute('data-fade-edges'); else if (root.getAttribute('data-fade-edges') !== v) root.setAttribute('data-fade-edges', v); }
@@ -2210,7 +2211,10 @@
 	   owner dragged the door, and the owner's order of the hidden styles. The
 	   sweep took them too, so after Original the next page opened on the
 	   other side and the door jumped home. */
-	var KEEP_HOME = ['quire-side', 'architrave-opener-spot', HIDDEN_KEY];
+	/* AND NOT THE PANEL'S OWN MEMORY (2026-10-01, the panel audit): the versions kept of
+	   every style, where the panel was put and how it is drawn. Pressing Original emptied
+	   Versions for every style. */
+	var KEEP_HOME = ['quire-side', 'architrave-opener-spot', HIDDEN_KEY, 'architrave-versions', 'architrave-panel-anchor', 'architrave-panel-place', 'architrave-panel-glow', 'architrave-panel-goo', 'architrave-goo', 'architrave-button-settings', 'architrave-door-ghosts', 'architrave-font-files-css', 'architrave-font-fetch-busy'];
 	function goHome() {
 		var kill = [];
 		try {
@@ -2525,6 +2529,8 @@
 	applyMarkerColour();
 	applyButton();
 	applyPicks();
+	/* THE BOOT SCREEN MUST COVER THE FIRST PAINT: presets.js runs in the head, so the root says it is booting before the body exists and door.css paints the blue over everything until the screen itself is built. Asked HERE, once the style on the page (`current`) and the reader's changes (TWEAK_KEYS) are known: asked where the screen's code stands, both were still undefined, the pick always read as off, and the article painted before the screen came (2026-10-01, the panel audit). */
+	(function () { var d = PICKS.bootscreen; if (d && pickOf('bootscreen') !== d.list[0]) { var seen = false; try { seen = sessionStorage.getItem('ldp-boot') === '1'; } catch (e) {} if (!seen) root.setAttribute('data-ldp-booting', pickOf('bootscreen') === 'card' || pickOf('bootscreen') === 'coin' ? pickOf('bootscreen') : pickOf('bootscreen') === 'rain' || pickOf('bootscreen') === 'wake' ? 'code' : ''); } })();
 	applyEffects();
 	applyFramePattern();
 	applyCorners();
@@ -2543,7 +2549,7 @@
 	/* THE THREE COLOURS A PAIR IS AUTHORED FROM (Manuel, 2026-09-14): Papier,
 	   Tinte, Akzent, per side. A style's own saved colours first, the
 	   reader's wells over them. Empty where the pair's own colour stands. */
-	function coloursOf(id) {
+	function coloursOf(id, own) {
 		var s = byId(id || current), tw = readTweaks()[(s && s.id) || current] || {}, out = { light: {}, dark: {} };
 		['light', 'dark'].forEach(function (side) {
 			/* A RECIPE MAY NAME A PRESET (2026-09-19): its six colours are the style's own, read from the list and not restated in the recipe. Not while the reader has let the preset go (a tweak's empty `preset`), when the colours are whatever they then set. */
@@ -2553,8 +2559,8 @@
 			[(named && named[side]) || {}, (s && s.colours && s.colours[side]) || {}].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
 			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'marker', 'inverse', 'light', 'second'].forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
-		/* PHOSPHOR (2026-09-30, Tube): a pick that turns the whole night screen one phosphor; it writes the night's paper, ink and accent over whatever the style and the reader set, and only for the style on the page (an export keeps the style's own). */
-		if (!id || id === current) { var ph = PHOSPHOR[pickOf('phosphor')]; if (ph) { out.dark.paper = ph[0]; out.dark.ink = ph[1]; out.dark.accent = ph[2]; } }
+		/* PHOSPHOR (2026-09-30, Tube): a pick that turns the whole night screen one phosphor; it writes the night's paper, ink and accent over whatever the style and the reader set, and only for the style on the page. `own` asks for the style's own colours without it: what is SAVED (export, Save as, Update, Duplicate) and what Custom is judged on. Without it, Save as on Tube in green wrote the green into the copy's own colours, and the copy stayed green with Phosphor off (2026-10-01, the panel audit). */
+		if (!own && (!id || id === current)) { var ph = PHOSPHOR[pickOf('phosphor')]; if (ph) { out.dark.paper = ph[0]; out.dark.ink = ph[1]; out.dark.accent = ph[2]; } }
 		return out;
 	}
 	var PHOSPHOR = { blue: ['#3535a0', '#fcf9f3', '#fcf9f3'], green: ['#061a0c', '#62ff85', '#b6ffc4'], amber: ['#1a1104', '#ffb340', '#ffd48a'], white: ['#0f1012', '#ececec', '#ffffff'], black: ['#000000', '#fcf9f3', '#ffffff'] };
@@ -2731,7 +2737,7 @@
 	   marked here (Manuel, 2026-09-16, reversing the tint fallback of the day
 	   before: "the answer is no"). */
 	function listColourOf(key) {
-		var c = coloursOf(), light = (c.light || {})[key], dark = (c.dark || {})[key];
+		var c = coloursOf(null, true), light = (c.light || {})[key], dark = (c.dark || {})[key];
 		if (!light || !dark) return '';
 		var hit = (LISTS[key] || []).filter(function (x) { return x.light === light && x.dark === dark; })[0];
 		return hit ? hit.id : ''; /* a colour mixed on the wheel is in no list */
@@ -2805,7 +2811,7 @@
 		return best;
 	}
 	function coloursResolved(id) {
-		var out = coloursOf(id); out.derived = { light: [], dark: [] };
+		var out = coloursOf(id, true); out.derived = { light: [], dark: [] };
 		[['light', 'dark'], ['dark', 'light']].forEach(function (pair) {
 			var from = pair[0], to = pair[1];
 			['paper', 'ink', 'accent', 'button', 'head', 'kicker', 'ground', 'lift', 'light', 'second'].forEach(function (k) {
@@ -2814,6 +2820,9 @@
 				if (out[from].marker && !out[to].marker && out.derived[from].indexOf('marker') === -1) { out[to].marker = out[from].marker; out.derived[to].push('marker'); }
 			});
 		});
+		/* PHOSPHOR ON THE NIGHT ONLY, laid on after the crossing: the day is derived from the style's own night, never from the phosphor (Classic in amber had an amber day, 2026-10-01, the panel audit). What the night derives (the button, the roles' colours) is then fitted to the phosphor's paper below. */
+		var phNow = coloursOf(id);
+		['paper', 'ink', 'accent'].forEach(function (k) { if (phNow.dark[k] && phNow.dark[k] !== out.dark[k] && PHOSPHOR[pickOf('phosphor')]) { out.dark[k] = phNow.dark[k]; var at = out.derived.dark.indexOf(k); if (at !== -1) out.derived.dark.splice(at, 1); } });
 		/* The accent last, once each side's paper is known: the pair's own paper
 		   where the style sets none, read off the registry's swatch. */
 		['light', 'dark'].forEach(function (side) {
@@ -3147,8 +3156,9 @@
 		/* AN ACCENT YOU PICKED, SAID ON THE ROOT FOR A GUEST (2026-09-24, the audit: on
 		   Twenty Twenty-Five the article's links wear the text colour, so an accent
 		   had nothing to show on). The guest sheet colours the article's links with it. */
-		var tw = (readTweaks()[current] || {}).colours || {};
-		var ownAccent = window.architravePanelGuest && ((tw.light && tw.light.accent) || (tw.dark && tw.dark.accent));
+		/* The style's own accent counts as well as an unsaved one (2026-10-01, the panel audit): once saved or published the tweak was gone and the links went back to the text colour while the accent was still set. */
+		var tw = (readTweaks()[current] || {}).colours || {}, rec = (byId(current) || {}).colours || {};
+		var ownAccent = window.architravePanelGuest && ((tw.light && tw.light.accent) || (tw.dark && tw.dark.accent) || (rec.light && rec.light.accent) || (rec.dark && rec.dark.accent));
 		if (ownAccent) root.setAttribute('data-accent-own', ''); else root.removeAttribute('data-accent-own');
 	}
 	/* THE DARK GROUND (Manuel, 2026-09-26, for Specimen: "yes" to the reference's
@@ -3558,7 +3568,7 @@
 			method: 'POST', credentials: 'same-origin',
 			headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': PUBLISH.nonce },
 			body: JSON.stringify(body)
-		}).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error((j && j.message) || r.status); return j; }); })
+		}).then(function (r) { return r.json().then(function (j) { if (!r.ok) { var e = new Error((j && j.message) || r.status); e.said = !!(j && j.code && j.message); throw e; } return j; }); }) /* `said`: a sentence the site wrote for the owner (in their language), which the window may show as it is */
 		.then(function (state) { if (mine === SENT) { takeSite(state); renderHosts(); } return state; });
 	}
 
@@ -3922,7 +3932,7 @@
 				var e0 = (readTweaks()[current] || {}).colours || {};
 				return ['light', 'dark'].some(function (sd) { return Object.keys(e0[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker', 'inverse', 'light', 'second'].indexOf(k) === -1 && !!e0[sd][k]; }); });
 			}
-			var c = coloursOf();
+			var c = coloursOf(null, true);
 			return ['light', 'dark'].some(function (sd) { return Object.keys(c[sd] || {}).some(function (k) { return ['button', 'head', 'kicker', 'marker'].indexOf(k) === -1; }); }); /* the button's, the roles' and the pen's own colours are not Custom */
 		},
 		/* Crossing over keeps what is on the page. Going to Eigene takes the
@@ -3936,7 +3946,7 @@
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (on) {
 				/* A preset the RECIPE names is let go the same way: its six colours are written into the tweak first, so nothing moves on the crossing, and the empty `preset` says Eigene. */
-				var c = coloursOf();
+				var c = coloursOf(null, true); /* without the phosphor, which stays laid over the night while it is on */
 				if (entry.preset) { entry.was = entry.preset; delete entry.preset; }
 				else if (s && s.preset && entry.preset === undefined) { entry.was = s.preset; entry.preset = ''; var preG = presetById(s.preset); ['light', 'dark'].forEach(function (sd) { if (preG && preG.ground && typeof preG.ground === 'object' && preG.ground[sd]) c[sd].ground = preG.ground[sd]; if (preG && preG.lift && preG.lift[sd]) c[sd].lift = preG.lift[sd]; }); /* the set's own ground and card cross with it (2026-09-26) */ entry.colours = { light: { paper: c.light.paper, ink: c.light.ink, accent: c.light.accent, ground: c.light.ground, lift: c.light.lift }, dark: { paper: c.dark.paper, ink: c.dark.ink, ground: c.dark.ground, lift: c.dark.lift, accent: c.dark.accent } }; }
 				/* ORIGINAL STARTS CUSTOM FROM ITS OWN COLOURS (2026-09-25, found by the
@@ -4066,7 +4076,7 @@
 				if (Object.keys(r).length) out.roles[role] = r;
 			});
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
-			var c = coloursOf(); out.colours = {};
+			var c = coloursOf(null, true); out.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = c[side]; });
 			return JSON.stringify(out);
 		},
@@ -4137,6 +4147,11 @@
 				});
 				record.roles = roles;
 				record.base = baseOf(s);
+				/* ITS COLOURS AS THEY STAND, its preset's six included (2026-10-01, the panel audit): the record named `preset`, which a copy does not carry, and the tweak's partial `colours` replaced the style's own, so Duplicate on Instrument while another style was on gave a copy without its colours. */
+				var cDup = coloursOf(id, true); record.colours = {};
+				['light', 'dark'].forEach(function (side) { if (Object.keys(cDup[side]).length) record.colours[side] = cDup[side]; });
+				if (!Object.keys(record.colours).length) delete record.colours;
+				delete record.preset; delete record.was;
 			}
 			var entry = ownFromRecord(record, name);
 			if (s.host || s.bare) { entry.bare = true; entry.hostFace = s.hostFace; if (!entry.colours) entry.colours = s.colours; writeOwn(); }
@@ -4168,7 +4183,7 @@
 				if (Object.keys(r).length) entry.roles[role] = r;
 			});
 			var fxSave = effectsOf(s, tw); if (Object.keys(fxSave).length) entry.effects = fxSave;
-			var c = coloursOf(); entry.colours = {};
+			var c = coloursOf(null, true); entry.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = c[side]; });
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			STYLES.push(entry); writeOwn(); renderHosts();
@@ -4189,7 +4204,7 @@
 			s.roles = s.roles || {};
 			ROLES.forEach(function (role) { if (tw.roles && tw.roles[role]) { s.roles[role] = s.roles[role] || {}; Object.keys(tw.roles[role]).forEach(function (k) { s.roles[role][k] = tw.roles[role][k]; }); } });
 			var fxUp = effectsOf(s, tw); if (Object.keys(fxUp).length) s.effects = fxUp; else delete s.effects;
-			var c = coloursOf(); s.colours = {};
+			var c = coloursOf(null, true); s.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = c[side]; });
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			writeOwn(); apply(s, s);
@@ -4202,6 +4217,8 @@
 			if (current === id) apply(STYLES[0], wanted(STYLES[0]));
 		},
 		current: function () { return current; },
+		/* WHETHER TINT THE GREYS CAN ACT (2026-10-02, the panel audit): only where the style's paper, ink and accent are its own hex colours (greyTinted); on the system's own colours, Standard's, the row would move nothing. */
+		greyTintable: function () { var c = coloursResolved(), hex = /^#[0-9a-f]{6}$/i; return ['light', 'dark'].some(function (sd) { var v = c[sd] || {}; return hex.test(v.paper || '') && hex.test(v.ink || '') && hex.test(v.accent || ''); }); },
 		restSize: function (role) { return ROLE_DEFAULT[role] ? rungFor(role, ROLE_DEFAULT[role].size) : null; }, /* the size a role rests on, for the panel's stops in words (a guest, 2026-09-22) */
 		adjusted: function (id) {
 			var s = byId(id); if (!s) return false;

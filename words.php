@@ -877,6 +877,7 @@ function live_design_window_words() {
 		'Show Changes' => __( 'Show Changes', 'live-design-panel' ),
 		'Search Settings…' => __( 'Search Settings…', 'live-design-panel' ),
 		'Search Settings' => __( 'Search Settings', 'live-design-panel' ),
+		'Clear Search' => __( 'Clear Search', 'live-design-panel' ),
 		'Revert all changes to “{name}”?' => __( 'Revert all changes to “{name}”?', 'live-design-panel' ),
 		'The style goes back to how it was saved. Undo can bring the changes back.' => __( 'The style goes back to how it was saved. Undo can bring the changes back.', 'live-design-panel' ),
 		'Revert All' => __( 'Revert All', 'live-design-panel' ),

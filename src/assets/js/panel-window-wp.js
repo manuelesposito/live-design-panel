@@ -279,6 +279,7 @@
 			};
 		},
 		current: function () { var s = S(); return s ? s.current() : ''; },
+		greyTintable: function () { var s = S(); return !(s && s.greyTintable) || s.greyTintable(); },
 		/* THE FONT LIBRARY (2026-09-28, the lab's Get): the faces not in the plugin, which the site fetches once;
 		   `have` is what is on the site now. Getting one asks the server for its files and reads the stylesheet again. */
 		fonts: {
