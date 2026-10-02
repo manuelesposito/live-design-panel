@@ -2812,6 +2812,125 @@ html:root[data-cap-face="title"] {
 		animation: none;
 	}
 }
+@media (min-width: 1010px) {
+	:root[data-tube-face] body.has-frame::before, :root[data-tube-face] body.has-frame::after {
+		content: none;
+	}
+	:root[data-tube-face] body.has-frame .frame-paper {
+		position: relative; isolation: isolate;
+	}
+	:root[data-tube-face] body.has-frame .frame-paper > .ldp-tube {
+		display: block; position: absolute;
+	}
+	:root[data-tube-face="round"] body.has-frame:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+		--frame-radius: calc(var(--frame-inset) + var(--layout-row-min-height) / 2);
+	}
+	:root[data-tube-face="round"] body.has-frame :is(.paper-stack-btn, .comments-open-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+		border-radius: 50%;
+	}
+	:root[data-tube-face] body.has-frame:not([data-focus-on]) .frame-paper {
+		box-shadow: 0 0 0 3px #0b0806, 0 18px 50px rgb(0 0 0 / .45);
+	}
+	:root[data-tube-face][data-tv-cabinet] body.has-frame .frame-paper {
+		box-shadow: 0 0 0 3px #0b0806, 0 0 0 4px rgb(201 164 108 / .38), 0 18px 50px rgb(0 0 0 / .45);
+	}
+	:root[data-tube-face] .ldp-tube::before {
+		content: ""; position: absolute; inset: 0; opacity: var(--surface-grain, 0); mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 0 1'/></filter><rect width='200' height='200' filter='url(%23g)'/></svg>"); background-size: 200px 200px;
+	}
+	:root[data-tube-face][data-grain="on"][data-grain-crawl="moving"] .ldp-tube::before {
+		animation: ldp-crawl .6s steps(5) infinite;
+	}
+	:root[data-tube-face] .ldp-tube::after {
+		content: ""; position: absolute; inset: 0; background-image: radial-gradient(ellipse at center, transparent var(--surface-vignette-reach, 55%), rgb(from var(--ldp-vig-ink) r g b / var(--surface-vignette, 0)) 100%), var(--ldp-scan-layer), var(--ldp-grille-layer);
+	}
+	:root[data-tube-face] .ldp-tube > .ldp-tube-edge {
+		display: block; background: radial-gradient(ellipse 78% 74% at 50% 48%, transparent 62%, rgb(0 0 0 / var(--ldp-tube-edge)) 100%); box-shadow: inset 0 0 70px rgb(0 0 0 / calc(var(--ldp-tube-edge) * .9)), inset 0 0 8px rgb(0 0 0 / var(--ldp-tube-edge));
+	}
+	:root[data-tube-face]:not([data-theme$="-dark"]) {
+		--ldp-tube-edge: .2;
+	}
+}
+@media (min-width: 1010px) {
+	:root[data-tv-cabinet] body.has-frame:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+		background-color: var(--ldp-wood); background-image: var(--ldp-wood-grain); background-size: 900px 700px;
+	}
+	:root[data-tv-cabinet="walnut"] {
+		--ldp-wood: #2e1d12; --ldp-wood-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='700'><filter id='w'><feTurbulence type='fractalNoise' baseFrequency='0.0025 0.16' numOctaves='4' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.09  0 0 0 0 0.05  0 0 0 0 0.025  2.2 0 0 0 -0.95'/></filter><filter id='v'><feTurbulence type='fractalNoise' baseFrequency='0.002 0.04' numOctaves='2' seed='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.22  0 0 0 0 0.12  0 1.6 0 0 -0.72'/></filter><rect width='900' height='700' filter='url(%23v)'/><rect width='900' height='700' filter='url(%23w)'/></svg>");
+	}
+	:root[data-tv-cabinet="bakelite"] {
+		--ldp-wood: #1d1612; --ldp-wood-grain: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='700'><filter id='b'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.008' numOctaves='3' seed='11' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.3  0 0 0 0 0.2  0 0 0 0 0.13  1.2 0 0 0 -0.48'/></filter><rect width='900' height='700' filter='url(%23b)'/></svg>");
+	}
+	:root[data-tv-cabinet] body.has-frame #architrave-rail:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+		color-scheme: dark; background: transparent;
+		--text-primary: #ecdcbe; --text-secondary: rgb(236 220 190 / .82); --text-muted: rgb(236 220 190 / .72); --text-subtle: rgb(236 220 190 / .5); --text-disabled: rgb(236 220 190 / .35);
+		--wp--preset--color--text-primary: var(--text-primary); --wp--preset--color--text-muted: var(--text-muted);
+		--accent: #ecdcbe; --accent-contrast: #2a1b10; --line: rgb(236 220 190 / .6);
+		--surface-base: rgb(0 0 0 / .18); --surface-subtle: rgb(0 0 0 / .18); --surface-raised: rgb(0 0 0 / .22); --surface-hover: rgb(255 236 200 / .08); --surface-selected: rgb(255 236 200 / .13); --surface-pressed: rgb(255 236 200 / .18);
+		--surface-track: rgb(0 0 0 / .2); --surface-track-selected: rgb(255 236 200 / .14);
+		--border-subtle: rgb(236 220 190 / .14); --border-default: rgb(236 220 190 / .22); --border-strong: rgb(236 220 190 / .36); --border-control: rgb(236 220 190 / .5);
+		--ink-alpha-weak: rgb(236 220 190 / .06); --ink-alpha-soft: rgb(236 220 190 / .12); --ink-alpha-medium: rgb(236 220 190 / .24);
+		color: var(--text-primary);
+	}
+	:root[data-tv-cabinet][data-rail-collapsed] body.has-frame #architrave-rail {
+		background-color: var(--ldp-wood); background-image: var(--ldp-wood-grain);
+	}
+	:root[data-tv-cabinet] body.has-frame #architrave-rail .has-stencil-logo a:not(:where(.reading-panel *, .architrave-panel-opener *)) {
+		background-color: var(--text-primary);
+	}
+	:root:root:root[data-tv-cabinet] body.has-frame #architrave-rail, :root:root:root[data-tv-cabinet] body.has-frame #architrave-rail *:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
+		text-shadow: none;
+	}
+}
+:root[data-ghost-image] {
+	--ldp-ts-ghost: .06em 0 0 rgb(from currentColor r g b / .13);
+}
+:root[data-ghost-image][data-glow="on"][data-theme$="-dark"] {
+	--ldp-ts-glow: 0 0 var(--surface-glow-spread) rgb(from currentColor r g b / var(--surface-glow-level, var(--surface-glow))), 0 0 var(--surface-glow-core) rgb(from currentColor r g b / calc(var(--surface-glow-level, var(--surface-glow)) * 0.65));
+}
+:root[data-ghost-image="all"]:not([data-fx-glow-reach="headings"]) {
+	--ldp-ts-body: var(--ldp-ts-glow), var(--ldp-ts-bloom);
+}
+:root:root:root[data-ghost-image="all"] body {
+	text-shadow: var(--ldp-ts-body), var(--ldp-ts-fringe), 3px 0 0 rgb(from currentColor r g b / .1);
+}
+:root:root:root[data-ghost-image] :is(h1, h2, h3, h4, .wp-block-post-title):not(:where(.reading-panel *, .architrave-panel-opener *, #ldp-window *, #wpadminbar *, .ldp-boot *, .ldp-card *, .ldp-coin *)) {
+	text-shadow: var(--ldp-ts-glow), var(--ldp-ts-bloom), var(--ldp-ts-fringe), var(--ldp-ts-ghost);
+}
+:root:root:root[data-ghost-image] :is(.reading-panel, .architrave-panel-opener, #ldp-window, #wpadminbar, .ldp-boot) {
+	text-shadow: none;
+}
+:root[data-title-card="on"] .single-post-article > .wp-block-post-title:not(:where(.reading-panel *)) {
+	text-align: center; padding: 34px 28px 30px; border: 1px solid rgb(from var(--text-primary) r g b / .7); outline: 1px solid rgb(from var(--text-primary) r g b / .35); outline-offset: 6px; border-radius: var(--radius-row, 18px); text-wrap: balance; margin-block: 8px 18px;
+}
+:root[data-title-card="on"] .single-post-article > :is(.article-kicker, .article-meta) {
+	justify-content: center; text-align: center;
+}
+:root[data-hum-bar="slow"] .ldp-tube {
+	display: block;
+}
+:root[data-hum-bar="slow"] .ldp-tube > .ldp-tube-hum {
+	display: block; inset: auto 0; top: 0; height: 38%; background: linear-gradient(to bottom, transparent, rgb(0 0 0 / var(--ldp-hum-bar)) 50%, transparent); animation: ldp-hum-bar 11s linear infinite;
+}
+:root[data-hum-bar]:not([data-theme$="-dark"]) {
+	--ldp-hum-bar: .06;
+}
+:root[data-scanlines="on"][data-scan-style="thick"] {
+	--ldp-scan-layer: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / calc(var(--surface-scanlines) * 11)) 2px 3px);
+}
+:root[data-scanlines="on"][data-scan-style="thick"]:not([data-theme$="-dark"]) {
+	--ldp-scan-layer: repeating-linear-gradient(to bottom, transparent 0 2px, rgb(0 0 0 / calc(var(--surface-scanlines) * 3)) 2px 3px);
+}
+:root[data-pictures="oldset"] {
+	--picture-filter: grayscale(1) contrast(.86) brightness(1.06) blur(.5px);
+}
+:root[data-boot-screen="warm"] .ldp-warming {
+	animation: ldp-warm 2.4s cubic-bezier(.3, .1, .2, 1) both; transform-origin: 50% 50%;
+}
+@media (prefers-reduced-motion: reduce) {
+	:root[data-boot-screen="warm"] .ldp-warming, :root[data-hum-bar] .ldp-tube > .ldp-tube-hum, :root[data-tube-face] .ldp-tube::before {
+		animation: none;
+	}
+}
 :root[data-title-finish="spectrum"] {
 	--ldp-grad: linear-gradient(100deg, #0071e3 0%, #7a3fd6 38%, #d6246b 70%, #ec5b00 100%);
 }

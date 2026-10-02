@@ -56,7 +56,7 @@
     "monitorframe": "A black bezel around the page with rounded corners, an old monitor's frame: off (the rest), thin, medium or thick.",
     "fringe": "A colour fringe on every letter, the three guns of a tube not quite meeting: off (the rest), faint, soft, strong, slip (print's one magenta ghost on all text) or sliptitle (that ghost on the titles and headings only, the reading left sharp).",
     "crisp": "Letters drawn without smoothing, the stair-step of an old screen: off (the rest), headings, or all text.",
-    "scanstyle": "How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille), both, or dark (the dark gaps between a colour screen's rows: by night they show on what is lit and vanish on the black, and the vignette darkens; by day faint lines in the ink). Only with scanlines.",
+    "scanstyle": "How the scan lines are drawn: lines (the rest), grille (the RGB stripes of an aperture grille), both, or dark (the dark gaps between a colour screen's rows: by night they show on what is lit and vanish on the black, and the vignette darkens; by day faint lines in the ink)., or thick (the 405 lines of the first sets: so few that each shows, a dark gap under every two bright rows). Only with scanlines.",
     "shimmer": "The screen's brightness moving: off (the rest), soft (a slow hum) or roll (a faint band drifting down). Still for readers who ask for less motion.",
     "warp": "The page bent like a tube's glass: off (the rest), slight, bulged or strong. The page is redrawn as a picture, so text softens a little.",
     "switchon": "The screen collapses to a line and blinks back when the side changes: off (the rest) or on.",
@@ -65,7 +65,7 @@
     "jitter": "The picture nudges sideways for a moment now and then, a bad sync: off (the rest), rare or often.",
     "graincrawl": "The grain standing still (the rest) or moving, as a tube's noise crawls. Only with grain.",
     "typedtitle": "The article's title arrives letter by letter behind a block cursor: off (the rest), on, or decode (each letter of the title and of the article's headings runs through scrambled code glyphs before it settles, the headings as they come into view). Nothing moves for readers who ask for less motion.",
-    "bootscreen": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks), card (a television's test card with the site's name on its plate), rain (falling lines of green code that thin away to the page), wake (three lines typed on a black screen), or coin (an arcade cabinet's attract screen: the site's name in the heading's face standing on the second light, PRESS START blinking, the credit line).",
+    "bootscreen": "A start screen on the first visit of a session, then the page: off (the rest), on (a computer's boot screen: the site's name, its line and a bar of blocks), card (a television's test card with the site's name on its plate), rain (falling lines of green code that thin away to the page), wake (three lines typed on a black screen), or coin (an arcade cabinet's attract screen: the site's name in the heading's face standing on the second light, PRESS START blinking, the credit line), or warm (no screen of its own: the page opens out of a bright line across the middle, dim and soft, and comes up to full light, as a valve set warmed up).",
     "roomglass": "A window reflected across the top corner of the glass: off (the rest) or on.",
     "phosphor": "The whole night screen in one phosphor: off (the rest, the style's own colours), blue, green, amber, white or black.",
     "static": "A burst of noise while the set switches on: off (the rest) or on. Only with switchon.",
@@ -132,6 +132,11 @@
     "boxbuttons": "The quiet buttons inside the article's boxes (the support box, a release's actions): pill (the rest: as the other buttons) or link (the accent's text links ending on a chevron, as a 'Learn more' link; the filled button stays the one button). Architrave's page only.",
     "listtiles": "Each post of a list on its own tile in the card colour, as wide as the wide top picture plus a gutter, its corner the picture's plus that gutter; the boxes on a tile take the paper: off (the rest) or on. Architrave's page only.",
     "tilehover": "Link cards and the list's tiles under the pointer: off (the rest: their colour changes as ever) or grow (they grow by one percent with a soft shadow). Architrave's page only.",
+    "tubeface": "The framed paper as an old television's screen: off (the rest), round (the screen's grain, scan lines and vignette lie on the paper and not on the window, its edges fall dark, a black mask round it, and the corner buttons turn round with the corner nested to them) or square (the same with the corner buttons and the corner as they are). Architrave's framed paper only; without a paper the window stays the screen.",
+    "tvcabinet": "What stands round the screen: off (the rest: the ground as the colours give it), walnut (veneer) or bakelite (a deep brown). The same by day and by night; the rail's words, lines and logo stand on it in ivory. Architrave's framed page only.",
+    "ghostimage": "A faint second copy of the words a little to the right, the signal arriving twice: off (the rest), titles (the title and the headings) or all (every word, fainter).",
+    "titlecard": "The article's title as a television's title card: centred between two thin frames, its kicker and date centred with it. Off (the rest) or on. Architrave's page only.",
+    "humbar": "A broad soft band of less light drifting slowly up the screen, as the mains hummed through an old set: off (the rest) or slow. On the paper under Tube face, over the window elsewhere. Still for readers who ask for less motion.",
     "headblock": "A solid block of the accent over the article's head, the mark a poster opens with: off (the rest) or on. Above the categories when they stand over the title.",
     "sectionrules": "A rule in the ink over each of the article's section headings, the way a poster divides its fields: off (the rest), thin (2px) or thick (6px).",
     "sectionnumbers": "Each section heading's number stands over it, big and in the accent: off (the rest), written (only a number the heading already begins with, \"1. …\", taken out of its line) or counted (every section numbered, a written number kept).",
@@ -154,7 +159,7 @@
     "vignette": "A darkening at the page's four edges, as a screen's glass has.",
     "vignettelevel": "Strength of the vignette, 1 to 10. 2 is the rest. Only with vignette.",
     "vignettereach": "How far the vignette reaches in from the edges, 1 to 6. 3 is the rest. Only with vignette.",
-    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), hidden (no images; each article picture becomes a line that shows it).",
+    "pictures": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), oldset (an old set's picture: grey, the contrast soft and the edge a little out of focus), hidden (no images; each article picture becomes a line that shows it).",
     "picturehover": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
     "alternates": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
     "soft": "The reading text is one step softer than the ink (the secondary rung); headings and bold words keep the ink. How links are marked is links.",
@@ -659,26 +664,24 @@
       "button": "ink",
       "buttonshape": "rounded",
       "buttonstyle": "outlined",
-      "pictures": "bw",
+      "pictures": "oldset",
       "scanlines": true,
       "scan": "3",
+      "scanstyle": "thick",
       "glow": true,
       "grain": true,
       "grainlevel": "2",
       "graincrawl": "moving",
-      "vignette": true,
-      "vignettelevel": "2",
       "bloom": "soft",
-      "shimmer": "soft",
       "switchon": "on",
-      "static": "on",
-      "bootscreen": "card",
+      "bootscreen": "warm",
+      "tubeface": "round",
+      "tvcabinet": "walnut",
+      "ghostimage": "titles",
+      "humbar": "slow",
       "effects": {
         "glow": {
           "reach": "headings"
-        },
-        "vignette": {
-          "night": "half"
         }
       },
       "roles": {
@@ -724,14 +727,14 @@
       },
       "colours": {
         "light": {
-          "paper": "#e6e8ec",
-          "ink": "#14161a",
-          "accent": "#14161a"
+          "paper": "#dddcd6",
+          "ink": "#1b1b19",
+          "accent": "#1b1b19"
         },
         "dark": {
-          "paper": "#0e1014",
-          "ink": "#e6eaf1",
-          "accent": "#ffffff"
+          "paper": "#1b1c1b",
+          "ink": "#e9e7e0",
+          "accent": "#f4f3ef"
         }
       }
     },
@@ -1241,6 +1244,48 @@
         "paper": "#3535a0",
         "ink": "#fcf9f3",
         "accent": "#fcf9f3"
+      }
+    },
+    {
+      "id": "silver",
+      "label": "Silver",
+      "light": {
+        "paper": "#dddcd6",
+        "ink": "#1b1b19",
+        "accent": "#1b1b19"
+      },
+      "dark": {
+        "paper": "#1b1c1b",
+        "ink": "#e9e7e0",
+        "accent": "#f4f3ef"
+      }
+    },
+    {
+      "id": "aged",
+      "label": "Aged phosphor",
+      "light": {
+        "paper": "#e3dccd",
+        "ink": "#231c15",
+        "accent": "#231c15"
+      },
+      "dark": {
+        "paper": "#1d1915",
+        "ink": "#efe4cf",
+        "accent": "#f7f1e7"
+      }
+    },
+    {
+      "id": "greygreen",
+      "label": "Green-grey",
+      "light": {
+        "paper": "#dbe1d6",
+        "ink": "#161b16",
+        "accent": "#161b16"
+      },
+      "dark": {
+        "paper": "#121713",
+        "ink": "#dde9da",
+        "accent": "#eef4ec"
       }
     },
     {

@@ -499,6 +499,12 @@
 .ldp-screen { display: none; position: fixed; inset: 0; pointer-events: none; z-index: calc(var(--layer-overlay, 40) - 1); overflow: hidden; } 
 .ldp-screen > i { display: none; position: absolute; inset: 0; }
 .ldp-screen > .ldp-bezel { inset: var(--ldp-bezel); border-radius: var(--ldp-curve); } 
+.ldp-tube { display: none; position: fixed; inset: 0; pointer-events: none; z-index: 30; overflow: hidden; border-radius: inherit; }
+.ldp-tube > i { display: none; position: absolute; inset: 0; }
+:root { --ldp-tube-edge: .55; --ldp-hum-bar: .16; --ldp-ts-ghost: 0 0 0 transparent; --ldp-ts-glow: 0 0 0 transparent; --ldp-ts-body: 0 0 0 transparent; }
+@keyframes ldp-hum-bar { from { transform: translateY(270%); } to { transform: translateY(-110%); } }
+@keyframes ldp-warm { 0% { transform: scale(.9, .003); filter: brightness(4) blur(2px); } 12% { transform: scale(.9, .003); filter: brightness(4) blur(2px); } 40% { transform: scale(1, 1); filter: brightness(.35) blur(3px) contrast(.7); } 100% { transform: none; filter: none; } }
+:root[data-ldp-booting="warm"]::before { background: #000; } 
 .ldp-static { opacity: .55; mix-blend-mode: screen; background-size: 160px 160px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='s'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='1' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 4 -1'/></filter><rect width='160' height='160' filter='url(%23s)'/></svg>"); }
 .ldp-boot { position: fixed; inset: 0; z-index: 2147483600; display: grid; place-items: center; text-align: center; background: #3535a0; color: #fcf9f3; font-family: "VT323", ui-monospace, monospace; transition: opacity .4s ease; }
 .ldp-boot.ldp-gone { opacity: 0; }

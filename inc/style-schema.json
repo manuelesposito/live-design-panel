@@ -304,6 +304,7 @@
     "trace",
     "pixel",
     "warm",
+    "oldset",
     "hidden"
   ],
   "capLines": [
@@ -649,7 +650,8 @@
     "lines",
     "grille",
     "both",
-    "dark"
+    "dark",
+    "thick"
   ],
   "shimmer": [
     "off",
@@ -695,7 +697,8 @@
     "card",
     "rain",
     "wake",
-    "coin"
+    "coin",
+    "warm"
   ],
   "roomglass": [
     "off",
@@ -1003,6 +1006,29 @@
   "tilehover": [
     "off",
     "grow"
+  ],
+  "tubeface": [
+    "off",
+    "round",
+    "square"
+  ],
+  "tvcabinet": [
+    "off",
+    "walnut",
+    "bakelite"
+  ],
+  "ghostimage": [
+    "off",
+    "titles",
+    "all"
+  ],
+  "titlecard": [
+    "off",
+    "on"
+  ],
+  "humbar": [
+    "off",
+    "slow"
   ],
   "headblock": [
     "off",
