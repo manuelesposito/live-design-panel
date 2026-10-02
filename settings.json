@@ -132,6 +132,13 @@
       "bubbles",
       "titleblock",
       "scalerule",
+      "oldpaper",
+      "printink",
+      "titlemark",
+      "rainbowlinks",
+      "rainbowcap",
+      "coupon",
+      "fold",
       "unlinked",
       "effects",
       "roles",
@@ -232,6 +239,13 @@
       "bubbles",
       "titleblock",
       "scalerule",
+      "oldpaper",
+      "printink",
+      "titlemark",
+      "rainbowlinks",
+      "rainbowcap",
+      "coupon",
+      "fold",
       "pillbuttons",
       "centretitle",
       "fadeedges",
@@ -4550,6 +4564,214 @@
       ],
       "rest": {
         "data-scale-rule": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "oldpaper",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "sun",
+        "spots",
+        "both"
+      ],
+      "def": "off",
+      "attr": "data-old-paper",
+      "means": "How old the cream paper looks: off (the rest), sun (warmer toward its edges and a touch at its head, as paper left in the light), spots (a few faint brown age spots) or both. On a light paper only.",
+      "label": "Old paper",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-old-paper"
+      ],
+      "rest": {
+        "data-old-paper": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "printink",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "neutral",
+        "warm"
+      ],
+      "def": "neutral",
+      "attr": "data-print-ink",
+      "means": "The ink the text is printed in by day: neutral (the rest, the style's own) or warm (the brown-black of old printed advertisements).",
+      "label": "Printing ink",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-print-ink"
+      ],
+      "rest": {
+        "data-print-ink": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "titlemark",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "short",
+        "wide"
+      ],
+      "def": "off",
+      "attr": "data-title-mark",
+      "means": "The six rainbow stripes as a small mark under the article's title: off (the rest), short or wide (as wide as the reading).",
+      "label": "Rainbow under the title",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-title-mark"
+      ],
+      "rest": {
+        "data-title-mark": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "rainbowlinks",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "hover",
+        "always"
+      ],
+      "def": "off",
+      "attr": "data-rainbow-links",
+      "means": "The links in the reading underlined in the six rainbow stripes: off (the rest), hover (when the pointer is on a link) or always.",
+      "label": "Rainbow links",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-rainbow-links"
+      ],
+      "rest": {
+        "data-rainbow-links": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "rainbowcap",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-rainbow-cap",
+      "means": "The drop cap's letter filled with the six rainbow stripes: off (the rest) or on. Shows with Drop cap on.",
+      "label": "Rainbow capital",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-rainbow-cap"
+      ],
+      "rest": {
+        "data-rainbow-cap": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "coupon",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "on"
+      ],
+      "def": "off",
+      "attr": "data-coupon",
+      "means": "A dashed cut line with scissors above the page's foot, as old advertisements ended with an order coupon: off (the rest) or on.",
+      "label": "Coupon line",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-coupon"
+      ],
+      "rest": {
+        "data-coupon": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "fold",
+      "group": "pick",
+      "table": "PICKS",
+      "kind": "pick",
+      "choices": [
+        "off",
+        "one",
+        "three"
+      ],
+      "def": "off",
+      "attr": "data-fold",
+      "means": "A soft crease on the paper, as a folded brochure: off (the rest), one (down the middle) or three (two creases, three panels). On a light paper only.",
+      "label": "Folded brochure",
+      "page": "Effects",
+      "level": 17,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1227,
+        "in": "effectsBody"
+      },
+      "changesPage": "Effects",
+      "attrs": [
+        "data-fold"
+      ],
+      "rest": {
+        "data-fold": "ABSENT"
       },
       "inStandardAtRest": false
     },

@@ -2191,6 +2191,60 @@
 	linear-gradient(var(--line), var(--line)) bottom left / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) bottom left / 1px var(--ldp-tk) no-repeat,
 	linear-gradient(var(--line), var(--line)) bottom right / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) bottom right / 1px var(--ldp-tk) no-repeat;
 }
+:root:is([data-old-paper], [data-fold]):not([data-theme$="-dark"]) body.has-frame .frame-paper:not(.ground-dark):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-image: var(--ldp-fold, none), var(--ldp-sun, none), var(--ldp-spots, none);
+}
+:root:is([data-old-paper="sun"], [data-old-paper="both"]) {
+	--ldp-sun: radial-gradient(ellipse 85% 75% at 50% 45%, transparent 50%, rgb(184 140 62 / .17) 100%), linear-gradient(to bottom, rgb(196 156 78 / .09), transparent 22%);
+}
+:root:is([data-old-paper="spots"], [data-old-paper="both"]) {
+	--ldp-spots: radial-gradient(circle at 8% 18%, rgb(150 102 44 / .13) 0 2px, rgb(150 102 44 / .05) 5px, transparent 11px), radial-gradient(circle at 91% 9%, rgb(150 102 44 / .10) 0 1.5px, rgb(150 102 44 / .045) 4px, transparent 9px), radial-gradient(circle at 87% 63%, rgb(150 102 44 / .12) 0 3px, rgb(150 102 44 / .05) 7px, transparent 15px), radial-gradient(circle at 14% 82%, rgb(150 102 44 / .09) 0 1.5px, rgb(150 102 44 / .04) 4px, transparent 8px), radial-gradient(circle at 63% 93%, rgb(150 102 44 / .10) 0 2px, rgb(150 102 44 / .045) 5px, transparent 10px), radial-gradient(circle at 4% 47%, rgb(150 102 44 / .08) 0 1px, transparent 6px), radial-gradient(circle at 96% 36%, rgb(150 102 44 / .09) 0 1px, rgb(150 102 44 / .04) 3px, transparent 7px);
+}
+:root[data-fold="one"] {
+	--ldp-fold: linear-gradient(to right, transparent calc(50% - 46px), rgb(90 66 30 / .045) calc(50% - 1px), rgb(255 255 255 / .4) 50%, rgb(90 66 30 / .03) calc(50% + 2px), transparent calc(50% + 46px));
+}
+:root[data-fold="three"] {
+	--ldp-fold: linear-gradient(to right, transparent calc(33.333% - 40px), rgb(90 66 30 / .045) calc(33.333% - 1px), rgb(255 255 255 / .4) 33.333%, rgb(90 66 30 / .03) calc(33.333% + 2px), transparent calc(33.333% + 40px), transparent calc(66.666% - 40px), rgb(90 66 30 / .045) calc(66.666% - 1px), rgb(255 255 255 / .4) 66.666%, rgb(90 66 30 / .03) calc(66.666% + 2px), transparent calc(66.666% + 40px));
+}
+html:root[data-print-ink="warm"]:not([data-theme$="-dark"]), html:root[data-print-ink="warm"][data-colours="on"]:not([data-theme$="-dark"]), html:root[data-print-ink="warm"][data-colours="on"]:not([data-theme$="-dark"]) .ground-light:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	--text-primary: #2b2016;
+}
+:root[data-rainbow-links] :is(.wp-block-post-content, .wp-block-post-excerpt, .entry-content) a:not(.post-link-card, .post-link-card *, .wp-element-button, [class*="button"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	text-decoration: none !important; padding-bottom: 2px; background-repeat: no-repeat; background-position: 0 100%; background-size: 100% 1px; background-image: linear-gradient(currentColor, currentColor);
+}
+:root[data-rainbow-links="always"] :is(.wp-block-post-content, .wp-block-post-excerpt, .entry-content) a:not(.post-link-card, .post-link-card *, .wp-element-button, [class*="button"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-rainbow-links="hover"] :is(.wp-block-post-content, .wp-block-post-excerpt, .entry-content) a:not(.post-link-card, .post-link-card *, .wp-element-button, [class*="button"]):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	background-size: 100% 6px; background-image: linear-gradient(to bottom, #9a9fd3 0 1px, #d8899c 1px 2px, #e39a74 2px 3px, #e2c577 3px 4px, #a3bd86 4px 5px, #8fb0d6 5px 6px);
+}
+:root[data-title-mark] .single-post-article > .wp-block-post-title:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: ""; display: block; block-size: 18px; margin: .32em auto 0; text-shadow: none;
+	background: linear-gradient(to bottom, #9a9fd3 0 2px, transparent 2px 3.2px, #d8899c 3.2px 5.2px, transparent 5.2px 6.4px, #e39a74 6.4px 8.4px, transparent 8.4px 9.6px, #e2c577 9.6px 11.6px, transparent 11.6px 12.8px, #a3bd86 12.8px 14.8px, transparent 14.8px 16px, #8fb0d6 16px 18px);
+}
+:root[data-title-mark="short"] .single-post-article > .wp-block-post-title:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	inline-size: 96px;
+}
+:root[data-title-mark="wide"] .single-post-article > .wp-block-post-title:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	inline-size: min(100%, 48ch);
+}
+:root[data-title-mark]:not([data-head-align]) .single-post-article > .wp-block-post-title:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	margin-inline: 0;
+}
+:root[data-title-mark][data-head-align="right"] .single-post-article > .wp-block-post-title:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	margin-inline: auto 0;
+}
+:root[data-dropcap="on"][data-rainbow-cap="on"] :is(.single-post-article .wp-block-post-content, .post-card :is(.post-body, .post-format-body) :is(.wp-block-post-excerpt, .entry-content)) > p:first-of-type:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::first-letter {
+	background-image: linear-gradient(to bottom, #9a9fd3 0 16.6%, #d8899c 16.6% 33.3%, #e39a74 33.3% 50%, #e2c577 50% 66.6%, #a3bd86 66.6% 83.3%, #8fb0d6 83.3%);
+	-webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent; text-shadow: none;
+}
+:root[data-coupon="on"] .content-column > .ldp-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	position: relative;
+}
+:root[data-coupon="on"] .content-column > .ldp-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before {
+	content: ""; display: block; margin: 0 var(--ldp-col-inset, 0px) 36px; border-top: 1.5px dashed color-mix(in oklab, var(--text-primary) 42%, transparent);
+}
+:root[data-coupon="on"] .content-column > .ldp-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
+	content: "\2702\FE0E"; position: absolute; top: -.72em; left: calc(var(--ldp-col-inset, 0px) + 28px); padding: 0 8px;
+	font: 20px/1 var(--font-reading); color: color-mix(in oklab, var(--text-primary) 70%, transparent); background: var(--surface-base);
+}
 @media (prefers-reduced-motion: reduce) {
 	:root[data-shimmer] .ldp-shimmer, :root[data-static] .ldp-static {
 		display: none;

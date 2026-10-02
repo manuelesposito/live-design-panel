@@ -807,6 +807,39 @@
     "off",
     "on"
   ],
+  "oldpaper": [
+    "off",
+    "sun",
+    "spots",
+    "both"
+  ],
+  "printink": [
+    "neutral",
+    "warm"
+  ],
+  "titlemark": [
+    "off",
+    "short",
+    "wide"
+  ],
+  "rainbowlinks": [
+    "off",
+    "hover",
+    "always"
+  ],
+  "rainbowcap": [
+    "off",
+    "on"
+  ],
+  "coupon": [
+    "off",
+    "on"
+  ],
+  "fold": [
+    "off",
+    "one",
+    "three"
+  ],
   "unlinked": "boolean",
   "effects": {
     "title": {
