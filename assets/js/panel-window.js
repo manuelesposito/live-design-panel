@@ -590,47 +590,100 @@
 	function picturesPage() {
 		var s = St(), look = s.get('pictures'), hidden = look === 'hidden';
 		return box(pickRow('pictures') + (look === 'plain' || hidden ? '' : switchRow('picturehover', false, esc(t('The picture shows its colours under the pointer')))) + (hidden ? '' : switchRow('picturedim', s.side() !== 'dark', s.side() !== 'dark' ? esc(t('Dims only in dark appearance')) : '')) +
-			(hidden ? '' : pairLooks('pictureframe') + (s.get('pictureframe') ? levelRow('framewidth', ' px') : '') + (s.guest() ? '' : pairLooks('picturefade'))));
+			(hidden ? '' : pairLooks('pictureframe') + (s.get('pictureframe') ? levelRow('framewidth', ' px') : '') + (s.guest() ? '' : pairLooks('picturefade')))) +
+			(hidden || s.guest() ? '' : box(pickRow('pictureshadow') + pickRow('piccorners') + pickRow('widefigures'))); 
 	}
+	var fxOpen = {}, fxFind = null, fxAll = false;
 	function effectsPage() {
 		var s = St(), night = s.side() === 'dark', guest = s.guest();
 		var fx = function (id, d) { return pickRow('effects.' + id + '.' + d).replace('class="ldpw-r', 'class="ldpw-r ldpw-fxd'); }; 
 		var on = function (key, rest) { return s.get(key) !== rest; };
-		var headings = pickRow('headwidth') + pickRow('titlefinish') + (on('titlefinish', 'flat') ? fx('title', 'depth') + fx('title', 'dir') + (s.get('titlefinish') === 'accent' ? fx('title', 'colour') : '') + fx('title', 'reach') : '') +
-			pickRow('headitalics') + (on('headitalics', 'same') ? fx('serif', 'which') + fx('serif', 'style') : '') +
-			pickRow('headarrival') + (on('headarrival', 'none') ? fx('arrival', 'speed') + (s.get('headarrival') === 'blur' ? fx('arrival', 'blur') : '') + fx('arrival', 'scope') : '');
+		var rest = function (key) { var x = setting(key); return x ? (x.def !== undefined && x.def !== null ? x.def : (x.choices || x.steps || [])[0]) : undefined; };
+		var R = function (key, details, isOn) { var lit = isOn !== undefined ? !!isOn : on(key, rest(key)); return { k: key, on: lit, html: pickRow(key) + (lit && details ? details() : '') }; };
+		var F = function (id, d, details) { var key = 'effects.' + id + '.' + d, lit = on(key, rest(key)); return { k: key, on: lit, html: fx(id, d) + (lit && details ? details() : '') }; };
+		var H = function (key, html, lit) { return { k: key, on: !!lit, html: html }; };
 		var glow = s.get('buttonfinish') === 'glow';
-		var light = (guest ? '' : pickRow('cardlight') + (on('cardlight', 'off') ? fx('cardlight', 'level') + fx('cardlight', 'colour') + fx('cardlight', 'edge') + (s.get('cardlight') === 'glow' ? fx('cardlight', 'reach') : '') : '') +
-				fx('pointer', 'look') + (s.get('effects.pointer.look') === 'on' ? fx('pointer', 'colour') : '')) +
-			pickRow('buttonfinish') + (on('buttonfinish', 'flat') ? (glow ? fx('button', 'glow') + fx('button', 'level') + fx('button', 'ring') + fx('button', 'lift') : '') + fx('button', 'glass') + fx('button', 'sweep') : '') +
-			(guest ? '' : pickRow('pageglow') + (on('pageglow', 'off') ? fx('aurora', 'first') + fx('aurora', 'second') + fx('aurora', 'place') + fx('aurora', 'speed') + fx('aurora', 'shape') : '') +
-				fx('topline', 'look') + (s.get('effects.topline.look') === 'on' ? fx('topline', 'colour') : '') +
-				fx('picglow', 'look') + (s.get('effects.picglow.look') !== 'off' ? fx('picglow', 'colour') : ''));
-		var paper = guest ? '' : pickRow('toppattern') + (on('toppattern', 'none') ? fx('pattern', 'level') + fx('pattern', 'colour') + fx('pattern', 'size') + fx('pattern', 'reach') : '') +
-			pickRow('guides') + (on('guides', 'off') ? fx('guides', 'level') + fx('guides', 'colour') + fx('guides', 'marks') : '') +
-			(s.greyTintable && !s.greyTintable() && !on('greytint', '0') ? '' : pickRow('greytint') + (on('greytint', '0') ? fx('tint', 'colour') : '')) + 
-			fx('dividers', 'look') + (s.get('effects.dividers.look') === 'glow' ? fx('dividers', 'colour') : '');
 		var FRAME_ROW = false; 
-		var screen = (guest || !FRAME_ROW ? '' : pickRow('monitorframe') + (on('monitorframe', 'off') ? fx('monitor', 'curve') + fx('monitor', 'sheen') : '')) +
-			(guest ? '' : pickRow('tubeface') + pickRow('tvcabinet')) + 
-			pickRow('phosphor') + pickRow('fringe') + pickRow('crisp') + pickRow('extrusion') + (s.get('scanlines') ? pickRow('scanstyle') : '') + pickRow('bloom') + pickRow('shimmer') +
-			(guest ? '' : pickRow('warp') + (on('warp', 'off') ? fx('warp', 'direction') : '') + pickRow('ghosting')) +
-			pickRow('jitter') + (s.get('grain') ? pickRow('graincrawl') : '') + pickRow('switchon') + (on('switchon', 'off') ? pickRow('static') : '') + pickRow('typedtitle') + pickRow('bootscreen') + pickRow('codemarks') + pickRow('coderain') + pickRow('ghostimage') + pickRow('humbar'); 
-		var print = pickRow('dropout') + pickRow('headrule') + pickRow('ink') + pickRow('tooth') + (s.get('vignette') ? pickRow('edges') + (guest ? '' : pickRow('edgeson')) : '') + (guest ? '' : pickRow('nightground')) + (guest ? '' : pickRow('columns')) + pickRow('paragraphs') + (guest ? '' : pickRow('rainbow') + pickRow('postband') + pickRow('footband') + pickRow('menuline') + pickRow('legalline') + pickRow('stripes') + pickRow('sitename') + pickRow('sheetgrid') + (on('sheetgrid', 'off') ? pickRow('gridstrength') : '') + pickRow('sheetborder') + pickRow('mottle') + pickRow('printedges') + pickRow('pen') + pickRow('dimensions') + pickRow('guidelines') + pickRow('bubbles') + pickRow('titleblock') + pickRow('scalerule') + pickRow('oldpaper') + pickRow('printink') + pickRow('titlemark') + pickRow('rainbowlinks') + pickRow('rainbowcap') + pickRow('coupon') + pickRow('fold') + pickRow('pixelcorners') + pickRow('powerbar') + pickRow('awning') + pickRow('stamp') + pickRow('titlesign') + pickRow('headstar') + pickRow('piccorners') + pickRow('pictureshadow') + pickRow('opening') + pickRow('widefigures') + pickRow('arrival') + pickRow('glassbar') + pickRow('boxbuttons') + pickRow('listtiles') + pickRow('tilehover') + pickRow('titlecard') + pickRow('headblock') + pickRow('sectionrules') + pickRow('sectionnumbers')); 
-		var terminal = guest ? '' : pickRow('textgrid') + pickRow('mdmarks') + pickRow('frontmatter') + pickRow('textmode') + pickRow('windowbar') + pickRow('statusline') + pickRow('prompt') + (on('prompt', 'off') || s.get('statusline') === 'pager' ? pickRow('cursorshape') : '');
-		var motion = guest ? '' : pickRow('movinglight') + (on('movinglight', 'off') ? fx('moving', 'colour') + fx('moving', 'speed') + fx('moving', 'length') + fx('moving', 'where') + fx('moving', 'rhythm') : '');
-		return box(offSlider('scanlines', 'scan', label('scanlines'), '') +
-			offSlider('glow', 'glowlevel', label('glow'), '', night ? '' : t('Glows only in dark appearance'), !night) +
-			(s.get('glow') || on('bloom', 'off') ? fx('glow', 'reach') : '') + 
-			offSlider('grain', 'grainlevel', label('grain'), '') +
-			offSlider('dots', 'dotlevel', label('dots'), ' %') + (s.get('dots') ? levelRow('dotsize', '') : '') +
-			offSlider('vignette', 'vignettelevel', label('vignette'), '') + (s.get('vignette') ? levelRow('vignettereach', '') + fx('vignette', 'night') + fx('vignette', 'colour') + fx('vignette', 'day') : '')) +
-			(s.editable() ? gtitle(t('The Style’s Two Lights')) + box(wellRow('colours.{side}.light', esc(t('Card light, glow, aurora and the rest'))) + wellRow('colours.{side}.second', esc(t('The aurora’s second glow')))) : '') +
-			gtitle(t('Headings')) + box(headings) +
-			gtitle(t('Light')) + box(light) +
-			(paper ? gtitle(t('Paper')) + box(paper) : '') +
-			(motion ? gtitle(t('Motion')) + box(motion) : '') +
-			gtitle(t('Screen')) + box(screen) + gtitle(t('Print')) + box(print) + (terminal ? gtitle(t('Terminal')) + box(terminal) : '') +
+		var G = [
+			{ id: 'texture', t: 'Texture', sub: 'Fine layers over the whole page', rows: [
+				H('scanlines', offSlider('scanlines', 'scan', label('scanlines'), '') + (s.get('scanlines') ? pickRow('scanstyle') : ''), s.get('scanlines')),
+				H('grain', offSlider('grain', 'grainlevel', label('grain'), '') + (s.get('grain') ? pickRow('graincrawl') : ''), s.get('grain')),
+				H('dots', offSlider('dots', 'dotlevel', label('dots'), ' %') + (s.get('dots') ? levelRow('dotsize', '') : ''), s.get('dots')),
+				H('vignette', offSlider('vignette', 'vignettelevel', label('vignette'), '') + (s.get('vignette') ? levelRow('vignettereach', '') + fx('vignette', 'night') + fx('vignette', 'colour') + fx('vignette', 'day') + pickRow('edges') + (guest ? '' : pickRow('edgeson')) : ''), s.get('vignette'))
+			] },
+			{ id: 'light', t: 'Light and glow', sub: 'Glow, light on cards and buttons, the aurora', rows: [
+				H('glow', offSlider('glow', 'glowlevel', label('glow'), '', night ? '' : t('Glows only in dark appearance'), !night) + (s.get('glow') || on('bloom', 'off') ? fx('glow', 'reach') : ''), s.get('glow')), 
+				R('bloom'),
+				guest ? null : R('cardlight', function () { return fx('cardlight', 'level') + fx('cardlight', 'colour') + fx('cardlight', 'edge') + (s.get('cardlight') === 'glow' ? fx('cardlight', 'reach') : ''); }),
+				guest ? null : F('pointer', 'look', function () { return s.get('effects.pointer.look') === 'on' ? fx('pointer', 'colour') : ''; }),
+				R('buttonfinish', function () { return (glow ? fx('button', 'glow') + fx('button', 'level') + fx('button', 'ring') + fx('button', 'lift') : '') + fx('button', 'glass') + fx('button', 'sweep'); }),
+				guest ? null : R('pageglow', function () { return fx('aurora', 'first') + fx('aurora', 'second') + fx('aurora', 'place') + fx('aurora', 'speed') + fx('aurora', 'shape'); }),
+				guest ? null : F('topline', 'look', function () { return fx('topline', 'colour'); }),
+				guest ? null : F('picglow', 'look', function () { return fx('picglow', 'colour'); }),
+				guest ? null : F('dividers', 'look', function () { return s.get('effects.dividers.look') === 'glow' ? fx('dividers', 'colour') : ''; }),
+				guest ? null : R('movinglight', function () { return fx('moving', 'colour') + fx('moving', 'speed') + fx('moving', 'length') + fx('moving', 'where') + fx('moving', 'rhythm'); }),
+				s.editable() ? H('colours.{side}.light', wellRow('colours.{side}.light', esc(t('Card light, glow, aurora and the rest'))) + wellRow('colours.{side}.second', esc(t('The aurora’s second glow'))), false) : null 
+			] },
+			{ id: 'paper', t: 'Paper', sub: 'What the page itself is made of', rows: [
+				guest ? null : R('toppattern', function () { return fx('pattern', 'level') + fx('pattern', 'colour') + fx('pattern', 'size') + fx('pattern', 'reach'); }),
+				guest ? null : R('guides', function () { return fx('guides', 'level') + fx('guides', 'colour') + fx('guides', 'marks'); }),
+				guest || (s.greyTintable && !s.greyTintable() && !on('greytint', '0')) ? null : R('greytint', function () { return fx('tint', 'colour'); }), 
+				R('tooth'), guest ? null : R('oldpaper'), R('ink'), guest ? null : R('printink'), guest ? null : R('fold'),
+				guest ? null : R('glassbar'), guest ? null : R('awning'), guest ? null : R('pixelcorners'), guest ? null : R('nightground')
+			] },
+			{ id: 'head', t: 'Article head', sub: 'The title and what stands around it', rows: [
+				R('headwidth'),
+				R('titlefinish', function () { return fx('title', 'depth') + fx('title', 'dir') + (s.get('titlefinish') === 'accent' ? fx('title', 'colour') : '') + fx('title', 'reach'); }),
+				R('headitalics', function () { return fx('serif', 'which') + fx('serif', 'style'); }),
+				R('extrusion'), R('dropout'), R('headrule'),
+				guest ? null : R('titlemark'), guest ? null : R('titlesign'), guest ? null : R('headblock'), guest ? null : R('stamp'), guest ? null : R('opening')
+			] },
+			{ id: 'sections', t: 'Sections and text', sub: 'Headings in the article, paragraphs, links', rows: [
+				guest ? null : R('columns'), R('paragraphs'),
+				guest ? null : R('sectionrules'), guest ? null : R('sectionnumbers'), guest ? null : R('headstar'),
+				guest ? null : R('rainbowcap'), guest ? null : R('rainbowlinks'), R('codemarks')
+			] },
+			{ id: 'lists', t: 'Lists and cards', sub: 'Pages of posts, their cards and buttons', rows: guest ? [] : [
+				R('postband'), R('stripes'), R('listtiles'), R('tilehover'), R('boxbuttons')
+			] },
+			{ id: 'rail', t: 'Rail and page foot', sub: 'The site’s name, the menu and the end of the page', rows: guest ? [] : [
+				R('sitename'), R('menuline'), R('rainbow'), R('footband'), R('legalline'), R('coupon'), R('powerbar')
+			] },
+			{ id: 'drawing', t: 'Drawing', sub: 'A drawing office’s sheet and its marks', rows: guest ? [] : [
+				R('sheetgrid', function () { return pickRow('gridstrength'); }),
+				R('sheetborder'), R('mottle'), R('printedges'), R('pen'), R('dimensions'), R('guidelines'), R('bubbles'), R('titleblock'), R('scalerule')
+			] },
+			{ id: 'screen', t: 'Screen', sub: 'An old screen: glass, phosphor, lines', rows: [
+				guest || !FRAME_ROW ? null : R('monitorframe', function () { return fx('monitor', 'curve') + fx('monitor', 'sheen'); }),
+				guest ? null : R('tubeface'), guest ? null : R('tvcabinet'), 
+				R('phosphor'), R('fringe'), R('crisp'), R('shimmer'),
+				guest ? null : R('warp', function () { return fx('warp', 'direction'); }), guest ? null : R('ghosting'),
+				R('jitter'), R('ghostimage'), R('humbar'), R('coderain')
+			] },
+			{ id: 'arrival', t: 'Arrival and motion', sub: 'What happens as a page opens and is read', rows: [
+				R('switchon', function () { return pickRow('static'); }), R('bootscreen'), guest ? null : R('titlecard'), R('typedtitle'),
+				R('headarrival', function () { return fx('arrival', 'speed') + (s.get('headarrival') === 'blur' ? fx('arrival', 'blur') : '') + fx('arrival', 'scope'); }),
+				guest ? null : R('arrival')
+			] },
+			{ id: 'terminal', t: 'Terminal', sub: 'The page as a terminal’s window', rows: guest ? [] : [ 
+				R('textgrid'), R('mdmarks'), R('frontmatter'), R('textmode'), R('windowbar'), R('statusline'), R('prompt'),
+				on('prompt', 'off') || s.get('statusline') === 'pager' ? R('cursorshape') : null
+			] }
+		];
+		var lit = '', body = '';
+		G.forEach(function (g) {
+			var rows = g.rows.filter(Boolean); if (!rows.length) return;
+			var html = rows.map(function (r) { return r.html; }).join(''), n = rows.filter(function (r) { return r.on; }).length;
+			lit += rows.filter(function (r) { return r.on; }).map(function (r) { return r.html; }).join('');
+			if (fxFind && html.indexOf(fxFind) !== -1) fxOpen[g.id] = true; 
+			var open = fxAll || !!fxOpen[g.id];
+			body += '<div class="ldpw-box ldpw-fxbox">' +
+				'<button type="button" class="ldpw-r ldpw-navrow ldpw-fxg" aria-expanded="' + open + '" data-act="fxg" data-g="' + g.id + '" data-f="fxg:' + g.id + '"><span class="ldpw-lb">' + esc(t(g.t)) + '<small>' + esc(t(g.sub)) + '</small></span>' +
+				'<span class="ldpw-val">' + (n ? esc(n + ' ' + t('on')) + ' · ' : '') + rows.length + '</span><span class="ldpw-chev" aria-hidden="true"></span></button>' +
+				(open ? html : '') + '</div>';
+		});
+		fxFind = null;
+		return (lit ? gtitle(t('In this style')) + box(lit) : '') + (lit ? gtitle(t('All effects')) : '') + body +
 			hint('Each effect shows its details while it is on. Movement stays still for readers who ask their computer for less motion.');
 	}
 	
@@ -1144,12 +1197,13 @@
 		}
 		editing = null; member = null; fontFor = null; showChanges = false; showVersions = false; menu = null;
 		['styles'].concat(sections().map(function (x) { return x.id; }), ['readers', 'button', 'settings']).forEach(function (id) {
-			section = id; role = null; more = id === 'colour'; 
+			section = id; role = null; more = id === 'colour'; fxAll = id === 'effects'; 
 			var name = current().name;
 			out.push({ label: name, where: '', go: { section: id } });
 			collect(name, { section: id, more: more });
 			if (id === 'type') roles().forEach(function (r) { if (St().gone('role:' + r.id)) return; role = r.id; more = true; collect(name + ' › ' + t(r.label), { section: 'type', role: r.id }); });
 		});
+		fxAll = false;
 		section = keep.section; role = keep.role; member = keep.member; fontFor = keep.fontFor; editing = keep.editing; more = keep.more; showChanges = keep.showChanges; showVersions = keep.showVersions; menu = keep.menu;
 		MENU = {}; STOP = {}; viewsMenu(); sq = keepSq;
 		return out;
@@ -1183,6 +1237,7 @@
 		if (!e) return; sq = null;
 		cmd = null; section = e.go.section; role = e.go.role || null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; more = !!(e.go.role || e.go.more); phoneList = false;
 		try { sessionStorage.setItem(KEY, section); } catch (x) {  }
+		if (section === 'effects' && e.where) fxFind = '>' + esc(e.label) + '<';
 		render();
 		if (!e.where) { var nav = win.querySelector('[data-sec="' + section + '"]'); if (nav) nav.focus({ preventScroll: true }); return; }
 		var hit = null;
@@ -1272,6 +1327,7 @@
 		section = x.section; role = null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; more = false;
 		if (x.key.indexOf('role:') === 0) role = x.key.slice(5);
 		if (x.key === 'smallsoft' || x.key === 'darkground') more = true;
+		if (x.section === 'effects' && x.key.indexOf('role:') !== 0) fxFind = '="' + x.key + '"';
 		try { sessionStorage.setItem(KEY, section); } catch (e) {  }
 		if (!open) { show(); render(); } else render(); 
 		var k = x.key.indexOf('role:') === 0 ? '' : x.key, ctl = k ? win.querySelector('.ldpw-scroll :is([data-look="' + k + '"].is-on, [data-menu="' + k + '"], [data-stop="' + k + '"], [data-set="' + k + '"])') : null;
@@ -2017,6 +2073,7 @@
 		if (act === 'back') { goBack(); return; }
 		if (act === 'revert-all') { askRevertAll(); render(); return; }
 		if (act === 'more') { more = !more; render('[data-act="more"]'); return; }
+		if (act === 'fxg') { var fg = b.getAttribute('data-g'); fxOpen[fg] = !fxOpen[fg]; render('[data-g="' + fg + '"]'); return; }
 		if (act === 'undo') { s.undo(); render('[data-act="undo"]'); return; }
 		if (act === 'copy') { s.makeCopy(); render(); return; }
 		if (act === 'pipette') { new window.EyeDropper().open().then(function (r) { setHex(r.sRGBHex.length === 7 ? r.sRGBHex : '#000000'); render(); }, function () {}); return; }

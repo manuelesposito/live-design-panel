@@ -96,6 +96,9 @@
 #ldp-window .ldpw-val.is-on { color: var(--ldpw-blue); }
 #ldp-window .ldpw-r.is-off .ldpw-val, #ldp-window .ldpw-r.is-off .ldpw-pop, #ldp-window .ldpw-pop:disabled, #ldp-window .ldpw-navrow:disabled .ldpw-val { color: var(--ldpw-soft); }
 #ldp-window .ldpw-chev { width: 8px; height: 8px; border: solid var(--ldpw-soft); border-width: 0 1.8px 1.8px 0; transform: rotate(-45deg); flex: none; margin: 0 2px 0 2px; }
+#ldp-window .ldpw-fxg .ldpw-chev { transition: transform .2s ease; } 
+#ldp-window .ldpw-fxg[aria-expanded="true"] .ldpw-chev { transform: rotate(45deg); }
+@media (prefers-reduced-motion: reduce) { #ldp-window .ldpw-fxg .ldpw-chev { transition: none; } }
 #ldp-window .ldpw-well { width: 18px; height: 18px; border-radius: 9px; flex: none; box-shadow: inset 0 0 0 1px rgb(var(--ldpw-fx) / .25); }
 #ldp-window .ldpw-note { padding: 14px 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
 #ldp-window .ldpw-note p { color: var(--ldpw-soft); font-size: 13px; }
