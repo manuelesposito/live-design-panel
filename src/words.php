@@ -385,8 +385,6 @@ function architrave_panel_words( $words ) {
 		'Dashed'        => __( 'Dashed', 'live-design-panel' ),
 		'Dotted'        => __( 'Dotted', 'live-design-panel' ),
 		'Fill strength' => __( 'Fill strength', 'live-design-panel' ),
-		'Background grain' => __( 'Background grain', 'live-design-panel' ),
-		'Grain strength' => __( 'Grain strength', 'live-design-panel' ),
 		'Softness'       => __( 'Softness', 'live-design-panel' ), /* the softer reading text's strength (2026-09-21) */
 		'Sepia'         => __( 'Sepia', 'live-design-panel' ),
 		'The pictures in the brown of an old photograph.' => __( 'The pictures in the brown of an old photograph.', 'live-design-panel' ),
@@ -456,9 +454,6 @@ function architrave_panel_words( $words ) {
 		'In this style' => __( 'In this style', 'live-design-panel' ),
 		'All effects' => __( 'All effects', 'live-design-panel' ),
 		'on' => __( 'on', 'live-design-panel' ),
-		'Headings and text' => __( 'Headings and text', 'live-design-panel' ),
-		'The title, the headings, paragraphs, the site’s name' => __( 'The title, the headings, paragraphs, the site’s name', 'live-design-panel' ),
-		'What the page itself is made of' => __( 'What the page itself is made of', 'live-design-panel' ),
 		'Terminal' => __( 'Terminal', 'live-design-panel' ),
 		'Bold line' => __( 'Bold line', 'live-design-panel' ),
 		'Old set' => __( 'Old set', 'live-design-panel' ),
@@ -471,7 +466,6 @@ function architrave_panel_words( $words ) {
 		'Title font' => __( 'Title font', 'live-design-panel' ),
 		'Like the title' => __( 'Like the title', 'live-design-panel' ),
 		'Section headings' => __( 'Section headings', 'live-design-panel' ),
-		'Bold italic capitals' => __( 'Bold italic capitals', 'live-design-panel' ),
 		'Neutral' => __( 'Neutral', 'live-design-panel' ),
 		/* Book B (2026-10-02): the paragraph's two new pop-ups */
 		'Hyphens' => __( 'Hyphens', 'live-design-panel' ),

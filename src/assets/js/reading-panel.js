@@ -285,7 +285,6 @@
 			picturefade: root.getAttribute('data-picturefade') === 'on',
 			pictureframe: root.getAttribute('data-pictureframe') !== 'off',
 			soft: root.getAttribute('data-soft') === 'on',
-			grain: root.getAttribute('data-grain') === 'on',
 			marker: root.getAttribute('data-marker') === 'on',
 			button: root.getAttribute('data-button') || 'accent',
 			tagsfollow: root.getAttribute('data-tagsfollow') === 'on',
@@ -599,16 +598,15 @@
 		markSide = side = side || markSide;
 		pageResetPaths = null;
 		panel.querySelectorAll('.reading-changed, [data-panel-page-reset]').forEach(function (x) { x.remove(); });
-		if (!Styles.changes || [2, 3, 4, 8, 14, 15, 16, 17].indexOf(level) === -1) return;
+		if (!Styles.changes || [2, 3, 4, 8, 14, 15, 16].indexOf(level) === -1) return;
 		var ch = Styles.changes();
 		function has(path) { var o = ch, p = path.split('.'); for (var i = 0; i < p.length; i++) { if (!o || typeof o !== 'object' || o[p[i]] === undefined) return false; o = o[p[i]]; } return true; }
-		var COLOUR = ['palette', 'colours', 'tint', 'preset', 'unlinked', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'marker', 'markercolour', 'darkground', 'button'], READ = ['face', 'reading', 'leading', 'justify', 'hyphenate', 'dropcap', 'capLines', 'capface', 'scope', 'alternates'];
-		var TYPE = ['roles', 'sans'].concat(READ);
-		/* THE FOUR PAGES (2026-09-26): each names its keys; Effects takes the rest. */
-		var LAYOUT = ['space', 'measure', 'picturefade', 'fadeedges', 'categories', 'widehead', 'widepicture', 'fullpicture'], SHAPE = ['rounded', 'corners', 'buttonshape', 'tagsfollow', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'lines', 'line', 'linewidth', 'linestyle', 'hairlines', 'cards', 'quotes', 'notes', 'fields', 'fills', 'fill'], PICTURES = ['pictures', 'picturehover', 'picturedim', 'pictureframe', 'framewidth', 'framepattern'];
-		var EFFECTS = Object.keys(ch).filter(function (k) { return [COLOUR, TYPE, LAYOUT, SHAPE, PICTURES].every(function (l) { return l.indexOf(k) === -1; }); });
-		var PAGES = { 4: COLOUR, 8: TYPE, 14: LAYOUT, 15: SHAPE, 16: PICTURES, 17: EFFECTS };
-		function roleKeys(r) { return ['roles.' + r].concat(r === 'read' ? READ : r === 'ui' ? ['sans'] : []); }
+		var COLOUR = ['palette', 'colours', 'tint', 'preset', 'unlinked', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'links', 'marker', 'markercolour', 'darkground', 'button'], READ = ['face', 'reading', 'leading', 'justify', 'hyphenate', 'dropcap', 'capLines', 'capface', 'scope', 'alternates', 'opening', 'paragraphs'];
+		var TYPE = ['roles', 'sans', 'subcolour'].concat(READ); /* subcolour: Headings' own (roleKeys) */
+		/* THE PAGES (2026-09-26): each names its keys. Effects took the rest until 2026-10-02, when its last rows moved to Type and Pictures and the page went. */
+		var LAYOUT = ['space', 'measure', 'picturefade', 'fadeedges', 'categories', 'widehead', 'widepicture', 'fullpicture'], SHAPE = ['rounded', 'corners', 'buttonshape', 'tagsfollow', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'lines', 'line', 'linewidth', 'linestyle', 'hairlines', 'cards', 'quotes', 'notes', 'fields', 'fills', 'fill'], PICTURES = ['pictures', 'picturehover', 'picturedim', 'pictureframe', 'framewidth', 'framepattern', 'piccorners', 'pictureshadow', 'widefigures'];
+		var PAGES = { 4: COLOUR, 8: TYPE, 14: LAYOUT, 15: SHAPE, 16: PICTURES };
+		function roleKeys(r) { return ['roles.' + r].concat(r === 'read' ? READ : r === 'ui' ? ['sans'] : r === 'head' ? ['subcolour'] : []); }
 		var DIAL = { 'data-panel-size-range': 'size', 'data-panel-weight-range': 'weight', 'data-panel-role-leading-range': 'leading', 'data-panel-tracking-range': 'tracking', 'data-panel-words-range': 'words', 'data-panel-role-italic': 'italic', 'data-panel-role-caps': 'caps' };
 		function pathsOf(el) {
 			var a = el.getAttribute('data-panel-option') || el.getAttribute('data-panel-level-range');
@@ -1146,7 +1144,7 @@
 		   its menu over its own row (the placement reads the row, not the field). */
 		function switchRow(key, label, off) { return '<div class="reading-row' + (off ? ' is-disabled' : '') + '"><span class="reading-row-label">' + label + '</span><button type="button" class="reading-toggle" role="switch" aria-checked="' + n[key] + '" data-panel-option="' + key + '"' + (off ? ' disabled' : '') + ' aria-label="' + label + '"></button></div>'; }
 		/* THE SHAPE ROUND'S FOUR PICKS, one pop-up row each, their words here. */
-		var PICK_WORD = { capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, sitename: { plain: 'Plain', caps: 'Bold italic capitals' }, subcolour: { title: 'Like the title', ink: 'Text' }, categories: { below: 'Below title', above: 'Above title', hidden: 'Hidden' }, links: { both: 'Coloured and underlined', coloured: 'Coloured', underlined: 'Underlined', bold: 'Bold line', wash: 'Highlighter' }, buttonshape: { cards: 'Like the cards', square: 'Square', rounded: 'Rounded', pill: 'Pill' }, buttonstyle: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' }, buttonmedium: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' }, buttonquiet: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' }, tags: { text: 'Text only', filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined' }, chosenitem: { gray: 'Gray', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' }, fullpicture: { off: 'Wide', on: 'Full' }, quotes: { line: 'Line at the side', plain: 'Plain', box: 'Box' }, notes: { flat: 'Flat', box: 'Outlined', raised: 'Raised' }, fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' }, linewidth: { '1': '1 px', '2': '2 px', '3': '3 px', '5': '5 px' }, cards: { box: 'Outlined', top: 'Line above', flat: 'Flat', raised: 'Raised', ticks: 'Corner marks' } };
+		var PICK_WORD = { capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, subcolour: { title: 'Like the title', ink: 'Text' }, categories: { below: 'Below title', above: 'Above title', hidden: 'Hidden' }, links: { both: 'Coloured and underlined', coloured: 'Coloured', underlined: 'Underlined', bold: 'Bold line', wash: 'Highlighter' }, buttonshape: { cards: 'Like the cards', square: 'Square', rounded: 'Rounded', pill: 'Pill' }, buttonstyle: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' }, buttonmedium: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' }, buttonquiet: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' }, tags: { text: 'Text only', filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined' }, chosenitem: { gray: 'Gray', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' }, fullpicture: { off: 'Wide', on: 'Full' }, quotes: { line: 'Line at the side', plain: 'Plain', box: 'Box' }, notes: { flat: 'Flat', box: 'Outlined', raised: 'Raised' }, fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' }, linewidth: { '1': '1 px', '2': '2 px', '3': '3 px', '5': '5 px' }, cards: { box: 'Outlined', top: 'Line above', flat: 'Flat', raised: 'Raised', ticks: 'Corner marks' } };
 		function pickWord(key, v) { if (window.architravePanelGuest && ({ tags: 'text', chosenitem: 'gray', quotes: 'line', notes: 'flat', fields: 'flat' })[key] === v) return t('As the theme'); var w = PICK_WORD[key][v]; return /(px| %)$/.test(w) ? w : t(w); }
 		function pickRow(key, label) { return Styles.pick ? popupButton(key, label, pickWord(key, Styles.pick(key))) : ''; }
 		var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; /* the button levels' looks, loud to quiet */
@@ -1214,14 +1212,7 @@
 			pickMenu('buttonshape', t('Button shape')) + pickMenu('buttonstyle', t('Main buttons')) + pickMenu('buttonmedium', t('Other buttons')) + (window.architravePanelGuest ? '' : pickMenu('buttonquiet', t('Quiet buttons'))) + pickMenu('tags', t('Tags')) + pickMenu('chosenitem', t('Chosen item')) + pickMenu('linewidth', t('Line width')) + pickMenu('cards', t('Cards')) + pickMenu('quotes', t('Quotes')) + pickMenu('notes', t('Notes')) + pickMenu('fields', t('Fields')) +
 			'</div>';
 		/* EFFECTS: the five that lie over the whole screen, each unfolding its strength. */
-		var effectsBody =
-			fieldOf(
-				switchRow('grain', t('Background grain')) + (n.grain ? levelRow('grainlevel', t('Grain strength'), '') : '')) +
-			/* THE EXTRAS (2026-09-29, lab/the-instrument-extras.html): ten looks taken from four dark product sites, one pop-up each; nothing is written at the rest. */
-			'<div class="reading-font-field"><div class="reading-list">' +
-				pickRow('paragraphs', t('Paragraphs')) + (window.architravePanelGuest ? '' : pickRow('sitename', t('Site name')) + /* Aperitivo (2026-10-02, lab/the-article-in-terracotta.html) */ pickRow('piccorners', t('Picture corners')) + pickRow('pictureshadow', t('Picture shadow')) + pickRow('subcolour', t('Section headings')) + pickRow('opening', t('Opening sentence')) + pickRow('widefigures', t('Wide pictures in the text'))) +
-			'</div>' + pickMenu('paragraphs', t('Paragraphs')) + (window.architravePanelGuest ? '' : pickMenu('sitename', t('Site name')) + pickMenu('piccorners', t('Picture corners')) + pickMenu('pictureshadow', t('Picture shadow')) + pickMenu('subcolour', t('Section headings')) + pickMenu('opening', t('Opening sentence')) + pickMenu('widefigures', t('Wide pictures in the text'))) +
-			'</div>';
+		/* THE EFFECTS PAGE LEFT (2026-10-02): Opening sentence and Paragraphs went to Reading text's Paragraph box, the picture rows to Pictures, Section headings to Headings; Site name left (Interface › Masthead does capitals and more). */
 		/* BILDER (Manuel, 2026-09-14; lab sheet the-picture-looks): three looks,
 		   a pop-up row like Schriftart. Sepia and Gedämpft were drawn and
 		   dropped: "really just tiny variations". ONE FIELD WITH THE SWITCHES
@@ -1232,6 +1223,7 @@
 				t(PICTURE_NOTE[n.pictures] || PICTURE_NOTE.plain),
 				'', pictureRows);
 		if (n.pictureframe && Styles.framePattern && n.pictures !== 'hidden') picturesBody = picturesBody.replace(/<\/div>$/, popupMenu('framepattern', t('Frame pattern'), Styles.framePatterns.map(function (id) { return { on: Styles.framePattern() === id, attr: 'data-panel-pick-framepattern="' + id + '"', label: t(FRAME_WORD[id]) }; })) + '</div>');
+		if (!window.architravePanelGuest) picturesBody += '<div class="reading-font-field"><div class="reading-list">' + pickRow('piccorners', t('Picture corners')) + pickRow('pictureshadow', t('Picture shadow')) + pickRow('widefigures', t('Wide pictures in the text')) + '</div>' + pickMenu('piccorners', t('Picture corners')) + pickMenu('pictureshadow', t('Picture shadow')) + pickMenu('widefigures', t('Wide pictures in the text')) + '</div>'; /* from the Effects page (2026-10-02) */
 		/* COLOUR'S LAST TWO GROUPS (2026-09-26): what colours the text and what
 		   colours the ground and the buttons, under the presets. Softer reading
 		   text came from the Reading text page (there since 2026-09-23): it is
@@ -1279,7 +1271,7 @@
 		function undoName() {
 			var w = Styles.undoWhat ? Styles.undoWhat() : '';
 			var ROLE = w.indexOf('role:') === 0 ? ROLE_META.filter(function (r) { return r.id === w.slice(5); })[0] : null;
-			var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', sitename: 'Site name', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', grain: 'Background grain', grainlevel: 'Background grain', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
+			var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 				justify: 'Justified text', hyphenate: 'Hyphens', dropcap: 'Drop cap', capLines: 'Drop cap height', capface: 'Drop cap font', pictures: 'Picture effects', picturedim: 'Dim in the dark',
 				pictureframe: 'Frame around pictures', picturefade: 'Fade the edges', fadeedges: 'Fade the edges', marker: 'Highlighter', markercolour: 'Highlighter', button: 'Button colour', pillbuttons: 'Pill buttons', widepicture: 'Wide top picture', widehead: 'Wide title', measure: 'Line length', space: 'Space', framewidth: 'Frame width', framepattern: 'Frame pattern', palette: 'Colour', tint: 'Colour', preset: 'Colour', colours: 'Colour', accent: 'Colour',
 				face: 'Font', sans: 'Font', reading: 'Size', leading: 'Line spacing', reset: 'Reset everything' };
@@ -1415,7 +1407,7 @@
 			/* FOUR DOORS IN ONE BOX (2026-09-26): the one door More design options
 			   became Layout, Shape, Pictures and Effects. They keep its box; Colour
 			   and Type keep theirs (Manuel, 2026-09-16: "individual rows"). */
-			'<div class="reading-list">' + nav(14, t('Layout'), '') + nav(15, t('Corners and lines'), '') + nav(16, t('Pictures'), '') + nav(17, t('Effects'), '') + '</div>' +
+			'<div class="reading-list">' + nav(14, t('Layout'), '') + nav(15, t('Corners and lines'), '') + nav(16, t('Pictures'), '') + '</div>' +
 			/* FOR READERS (2026-09-23): which two styles readers get beside the
 			   site's own; the owner's alone. A fourth door with the other three
 			   (Manuel, the same day, of the row glued under Save as style: "gap
@@ -1628,7 +1620,7 @@
 		/* THE FOUR PAGES BEHIND CUSTOMISE (2026-09-26, see layoutBody): each a
 		   page of its own with the way back to Customise. */
 		function pageOf(title, body) { return '<div class="reading-sheet-top">' + head(title, 2) + '</div><div class="reading-sheet-body">' + body + '</div>'; }
-		var level14 = pageOf(t('Layout'), layoutBody), level15 = pageOf(t('Corners and lines'), shapeBody), level16 = pageOf(t('Pictures'), picturesBody), level17 = pageOf(t('Effects'), effectsBody);
+		var level14 = pageOf(t('Layout'), layoutBody), level15 = pageOf(t('Corners and lines'), shapeBody), level16 = pageOf(t('Pictures'), picturesBody);
 
 		/* THE TYPE'S OWN PAGE (Manuel, 2026-09-16): the roles, each with the
 		   face and the weight it is set in, each opening its own page as before.
@@ -1959,12 +1951,14 @@
 					'<div class="reading-row"><span class="reading-row-label">' + t('Drop cap') + '</span><button type="button" class="reading-toggle" role="switch" aria-checked="' + n.dropcap + '" data-panel-option="dropcap" aria-label="' + t('Drop cap') + '"></button></div>' +
 					(n.dropcap ? popupButton('caplines', t('Drop cap height'), t('{n} lines').replace('{n}', n.capLines)) : '') +
 					(n.dropcap ? pickRow('capface', t('Drop cap font')) : '') +
+					pickRow('paragraphs', t('Paragraphs')) + (window.architravePanelGuest ? '' : pickRow('opening', t('Opening sentence'))) + /* from the Effects page (2026-10-02) */
 					/* Softer reading text went to Colour and Line length to Layout (2026-09-26). */
 				'</div>' +
 				(n.dropcap ? popupMenu('caplines', t('Drop cap height'), (Styles.capLines || []).map(function (id) { return { on: n.capLines === id, attr: 'data-panel-pick-caplines="' + id + '"', label: t('{n} lines').replace('{n}', id) }; })) : '') +
-				pickMenu('hyphenate', t('Hyphens')) + (n.dropcap ? pickMenu('capface', t('Drop cap font')) : '') +
+				pickMenu('hyphenate', t('Hyphens')) + (n.dropcap ? pickMenu('capface', t('Drop cap font')) : '') + pickMenu('paragraphs', t('Paragraphs')) + (window.architravePanelGuest ? '' : pickMenu('opening', t('Opening sentence'))) +
 				'</div>'
 			: '') +
+			(ro.id === 'head' && !window.architravePanelGuest ? '<div class="reading-font-field"><div class="reading-list">' + pickRow('subcolour', t('Section headings')) + '</div>' + pickMenu('subcolour', t('Section headings')) + '</div>' : '') + /* from the Effects page (2026-10-02) */
 			/* MEMBERS LAST (2026-09-23, the layout pass): the role's own dials first, then who follows them. */
 			memberRows(ro.id) +
 			'</div>';
@@ -2240,11 +2234,11 @@
 		   so at its foot and offers Undo, as Mail does after a message is moved. */
 		if (notice && level === 1) level1 += '<div class="reading-notice" role="status"><span>' + notice.text + '</span>' + (notice.undo !== undefined ? '<button type="button" class="reading-notice-undo" data-panel-notice-undo>' + t('Undo') + '</button>' : '') + '</div>';
 		if (level === 2) {
-			searchPages = [{ level: 4, name: t('Colour'), html: level4 }, { level: 8, name: t('Type'), html: level8 }, { level: 14, name: t('Layout'), html: level14 }, { level: 15, name: t('Corners and lines'), html: level15 }, { level: 16, name: t('Pictures'), html: level16 }, { level: 17, name: t('Effects'), html: level17 }].concat(level13 ? [{ level: 13, name: t('Button and Sharing'), html: level13 }] : []);
+			searchPages = [{ level: 4, name: t('Colour'), html: level4 }, { level: 8, name: t('Type'), html: level8 }, { level: 14, name: t('Layout'), html: level14 }, { level: 15, name: t('Corners and lines'), html: level15 }, { level: 16, name: t('Pictures'), html: level16 }].concat(level13 ? [{ level: 13, name: t('Button and Sharing'), html: level13 }] : []);
 			searchRoles = ROLE_META.filter(function (x) { return !gone('role:' + x.id); }).map(function (x) { return { id: x.id, label: t(x.label), members: (Styles.members ? Styles.members(x.id) : []).filter(function (m) { return !m.lead && !gone('member:' + x.id + ':' + m.id); }).map(function (m) { return { id: m.id, label: t(memberMeta(x.id, m.id).label) }; }) }; });
 		}
 		var typing = document.activeElement && document.activeElement.hasAttribute && document.activeElement.hasAttribute('data-panel-search') ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null; /* a render while the search is typed in keeps the caret */
-		panel.innerHTML = level === 1 ? level1 : level === 3 ? level3 : level === 4 ? level4 : level === 6 ? level6 : level === 8 ? level8 : level === 10 ? level10 : level === 11 ? level11 : level === 13 && level13 ? level13 : level === 14 ? level14 : level === 15 ? level15 : level === 16 ? level16 : level === 17 ? level17 : level2;
+		panel.innerHTML = level === 1 ? level1 : level === 3 ? level3 : level === 4 ? level4 : level === 6 ? level6 : level === 8 ? level8 : level === 10 ? level10 : level === 11 ? level11 : level === 13 && level13 ? level13 : level === 14 ? level14 : level === 15 ? level15 : level === 16 ? level16 : level2;
 		/* THE SWITCHES THAT CANNOT WORK HERE grey after the fact, in one place,
 		   rather than in the twelve strings that print them: the same greyed
 		   row with a dead control the size rows get (see dead() above). On

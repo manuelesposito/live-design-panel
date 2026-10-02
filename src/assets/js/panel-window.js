@@ -56,7 +56,7 @@
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { smallsoft: 'Small text', links: 'Links', 'colours.{side}.inverse': 'Ground colour', 'colours.{side}.light': 'Light', 'colours.{side}.second': 'Second light' }; /* rows the current window draws without a label of the list's */
 	/* THE LAB'S WORDS for rows the list names otherwise (lab/panel-settings.js, 2026-09-28): the new window says what the lab says */
-	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover', grain: 'Grain'};
+	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 
 	/* THE SYMBOLS are Lucide's (ISC licence, lucide.dev), as the prototype's: 18 px on a
@@ -356,7 +356,7 @@
 		if (role === 'read') {
 			var drop = s.get('dropcap');
 			out += gtitle(t('Paragraph')) + box(row(t('Justified text'), sw('justify', s.get('justify'), t('Justified text'))) + pickRow('hyphenate') + row(t('Drop cap'), sw('dropcap', drop, t('Drop cap'))) +
-				(drop ? row(t('Drop cap height'), pop('caplines', t('Drop cap height'), s.capLines(), ['2', '3', '4'].map(function (n) { return [n, t('{n} lines').replace('{n}', n)]; }), function (id) { s.setCapLines(id); })) + pickRow('capface') : '')); /* Hyphens and Drop cap font (2026-10-02, Book B) */
+				(drop ? row(t('Drop cap height'), pop('caplines', t('Drop cap height'), s.capLines(), ['2', '3', '4'].map(function (n) { return [n, t('{n} lines').replace('{n}', n)]; }), function (id) { s.setCapLines(id); })) + pickRow('capface') : '') + pickRow('paragraphs') + (s.guest() ? '' : pickRow('opening'))); /* Hyphens and Drop cap font (2026-10-02, Book B); Paragraphs and Opening sentence from the Effects page (2026-10-02) */
 		}
 		var list = s.members(role).filter(function (m) { return !s.gone('member:' + role + ':' + m.id); });
 		if (list.length > 1) { /* a lead with nobody following it is not a group */
@@ -448,7 +448,7 @@
 		fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
 		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
 		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
-		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, sitename: { plain: 'Plain', caps: 'Bold italic capitals' }, subcolour: { title: 'Like the title', ink: 'Text' }
+		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, subcolour: { title: 'Like the title', ink: 'Text' }
 	};
 	/* THE EXTRAS' DETAILS, their words by full path (effects.<effect>.<detail>: "colour" means something else in each) */
 	var FX_COLOUR = { light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' };
@@ -629,18 +629,8 @@
 		var R = function (key, details, isOn) { var lit = isOn !== undefined ? !!isOn : on(key, rest(key)); return { k: key, on: lit, html: pickRow(key) + (lit && details ? details() : '') }; };
 		var F = function (id, d, details) { var key = 'effects.' + id + '.' + d, lit = on(key, rest(key)); return { k: key, on: lit, html: fx(id, d) + (lit && details ? details() : '') }; };
 		var H = function (key, html, lit) { return { k: key, on: !!lit, html: html }; };
-		/* THE EFFECTS WITH ORIGINAL ALONE (2026-10-02, the clean-up's second round: "we just keep the original for now"):
-		   the paper's grain and three finishes of the type. Instrument's light, pattern, guides and their details left;
-		   they and the eleven groups before them are in the tags styles-archive-0.16.0 and styles-archive-0.15.58. */
-		var G = [
-			{ id: 'paper', t: 'Paper', sub: 'What the page itself is made of', rows: [
-				H('grain', offSlider('grain', 'grainlevel', label('grain'), ''), s.get('grain'))
-			] },
-			{ id: 'head', t: 'Headings and text', sub: 'The title, the headings, paragraphs, the site’s name', rows: [
-				guest ? null : R('opening'), R('paragraphs'),
-				guest ? null : R('sitename')
-			] }
-		];
+		/* NO EFFECTS SINCE 2026-10-02 (Manuel: "if I could style the text, it wouldn't be necessary to have it under effects"): the page's rows went to Type and Pictures and the section is not listed; the groups are the place a future effect joins. */
+		var G = [];
 		var lit = '', body = '';
 		G.forEach(function (g) {
 			var rows = g.rows.filter(Boolean); if (!rows.length) return;
@@ -1348,6 +1338,8 @@
 		['.quire-button.ghost', 'buttons', 'buttonquiet', 'Quiet buttons'],
 		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'buttonmedium', 'Other buttons'],
 		['.article-tags a, .taxonomy-post_tag a', 'buttons', 'tags', 'Tags'],
+		/* THE SITE'S NAME BEFORE THE CHOSEN ITEM (2026-10-02, Manuel: "on the page title I would like to have the setting for the page title but instead I get the button"): on the home page WordPress marks the name's link aria-current="page", so the Chosen item row below caught it. Its own type is Interface › Masthead. */
+		['.wp-block-site-title', 'type', 'role:ui/masthead', 'Site name'],
 		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'chosenitem', 'Chosen item'],
 		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictures', 'Pictures'],
 		['.post-link-card, .support-box, .release-panel, .theme-card', 'corners-and-lines', 'cards', 'Cards'],
@@ -1384,7 +1376,7 @@
 	function openTarget(x) {
 		sq = null; cmd = null; /* a page asked for by name leaves the search (2026-10-01, the panel audit: the results stayed in front) */
 		section = x.section; role = null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; more = false;
-		if (x.key.indexOf('role:') === 0) role = x.key.slice(5);
+		if (x.key.indexOf('role:') === 0) { role = x.key.slice(5).split('/')[0]; member = x.key.split('/')[1] || null; } /* role:<role>/<member> opens the member's page */
 		if (x.key === 'smallsoft' || x.key === 'darkground') more = true;
 		if (x.section === 'effects' && x.key.indexOf('role:') !== 0) fxFind = '="' + x.key + '"';
 		try { sessionStorage.setItem(KEY, section); } catch (e) { /* private window */ }
@@ -1607,7 +1599,7 @@
 		'</div>';
 	}
 	/* UNDO SAYS WHAT IT TAKES BACK ("Undo Highlighter"), in today's window's words */
-	var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', sitename: 'Site name', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', grain: 'Background grain', grainlevel: 'Background grain', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
+	var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 		justify: 'Justified text', hyphenate: 'Hyphens', dropcap: 'Drop cap', capLines: 'Drop cap height', capface: 'Drop cap font', pictures: 'Picture effects', picturedim: 'Dim in the dark',
 		pictureframe: 'Frame around pictures', picturefade: 'Fade the edges', fadeedges: 'Fade the edges', marker: 'Highlighter', markercolour: 'Highlighter', button: 'Button colour', pillbuttons: 'Pill buttons', widepicture: 'Wide top picture', widehead: 'Wide title', measure: 'Line length', space: 'Space', framewidth: 'Frame width', framepattern: 'Frame pattern', palette: 'Colour', tint: 'Colour', preset: 'Colour', colours: 'Colour', accent: 'Colour',
 		face: 'Font', sans: 'Font', reading: 'Size', leading: 'Line spacing', reset: 'Reset everything', version: 'Restore' };

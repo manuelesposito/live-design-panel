@@ -54,7 +54,7 @@
 	function St() { return host && host.style; }
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { smallsoft: 'Small text', links: 'Links', 'colours.{side}.inverse': 'Ground colour', 'colours.{side}.light': 'Light', 'colours.{side}.second': 'Second light' }; 
-	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover', grain: 'Grain'};
+	var LAB_LABEL = { 'door.own': 'Own Colour', 'colours.{side}.ink': 'Text', 'colours.{side}.ground': 'Background', 'colours.{side}.lift': 'Card', smallsoft: 'Small text softness', darkground: 'Inverted ground', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 	
 	var MARK = {
@@ -330,7 +330,7 @@
 		if (role === 'read') {
 			var drop = s.get('dropcap');
 			out += gtitle(t('Paragraph')) + box(row(t('Justified text'), sw('justify', s.get('justify'), t('Justified text'))) + pickRow('hyphenate') + row(t('Drop cap'), sw('dropcap', drop, t('Drop cap'))) +
-				(drop ? row(t('Drop cap height'), pop('caplines', t('Drop cap height'), s.capLines(), ['2', '3', '4'].map(function (n) { return [n, t('{n} lines').replace('{n}', n)]; }), function (id) { s.setCapLines(id); })) + pickRow('capface') : '')); 
+				(drop ? row(t('Drop cap height'), pop('caplines', t('Drop cap height'), s.capLines(), ['2', '3', '4'].map(function (n) { return [n, t('{n} lines').replace('{n}', n)]; }), function (id) { s.setCapLines(id); })) + pickRow('capface') : '') + pickRow('paragraphs') + (s.guest() ? '' : pickRow('opening'))); 
 		}
 		var list = s.members(role).filter(function (m) { return !s.gone('member:' + role + ':' + m.id); });
 		if (list.length > 1) { 
@@ -415,7 +415,7 @@
 		fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
 		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
 		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
-		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, sitename: { plain: 'Plain', caps: 'Bold italic capitals' }, subcolour: { title: 'Like the title', ink: 'Text' }
+		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, subcolour: { title: 'Like the title', ink: 'Text' }
 	};
 	var FX_COLOUR = { light: 'Light', second: 'Second light', accent: 'Accent', ink: 'Ink' };
 	var FX_NAME = {}; 
@@ -576,15 +576,7 @@
 		var R = function (key, details, isOn) { var lit = isOn !== undefined ? !!isOn : on(key, rest(key)); return { k: key, on: lit, html: pickRow(key) + (lit && details ? details() : '') }; };
 		var F = function (id, d, details) { var key = 'effects.' + id + '.' + d, lit = on(key, rest(key)); return { k: key, on: lit, html: fx(id, d) + (lit && details ? details() : '') }; };
 		var H = function (key, html, lit) { return { k: key, on: !!lit, html: html }; };
-		var G = [
-			{ id: 'paper', t: 'Paper', sub: 'What the page itself is made of', rows: [
-				H('grain', offSlider('grain', 'grainlevel', label('grain'), ''), s.get('grain'))
-			] },
-			{ id: 'head', t: 'Headings and text', sub: 'The title, the headings, paragraphs, the site’s name', rows: [
-				guest ? null : R('opening'), R('paragraphs'),
-				guest ? null : R('sitename')
-			] }
-		];
+		var G = [];
 		var lit = '', body = '';
 		G.forEach(function (g) {
 			var rows = g.rows.filter(Boolean); if (!rows.length) return;
@@ -1230,6 +1222,7 @@
 		['.quire-button.ghost', 'buttons', 'buttonquiet', 'Quiet buttons'],
 		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'buttonmedium', 'Other buttons'],
 		['.article-tags a, .taxonomy-post_tag a', 'buttons', 'tags', 'Tags'],
+		['.wp-block-site-title', 'type', 'role:ui/masthead', 'Site name'],
 		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'chosenitem', 'Chosen item'],
 		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictures', 'Pictures'],
 		['.post-link-card, .support-box, .release-panel, .theme-card', 'corners-and-lines', 'cards', 'Cards'],
@@ -1265,7 +1258,7 @@
 	function openTarget(x) {
 		sq = null; cmd = null; 
 		section = x.section; role = null; member = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; more = false;
-		if (x.key.indexOf('role:') === 0) role = x.key.slice(5);
+		if (x.key.indexOf('role:') === 0) { role = x.key.slice(5).split('/')[0]; member = x.key.split('/')[1] || null; } 
 		if (x.key === 'smallsoft' || x.key === 'darkground') more = true;
 		if (x.section === 'effects' && x.key.indexOf('role:') !== 0) fxFind = '="' + x.key + '"';
 		try { sessionStorage.setItem(KEY, section); } catch (e) {  }
@@ -1460,7 +1453,7 @@
 			'<div class="ldpw-scroll">' + pageBody(x) + '</div>' + foot(x, s, deep, built) + menuHTML() + (note ? '<p class="ldpw-note-line" role="status">' + esc(note) + '</p>' : '') +
 		'</div>';
 	}
-	var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', sitename: 'Site name', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', grain: 'Background grain', grainlevel: 'Background grain', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
+	var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 		justify: 'Justified text', hyphenate: 'Hyphens', dropcap: 'Drop cap', capLines: 'Drop cap height', capface: 'Drop cap font', pictures: 'Picture effects', picturedim: 'Dim in the dark',
 		pictureframe: 'Frame around pictures', picturefade: 'Fade the edges', fadeedges: 'Fade the edges', marker: 'Highlighter', markercolour: 'Highlighter', button: 'Button colour', pillbuttons: 'Pill buttons', widepicture: 'Wide top picture', widehead: 'Wide title', measure: 'Line length', space: 'Space', framewidth: 'Frame width', framepattern: 'Frame pattern', palette: 'Colour', tint: 'Colour', preset: 'Colour', colours: 'Colour', accent: 'Colour',
 		face: 'Font', sans: 'Font', reading: 'Size', leading: 'Line spacing', reset: 'Reset everything', version: 'Restore' };

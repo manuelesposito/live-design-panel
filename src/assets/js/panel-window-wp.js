@@ -18,7 +18,7 @@
 	if (!W || !B || !window.LiveDesignWindow) return;
 
 	/* Today's window: the page (its `level`) each section lives on. */
-	var LEVEL = { colour: 4, type: 8, layout: 14, 'corners-and-lines': 15, pictures: 16, effects: 17 };
+	var LEVEL = { colour: 4, type: 8, layout: 14, 'corners-and-lines': 15, pictures: 16 };
 	var styles = W.url.replace(/\/window(\?|$)/, '/site-styles$1');
 	var root = document.documentElement;
 	var PALETTE = '[data-quire-modes="palette"] ';

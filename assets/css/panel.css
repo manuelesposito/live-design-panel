@@ -536,10 +536,6 @@
 	background: transparent;
 	box-shadow: none;
 }
-:root[data-grain="on"] {
-	--surface-layer: '';
-	--surface-grain: var(--grain-level, 0.4);
-}
 :root[data-marker-colour="green"] {
 	--marker: #b4f07c; --marker-line: #57a012;
 }
@@ -920,9 +916,6 @@
 }
 :root[data-paragraphs="indented"] :is(.single-post-article .wp-block-post-content, body.single .entry-content) > p:has(+ p, + span + p):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	margin-block-end: 0;
-}
-:root[data-site-name="caps"] :is(.sidebar-logo-section .wp-block-site-title a, .mobile-nav-bar .wp-block-site-title a, .ldp-plate-name):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	font-family: var(--title-face, var(--font-reading)); font-weight: 700; font-style: italic; text-transform: uppercase; letter-spacing: -0.04em;
 }
 :root[data-lines="on"][data-cards="ticks"] :is(.post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--ldp-tk: 14px;

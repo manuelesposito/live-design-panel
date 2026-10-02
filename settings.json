@@ -38,7 +38,6 @@
       "tagsfollow",
       "soft",
       "alternates",
-      "grain",
       "tint",
       "sans",
       "scope",
@@ -46,7 +45,6 @@
       "capLines",
       "line",
       "fill",
-      "grainlevel",
       "softlevel",
       "quietlevel",
       "smallsoft",
@@ -72,7 +70,6 @@
       "notes",
       "fields",
       "paragraphs",
-      "sitename",
       "capface",
       "hyphenate",
       "piccorners",
@@ -127,7 +124,6 @@
       "notes",
       "fields",
       "paragraphs",
-      "sitename",
       "capface",
       "hyphenate",
       "piccorners",
@@ -141,12 +137,10 @@
       "linestyle",
       "fills",
       "fill",
-      "grain",
       "softlevel",
       "quietlevel",
       "smallsoft",
       "links",
-      "grainlevel",
       "pictures",
       "picturehover",
       "alternates",
@@ -684,7 +678,7 @@
       "level": 4,
       "row": {
         "drawn": "grid",
-        "line": 2004,
+        "line": 1998,
         "in": "presetGrid"
       },
       "changesPage": "Colour",
@@ -717,7 +711,7 @@
       "level": 1,
       "row": {
         "drawn": "stepper",
-        "line": 865,
+        "line": 863,
         "in": "level1"
       },
       "changesPage": "Type › Reading text",
@@ -837,7 +831,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1549,
+        "line": 1541,
         "in": "fontRow"
       },
       "changesPage": "Type › Reading text",
@@ -878,7 +872,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1929,
+        "line": 1921,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -902,7 +896,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1956,
+        "line": 1948,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -938,7 +932,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1959,
+        "line": 1951,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -970,7 +964,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1193,
+        "line": 1191,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1002,7 +996,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1201,
+        "line": 1199,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1034,7 +1028,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1209,
+        "line": 1207,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1066,7 +1060,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1261,
+        "line": 1253,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1098,7 +1092,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1188,
+        "line": 1186,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1130,7 +1124,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1207,
+        "line": 1205,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1162,7 +1156,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1122,
+        "line": 1120,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -1194,7 +1188,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1123,
+        "line": 1121,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -1226,7 +1220,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1178,
+        "line": 1176,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1258,7 +1252,7 @@
       "level": 16,
       "row": {
         "drawn": "switch",
-        "line": 1129,
+        "line": 1127,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -1279,38 +1273,6 @@
       }
     },
     {
-      "key": "grain",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "A fine film grain over the whole page, the tooth of paper.",
-      "label": "Background grain",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "switch",
-        "line": 1219,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-grain"
-      ],
-      "rest": {
-        "data-grain": "REST"
-      },
-      "restValues": {
-        "data-grain": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-grain"
-        ],
-        "props": []
-      }
-    },
-    {
       "key": "soft",
       "group": "opt",
       "table": "OPTS",
@@ -1322,7 +1284,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1249,
+        "line": 1241,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1384,7 +1346,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 1253,
+        "line": 1245,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1416,7 +1378,7 @@
       "level": 14,
       "row": {
         "drawn": "switch",
-        "line": 1188,
+        "line": 1186,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1448,7 +1410,7 @@
       "level": 15,
       "row": {
         "drawn": "switch",
-        "line": 1198,
+        "line": 1196,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1611,7 +1573,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1549,
+        "line": 1541,
         "in": "fontRow"
       },
       "changesPage": "Type › Interface",
@@ -1689,7 +1651,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1230,
+        "line": 1221,
         "in": "picturesBody"
       },
       "changesPage": "Pictures",
@@ -1723,7 +1685,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1960,
+        "line": 1952,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -1752,7 +1714,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1266,
+        "line": 1258,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -1781,7 +1743,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1188,
+        "line": 1186,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1811,7 +1773,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1186,
+        "line": 1184,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -1842,7 +1804,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1198,
+        "line": 1196,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1875,7 +1837,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1200,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1908,7 +1870,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1200,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1941,7 +1903,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1200,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -1973,7 +1935,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1200,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2004,7 +1966,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1200,
+        "line": 1198,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2035,7 +1997,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1204,
+        "line": 1202,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2067,7 +2029,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1208,
+        "line": 1206,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2097,7 +2059,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1208,
+        "line": 1206,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2127,7 +2089,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1208,
+        "line": 1206,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2157,7 +2119,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1208,
+        "line": 1206,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2182,48 +2144,19 @@
       "attr": "data-paragraphs",
       "means": "Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.",
       "label": "Paragraphs",
-      "page": "Effects",
-      "level": 17,
+      "page": "Type › Reading text",
+      "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1222,
-        "in": "effectsBody"
+        "line": 1954,
+        "in": "level3"
       },
-      "changesPage": "Effects",
+      "changesPage": "Type › Reading text",
       "attrs": [
         "data-paragraphs"
       ],
       "rest": {
         "data-paragraphs": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "sitename",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "plain",
-        "caps"
-      ],
-      "def": "plain",
-      "attr": "data-site-name",
-      "means": "The site's name in the side column and on the plate: plain (the rest, as the interface sets it), caps (bold italic capitals set tight, in the section titles' face, as an advertisement's wordmark), marquee (in the headings' face and capitals, 16px, in the accent, standing on a hard step of the second light, as an arcade cabinet's marquee) or title (in the heading role's own face, weight and slant, a size up, as a sign over the door).",
-      "label": "Site name",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1222,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-site-name"
-      ],
-      "rest": {
-        "data-site-name": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -2246,7 +2179,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1961,
+        "line": 1953,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -2277,7 +2210,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1958,
+        "line": 1950,
         "in": "level3"
       },
       "changesPage": "Type › Reading text",
@@ -2302,14 +2235,14 @@
       "attr": "data-pic-corners",
       "means": "The pictures' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).",
       "label": "Picture corners",
-      "page": "Effects",
-      "level": 17,
+      "page": "Pictures",
+      "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1222,
-        "in": "effectsBody"
+        "line": 1226,
+        "in": "picturesBody"
       },
-      "changesPage": "Effects",
+      "changesPage": "Pictures",
       "attrs": [
         "data-pic-corners"
       ],
@@ -2331,14 +2264,14 @@
       "attr": "data-picture-shadow",
       "means": "A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave's page only.",
       "label": "Picture shadow",
-      "page": "Effects",
-      "level": 17,
+      "page": "Pictures",
+      "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1222,
-        "in": "effectsBody"
+        "line": 1226,
+        "in": "picturesBody"
       },
-      "changesPage": "Effects",
+      "changesPage": "Pictures",
       "attrs": [
         "data-picture-shadow"
       ],
@@ -2360,14 +2293,14 @@
       "attr": "data-sub-colour",
       "means": "The colour of the article's section headings when the headings' role has a colour of its own (accent or own): title (the rest, the same colour as the title) or ink (the text's colour, so only the title stands in the colour).",
       "label": "Section headings",
-      "page": "Effects",
-      "level": 17,
+      "page": "Type › Headings",
+      "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1222,
-        "in": "effectsBody"
+        "line": 1961,
+        "in": "level3"
       },
-      "changesPage": "Effects",
+      "changesPage": "Type › Headings",
       "attrs": [
         "data-sub-colour"
       ],
@@ -2389,14 +2322,14 @@
       "attr": "data-opening",
       "means": "The article's first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave's page only.",
       "label": "Opening sentence",
-      "page": "Effects",
-      "level": 17,
+      "page": "Type › Reading text",
+      "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1222,
-        "in": "effectsBody"
+        "line": 1954,
+        "in": "level3"
       },
-      "changesPage": "Effects",
+      "changesPage": "Type › Reading text",
       "attrs": [
         "data-opening"
       ],
@@ -2418,14 +2351,14 @@
       "attr": "data-wide-figures",
       "means": "The pictures in the article's text as wide as the wide top picture, centred on the column, with more air around them: off (the rest) or on. Architrave's page only.",
       "label": "Wide pictures in the text",
-      "page": "Effects",
-      "level": 17,
+      "page": "Pictures",
+      "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1222,
-        "in": "effectsBody"
+        "line": 1226,
+        "in": "picturesBody"
       },
-      "changesPage": "Effects",
+      "changesPage": "Pictures",
       "attrs": [
         "data-wide-figures"
       ],
@@ -2459,7 +2392,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1202,
+        "line": 1200,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2498,7 +2431,7 @@
       "level": 15,
       "row": {
         "drawn": "slider",
-        "line": 1210,
+        "line": 1208,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2510,47 +2443,6 @@
       ],
       "rest": {
         "data-fill": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "grainlevel",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10"
-      ],
-      "def": "4",
-      "attr": "data-grain-level",
-      "prop": "--grain-level",
-      "means": "Strength of the grain, 1 to 10. 4 is the rest. Only with grain.",
-      "label": "Grain strength",
-      "page": "Effects",
-      "level": 17,
-      "row": {
-        "drawn": "slider",
-        "line": 1219,
-        "in": "effectsBody"
-      },
-      "changesPage": "Effects",
-      "attrs": [
-        "data-grain-level"
-      ],
-      "props": [
-        "--grain-level"
-      ],
-      "rest": {
-        "data-grain-level": false
       },
       "inStandardAtRest": false
     },
@@ -2578,7 +2470,7 @@
       "level": 4,
       "row": {
         "drawn": "slider",
-        "line": 1250,
+        "line": 1242,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2709,7 +2601,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1205,
+        "line": 1203,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2739,7 +2631,7 @@
       "level": 15,
       "row": {
         "drawn": "pop-up",
-        "line": 1195,
+        "line": 1193,
         "in": "shapeBody"
       },
       "changesPage": "Corners and lines",
@@ -2768,7 +2660,7 @@
       "level": 14,
       "row": {
         "drawn": "pop-up",
-        "line": 1179,
+        "line": 1177,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2802,7 +2694,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up",
-        "line": 1254,
+        "line": 1246,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -2831,7 +2723,7 @@
       "level": 16,
       "row": {
         "drawn": "pop-up",
-        "line": 1131,
+        "line": 1129,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2867,7 +2759,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1184,
+        "line": 1182,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2903,7 +2795,7 @@
       "level": 14,
       "row": {
         "drawn": "slider",
-        "line": 1174,
+        "line": 1172,
         "in": "layoutBody"
       },
       "changesPage": "Layout",
@@ -2940,7 +2832,7 @@
       "level": 16,
       "row": {
         "drawn": "slider",
-        "line": 1131,
+        "line": 1129,
         "in": "pictureRows"
       },
       "changesPage": "Pictures",
@@ -2967,7 +2859,7 @@
       "level": 4,
       "row": {
         "drawn": "switch",
-        "line": 2086,
+        "line": 2080,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -3224,7 +3116,7 @@
       "level": 3,
       "row": {
         "drawn": "list",
-        "line": 1549,
+        "line": 1541,
         "in": "fontRow"
       },
       "changesPage": "Type › {role}",
@@ -3326,7 +3218,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1583,
+        "line": 1575,
         "in": "weightRow"
       },
       "changesPage": "Type › {role}",
@@ -3467,7 +3359,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1624,
+        "line": 1616,
         "in": "sizeBlock"
       },
       "changesPage": "Type › {role}",
@@ -3557,7 +3449,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1942,
+        "line": 1934,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -3639,7 +3531,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1943,
+        "line": 1935,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -3691,7 +3583,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1570,
+        "line": 1562,
         "in": "capsRow"
       },
       "changesPage": "Type › {role}",
@@ -3758,7 +3650,7 @@
       "level": 3,
       "row": {
         "drawn": "switch",
-        "line": 1566,
+        "line": 1558,
         "in": "italicRow"
       },
       "changesPage": "Type › {role}",
@@ -3825,7 +3717,7 @@
       "level": 3,
       "row": {
         "drawn": "slider",
-        "line": 1929,
+        "line": 1921,
         "in": "level3"
       },
       "changesPage": "Type › {role}",
@@ -3868,7 +3760,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1595,
+        "line": 1587,
         "in": "switchRows"
       },
       "changesPage": "Type › {role}",
@@ -3906,7 +3798,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up",
-        "line": 1589,
+        "line": 1581,
         "in": "colourRow"
       },
       "changesPage": "Type › {role}",
@@ -4029,7 +3921,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1843,
+        "line": 1835,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -4109,7 +4001,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1844,
+        "line": 1836,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -4173,7 +4065,7 @@
       "level": 11,
       "row": {
         "drawn": "switch + switch",
-        "line": 1784,
+        "line": 1776,
         "in": "OWN_WORD"
       },
       "changesPage": "Type › {role}",
@@ -4270,7 +4162,7 @@
       "level": 11,
       "row": {
         "drawn": "slider",
-        "line": 1845,
+        "line": 1837,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -4334,7 +4226,7 @@
       "level": 11,
       "row": {
         "drawn": "pop-up",
-        "line": 1841,
+        "line": 1833,
         "in": "level11"
       },
       "changesPage": "Type › {role}",
@@ -4370,7 +4262,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2143,
+        "line": 2137,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -4397,7 +4289,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2144,
+        "line": 2138,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -4424,7 +4316,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2145,
+        "line": 2139,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -4459,7 +4351,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1271,
+        "line": 1263,
         "in": "colourMore"
       },
       "changesPage": "Colour",
@@ -4490,7 +4382,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1593,
+        "line": 1585,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -4521,7 +4413,7 @@
       "level": 3,
       "row": {
         "drawn": "pop-up item",
-        "line": 1593,
+        "line": 1585,
         "in": "colourMenu"
       },
       "changesPage": "Colour",
@@ -4552,7 +4444,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2151,
+        "line": 2145,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -4583,7 +4475,7 @@
       "level": 4,
       "row": {
         "drawn": "well",
-        "line": 2152,
+        "line": 2146,
         "in": "level4"
       },
       "changesPage": "Colour",
@@ -4610,7 +4502,7 @@
       "level": 4,
       "row": {
         "drawn": "pop-up item",
-        "line": 1256,
+        "line": 1248,
         "in": "colourMore"
       },
       "changesPage": "Colour",
