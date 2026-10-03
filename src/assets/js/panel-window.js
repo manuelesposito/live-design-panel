@@ -56,7 +56,7 @@
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { links: 'Links' }; /* rows the current window draws without a label of the list's */
 	/* THE LAB'S WORDS for rows the list names otherwise (lab/panel-settings.js, 2026-09-28): the new window says what the lab says */
-	var LAB_LABEL = { pictureFilter: 'Picture look', colourOnHover: 'Colour on hover', dimInDark: 'Dim in dark appearance', pictureFrame: 'Frame', frameWidth: 'Frame width', pictureFade: 'Fade first picture', pictureShadow: 'Picture shadow', pictureCorners: 'Picture corners', buttonColour: 'Colour', radius: 'Corners', borderWidth: 'Lines', borderStyle: 'Line style', borderStrength: 'Line strength', fill: 'Fills', lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonShape: 'Corners', primaryButton: 'Strong', secondaryButton: 'Medium', tertiaryButton: 'Quiet', tagsMatchButtons: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
+	var LAB_LABEL = { currentItem: 'Chosen item', pictureFilter: 'Picture look', colourOnHover: 'Colour on hover', dimInDark: 'Dim in dark appearance', pictureFrame: 'Frame', frameWidth: 'Frame width', pictureFade: 'Fade first picture', pictureShadow: 'Picture shadow', pictureCorners: 'Picture corners', buttonColour: 'Colour', radius: 'Corners', borderWidth: 'Lines', borderStyle: 'Line style', borderStrength: 'Line strength', fill: 'Fills', lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonShape: 'Corners', primaryButton: 'Strong', secondaryButton: 'Medium', tertiaryButton: 'Quiet', tagsMatchButtons: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 
 	/* THE SYMBOLS are Lucide's (ISC licence, lucide.dev), as the prototype's: 18 px on a
@@ -305,7 +305,7 @@
 	var FACE_GROUPS = [['sans', 'Sans Serif'], ['serif', 'Serif'], ['mono', 'Monospaced'], ['pixel', 'Pixel'], ['display', 'Display']]; /* the lab's names */
 	var FOLLOW = { body: 'Same as reading text', 'interface': 'Same as interface' };
 	/* the article from the top down, then the site's furniture */
-	var ROLE_GROUPS = [['Article', ['title', 'headings', 'body', 'quote', 'meta', 'code']], ['Site', ['interface']]];
+	var ROLE_GROUPS = [['Text', ['title', 'headings', 'body', 'quote', 'meta', 'code', 'interface']]]; /* ONE SECTION (0.30.1, Manuel: "I'm not sure if we need a whole new section for just one thing"): Site held Interface alone */
 	function roles() { return (host && host.settings && host.settings.roles) || []; }
 	function roleMeta(id) { return roles().filter(function (r) { return r.id === id; })[0] || { id: id, label: id, dials: [] }; }
 	function weightWord(w) { return t(WEIGHT_LABEL[w] || w); }
@@ -1009,9 +1009,10 @@
 			(auto ? '' : row(t('Size'), seg('bsize', bt.size, BTN_ORDER.size.map(function (id) { return [id, t(BTN_WORD.size[id])]; }), t('Size'))) + bPop('show', 'Show', bt) + bPop('corners', 'Corners', bt) + bPop('color', 'Colour', bt)) +
 			bPop('glyph', 'Icon', bt) + (inMenu || bt.show !== 'icon' ? nameRow(bt) : '') +
 			navRow('data-act="settings" data-f="act:aurora"', t('Aurora'), aur));
-		out += gtitle(t('Who Sees the Button')) + box(row(t('Show to'), seg('who', bt.who, [['everyone', t('Everyone')], ['me', t('Only me')]], t('Who sees the button'))));
-		var sharing = gtitle(t('Sharing')) + box(row(t('Allow readers to copy styles'), '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + s.readersCopy() + '" data-copyon data-f="copyon" aria-label="' + esc(t('Allow readers to copy styles')) + '"></button>'));
-		out += sharing + previewLinks();
+		/* VISITORS (0.30.1): who sees the button and whether readers may copy were two sections of one row each */
+		out += gtitle(t('Visitors')) + box(row(t('Show to'), seg('who', bt.who, [['everyone', t('Everyone')], ['me', t('Only me')]], t('Who sees the button'))) +
+			row(t('Allow readers to copy styles'), '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + s.readersCopy() + '" data-copyon data-f="copyon" aria-label="' + esc(t('Allow readers to copy styles')) + '"></button>'));
+		out += previewLinks();
 		return out;
 	}
 	/* A SITE SETTING SHOWS AT ONCE (2026-09-28): the engine takes it before the server answers, so the window is drawn
