@@ -113,6 +113,13 @@
 		return '<div class="ldpw-seg" role="radiogroup" aria-label="' + esc(lb) + '" style="--n:' + opts.length + ';--i:' + i + '"><span class="ldpw-ind" aria-hidden="true"></span>' +
 			opts.map(function (o) { var on = o[0] === value; return '<button type="button" role="radio" aria-checked="' + on + '" tabindex="' + (on ? 0 : -1) + '"' + (on ? ' class="is-on"' : '') + ' data-seg="' + name + '" data-v="' + o[0] + '" data-f="seg:' + name + ':' + o[0] + '">' + esc(o[1]) + '</button>'; }).join('') + '</div>';
 	}
+	function sidePicks(name, value) {
+		return '<div class="ldpw-rlooks" role="radiogroup" aria-label="' + esc(t('Appearance')) + '">' + [['auto', t('Automatic')], ['light', t('Light')], ['dark', t('Dark')]].map(function (o) {
+			var on = o[0] === value;
+			return '<button type="button" class="ldpw-rlook' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" tabindex="' + (on ? 0 : -1) + '" data-seg="' + name + '" data-v="' + o[0] + '" data-f="seg:' + name + ':' + o[0] + '">' +
+				'<span class="ldpw-rpic is-' + o[0] + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>' + esc(o[1]) + '</span><span class="ldpw-rtick" aria-hidden="true"></span></button>';
+		}).join('') + '</div>';
+	}
 	function slider(key, unit) {
 		var x = setting(key) || {}, steps = x.steps || [], v = String(St().get(key)), i = Math.max(0, steps.indexOf(v)), n = steps.length - 1;
 		var ticks = steps.map(function (s, j) { return n > 12 && s !== String(x.def) ? '' : '<i' + (s === String(x.def) ? ' class="is-def"' : '') + ' style="--f:' + (n ? j / n : 0) + '"></i>'; }).join(''); 
@@ -168,15 +175,16 @@
 		return (hue >= 15 && hue < 75) || hue >= 330 ? 'warm' : 'cool';
 	}
 	var customView = null; 
+	var viewWant = null; 
 	function colourPage() {
 		var s = St(), side = s.side();
-		var viewBox = box(row(t('Appearance'), seg('view', s.view(), [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')),
-				esc(t(side === 'dark' ? 'You are looking at the dark side. The style holds both; readers choose their own.' : 'You are looking at the light side. The style holds both; readers choose their own.'))) +
-			(s.editable() ? row(label('unlinked'), sw('unlinked', !s.get('unlinked'), label('unlinked')), esc(t('Night is worked out from day'))) : ''));
+		var viewBox = gtitle(t('Appearance')) + box(sidePicks('view', viewWant || s.view()) +
+				(s.editable() ? row(label('unlinked'), sw('unlinked', !s.get('unlinked'), label('unlinked')), esc(t('Night is worked out from day'))) : '')) +
+			'<p class="ldpw-hint">' + esc(t(side === 'dark' ? 'You are looking at the dark side. The style holds both; readers choose their own.' : 'You are looking at the light side. The style holds both; readers choose their own.')) + '</p>';
 		if (!s.editable()) {
 			return viewBox + box('<div class="ldpw-note"><p>' + esc(t('Original is the theme as it comes, and stays that way. Make a copy to change its colours.')) + '</p><button type="button" class="ldpw-blue" data-act="copy" data-f="act:copy">' + esc(t('Make a Copy')) + '</button></div>');
 		}
-		var out = '';
+		var out = viewBox;
 		var tile = function (p) {
 			return '<button type="button" class="ldpw-tile' + (p.on ? ' is-on' : '') + '" role="radio" aria-checked="' + !!p.on + '" data-preset="' + esc(p.id) + '" data-f="preset:' + esc(p.id) + '">' +
 				'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(titled(p.label)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(titled(p.label))) + '</span></button>';
@@ -192,7 +200,7 @@
 		if (s.groundNudged && s.groundNudged()) ground += ' · ' + t('Drawn a shade further, so its words read');
 		out += gtitle(t('Colours')) + box(wellRow('colours.{side}.background', esc(t('Where the text sits'))) + wellRow('colours.{side}.background2', esc(ground)) + wellRow('colours.{side}.card', esc(t('Menus, boxes and fields'))) +
 			wellRow('colours.{side}.text', q ? esc(readable(q)) : '') + wellRow('colours.{side}.mutedText', esc(t('Dates, captions, small facts'))) + wellRow('colours.{side}.accent', esc(t('Links and main buttons'))) + highlightRow());
-		return out + viewBox;
+		return out;
 	}
 	
 	var MI = { sidebar:'<rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M9 3v18" />', solo:'<rect x="2" y="4" width="20" height="16" rx="2" /> <path d="M10 4v4" /> <path d="M2 8h20" /> <path d="M6 4v4" />', changes:'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M9 10h6" /> <path d="M12 13V7" /> <path d="M9 17h6" />', versions:'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> <path d="M12 7v5l4 2" />', share:'<path d="M12 2v13" /> <path d="m16 6-4-4-4 4" /> <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />', cmd:'<path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />', reader:'<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" />' };
@@ -1341,7 +1349,7 @@
 		var dots = '<span class="ldpw-dots" role="radiogroup" aria-label="' + esc(t('Accent colour')) + '">' + Object.keys(ACCENT).map(function (k) { var on = prefs.accent === k; return '<button type="button" class="ldpw-dotc' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-accent="' + k + '" data-f="accent:' + k + '" style="--c:' + accentHex(k) + '" aria-label="' + esc(t(ACCENT[k][0])) + '" title="' + esc(t(ACCENT[k][0])) + '"></button>'; }).join('') + '</span>';
 		var psw = function (k, on, lb) { return '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + !!on + '" data-pref="' + k + '" data-f="pref:' + k + '" aria-label="' + esc(lb) + '"></button>'; };
 		return '<p class="ldpw-hint">' + esc(t('Only for you, on this computer. Readers never see these.')) + '</p>' +
-			gtitle(t('Window')) + box(row(t('Appearance'), seg('plook', prefs.look, [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')), prefs.look === 'auto' ? esc(t('Follows your computer')) : '') +
+			gtitle(t('Window')) + box(sidePicks('plook', prefs.look) +
 				row(t('Glass'), psw('glass', prefs.glass, t('Glass')), esc(t('The page shows softly through the window'))) +
 				row(t('Accent colour'), dots) +
 				row(t('Reduce motion'), psw('motion', prefs.motion === 'reduced', t('Reduce motion')))) +
@@ -1465,11 +1473,7 @@
 		var stepper = '<div class="ldpw-box ldpw-rsize"><div class="ldpw-cap"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +
 			'<button type="button" class="is-big" data-rsize="1" data-f="rsize:1" aria-label="' + esc(t('Larger')) + '"' + (at >= ids.length - 1 ? ' disabled' : '') + '>A</button></div>' +
 			'<span class="ldpw-rdots" aria-hidden="true">' + ids.map(function (id, i) { return '<i' + (i === at ? ' class="is-on"' : '') + '></i>'; }).join('') + '</span></div>';
-		var side = r.side(), looks = '<div class="ldpw-box ldpw-rlooks" role="radiogroup" aria-label="' + esc(t('Appearance')) + '">' + [['auto', t('Automatic')], ['light', t('Light')], ['dark', t('Dark')]].map(function (o) {
-			var on = o[0] === side;
-			return '<button type="button" class="ldpw-rlook' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" tabindex="' + (on ? 0 : -1) + '" data-seg="rside" data-v="' + o[0] + '" data-f="seg:rside:' + o[0] + '">' +
-				'<span class="ldpw-rpic is-' + o[0] + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>' + esc(o[1]) + '</span><span class="ldpw-rtick" aria-hidden="true"></span></button>';
-		}).join('') + '</div>';
+		var looks = box(sidePicks('rside', r.side()));
 		var shut = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>';
 		var pv = !!r.preview;
 		return '<div class="ldpw-detail"><div class="ldpw-bar">' + (phone() ? '' : shut) +
@@ -2003,7 +2007,7 @@
 		if (act === 'current') { var id = b.getAttribute('data-sec'); hide(true); host.openCurrent(id); return; }
 		if (b.hasAttribute('data-seg')) {
 			var sg = b.getAttribute('data-seg'), v = b.getAttribute('data-v');
-			if (sg === 'view') s.setView(v); else if (sg === 'custom') {  if (v === 'on') customView = s.current(); else { customView = null; if (s.custom()) s.setCustom(false); } }
+			if (sg === 'view') { s.setView(v); viewWant = v; setTimeout(function () { viewWant = null; if (open) render(); }, 600); }  else if (sg === 'custom') {  if (v === 'on') customView = s.current(); else { customView = null; if (s.custom()) s.setCustom(false); } }
 			else if (sg === 'who') { btnWrite(s.setButton('who', v), '[data-seg="who"][data-v="' + v + '"]'); return; }
 			else if (sg === 'bsize') { btnWrite(s.setButton('size', v), '[data-seg="bsize"][data-v="' + v + '"]'); return; }
 			else if (sg === 'plook') { prefs.look = v; savePrefs(); }
