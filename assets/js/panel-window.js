@@ -1462,16 +1462,21 @@
 				'<span class="ldpw-nm">' + esc(t(x.label)) + (id === def ? ' <em class="ldpw-def">' + esc(t('Default')) + '</em>' : '') + '</span>' + 
 			'</button></div>';
 		}).join('');
-		var stepper = '<span class="ldpw-aa"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +
-			'<span class="ldpw-rdots" aria-hidden="true">' + ids.map(function (id, i) { return '<i' + (i === at ? ' class="is-on"' : '') + '></i>'; }).join('') + '</span>' +
-			'<button type="button" class="is-big" data-rsize="1" data-f="rsize:1" aria-label="' + esc(t('Larger')) + '"' + (at >= ids.length - 1 ? ' disabled' : '') + '>A</button></span>';
+		var stepper = '<div class="ldpw-box ldpw-rsize"><div class="ldpw-cap"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +
+			'<button type="button" class="is-big" data-rsize="1" data-f="rsize:1" aria-label="' + esc(t('Larger')) + '"' + (at >= ids.length - 1 ? ' disabled' : '') + '>A</button></div>' +
+			'<span class="ldpw-rdots" aria-hidden="true">' + ids.map(function (id, i) { return '<i' + (i === at ? ' class="is-on"' : '') + '></i>'; }).join('') + '</span></div>';
+		var side = r.side(), looks = '<div class="ldpw-box ldpw-rlooks" role="radiogroup" aria-label="' + esc(t('Appearance')) + '">' + [['auto', t('Automatic')], ['light', t('Light')], ['dark', t('Dark')]].map(function (o) {
+			var on = o[0] === side;
+			return '<button type="button" class="ldpw-rlook' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" tabindex="' + (on ? 0 : -1) + '" data-seg="rside" data-v="' + o[0] + '" data-f="seg:rside:' + o[0] + '">' +
+				'<span class="ldpw-rpic is-' + o[0] + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>' + esc(o[1]) + '</span><span class="ldpw-rtick" aria-hidden="true"></span></button>';
+		}).join('') + '</div>';
 		var shut = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>';
 		var pv = !!r.preview;
 		return '<div class="ldpw-detail"><div class="ldpw-bar">' + (phone() ? '' : shut) +
 				'<div class="ldpw-ttl"><b id="ldpw-title">' + esc(t('Live Design')) + '</b>' + (pv ? '<small>' + esc(t('Preview as Reader')) + '</small>' : '') + '</div>' +
 				(pv ? '<button type="button" class="ldpw-blue" data-act="endpreview" data-f="act:endpreview">' + esc(t('Done')) + '</button>' : '') + (phone() ? shut : '') + '</div>' + 
 			'<div class="ldpw-scroll">' +
-				box(row(t('Text size'), stepper) + row(t('Appearance'), seg('rside', r.side(), [['auto', t('Auto')], ['light', t('Light')], ['dark', t('Dark')]], t('Appearance')))) +
+				gtitle(t('Text size')) + stepper + gtitle(t('Appearance')) + looks +
 				(list.length > 1 ? '<div class="ldpw-tiles ldpw-styles" role="radiogroup" aria-label="' + esc(t('Styles')) + '">' + tiles + '</div>' : '') +
 				(r.canCopy() ? box('<button type="button" class="ldpw-r ldpw-rlink" data-rcopy data-f="rcopy">' + esc(t(readerCopied ? 'Style Copied' : 'Copy Style')) + '</button>') : '') +
 				(pv ? '<p class="ldpw-hint">' + esc(t('What a visitor sees: the site default first, no styles of your own, no unsaved changes. It closes when they click the page.')) + '</p>' : '') +
@@ -1872,7 +1877,7 @@
 		if (!ready) { asking = false; phoneList = true; editing = null; menu = null; }
 		open = true; sound('open');
 		sheetStay(); win.hidden = false; zoomPage();
-		if (ready) { var f0 = win.querySelector('.ldpw-nav.is-on, .ldpw-nav'); if (f0) f0.focus({ preventScroll: true }); } else render('.ldpw-nav.is-on, .ldpw-nav');
+		if (ready) { var f0 = win.querySelector('.ldpw-nav.is-on, .ldpw-nav'); if (f0) f0.focus({ preventScroll: true, focusVisible: false }); }  else render('.ldpw-nav.is-on, .ldpw-nav');
 		place();
 		var morphs = morph.can(); if (morphs) morph.open(); 
 		setTimeout(lap, morphs ? 420 : 160); 
