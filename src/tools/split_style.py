@@ -61,7 +61,8 @@ def _from_list() -> tuple[dict[str, str], set[str]]:
     marks += [(a, "ABSENT", {}) for a in keys.get("absent") or []]
     for attr, status, values in marks:
         if status == "REST":
-            rest[attr] = values[attr]
+            if attr in values:  # a role's font names data-sans at rest; its value is the engine's stamp (0.26.0)
+                rest[attr] = values[attr]
         elif status == "ABSENT":
             absent.add(attr)
     return rest, absent

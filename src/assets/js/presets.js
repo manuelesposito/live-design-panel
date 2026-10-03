@@ -276,16 +276,29 @@
 	   five words every role takes (tight, snug, normal, relaxed, loose), and no longer as the top-level
 	   `leading` of fifteen steps. The engine keeps its dial (data-leading, the first paint) on the five
 	   steps the words stand for; an old step goes to the nearest of them. A record that names no line
-	   spacing is the theme's own; a tweak that names none leaves the style's. Self-contained, as liftType. */
+	   spacing is the theme's own; a tweak that names none leaves the style's. Self-contained, as liftType.
+	   AND THE TWO FONTS (0.26.0): `roles.body.font` and `roles.interface.font`, as every role names its
+	   font, onto the engine's own `face` and `sans` (the first paint reads those). A font that only names
+	   the other role (body, interface) has no font of its own to give and is left out. */
 	function liftLeading(rec, whole) {
 		if (!rec || typeof rec !== 'object') return rec;
 		var NEAR = { solid: 'dense', packed: 'dense', close: 'dense', densest: 'dense', snug: 'default', relaxed: 'airy', wider: 'airy', open: 'wide', loose: 'wide', loosest: 'wide' };
 		var STEP = { tight: 'dense', snug: 'tight', normal: 'default', relaxed: 'airy', loose: 'wide' };
-		var body = rec.roles && typeof rec.roles === 'object' && rec.roles.body && typeof rec.roles.body === 'object' ? rec.roles.body : null;
+		var R = rec.roles && typeof rec.roles === 'object' ? rec.roles : null;
+		var own = function (role) { return R && R[role] && typeof R[role] === 'object' ? R[role] : null; };
+		var done = function (role) { if (!Object.keys(R[role]).length) delete R[role]; };
+		var body = own('body'), ui = own('interface');
 		if (body && body.lineHeight !== undefined) {
 			if (STEP[body.lineHeight]) rec.leading = STEP[body.lineHeight];
-			delete body.lineHeight;
-			if (!Object.keys(body).length) delete rec.roles.body;
+			delete body.lineHeight; done('body');
+		}
+		if (body && body.font !== undefined) {
+			if (typeof body.font === 'string' && body.font && body.font !== 'body' && body.font !== 'interface') rec.face = body.font;
+			delete body.font; done('body');
+		}
+		if (ui && ui.font !== undefined) {
+			if (typeof ui.font === 'string' && ui.font && ui.font !== 'body' && ui.font !== 'interface') rec.sans = ui.font;
+			delete ui.font; done('interface');
 		}
 		if (rec.leading !== undefined && NEAR[rec.leading]) rec.leading = NEAR[rec.leading];
 		if (rec.leading === undefined && whole) rec.leading = 'default';
@@ -527,7 +540,7 @@
 	/* >>> THE LIST'S TABLES, GENERATED (tools/settings-list.mjs, from plugin/settings.json) */
 	/* Do not edit between the markers: change plugin/settings.json and run `node tools/settings-list.mjs`,
 	   which writes this block and then the list again from the running code; --check fails when they part. */
-	var DIALS = ['palette', 'leading', 'reading', 'face'];
+	var DIALS = ['palette', 'leading', 'face', 'reading'];
 	var OPTS = ['justify', 'dropcap', 'alternates', 'widehead', 'widepicture', 'rounded', 'lines', 'hairlines', 'fills', 'tagsfollow', 'picturehover', 'picturedim', 'pictureframe', 'picturefade'];
 	var TINTS = ['purple', 'brown', 'green', 'blue', 'orange'];
 	var SCOPE = ['article', 'all'];
@@ -622,7 +635,7 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own', 'muted'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'reading', 'face', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'sans', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'reading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { scope: SCOPE, capLines: ['2', '3', '4'], borderStyle: LINE_STYLE },
 		wells: ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight', 'button', 'title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'],
 		meaning: {
@@ -631,8 +644,6 @@
 			base: 'The built-in style this record starts from; every key left out rests on it. See examples for what each base is.',
 			palette: 'Retired 2026-10-03 and still read: a pair other than neutral is written out as its background and text on both sides.',
 			reading: 'The reading size step of the article, a fluid rung and not a pixel value; default is about 22px on a desktop. Do not set a size for a monospaced reading face, its phone floor is handled by the theme.',
-			face: 'The font of the article body.',
-			sans: 'The font of the interface: the rail, buttons, menus.',
 			justify: 'Justified paragraphs with hyphenation.',
 			dropcap: 'A large initial on the first paragraph; capLines is its height in lines.',
 			capLines: 'Height of the initial in lines. Only with dropcap.',
@@ -719,7 +730,7 @@
 			scope: 'Legacy. The theme always applies paragraph settings everywhere.',
 			unlinked: 'true when the light and dark colours were set independently; false lets one side follow the other.',
 			effects: 'The extras\' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect\'s own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.',
-			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li); its font is the record\'s face. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record\'s sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.',
+			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li). quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.',
 			colours: 'Seven colours per side, named for their job, as hex: background (Paper: the page the text sits on), background2 (Ground: the space around the page and the rails, a theme\'s second background), card (Cards: menus, boxes, fields standing on the page), text, mutedText (Soft text: dates, captions, small facts), accent (the brand colour: links and the main buttons) and highlight (the highlighter\'s colour; left out, none). Beside them the button\'s own colour and each type role\'s own (title, headings, body, quote, meta, interface, code), used with button own and roles.<role>.colour own. Leave out what you do not need: the rest is mixed from background and text. text on background must reach 4.5:1 and accent on background 3:1 on both sides. A background2 on the other side of its background (dark around a light page, light around a dark one) is a dark ground, worn around the page on wide screens with its own words, lines and links. Older records name paper, ink, ground, lift and marker; they are read as these. primary, foreground and muted-foreground are read as accent, text and mutedText.'
 		}
 	};
@@ -3650,12 +3661,13 @@
 		schema: function () {
 			var faces = (window.ArchitraveFaces || []).map(function (f) { return f.id; });
 			/* THE SEVEN (2026-10-02): every role the same dials, the steps by name; body's font
-			   is `face`, the interface's font is `sans`; the body's line spacing is its own lineHeight since 2026-10-03. */
+			   and line spacing and the interface's font are their roles' own since 0.25.0 and 0.26.0; the engine
+			   keeps them as `face`, `leading` and `sans` (liftLeading). */
 			var roles = {};
 			TYPE_ROLES.forEach(function (r) {
 				var o = {};
-				(r === 'body' ? TYPE_DIALS[r].slice(0, 2).concat('lineHeight', TYPE_DIALS[r].slice(2)) : TYPE_DIALS[r]).forEach(function (d) {
-					o[d] = d === 'font' ? (r === 'code' ? [] : ['body', 'interface']).concat(Object.keys(FAMILY)) : d === 'size' ? TYPE_SIZES : d === 'weight' ? Object.keys(WEIGHT) : d === 'lineHeight' ? Object.keys(TYPE_LINE) : d === 'letterSpacing' ? Object.keys(TYPE_LETTER) : d === 'align' ? ALIGNS : d === 'colour' ? TYPE_COLOURS : 'boolean';
+				(r === 'body' ? ['font'].concat(TYPE_DIALS[r].slice(0, 2), 'lineHeight', TYPE_DIALS[r].slice(2)) : r === 'interface' ? ['font'].concat(TYPE_DIALS[r]) : TYPE_DIALS[r]).forEach(function (d) {
+					o[d] = d === 'font' && r === 'body' ? faces : d === 'font' && r === 'interface' ? SANS.map(function (x) { return x.id; }) : d === 'font' ? (r === 'code' ? [] : ['body', 'interface']).concat(Object.keys(FAMILY)) : d === 'size' ? TYPE_SIZES : d === 'weight' ? Object.keys(WEIGHT) : d === 'lineHeight' ? Object.keys(TYPE_LINE) : d === 'letterSpacing' ? Object.keys(TYPE_LETTER) : d === 'align' ? ALIGNS : d === 'colour' ? TYPE_COLOURS : 'boolean';
 				});
 				roles[r] = o;
 			});
@@ -3669,8 +3681,6 @@
 				base: STYLES.filter(function (x) { return !x.own && !x.site; }).map(function (x) { return x.id; }),
 				palette: Modes && Modes.palettes ? Modes.palettes.map(function (p) { return p.id; }) : [],
 				reading: window.QuireReading ? window.QuireReading.ids : [],
-				face: faces,
-				sans: SANS.map(function (x) { return x.id; }),
 				lineLength: LAYOUT.lineLength.list, titleWidth: LAYOUT.titleWidth.list, pictureWidth: LAYOUT.pictureWidth.list, figureWidth: LAYOUT.figureWidth.list,
 				pictureFilter: LAYOUT.pictureFilter.list, colourOnHover: 'boolean', dimInDark: 'boolean', pictureFrame: LAYOUT.pictureFrame.list, frameWidth: LAYOUT.frameWidth.list, pictureFade: LAYOUT.pictureFade.list, pictureShadow: LAYOUT.pictureShadow.list, pictureCorners: LAYOUT.pictureCorners.list,
 				buttonColour: LAYOUT.buttonColour.list, buttonShape: LAYOUT.buttonShape.list, primaryButton: LAYOUT.primaryButton.list, secondaryButton: LAYOUT.secondaryButton.list, tertiaryButton: LAYOUT.tertiaryButton.list, tagsMatchButtons: 'boolean', currentItem: LAYOUT.currentItem.list,
@@ -4079,6 +4089,10 @@
 			var lhOut = { dense: 'tight', tight: 'snug', airy: 'relaxed', wide: 'loose' }[out.leading];
 			delete out.leading;
 			if (lhOut) { out.roles.body = out.roles.body || {}; out.roles.body.lineHeight = lhOut; }
+			/* and the two fonts under their roles (0.26.0), named as every role names its font */
+			if (out.face) { out.roles.body = out.roles.body || {}; out.roles.body.font = out.face; }
+			if (out.sans) { out.roles['interface'] = out.roles['interface'] || {}; out.roles['interface'].font = out.sans; }
+			delete out.face; delete out.sans;
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
 			var c = coloursOf(null, true); out.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = publicSide(c[side]); });
