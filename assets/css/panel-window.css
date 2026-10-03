@@ -580,31 +580,20 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 	#ldp-window[data-glass]:not([data-ui="dark"]) { --ldpw-bg: rgb(246 246 248 / .8); --ldpw-side: rgb(255 255 255 / .32); --ldpw-row: rgb(255 255 255 / .78); --ldpw-row2: rgb(118 118 128 / .16); --ldpw-soft: #5c5c61; --ldpw-menu: rgb(250 250 252 / .86); --ldpw-hover: rgb(118 118 128 / .2); --ldpw-press: rgb(118 118 128 / .32); }
 }
 #ldp-window[data-glass][data-ui="light"] { --ldpw-bg: rgb(246 246 248 / .8); --ldpw-side: rgb(255 255 255 / .32); --ldpw-row: rgb(255 255 255 / .78); --ldpw-row2: rgb(118 118 128 / .16); --ldpw-soft: #5c5c61; --ldpw-menu: rgb(250 250 252 / .86); --ldpw-hover: rgb(118 118 128 / .2); --ldpw-press: rgb(118 118 128 / .32); }
-#ldp-window .ldpw-nav:not(.is-on):hover { background: var(--ldpw-hover); }
 #ldp-window .ldpw-nav:not(.is-on):active { background: var(--ldpw-press); }
-#ldp-window .ldpw-navrow:hover:not(:disabled) { background: var(--ldpw-hover); }
 #ldp-window .ldpw-navrow:active:not(:disabled) { background: var(--ldpw-press); }
-#ldp-window .ldpw-sqhit:hover, #ldp-window .ldpw-ttlmenu:hover { background: var(--ldpw-hover); }
 #ldp-window .ldpw-closer { width: 24px; height: 24px; border-radius: 12px; background: var(--ldpw-fill); color: var(--ldpw-soft); transition: background-color .15s, color .15s, transform .12s; }
 #ldp-window .ldpw-closer svg { width: 11px; height: 11px; stroke-width: 2.6; }
-#ldp-window .ldpw-closer:hover { background: var(--ldpw-press); color: var(--ldpw-ink); }
 #ldp-window .ldpw-closer:active { transform: scale(.92); }
 #ldp-window .ldpw-circ:not(.is-aim) { background: none; }
-#ldp-window .ldpw-circ.ldpw-circ:not(.is-aim):hover:not(:disabled) { background: var(--ldpw-hover); }
 #ldp-window .ldpw-circ.ldpw-circ:not(.is-aim):active:not(:disabled) { background: var(--ldpw-press); }
 #ldp-window .ldpw-circ:disabled { opacity: .3; }
 #ldp-window .ldpw-seg { background: var(--ldpw-fill); border-radius: 8px; }
 #ldp-window .ldpw-ind { background: var(--ldpw-chip); border-radius: 6px; box-shadow: 0 1px 3px rgb(0 0 0 / .14), 0 0 0 .5px rgb(0 0 0 / .06); }
 #ldp-window .ldpw-seg button { color: var(--ldpw-ink); border-radius: 6px; }
 #ldp-window .ldpw-seg button.is-on { font-weight: 600; }
-#ldp-window .ldpw-seg button:not(.is-on):hover { background: var(--ldpw-hover); }
 #ldp-window .ldpw-sw { background: var(--ldpw-track); }
 #ldp-window .ldpw-pop { padding: 4px 6px 4px 10px; margin-right: -6px; border-radius: 6px; }
-#ldp-window .ldpw-pop:hover:not(:disabled) { background: var(--ldpw-hover); }
-#ldp-window .ldpw-tiles:not(.ldpw-styles) .ldpw-tile:not(.is-on):hover .ldpw-pic,
-#ldp-window .ldpw-stile:not(.is-on) .ldpw-tile:hover .ldpw-pic { box-shadow: 0 0 0 2px var(--ldpw-bg), 0 0 0 4px var(--ldpw-track); }
-#ldp-window .ldpw-lk:not(.is-on):hover .ldpw-sw8 { box-shadow: 0 0 0 2px var(--ldpw-row), 0 0 0 4px var(--ldpw-track); }
-#ldp-window .ldpw-more:hover, #ldp-window .ldpw-fold:hover { color: var(--ldpw-ink); }
 #ldp-window .ldpw-ttl b, #ldp-window .ldpw-empty-title, #ldp-window .ldpw-sheet-title { font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
 #ldp-window .ldpw-ttl small, #ldp-window .ldpw-gt, #ldp-window .ldpw-lead, #ldp-window .ldpw-mgt, #ldp-window .ldpw-lk .ldpw-nm { font-size: 12px; }
 #ldp-window .ldpw-gtitle { font-size: 13px; font-weight: 600; }
@@ -637,7 +626,6 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-cap { display: grid; grid-template-columns: 1fr 1fr; height: 44px; border-radius: 22px; background: var(--ldpw-fill); overflow: hidden; }
 #ldp-window .ldpw-cap button { display: grid; place-items: center; color: var(--ldpw-ink); font: 17px/1 Georgia, serif; transition: background-color .15s; }
 #ldp-window .ldpw-cap button.is-big { font-size: 24px; box-shadow: inset 1px 0 0 rgb(var(--ldpw-fx) / .14); }
-#ldp-window .ldpw-cap button:hover:not(:disabled) { background: var(--ldpw-hover); }
 #ldp-window .ldpw-cap button:active:not(:disabled) { background: var(--ldpw-press); }
 #ldp-window .ldpw-cap button:disabled { color: var(--ldpw-soft); opacity: .45; }
 #ldp-window .ldpw-cap button:focus-visible { outline-offset: -2px; }
@@ -654,7 +642,6 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-rpic.is-light { background: #ffffff; color: #1d1d1f; }
 #ldp-window .ldpw-rpic.is-dark { background: #1c1c1e; color: #f5f5f7; }
 #ldp-window .ldpw-rpic.is-auto { background: linear-gradient(135deg, #ffffff 50%, #1c1c1e 50%); color: #8e8e93; }
-#ldp-window .ldpw-rlook:not(.is-on):hover .ldpw-rpic { box-shadow: inset 0 0 0 1px rgb(var(--ldpw-fx) / .14), 0 0 0 3px var(--ldpw-track); }
 #ldp-window .ldpw-rtick { width: 22px; height: 22px; border-radius: 11px; box-shadow: inset 0 0 0 1.5px var(--ldpw-track); display: grid; place-items: center; }
 #ldp-window .ldpw-rlook.is-on .ldpw-rtick { background: var(--ldpw-blue); box-shadow: none; }
 #ldp-window .ldpw-rlook.is-on .ldpw-rtick::after { content: ""; width: 9px; height: 5px; border: solid #fff; border-width: 0 0 2px 2px; rotate: -45deg; translate: 0 -1px; }
@@ -663,4 +650,19 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window.is-phone .ldpw-rpic i { height: 5px; }
 #ldp-window.is-phone .ldpw-rpic i:first-child { height: 7px; }
 #ldp-window .ldpw-rlink { border-radius: 12px; }
-#ldp-window .ldpw-rlink:hover { background: var(--ldpw-hover); }
+@media (hover: hover) {
+	#ldp-window .ldpw-nav:not(.is-on):hover { background: var(--ldpw-hover); }
+	#ldp-window .ldpw-navrow:hover:not(:disabled) { background: var(--ldpw-hover); }
+	#ldp-window .ldpw-sqhit:hover, #ldp-window .ldpw-ttlmenu:hover { background: var(--ldpw-hover); }
+	#ldp-window .ldpw-closer:hover { background: var(--ldpw-press); color: var(--ldpw-ink); }
+	#ldp-window .ldpw-circ.ldpw-circ:not(.is-aim):hover:not(:disabled) { background: var(--ldpw-hover); }
+	#ldp-window .ldpw-seg button:not(.is-on):hover { background: var(--ldpw-hover); }
+	#ldp-window .ldpw-pop:hover:not(:disabled) { background: var(--ldpw-hover); }
+	#ldp-window .ldpw-tiles:not(.ldpw-styles) .ldpw-tile:not(.is-on):hover .ldpw-pic,
+	#ldp-window .ldpw-stile:not(.is-on) .ldpw-tile:hover .ldpw-pic { box-shadow: 0 0 0 2px var(--ldpw-bg), 0 0 0 4px var(--ldpw-track); }
+	#ldp-window .ldpw-lk:not(.is-on):hover .ldpw-sw8 { box-shadow: 0 0 0 2px var(--ldpw-row), 0 0 0 4px var(--ldpw-track); }
+	#ldp-window .ldpw-more:hover, #ldp-window .ldpw-fold:hover { color: var(--ldpw-ink); }
+	#ldp-window .ldpw-cap button:hover:not(:disabled) { background: var(--ldpw-hover); }
+	#ldp-window .ldpw-rlook:not(.is-on):hover .ldpw-rpic { box-shadow: inset 0 0 0 1px rgb(var(--ldpw-fx) / .14), 0 0 0 3px var(--ldpw-track); }
+	#ldp-window .ldpw-rlink:hover { background: var(--ldpw-hover); }
+}
