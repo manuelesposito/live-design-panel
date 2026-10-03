@@ -56,7 +56,7 @@
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { links: 'Links' }; /* rows the current window draws without a label of the list's */
 	/* THE LAB'S WORDS for rows the list names otherwise (lab/panel-settings.js, 2026-09-28): the new window says what the lab says */
-	var LAB_LABEL = { buttonColour: 'Colour', radius: 'Corners', borderWidth: 'Lines', borderStyle: 'Line style', borderStrength: 'Line strength', fill: 'Fills', lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonShape: 'Corners', primaryButton: 'Strong', secondaryButton: 'Medium', tertiaryButton: 'Quiet', tagsMatchButtons: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
+	var LAB_LABEL = { pictureFilter: 'Picture look', colourOnHover: 'Colour on hover', dimInDark: 'Dim in dark appearance', pictureFrame: 'Frame', frameWidth: 'Frame width', pictureFade: 'Fade first picture', pictureShadow: 'Picture shadow', pictureCorners: 'Picture corners', buttonColour: 'Colour', radius: 'Corners', borderWidth: 'Lines', borderStyle: 'Line style', borderStrength: 'Line strength', fill: 'Fills', lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonShape: 'Corners', primaryButton: 'Strong', secondaryButton: 'Medium', tertiaryButton: 'Quiet', tagsMatchButtons: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 
 	/* THE SYMBOLS are Lucide's (ISC licence, lucide.dev), as the prototype's: 18 px on a
@@ -416,6 +416,10 @@
 		fields: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
 		borderStyle: { solid: 'Solid', dashed: 'Dashed', dotted: 'Dotted' },
 		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
+		pictureFilter: { none: 'As they are', grayscale: 'Black & white', sepia: 'Sepia', tinted: 'Tinted', duotone: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
+		pictureFrame: { none: 'None', plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
+		pictureFade: { none: 'Off', bottom: 'Bottom', sides: 'Sides and bottom', all: 'All sides' },
+		pictureShadow: { none: 'Off', soft: 'Soft' }, pictureCorners: { match: 'Like the cards', square: 'Square' },
 		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
 		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, subcolour: { title: 'Like the title', ink: 'Text' }
 	};
@@ -444,7 +448,7 @@
 	/* A LOOK IS CHOSEN BY SEEING IT (the prototype's lookRow, decided 2026-09-27: drawn looks stay): every
 	   choice drawn small on the page's own paper, in its ink and its button colour, the chosen one ringed.
 	   draw: button (the levels), tag, link, chosen (menus and tabs), surface (cards), picture, frame, fade */
-	var LOOK_DRAW = { primaryButton: 'button', secondaryButton: 'button', tertiaryButton: 'button', tags: 'tag', links: 'link', currentItem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', notes: 'surface', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
+	var LOOK_DRAW = { pictureFilter: 'picture', pictureFrame: 'frame', pictureFade: 'fade', primaryButton: 'button', secondaryButton: 'button', tertiaryButton: 'button', tags: 'tag', links: 'link', currentItem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', notes: 'surface', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
 	var LOOK_SHORT = { shadow: 'Shadow', text: 'Text' };
 	var LOOK_NOTE = { primaryButton: 'The main action, like Subscribe', secondaryButton: 'A second choice next to it', tertiaryButton: 'Small actions, like Share', links: 'In the text', currentItem: 'The page you are on, the tab that is open', notes: 'Tips and remarks in a box', fields: 'Search, comment and sign-up fields' }; /* the prototype's line under a row */ /* a level's look under its small picture, short */
 	var PIC_FILTER = { plain: 'none', bw: 'grayscale(1)', sepia: 'sepia(.85) contrast(1.05)', duo: 'grayscale(1) sepia(1) saturate(1.6) hue-rotate(175deg) brightness(.95)', accent: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(200deg) saturate(2.2)', grain: 'contrast(1.1) saturate(.85)', warm: 'sepia(.18) saturate(1.12) contrast(1.02)' };
@@ -455,7 +459,7 @@
 		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on;
 	}
 	/* the drawings know the engine's own words for the surfaces (2026-10-03) */
-	var SURFACE_DRAW = { cards: { filled: 'box', fillOnly: 'flat', topLine: 'top', cornerMarks: 'ticks' }, quotes: { sideLine: 'line', filled: 'box' }, notes: { filled: 'flat', outlined: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
+	var SURFACE_DRAW = { pictureFilter: { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' }, pictureFade: { none: 'off' }, cards: { filled: 'box', fillOnly: 'flat', topLine: 'top', cornerMarks: 'ticks' }, quotes: { sideLine: 'line', filled: 'box' }, notes: { filled: 'flat', outlined: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
 	function lookPic(draw, id) {
 		if (draw === 'button' || draw === 'tag') return '<i class="ldpw-lv" data-lk="' + id + '">' + (draw === 'tag' ? 'Tag' : 'Aa') + '</i>';
 		if (draw === 'link') return '<i class="ldpw-dln" data-ln="' + id + '">link</i>';
@@ -540,7 +544,7 @@
 		}, function (v) { return v === 'off' ? 'transparent' : h; }), esc(t('Marked words and selected text')));
 	}
 	function layoutPage() {
-		var s = St(), guest = s.guest(), hidden = s.get('pictures') === 'hidden';
+		var s = St(), guest = s.guest(), hidden = s.get('pictureFilter') === 'hidden';
 		return box(levelRow('space', '') + levelRow('lineLength', ' ' + t('letters'), t('Of the reading text; the column grows with its size'))) +
 			gtitle(t('Article Head')) + box((guest || hidden ? '' : widthRow('pictureWidth')) + (guest ? '' : widthRow('titleWidth')) + (guest || hidden ? '' : widthRow('figureWidth')) + row(label('categories'), pickRow('categories', true), esc(t('The line of categories the article is filed under')))) +
 			(guest ? '' : hint('Content is as wide as the reading column. Wide steps out on both sides. Full reaches the edges of the paper.'));
@@ -570,11 +574,13 @@
 			gtitle(t('Tags, Links and Menus')) + box(pickRow('tags') + (rounded && s.get('buttonShape') !== 'cards' ? switchRow('tagsMatchButtons', false, esc(t('Tags take the corners of the buttons'))) : '') + pickRow('links') + pickRow('currentItem')) +
 			hint('A theme’s buttons and an AI’s buttons are sorted into the three levels by what they are.');
 	}
+	/* THE PICTURES, ONE KEY PER ROW (2026-10-03, lab/the-pictures.html): the frame and the fade are one row of looks each, None first */
+	function looksOf(key) { var words = PICK_WORD[key] || {}, x = setting(key) || {}; return (x.choices || Object.keys(words)).map(function (id) { return [id, t(words[id] || id)]; }); }
 	function picturesPage() {
-		var s = St(), look = s.get('pictures'), hidden = look === 'hidden';
-		return box(pickRow('pictures') + (look === 'plain' || hidden ? '' : switchRow('picturehover', false, esc(t('The picture shows its colours under the pointer')))) + (hidden ? '' : switchRow('picturedim', s.side() !== 'dark', s.side() !== 'dark' ? esc(t('Dims only in dark appearance')) : '')) +
-			(hidden ? '' : pairLooks('pictureframe') + (s.get('pictureframe') ? levelRow('framewidth', ' px') : '') + (s.guest() ? '' : pairLooks('picturefade')))) +
-			(hidden || s.guest() ? '' : box(pickRow('pictureshadow') + pickRow('piccorners'))); /* from the Effects page (2026-10-02, the sort): they change the pictures, so they stand with them */
+		var s = St(), look = s.get('pictureFilter'), hidden = look === 'hidden', frame = s.get('pictureFrame');
+		return box(pickRow('pictureFilter') + (look === 'none' || hidden ? '' : switchRow('colourOnHover', false, esc(t('The picture shows its colours under the pointer')))) + (hidden ? '' : switchRow('dimInDark', s.side() !== 'dark', s.side() !== 'dark' ? esc(t('Dims only in dark appearance')) : '')) +
+			(hidden ? '' : looksRow('pictureFrame', looksOf('pictureFrame')) + (frame !== 'none' ? levelRow('frameWidth', ' px') : '') + (s.guest() ? '' : looksRow('pictureFade', looksOf('pictureFade'))))) +
+			(hidden || s.guest() ? '' : box(pickRow('pictureShadow') + pickRow('pictureCorners'))); /* from the Effects page (2026-10-02, the sort): they change the pictures, so they stand with them */
 	}
 	/* THE EFFECTS PAGE, SORTED (Manuel, 2026-10-02, lab/the-effects-page-sorted.html: "I really like it. Optimize it and take a holistic
 	   approach"). After the day the styles were made new it held 95 rows, about fifty in one box called Print. Now: what the style has on
@@ -1030,7 +1036,7 @@
 	   list files a row by its old page. The Buttons page's rows were filed under Corners and lines and
 	   Colour, the two lights' wells under Colour, the headings' and category line's colours under
 	   Colour, and a chosen preset nowhere, so Revert Colour reverted the lights and left the preset. */
-	var DRAWN_ON = { buttonColour: 'buttons', radius: 'corners-and-lines', borderWidth: 'corners-and-lines', borderStyle: 'corners-and-lines', borderStrength: 'corners-and-lines', fill: 'corners-and-lines', lineLength: 'layout', titleWidth: 'layout', pictureWidth: 'layout', figureWidth: 'layout', button: 'buttons', buttonShape: 'buttons', primaryButton: 'buttons', secondaryButton: 'buttons', tertiaryButton: 'buttons', tags: 'buttons', tagsMatchButtons: 'buttons', links: 'buttons', currentItem: 'buttons' };
+	var DRAWN_ON = { pictureFilter: 'pictures', colourOnHover: 'pictures', dimInDark: 'pictures', pictureFrame: 'pictures', frameWidth: 'pictures', pictureFade: 'pictures', pictureShadow: 'pictures', pictureCorners: 'pictures', buttonColour: 'buttons', radius: 'corners-and-lines', borderWidth: 'corners-and-lines', borderStyle: 'corners-and-lines', borderStrength: 'corners-and-lines', fill: 'corners-and-lines', lineLength: 'layout', titleWidth: 'layout', pictureWidth: 'layout', figureWidth: 'layout', button: 'buttons', buttonShape: 'buttons', primaryButton: 'buttons', secondaryButton: 'buttons', tertiaryButton: 'buttons', tags: 'buttons', tagsMatchButtons: 'buttons', links: 'buttons', currentItem: 'buttons' };
 	var WELL_ON = { button: 'buttons', title: 'type', headings: 'type', body: 'type', quote: 'type', meta: 'type', 'interface': 'type', code: 'type' };
 	function changeSection(path) {
 		var p = path.split('.'), k = p[0], x = setting(k);
@@ -1306,7 +1312,7 @@
 		/* THE SITE'S NAME BEFORE THE CHOSEN ITEM (2026-10-02, Manuel: "on the page title I would like to have the setting for the page title but instead I get the button"): on the home page WordPress marks the name's link aria-current="page", so the Chosen item row below caught it. It follows Headings since the seven roles (lab/the-site-name.html). */
 		['.wp-block-site-title', 'type', 'role:headings', 'Site name'],
 		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'currentItem', 'Chosen item'],
-		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictures', 'Pictures'],
+		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictureFilter', 'Pictures'],
 		['.post-link-card, .support-box, .release-panel, .theme-card', 'corners-and-lines', 'cards', 'Cards'],
 		['.wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'notes', 'Notes'],
 		['input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea, .quire-search-field', 'corners-and-lines', 'fields', 'Fields'],

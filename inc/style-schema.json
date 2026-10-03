@@ -147,10 +147,20 @@
     "content",
     "wide"
   ],
-  "picturehover": "boolean",
-  "picturedim": "boolean",
-  "picturefade": "boolean",
-  "pictureframe": "boolean",
+  "colourOnHover": "boolean",
+  "dimInDark": "boolean",
+  "pictureFade": [
+    "none",
+    "bottom",
+    "sides",
+    "all"
+  ],
+  "pictureFrame": [
+    "none",
+    "plain",
+    "dots",
+    "checker"
+  ],
   "pictureWidth": [
     "content",
     "wide",
@@ -263,12 +273,12 @@
     "article",
     "all"
   ],
-  "pictures": [
-    "plain",
-    "bw",
+  "pictureFilter": [
+    "none",
+    "grayscale",
     "sepia",
-    "duo",
-    "accent",
+    "tinted",
+    "duotone",
     "grain",
     "warm",
     "hidden"
@@ -324,7 +334,7 @@
     "spacious",
     "xspacious"
   ],
-  "framewidth": [
+  "frameWidth": [
     "4",
     "8",
     "12",
@@ -332,20 +342,10 @@
     "24",
     "32"
   ],
-  "framepattern": [
-    "plain",
-    "dots",
-    "checker"
-  ],
   "borderStyle": [
     "solid",
     "dashed",
     "dotted"
-  ],
-  "fadeedges": [
-    "sides",
-    "bottom",
-    "all"
   ],
   "buttonColour": [
     "accent",
@@ -433,12 +433,12 @@
     "any",
     "off"
   ],
-  "piccorners": [
-    "cards",
+  "pictureCorners": [
+    "match",
     "square"
   ],
-  "pictureshadow": [
-    "off",
+  "pictureShadow": [
+    "none",
     "soft"
   ],
   "opening": [

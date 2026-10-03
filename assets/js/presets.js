@@ -211,6 +211,15 @@
 		if (rec.fills !== undefined) { rec.fill = own('fills', true) === false ? 'none' : String(rec.fill !== undefined ? rec.fill : own('fill', '100')); delete rec.fills; }
 		var SURF = { cards: { box: 'filled', flat: 'fillOnly', top: 'topLine', ticks: 'cornerMarks' }, quotes: { line: 'sideLine', box: 'filled' }, notes: { flat: 'filled', box: 'outlined' }, fields: { flat: 'filled', box: 'outlined' } };
 		Object.keys(SURF).forEach(function (k) { if (rec[k] !== undefined && SURF[k][rec[k]]) rec[k] = SURF[k][rec[k]]; });
+		var FILTER = { plain: 'none', bw: 'grayscale', duo: 'tinted', accent: 'duotone' };
+		if (rec.pictures !== undefined) { if (rec.pictureFilter === undefined) rec.pictureFilter = FILTER[rec.pictures] || rec.pictures; delete rec.pictures; }
+		if (rec.picturehover !== undefined) { if (rec.colourOnHover === undefined) rec.colourOnHover = rec.picturehover === true; delete rec.picturehover; }
+		if (rec.picturedim !== undefined) { if (rec.dimInDark === undefined) rec.dimInDark = rec.picturedim === true; delete rec.picturedim; }
+		if (rec.pictureframe !== undefined || rec.framepattern !== undefined) { if (rec.pictureFrame === undefined) rec.pictureFrame = own('pictureframe', true) === false ? 'none' : String(own('framepattern', 'plain')); delete rec.pictureframe; delete rec.framepattern; }
+		if (rec.framewidth !== undefined) { if (rec.frameWidth === undefined) rec.frameWidth = String(rec.framewidth); delete rec.framewidth; }
+		if (rec.picturefade !== undefined || rec.fadeedges !== undefined) { if (rec.pictureFade === undefined) rec.pictureFade = own('picturefade', false) !== true ? 'none' : String(own('fadeedges', 'sides')); delete rec.picturefade; delete rec.fadeedges; }
+		if (rec.pictureshadow !== undefined) { if (rec.pictureShadow === undefined) rec.pictureShadow = rec.pictureshadow === 'soft' ? 'soft' : 'none'; delete rec.pictureshadow; }
+		if (rec.piccorners !== undefined) { if (rec.pictureCorners === undefined) rec.pictureCorners = rec.piccorners === 'square' ? 'square' : 'match'; delete rec.piccorners; }
 		var REN = { button: 'buttonColour', buttonshape: 'buttonShape', buttonstyle: 'primaryButton', buttonmedium: 'secondaryButton', buttonquiet: 'tertiaryButton', tagsfollow: 'tagsMatchButtons', chosenitem: 'currentItem' };
 		Object.keys(REN).forEach(function (k) {
 			if (rec[k] === undefined) return;
@@ -309,7 +318,7 @@
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
 		if (entry.palette === undefined) entry.palette = 'neutral';
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean' && inRecord(k)) entry[k] = data[k]; });
-		['buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
 		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 3; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } 
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
@@ -333,7 +342,7 @@
 	}
 	
 	var DIALS = ['palette', 'reading', 'face', 'leading'];
-	var OPTS = ['justify', 'dropcap', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'alternates', 'widehead', 'widepicture', 'rounded', 'lines', 'hairlines', 'fills', 'tagsfollow'];
+	var OPTS = ['justify', 'dropcap', 'alternates', 'widehead', 'widepicture', 'rounded', 'lines', 'hairlines', 'fills', 'tagsfollow', 'picturehover', 'picturedim', 'pictureframe', 'picturefade'];
 	var TINTS = ['purple', 'brown', 'green', 'blue', 'orange'];
 	var SCOPE = ['article', 'all'];
 	var PICTURES = ['plain', 'bw', 'sepia', 'duo', 'accent', 'grain', 'warm', 'hidden'];
@@ -344,14 +353,14 @@
 	var FADE_EDGES = ['sides', 'bottom', 'all'];
 	var MARKERS = ['yellow', 'green', 'pink', 'blue', 'orange', 'text', 'muted', 'own'];
 	var FRAME_PATTERNS = ['plain', 'dots', 'checker'];
-	var PICKS = { categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, cards: { attr: 'data-cards', list: ['filled', 'fillOnly', 'raised', 'topLine', 'cornerMarks'] }, quotes: { attr: 'data-quotes', list: ['sideLine', 'plain', 'filled'] }, notes: { attr: 'data-notes', list: ['filled', 'outlined', 'raised'] }, fields: { attr: 'data-fields', list: ['filled', 'outlined', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] }, fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] } };
+	var PICKS = { categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, cards: { attr: 'data-cards', list: ['filled', 'fillOnly', 'raised', 'topLine', 'cornerMarks'] }, quotes: { attr: 'data-quotes', list: ['sideLine', 'plain', 'filled'] }, notes: { attr: 'data-notes', list: ['filled', 'outlined', 'raised'] }, fields: { attr: 'data-fields', list: ['filled', 'outlined', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] }, fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] } };
 	var EFFECTS = {};
 	var LEVELS = {
 		fill: { stops: ['25', '50', '75', '100', '125', '150', '200', '300'], rest: '100', attr: 'data-fill', steps: true },
 		space: { stops: ['xcompact', 'compact', 'standard', 'spacious', 'xspacious'], rest: 'standard', attr: 'data-space', prop: '--space-step' },
-		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' },
 		measure: { stops: ['60', '64', '68', '72', '76', '80', '84', '88'], rest: '72', attr: 'data-measure', prop: '--measure-factor' },
-		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' }
+		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
+		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' }
 	};
 	var TYPE_ROLES = ['title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'];
 	var TYPE_DIALS = {
@@ -427,8 +436,8 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own', 'muted'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'reading', 'face', 'leading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'sans', 'scope', 'pictures', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'framewidth', 'framepattern', 'borderStyle', 'fadeedges', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
-		choices: { scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], fadeedges: FADE_EDGES, framepattern: FRAME_PATTERNS, borderStyle: LINE_STYLE },
+		schema: ['architrave', 'label', 'base', 'reading', 'face', 'leading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'sans', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
+		choices: { scope: SCOPE, capLines: ['2', '3', '4'], borderStyle: LINE_STYLE },
 		wells: ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight', 'button', 'title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'],
 		meaning: {
 			architrave: 'Always 1. Marks the JSON as a style record.',
@@ -454,8 +463,9 @@
 			lineLength: 'How many letters a line of reading text holds: 60 to 88 in steps of 4; 72 is the theme\'s own (45 to 75 is the classic range for comfortable reading). The column grows with the text size. On another theme it sets the theme\'s content width.',
 			measure: 'Retired 2026-10-03 and still read: the line length is lineLength now, the same steps.',
 			space: 'The space of the page: xcompact, compact, standard, spacious or xspacious. Standard is the rest, the theme\'s own. Each kind of gap moves by its own amount: inside a group a little, between items more, between sections most, so what belongs together stays together. The reading text of an article keeps its own rhythm.',
-			framewidth: 'Width of the frame around pictures in pixels: 4, 8, 12, 16, 24 or 32. 8 is the rest. Only with pictureframe.',
-			framepattern: 'What the frame around pictures shows: plain, dots (the dot grid) or checker (a transparency checkerboard). Only with pictureframe.',
+			frameWidth: 'Width of the frame around pictures in pixels: 4, 8 (the rest), 12, 16, 24 or 32. Only with a pictureFrame.',
+			framewidth: 'Retired 2026-10-03 and still read: becomes frameWidth, the same steps.',
+			framepattern: 'Retired 2026-10-03 and still read: with the frame on, becomes pictureFrame (plain, dots, checker).',
 			titleWidth: 'How wide the article\'s title, categories and date stand: content (the reading column, the rest) or wide (the theme\'s wide width, as the wide top picture). WordPress\'s own words. Architrave\'s page only.',
 			widehead: 'Retired 2026-10-03 and still read: true becomes titleWidth wide.',
 			pictureWidth: 'How wide the article\'s first picture stands: content (the reading column, the rest), wide (the theme\'s wide width) or full (edge to edge across the paper, a low 21:9 banner with square corners). WordPress\'s own words. Architrave\'s page only.',
@@ -487,15 +497,17 @@
 			paragraphs: 'Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.',
 			capface: 'The drop cap\'s letter: text (the rest, the reading text\'s own face and weight), bold (the reading face in bold, as the title), fraunces (a soft old-style display capital) or title (the heading role\'s own face, weight, slant and colour). Shows with Drop cap on.',
 			hyphenate: 'Where words break at the line\'s end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).',
-			piccorners: 'The pictures\' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).',
-			pictureshadow: 'A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave\'s page only.',
+			pictureCorners: 'The pictures\' corners: match (the corners every card and button has, the rest) or square (pictures cut square while cards and buttons keep theirs).',
+			piccorners: 'Retired 2026-10-03 and still read: becomes pictureCorners (cards is match).',
+			pictureShadow: 'A soft shadow under the pictures, so a white screenshot stands off a white paper: none (the rest) or soft; by night a faint light edge instead. Architrave\'s page only.',
+			pictureshadow: 'Retired 2026-10-03 and still read: becomes pictureShadow (off is none).',
 			subcolour: 'Retired 2026-10-02 and still read: ink keeps the headings in the ink under a coloured title (roles.headings.colour ink).',
 			opening: 'The article\'s first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave\'s page only.',
 			figureWidth: 'How wide the pictures inside the article stand: content (the reading column, the rest) or wide (as the wide top picture, centred, with more air). Architrave\'s page only.',
 			widefigures: 'Retired 2026-10-03 and still read: on becomes figureWidth wide.',
 			pillbuttons: 'Retired 2026-09-26 and still read: true becomes buttonshape pill.',
 			centretitle: 'Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default.',
-			fadeedges: 'which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.',
+			fadeedges: 'Retired 2026-10-03 and still read: with the fade on, becomes pictureFade (bottom, sides, all).',
 			borderStyle: 'solid (the rest), dashed or dotted lines. Dashes are long only with radius none. Only with a borderWidth.',
 			linestyle: 'Retired 2026-10-03 and still read: becomes borderStyle (solid, dashed, dotted).',
 			fills: 'Retired 2026-10-03 and still read: false becomes fill none.',
@@ -504,13 +516,18 @@
 			quietlevel: 'Retired 2026-10-03 and still read: with soft, the small text\'s strength becomes Soft text\'s own colour (colours.<side>.mutedText).',
 			smallsoft: 'Retired 2026-10-03 and still read: the small text\'s strength becomes Soft text\'s own colour (colours.<side>.mutedText), the text that far toward the background.',
 			links: 'How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.',
-			pictures: 'How every image on the site is shown: plain as published, bw, sepia, duo (the pair\'s paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style\'s own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), oldset (an old set\'s picture: grey, the contrast soft and the edge a little out of focus), riso (printed in the accent on the paper with a fine grain, as a one-ink risograph prints them), hidden (no images; each article picture becomes a line that shows it).',
-			picturehover: 'The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.',
+			pictureFilter: 'How every image on the site is shown: none (as published, the rest), grayscale, sepia, tinted (in the colour pair\'s paper and text), duotone (paper and accent), grain (film grain), warm, or hidden (no pictures).',
+			pictures: 'Retired 2026-10-03 and still read: becomes pictureFilter (plain is none, bw grayscale, duo tinted, accent duotone).',
+			colourOnHover: 'true: the picture look lifts under the pointer and the real colours show. Nothing with pictureFilter none or hidden.',
+			picturehover: 'Retired 2026-10-03 and still read: becomes colourOnHover.',
 			alternates: 'Inter\'s alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face\'s letters.',
 			soft: 'Retired 2026-10-03 and still read: true becomes roles.body.colour mutedText, and links underlined.',
-			picturedim: 'Pictures are dimmed a little on the dark side. Applies to plain, bw, sepia and grain.',
-			picturefade: 'The article\'s top picture fades out toward its bottom and sides, into the paper. Not with hidden pictures.',
-			pictureframe: 'Pictures wear a frame: a mat in the fields\' colour, and with lines a line around it. Off, a picture stands on the paper with its corner alone.',
+			dimInDark: 'true: pictures are dimmed a little on the dark side.',
+			picturedim: 'Retired 2026-10-03 and still read: becomes dimInDark.',
+			pictureFade: 'The article\'s top picture fades into the paper: none (the rest), bottom, sides (bottom and sides) or all four edges. Architrave\'s page only.',
+			picturefade: 'Retired 2026-10-03 and still read: false becomes pictureFade none; true takes fadeedges.',
+			pictureFrame: 'The frame around pictures: none (a picture stands on the paper with its corner alone), plain (a mat in the fields\' colour, the rest), dots (the dot grid) or checker (a transparency checkerboard). With a borderWidth, a line around it too.',
+			pictureframe: 'Retired 2026-10-03 and still read: false becomes pictureFrame none; true takes framepattern.',
 			darkground: 'Retired 2026-10-03 and still read: true becomes the light side\'s background2, the night\'s own ground (or the dark ground\'s own colour).',
 			hairlines: 'Retired 2026-10-03 and still read: with lines at 1, true becomes borderWidth hairline.',
 			tint: 'Retired 2026-10-03 and still read: the accent\'s name becomes the accent colour on both sides.',
@@ -533,12 +550,16 @@
 	function penOf(hex) { var h = String(hex || '').toLowerCase(); return Object.keys(PENS).filter(function (n) { return PENS[n] === h; })[0] || ''; }
 	var TYPE_COLOURS = ['text', 'mutedText', 'accent', 'own'];
 	function typeColourRest(role) { return role === 'meta' ? 'mutedText' : 'text'; } 
-	var ENGINE_ONLY = ['palette', 'tint', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'marker', 'markercolour', 'darkground', 'measure', 'widehead', 'widepicture', 'fullpicture', 'widefigures', 'rounded', 'corners', 'lines', 'linewidth', 'hairlines', 'line', 'linestyle', 'fills', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tagsfollow', 'chosenitem']; 
+	var ENGINE_ONLY = ['palette', 'tint', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'marker', 'markercolour', 'darkground', 'measure', 'widehead', 'widepicture', 'fullpicture', 'widefigures', 'rounded', 'corners', 'lines', 'linewidth', 'hairlines', 'line', 'linestyle', 'fills', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tagsfollow', 'chosenitem', 'pictures', 'picturehover', 'picturedim', 'pictureframe', 'framepattern', 'framewidth', 'picturefade', 'fadeedges', 'pictureshadow', 'piccorners']; 
 	var LAYOUT = { lineLength: { list: ['60', '64', '68', '72', '76', '80', '84', '88'], rest: '72' }, titleWidth: { list: ['content', 'wide'], rest: 'content' }, pictureWidth: { list: ['content', 'wide', 'full'], rest: 'content' }, figureWidth: { list: ['content', 'wide'], rest: 'content' },
 		radius: { list: ['none', 'small', 'medium', 'large', 'xlarge'], rest: 'medium' }, borderWidth: { list: ['none', 'hairline', '1', '2', '3', '5'], rest: 'none' }, borderStyle: { list: ['solid', 'dashed', 'dotted'], rest: 'solid' }, borderStrength: { list: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45' }, fill: { list: ['none', '25', '50', '75', '100', '125', '150', '200', '300'], rest: '100' },
 		buttonColour: { list: ['accent', 'text', 'own'], rest: 'accent' }, buttonShape: { list: ['match', 'square', 'rounded', 'pill'], rest: 'match' },
 		primaryButton: { list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'], rest: 'filled' }, secondaryButton: { list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'], rest: 'gray' }, tertiaryButton: { list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'], rest: 'text' },
-		tagsMatchButtons: { list: [false, true], rest: false }, currentItem: { list: ['gray', 'filled', 'outlined', 'bold'], rest: 'gray' } };
+		tagsMatchButtons: { list: [false, true], rest: false }, currentItem: { list: ['gray', 'filled', 'outlined', 'bold'], rest: 'gray' },
+		pictureFilter: { list: ['none', 'grayscale', 'sepia', 'tinted', 'duotone', 'grain', 'warm', 'hidden'], rest: 'none' }, colourOnHover: { list: [false, true], rest: false }, dimInDark: { list: [false, true], rest: false },
+		pictureFrame: { list: ['none', 'plain', 'dots', 'checker'], rest: 'plain' }, frameWidth: { list: ['4', '8', '12', '16', '24', '32'], rest: '8' }, pictureFade: { list: ['none', 'bottom', 'sides', 'all'], rest: 'none' },
+		pictureShadow: { list: ['none', 'soft'], rest: 'none' }, pictureCorners: { list: ['match', 'square'], rest: 'match' } };
+	var FILTER_ENGINE = { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' };
 	var RENAMED_PICK = { buttonstyle: 'primaryButton', buttonmedium: 'secondaryButton', buttonquiet: 'tertiaryButton', buttonshape: 'buttonShape', chosenitem: 'currentItem' }; 
 	var SURFACE_ENGINE = { cards: { filled: 'box', fillOnly: 'flat', raised: 'raised', topLine: 'top', cornerMarks: 'ticks' }, quotes: { sideLine: 'line', plain: 'plain', filled: 'box' }, notes: { filled: 'flat', outlined: 'box', raised: 'raised' }, fields: { filled: 'flat', outlined: 'box', raised: 'raised' } };
 	function surfaceWord(key, v) { var m = SURFACE_ENGINE[key]; if (!m || m[v]) return v; var w = Object.keys(m).filter(function (k) { return m[k] === v; })[0]; return w || v; }
@@ -968,6 +989,7 @@
 	
 	 
 	function picturesOf() {
+		var pf = layoutOf('pictureFilter'); return FILTER_ENGINE[pf] || pf; 
 		var s = byId(current), tw = readTweaks()[current];
 		if (tw && PICTURES.indexOf(tw.pictures) !== -1) return tw.pictures;
 		return (s && s.pictures) || PICTURES[0];
@@ -1013,6 +1035,7 @@
 		if (!L) return ''; 
 		if (k === 'measure') return layoutOf('lineLength');
 		if (k === 'line') return layoutOf('borderStrength');
+		if (k === 'framewidth') return layoutOf('frameWidth');
 		if (k === 'fill') { var fv = layoutOf('fill'); return fv === 'none' ? L.rest : fv; }
 		if (tw && L.stops.indexOf(tw[k]) !== -1) return tw[k];
 		return levelRest(k);
@@ -1051,6 +1074,7 @@
 	}
 	
 	function fadeEdgesOf() {
+		var fe = layoutOf('pictureFade'); return fe === 'none' ? FADE_EDGES[0] : fe; 
 		var s = byId(current), tw = readTweaks()[current];
 		if (tw && FADE_EDGES.indexOf(tw.fadeedges) !== -1) return tw.fadeedges;
 		return (s && FADE_EDGES.indexOf(s.fadeedges) !== -1) ? s.fadeedges : FADE_EDGES[0];
@@ -1060,6 +1084,7 @@
 	function markerColourOf() { var h = highlightNow(); return h ? (penOf(h) || 'own') : MARKERS[0]; }
 	
 	function framePatternOf() {
+		var fp = layoutOf('pictureFrame'); return fp === 'none' ? FRAME_PATTERNS[0] : fp; 
 		var s = byId(current), tw = readTweaks()[current];
 		if (tw && FRAME_PATTERNS.indexOf(tw.framepattern) !== -1) return tw.framepattern;
 		return (s && FRAME_PATTERNS.indexOf(s.framepattern) !== -1) ? s.framepattern : FRAME_PATTERNS[0];
@@ -1083,6 +1108,8 @@
 		if (key === 'fullpicture') return layoutOf('pictureWidth') === 'full' ? 'on' : 'off';
 		if (key === 'widefigures') return layoutOf('figureWidth') === 'wide' ? 'on' : 'off';
 		if (key === 'linewidth') { var bw = layoutOf('borderWidth'); return /^[0-9]$/.test(bw) ? bw : '1'; }
+		if (key === 'pictureshadow') return layoutOf('pictureShadow') === 'soft' ? 'soft' : 'off';
+		if (key === 'piccorners') return layoutOf('pictureCorners') === 'square' ? 'square' : 'cards';
 		if (RENAMED_PICK[key]) { var rv = layoutOf(RENAMED_PICK[key]); return key === 'buttonshape' && rv === 'match' ? 'cards' : rv; }
 		var d = PICKS[key], s = byId(current), tw = readTweaks()[current];
 		if (tw && d.list.indexOf(tw[key]) !== -1) return tw[key];
@@ -1363,6 +1390,10 @@
 		if (k === 'hairlines') return layoutOf('borderWidth') === 'hairline';
 		if (k === 'fills') return layoutOf('fill') !== 'none';
 		if (k === 'tagsfollow') return layoutOf('tagsMatchButtons') === true;
+		if (k === 'picturehover') return layoutOf('colourOnHover') === true;
+		if (k === 'picturedim') return layoutOf('dimInDark') === true;
+		if (k === 'pictureframe') return layoutOf('pictureFrame') !== 'none';
+		if (k === 'picturefade') return layoutOf('pictureFade') !== 'none';
 		if (k === 'widepicture') return layoutOf('pictureWidth') !== 'content';
 		var tw = readTweaks()[current];
 		if (tw && typeof tw[k] === 'boolean') return tw[k];
@@ -1388,7 +1419,7 @@
 		try { localStorage.removeItem('architrave-links'); } catch (e) {  }
 	}
 	
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -2268,6 +2299,7 @@
 				leading: Object.keys(LEAD),
 				sans: SANS.map(function (x) { return x.id; }),
 				lineLength: LAYOUT.lineLength.list, titleWidth: LAYOUT.titleWidth.list, pictureWidth: LAYOUT.pictureWidth.list, figureWidth: LAYOUT.figureWidth.list,
+				pictureFilter: LAYOUT.pictureFilter.list, colourOnHover: 'boolean', dimInDark: 'boolean', pictureFrame: LAYOUT.pictureFrame.list, frameWidth: LAYOUT.frameWidth.list, pictureFade: LAYOUT.pictureFade.list, pictureShadow: LAYOUT.pictureShadow.list, pictureCorners: LAYOUT.pictureCorners.list,
 				buttonColour: LAYOUT.buttonColour.list, buttonShape: LAYOUT.buttonShape.list, primaryButton: LAYOUT.primaryButton.list, secondaryButton: LAYOUT.secondaryButton.list, tertiaryButton: LAYOUT.tertiaryButton.list, tagsMatchButtons: 'boolean', currentItem: LAYOUT.currentItem.list,
 				radius: LAYOUT.radius.list, borderWidth: LAYOUT.borderWidth.list, borderStyle: LAYOUT.borderStyle.list, borderStrength: LAYOUT.borderStrength.list, fill: LAYOUT.fill.list,
 				unlinked: 'boolean',
@@ -2667,6 +2699,10 @@
 			if (k === 'lines') { this.setLayout('borderWidth', on ? (layoutOf('borderWidth') === 'none' ? '1' : layoutOf('borderWidth')) : 'none'); return; }
 			if (k === 'hairlines') { if (layoutOf('borderWidth') !== 'none') this.setLayout('borderWidth', on ? 'hairline' : '1'); return; }
 			if (k === 'tagsfollow') { this.setLayout('tagsMatchButtons', !!on); return; }
+			if (k === 'picturehover') { this.setLayout('colourOnHover', !!on); return; }
+			if (k === 'picturedim') { this.setLayout('dimInDark', !!on); return; }
+			if (k === 'pictureframe') { this.setLayout('pictureFrame', on ? (layoutOf('pictureFrame') === 'none' ? 'plain' : layoutOf('pictureFrame')) : 'none'); return; }
+			if (k === 'picturefade') { this.setLayout('pictureFade', on ? (layoutOf('pictureFade') === 'none' ? 'sides' : layoutOf('pictureFade')) : 'none'); return; }
 			if (k === 'fills') { this.setLayout('fill', on ? (layoutOf('fill') === 'none' ? '100' : layoutOf('fill')) : 'none'); return; }
 			if (k === 'widepicture') { this.setLayout('pictureWidth', on ? (layoutOf('pictureWidth') === 'full' ? 'full' : 'wide') : 'content'); return; }
 			if (k === 'marker') { setBothSides('highlight', on ? (highlightNow() || PENS.yellow) : ''); return; }
@@ -2842,6 +2878,7 @@
 		setLevel: function (k, v) {
 			if (k === 'measure') { this.setLayout('lineLength', String(v)); return; } 
 			if (k === 'line') { this.setLayout('borderStrength', String(v)); return; }
+			if (k === 'framewidth') { this.setLayout('frameWidth', String(v)); return; }
 			if (k === 'fill') { this.setLayout('fill', String(v)); return; }
 			var L = LEVELS[k]; if (!L || L.stops.indexOf(v) === -1) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
@@ -2866,6 +2903,7 @@
 		framePattern: framePatternOf,
 		setFramePattern: function (v) {
 			if (FRAME_PATTERNS.indexOf(v) === -1) return;
+			if (layoutOf('pictureFrame') !== 'none') this.setLayout('pictureFrame', v); return; 
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (v === ((s && FRAME_PATTERNS.indexOf(s.framepattern) !== -1) ? s.framepattern : FRAME_PATTERNS[0])) delete entry.framepattern; else entry.framepattern = v;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
@@ -2895,13 +2933,15 @@
 			if (v === layoutOwn(k)) delete entry[k]; else entry[k] = v;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
-			applyOptions(); applyPicks(); applyLevels(); applyCorners(); applyLineStyle(); applyButton(); mark();
+			applyOptions(); applyPicks(); applyLevels(); applyCorners(); applyLineStyle(); applyButton(); applyPictures(); applyFramePattern(); applyFadeEdges(); mark();
 		},
 		setPick: function (key, v) {
 			if (key === 'fullpicture') { if (v === 'on') this.setLayout('pictureWidth', 'full'); else if (layoutOf('pictureWidth') === 'full') this.setLayout('pictureWidth', 'wide'); return; }
 			if (key === 'widefigures') { this.setLayout('figureWidth', v === 'on' ? 'wide' : 'content'); return; }
 			if (key === 'linewidth') { if (layoutOf('borderWidth') !== 'none') this.setLayout('borderWidth', v === '1' && layoutOf('borderWidth') === 'hairline' ? 'hairline' : String(v)); return; }
 			if (SURFACE_ENGINE[key]) v = surfaceWord(key, v); 
+			if (key === 'pictureshadow') { this.setLayout('pictureShadow', v === 'soft' ? 'soft' : 'none'); return; }
+			if (key === 'piccorners') { this.setLayout('pictureCorners', v === 'square' ? 'square' : 'match'); return; }
 			if (RENAMED_PICK[key]) { this.setLayout(RENAMED_PICK[key], key === 'buttonshape' && v === 'cards' ? 'match' : v); return; }
 			var d = PICKS[key]; if (!d || d.list.indexOf(v) === -1) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
@@ -2937,6 +2977,7 @@
 		fadeEdges: fadeEdgesOf,
 		setFadeEdges: function (v) {
 			if (FADE_EDGES.indexOf(v) === -1) return;
+			if (layoutOf('pictureFade') !== 'none') this.setLayout('pictureFade', v); return; 
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (v === ((s && FADE_EDGES.indexOf(s.fadeedges) !== -1) ? s.fadeedges : FADE_EDGES[0])) delete entry.fadeedges; else entry.fadeedges = v;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
@@ -2956,6 +2997,7 @@
 		},
 		setPictures: function (v) {
 			if (PICTURES.indexOf(v) === -1) return;
+			this.setLayout('pictureFilter', Object.keys(FILTER_ENGINE).filter(function (k) { return FILTER_ENGINE[k] === v; })[0] || v); return; 
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (v === ((s && s.pictures) || PICTURES[0])) delete entry.pictures; else entry.pictures = v;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];

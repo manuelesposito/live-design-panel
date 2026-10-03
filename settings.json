@@ -23,27 +23,25 @@
       "radius",
       "borderWidth",
       "titleWidth",
-      "picturehover",
-      "picturedim",
-      "picturefade",
-      "pictureframe",
+      "colourOnHover",
+      "dimInDark",
+      "pictureFade",
+      "pictureFrame",
       "pictureWidth",
       "categories",
       "tagsMatchButtons",
       "alternates",
       "sans",
       "scope",
-      "pictures",
+      "pictureFilter",
       "capLines",
       "borderStrength",
       "fill",
       "links",
       "lineLength",
       "space",
-      "framewidth",
-      "framepattern",
+      "frameWidth",
       "borderStyle",
-      "fadeedges",
       "buttonColour",
       "buttonShape",
       "primaryButton",
@@ -58,8 +56,8 @@
       "paragraphs",
       "capface",
       "hyphenate",
-      "piccorners",
-      "pictureshadow",
+      "pictureCorners",
+      "pictureShadow",
       "opening",
       "figureWidth",
       "unlinked",
@@ -91,6 +89,7 @@
       "lineLength",
       "measure",
       "space",
+      "frameWidth",
       "framewidth",
       "framepattern",
       "titleWidth",
@@ -124,7 +123,9 @@
       "paragraphs",
       "capface",
       "hyphenate",
+      "pictureCorners",
       "piccorners",
+      "pictureShadow",
       "pictureshadow",
       "subcolour",
       "opening",
@@ -141,12 +142,17 @@
       "quietlevel",
       "smallsoft",
       "links",
+      "pictureFilter",
       "pictures",
+      "colourOnHover",
       "picturehover",
       "alternates",
       "soft",
+      "dimInDark",
       "picturedim",
+      "pictureFade",
       "picturefade",
+      "pictureFrame",
       "pictureframe",
       "darkground",
       "hairlines",
@@ -640,134 +646,6 @@
       }
     },
     {
-      "key": "picturehover",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "The picture effect lifts under the pointer and the real colours show. No effect when pictures is plain or hidden.",
-      "label": "Colour on hover",
-      "page": "Pictures",
-      "level": 16,
-      "row": {
-        "drawn": "switch",
-        "line": 1120,
-        "in": "pictureRows"
-      },
-      "changesPage": "Pictures",
-      "attrs": [
-        "data-picturehover"
-      ],
-      "rest": {
-        "data-picturehover": "REST"
-      },
-      "restValues": {
-        "data-picturehover": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-picturehover"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "picturedim",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "Pictures are dimmed a little on the dark side. Applies to plain, bw, sepia and grain.",
-      "label": "Dim in the dark",
-      "page": "Pictures",
-      "level": 16,
-      "row": {
-        "drawn": "switch",
-        "line": 1121,
-        "in": "pictureRows"
-      },
-      "changesPage": "Pictures",
-      "attrs": [
-        "data-picturedim"
-      ],
-      "rest": {
-        "data-picturedim": "REST"
-      },
-      "restValues": {
-        "data-picturedim": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-picturedim"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "picturefade",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "The article's top picture fades out toward its bottom and sides, into the paper. Not with hidden pictures.",
-      "label": "Fade the edges",
-      "page": "Layout",
-      "level": 14,
-      "row": {
-        "drawn": "switch",
-        "line": 1176,
-        "in": "layoutBody"
-      },
-      "changesPage": "Layout",
-      "attrs": [
-        "data-picturefade"
-      ],
-      "rest": {
-        "data-picturefade": "REST"
-      },
-      "restValues": {
-        "data-picturefade": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-picturefade"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "pictureframe",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": true,
-      "means": "Pictures wear a frame: a mat in the fields' colour, and with lines a line around it. Off, a picture stands on the paper with its corner alone.",
-      "label": "Frame around pictures",
-      "page": "Pictures",
-      "level": 16,
-      "row": {
-        "drawn": "switch",
-        "line": 1127,
-        "in": "pictureRows"
-      },
-      "changesPage": "Pictures",
-      "attrs": [
-        "data-pictureframe"
-      ],
-      "rest": {
-        "data-pictureframe": "REST"
-      },
-      "restValues": {
-        "data-pictureframe": "on"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-pictureframe"
-        ],
-        "props": []
-      }
-    },
-    {
       "key": "alternates",
       "group": "opt",
       "table": "OPTS",
@@ -958,40 +836,6 @@
         ],
         "props": []
       }
-    },
-    {
-      "key": "pictures",
-      "group": "other",
-      "table": "PICTURES",
-      "kind": "pick",
-      "choices": [
-        "plain",
-        "bw",
-        "sepia",
-        "duo",
-        "accent",
-        "grain",
-        "warm",
-        "hidden"
-      ],
-      "def": "plain",
-      "means": "How every image on the site is shown: plain as published, bw, sepia, duo (the pair's paper and ink), accent (paper and accent, a duotone), halftone (printed dots), dither (coarse two-colour pixels), onebit (each pixel the ink or the paper, a fine random dither, as a terminal shows a picture), grain (film grain), trace (only the edges, drawn as lines in the ink, the paper showing through: a picture as a drawing has one), pixel (an ordered dither in the style's own five colours: paper, card, second light, accent and ink, as an arcade cabinet drew a picture), warm (in their own colours, a little warmer and fuller, as in late afternoon light), oldset (an old set's picture: grey, the contrast soft and the edge a little out of focus), riso (printed in the accent on the paper with a fine grain, as a one-ink risograph prints them), hidden (no images; each article picture becomes a line that shows it).",
-      "label": "Picture effects",
-      "page": "Pictures",
-      "level": 16,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1221,
-        "in": "picturesBody"
-      },
-      "changesPage": "Pictures",
-      "attrs": [
-        "data-pictures"
-      ],
-      "rest": {
-        "data-pictures": "ABSENT"
-      },
-      "inStandardAtRest": false
     },
     {
       "key": "capLines",
@@ -1303,64 +1147,6 @@
       "inStandardAtRest": false
     },
     {
-      "key": "piccorners",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "cards",
-        "square"
-      ],
-      "def": "cards",
-      "attr": "data-pic-corners",
-      "means": "The pictures' corners: cards (the rest, the corners every card and button has) or square (pictures cut square while cards and buttons keep theirs, as photographs beside rounded cards).",
-      "label": "Picture corners",
-      "page": "Pictures",
-      "level": 16,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1226,
-        "in": "picturesBody"
-      },
-      "changesPage": "Pictures",
-      "attrs": [
-        "data-pic-corners"
-      ],
-      "rest": {
-        "data-pic-corners": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "pictureshadow",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "off",
-        "soft"
-      ],
-      "def": "off",
-      "attr": "data-picture-shadow",
-      "means": "A soft shadow under the pictures, so a white screenshot stands off a white paper or card: off (the rest) or soft. By night the shadow is a faint light edge instead. Architrave's page only.",
-      "label": "Picture shadow",
-      "page": "Pictures",
-      "level": 16,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1226,
-        "in": "picturesBody"
-      },
-      "changesPage": "Pictures",
-      "attrs": [
-        "data-picture-shadow"
-      ],
-      "rest": {
-        "data-picture-shadow": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
       "key": "opening",
       "group": "pick",
       "table": "PICKS",
@@ -1465,64 +1251,6 @@
         ],
         "props": []
       }
-    },
-    {
-      "key": "fadeedges",
-      "group": "other",
-      "table": "FADE_EDGES",
-      "kind": "pick",
-      "choices": [
-        "sides",
-        "bottom",
-        "all"
-      ],
-      "def": "sides",
-      "means": "which edges of the top picture fade with picturefade: sides (bottom and sides), bottom, or all four.",
-      "label": "Edges",
-      "page": "Layout",
-      "level": 14,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1177,
-        "in": "layoutBody"
-      },
-      "changesPage": "Layout",
-      "attrs": [
-        "data-fade-edges"
-      ],
-      "rest": {
-        "data-fade-edges": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "framepattern",
-      "group": "other",
-      "table": "FRAME_PATTERNS",
-      "kind": "pick",
-      "choices": [
-        "plain",
-        "dots",
-        "checker"
-      ],
-      "def": "plain",
-      "means": "What the frame around pictures shows: plain, dots (the dot grid) or checker (a transparency checkerboard). Only with pictureframe.",
-      "label": "Frame pattern",
-      "page": "Pictures",
-      "level": 16,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1129,
-        "in": "pictureRows"
-      },
-      "changesPage": "Pictures",
-      "attrs": [
-        "data-frame-pattern"
-      ],
-      "rest": {
-        "data-frame-pattern": "ABSENT"
-      },
-      "inStandardAtRest": false
     },
     {
       "key": "lineLength",
@@ -1961,6 +1689,247 @@
       "inStandardAtRest": false
     },
     {
+      "key": "pictureFilter",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "grayscale",
+        "sepia",
+        "tinted",
+        "duotone",
+        "grain",
+        "warm",
+        "hidden"
+      ],
+      "def": "none",
+      "means": "How every image on the site is shown: none (as published, the rest), grayscale, sepia, tinted (in the colour pair's paper and text), duotone (paper and accent), grain (film grain), warm, or hidden (no pictures).",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-pictures"
+      ],
+      "rest": {
+        "data-pictures": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "colourOnHover",
+      "group": "other",
+      "table": null,
+      "kind": "switch",
+      "def": false,
+      "means": "true: the picture look lifts under the pointer and the real colours show. Nothing with pictureFilter none or hidden.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-picturehover"
+      ],
+      "rest": {
+        "data-picturehover": "REST"
+      },
+      "restValues": {
+        "data-picturehover": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-picturehover"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "dimInDark",
+      "group": "other",
+      "table": null,
+      "kind": "switch",
+      "def": false,
+      "means": "true: pictures are dimmed a little on the dark side.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-picturedim"
+      ],
+      "rest": {
+        "data-picturedim": "REST"
+      },
+      "restValues": {
+        "data-picturedim": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-picturedim"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "pictureFrame",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "plain",
+        "dots",
+        "checker"
+      ],
+      "def": "plain",
+      "means": "The frame around pictures: none (a picture stands on the paper with its corner alone), plain (a mat in the fields' colour, the rest), dots (the dot grid) or checker (a transparency checkerboard). With a borderWidth, a line around it too.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-pictureframe"
+      ],
+      "rest": {
+        "data-pictureframe": "REST"
+      },
+      "restValues": {
+        "data-pictureframe": "on"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-pictureframe"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "frameWidth",
+      "group": "other",
+      "kind": "dial",
+      "steps": [
+        "4",
+        "8",
+        "12",
+        "16",
+        "24",
+        "32"
+      ],
+      "def": "8",
+      "means": "Width of the frame around pictures in pixels: 4, 8 (the rest), 12, 16, 24 or 32. Only with a pictureFrame.",
+      "label": "Frame width",
+      "page": "Pictures",
+      "level": 16,
+      "row": {
+        "drawn": "slider",
+        "line": 1129,
+        "in": "pictureRows"
+      },
+      "changesPage": null,
+      "attrs": [
+        "data-frame-width"
+      ],
+      "props": [
+        "--picture-frame"
+      ],
+      "rest": {
+        "data-frame-width": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "pictureFade",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "bottom",
+        "sides",
+        "all"
+      ],
+      "def": "none",
+      "means": "The article's top picture fades into the paper: none (the rest), bottom, sides (bottom and sides) or all four edges. Architrave's page only.",
+      "label": "Fade the edges",
+      "page": "Layout",
+      "level": 14,
+      "row": {
+        "drawn": "switch",
+        "line": 1176,
+        "in": "layoutBody"
+      },
+      "changesPage": null,
+      "attrs": [
+        "data-fade-edges",
+        "data-picturefade"
+      ],
+      "rest": {
+        "data-fade-edges": "ABSENT",
+        "data-picturefade": "REST"
+      },
+      "restValues": {
+        "data-picturefade": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-picturefade"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "pictureShadow",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "soft"
+      ],
+      "def": "none",
+      "means": "A soft shadow under the pictures, so a white screenshot stands off a white paper: none (the rest) or soft; by night a faint light edge instead. Architrave's page only.",
+      "label": "Picture shadow",
+      "page": "Pictures",
+      "level": 16,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1226,
+        "in": "picturesBody"
+      },
+      "changesPage": null,
+      "attrs": [
+        "data-picture-shadow"
+      ],
+      "rest": {
+        "data-picture-shadow": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "pictureCorners",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "match",
+        "square"
+      ],
+      "def": "match",
+      "means": "The pictures' corners: match (the corners every card and button has, the rest) or square (pictures cut square while cards and buttons keep theirs).",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-pic-corners"
+      ],
+      "rest": {
+        "data-pic-corners": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
       "key": "space",
       "group": "level",
       "table": "LEVELS",
@@ -1993,43 +1962,6 @@
       ],
       "rest": {
         "data-space": false
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "framewidth",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "4",
-        "8",
-        "12",
-        "16",
-        "24",
-        "32"
-      ],
-      "def": "8",
-      "attr": "data-frame-width",
-      "prop": "--picture-frame",
-      "means": "Width of the frame around pictures in pixels: 4, 8, 12, 16, 24 or 32. 8 is the rest. Only with pictureframe.",
-      "label": "Frame width",
-      "page": "Pictures",
-      "level": 16,
-      "row": {
-        "drawn": "slider",
-        "line": 1129,
-        "in": "pictureRows"
-      },
-      "changesPage": "Pictures",
-      "attrs": [
-        "data-frame-width"
-      ],
-      "props": [
-        "--picture-frame"
-      ],
-      "rest": {
-        "data-frame-width": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -3442,6 +3374,14 @@
       "means": "Retired 2026-10-03 and still read: the line length is lineLength now, the same steps."
     },
     {
+      "key": "framewidth",
+      "means": "Retired 2026-10-03 and still read: becomes frameWidth, the same steps."
+    },
+    {
+      "key": "framepattern",
+      "means": "Retired 2026-10-03 and still read: with the frame on, becomes pictureFrame (plain, dots, checker)."
+    },
+    {
       "key": "widehead",
       "means": "Retired 2026-10-03 and still read: true becomes titleWidth wide."
     },
@@ -3494,6 +3434,14 @@
       "means": "Retired 2026-10-03 and still read: with lines, it becomes borderWidth (1, 2, 3, 5)."
     },
     {
+      "key": "piccorners",
+      "means": "Retired 2026-10-03 and still read: becomes pictureCorners (cards is match)."
+    },
+    {
+      "key": "pictureshadow",
+      "means": "Retired 2026-10-03 and still read: becomes pictureShadow (off is none)."
+    },
+    {
       "key": "subcolour",
       "means": "Retired 2026-10-02 and still read: ink keeps the headings in the ink under a coloured title (roles.headings.colour ink)."
     },
@@ -3508,6 +3456,10 @@
     {
       "key": "centretitle",
       "means": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default."
+    },
+    {
+      "key": "fadeedges",
+      "means": "Retired 2026-10-03 and still read: with the fade on, becomes pictureFade (bottom, sides, all)."
     },
     {
       "key": "linestyle",
@@ -3530,8 +3482,28 @@
       "means": "Retired 2026-10-03 and still read: the small text's strength becomes Soft text's own colour (colours.<side>.mutedText), the text that far toward the background."
     },
     {
+      "key": "pictures",
+      "means": "Retired 2026-10-03 and still read: becomes pictureFilter (plain is none, bw grayscale, duo tinted, accent duotone)."
+    },
+    {
+      "key": "picturehover",
+      "means": "Retired 2026-10-03 and still read: becomes colourOnHover."
+    },
+    {
       "key": "soft",
       "means": "Retired 2026-10-03 and still read: true becomes roles.body.colour mutedText, and links underlined."
+    },
+    {
+      "key": "picturedim",
+      "means": "Retired 2026-10-03 and still read: becomes dimInDark."
+    },
+    {
+      "key": "picturefade",
+      "means": "Retired 2026-10-03 and still read: false becomes pictureFade none; true takes fadeedges."
+    },
+    {
+      "key": "pictureframe",
+      "means": "Retired 2026-10-03 and still read: false becomes pictureFrame none; true takes framepattern."
     },
     {
       "key": "darkground",
@@ -3831,7 +3803,7 @@
       "muted"
     ],
     "keys": {
-      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them; since the layout words (2026-10-03) the article widths and the line length are worked out from titleWidth, pictureWidth, figureWidth and lineLength; since the CSS words (2026-10-03) the corners, lines and fills are worked out from radius, borderWidth, borderStyle, borderStrength and fill; since the buttons' names (2026-10-03) the buttons' colour, shape, three levels, tags' corner and current item are worked out from buttonColour, buttonShape, primaryButton, secondaryButton, tertiaryButton, tagsMatchButtons and currentItem.",
+      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them; since the layout words (2026-10-03) the article widths and the line length are worked out from titleWidth, pictureWidth, figureWidth and lineLength; since the CSS words (2026-10-03) the corners, lines and fills are worked out from radius, borderWidth, borderStyle, borderStrength and fill; since the buttons' names (2026-10-03) the buttons' colour, shape, three levels, tags' corner and current item are worked out from buttonColour, buttonShape, primaryButton, secondaryButton, tertiaryButton, tagsMatchButtons and currentItem; since the pictures' keys (2026-10-03) the picture look, frame, fade, shadow and corners are worked out from pictureFilter, colourOnHover, dimInDark, pictureFrame, frameWidth, pictureFade, pictureShadow and pictureCorners.",
       "dials": [
         "palette"
       ],
@@ -3868,6 +3840,26 @@
           "accent",
           "ink",
           "own"
+        ],
+        "PICTURES": [
+          "plain",
+          "bw",
+          "sepia",
+          "duo",
+          "accent",
+          "grain",
+          "warm",
+          "hidden"
+        ],
+        "FRAME_PATTERNS": [
+          "plain",
+          "dots",
+          "checker"
+        ],
+        "FADE_EDGES": [
+          "sides",
+          "bottom",
+          "all"
         ]
       },
       "stamps": {
@@ -3881,7 +3873,11 @@
         "data-lines": "off",
         "data-fills": "on",
         "data-hairlines": "off",
-        "data-tagsfollow": "off"
+        "data-tagsfollow": "off",
+        "data-picturehover": "off",
+        "data-picturedim": "off",
+        "data-pictureframe": "on",
+        "data-picturefade": "off"
       },
       "absent": [
         "data-marker-colour",
@@ -3902,7 +3898,13 @@
         "data-button-medium",
         "data-button-quiet",
         "data-button-shape",
-        "data-chosen-item"
+        "data-chosen-item",
+        "data-pictures",
+        "data-frame-pattern",
+        "data-frame-width",
+        "data-fade-edges",
+        "data-picture-shadow",
+        "data-pic-corners"
       ],
       "opts": [
         "widehead",
@@ -3911,7 +3913,11 @@
         "lines",
         "hairlines",
         "fills",
-        "tagsfollow"
+        "tagsfollow",
+        "picturehover",
+        "picturedim",
+        "pictureframe",
+        "picturefade"
       ],
       "picks": {
         "fullpicture": {
@@ -3987,6 +3993,20 @@
             "outlined",
             "bold"
           ]
+        },
+        "pictureshadow": {
+          "attr": "data-picture-shadow",
+          "list": [
+            "off",
+            "soft"
+          ]
+        },
+        "piccorners": {
+          "attr": "data-pic-corners",
+          "list": [
+            "cards",
+            "square"
+          ]
         }
       },
       "levels": {
@@ -4035,6 +4055,19 @@
           "rest": "100",
           "attr": "data-fill",
           "steps": true
+        },
+        "framewidth": {
+          "stops": [
+            "4",
+            "8",
+            "12",
+            "16",
+            "24",
+            "32"
+          ],
+          "rest": "8",
+          "attr": "data-frame-width",
+          "prop": "--picture-frame"
         }
       }
     }
