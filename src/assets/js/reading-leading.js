@@ -38,23 +38,16 @@
 	   less"): the five that were, with one between each pair, so the slider
 	   reads 1.2 to 2.0 in even ground. */
 	var STEPS = [
-		/* Fifteen since 2026-09-18 (Manuel: "a little bit more values"): three under and three over the nine. */
-		{ id: 'solid', label: 'Solid' },
-		{ id: 'packed', label: 'Packed' },
-		{ id: 'close', label: 'Close' },
-		{ id: 'densest', label: 'Densest' },
-		{ id: 'dense', label: 'Dense' },
-		{ id: 'tight', label: 'Tight' },
-		{ id: 'snug', label: 'Snug' },
-		{ id: 'default', label: 'Default' },
-		{ id: 'relaxed', label: 'Relaxed' },
-		{ id: 'airy', label: 'Airy' },
-		{ id: 'wider', label: 'Wider' },
-		{ id: 'wide', label: 'Wide' },
-		{ id: 'open', label: 'Open' },
-		{ id: 'loose', label: 'Loose' },
-		{ id: 'loosest', label: 'Loosest' }
+		/* Fifteen from 2026-09-18 to 2026-10-03; five since, the words every type role takes in a
+		   saved style (roles.body.lineHeight: tight, snug, normal, relaxed, loose). The ids stay the
+		   stylesheet's; a reader's old step is moved to the nearest of the five. */
+		{ id: 'dense', label: 'Tight' },
+		{ id: 'tight', label: 'Snug' },
+		{ id: 'default', label: 'Normal' },
+		{ id: 'airy', label: 'Relaxed' },
+		{ id: 'wide', label: 'Loose' }
 	];
+	var NEAR = { solid: 'dense', packed: 'dense', close: 'dense', densest: 'dense', snug: 'default', relaxed: 'airy', wider: 'airy', open: 'wide', loose: 'wide', loosest: 'wide' };
 	var ids = STEPS.map(function (s) { return s.id; });
 
 	function apply(step) {
@@ -64,6 +57,7 @@
 
 	var raw = null;
 	try { raw = localStorage.getItem(KEY); } catch (e) { raw = null; }
+	if (NEAR[raw]) { raw = NEAR[raw]; try { if (raw === DEFAULT) localStorage.removeItem(KEY); else localStorage.setItem(KEY, raw); } catch (e) {} }
 	var initial = ids.indexOf(raw) !== -1 ? raw : DEFAULT;
 
 	apply(initial);

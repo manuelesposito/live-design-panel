@@ -109,23 +109,6 @@
     "routed-gothic",
     "routed-gothic-wide"
   ],
-  "leading": [
-    "solid",
-    "packed",
-    "close",
-    "densest",
-    "dense",
-    "tight",
-    "snug",
-    "default",
-    "relaxed",
-    "airy",
-    "wider",
-    "wide",
-    "open",
-    "loose",
-    "loosest"
-  ],
   "justify": "boolean",
   "dropcap": "boolean",
   "radius": [
@@ -782,6 +765,13 @@
         "bold",
         "extrabold",
         "black"
+      ],
+      "lineHeight": [
+        "tight",
+        "snug",
+        "normal",
+        "relaxed",
+        "loose"
       ],
       "letterSpacing": [
         "tighter",

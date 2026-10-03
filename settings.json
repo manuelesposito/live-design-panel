@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "about": "Every setting a saved style can carry, once, under its saved name. Written by tools/settings-list.mjs from presets.js, reading-panel.js, plugin/words.php, tools/split_style.py and functions.php. It is also a source: presets.js's tables (DIALS, OPTS, the lists, PICKS, LEVELS, ROLES, ROLE_DEFAULT, MEMBERS, the aliases, the meanings) are a block written from it, and split_style.py reads REST (rest, restValues) and ABSENT from it. Change a table here and run node tools/settings-list.mjs. {role}, {member} and {side} stand for the ids in roles and sides.",
+  "about": "Every setting a saved style can carry, once, under its saved name. Written by tools/settings-list.mjs from presets.js, the new window (plugin/assets/js/panel-window.js: page, section, row, changesPage), plugin/words.php, tools/split_style.py and functions.php. It is also a source: presets.js's tables (DIALS, OPTS, the lists, PICKS, LEVELS, ROLES, ROLE_DEFAULT, MEMBERS, the aliases, the meanings) are a block written from it, and split_style.py reads REST (rest, restValues) and ABSENT from it. Change a table here and run node tools/settings-list.mjs. A setting's label (the word the window shows) is kept by hand here. {role}, {member} and {side} stand for the ids in roles and sides.",
   "sides": [
     "light",
     "dark"
   ],
   "means": {
-    "roles": "Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site's name. body: what people read (p, li); its font is the record's face and its line spacing the record's leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record's sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme's own. size is a step from the role's own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.",
+    "roles": "Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site's name. body: what people read (p, li); its font is the record's face. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record's sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme's own. size is a step from the role's own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.",
     "colours": "Seven colours per side, named for their job, as hex: background (Paper: the page the text sits on), background2 (Ground: the space around the page and the rails, a theme's second background), card (Cards: menus, boxes, fields standing on the page), text, mutedText (Soft text: dates, captions, small facts), accent (the brand colour: links and the main buttons) and highlight (the highlighter's colour; left out, none). Beside them the button's own colour and each type role's own (title, headings, body, quote, meta, interface, code), used with button own and roles.<role>.colour own. Leave out what you do not need: the rest is mixed from background and text. text on background must reach 4.5:1 and accent on background 3:1 on both sides. A background2 on the other side of its background (dark around a light page, light around a dark one) is a dark ground, worn around the page on wide screens with its own words, lines and links. Older records name paper, ink, ground, lift and marker; they are read as these. primary, foreground and muted-foreground are read as accent, text and mutedText.",
     "effects": "The extras' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect's own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look."
   },
@@ -17,7 +17,6 @@
       "base",
       "reading",
       "face",
-      "leading",
       "justify",
       "dropcap",
       "radius",
@@ -73,7 +72,6 @@
       "reading",
       "face",
       "sans",
-      "leading",
       "justify",
       "dropcap",
       "capLines",
@@ -166,6 +164,7 @@
   },
   "otherAttrs": {
     "data-accent": "ABSENT",
+    "data-leading": "ABSENT",
     "data-marker-bright": "ABSENT",
     "data-preset": "ABSENT",
     "data-reading-base": "ABSENT",
@@ -223,9 +222,11 @@
         "colour"
       ],
       "elsewhere": {
-        "font": "face",
-        "lineHeight": "leading"
-      }
+        "font": "face"
+      },
+      "recordOnly": [
+        "lineHeight"
+      ]
     },
     {
       "id": "quote",
@@ -401,13 +402,14 @@
       "means": "The reading size step of the article, a fluid rung and not a pixel value; default is about 22px on a desktop. Do not set a size for a monospaced reading face, its phone floor is handled by the theme.",
       "label": "Reading size",
       "page": "First level",
-      "level": 1,
+      "section": null,
       "row": {
         "drawn": "stepper",
-        "line": 863,
-        "in": "level1"
+        "file": "assets/js/reading-panel.js",
+        "line": 185,
+        "in": "render"
       },
-      "changesPage": "Type › Reading text",
+      "changesPage": "Type",
       "attrs": [
         "data-reading"
       ],
@@ -521,59 +523,14 @@
       "means": "The font of the article body.",
       "label": "Font",
       "page": "Type › Reading text",
-      "level": 3,
-      "row": {
-        "drawn": "list",
-        "line": 1541,
-        "in": "fontRow"
-      },
-      "changesPage": "Type › Reading text",
+      "section": "type",
+      "pageFrom": "kept",
+      "changesPage": "Type",
       "attrs": [
         "data-face"
       ],
       "rest": {
         "data-face": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "leading",
-      "group": "dial",
-      "table": "LEAD",
-      "kind": "dial",
-      "steps": [
-        "solid",
-        "packed",
-        "close",
-        "densest",
-        "dense",
-        "tight",
-        "snug",
-        "default",
-        "relaxed",
-        "airy",
-        "wider",
-        "wide",
-        "open",
-        "loose",
-        "loosest"
-      ],
-      "def": "default",
-      "means": "Line spacing of the article, from solid (tightest) to loosest; default is 1.6.",
-      "label": "Line spacing",
-      "page": "Type › Reading text",
-      "level": 3,
-      "row": {
-        "drawn": "slider",
-        "line": 1921,
-        "in": "level3"
-      },
-      "changesPage": "Type › Reading text",
-      "attrs": [
-        "data-leading"
-      ],
-      "rest": {
-        "data-leading": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -586,13 +543,14 @@
       "means": "Justified paragraphs with hyphenation.",
       "label": "Justified text",
       "page": "Type › Reading text",
-      "level": 3,
+      "section": "type",
       "row": {
         "drawn": "switch",
-        "line": 1948,
-        "in": "level3"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 354,
+        "in": "rolePage"
       },
-      "changesPage": "Type › Reading text",
+      "changesPage": "Type",
       "attrs": [
         "data-hyphens",
         "data-justify"
@@ -622,13 +580,14 @@
       "means": "A large initial on the first paragraph; capLines is its height in lines.",
       "label": "Drop cap",
       "page": "Type › Reading text",
-      "level": 3,
+      "section": "type",
       "row": {
         "drawn": "switch",
-        "line": 1951,
-        "in": "level3"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 354,
+        "in": "rolePage"
       },
-      "changesPage": "Type › Reading text",
+      "changesPage": "Type",
       "attrs": [
         "data-dropcap"
       ],
@@ -654,9 +613,9 @@
       "means": "Inter's alternate letters: the one with a longer flag, round quotes, commas and apostrophes. Only while the interface face is Inter; the article keeps its own face's letters.",
       "label": null,
       "page": "Type › Reading text",
-      "level": 3,
-      "pageFrom": "markChanged",
-      "changesPage": "Type › Reading text",
+      "section": "type",
+      "pageFrom": "kept",
+      "changesPage": "Type",
       "attrs": [
         "data-alternates"
       ],
@@ -778,13 +737,9 @@
       "means": "The font of the interface: the rail, buttons, menus.",
       "label": "Font",
       "page": "Type › Interface",
-      "level": 3,
-      "row": {
-        "drawn": "list",
-        "line": 1541,
-        "in": "fontRow"
-      },
-      "changesPage": "Type › Interface",
+      "section": "type",
+      "pageFrom": "kept",
+      "changesPage": "Type",
       "attrs": [
         "data-sans"
       ],
@@ -818,9 +773,9 @@
       "means": "Legacy. The theme always applies paragraph settings everywhere.",
       "label": null,
       "page": "Type › Reading text",
-      "level": 3,
-      "pageFrom": "markChanged",
-      "changesPage": "Type › Reading text",
+      "section": "type",
+      "pageFrom": "kept",
+      "changesPage": "Type",
       "attrs": [
         "data-scope"
       ],
@@ -856,13 +811,14 @@
       "means": "Height of the initial in lines. Only with dropcap.",
       "label": "Drop cap height",
       "page": "Type › Reading text",
-      "level": 3,
+      "section": "type",
       "row": {
         "drawn": "pop-up",
-        "line": 1952,
-        "in": "level3"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 355,
+        "in": "rolePage"
       },
-      "changesPage": "Type › Reading text",
+      "changesPage": "Type",
       "attrs": [
         "data-dropcap-lines"
       ],
@@ -886,11 +842,12 @@
       "means": "Where the line of categories stands on the article and on its cards: below the title (the rest), above it, or hidden. It replaced the switch kickerabove.",
       "label": "Categories",
       "page": "Layout",
-      "level": 14,
+      "section": "layout",
       "row": {
         "drawn": "pop-up",
-        "line": 1184,
-        "in": "layoutBody"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 549,
+        "in": "layoutPage"
       },
       "changesPage": "Layout",
       "attrs": [
@@ -917,14 +874,15 @@
       "attr": "data-tags",
       "means": "How the tags at the end of an article look: text (the rest: words, as the theme sets them), or small pills that are filled, tinted, gray or outlined, made from the button colour. Tags follow the buttons gives the pills the buttons' corner.",
       "label": "Tags",
-      "page": "Corners and lines",
-      "level": 15,
+      "page": "Buttons",
+      "section": "buttons",
       "row": {
-        "drawn": "pop-up",
-        "line": 1198,
-        "in": "shapeBody"
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 574,
+        "in": "buttonsPage"
       },
-      "changesPage": "Corners and lines",
+      "changesPage": "Buttons",
       "attrs": [
         "data-tags"
       ],
@@ -950,11 +908,12 @@
       "means": "How cards look: filled (the rest: the card's fill and, with lines, its line), fillOnly (the fill without a line even with lines), raised (the paper, lifted by a shadow), topLine (a line along the top only, no fill, square; only with lines) or cornerMarks (only the four corners drawn). Architrave's page only.",
       "label": "Cards",
       "page": "Corners and lines",
-      "level": 15,
+      "section": "corners-and-lines",
       "row": {
-        "drawn": "pop-up",
-        "line": 1206,
-        "in": "shapeBody"
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 555,
+        "in": "shapePage"
       },
       "changesPage": "Corners and lines",
       "attrs": [
@@ -980,11 +939,12 @@
       "means": "How quotes in an article look: sideLine (a line at the side, the rest), plain, or filled (in a box with its fill).",
       "label": "Quotes",
       "page": "Corners and lines",
-      "level": 15,
+      "section": "corners-and-lines",
       "row": {
-        "drawn": "pop-up",
-        "line": 1206,
-        "in": "shapeBody"
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 555,
+        "in": "shapePage"
       },
       "changesPage": "Corners and lines",
       "attrs": [
@@ -1010,11 +970,12 @@
       "means": "How a box the writer coloured inside an article looks: filled (the rest: its own fill), outlined (a line around it) or raised (lifted by a shadow).",
       "label": "Notes",
       "page": "Corners and lines",
-      "level": 15,
+      "section": "corners-and-lines",
       "row": {
-        "drawn": "pop-up",
-        "line": 1206,
-        "in": "shapeBody"
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 555,
+        "in": "shapePage"
       },
       "changesPage": "Corners and lines",
       "attrs": [
@@ -1040,11 +1001,12 @@
       "means": "How search, comment and sign-up fields look: filled (the rest: the fill, with lines its line), outlined (a line on the paper) or raised (lifted by a shadow).",
       "label": "Fields",
       "page": "Corners and lines",
-      "level": 15,
+      "section": "corners-and-lines",
       "row": {
-        "drawn": "pop-up",
-        "line": 1206,
-        "in": "shapeBody"
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 555,
+        "in": "shapePage"
       },
       "changesPage": "Corners and lines",
       "attrs": [
@@ -1069,13 +1031,14 @@
       "means": "Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.",
       "label": "Paragraphs",
       "page": "Type › Reading text",
-      "level": 3,
+      "section": "type",
       "row": {
         "drawn": "pop-up",
-        "line": 1954,
-        "in": "level3"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 355,
+        "in": "rolePage"
       },
-      "changesPage": "Type › Reading text",
+      "changesPage": "Type",
       "attrs": [
         "data-paragraphs"
       ],
@@ -1100,13 +1063,14 @@
       "means": "The drop cap's letter: text (the rest, the reading text's own face and weight), bold (the reading face in bold, as the title), fraunces (a soft old-style display capital) or title (the heading role's own face, weight, slant and colour). Shows with Drop cap on.",
       "label": "Drop cap font",
       "page": "Type › Reading text",
-      "level": 3,
+      "section": "type",
       "row": {
         "drawn": "pop-up",
-        "line": 1953,
-        "in": "level3"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 355,
+        "in": "rolePage"
       },
-      "changesPage": "Type › Reading text",
+      "changesPage": "Type",
       "attrs": [
         "data-cap-face"
       ],
@@ -1131,13 +1095,14 @@
       "means": "Where words break at the line's end: auto (the rest: with Justified text, every word that may), few (long words only, on any edge, never on two lines in a row), any (every word that may, on any edge) or off (never).",
       "label": "Hyphens",
       "page": "Type › Reading text",
-      "level": 3,
+      "section": "type",
       "row": {
         "drawn": "pop-up",
-        "line": 1950,
-        "in": "level3"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 354,
+        "in": "rolePage"
       },
-      "changesPage": "Type › Reading text",
+      "changesPage": "Type",
       "attrs": [
         "data-hyphenate"
       ],
@@ -1160,13 +1125,14 @@
       "means": "The article's first paragraph speaks up, as a launch page opens on one big sentence: off (the rest) or big (1.4 times the text, medium, in the ink). Architrave's page only.",
       "label": "Opening sentence",
       "page": "Type › Reading text",
-      "level": 3,
+      "section": "type",
       "row": {
         "drawn": "pop-up",
-        "line": 1954,
-        "in": "level3"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 355,
+        "in": "rolePage"
       },
-      "changesPage": "Type › Reading text",
+      "changesPage": "Type",
       "attrs": [
         "data-opening"
       ],
@@ -1191,14 +1157,15 @@
       "attr": "data-links",
       "means": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
       "label": "Links",
-      "page": "Colour",
-      "level": 4,
+      "page": "Buttons",
+      "section": "buttons",
       "row": {
-        "drawn": "pop-up",
-        "line": 1244,
-        "in": "colourMore"
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 574,
+        "in": "buttonsPage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Buttons",
       "attrs": [
         "data-links"
       ],
@@ -1229,11 +1196,12 @@
       "means": "How strong the fills of cards, buttons and fields are: none (no fills; with no lines either, controls are plain glyphs), or 25 to 300 per cent of the colour pair's own steps; 100 is the theme's own. Architrave's page only for the strength; on another theme only none and 100.",
       "label": "Fill strength",
       "page": "Corners and lines",
-      "level": 15,
+      "section": "corners-and-lines",
       "row": {
         "drawn": "slider",
-        "line": 1208,
-        "in": "shapeBody"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 533,
+        "in": "fillSlider"
       },
       "changesPage": "Corners and lines",
       "attrs": [
@@ -1269,10 +1237,15 @@
       "def": "72",
       "means": "How many letters a line of reading text holds: 60 to 88 in steps of 4; 72 is the theme's own (45 to 75 is the classic range for comfortable reading). The column grows with the text size. On another theme it sets the theme's content width.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Layout",
+      "section": "layout",
+      "row": {
+        "drawn": "slider",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 548,
+        "in": "layoutPage"
+      },
+      "changesPage": "Layout",
       "attrs": [
         "data-measure"
       ],
@@ -1295,10 +1268,15 @@
       "def": "content",
       "means": "How wide the article's title, categories and date stand: content (the reading column, the rest) or wide (the theme's wide width, as the wide top picture). WordPress's own words. Architrave's page only.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Layout",
+      "section": "layout",
+      "row": {
+        "drawn": "pop-up",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 549,
+        "in": "layoutPage"
+      },
+      "changesPage": "Layout",
       "attrs": [
         "data-widehead"
       ],
@@ -1327,10 +1305,15 @@
       "def": "content",
       "means": "How wide the article's first picture stands: content (the reading column, the rest), wide (the theme's wide width) or full (edge to edge across the paper, a low 21:9 banner with square corners). WordPress's own words. Architrave's page only.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Layout",
+      "section": "layout",
+      "row": {
+        "drawn": "pop-up",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 549,
+        "in": "layoutPage"
+      },
+      "changesPage": "Layout",
       "attrs": [
         "data-widepicture"
       ],
@@ -1358,10 +1341,15 @@
       "def": "content",
       "means": "How wide the pictures inside the article stand: content (the reading column, the rest) or wide (as the wide top picture, centred, with more air). Architrave's page only.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Layout",
+      "section": "layout",
+      "row": {
+        "drawn": "pop-up",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 549,
+        "in": "layoutPage"
+      },
+      "changesPage": "Layout",
       "attrs": [
         "data-wide-figures"
       ],
@@ -1384,10 +1372,15 @@
       "def": "medium",
       "means": "The corners of cards, buttons, fields and pictures: none (square), small, medium (the theme's own), large or xlarge. One step re-cuts every corner together; corners inside corners stay sums.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Corners and lines",
+      "section": "corners-and-lines",
+      "row": {
+        "drawn": "slider",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 528,
+        "in": "cornersSlider"
+      },
+      "changesPage": "Corners and lines",
       "attrs": [
         "data-rounded"
       ],
@@ -1419,10 +1412,15 @@
       "def": "none",
       "means": "The lines around cards, buttons and fields and between rows: none (the theme's own: no lines but link underlines), hairline (half a pixel), or 1, 2, 3 or 5 px.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Corners and lines",
+      "section": "corners-and-lines",
+      "row": {
+        "drawn": "slider",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 523,
+        "in": "linesSlider"
+      },
+      "changesPage": "Corners and lines",
       "attrs": [
         "data-hairlines",
         "data-lines"
@@ -1456,10 +1454,15 @@
       "def": "solid",
       "means": "solid (the rest), dashed or dotted lines. Dashes are long only with radius none. Only with a borderWidth.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Corners and lines",
+      "section": "corners-and-lines",
+      "row": {
+        "drawn": "pop-up",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 554,
+        "in": "shapePage"
+      },
+      "changesPage": "Corners and lines",
       "attrs": [
         "data-line-style"
       ],
@@ -1486,10 +1489,15 @@
       "def": "45",
       "means": "How strong the lines are: the text colour's share in the line colour, 6 to 100 per cent; 45 is the theme's own. Only with a borderWidth.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Corners and lines",
+      "section": "corners-and-lines",
+      "row": {
+        "drawn": "slider",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 554,
+        "in": "shapePage"
+      },
+      "changesPage": "Corners and lines",
       "attrs": [
         "data-line"
       ],
@@ -1513,10 +1521,15 @@
       "def": "accent",
       "means": "What fills the main buttons: accent (the brand colour, the rest), text, or own (colours.<side>.button). The links keep the accent either way.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Buttons",
+      "section": "buttons",
+      "row": {
+        "drawn": "pop-up",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 572,
+        "in": "buttonsPage"
+      },
+      "changesPage": "Buttons",
       "attrs": [
         "data-button"
       ],
@@ -1538,14 +1551,15 @@
       "def": "match",
       "means": "The buttons' corners: match (the corners every card has, the rest), square, rounded (8 px) or pill. Only with a radius.",
       "label": "Button shape",
-      "page": "Corners and lines",
-      "level": 15,
+      "page": "Buttons",
+      "section": "buttons",
       "row": {
         "drawn": "pop-up",
-        "line": 1196,
-        "in": "shapeBody"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 572,
+        "in": "buttonsPage"
       },
-      "changesPage": null,
+      "changesPage": "Buttons",
       "attrs": [
         "data-button-shape"
       ],
@@ -1569,10 +1583,15 @@
       "def": "filled",
       "means": "How the main buttons look (the one action, like Subscribe): filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray or text (text only), in the button colour.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Buttons",
+      "section": "buttons",
+      "row": {
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 573,
+        "in": "buttonsPage"
+      },
+      "changesPage": "Buttons",
       "attrs": [
         "data-button-style"
       ],
@@ -1596,10 +1615,15 @@
       "def": "gray",
       "means": "How the other buttons look (a second choice beside the main one): gray (the rest), filled, tinted, outlined, shadow or text, in the button colour where it has one.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Buttons",
+      "section": "buttons",
+      "row": {
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 573,
+        "in": "buttonsPage"
+      },
+      "changesPage": "Buttons",
       "attrs": [
         "data-button-medium"
       ],
@@ -1623,10 +1647,15 @@
       "def": "text",
       "means": "How the quiet buttons look (small actions, like Share): text (the rest), filled, tinted, gray, outlined or shadow. Architrave's alone; another theme has no quiet kind.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Buttons",
+      "section": "buttons",
+      "row": {
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 573,
+        "in": "buttonsPage"
+      },
+      "changesPage": "Buttons",
       "attrs": [
         "data-button-quiet"
       ],
@@ -1643,10 +1672,15 @@
       "def": false,
       "means": "true: the tags' pills take the buttons' corner instead of staying round.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Buttons",
+      "section": "buttons",
+      "row": {
+        "drawn": "switch",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 574,
+        "in": "buttonsPage"
+      },
+      "changesPage": "Buttons",
       "attrs": [
         "data-tagsfollow"
       ],
@@ -1676,10 +1710,15 @@
       "def": "gray",
       "means": "How the current item is marked (the page you are on in the menu, the open tab): gray (the rest: the theme's own mark), filled with the button colour, outlined in it, or bold and underlined.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Buttons",
+      "section": "buttons",
+      "row": {
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 574,
+        "in": "buttonsPage"
+      },
+      "changesPage": "Buttons",
       "attrs": [
         "data-chosen-item"
       ],
@@ -1705,10 +1744,15 @@
       "def": "none",
       "means": "How every image on the site is shown: none (as published, the rest), grayscale, sepia, tinted (in the colour pair's paper and text), duotone (paper and accent), grain (film grain), warm, or hidden (no pictures).",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Pictures",
+      "section": "pictures",
+      "row": {
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 581,
+        "in": "picturesPage"
+      },
+      "changesPage": "Pictures",
       "attrs": [
         "data-pictures"
       ],
@@ -1725,10 +1769,15 @@
       "def": false,
       "means": "true: the picture look lifts under the pointer and the real colours show. Nothing with pictureFilter none or hidden.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Pictures",
+      "section": "pictures",
+      "row": {
+        "drawn": "switch",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 581,
+        "in": "picturesPage"
+      },
+      "changesPage": "Pictures",
       "attrs": [
         "data-picturehover"
       ],
@@ -1753,10 +1802,15 @@
       "def": false,
       "means": "true: pictures are dimmed a little on the dark side.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Pictures",
+      "section": "pictures",
+      "row": {
+        "drawn": "switch",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 581,
+        "in": "picturesPage"
+      },
+      "changesPage": "Pictures",
       "attrs": [
         "data-picturedim"
       ],
@@ -1786,10 +1840,15 @@
       "def": "plain",
       "means": "The frame around pictures: none (a picture stands on the paper with its corner alone), plain (a mat in the fields' colour, the rest), dots (the dot grid) or checker (a transparency checkerboard). With a borderWidth, a line around it too.",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Pictures",
+      "section": "pictures",
+      "row": {
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 582,
+        "in": "picturesPage"
+      },
+      "changesPage": "Pictures",
       "attrs": [
         "data-pictureframe"
       ],
@@ -1822,13 +1881,14 @@
       "means": "Width of the frame around pictures in pixels: 4, 8 (the rest), 12, 16, 24 or 32. Only with a pictureFrame.",
       "label": "Frame width",
       "page": "Pictures",
-      "level": 16,
+      "section": "pictures",
       "row": {
         "drawn": "slider",
-        "line": 1129,
-        "in": "pictureRows"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 582,
+        "in": "picturesPage"
       },
-      "changesPage": null,
+      "changesPage": "Pictures",
       "attrs": [
         "data-frame-width"
       ],
@@ -1853,14 +1913,15 @@
       "def": "none",
       "means": "The article's top picture fades into the paper: none (the rest), bottom, sides (bottom and sides) or all four edges. Architrave's page only.",
       "label": "Fade the edges",
-      "page": "Layout",
-      "level": 14,
+      "page": "Pictures",
+      "section": "pictures",
       "row": {
-        "drawn": "switch",
-        "line": 1176,
-        "in": "layoutBody"
+        "drawn": "looks",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 582,
+        "in": "picturesPage"
       },
-      "changesPage": null,
+      "changesPage": "Pictures",
       "attrs": [
         "data-fade-edges",
         "data-picturefade"
@@ -1891,13 +1952,14 @@
       "means": "A soft shadow under the pictures, so a white screenshot stands off a white paper: none (the rest) or soft; by night a faint light edge instead. Architrave's page only.",
       "label": "Picture shadow",
       "page": "Pictures",
-      "level": 16,
+      "section": "pictures",
       "row": {
         "drawn": "pop-up",
-        "line": 1226,
-        "in": "picturesBody"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 583,
+        "in": "picturesPage"
       },
-      "changesPage": null,
+      "changesPage": "Pictures",
       "attrs": [
         "data-picture-shadow"
       ],
@@ -1917,10 +1979,15 @@
       "def": "match",
       "means": "The pictures' corners: match (the corners every card and button has, the rest) or square (pictures cut square while cards and buttons keep theirs).",
       "label": null,
-      "page": null,
-      "level": null,
-      "pageFrom": "markChanged",
-      "changesPage": null,
+      "page": "Pictures",
+      "section": "pictures",
+      "row": {
+        "drawn": "pop-up",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 583,
+        "in": "picturesPage"
+      },
+      "changesPage": "Pictures",
       "attrs": [
         "data-pic-corners"
       ],
@@ -1947,11 +2014,12 @@
       "means": "The space of the page: xcompact, compact, standard, spacious or xspacious. Standard is the rest, the theme's own. Each kind of gap moves by its own amount: inside a group a little, between items more, between sections most, so what belongs together stays together. The reading text of an article keeps its own rhythm.",
       "label": "Space",
       "page": "Layout",
-      "level": 14,
+      "section": "layout",
       "row": {
         "drawn": "slider",
-        "line": 1172,
-        "in": "layoutBody"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 548,
+        "in": "layoutPage"
       },
       "changesPage": "Layout",
       "attrs": [
@@ -1974,11 +2042,12 @@
       "means": "true when the light and dark colours were set independently; false lets one side follow the other.",
       "label": "Same colours for light and dark",
       "page": "Colour",
-      "level": 4,
+      "section": "colour",
       "row": {
         "drawn": "switch",
-        "line": 2080,
-        "in": "level4"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 190,
+        "in": "colourPage"
       },
       "changesPage": "Colour",
       "attrs": [],
@@ -2214,7 +2283,7 @@
       "meansFrom": "roles",
       "label": "Font",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-code-face",
@@ -2305,7 +2374,7 @@
       "meansFrom": "roles",
       "label": "Size",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-code-size",
@@ -2411,7 +2480,7 @@
       "meansFrom": "roles",
       "label": "Weight",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-code-weight",
@@ -2477,6 +2546,7 @@
       "roles": [
         "title",
         "headings",
+        "body",
         "quote",
         "meta",
         "interface",
@@ -2495,7 +2565,7 @@
       "meansFrom": "roles",
       "label": "Line spacing",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-code-leading",
@@ -2559,7 +2629,7 @@
       "meansFrom": "roles",
       "label": "Character spacing",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-code-tracking",
@@ -2643,7 +2713,7 @@
       "meansFrom": "roles",
       "label": "Capitals",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-code-caps",
@@ -2733,7 +2803,7 @@
       "meansFrom": "roles",
       "label": "Italic",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-code-italic",
@@ -2795,7 +2865,7 @@
       "meansFrom": "roles",
       "label": "Alignment",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-head-align",
@@ -2842,7 +2912,7 @@
       "meansFrom": "roles",
       "label": "Colour",
       "page": "Type › {role}",
-      "level": 3,
+      "section": "type",
       "changesPage": "Type › {role}",
       "attrs": [
         "data-body-colour",
@@ -2894,8 +2964,13 @@
       "meansFrom": "colours",
       "label": null,
       "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
+      "section": "colour",
+      "row": {
+        "drawn": "well",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 209,
+        "in": "colourPage"
+      },
       "changesPage": "Colour",
       "attrs": [],
       "rest": false,
@@ -2917,8 +2992,13 @@
       "meansFrom": "colours",
       "label": null,
       "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
+      "section": "colour",
+      "row": {
+        "drawn": "well",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 209,
+        "in": "colourPage"
+      },
       "changesPage": "Colour",
       "attrs": [
         "data-colours",
@@ -2956,8 +3036,13 @@
       "meansFrom": "colours",
       "label": null,
       "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
+      "section": "colour",
+      "row": {
+        "drawn": "well",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 209,
+        "in": "colourPage"
+      },
       "changesPage": "Colour",
       "attrs": [
         "data-colours"
@@ -2983,8 +3068,13 @@
       "meansFrom": "colours",
       "label": null,
       "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
+      "section": "colour",
+      "row": {
+        "drawn": "well",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 210,
+        "in": "colourPage"
+      },
       "changesPage": "Colour",
       "attrs": [],
       "rest": false,
@@ -3006,8 +3096,13 @@
       "meansFrom": "colours",
       "label": null,
       "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
+      "section": "colour",
+      "row": {
+        "drawn": "well",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 210,
+        "in": "colourPage"
+      },
       "changesPage": "Colour",
       "attrs": [
         "data-colours"
@@ -3033,11 +3128,12 @@
       "meansFrom": "colours",
       "label": "Accent",
       "page": "Colour",
-      "level": 4,
+      "section": "colour",
       "row": {
         "drawn": "well",
-        "line": 2139,
-        "in": "level4"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 210,
+        "in": "colourPage"
       },
       "changesPage": "Colour",
       "attrs": [
@@ -3068,8 +3164,13 @@
       "meansFrom": "colours",
       "label": null,
       "page": "Colour",
-      "level": 4,
-      "pageFrom": "markChanged",
+      "section": "colour",
+      "row": {
+        "drawn": "row",
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 540,
+        "in": "highlightRow"
+      },
       "changesPage": "Colour",
       "attrs": [
         "data-colours",
@@ -3106,14 +3207,15 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Button colour › Own colour…",
-      "page": "Colour",
-      "level": 4,
+      "page": "Buttons",
+      "section": "buttons",
       "row": {
         "drawn": "pop-up item",
-        "line": 1263,
-        "in": "colourMore"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 1040,
+        "in": "buttonsPage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Buttons",
       "attrs": [
         "data-colours"
       ],
@@ -3137,14 +3239,15 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
-      "page": "Type › Interface titles",
-      "level": 3,
+      "page": "Type › Title",
+      "section": "type",
       "row": {
         "drawn": "pop-up item",
-        "line": 1585,
-        "in": "colourMenu"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 1040,
+        "in": "rolePage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Type",
       "attrs": [
         "data-colours"
       ],
@@ -3168,14 +3271,15 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
-      "page": "Type › ",
-      "level": 3,
+      "page": "Type › Headings",
+      "section": "type",
       "row": {
         "drawn": "pop-up item",
-        "line": 1585,
-        "in": "colourMenu"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 1040,
+        "in": "rolePage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Type",
       "attrs": [
         "data-colours"
       ],
@@ -3199,14 +3303,15 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
-      "page": "Type › ",
-      "level": 3,
+      "page": "Type › Reading text",
+      "section": "type",
       "row": {
         "drawn": "pop-up item",
-        "line": 1585,
-        "in": "colourMenu"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 1040,
+        "in": "rolePage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Type",
       "attrs": [
         "data-colours"
       ],
@@ -3231,13 +3336,14 @@
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
       "page": "Type › Quotes",
-      "level": 3,
+      "section": "type",
       "row": {
         "drawn": "pop-up item",
-        "line": 1585,
-        "in": "colourMenu"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 1040,
+        "in": "rolePage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Type",
       "attrs": [
         "data-colours"
       ],
@@ -3261,14 +3367,15 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
-      "page": "Type › ",
-      "level": 3,
+      "page": "Type › Small text",
+      "section": "type",
       "row": {
         "drawn": "pop-up item",
-        "line": 1585,
-        "in": "colourMenu"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 1040,
+        "in": "rolePage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Type",
       "attrs": [
         "data-colours"
       ],
@@ -3292,14 +3399,15 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
-      "page": "Type › ",
-      "level": 3,
+      "page": "Type › Interface",
+      "section": "type",
       "row": {
         "drawn": "pop-up item",
-        "line": 1585,
-        "in": "colourMenu"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 1040,
+        "in": "rolePage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Type",
       "attrs": [
         "data-colours"
       ],
@@ -3323,14 +3431,15 @@
       "means": null,
       "meansFrom": "colours",
       "label": "Colour › Own colour…",
-      "page": "Type › ",
-      "level": 3,
+      "page": "Type › Code",
+      "section": "type",
       "row": {
         "drawn": "pop-up item",
-        "line": 1585,
-        "in": "colourMenu"
+        "file": "plugin/assets/js/panel-window.js",
+        "line": 1040,
+        "in": "rolePage"
       },
-      "changesPage": "Colour",
+      "changesPage": "Type",
       "attrs": [
         "data-colours"
       ],
@@ -3803,9 +3912,10 @@
       "muted"
     ],
     "keys": {
-      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them; since the layout words (2026-10-03) the article widths and the line length are worked out from titleWidth, pictureWidth, figureWidth and lineLength; since the CSS words (2026-10-03) the corners, lines and fills are worked out from radius, borderWidth, borderStyle, borderStrength and fill; since the buttons' names (2026-10-03) the buttons' colour, shape, three levels, tags' corner and current item are worked out from buttonColour, buttonShape, primaryButton, secondaryButton, tertiaryButton, tagsMatchButtons and currentItem; since the pictures' keys (2026-10-03) the picture look, frame, fade, shadow and corners are worked out from pictureFilter, colourOnHover, dimInDark, pictureFrame, frameWidth, pictureFade, pictureShadow and pictureCorners.",
+      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them; since the layout words (2026-10-03) the article widths and the line length are worked out from titleWidth, pictureWidth, figureWidth and lineLength; since the CSS words (2026-10-03) the corners, lines and fills are worked out from radius, borderWidth, borderStyle, borderStrength and fill; since the buttons' names (2026-10-03) the buttons' colour, shape, three levels, tags' corner and current item are worked out from buttonColour, buttonShape, primaryButton, secondaryButton, tertiaryButton, tagsMatchButtons and currentItem; since the pictures' keys (2026-10-03) the picture look, frame, fade, shadow and corners are worked out from pictureFilter, colourOnHover, dimInDark, pictureFrame, frameWidth, pictureFade, pictureShadow and pictureCorners. Since the reading text's line spacing went into its role (2026-10-03) leading is the engine's dial behind roles.body.lineHeight: five steps (dense, tight, default, airy, wide for tight, snug, normal, relaxed, loose), the first paint's data-leading.",
       "dials": [
-        "palette"
+        "palette",
+        "leading"
       ],
       "lists": {
         "TINTS": [

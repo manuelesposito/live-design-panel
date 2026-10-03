@@ -30,22 +30,13 @@
 	function t(word) { return WORDS[word] || word; }
 	
 	var STEPS = [
-		{ id: 'solid', label: 'Solid' },
-		{ id: 'packed', label: 'Packed' },
-		{ id: 'close', label: 'Close' },
-		{ id: 'densest', label: 'Densest' },
-		{ id: 'dense', label: 'Dense' },
-		{ id: 'tight', label: 'Tight' },
-		{ id: 'snug', label: 'Snug' },
-		{ id: 'default', label: 'Default' },
-		{ id: 'relaxed', label: 'Relaxed' },
-		{ id: 'airy', label: 'Airy' },
-		{ id: 'wider', label: 'Wider' },
-		{ id: 'wide', label: 'Wide' },
-		{ id: 'open', label: 'Open' },
-		{ id: 'loose', label: 'Loose' },
-		{ id: 'loosest', label: 'Loosest' }
+		{ id: 'dense', label: 'Tight' },
+		{ id: 'tight', label: 'Snug' },
+		{ id: 'default', label: 'Normal' },
+		{ id: 'airy', label: 'Relaxed' },
+		{ id: 'wide', label: 'Loose' }
 	];
+	var NEAR = { solid: 'dense', packed: 'dense', close: 'dense', densest: 'dense', snug: 'default', relaxed: 'airy', wider: 'airy', open: 'wide', loose: 'wide', loosest: 'wide' };
 	var ids = STEPS.map(function (s) { return s.id; });
 	function apply(step) {
 		if (step === DEFAULT) root.removeAttribute(ATTR);
@@ -53,6 +44,7 @@
 	}
 	var raw = null;
 	try { raw = localStorage.getItem(KEY); } catch (e) { raw = null; }
+	if (NEAR[raw]) { raw = NEAR[raw]; try { if (raw === DEFAULT) localStorage.removeItem(KEY); else localStorage.setItem(KEY, raw); } catch (e) {} }
 	var initial = ids.indexOf(raw) !== -1 ? raw : DEFAULT;
 	apply(initial);
 	document.addEventListener('DOMContentLoaded', function () {

@@ -191,7 +191,7 @@
 	   reader turned a style's centring off; on a record false was only written
 	   because every export wrote every switch, and means nothing. The tweak's
 	   members replace the style's (roleOf), so the style's are copied first. */
-	function liftCentre(rec, style) { return liftLayout(liftColours(liftType(liftCentreOnly(rec, style)), style), style); }
+	function liftCentre(rec, style) { return liftLayout(liftColours(liftType(liftLeading(liftCentreOnly(rec, style), !style)), style), style); }
 	/* THE SEVEN ROLES REPLACED THE EIGHT (Manuel, 2026-10-02, lab/the-typography-roles.html):
 	   a record, link, published style or tweak written before then names the old roles
 	   (head, read, quote, kicker, small, comment, ui, title) with their members and old
@@ -270,6 +270,25 @@
 		Object.keys(P).forEach(function (r) { Object.keys(P[r]).forEach(function (d) { if (P[r][d] === undefined) delete P[r][d]; }); if (!Object.keys(P[r]).length) delete P[r]; });
 		rec.roles = P;
 		rec.architrave = 2;
+		return rec;
+	}
+	/* THE READING TEXT'S LINE SPACING (2026-10-03): a record says it as `roles.body.lineHeight`, in the
+	   five words every role takes (tight, snug, normal, relaxed, loose), and no longer as the top-level
+	   `leading` of fifteen steps. The engine keeps its dial (data-leading, the first paint) on the five
+	   steps the words stand for; an old step goes to the nearest of them. A record that names no line
+	   spacing is the theme's own; a tweak that names none leaves the style's. Self-contained, as liftType. */
+	function liftLeading(rec, whole) {
+		if (!rec || typeof rec !== 'object') return rec;
+		var NEAR = { solid: 'dense', packed: 'dense', close: 'dense', densest: 'dense', snug: 'default', relaxed: 'airy', wider: 'airy', open: 'wide', loose: 'wide', loosest: 'wide' };
+		var STEP = { tight: 'dense', snug: 'tight', normal: 'default', relaxed: 'airy', loose: 'wide' };
+		var body = rec.roles && typeof rec.roles === 'object' && rec.roles.body && typeof rec.roles.body === 'object' ? rec.roles.body : null;
+		if (body && body.lineHeight !== undefined) {
+			if (STEP[body.lineHeight]) rec.leading = STEP[body.lineHeight];
+			delete body.lineHeight;
+			if (!Object.keys(body).length) delete rec.roles.body;
+		}
+		if (rec.leading !== undefined && NEAR[rec.leading]) rec.leading = NEAR[rec.leading];
+		if (rec.leading === undefined && whole) rec.leading = 'default';
 		return rec;
 	}
 	/* THE LAYOUT'S OLD KEYS (2026-10-03, lab/the-layout.html): read into WordPress's words once. On a tweak
@@ -508,7 +527,7 @@
 	/* >>> THE LIST'S TABLES, GENERATED (tools/settings-list.mjs, from plugin/settings.json) */
 	/* Do not edit between the markers: change plugin/settings.json and run `node tools/settings-list.mjs`,
 	   which writes this block and then the list again from the running code; --check fails when they part. */
-	var DIALS = ['palette', 'reading', 'face', 'leading'];
+	var DIALS = ['palette', 'leading', 'reading', 'face'];
 	var OPTS = ['justify', 'dropcap', 'alternates', 'widehead', 'widepicture', 'rounded', 'lines', 'hairlines', 'fills', 'tagsfollow', 'picturehover', 'picturedim', 'pictureframe', 'picturefade'];
 	var TINTS = ['purple', 'brown', 'green', 'blue', 'orange'];
 	var SCOPE = ['article', 'all'];
@@ -603,7 +622,7 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own', 'muted'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'reading', 'face', 'leading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'sans', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'reading', 'face', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'sans', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { scope: SCOPE, capLines: ['2', '3', '4'], borderStyle: LINE_STYLE },
 		wells: ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight', 'button', 'title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'],
 		meaning: {
@@ -614,7 +633,6 @@
 			reading: 'The reading size step of the article, a fluid rung and not a pixel value; default is about 22px on a desktop. Do not set a size for a monospaced reading face, its phone floor is handled by the theme.',
 			face: 'The font of the article body.',
 			sans: 'The font of the interface: the rail, buttons, menus.',
-			leading: 'Line spacing of the article, from solid (tightest) to loosest; default is 1.6.',
 			justify: 'Justified paragraphs with hyphenation.',
 			dropcap: 'A large initial on the first paragraph; capLines is its height in lines.',
 			capLines: 'Height of the initial in lines. Only with dropcap.',
@@ -701,7 +719,7 @@
 			scope: 'Legacy. The theme always applies paragraph settings everywhere.',
 			unlinked: 'true when the light and dark colours were set independently; false lets one side follow the other.',
 			effects: 'The extras\' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect\'s own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.',
-			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li); its font is the record\'s face and its line spacing the record\'s leading. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record\'s sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.',
+			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li); its font is the record\'s face. quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels; its font is the record\'s sans. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.',
 			colours: 'Seven colours per side, named for their job, as hex: background (Paper: the page the text sits on), background2 (Ground: the space around the page and the rails, a theme\'s second background), card (Cards: menus, boxes, fields standing on the page), text, mutedText (Soft text: dates, captions, small facts), accent (the brand colour: links and the main buttons) and highlight (the highlighter\'s colour; left out, none). Beside them the button\'s own colour and each type role\'s own (title, headings, body, quote, meta, interface, code), used with button own and roles.<role>.colour own. Leave out what you do not need: the rest is mixed from background and text. text on background must reach 4.5:1 and accent on background 3:1 on both sides. A background2 on the other side of its background (dark around a light page, light around a dark one) is a dark ground, worn around the page on wide screens with its own words, lines and links. Older records name paper, ink, ground, lift and marker; they are read as these. primary, foreground and muted-foreground are read as accent, text and mutedText.'
 		}
 	};
@@ -3489,7 +3507,8 @@
 	/* WHAT MAKES THIS STYLE LOOK LIKE A RECORD: the changes over its saved self that
 	   turn the one into the other. A key the record does not name stays as saved. */
 	function entryFromRecord(rec) {
-		var base = savedRecord() || {}, e = {}, J = JSON.stringify;
+		var base = liftLeading(JSON.parse(JSON.stringify(savedRecord() || {})), true), e = {}, J = JSON.stringify;
+		rec = liftLeading(JSON.parse(JSON.stringify(rec || {})), true); /* the body's line spacing back onto its dial */
 		if (DIALS.some(function (d) { return rec[d] !== undefined && rec[d] !== base[d]; })) DIALS.forEach(function (d) { e[d] = rec[d] !== undefined ? rec[d] : base[d]; });
 		TWEAK_KEYS.forEach(function (k) { if (DIALS.indexOf(k) !== -1 || k === 'roles' || k === 'colours' || k === 'effects' || k === 'was') return; if (rec[k] !== undefined && J(rec[k]) !== J(base[k])) e[k] = rec[k]; });
 		var roles = {}, ra = typeOf(rec), rb = typeOf(base);
@@ -3631,11 +3650,11 @@
 		schema: function () {
 			var faces = (window.ArchitraveFaces || []).map(function (f) { return f.id; });
 			/* THE SEVEN (2026-10-02): every role the same dials, the steps by name; body's font
-			   and line spacing are `face` and `leading`, the interface's font is `sans`. */
+			   is `face`, the interface's font is `sans`; the body's line spacing is its own lineHeight since 2026-10-03. */
 			var roles = {};
 			TYPE_ROLES.forEach(function (r) {
 				var o = {};
-				TYPE_DIALS[r].forEach(function (d) {
+				(r === 'body' ? TYPE_DIALS[r].slice(0, 2).concat('lineHeight', TYPE_DIALS[r].slice(2)) : TYPE_DIALS[r]).forEach(function (d) {
 					o[d] = d === 'font' ? (r === 'code' ? [] : ['body', 'interface']).concat(Object.keys(FAMILY)) : d === 'size' ? TYPE_SIZES : d === 'weight' ? Object.keys(WEIGHT) : d === 'lineHeight' ? Object.keys(TYPE_LINE) : d === 'letterSpacing' ? Object.keys(TYPE_LETTER) : d === 'align' ? ALIGNS : d === 'colour' ? TYPE_COLOURS : 'boolean';
 				});
 				roles[r] = o;
@@ -3651,7 +3670,6 @@
 				palette: Modes && Modes.palettes ? Modes.palettes.map(function (p) { return p.id; }) : [],
 				reading: window.QuireReading ? window.QuireReading.ids : [],
 				face: faces,
-				leading: Object.keys(LEAD),
 				sans: SANS.map(function (x) { return x.id; }),
 				lineLength: LAYOUT.lineLength.list, titleWidth: LAYOUT.titleWidth.list, pictureWidth: LAYOUT.pictureWidth.list, figureWidth: LAYOUT.figureWidth.list,
 				pictureFilter: LAYOUT.pictureFilter.list, colourOnHover: 'boolean', dimInDark: 'boolean', pictureFrame: LAYOUT.pictureFrame.list, frameWidth: LAYOUT.frameWidth.list, pictureFade: LAYOUT.pictureFade.list, pictureShadow: LAYOUT.pictureShadow.list, pictureCorners: LAYOUT.pictureCorners.list,
@@ -4057,6 +4075,10 @@
 			loose.forEach(function (k) { delete out[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			if (unlinkedOf()) out.unlinked = true; /* save and update carried it, the text did not: a shared or published style arrived with its sides linked (2026-09-26) */
 			out.roles = typeMerged(s, tw);
+			/* the reading text's line spacing, in the words of every role (2026-10-03; see liftLeading) */
+			var lhOut = { dense: 'tight', tight: 'snug', airy: 'relaxed', wide: 'loose' }[out.leading];
+			delete out.leading;
+			if (lhOut) { out.roles.body = out.roles.body || {}; out.roles.body.lineHeight = lhOut; }
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
 			var c = coloursOf(null, true); out.colours = {};
 			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = publicSide(c[side]); });
