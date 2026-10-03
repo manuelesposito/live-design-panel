@@ -4357,7 +4357,7 @@
 			var back = function (f) { return f === 'read' ? 'body' : f === 'ui' ? 'interface' : f; };
 			var LINE_BACK = { dense: 'tight', tight: 'snug', 'default': 'normal', airy: 'relaxed', wide: 'loose' };
 			var out = {
-				font: role === 'body' ? (root.getAttribute('data-face') || 'newsreader') : role === 'interface' ? sansOf() : P.font !== undefined ? P.font : role === 'code' ? '' : role === 'headings' ? back(ROLE_DEFAULT.head.face) : back(e.face),
+				font: role === 'body' ? (root.getAttribute('data-face') || (window.architravePanelGuest ? 'host' : 'newsreader')) /* another theme's own font is `host`, as a saved style says it (0.27.0) */ : role === 'interface' ? sansOf() : P.font !== undefined ? P.font : role === 'code' ? '' : role === 'headings' ? back(ROLE_DEFAULT.head.face) : back(e.face),
 				size: P.size !== undefined ? P.size : '0',
 				weight: P.weight !== undefined ? P.weight : role === 'headings' ? 'semibold' : role === 'code' ? 'regular' : e.weight,
 				lineHeight: role === 'body' ? (LINE_BACK[root.getAttribute('data-leading') || 'default'] || 'normal') : P.lineHeight !== undefined ? P.lineHeight : 'normal',

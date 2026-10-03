@@ -2,8 +2,8 @@
  * THE AI DOOR ON A REAL SITE: window.LiveDesign (build plan, "The AI door on a real site", 2026-09-28).
  *
  * An AI styles the site through the same door a person's window uses. It reads what every
- * setting MEANS, changes settings by their saved names (soft, corners, roles.head.size,
- * colours.dark.accent), sees each change as ONE step the owner can undo, and gets the
+ * setting MEANS, changes settings by their saved names (radius, space, roles.body.size,
+ * colours.dark.accent; the words a saved style uses, since 0.27.0), sees each change as ONE step the owner can undo, and gets the
  * reading check back in numbers. It speaks the lab prototype's words (describe, set,
  * preview, endPreview, check, explain, undo, redo, style, load, choose, open), so the
  * connector (tools/live-design-mcp.mjs) works on the lab page and on a real site alike.
@@ -64,13 +64,7 @@
 		if (p[0] === 'roles') {
 			var r = (sc.roles || {})[p[1]];
 			if (!r) return { error: 'There is no role "' + p[1] + '". Roles: ' + Object.keys(sc.roles || {}).join(', ') };
-			if (p[2] === 'members') {
-				var m = (r.members || {})[p[3]];
-				if (!m) return { error: 'Role "' + p[1] + '" has no member "' + p[3] + '". Members: ' + Object.keys(r.members || {}).join(', ') };
-				if (!m[p[4]] || p[4] === 'rest') return { error: 'Member "' + p[3] + '" has no dial "' + p[4] + '".' };
-				return { allowed: m[p[4]] };
-			}
-			if (p.length !== 3 || !r[p[2]]) return { error: 'Role "' + p[1] + '" has no dial "' + p[2] + '". Dials: ' + Object.keys(r).filter(function (k) { return r[k] !== undefined && k !== 'members'; }).join(', ') };
+			if (p.length !== 3 || !r[p[2]]) return { error: 'Role "' + p[1] + '" has no dial "' + p[2] + '". Dials: ' + Object.keys(r).filter(function (k) { return r[k] !== undefined; }).join(', ') };
 			return { allowed: r[p[2]] };
 		}
 		if (p[0] === 'colours') {
@@ -88,11 +82,7 @@
 	function liveValue(path) {
 		var s = S(), p = path.split('.');
 		try {
-			if (p[0] === 'roles' && p.length === 3) return (s.role(p[1]) || {})[p[2]];
-			if (p[0] === 'roles' && p[2] === 'members' && p.length === 5) { 
-				var m = ((((schema().roles || {})[p[1]] || {}).members) || {})[p[3]] || {};
-				return p[4] === 'size' && m.rest != null ? String(m.rest) : (s.role(p[1]) || {})[p[4]];
-			}
+			if (p[0] === 'roles' && p.length === 3) return (s.type(p[1]) || {})[p[2]]; 
 			if (p[0] === 'colours') return p[1] === s.side() ? s.colour(p[2]) : undefined;
 			if (p.length === 1 && entry(path)) return s.get(path);
 		} catch (e) {  }
@@ -165,12 +155,12 @@
 			facts.lettersPerLine = per > 0 ? Math.round(p.getBoundingClientRect().width / per) : null;
 		}
 		var warn = [], add = function (key, says, fix) { warn.push({ key: key, says: says, fix: fix }); };
-		if (facts.textContrast < 4.5) add('colours.' + facts.side + '.ink', 'The text is hard to read on its paper (contrast ' + facts.textContrast + ', needs 4.5).', null);
+		if (facts.textContrast < 4.5) add('colours.' + facts.side + '.text', 'The text is hard to read on its paper (contrast ' + facts.textContrast + ', needs 4.5).', null);
 		if (facts.linkContrast < 3) add('colours.' + facts.side + '.accent', 'Links are hard to tell from the paper (contrast ' + facts.linkContrast + ', needs 3).', { links: 'both' });
-		if (facts.buttonTextContrast < 4.5) add('button', 'The text on strong buttons is hard to read (contrast ' + facts.buttonTextContrast + ').', { button: 'ink' });
-		if (facts.readingSize && facts.readingSize < 16) add('roles.read.size', 'Reading text under 16 px is small for long reading.', { 'roles.read.size': 18 });
-		if (facts.lettersPerLine && facts.lettersPerLine > 90) add('measure', 'Lines of about ' + facts.lettersPerLine + ' letters are long; 60 to 75 read best.', { measure: '72' });
-		if (facts.lineSpacing && facts.lineSpacing < 1.3) add('leading', 'Lines of reading text sit tight (' + facts.lineSpacing + '); 1.4 to 1.7 read best.', null);
+		if (facts.buttonTextContrast < 4.5) add('buttonColour', 'The text on strong buttons is hard to read (contrast ' + facts.buttonTextContrast + ').', { buttonColour: 'text' });
+		if (facts.readingSize && facts.readingSize < 16) add('roles.body.size', 'Reading text under 16 px is small for long reading.', { 'roles.body.size': '+1' });
+		if (facts.lettersPerLine && facts.lettersPerLine > 90) add('lineLength', 'Lines of about ' + facts.lettersPerLine + ' letters are long; 60 to 75 read best.', { lineLength: '68' });
+		if (facts.lineSpacing && facts.lineSpacing < 1.3) add('roles.body.lineHeight', 'Lines of reading text sit tight (' + facts.lineSpacing + '); 1.4 to 1.7 read best.', { 'roles.body.lineHeight': 'relaxed' });
 		if (!p) facts.note = 'No article paragraph on this page: open a post to measure the reading text.';
 		return { ok: !warn.length, facts: facts, warnings: warn };
 	}
@@ -181,24 +171,23 @@
 	}
 	function explain() {
 		var s = S(); if (!s) return '';
-		var r = function (id) { return s.role(id) || {}; }, name = s.name(), head = r('head'), read = r('read');
-		var face = function (f) { return f ? s.faceOf(f) : ''; };
-		return name + ': a ' + s.side() + ' page, paper ' + s.colour('paper') + ', ink ' + s.colour('ink') + ', accent ' + s.colour('accent') + '. ' +
-			'Headings in ' + face(head.face) + ' ' + (head.weight || '') + ' at ' + head.size + ' px; reading text in ' + face(read.face) + ' at ' + read.size + ' px. ' +
-			'Space ' + s.get('space') + ', line length ' + s.get('measure') + ' letters, corners ' + s.get('corners') + ', lines ' + (s.get('lines') ? 'on' : 'off') + '.';
+		var r = function (id) { return s.type(id) || {}; }, name = s.name(), head = r('headings'), body = r('body'), ui = r('interface');
+		var face = function (f) { return f === 'body' ? face(body.font) : f === 'interface' ? face(ui.font) : f === 'host' ? 'the theme\'s own font' : f ? s.faceOf(f) : ''; };
+		return name + ': a ' + s.side() + ' page, background ' + s.colour('paper') + ', text ' + s.colour('ink') + ', accent ' + s.colour('accent') + '. ' +
+			'Headings in ' + face(head.font) + ' ' + (head.weight || '') + '; reading text in ' + face(body.font) + ' at ' + body.px + ' px, line spacing ' + body.lineHeight + '. ' +
+			'Space ' + s.get('space') + ', line length ' + s.get('lineLength') + ' letters, corners ' + s.get('radius') + ', lines ' + s.get('borderWidth') + '.';
 	}
 	function after(changed, why) {
 		try { S().keepVersion(); } catch (e) {  }
 		try { document.dispatchEvent(new CustomEvent('livedesign:change', { detail: { who: WHO, why: why || '', keys: changed.map(function (c) { return c.key; }) } })); } catch (e) {  }
 	}
 	
-	function dialsOf(d) {
+	function dialsOf(d, id) {
 		if (!d) return d;
 		var o = {};
 		Object.keys(d).forEach(function (k) {
 			if (d[k] === undefined) return;
-			if (k === 'face') o.face = 'a font id from type.fonts, or read / ui';
-			else if (k === 'members') { var m = {}; Object.keys(d.members || {}).forEach(function (id) { m[id] = { rest: d.members[id].rest, dials: Object.keys(d.members[id]).filter(function (x) { return x !== 'rest'; }) }; }); o.members = m; }
+			if (k === 'font') o.font = id === 'body' || id === 'interface' ? 'a font id from type.fonts' : 'a font id from type.fonts, or body / interface to follow those roles';
 			else o[k] = d[k];
 		});
 		return o;
@@ -219,14 +208,14 @@
 				}),
 				colours: { wells: Object.keys(((sc.colours || {}).light) || {}), now: rec.colours || null, how: 'colours.<light|dark>.<well> as #rrggbb, e.g. colours.dark.accent. Set both sides.' },
 				type: {
-					roles: roleList().map(function (r) { return { id: r.id, name: r.label, where: r.where, now: s.role(r.id), dials: dialsOf((sc.roles || {})[r.id]) }; }),
+					roles: roleList().map(function (r) { return { id: r.id, name: r.label, where: r.where, now: s.type(r.id), dials: dialsOf((sc.roles || {})[r.id], r.id) }; }),
 					fonts: s.faces().map(function (f) { return f.id + ' (' + f.group + ')'; }),
-					note: 'face takes a font id from fonts, or read / ui to follow those roles. A member (e.g. roles.head.members.sub.size) takes the same values as its role\'s dial; left out, it follows the role.'
+					note: 'Every role is roles.<role>.<dial>, e.g. roles.headings.font, roles.body.lineHeight. font takes a font id from fonts; the roles but body and interface may also say body or interface to follow those. size is a step from the role\'s own size, -4 to +6. A dial left out is the theme\'s own.'
 				},
 				presets: s.presets().map(function (x) { return { id: x.id, name: x.label, group: x.group || '' }; }),
 				styles: styleList(),
 				check: check(),
-				howToSet: 'set({ corners: "large", "roles.read.size": 20, space: "+1", "colours.dark.accent": "#ff7a4d" }, "why, in a few words"). A number goes to the nearest step; "+1"/"-1" moves one step. side: "light"|"dark" only changes what you look at.',
+				howToSet: 'set({ radius: "large", "roles.body.size": "+1", space: "+1", "colours.dark.accent": "#ff7a4d" }, "why, in a few words"). A number goes to the nearest step; "+1"/"-1" moves one step. side: "light"|"dark" only changes what you look at.',
 				rules: (function () { try { return E().guide().rules; } catch (e) { return []; } }())
 			};
 		},
@@ -264,7 +253,7 @@
 			if (!rec || typeof rec !== 'object') return { problems: [{ problem: 'Not a style. Pass what style() returns, or its record.' }] };
 			return editableRecord().then(function (ed) {
 				if (ed.error) return { problems: [{ problem: ed.error }] };
-				var base = clone(rec); delete base.id; base.label = ed.record.label; base.base = ed.record.base; base.architrave = 1;
+				var base = clone(rec); delete base.id; base.label = ed.record.label; base.base = ed.record.base; base.architrave = 3;
 				S().restoreVersion(base); after([{ key: 'style' }], why || 'loaded a style');
 				return { now: explain(), check: check() };
 			});
