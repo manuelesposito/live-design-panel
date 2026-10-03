@@ -161,7 +161,7 @@
     "above",
     "hidden"
   ],
-  "tagsfollow": "boolean",
+  "tagsMatchButtons": "boolean",
   "alternates": "boolean",
   "sans": [
     "inter",
@@ -347,18 +347,18 @@
     "bottom",
     "all"
   ],
-  "button": [
+  "buttonColour": [
     "accent",
-    "ink",
+    "text",
     "own"
   ],
-  "buttonshape": [
-    "cards",
+  "buttonShape": [
+    "match",
     "square",
     "rounded",
     "pill"
   ],
-  "buttonstyle": [
+  "primaryButton": [
     "filled",
     "outlined",
     "shadow",
@@ -366,7 +366,7 @@
     "gray",
     "text"
   ],
-  "buttonmedium": [
+  "secondaryButton": [
     "gray",
     "filled",
     "tinted",
@@ -374,7 +374,7 @@
     "shadow",
     "text"
   ],
-  "buttonquiet": [
+  "tertiaryButton": [
     "text",
     "filled",
     "tinted",
@@ -389,7 +389,7 @@
     "gray",
     "outlined"
   ],
-  "chosenitem": [
+  "currentItem": [
     "gray",
     "filled",
     "outlined",

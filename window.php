@@ -54,7 +54,7 @@ function live_design_window_reader() {
 }
 
 function live_design_window_page( $setting ) {
-	$buttons = array( 'button', 'buttonshape', 'tagsfollow', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'links' );
+	$buttons = array( 'button', 'buttonshape', 'tagsfollow', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'links', 'buttonColour', 'buttonShape', 'tagsMatchButtons', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'currentItem' );
 	if ( ! empty( $setting['key'] ) && in_array( $setting['key'], $buttons, true ) ) {
 		return 'Buttons';
 	}

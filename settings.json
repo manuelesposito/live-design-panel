@@ -29,7 +29,7 @@
       "pictureframe",
       "pictureWidth",
       "categories",
-      "tagsfollow",
+      "tagsMatchButtons",
       "alternates",
       "sans",
       "scope",
@@ -44,13 +44,13 @@
       "framepattern",
       "borderStyle",
       "fadeedges",
-      "button",
-      "buttonshape",
-      "buttonstyle",
-      "buttonmedium",
-      "buttonquiet",
+      "buttonColour",
+      "buttonShape",
+      "primaryButton",
+      "secondaryButton",
+      "tertiaryButton",
       "tags",
-      "chosenitem",
+      "currentItem",
       "cards",
       "quotes",
       "notes",
@@ -100,14 +100,21 @@
       "fullpicture",
       "categories",
       "kickerabove",
+      "buttonColour",
       "button",
       "inkbutton",
+      "buttonShape",
       "buttonshape",
+      "tagsMatchButtons",
       "tagsfollow",
+      "primaryButton",
       "buttonstyle",
+      "secondaryButton",
       "buttonmedium",
+      "tertiaryButton",
       "buttonquiet",
       "tags",
+      "currentItem",
       "chosenitem",
       "linewidth",
       "cards",
@@ -789,38 +796,6 @@
       }
     },
     {
-      "key": "tagsfollow",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "The tags take the buttons' corner instead of staying round.",
-      "label": "Tags follow the buttons",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "switch",
-        "line": 1196,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-tagsfollow"
-      ],
-      "rest": {
-        "data-tagsfollow": "REST"
-      },
-      "restValues": {
-        "data-tagsfollow": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-tagsfollow"
-        ],
-        "props": []
-      }
-    },
-    {
       "key": "sans",
       "group": "other",
       "table": "SANS",
@@ -1053,35 +1028,6 @@
       "inStandardAtRest": false
     },
     {
-      "key": "button",
-      "group": "other",
-      "table": "BUTTONS",
-      "kind": "pick",
-      "choices": [
-        "accent",
-        "ink",
-        "own"
-      ],
-      "def": "accent",
-      "means": "What fills the main buttons: accent (the rest), ink, or own (colours.<side>.button). The links keep the accent either way.",
-      "label": "Button colour",
-      "page": "Colour",
-      "level": 4,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1258,
-        "in": "colourMore"
-      },
-      "changesPage": "Colour",
-      "attrs": [
-        "data-button"
-      ],
-      "rest": {
-        "data-button": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
       "key": "categories",
       "group": "pick",
       "table": "PICKS",
@@ -1108,136 +1054,6 @@
       ],
       "rest": {
         "data-categories": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "buttonshape",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "cards",
-        "square",
-        "rounded",
-        "pill"
-      ],
-      "def": "cards",
-      "attr": "data-button-shape",
-      "means": "The buttons' and hover pills' corner: cards (the corner size's own, the rest), square, rounded (8 px) or pill. Only with rounded. The cards keep the corner size.",
-      "label": "Button shape",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1196,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-button-shape"
-      ],
-      "rest": {
-        "data-button-shape": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "buttonstyle",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "filled",
-        "outlined",
-        "shadow",
-        "tinted",
-        "gray",
-        "text"
-      ],
-      "def": "filled",
-      "attr": "data-button-style",
-      "means": "How the main buttons look: filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray, text (text only) or key (an arcade cabinet's button: filled, standing on a hard block of the second light, pushed into it when pressed), in the button colour where it has one.",
-      "label": "Main buttons",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1198,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-button-style"
-      ],
-      "rest": {
-        "data-button-style": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "buttonmedium",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "gray",
-        "filled",
-        "tinted",
-        "outlined",
-        "shadow",
-        "text"
-      ],
-      "def": "gray",
-      "attr": "data-button-medium",
-      "means": "How the other buttons (the gray secondary ones) look: gray (the rest), filled, tinted, outlined, shadow (outlined with a hard shadow) or text (text only), in the button colour where it has one.",
-      "label": "Other buttons",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1198,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-button-medium"
-      ],
-      "rest": {
-        "data-button-medium": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "buttonquiet",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "text",
-        "filled",
-        "tinted",
-        "gray",
-        "outlined",
-        "shadow"
-      ],
-      "def": "text",
-      "attr": "data-button-quiet",
-      "means": "How the quiet buttons (small actions without a fill) look: text (the rest), filled, tinted, gray, outlined or shadow (outlined with a hard shadow). Architrave's alone; another theme has no quiet kind.",
-      "label": "Quiet buttons",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1198,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-button-quiet"
-      ],
-      "rest": {
-        "data-button-quiet": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -1270,37 +1086,6 @@
       ],
       "rest": {
         "data-tags": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "chosenitem",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "gray",
-        "filled",
-        "outlined",
-        "bold"
-      ],
-      "def": "gray",
-      "attr": "data-chosen-item",
-      "means": "How the chosen item is marked, the page you are on in the menu and the open tab: gray (the rest: the theme's own mark), filled with the button colour, outlined in it, or bold and underlined.",
-      "label": "Chosen item",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1198,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-chosen-item"
-      ],
-      "rest": {
-        "data-chosen-item": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -1985,6 +1770,193 @@
       ],
       "rest": {
         "data-line": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "buttonColour",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "accent",
+        "text",
+        "own"
+      ],
+      "def": "accent",
+      "means": "What fills the main buttons: accent (the brand colour, the rest), text, or own (colours.<side>.button). The links keep the accent either way.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-button"
+      ],
+      "rest": {
+        "data-button": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "buttonShape",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "match",
+        "square",
+        "rounded",
+        "pill"
+      ],
+      "def": "match",
+      "means": "The buttons' corners: match (the corners every card has, the rest), square, rounded (8 px) or pill. Only with a radius.",
+      "label": "Button shape",
+      "page": "Corners and lines",
+      "level": 15,
+      "row": {
+        "drawn": "pop-up",
+        "line": 1196,
+        "in": "shapeBody"
+      },
+      "changesPage": null,
+      "attrs": [
+        "data-button-shape"
+      ],
+      "rest": {
+        "data-button-shape": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "primaryButton",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "filled",
+        "outlined",
+        "shadow",
+        "tinted",
+        "gray",
+        "text"
+      ],
+      "def": "filled",
+      "means": "How the main buttons look (the one action, like Subscribe): filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray or text (text only), in the button colour.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-button-style"
+      ],
+      "rest": {
+        "data-button-style": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "secondaryButton",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "gray",
+        "filled",
+        "tinted",
+        "outlined",
+        "shadow",
+        "text"
+      ],
+      "def": "gray",
+      "means": "How the other buttons look (a second choice beside the main one): gray (the rest), filled, tinted, outlined, shadow or text, in the button colour where it has one.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-button-medium"
+      ],
+      "rest": {
+        "data-button-medium": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "tertiaryButton",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "text",
+        "filled",
+        "tinted",
+        "gray",
+        "outlined",
+        "shadow"
+      ],
+      "def": "text",
+      "means": "How the quiet buttons look (small actions, like Share): text (the rest), filled, tinted, gray, outlined or shadow. Architrave's alone; another theme has no quiet kind.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-button-quiet"
+      ],
+      "rest": {
+        "data-button-quiet": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "tagsMatchButtons",
+      "group": "other",
+      "table": null,
+      "kind": "switch",
+      "def": false,
+      "means": "true: the tags' pills take the buttons' corner instead of staying round.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-tagsfollow"
+      ],
+      "rest": {
+        "data-tagsfollow": "REST"
+      },
+      "restValues": {
+        "data-tagsfollow": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-tagsfollow"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "currentItem",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "gray",
+        "filled",
+        "outlined",
+        "bold"
+      ],
+      "def": "gray",
+      "means": "How the current item is marked (the page you are on in the menu, the open tab): gray (the rest: the theme's own mark), filled with the button colour, outlined in it, or bold and underlined.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-chosen-item"
+      ],
+      "rest": {
+        "data-chosen-item": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -3486,8 +3458,36 @@
       "means": "Retired 2026-09-27 and still read: true becomes categories above."
     },
     {
+      "key": "button",
+      "means": "Retired 2026-10-03 and still read: becomes buttonColour (ink is text)."
+    },
+    {
       "key": "inkbutton",
       "means": "Retired 2026-09-26 and still read: true becomes button ink."
+    },
+    {
+      "key": "buttonshape",
+      "means": "Retired 2026-10-03 and still read: becomes buttonShape (cards is match)."
+    },
+    {
+      "key": "tagsfollow",
+      "means": "Retired 2026-10-03 and still read: becomes tagsMatchButtons."
+    },
+    {
+      "key": "buttonstyle",
+      "means": "Retired 2026-10-03 and still read: becomes primaryButton, the same looks."
+    },
+    {
+      "key": "buttonmedium",
+      "means": "Retired 2026-10-03 and still read: becomes secondaryButton, the same looks."
+    },
+    {
+      "key": "buttonquiet",
+      "means": "Retired 2026-10-03 and still read: becomes tertiaryButton, the same looks."
+    },
+    {
+      "key": "chosenitem",
+      "means": "Retired 2026-10-03 and still read: becomes currentItem, the same looks."
     },
     {
       "key": "linewidth",
@@ -3831,7 +3831,7 @@
       "muted"
     ],
     "keys": {
-      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them; since the layout words (2026-10-03) the article widths and the line length are worked out from titleWidth, pictureWidth, figureWidth and lineLength; since the CSS words (2026-10-03) the corners, lines and fills are worked out from radius, borderWidth, borderStyle, borderStrength and fill.",
+      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them; since the layout words (2026-10-03) the article widths and the line length are worked out from titleWidth, pictureWidth, figureWidth and lineLength; since the CSS words (2026-10-03) the corners, lines and fills are worked out from radius, borderWidth, borderStyle, borderStrength and fill; since the buttons' names (2026-10-03) the buttons' colour, shape, three levels, tags' corner and current item are worked out from buttonColour, buttonShape, primaryButton, secondaryButton, tertiaryButton, tagsMatchButtons and currentItem.",
       "dials": [
         "palette"
       ],
@@ -3863,6 +3863,11 @@
           "solid",
           "dashed",
           "dotted"
+        ],
+        "BUTTONS": [
+          "accent",
+          "ink",
+          "own"
         ]
       },
       "stamps": {
@@ -3875,7 +3880,8 @@
         "data-rounded": "on",
         "data-lines": "off",
         "data-fills": "on",
-        "data-hairlines": "off"
+        "data-hairlines": "off",
+        "data-tagsfollow": "off"
       },
       "absent": [
         "data-marker-colour",
@@ -3890,7 +3896,13 @@
         "data-line-width",
         "data-line",
         "data-fill",
-        "data-line-style"
+        "data-line-style",
+        "data-button",
+        "data-button-style",
+        "data-button-medium",
+        "data-button-quiet",
+        "data-button-shape",
+        "data-chosen-item"
       ],
       "opts": [
         "widehead",
@@ -3898,7 +3910,8 @@
         "rounded",
         "lines",
         "hairlines",
-        "fills"
+        "fills",
+        "tagsfollow"
       ],
       "picks": {
         "fullpicture": {
@@ -3922,6 +3935,57 @@
             "2",
             "3",
             "5"
+          ]
+        },
+        "buttonstyle": {
+          "attr": "data-button-style",
+          "list": [
+            "filled",
+            "outlined",
+            "shadow",
+            "tinted",
+            "gray",
+            "text"
+          ]
+        },
+        "buttonmedium": {
+          "attr": "data-button-medium",
+          "list": [
+            "gray",
+            "filled",
+            "tinted",
+            "outlined",
+            "shadow",
+            "text"
+          ]
+        },
+        "buttonquiet": {
+          "attr": "data-button-quiet",
+          "list": [
+            "text",
+            "filled",
+            "tinted",
+            "gray",
+            "outlined",
+            "shadow"
+          ]
+        },
+        "buttonshape": {
+          "attr": "data-button-shape",
+          "list": [
+            "cards",
+            "square",
+            "rounded",
+            "pill"
+          ]
+        },
+        "chosenitem": {
+          "attr": "data-chosen-item",
+          "list": [
+            "gray",
+            "filled",
+            "outlined",
+            "bold"
           ]
         }
       },

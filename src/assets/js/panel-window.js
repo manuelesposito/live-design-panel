@@ -56,7 +56,7 @@
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { links: 'Links' }; /* rows the current window draws without a label of the list's */
 	/* THE LAB'S WORDS for rows the list names otherwise (lab/panel-settings.js, 2026-09-28): the new window says what the lab says */
-	var LAB_LABEL = { radius: 'Corners', borderWidth: 'Lines', borderStyle: 'Line style', borderStrength: 'Line strength', fill: 'Fills', lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
+	var LAB_LABEL = { buttonColour: 'Colour', radius: 'Corners', borderWidth: 'Lines', borderStyle: 'Line style', borderStrength: 'Line strength', fill: 'Fills', lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonShape: 'Corners', primaryButton: 'Strong', secondaryButton: 'Medium', tertiaryButton: 'Quiet', tagsMatchButtons: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 
 	/* THE SYMBOLS are Lucide's (ISC licence, lucide.dev), as the prototype's: 18 px on a
@@ -138,7 +138,7 @@
 		var x = setting(key) || {}, s = St();
 		return row(label(key), pop(key, label(key), s.get(key), (x.choices || []).map(function (id) { return [id, id === 'own' ? t('Own Colour…') : t(words[id] || id), false, wellOf ? wellOf(id) : '']; }), function (id) {
 			s.set(key, id);
-			if (id === 'own') editing = 'colours.{side}.' + key;
+			if (id === 'own') editing = 'colours.{side}.' + (key === 'buttonColour' ? 'button' : key);
 		}, wellOf));
 	}
 	/* A SLIDER OVER NAMED STOPS: `stops` are { id, label }; `set` is what a stop does. */
@@ -158,7 +158,7 @@
 
 	/* ===== COLOUR ===== */
 	var MARKER_WORD = { yellow: 'Yellow', green: 'Green', pink: 'Pink', blue: 'Blue', orange: 'Orange', text: 'Like the reading text', muted: 'Like the date', own: 'Own Colour' };
-	var BUTTON_WORD = { accent: 'Accent', ink: 'Text', own: 'Own Colour' }; /* the lab's words */
+	var BUTTON_WORD = { accent: 'Accent', text: 'Text', own: 'Own Colour' }; /* the lab's words */
 	var SIDE_WORD = { auto: 'Auto', light: 'Light', dark: 'Dark' };
 	var PRESET_GROUPS = [['everyday', 'Everyday'], ['warm', 'Warm'], ['cool', 'Cool'], ['bold', 'Group Bold']];
 	/* THE LAB'S GROUPS AND ORDER (the prototype's PRESETS, 2026-09-28); a preset the lab does not list goes by its colour, after them */
@@ -403,12 +403,12 @@
 		linestyle: { solid: 'Solid', dashed: 'Dashed', dotted: 'Dotted' },
 		categories: { below: 'Below title', above: 'Above title', hidden: 'Hidden' },
 		links: { both: 'Coloured and underlined', coloured: 'Coloured', underlined: 'Underlined', bold: 'Bold line', wash: 'Highlighter' },
-		buttonshape: { cards: 'Match corners', square: 'Square', rounded: 'Rounded', pill: 'Pill' },
-		buttonstyle: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
-		buttonmedium: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
-		buttonquiet: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
+		buttonShape: { cards: 'Match corners', square: 'Square', rounded: 'Rounded', pill: 'Pill' },
+		primaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
+		secondaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
+		tertiaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
 		tags: { text: 'Text only', filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined' },
-		chosenitem: { gray: 'Gray', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' },
+		currentItem: { gray: 'Gray', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' },
 		linewidth: { '1': '1 px', '2': '2 px', '3': '3 px', '5': '5 px' },
 		cards: { filled: 'Filled', fillOnly: 'Fill only', raised: 'Raised', topLine: 'Top line', cornerMarks: 'Corner marks' },
 		quotes: { sideLine: 'Side line', plain: 'Plain', filled: 'Filled' },
@@ -425,8 +425,8 @@
 	var FX_WORD = {}; /* the effects' details' words; none since the clean-up (2026-10-02) */
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; /* the prototype's order, loud to quiet */
-	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] /* bold, Poster's (0.15.38) */, cards: ['fillOnly', 'filled', 'raised', 'topLine', 'cornerMarks'], quotes: ['plain', 'sideLine', 'filled'] };
-	var GUEST_REST = { tags: 'text', chosenitem: 'gray', quotes: 'sideLine', notes: 'filled', fields: 'filled' }; /* on another theme the rest is the theme's own tags and mark, so it says so */
+	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], primaryButton: LEVEL_ORDER, secondaryButton: LEVEL_ORDER, tertiaryButton: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] /* bold, Poster's (0.15.38) */, cards: ['fillOnly', 'filled', 'raised', 'topLine', 'cornerMarks'], quotes: ['plain', 'sideLine', 'filled'] };
+	var GUEST_REST = { tags: 'text', currentItem: 'gray', quotes: 'sideLine', notes: 'filled', fields: 'filled' }; /* on another theme the rest is the theme's own tags and mark, so it says so */
 	/* a strength under its switch, its stops the list's, in words where the list's numbers say nothing */
 	function levelRow(key, unit, sub) {
 		var x = setting(key) || {}, s = St();
@@ -444,13 +444,13 @@
 	/* A LOOK IS CHOSEN BY SEEING IT (the prototype's lookRow, decided 2026-09-27: drawn looks stay): every
 	   choice drawn small on the page's own paper, in its ink and its button colour, the chosen one ringed.
 	   draw: button (the levels), tag, link, chosen (menus and tabs), surface (cards), picture, frame, fade */
-	var LOOK_DRAW = { buttonstyle: 'button', buttonmedium: 'button', buttonquiet: 'button', tags: 'tag', links: 'link', chosenitem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', notes: 'surface', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
+	var LOOK_DRAW = { primaryButton: 'button', secondaryButton: 'button', tertiaryButton: 'button', tags: 'tag', links: 'link', currentItem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', notes: 'surface', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
 	var LOOK_SHORT = { shadow: 'Shadow', text: 'Text' };
-	var LOOK_NOTE = { buttonstyle: 'The main action, like Subscribe', buttonmedium: 'A second choice next to it', buttonquiet: 'Small actions, like Share', links: 'In the text', chosenitem: 'The page you are on, the tab that is open', notes: 'Tips and remarks in a box', fields: 'Search, comment and sign-up fields' }; /* the prototype's line under a row */ /* a level's look under its small picture, short */
+	var LOOK_NOTE = { primaryButton: 'The main action, like Subscribe', secondaryButton: 'A second choice next to it', tertiaryButton: 'Small actions, like Share', links: 'In the text', currentItem: 'The page you are on, the tab that is open', notes: 'Tips and remarks in a box', fields: 'Search, comment and sign-up fields' }; /* the prototype's line under a row */ /* a level's look under its small picture, short */
 	var PIC_FILTER = { plain: 'none', bw: 'grayscale(1)', sepia: 'sepia(.85) contrast(1.05)', duo: 'grayscale(1) sepia(1) saturate(1.6) hue-rotate(175deg) brightness(.95)', accent: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(200deg) saturate(2.2)', grain: 'contrast(1.1) saturate(.85)', warm: 'sepia(.18) saturate(1.12) contrast(1.02)' };
 	function lookColours() {
-		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('button');
-		var btn = who === 'ink' ? ink : who === 'own' ? s.colour('button') : accent;
+		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('buttonColour');
+		var btn = who === 'text' ? ink : who === 'own' ? s.colour('button') : accent;
 		var on = s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink;
 		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on;
 	}
@@ -556,18 +556,18 @@
 		var s = St(), lv = function (k) { return s.get(k); }, links = s.get('links');
 		var part = function (key, html) { return '<button type="button" class="ldpw-pv" data-jump="' + key + '" data-f="jump:' + key + '" aria-label="' + esc(label(key)) + '">' + html + '</button>'; };
 		return '<div class="ldpw-lvprev" style="' + esc(lookColours()) + '">' +
-			'<div>' + part('buttonstyle', '<i class="ldpw-lv" data-lk="' + lv('buttonstyle') + '">' + esc(t('Subscribe')) + '</i>') + part('buttonmedium', '<i class="ldpw-lv" data-lk="' + lv('buttonmedium') + '">' + esc(t('Archive')) + '</i>') +
-				(s.guest() ? '' : part('buttonquiet', '<i class="ldpw-lv" data-lk="' + lv('buttonquiet') + '">' + esc(t('Share')) + '</i>')) + '</div>' +
+			'<div>' + part('primaryButton', '<i class="ldpw-lv" data-lk="' + lv('primaryButton') + '">' + esc(t('Subscribe')) + '</i>') + part('secondaryButton', '<i class="ldpw-lv" data-lk="' + lv('secondaryButton') + '">' + esc(t('Archive')) + '</i>') +
+				(s.guest() ? '' : part('tertiaryButton', '<i class="ldpw-lv" data-lk="' + lv('tertiaryButton') + '">' + esc(t('Share')) + '</i>')) + '</div>' +
 			'<div>' + part('tags', '<i class="ldpw-lv ldpw-tag" data-lk="' + lv('tags') + '">' + esc(t('Design')) + '</i>') +
 				part('links', '<span class="ldpw-pvt">' + esc(t('Read')) + ' <i class="ldpw-dln" data-ln="' + links + '">' + esc(t('a link')) + '</i></span>') +
-				part('chosenitem', '<i class="ldpw-dch" data-ch="' + lv('chosenitem') + '"><b>' + esc(t('Latest')) + '</b><u>' + esc(t('Popular')) + '</u></i>') + '</div></div>';
+				part('currentItem', '<i class="ldpw-dch" data-ch="' + lv('currentItem') + '"><b>' + esc(t('Latest')) + '</b><u>' + esc(t('Popular')) + '</u></i>') + '</div></div>';
 	}
 	function buttonsPage() {
 		var s = St(), ink = s.colour('ink'), rounded = s.get('rounded');
 		return buttonsPreview() +
-			box(popRow('button', BUTTON_WORD, function (v) { return v === 'ink' ? ink : s.colour(v === 'own' ? 'button' : 'accent'); }) + (rounded ? pickRow('buttonshape') : '')) +
-			gtitle(t('Levels')) + box(pickRow('buttonstyle') + pickRow('buttonmedium') + (s.guest() ? '' : pickRow('buttonquiet'))) +
-			gtitle(t('Tags, Links and Menus')) + box(pickRow('tags') + (rounded && s.get('buttonshape') !== 'cards' ? switchRow('tagsfollow', false, esc(t('Tags take the corners of the buttons'))) : '') + pickRow('links') + pickRow('chosenitem')) +
+			box(popRow('buttonColour', BUTTON_WORD, function (v) { return v === 'text' ? ink : s.colour(v === 'own' ? 'button' : 'accent'); }) + (rounded ? pickRow('buttonShape') : '')) +
+			gtitle(t('Levels')) + box(pickRow('primaryButton') + pickRow('secondaryButton') + (s.guest() ? '' : pickRow('tertiaryButton'))) +
+			gtitle(t('Tags, Links and Menus')) + box(pickRow('tags') + (rounded && s.get('buttonShape') !== 'cards' ? switchRow('tagsMatchButtons', false, esc(t('Tags take the corners of the buttons'))) : '') + pickRow('links') + pickRow('currentItem')) +
 			hint('A theme’s buttons and an AI’s buttons are sorted into the three levels by what they are.');
 	}
 	function picturesPage() {
@@ -1030,7 +1030,7 @@
 	   list files a row by its old page. The Buttons page's rows were filed under Corners and lines and
 	   Colour, the two lights' wells under Colour, the headings' and category line's colours under
 	   Colour, and a chosen preset nowhere, so Revert Colour reverted the lights and left the preset. */
-	var DRAWN_ON = { radius: 'corners-and-lines', borderWidth: 'corners-and-lines', borderStyle: 'corners-and-lines', borderStrength: 'corners-and-lines', fill: 'corners-and-lines', lineLength: 'layout', titleWidth: 'layout', pictureWidth: 'layout', figureWidth: 'layout', button: 'buttons', buttonshape: 'buttons', buttonstyle: 'buttons', buttonmedium: 'buttons', buttonquiet: 'buttons', tags: 'buttons', tagsfollow: 'buttons', links: 'buttons', chosenitem: 'buttons' };
+	var DRAWN_ON = { buttonColour: 'buttons', radius: 'corners-and-lines', borderWidth: 'corners-and-lines', borderStyle: 'corners-and-lines', borderStrength: 'corners-and-lines', fill: 'corners-and-lines', lineLength: 'layout', titleWidth: 'layout', pictureWidth: 'layout', figureWidth: 'layout', button: 'buttons', buttonShape: 'buttons', primaryButton: 'buttons', secondaryButton: 'buttons', tertiaryButton: 'buttons', tags: 'buttons', tagsMatchButtons: 'buttons', links: 'buttons', currentItem: 'buttons' };
 	var WELL_ON = { button: 'buttons', title: 'type', headings: 'type', body: 'type', quote: 'type', meta: 'type', 'interface': 'type', code: 'type' };
 	function changeSection(path) {
 		var p = path.split('.'), k = p[0], x = setting(k);
@@ -1299,13 +1299,13 @@
 	   The first match wins, so the specific parts come before the paragraph and the page. */
 	var TARGETS = [
 		['mark', 'colour', 'highlight', 'Highlighter'],
-		['.quire-button.primary, .rail-newsletter-trigger, [data-ldp-button="main"]', 'buttons', 'buttonstyle', 'Main buttons'],
-		['.quire-button.ghost', 'buttons', 'buttonquiet', 'Quiet buttons'],
-		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'buttonmedium', 'Other buttons'],
+		['.quire-button.primary, .rail-newsletter-trigger, [data-ldp-button="main"]', 'buttons', 'primaryButton', 'Main buttons'],
+		['.quire-button.ghost', 'buttons', 'tertiaryButton', 'Quiet buttons'],
+		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'secondaryButton', 'Other buttons'],
 		['.article-tags a, .taxonomy-post_tag a', 'buttons', 'tags', 'Tags'],
 		/* THE SITE'S NAME BEFORE THE CHOSEN ITEM (2026-10-02, Manuel: "on the page title I would like to have the setting for the page title but instead I get the button"): on the home page WordPress marks the name's link aria-current="page", so the Chosen item row below caught it. It follows Headings since the seven roles (lab/the-site-name.html). */
 		['.wp-block-site-title', 'type', 'role:headings', 'Site name'],
-		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'chosenitem', 'Chosen item'],
+		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'currentItem', 'Chosen item'],
 		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictures', 'Pictures'],
 		['.post-link-card, .support-box, .release-panel, .theme-card', 'corners-and-lines', 'cards', 'Cards'],
 		['.wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'notes', 'Notes'],
@@ -1570,7 +1570,7 @@
 		'</div>';
 	}
 	/* UNDO SAYS WHAT IT TAKES BACK ("Undo Highlighter"), in today's window's words */
-	var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonshape: 'Button shape', tagsfollow: 'Tags follow the buttons', buttonstyle: 'Main buttons', buttonmedium: 'Other buttons', buttonquiet: 'Quiet buttons', tags: 'Tags', chosenitem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
+	var WHAT = { paragraphs: 'Paragraphs', piccorners: 'Picture corners', pictureshadow: 'Picture shadow', subcolour: 'Section headings', opening: 'Opening sentence', widefigures: 'Wide pictures in the text', lines: 'Lines', line: 'Lines', linestyle: 'Line style', hairlines: 'Fine lines', darkground: 'Dark ground', fills: 'Fills', fill: 'Fills', rounded: 'Rounded corners', corners: 'Corner size', buttonShape: 'Button shape', tagsMatchButtons: 'Tags follow the buttons', primaryButton: 'Main buttons', secondaryButton: 'Other buttons', tertiaryButton: 'Quiet buttons', tags: 'Tags', currentItem: 'Chosen item', fullpicture: 'Picture width', quotes: 'Quotes', notes: 'Notes', fields: 'Fields', linewidth: 'Line width', cards: 'Cards', soft: 'Softer reading text', softlevel: 'Softer reading text', quietlevel: 'Softer reading text', smallsoft: 'Small text', links: 'Links', categories: 'Categories',
 		justify: 'Justified text', hyphenate: 'Hyphens', dropcap: 'Drop cap', capLines: 'Drop cap height', capface: 'Drop cap font', pictures: 'Picture effects', picturedim: 'Dim in the dark',
 		pictureframe: 'Frame around pictures', picturefade: 'Fade the edges', fadeedges: 'Fade the edges', marker: 'Highlighter', markercolour: 'Highlighter', button: 'Button colour', pillbuttons: 'Pill buttons', widepicture: 'Wide top picture', widehead: 'Wide title', measure: 'Line length', space: 'Space', framewidth: 'Frame width', framepattern: 'Frame pattern', palette: 'Colour', tint: 'Colour', preset: 'Colour', colours: 'Colour', accent: 'Colour',
 		face: 'Font', sans: 'Font', reading: 'Size', leading: 'Line spacing', reset: 'Reset everything', version: 'Restore' };

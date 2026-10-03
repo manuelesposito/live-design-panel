@@ -300,6 +300,13 @@
 		if (rec.fills !== undefined) { rec.fill = own('fills', true) === false ? 'none' : String(rec.fill !== undefined ? rec.fill : own('fill', '100')); delete rec.fills; }
 		var SURF = { cards: { box: 'filled', flat: 'fillOnly', top: 'topLine', ticks: 'cornerMarks' }, quotes: { line: 'sideLine', box: 'filled' }, notes: { flat: 'filled', box: 'outlined' }, fields: { flat: 'filled', box: 'outlined' } };
 		Object.keys(SURF).forEach(function (k) { if (rec[k] !== undefined && SURF[k][rec[k]]) rec[k] = SURF[k][rec[k]]; });
+		/* THE BUTTONS' NAMES (2026-10-03) */
+		var REN = { button: 'buttonColour', buttonshape: 'buttonShape', buttonstyle: 'primaryButton', buttonmedium: 'secondaryButton', buttonquiet: 'tertiaryButton', tagsfollow: 'tagsMatchButtons', chosenitem: 'currentItem' };
+		Object.keys(REN).forEach(function (k) {
+			if (rec[k] === undefined) return;
+			var v = rec[k]; if (k === 'button' && v === 'ink') v = 'text'; if (k === 'buttonshape' && v === 'cards') v = 'match';
+			if (rec[REN[k]] === undefined) rec[REN[k]] = v; delete rec[k];
+		});
 		return rec;
 	}
 	/* THE SEVEN COLOURS REPLACED THE OLD ONES (Manuel, 2026-10-03, lab/the-colours.html):
@@ -433,7 +440,7 @@
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
 		if (entry.palette === undefined) entry.palette = 'neutral';
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean' && inRecord(k)) entry[k] = data[k]; });
-		['lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		['buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
 		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 3; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } /* only known details, only off their rest */
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
@@ -492,7 +499,7 @@
 	/* Do not edit between the markers: change plugin/settings.json and run `node tools/settings-list.mjs`,
 	   which writes this block and then the list again from the running code; --check fails when they part. */
 	var DIALS = ['palette', 'reading', 'face', 'leading'];
-	var OPTS = ['justify', 'dropcap', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'alternates', 'tagsfollow', 'widehead', 'widepicture', 'rounded', 'lines', 'hairlines', 'fills'];
+	var OPTS = ['justify', 'dropcap', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'alternates', 'widehead', 'widepicture', 'rounded', 'lines', 'hairlines', 'fills', 'tagsfollow'];
 	var TINTS = ['purple', 'brown', 'green', 'blue', 'orange'];
 	var SCOPE = ['article', 'all'];
 	var PICTURES = ['plain', 'bw', 'sepia', 'duo', 'accent', 'grain', 'warm', 'hidden'];
@@ -503,7 +510,7 @@
 	var FADE_EDGES = ['sides', 'bottom', 'all'];
 	var MARKERS = ['yellow', 'green', 'pink', 'blue', 'orange', 'text', 'muted', 'own'];
 	var FRAME_PATTERNS = ['plain', 'dots', 'checker'];
-	var PICKS = { categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, cards: { attr: 'data-cards', list: ['filled', 'fillOnly', 'raised', 'topLine', 'cornerMarks'] }, quotes: { attr: 'data-quotes', list: ['sideLine', 'plain', 'filled'] }, notes: { attr: 'data-notes', list: ['filled', 'outlined', 'raised'] }, fields: { attr: 'data-fields', list: ['filled', 'outlined', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] }, fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] } };
+	var PICKS = { categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, cards: { attr: 'data-cards', list: ['filled', 'fillOnly', 'raised', 'topLine', 'cornerMarks'] }, quotes: { attr: 'data-quotes', list: ['sideLine', 'plain', 'filled'] }, notes: { attr: 'data-notes', list: ['filled', 'outlined', 'raised'] }, fields: { attr: 'data-fields', list: ['filled', 'outlined', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] }, fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] } };
 	var EFFECTS = {};
 	var LEVELS = {
 		fill: { stops: ['25', '50', '75', '100', '125', '150', '200', '300'], rest: '100', attr: 'data-fill', steps: true },
@@ -586,8 +593,8 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own', 'muted'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'reading', 'face', 'leading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'pictureWidth', 'categories', 'tagsfollow', 'alternates', 'sans', 'scope', 'pictures', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'framewidth', 'framepattern', 'borderStyle', 'fadeedges', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
-		choices: { scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], button: BUTTONS, fadeedges: FADE_EDGES, framepattern: FRAME_PATTERNS, borderStyle: LINE_STYLE },
+		schema: ['architrave', 'label', 'base', 'reading', 'face', 'leading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'picturehover', 'picturedim', 'picturefade', 'pictureframe', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'sans', 'scope', 'pictures', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'framewidth', 'framepattern', 'borderStyle', 'fadeedges', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
+		choices: { scope: SCOPE, pictures: PICTURES, capLines: ['2', '3', '4'], fadeedges: FADE_EDGES, framepattern: FRAME_PATTERNS, borderStyle: LINE_STYLE },
 		wells: ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight', 'button', 'title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'],
 		meaning: {
 			architrave: 'Always 1. Marks the JSON as a style record.',
@@ -622,15 +629,22 @@
 			fullpicture: 'Retired 2026-10-03 and still read: on, with widepicture, becomes pictureWidth full.',
 			categories: 'Where the line of categories stands on the article and on its cards: below the title (the rest), above it, or hidden. It replaced the switch kickerabove.',
 			kickerabove: 'Retired 2026-09-27 and still read: true becomes categories above.',
-			button: 'What fills the main buttons: accent (the rest), ink, or own (colours.<side>.button). The links keep the accent either way.',
+			buttonColour: 'What fills the main buttons: accent (the brand colour, the rest), text, or own (colours.<side>.button). The links keep the accent either way.',
+			button: 'Retired 2026-10-03 and still read: becomes buttonColour (ink is text).',
 			inkbutton: 'Retired 2026-09-26 and still read: true becomes button ink.',
-			buttonshape: 'The buttons\' and hover pills\' corner: cards (the corner size\'s own, the rest), square, rounded (8 px) or pill. Only with rounded. The cards keep the corner size.',
-			tagsfollow: 'The tags take the buttons\' corner instead of staying round.',
-			buttonstyle: 'How the main buttons look: filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray, text (text only) or key (an arcade cabinet\'s button: filled, standing on a hard block of the second light, pushed into it when pressed), in the button colour where it has one.',
-			buttonmedium: 'How the other buttons (the gray secondary ones) look: gray (the rest), filled, tinted, outlined, shadow (outlined with a hard shadow) or text (text only), in the button colour where it has one.',
-			buttonquiet: 'How the quiet buttons (small actions without a fill) look: text (the rest), filled, tinted, gray, outlined or shadow (outlined with a hard shadow). Architrave\'s alone; another theme has no quiet kind.',
+			buttonShape: 'The buttons\' corners: match (the corners every card has, the rest), square, rounded (8 px) or pill. Only with a radius.',
+			buttonshape: 'Retired 2026-10-03 and still read: becomes buttonShape (cards is match).',
+			tagsMatchButtons: 'true: the tags\' pills take the buttons\' corner instead of staying round.',
+			tagsfollow: 'Retired 2026-10-03 and still read: becomes tagsMatchButtons.',
+			primaryButton: 'How the main buttons look (the one action, like Subscribe): filled (the rest), outlined, shadow (outlined with a hard shadow), tinted, gray or text (text only), in the button colour.',
+			buttonstyle: 'Retired 2026-10-03 and still read: becomes primaryButton, the same looks.',
+			secondaryButton: 'How the other buttons look (a second choice beside the main one): gray (the rest), filled, tinted, outlined, shadow or text, in the button colour where it has one.',
+			buttonmedium: 'Retired 2026-10-03 and still read: becomes secondaryButton, the same looks.',
+			tertiaryButton: 'How the quiet buttons look (small actions, like Share): text (the rest), filled, tinted, gray, outlined or shadow. Architrave\'s alone; another theme has no quiet kind.',
+			buttonquiet: 'Retired 2026-10-03 and still read: becomes tertiaryButton, the same looks.',
 			tags: 'How the tags at the end of an article look: text (the rest: words, as the theme sets them), or small pills that are filled, tinted, gray or outlined, made from the button colour. Tags follow the buttons gives the pills the buttons\' corner.',
-			chosenitem: 'How the chosen item is marked, the page you are on in the menu and the open tab: gray (the rest: the theme\'s own mark), filled with the button colour, outlined in it, or bold and underlined.',
+			currentItem: 'How the current item is marked (the page you are on in the menu, the open tab): gray (the rest: the theme\'s own mark), filled with the button colour, outlined in it, or bold and underlined.',
+			chosenitem: 'Retired 2026-10-03 and still read: becomes currentItem, the same looks.',
 			linewidth: 'Retired 2026-10-03 and still read: with lines, it becomes borderWidth (1, 2, 3, 5).',
 			cards: 'How cards look: filled (the rest: the card\'s fill and, with lines, its line), fillOnly (the fill without a line even with lines), raised (the paper, lifted by a shadow), topLine (a line along the top only, no fill, square; only with lines) or cornerMarks (only the four corners drawn). Architrave\'s page only.',
 			quotes: 'How quotes in an article look: sideLine (a line at the side, the rest), plain, or filled (in a box with its fill).',
@@ -692,7 +706,7 @@
 	function penOf(hex) { var h = String(hex || '').toLowerCase(); return Object.keys(PENS).filter(function (n) { return PENS[n] === h; })[0] || ''; }
 	var TYPE_COLOURS = ['text', 'mutedText', 'accent', 'own'];
 	function typeColourRest(role) { return role === 'meta' ? 'mutedText' : 'text'; } /* small text rests on Soft text, every other role on the text */
-	var ENGINE_ONLY = ['palette', 'tint', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'marker', 'markercolour', 'darkground', 'measure', 'widehead', 'widepicture', 'fullpicture', 'widefigures', 'rounded', 'corners', 'lines', 'linewidth', 'hairlines', 'line', 'linestyle', 'fills']; /* fill stays a key: its None is the old fills false */
+	var ENGINE_ONLY = ['palette', 'tint', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'marker', 'markercolour', 'darkground', 'measure', 'widehead', 'widepicture', 'fullpicture', 'widefigures', 'rounded', 'corners', 'lines', 'linewidth', 'hairlines', 'line', 'linestyle', 'fills', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tagsfollow', 'chosenitem']; /* fill stays a key: its None is the old fills false */
 	/* THE LAYOUT IN WORDPRESS'S WORDS (Manuel, 2026-10-03, lab/the-layout.html: "make it that AI loves it,
 	   and WordPress still work"): the line length in letters, and each part that can step out of the reading
 	   column by WordPress's own alignment words, content, wide or full. Records, tweaks and the window name
@@ -702,7 +716,14 @@
 		/* CORNERS AND LINES IN CSS'S WORDS (Manuel, 2026-10-03, lab/the-corners-and-lines.html): one key per row,
 		   None first where the row can be off; the engine stamps rounded, corners, lines, linewidth, hairlines,
 		   line, linestyle, fills and fill as before, worked out from these. */
-		radius: { list: ['none', 'small', 'medium', 'large', 'xlarge'], rest: 'medium' }, borderWidth: { list: ['none', 'hairline', '1', '2', '3', '5'], rest: 'none' }, borderStyle: { list: ['solid', 'dashed', 'dotted'], rest: 'solid' }, borderStrength: { list: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45' }, fill: { list: ['none', '25', '50', '75', '100', '125', '150', '200', '300'], rest: '100' } };
+		radius: { list: ['none', 'small', 'medium', 'large', 'xlarge'], rest: 'medium' }, borderWidth: { list: ['none', 'hairline', '1', '2', '3', '5'], rest: 'none' }, borderStyle: { list: ['solid', 'dashed', 'dotted'], rest: 'solid' }, borderStrength: { list: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45' }, fill: { list: ['none', '25', '50', '75', '100', '125', '150', '200', '300'], rest: '100' },
+		/* THE BUTTONS IN THE NAMES DESIGN SYSTEMS USE (Manuel, 2026-10-03, "ok do it. go"; lab/the-buttons.html):
+		   the three levels primary, secondary, tertiary, the colour's text as the colour page says it, the
+		   shape's match for the cards' own corner, the current item as the web names it. */
+		buttonColour: { list: ['accent', 'text', 'own'], rest: 'accent' }, buttonShape: { list: ['match', 'square', 'rounded', 'pill'], rest: 'match' },
+		primaryButton: { list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'], rest: 'filled' }, secondaryButton: { list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'], rest: 'gray' }, tertiaryButton: { list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'], rest: 'text' },
+		tagsMatchButtons: { list: [false, true], rest: false }, currentItem: { list: ['gray', 'filled', 'outlined', 'bold'], rest: 'gray' } };
+	var RENAMED_PICK = { buttonstyle: 'primaryButton', buttonmedium: 'secondaryButton', buttonquiet: 'tertiaryButton', buttonshape: 'buttonShape', chosenitem: 'currentItem' }; /* the engine's pick, from its new name */
 	/* THE SURFACES IN ONE SET OF WORDS (2026-10-03): the saved word, and the engine's own it stamps */
 	var SURFACE_ENGINE = { cards: { filled: 'box', fillOnly: 'flat', raised: 'raised', topLine: 'top', cornerMarks: 'ticks' }, quotes: { sideLine: 'line', plain: 'plain', filled: 'box' }, notes: { filled: 'flat', outlined: 'box', raised: 'raised' }, fields: { filled: 'flat', outlined: 'box', raised: 'raised' } };
 	function surfaceWord(key, v) { var m = SURFACE_ENGINE[key]; if (!m || m[v]) return v; var w = Object.keys(m).filter(function (k) { return m[k] === v; })[0]; return w || v; }
@@ -1718,6 +1739,7 @@
 	   data-button off the rest. */
 	/* BUTTONS: the list's tables above (plugin/settings.json). */
 	function buttonOf() {
+		var bc = layoutOf('buttonColour'); return bc === 'text' ? 'ink' : bc; /* buttonColour since 2026-10-03 */
 		var s = byId(current), tw = readTweaks()[current];
 		if (tw && BUTTONS.indexOf(tw.button) !== -1) return tw.button;
 		return (s && BUTTONS.indexOf(s.button) !== -1) ? s.button : BUTTONS[0];
@@ -1747,6 +1769,7 @@
 		if (key === 'fullpicture') return layoutOf('pictureWidth') === 'full' ? 'on' : 'off';
 		if (key === 'widefigures') return layoutOf('figureWidth') === 'wide' ? 'on' : 'off';
 		if (key === 'linewidth') { var bw = layoutOf('borderWidth'); return /^[0-9]$/.test(bw) ? bw : '1'; }
+		if (RENAMED_PICK[key]) { var rv = layoutOf(RENAMED_PICK[key]); return key === 'buttonshape' && rv === 'match' ? 'cards' : rv; }
 		var d = PICKS[key], s = byId(current), tw = readTweaks()[current];
 		if (tw && d.list.indexOf(tw[key]) !== -1) return tw[key];
 		return (s && d.list.indexOf(s[key]) !== -1) ? s[key] : pickRest(key);
@@ -2198,6 +2221,7 @@
 		if (k === 'lines') return layoutOf('borderWidth') !== 'none';
 		if (k === 'hairlines') return layoutOf('borderWidth') === 'hairline';
 		if (k === 'fills') return layoutOf('fill') !== 'none';
+		if (k === 'tagsfollow') return layoutOf('tagsMatchButtons') === true;
 		if (k === 'widepicture') return layoutOf('pictureWidth') !== 'content';
 		var tw = readTweaks()[current];
 		if (tw && typeof tw[k] === 'boolean') return tw[k];
@@ -2255,7 +2279,7 @@
 	   and this one no longer reads (bold, wide, hyphens, tracking at the top
 	   level) and unaliased role values stayed in a reader's record and kept a
 	   style "adjusted" with nothing to reset. Only what is read survives. */
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -3597,6 +3621,7 @@
 				leading: Object.keys(LEAD),
 				sans: SANS.map(function (x) { return x.id; }),
 				lineLength: LAYOUT.lineLength.list, titleWidth: LAYOUT.titleWidth.list, pictureWidth: LAYOUT.pictureWidth.list, figureWidth: LAYOUT.figureWidth.list,
+				buttonColour: LAYOUT.buttonColour.list, buttonShape: LAYOUT.buttonShape.list, primaryButton: LAYOUT.primaryButton.list, secondaryButton: LAYOUT.secondaryButton.list, tertiaryButton: LAYOUT.tertiaryButton.list, tagsMatchButtons: 'boolean', currentItem: LAYOUT.currentItem.list,
 				radius: LAYOUT.radius.list, borderWidth: LAYOUT.borderWidth.list, borderStyle: LAYOUT.borderStyle.list, borderStrength: LAYOUT.borderStrength.list, fill: LAYOUT.fill.list,
 				unlinked: 'boolean',
 				roles: roles,
@@ -4145,6 +4170,7 @@
 			if (k === 'rounded') { this.setLayout('radius', on ? (layoutOf('radius') === 'none' ? 'medium' : layoutOf('radius')) : 'none'); return; }
 			if (k === 'lines') { this.setLayout('borderWidth', on ? (layoutOf('borderWidth') === 'none' ? '1' : layoutOf('borderWidth')) : 'none'); return; }
 			if (k === 'hairlines') { if (layoutOf('borderWidth') !== 'none') this.setLayout('borderWidth', on ? 'hairline' : '1'); return; }
+			if (k === 'tagsfollow') { this.setLayout('tagsMatchButtons', !!on); return; }
 			if (k === 'fills') { this.setLayout('fill', on ? (layoutOf('fill') === 'none' ? '100' : layoutOf('fill')) : 'none'); return; }
 			if (k === 'widepicture') { this.setLayout('pictureWidth', on ? (layoutOf('pictureWidth') === 'full' ? 'full' : 'wide') : 'content'); return; }
 			if (k === 'marker') { setBothSides('highlight', on ? (highlightNow() || PENS.yellow) : ''); return; }
@@ -4411,7 +4437,7 @@
 			if (v === layoutOwn(k)) delete entry[k]; else entry[k] = v;
 			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
 			writeTweaks(all);
-			applyOptions(); applyPicks(); applyLevels(); applyCorners(); applyLineStyle(); mark();
+			applyOptions(); applyPicks(); applyLevels(); applyCorners(); applyLineStyle(); applyButton(); mark();
 		},
 		setPick: function (key, v) {
 			/* the two that are widths now (2026-10-03), pressed by the old window */
@@ -4419,6 +4445,7 @@
 			if (key === 'widefigures') { this.setLayout('figureWidth', v === 'on' ? 'wide' : 'content'); return; }
 			if (key === 'linewidth') { if (layoutOf('borderWidth') !== 'none') this.setLayout('borderWidth', v === '1' && layoutOf('borderWidth') === 'hairline' ? 'hairline' : String(v)); return; }
 			if (SURFACE_ENGINE[key]) v = surfaceWord(key, v); /* the engine's old word, from the old window */
+			if (RENAMED_PICK[key]) { this.setLayout(RENAMED_PICK[key], key === 'buttonshape' && v === 'cards' ? 'match' : v); return; }
 			var d = PICKS[key]; if (!d || d.list.indexOf(v) === -1) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (v === ((s && d.list.indexOf(s[key]) !== -1) ? s[key] : pickRest(key))) delete entry[key]; else entry[key] = v;
@@ -4429,6 +4456,7 @@
 		buttonColours: BUTTONS,
 		buttonColour: buttonOf,
 		setButtonColour: function (v) {
+			if (BUTTONS.indexOf(v) !== -1) { this.setLayout('buttonColour', v === 'ink' ? 'text' : v); return; } /* buttonColour since 2026-10-03 */
 			if (BUTTONS.indexOf(v) === -1) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (v === ((s && BUTTONS.indexOf(s.button) !== -1) ? s.button : BUTTONS[0])) delete entry.button; else entry.button = v;

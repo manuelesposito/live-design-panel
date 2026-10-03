@@ -93,7 +93,7 @@ function live_design_window_reader() {
  * @return string The page's first part, or ''.
  */
 function live_design_window_page( $setting ) {
-	$buttons = array( 'button', 'buttonshape', 'tagsfollow', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'links' );
+	$buttons = array( 'button', 'buttonshape', 'tagsfollow', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'links', 'buttonColour', 'buttonShape', 'tagsMatchButtons', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'currentItem' ); /* and their names since 2026-10-03 */
 	if ( ! empty( $setting['key'] ) && in_array( $setting['key'], $buttons, true ) ) {
 		return 'Buttons';
 	}
