@@ -616,13 +616,6 @@
 	/* A TITLE LIKE THE ONE ABOVE IT, THE CHEVRON AT THE LINE'S END (Manuel, 2026-09-24: "is that
 	   really nicely aligned with that chevron?"), as Finder's sidebar has it. The type is the
 	   group title's own; a button's font is not inherited, so it is named here. */
-	.reading-panel .reading-group-fold { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); inline-size: 100%; margin-inline: 0; padding: 0; border: 0; background: none; color: var(--text-primary); font-family: inherit; font-size: var(--text-sm-contextual); font-weight: var(--font-weight-semibold); line-height: inherit; text-align: start; cursor: pointer; appearance: none; }
-	.reading-panel .reading-group-fold[aria-expanded="false"] { margin-block-end: var(--space-3); } /* folded, the Customise button keeps the distance a group gives it */
-	.reading-panel .reading-group-fold .reading-group-chevron { inline-size: var(--icon-sm); block-size: var(--icon-sm); flex: none; opacity: 0.6; rotate: 90deg; transition: rotate var(--motion-duration-fast) var(--motion-easing-standard); }
-	.reading-panel .reading-group-fold[aria-expanded="false"] .reading-group-chevron { rotate: 0deg; }
-	.reading-panel .reading-group-fold:hover .reading-group-chevron { opacity: 1; }
-	.reading-panel .reading-group-fold:focus-visible { outline: var(--focus-ring-width) solid var(--focus); outline-offset: var(--focus-ring-offset); border-radius: var(--radius-control); }
-	.reading-panel .reading-group-fold.reading-group-fold { margin-block-end: var(--space-3, 12px); } /* the title stands clear of its tiles, open or folded (Manuel, 2026-09-24: "it's too narrow") */
 	.reading-panel [data-tile-group][data-folded] { display: none; }
 	.reading-panel.is-tile-dragging [data-tile-group][data-folded] { display: grid; }
 	/* A WINDOW'S HEIGHT (2026-09-24, reading-panel.js): the height the owner gave it by its
