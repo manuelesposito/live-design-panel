@@ -131,16 +131,19 @@
   "rounded": "boolean",
   "lines": "boolean",
   "fills": "boolean",
-  "widehead": "boolean",
+  "titleWidth": [
+    "content",
+    "wide"
+  ],
   "hairlines": "boolean",
   "picturehover": "boolean",
   "picturedim": "boolean",
   "picturefade": "boolean",
   "pictureframe": "boolean",
-  "widepicture": "boolean",
-  "fullpicture": [
-    "off",
-    "on"
+  "pictureWidth": [
+    "content",
+    "wide",
+    "full"
   ],
   "categories": [
     "below",
@@ -292,7 +295,7 @@
     "bold",
     "wash"
   ],
-  "measure": [
+  "lineLength": [
     "60",
     "64",
     "68",
@@ -442,9 +445,9 @@
     "off",
     "big"
   ],
-  "widefigures": [
-    "off",
-    "on"
+  "figureWidth": [
+    "content",
+    "wide"
   ],
   "unlinked": "boolean",
   "effects": {},

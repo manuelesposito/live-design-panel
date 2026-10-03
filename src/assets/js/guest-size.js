@@ -455,16 +455,19 @@
 	}
 	function column(look) {
 		var want = '';
+		/* LINE LENGTH (Manuel, 2026-10-03, lab/the-layout.html): the step's own share of the theme's
+		   72 letters (presets.js writes it as --measure-factor), on the column either way. */
+		var lf = parseFloat(root.style.getPropertyValue('--measure-factor')) || 1;
 		if (look) {
 			var t = ground.filter(function (g) { return g.role === 'read' && g.px; })[0];
 			if (t) {
 				var chars = parseFloat(window.getComputedStyle(root).getPropertyValue('--layout-content-width-reading')) || 53; /* Architrave's rest, style.css THE MEASURE; the faces that set their own come through panel.css */
-				var w = chBox(window.getComputedStyle(t.el), chars);
+				var w = chBox(window.getComputedStyle(t.el), chars * lf);
 				if (w) want = Math.round(w) + 'px';
 			}
 		} else if (hostColumn) {
 			var f = num('--panel-step-body');
-			if (f > 1) want = Math.round(hostColumn * f) + 'px'; /* larger widens; smaller never narrows the host's column */
+			if (f > 1 || lf !== 1) want = Math.round(hostColumn * Math.max(f, 1) * lf) + 'px'; /* larger text widens; smaller never narrows the host's column; the line length moves it either way */
 		}
 		/* Written only on change: the root's style is what the observer below
 		   watches, and a write that changed nothing would still wake it. */
@@ -533,7 +536,7 @@
 			frame = 0;
 			still(apply);
 		});
-	}).observe(root, { attributes: true, attributeFilter: ['style', 'data-reading', 'data-chosen', 'data-face'] }); /* data-face: the column's characters are the face's (2026-09-22) */
+	}).observe(root, { attributes: true, attributeFilter: ['style', 'data-reading', 'data-chosen', 'data-face', 'data-measure'] }); /* data-face: the column's characters are the face's (2026-09-22) */
 	/* A FACE THAT ARRIVES LATE IS MEASURED AGAIN: the column counts the width of
 	   one character in the reading face, and before the file lands the browser
 	   measures the fallback's. */

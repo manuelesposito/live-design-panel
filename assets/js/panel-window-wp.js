@@ -84,6 +84,7 @@
 			var s = S(); if (!s) return null;
 			if (key === 'unlinked') return !s.linked();
 			if (/^effects\./.test(key)) { var fx = key.split('.'); return s.effect ? s.effect(fx[1])[fx[2]] : null; } 
+			if (s.layouts && s.layouts[key]) return s.layout(key); 
 			if (PICK[key]) return s[PICK[key][0]]();
 			if (s.picks && s.picks[key]) return s.pick(key);
 			if (s.levels && s.levels[key]) return s.level(key);
@@ -93,6 +94,7 @@
 			var s = S(); if (!s) return;
 			if (key === 'unlinked') s.setLinked(!v, side());
 			else if (/^effects\./.test(key)) { var fx = key.split('.'); if (s.setEffect) s.setEffect(fx[1], fx[2], v); }
+			else if (s.layouts && s.layouts[key]) s.setLayout(key, v);
 			else if (PICK[key]) s[PICK[key][1]](v);
 			else if (s.picks && s.picks[key]) s.setPick(key, v);
 			else if (s.levels && s.levels[key]) s.setLevel(key, v);

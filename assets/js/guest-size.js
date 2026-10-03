@@ -277,16 +277,17 @@
 	}
 	function column(look) {
 		var want = '';
+		var lf = parseFloat(root.style.getPropertyValue('--measure-factor')) || 1;
 		if (look) {
 			var t = ground.filter(function (g) { return g.role === 'read' && g.px; })[0];
 			if (t) {
 				var chars = parseFloat(window.getComputedStyle(root).getPropertyValue('--layout-content-width-reading')) || 53; 
-				var w = chBox(window.getComputedStyle(t.el), chars);
+				var w = chBox(window.getComputedStyle(t.el), chars * lf);
 				if (w) want = Math.round(w) + 'px';
 			}
 		} else if (hostColumn) {
 			var f = num('--panel-step-body');
-			if (f > 1) want = Math.round(hostColumn * f) + 'px'; 
+			if (f > 1 || lf !== 1) want = Math.round(hostColumn * Math.max(f, 1) * lf) + 'px'; 
 		}
 		if (want) {
 			if (root.style.getPropertyValue('--panel-measure') !== want) root.style.setProperty('--panel-measure', want);
@@ -338,7 +339,7 @@
 			frame = 0;
 			still(apply);
 		});
-	}).observe(root, { attributes: true, attributeFilter: ['style', 'data-reading', 'data-chosen', 'data-face'] }); 
+	}).observe(root, { attributes: true, attributeFilter: ['style', 'data-reading', 'data-chosen', 'data-face', 'data-measure'] }); 
 	if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { still(apply); });
 	if (document.fonts && document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', function () { still(apply); });
 	document.addEventListener('architrave-guest-badges', function () { all(); }); 

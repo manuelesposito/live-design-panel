@@ -1041,6 +1041,11 @@ function live_design_window_words() {
 		'Highlighter' => __( 'Highlighter', 'live-design-panel' ),
 		'Cards' => __( 'Cards', 'live-design-panel' ),
 		'Search' => __( 'Search', 'live-design-panel' ),
+		'Content' => __( 'Content', 'live-design-panel' ), /* the layout in WordPress's words (2026-10-03) */
+		'Pictures in the text' => __( 'Pictures in the text', 'live-design-panel' ),
+		'The pictures inside the article' => __( 'The pictures inside the article', 'live-design-panel' ),
+		'Title width' => __( 'Title width', 'live-design-panel' ),
+		'Content is as wide as the reading column. Wide steps out on both sides. Full reaches the edges of the paper.' => __( 'Content is as wide as the reading column. Wide steps out on both sides. Full reaches the edges of the paper.', 'live-design-panel' ),
 		'Soft text' => __( 'Soft text', 'live-design-panel' ), /* the seven colours (2026-10-03) */
 		'Where the text sits' => __( 'Where the text sits', 'live-design-panel' ),
 		'Only shows where this theme has a second background.' => __( 'Only shows where this theme has a second background.', 'live-design-panel' ),
