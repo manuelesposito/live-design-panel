@@ -20,11 +20,9 @@
       "leading",
       "justify",
       "dropcap",
-      "rounded",
-      "lines",
-      "fills",
+      "radius",
+      "borderWidth",
       "titleWidth",
-      "hairlines",
       "picturehover",
       "picturedim",
       "picturefade",
@@ -37,15 +35,14 @@
       "scope",
       "pictures",
       "capLines",
-      "line",
+      "borderStrength",
       "fill",
       "links",
       "lineLength",
       "space",
       "framewidth",
       "framepattern",
-      "linestyle",
-      "corners",
+      "borderStyle",
       "fadeedges",
       "button",
       "buttonshape",
@@ -54,7 +51,6 @@
       "buttonquiet",
       "tags",
       "chosenitem",
-      "linewidth",
       "cards",
       "quotes",
       "notes",
@@ -83,8 +79,11 @@
       "justify",
       "dropcap",
       "capLines",
+      "radius",
       "rounded",
+      "borderWidth",
       "lines",
+      "borderStrength",
       "line",
       "corners",
       "marker",
@@ -127,6 +126,7 @@
       "pillbuttons",
       "centretitle",
       "fadeedges",
+      "borderStyle",
       "linestyle",
       "fills",
       "fill",
@@ -628,134 +628,6 @@
       "inStandardAtRest": {
         "attrs": [
           "data-dropcap"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "rounded",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": true,
-      "means": "Rounded corners on cards, buttons and pictures. false is square.",
-      "label": "Rounded corners",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "switch",
-        "line": 1191,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-rounded"
-      ],
-      "rest": {
-        "data-rounded": "REST"
-      },
-      "restValues": {
-        "data-rounded": "on"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-rounded"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "lines",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "Hairlines around cards, buttons and fields and between rows. false means no lines anywhere except link underlines.",
-      "label": "Lines",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "switch",
-        "line": 1199,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-lines"
-      ],
-      "rest": {
-        "data-lines": "REST"
-      },
-      "restValues": {
-        "data-lines": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-lines"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "fills",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": true,
-      "means": "Tinted fills on cards, buttons and fields. With lines and fills both false, controls are plain glyphs.",
-      "label": "Fills",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "switch",
-        "line": 1207,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-fills"
-      ],
-      "rest": {
-        "data-fills": "REST"
-      },
-      "restValues": {
-        "data-fills": "on"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-fills"
-        ],
-        "props": []
-      }
-    },
-    {
-      "key": "hairlines",
-      "group": "opt",
-      "table": "OPTS",
-      "kind": "switch",
-      "def": false,
-      "means": "Every line at half a pixel: the cards' edges, the fields, the frame and the dividers thin to a hairline. Only with lines.",
-      "label": "Fine lines",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "switch",
-        "line": 1205,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-hairlines"
-      ],
-      "rest": {
-        "data-hairlines": "REST"
-      },
-      "restValues": {
-        "data-hairlines": "off"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-hairlines"
         ],
         "props": []
       }
@@ -1433,51 +1305,20 @@
       "inStandardAtRest": false
     },
     {
-      "key": "linewidth",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "1",
-        "2",
-        "3",
-        "5"
-      ],
-      "def": "1",
-      "attr": "data-line-width",
-      "means": "Line width in px: 1 (the rest), 2, 3 or 5. Only with lines; fine lines only at 1.",
-      "label": "Line width",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1202,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-line-width"
-      ],
-      "rest": {
-        "data-line-width": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
       "key": "cards",
       "group": "pick",
       "table": "PICKS",
       "kind": "pick",
       "choices": [
-        "box",
-        "top",
-        "flat",
+        "filled",
+        "fillOnly",
         "raised",
-        "ticks"
+        "topLine",
+        "cornerMarks"
       ],
-      "def": "box",
+      "def": "filled",
       "attr": "data-cards",
-      "means": "How cards look: box (the rest: the card's fill and, with lines, its line), top (a line along the top only, no fill, square; only with lines), flat (the fill alone, no line) or raised (the paper, lifted by a shadow), or ticks (only the four corners drawn, a drawing's crop marks, no fill; only with lines).",
+      "means": "How cards look: filled (the rest: the card's fill and, with lines, its line), fillOnly (the fill without a line even with lines), raised (the paper, lifted by a shadow), topLine (a line along the top only, no fill, square; only with lines) or cornerMarks (only the four corners drawn). Architrave's page only.",
       "label": "Cards",
       "page": "Corners and lines",
       "level": 15,
@@ -1501,13 +1342,13 @@
       "table": "PICKS",
       "kind": "pick",
       "choices": [
-        "line",
+        "sideLine",
         "plain",
-        "box"
+        "filled"
       ],
-      "def": "line",
+      "def": "sideLine",
       "attr": "data-quotes",
-      "means": "How quotes in an article look: a line at the side (the rest), plain, or in a box.",
+      "means": "How quotes in an article look: sideLine (a line at the side, the rest), plain, or filled (in a box with its fill).",
       "label": "Quotes",
       "page": "Corners and lines",
       "level": 15,
@@ -1531,13 +1372,13 @@
       "table": "PICKS",
       "kind": "pick",
       "choices": [
-        "flat",
-        "box",
+        "filled",
+        "outlined",
         "raised"
       ],
-      "def": "flat",
+      "def": "filled",
       "attr": "data-notes",
-      "means": "How a box the writer coloured inside an article looks: flat (the rest: its fill), outlined, or raised by a shadow.",
+      "means": "How a box the writer coloured inside an article looks: filled (the rest: its own fill), outlined (a line around it) or raised (lifted by a shadow).",
       "label": "Notes",
       "page": "Corners and lines",
       "level": 15,
@@ -1561,13 +1402,13 @@
       "table": "PICKS",
       "kind": "pick",
       "choices": [
-        "flat",
-        "box",
+        "filled",
+        "outlined",
         "raised"
       ],
-      "def": "flat",
+      "def": "filled",
       "attr": "data-fields",
-      "means": "How search, comment and sign-up fields look: flat (the rest: the fill, with lines its line), outlined on the paper, or raised by a shadow.",
+      "means": "How search, comment and sign-up fields look: filled (the rest: the fill, with lines its line), outlined (a line on the paper) or raised (lifted by a shadow).",
       "label": "Fields",
       "page": "Corners and lines",
       "level": 15,
@@ -1796,51 +1637,12 @@
       "inStandardAtRest": false
     },
     {
-      "key": "line",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "6",
-        "10",
-        "14",
-        "20",
-        "30",
-        "45",
-        "60",
-        "80",
-        "100"
-      ],
-      "def": "45",
-      "attr": "data-line",
-      "prop": "--line-strength",
-      "means": "Strength of those lines: the ink's share in the line colour, in per cent. 45 is the rest. Only with lines.",
-      "label": "Line strength",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "slider",
-        "line": 1200,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-line"
-      ],
-      "props": [
-        "--line-strength"
-      ],
-      "rest": {
-        "data-line": false
-      },
-      "inStandardAtRest": false
-    },
-    {
       "key": "fill",
       "group": "level",
       "table": "LEVELS",
       "kind": "dial",
       "steps": [
+        "none",
         "25",
         "50",
         "75",
@@ -1853,7 +1655,7 @@
       "def": "100",
       "attr": "data-fill",
       "scalesSteps": true,
-      "means": "Strength of the fills as a percentage of the colour pair's own steps; 100 is the rest. Only with fills.",
+      "means": "How strong the fills of cards, buttons and fields are: none (no fills; with no lines either, controls are plain glyphs), or 25 to 300 per cent of the colour pair's own steps; 100 is the theme's own. Architrave's page only for the strength; on another theme only none and 100.",
       "label": "Fill strength",
       "page": "Corners and lines",
       "level": 15,
@@ -1864,74 +1666,20 @@
       },
       "changesPage": "Corners and lines",
       "attrs": [
-        "data-fill"
-      ],
-      "props": [
-        "--fill-factor"
+        "data-fills"
       ],
       "rest": {
-        "data-fill": false
+        "data-fills": "REST"
       },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "linestyle",
-      "group": "other",
-      "table": "LINE_STYLE",
-      "kind": "pick",
-      "choices": [
-        "solid",
-        "dashed",
-        "dotted"
-      ],
-      "def": "solid",
-      "means": "solid, dashed or dotted lines. Dashes are long only when rounded is false. Only with lines.",
-      "label": "Line style",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1203,
-        "in": "shapeBody"
+      "restValues": {
+        "data-fills": "on"
       },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-line-style"
-      ],
-      "rest": {
-        "data-line-style": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "corners",
-      "group": "other",
-      "table": "CORNERS",
-      "kind": "pick",
-      "choices": [
-        "medium",
-        "small",
-        "large",
-        "xlarge"
-      ],
-      "def": "medium",
-      "means": "medium, small or large corners. One step re-cuts every corner together; nested corners stay sums. Only with rounded.",
-      "label": "Corner size",
-      "page": "Corners and lines",
-      "level": 15,
-      "row": {
-        "drawn": "pop-up",
-        "line": 1193,
-        "in": "shapeBody"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-corners"
-      ],
-      "rest": {
-        "data-corners": "ABSENT"
-      },
-      "inStandardAtRest": false
+      "inStandardAtRest": {
+        "attrs": [
+          "data-fills"
+        ],
+        "props": []
+      }
     },
     {
       "key": "fadeedges",
@@ -2106,6 +1854,137 @@
       ],
       "rest": {
         "data-wide-figures": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "radius",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "small",
+        "medium",
+        "large",
+        "xlarge"
+      ],
+      "def": "medium",
+      "means": "The corners of cards, buttons, fields and pictures: none (square), small, medium (the theme's own), large or xlarge. One step re-cuts every corner together; corners inside corners stay sums.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-rounded"
+      ],
+      "rest": {
+        "data-rounded": "REST"
+      },
+      "restValues": {
+        "data-rounded": "on"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-rounded"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "borderWidth",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "none",
+        "hairline",
+        "1",
+        "2",
+        "3",
+        "5"
+      ],
+      "def": "none",
+      "means": "The lines around cards, buttons and fields and between rows: none (the theme's own: no lines but link underlines), hairline (half a pixel), or 1, 2, 3 or 5 px.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-hairlines",
+        "data-lines"
+      ],
+      "rest": {
+        "data-hairlines": "REST",
+        "data-lines": "REST"
+      },
+      "restValues": {
+        "data-hairlines": "off",
+        "data-lines": "off"
+      },
+      "inStandardAtRest": {
+        "attrs": [
+          "data-hairlines",
+          "data-lines"
+        ],
+        "props": []
+      }
+    },
+    {
+      "key": "borderStyle",
+      "group": "other",
+      "table": "LINE_STYLE",
+      "kind": "pick",
+      "choices": [
+        "solid",
+        "dashed",
+        "dotted"
+      ],
+      "def": "solid",
+      "means": "solid (the rest), dashed or dotted lines. Dashes are long only with radius none. Only with a borderWidth.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-line-style"
+      ],
+      "rest": {
+        "data-line-style": "ABSENT"
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "borderStrength",
+      "group": "other",
+      "kind": "pick",
+      "choices": [
+        "6",
+        "10",
+        "14",
+        "20",
+        "30",
+        "45",
+        "60",
+        "80",
+        "100"
+      ],
+      "def": "45",
+      "means": "How strong the lines are: the text colour's share in the line colour, 6 to 100 per cent; 45 is the theme's own. Only with a borderWidth.",
+      "label": null,
+      "page": null,
+      "level": null,
+      "pageFrom": "markChanged",
+      "changesPage": null,
+      "attrs": [
+        "data-line"
+      ],
+      "props": [
+        "--line-strength"
+      ],
+      "rest": {
+        "data-line": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -3563,6 +3442,22 @@
       "means": "Retired 2026-10-03 and still read: a pair other than neutral is written out as its background and text on both sides."
     },
     {
+      "key": "rounded",
+      "means": "Retired 2026-10-03 and still read: false becomes radius none."
+    },
+    {
+      "key": "lines",
+      "means": "Retired 2026-10-03 and still read: false becomes borderWidth none; true takes linewidth (and hairline with hairlines)."
+    },
+    {
+      "key": "line",
+      "means": "Retired 2026-10-03 and still read: the lines' strength becomes borderStrength, the same steps."
+    },
+    {
+      "key": "corners",
+      "means": "Retired 2026-10-03 and still read: the corner size becomes radius (small, medium, large, xlarge)."
+    },
+    {
       "key": "marker",
       "means": "Retired 2026-10-03 and still read: true becomes colours.<side>.highlight, the pen's colour; false none."
     },
@@ -3595,6 +3490,10 @@
       "means": "Retired 2026-09-26 and still read: true becomes button ink."
     },
     {
+      "key": "linewidth",
+      "means": "Retired 2026-10-03 and still read: with lines, it becomes borderWidth (1, 2, 3, 5)."
+    },
+    {
       "key": "subcolour",
       "means": "Retired 2026-10-02 and still read: ink keeps the headings in the ink under a coloured title (roles.headings.colour ink)."
     },
@@ -3609,6 +3508,14 @@
     {
       "key": "centretitle",
       "means": "Retired 2026-09-25 and still read: true becomes roles.head.align and roles.kicker.align center, with roles.head.members.sub.align default."
+    },
+    {
+      "key": "linestyle",
+      "means": "Retired 2026-10-03 and still read: becomes borderStyle (solid, dashed, dotted)."
+    },
+    {
+      "key": "fills",
+      "means": "Retired 2026-10-03 and still read: false becomes fill none."
     },
     {
       "key": "softlevel",
@@ -3629,6 +3536,10 @@
     {
       "key": "darkground",
       "means": "Retired 2026-10-03 and still read: true becomes the light side's background2, the night's own ground (or the dark ground's own colour)."
+    },
+    {
+      "key": "hairlines",
+      "means": "Retired 2026-10-03 and still read: with lines at 1, true becomes borderWidth hairline."
     },
     {
       "key": "tint",
@@ -3920,7 +3831,7 @@
       "muted"
     ],
     "keys": {
-      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them; since the layout words (2026-10-03) the article widths and the line length are worked out from titleWidth, pictureWidth, figureWidth and lineLength.",
+      "about": "Kept by the engine and stamped as before, never in a record since the seven colours (2026-10-03): palette is the one colour pair under every style, the accent's name and the three switches the colours stand for now are worked out from them; since the layout words (2026-10-03) the article widths and the line length are worked out from titleWidth, pictureWidth, figureWidth and lineLength; since the CSS words (2026-10-03) the corners, lines and fills are worked out from radius, borderWidth, borderStyle, borderStrength and fill.",
       "dials": [
         "palette"
       ],
@@ -3941,6 +3852,17 @@
           "text",
           "muted",
           "own"
+        ],
+        "CORNERS": [
+          "medium",
+          "small",
+          "large",
+          "xlarge"
+        ],
+        "LINE_STYLE": [
+          "solid",
+          "dashed",
+          "dotted"
         ]
       },
       "stamps": {
@@ -3949,7 +3871,11 @@
         "data-marker": "off",
         "data-tint": "purple",
         "data-widehead": "off",
-        "data-widepicture": "off"
+        "data-widepicture": "off",
+        "data-rounded": "on",
+        "data-lines": "off",
+        "data-fills": "on",
+        "data-hairlines": "off"
       },
       "absent": [
         "data-marker-colour",
@@ -3959,11 +3885,20 @@
         "data-small-soft",
         "data-full-picture",
         "data-wide-figures",
-        "data-measure"
+        "data-measure",
+        "data-corners",
+        "data-line-width",
+        "data-line",
+        "data-fill",
+        "data-line-style"
       ],
       "opts": [
         "widehead",
-        "widepicture"
+        "widepicture",
+        "rounded",
+        "lines",
+        "hairlines",
+        "fills"
       ],
       "picks": {
         "fullpicture": {
@@ -3978,6 +3913,15 @@
           "list": [
             "off",
             "on"
+          ]
+        },
+        "linewidth": {
+          "attr": "data-line-width",
+          "list": [
+            "1",
+            "2",
+            "3",
+            "5"
           ]
         }
       },
@@ -3996,6 +3940,37 @@
           "rest": "72",
           "attr": "data-measure",
           "prop": "--measure-factor"
+        },
+        "line": {
+          "stops": [
+            "6",
+            "10",
+            "14",
+            "20",
+            "30",
+            "45",
+            "60",
+            "80",
+            "100"
+          ],
+          "rest": "45",
+          "attr": "data-line",
+          "prop": "--line-strength"
+        },
+        "fill": {
+          "stops": [
+            "25",
+            "50",
+            "75",
+            "100",
+            "125",
+            "150",
+            "200",
+            "300"
+          ],
+          "rest": "100",
+          "attr": "data-fill",
+          "steps": true
         }
       }
     }

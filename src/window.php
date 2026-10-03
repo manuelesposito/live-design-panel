@@ -97,6 +97,9 @@ function live_design_window_page( $setting ) {
 	if ( ! empty( $setting['key'] ) && in_array( $setting['key'], $buttons, true ) ) {
 		return 'Buttons';
 	}
+	if ( ! empty( $setting['key'] ) && in_array( $setting['key'], array( 'radius', 'borderWidth', 'borderStyle', 'borderStrength' ), true ) ) {
+		return 'Corners and lines'; /* corners and lines in CSS's words (2026-10-03) */
+	}
 	if ( ! empty( $setting['key'] ) && in_array( $setting['key'], array( 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth' ), true ) ) {
 		return 'Layout'; /* the layout in WordPress's words (2026-10-03), which the old window never drew */
 	}

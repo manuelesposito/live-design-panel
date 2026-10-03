@@ -58,6 +58,9 @@ function live_design_window_page( $setting ) {
 	if ( ! empty( $setting['key'] ) && in_array( $setting['key'], $buttons, true ) ) {
 		return 'Buttons';
 	}
+	if ( ! empty( $setting['key'] ) && in_array( $setting['key'], array( 'radius', 'borderWidth', 'borderStyle', 'borderStrength' ), true ) ) {
+		return 'Corners and lines';
+	}
 	if ( ! empty( $setting['key'] ) && in_array( $setting['key'], array( 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth' ), true ) ) {
 		return 'Layout';
 	}

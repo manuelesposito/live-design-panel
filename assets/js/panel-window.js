@@ -54,7 +54,7 @@
 	function St() { return host && host.style; }
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { links: 'Links' }; 
-	var LAB_LABEL = { lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
+	var LAB_LABEL = { radius: 'Corners', borderWidth: 'Lines', borderStyle: 'Line style', borderStrength: 'Line strength', fill: 'Fills', lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonshape: 'Corners', buttonstyle: 'Strong', buttonmedium: 'Medium', buttonquiet: 'Quiet', tagsfollow: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 	
 	var MARK = {
@@ -375,10 +375,11 @@
 		tags: { text: 'Text only', filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined' },
 		chosenitem: { gray: 'Gray', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' },
 		linewidth: { '1': '1 px', '2': '2 px', '3': '3 px', '5': '5 px' },
-		cards: { flat: 'Flat', box: 'Outlined', raised: 'Raised', top: 'Line above', ticks: 'Corner marks' },
-		quotes: { plain: 'Plain', line: 'Line at the side', box: 'Box' },
-		notes: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
-		fields: { flat: 'Flat', box: 'Outlined', raised: 'Raised' },
+		cards: { filled: 'Filled', fillOnly: 'Fill only', raised: 'Raised', topLine: 'Top line', cornerMarks: 'Corner marks' },
+		quotes: { sideLine: 'Side line', plain: 'Plain', filled: 'Filled' },
+		notes: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
+		fields: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
+		borderStyle: { solid: 'Solid', dashed: 'Dashed', dotted: 'Dotted' },
 		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
 		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
 		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, subcolour: { title: 'Like the title', ink: 'Text' }
@@ -388,8 +389,8 @@
 	var FX_WORD = {}; 
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; 
-	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] , cards: ['flat', 'box', 'raised', 'top', 'ticks'], quotes: ['plain', 'line', 'box'] };
-	var GUEST_REST = { tags: 'text', chosenitem: 'gray', quotes: 'line', notes: 'flat', fields: 'flat' }; 
+	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], buttonstyle: LEVEL_ORDER, buttonmedium: LEVEL_ORDER, buttonquiet: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] , cards: ['fillOnly', 'filled', 'raised', 'topLine', 'cornerMarks'], quotes: ['plain', 'sideLine', 'filled'] };
+	var GUEST_REST = { tags: 'text', chosenitem: 'gray', quotes: 'sideLine', notes: 'filled', fields: 'filled' }; 
 	function levelRow(key, unit, sub) {
 		var x = setting(key) || {}, s = St();
 		return stepSlider(key, label(key), (x.steps || x.choices || []).map(function (id) { return { id: id, label: LEVEL_WORD[key] ? t(LEVEL_WORD[key][id] || id) : id + unit }; }), String(s.get(key)), function (id) { s.set(key, id); }, String(x.def), sub);
@@ -413,6 +414,7 @@
 		var on = s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink;
 		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on;
 	}
+	var SURFACE_DRAW = { cards: { filled: 'box', fillOnly: 'flat', topLine: 'top', cornerMarks: 'ticks' }, quotes: { sideLine: 'line', filled: 'box' }, notes: { filled: 'flat', outlined: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
 	function lookPic(draw, id) {
 		if (draw === 'button' || draw === 'tag') return '<i class="ldpw-lv" data-lk="' + id + '">' + (draw === 'tag' ? 'Tag' : 'Aa') + '</i>';
 		if (draw === 'link') return '<i class="ldpw-dln" data-ln="' + id + '">link</i>';
@@ -442,7 +444,7 @@
 		return '<div class="ldpw-r ldpw-lvrow"><div class="ldpw-top"><span class="ldpw-lb">' + esc(lb) + (LOOK_NOTE[key] ? '<small>' + esc(t(LOOK_NOTE[key])) + '</small>' : '') + '</span><span class="ldpw-val">' + esc(name) + '</span></div>' +
 			'<div class="ldpw-looks' + (list.length !== 6 ? ' is-n' + list.length : '') + '" role="radiogroup" aria-label="' + esc(lb) + '" style="' + esc(lookColours()) + '">' + list.map(function (x) {
 				var on = x[0] === v, nm = level && LOOK_SHORT[x[0]] ? t(LOOK_SHORT[x[0]]) : key === 'links' && x[0] === 'both' ? t('Both') : x[1];
-				return '<button type="button" class="ldpw-lk' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-look="' + key + '" data-v="' + esc(x[0]) + '" data-f="look:' + key + ':' + esc(x[0]) + '"><span class="ldpw-sw8" aria-hidden="true">' + lookPic(draw, x[0]) + '</span><span class="ldpw-nm">' + esc(nm) + '</span></button>';
+				return '<button type="button" class="ldpw-lk' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-look="' + key + '" data-v="' + esc(x[0]) + '" data-f="look:' + key + ':' + esc(x[0]) + '"><span class="ldpw-sw8" aria-hidden="true">' + lookPic(draw, (SURFACE_DRAW[key] || {})[x[0]] || x[0]) + '</span><span class="ldpw-nm">' + esc(nm) + '</span></button>';
 			}).join('') + '</div></div>';
 	}
 	function moreButton() { return '<button type="button" class="ldpw-more" aria-expanded="' + more + '" data-act="more" data-f="act:more">' + esc(t(more ? 'Show Less' : 'Show More')) + '</button>'; }
@@ -464,25 +466,20 @@
 			if (!s.get(sw)) s.set(sw, true);
 		}, String(x.def), sub, lvl, dead);
 	}
+	
 	function linesSlider() {
-		var s = St(), on = s.get('lines'), w = s.get('linewidth'), fine = s.get('hairlines');
-		var stops = [{ id: 'off', label: t('Off') }, { id: 'fine', label: t('Hairline') }].concat(['1', '2', '3', '5'].map(function (id) { return { id: id, label: id + ' px' }; }));
-		return stepSlider('lines', t('Lines'), stops, !on ? 'off' : w === '1' && fine ? 'fine' : w, function (id) {
-			if (id === 'off') { if (s.get('lines')) s.set('lines', false); return; }
-			var wid = id === 'fine' ? '1' : id;
-			if (s.get('linewidth') !== wid) s.set('linewidth', wid);
-			if (!!s.get('hairlines') !== (id === 'fine')) s.set('hairlines', id === 'fine');
-			if (!s.get('lines')) s.set('lines', true);
-		}, '1', '', 'linewidth');
+		var s = St(), stops = [{ id: 'none', label: t('None') }, { id: 'hairline', label: t('Hairline') }].concat(['1', '2', '3', '5'].map(function (id) { return { id: id, label: id + ' px' }; }));
+		return stepSlider('borderWidth', t('Lines'), stops, s.get('borderWidth'), function (id) { s.set('borderWidth', id); }, 'none');
 	}
 	function cornersSlider() {
 		var s = St(), words = PICK_WORD.corners;
-		var stops = [{ id: 'off', label: t('Square') }].concat(PICK_ORDER.corners.map(function (id) { return { id: id, label: t(words[id]) }; }));
-		return stepSlider('rounded', t('Corners'), stops, s.get('rounded') ? s.get('corners') : 'off', function (id) {
-			if (id === 'off') { if (s.get('rounded')) s.set('rounded', false); return; }
-			if (s.get('corners') !== id) s.set('corners', id);
-			if (!s.get('rounded')) s.set('rounded', true);
-		}, 'medium', '', 'corners');
+		var stops = [{ id: 'none', label: t('Square') }].concat(PICK_ORDER.corners.map(function (id) { return { id: id, label: t(words[id]) }; }));
+		return stepSlider('radius', t('Corners'), stops, s.get('radius'), function (id) { s.set('radius', id); }, 'medium');
+	}
+	function fillSlider() {
+		var s = St(), x = setting('fill') || {}, guest = s.guest(); 
+		var stops = (guest ? ['none', '100'] : x.steps || []).map(function (id) { return { id: id, label: id === 'none' ? t('None') : guest ? t('As the theme') : id + ' %' }; });
+		return stepSlider('fill', t('Fills'), stops, s.get('fill'), function (id) { s.set('fill', id); }, '100');
 	}
 	var PENS = { yellow: '#fff347', green: '#b4f07c', pink: '#ffb0d8', blue: '#a4d8ff', orange: '#ffc46e' };
 	function highlightRow() {
@@ -501,8 +498,8 @@
 			(guest ? '' : hint('Content is as wide as the reading column. Wide steps out on both sides. Full reaches the edges of the paper.'));
 	}
 	function shapePage() {
-		var s = St(), rounded = s.get('rounded'), lines = s.get('lines');
-		return box(cornersSlider() + linesSlider() + (lines ? levelRow('line', ' %') + pickRow('linestyle') : '') + offSlider('fills', 'fill', t('Fills'), ' %')) +
+		var s = St(), lines = s.get('borderWidth') !== 'none';
+		return box(cornersSlider() + linesSlider() + (lines ? levelRow('borderStrength', ' %') + pickRow('borderStyle') : '') + fillSlider()) +
 			gtitle(t('Surfaces')) + box((s.guest() ? '' : pickRow('cards')) + pickRow('quotes') + pickRow('notes') + pickRow('fields')) +
 			hint('A surface on the other side of the page, like a dark section on light paper, passes its own colours to the text and buttons inside it.');
 	}
@@ -931,7 +928,7 @@
 		if (path.indexOf('roles.') === 0 && k === 'font') return faceName(v);
 		return w ? t(w) : k === 'size' ? v + ' px' : String(v);
 	}
-	var DRAWN_ON = { lineLength: 'layout', titleWidth: 'layout', pictureWidth: 'layout', figureWidth: 'layout', button: 'buttons', buttonshape: 'buttons', buttonstyle: 'buttons', buttonmedium: 'buttons', buttonquiet: 'buttons', tags: 'buttons', tagsfollow: 'buttons', links: 'buttons', chosenitem: 'buttons' };
+	var DRAWN_ON = { radius: 'corners-and-lines', borderWidth: 'corners-and-lines', borderStyle: 'corners-and-lines', borderStrength: 'corners-and-lines', fill: 'corners-and-lines', lineLength: 'layout', titleWidth: 'layout', pictureWidth: 'layout', figureWidth: 'layout', button: 'buttons', buttonshape: 'buttons', buttonstyle: 'buttons', buttonmedium: 'buttons', buttonquiet: 'buttons', tags: 'buttons', tagsfollow: 'buttons', links: 'buttons', chosenitem: 'buttons' };
 	var WELL_ON = { button: 'buttons', title: 'type', headings: 'type', body: 'type', quote: 'type', meta: 'type', 'interface': 'type', code: 'type' };
 	function changeSection(path) {
 		var p = path.split('.'), k = p[0], x = setting(k);

@@ -128,14 +128,25 @@
   ],
   "justify": "boolean",
   "dropcap": "boolean",
-  "rounded": "boolean",
-  "lines": "boolean",
-  "fills": "boolean",
+  "radius": [
+    "none",
+    "small",
+    "medium",
+    "large",
+    "xlarge"
+  ],
+  "borderWidth": [
+    "none",
+    "hairline",
+    "1",
+    "2",
+    "3",
+    "5"
+  ],
   "titleWidth": [
     "content",
     "wide"
   ],
-  "hairlines": "boolean",
   "picturehover": "boolean",
   "picturedim": "boolean",
   "picturefade": "boolean",
@@ -267,7 +278,7 @@
     "3",
     "4"
   ],
-  "line": [
+  "borderStrength": [
     "6",
     "10",
     "14",
@@ -279,6 +290,7 @@
     "100"
   ],
   "fill": [
+    "none",
     "25",
     "50",
     "75",
@@ -325,16 +337,10 @@
     "dots",
     "checker"
   ],
-  "linestyle": [
+  "borderStyle": [
     "solid",
     "dashed",
     "dotted"
-  ],
-  "corners": [
-    "medium",
-    "small",
-    "large",
-    "xlarge"
   ],
   "fadeedges": [
     "sides",
@@ -389,32 +395,26 @@
     "outlined",
     "bold"
   ],
-  "linewidth": [
-    "1",
-    "2",
-    "3",
-    "5"
-  ],
   "cards": [
-    "box",
-    "top",
-    "flat",
+    "filled",
+    "fillOnly",
     "raised",
-    "ticks"
+    "topLine",
+    "cornerMarks"
   ],
   "quotes": [
-    "line",
+    "sideLine",
     "plain",
-    "box"
+    "filled"
   ],
   "notes": [
-    "flat",
-    "box",
+    "filled",
+    "outlined",
     "raised"
   ],
   "fields": [
-    "flat",
-    "box",
+    "filled",
+    "outlined",
     "raised"
   ],
   "paragraphs": [

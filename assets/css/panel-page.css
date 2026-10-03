@@ -770,6 +770,17 @@
 :root[data-chosen][data-lines="on"][data-line-style="dotted"] [data-panel-line]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *)) {
 	border-style: dotted !important;
 }
+/* THE LINES' WIDTH REACHES ANOTHER THEME (Manuel, 2026-10-03, lab/the-corners-and-lines.html: a row that
+   shows should do something). The width of every line drawn all round, a box or a field, follows the
+   panel's Lines step: a hairline is half a pixel, 2, 3 or 5 px as chosen; 1 px is the theme's own. A line
+   on one side only (a rule) keeps its own width, so no new sides appear. */
+:root[data-line-width="2"] { --ldp-line-w: 2px; }
+:root[data-line-width="3"] { --ldp-line-w: 3px; }
+:root[data-line-width="5"] { --ldp-line-w: 5px; }
+:root[data-hairlines="on"]:not([data-line-width]) { --ldp-line-w: 0.5px; }
+:root[data-chosen][data-lines="on"]:is([data-line-width], [data-hairlines="on"]) :is([data-ldp-line="box"], .wp-block-search__input, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"]):not([type="radio"])):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, #wpadminbar *)) {
+	border-width: var(--ldp-line-w) !important;
+}
 /* WHAT A LINE IS FOR (Manuel, 2026-09-25, lab/the-lines-a-page-is-built-with.html).
    guest-lines.js reads each line for what it does. Under Lines off a BOX is
    the look's card, filled and rounded, and a RULE stays as the look's quiet
@@ -1308,8 +1319,8 @@
    its coloured boxes and the search and comment fields take the looks. At the
    rest each keeps the theme's own. */
 :root[data-chosen][data-quotes="plain"] :is(#ldp-lv, .wp-block-quote):not(:where(.reading-panel *)) { border-inline-start-color: transparent !important; padding-inline-start: 0 !important; }
-:root[data-chosen][data-quotes="box"] :is(#ldp-lv, .wp-block-quote):not(:where(.reading-panel *)) { padding: 1.25em 1.5em !important; border: 1px solid color-mix(in srgb, var(--text-primary) 18%, transparent) !important; border-radius: 12px !important; background-color: color-mix(in srgb, var(--text-primary) 5%, var(--surface-base)) !important; }
-:root[data-chosen][data-notes="box"] :is(#ldp-lv, :is(.wp-block-post-content, .entry-content) .wp-block-group.has-background):not(:where(.reading-panel *)) { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--text-primary) 18%, transparent) !important; }
+:root[data-chosen][data-quotes="box"] :is(#ldp-lv, .wp-block-quote):not(:where(.reading-panel *)) { padding: 1.25em 1.5em !important; border: var(--ldp-line-w, 1px) solid color-mix(in srgb, var(--text-primary) 18%, transparent) !important; border-radius: 12px !important; background-color: color-mix(in srgb, var(--text-primary) 5%, var(--surface-base)) !important; }
+:root[data-chosen][data-notes="box"] :is(#ldp-lv, :is(.wp-block-post-content, .entry-content) .wp-block-group.has-background):not(:where(.reading-panel *)) { box-shadow: inset 0 0 0 var(--ldp-line-w, 1px) color-mix(in srgb, var(--text-primary) 18%, transparent) !important; }
 :root[data-chosen][data-notes="raised"] :is(#ldp-lv, :is(.wp-block-post-content, .entry-content) .wp-block-group.has-background):not(:where(.reading-panel *)) { box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-primary) 6%, transparent), 0 1px 2px rgb(0 0 0 / 0.08), 0 10px 28px rgb(0 0 0 / 0.14) !important; }
 :root[data-chosen][data-fields="box"] :is(#ldp-lv, .wp-block-search__input, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"])):not(:where(.reading-panel *, #wpadminbar *)) { background-color: var(--surface-base) !important; border-color: color-mix(in srgb, var(--text-primary) 18%, transparent) !important; box-shadow: none !important; }
 :root[data-chosen][data-fields="raised"] :is(#ldp-lv, .wp-block-search__input, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"])):not(:where(.reading-panel *, #wpadminbar *)) { background-color: var(--surface-base) !important; border-color: transparent !important; box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-primary) 6%, transparent), 0 1px 2px rgb(0 0 0 / 0.08), 0 6px 16px rgb(0 0 0 / 0.1) !important; }
