@@ -895,6 +895,7 @@ function live_design_window_words() {
 		'View' => __( 'View', 'live-design-panel' ),
 		'Who Sees the Button' => __( 'Who Sees the Button', 'live-design-panel' ),
 		'Visitors' => __( 'Visitors', 'live-design-panel' ),
+		'Saving…' => __( 'Saving…', 'live-design-panel' ),
 		'The ground around the paper turns dark; the paper stays light' => __( 'The ground around the paper turns dark; the paper stays light', 'live-design-panel' ),
 		'Show icon' => __( 'Show icon', 'live-design-panel' ),
 		'{n}% of readers' => /* translators: {n} is a whole number */ __( '{n}% of readers', 'live-design-panel' ),

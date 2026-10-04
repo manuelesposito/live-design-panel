@@ -2436,13 +2436,41 @@
 			if (!undoing && !previewing && was !== next) {
 				versionSoon(); FUTURE = []; /* a new change ends what Redo could bring back */
 				var nowMs = Date.now();
-				if (nowMs - lastPush > 700) { HISTORY.push({ tweaks: was, side: storedSide(), style: current, what: changedKey(was, next) }); if (HISTORY.length > 40) HISTORY.shift(); }
+				if (nowMs - lastPush > 700) { HISTORY.push({ tweaks: was, side: storedSide(), style: current, what: changedKey(was, next), base: siteBase(current) }); if (HISTORY.length > 40) HISTORY.shift(); }
 				lastPush = nowMs;
 			}
 			/* nothing tweaked is no key at all (2026-09-26): '{}' broke "a dial at rest writes nothing" */
 			if (next === '{}') localStorage.removeItem(TWEAKS_KEY); else localStorage.setItem(TWEAKS_KEY, next);
 		} catch (e) { /* as above */ }
+		if (!previewing) siteSaveSoon();
 	}
+	/* SHOWN IS SHOWN (0.31.0, Manuel, 2026-10-04: "When it's in the section shown to readers, it should be shown
+	   to readers no matter what"). His colours for a published style stood in his browser as "Edited" until a
+	   Publish he could not see on the Styles page, and his phone showed the style without them. A style on the
+	   site now keeps no changes of its own in the owner's browser: whatever is changed in it, by a row, an undo,
+	   a paste or the AI helper, goes to the site 1.2 s after the last change, as a Mac document saves itself.
+	   Choosing another style first sends what is waiting (applyNow), and so does leaving the page. */
+	var siteSaveTimer = 0, siteSaving = '', siteSent = {};
+	/* UNDO KEEPS WORKING: a change is held as tweaks over the saved record, and a save makes the changes the record.
+	   So each step of Undo and Redo also holds the record it stood on (base), and puts it back with its tweaks. */
+	function siteBase(id) { var o = byId(id); return o && o.site ? JSON.stringify(o) : null; }
+	function restoreBase(id, json) { var o = byId(id); if (!o || !o.site) return; try { STYLES[STYLES.indexOf(o)] = JSON.parse(json); } catch (e) { /* kept as it is */ } }
+	function siteSaveSoon() {
+		if (!PUBLISH) return;
+		var s = byId(current); if (!s || !s.site) return;
+		clearTimeout(siteSaveTimer); siteSaveTimer = setTimeout(siteSaveNow, 1200);
+		root.setAttribute('data-site-saving', s.id); /* the window watches the root: it says Saving… until this goes */
+	}
+	function siteSaveNow() {
+		clearTimeout(siteSaveTimer); siteSaveTimer = 0;
+		var s = byId(current), done = function () { if (!siteSaving && !siteSaveTimer) root.removeAttribute('data-site-saving'); };
+		if (!s || !s.site || !(readTweaks()[s.id] || siteSent[s.id])) { done(); return; }
+		var rec = window.ArchitraveStyles.exportStyle(); if (rec === siteSent[s.id]) { done(); return; } /* nothing new for the site */
+		if (siteSaving) { siteSaveSoon(); return; } /* one at a time; the next waits for this one */
+		siteSaving = s.id;
+		window.ArchitraveStyles.updateSite().then(function () { siteSaving = ''; done(); renderHosts(); }, function () { siteSaving = ''; renderHosts(); setTimeout(siteSaveSoon, 5000); }); /* offline or refused: tried again, the change stays meanwhile */
+	}
+	window.addEventListener('pagehide', function () { if (siteSaveTimer) siteSaveNow(); });
 	applyOptions();
 	applyTint();
 	applySans();
@@ -3378,6 +3406,7 @@
 	}
 	function applyNow(s, dials) {
 		if (versionTimer && s && s.id !== current) versionNow();
+		if (siteSaveTimer && s && s.id !== current) siteSaveNow(); /* SHOWN IS SHOWN: what waits goes out before the style changes */
 		applying = true;
 		stamp(s.id);
 		press('[data-quire-modes="palette"] [data-palette="' + dials.palette + '"]');
@@ -3569,7 +3598,7 @@
 		if (!PUBLISH || !PUBLISH.url || !window.fetch) return Promise.reject(new Error('cannot publish'));
 		var mine = ++SENT;
 		return fetch(PUBLISH.url, {
-			method: 'POST', credentials: 'same-origin',
+			method: 'POST', credentials: 'same-origin', keepalive: true, /* a save sent as the page is left still arrives (0.31.0) */
 			headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': PUBLISH.nonce },
 			body: JSON.stringify(body)
 		}).then(function (r) { return r.json().then(function (j) { if (!r.ok) { var e = new Error((j && j.message) || r.status); e.said = !!(j && j.code && j.message); throw e; } return j; }); }) /* `said`: a sentence the site wrote for the owner (in their language), which the window may show as it is */
@@ -3774,12 +3803,18 @@
 				return newId;
 			});
 		},
+		siteSaving: function (id) { return siteSaving === id || (!!siteSaveTimer && current === id); },
 		updateSite: function () {
 			var s = byId(current); if (!s || !s.site) return Promise.reject(new Error('not a site style'));
 			var record = JSON.parse(this.exportStyle()); record.label = s.label;
+			var sent = JSON.stringify(readTweaks()[s.id] || null), whole = this.exportStyle();
 			return sendSite({ action: 'update', id: s.id, record: record }).then(function () {
-				var all = readTweaks(); delete all[s.id]; writeTweaks(all);
-				var e = byId(s.id); if (e) apply(e, e);
+				siteSent[s.id] = whole;
+				/* SHOWN IS SHOWN (0.31.0): only what was sent is let go; a change made while it travelled stays and goes next,
+				   and the page is drawn again only if it still shows this style (the record now equals what it shows) */
+				var all = readTweaks();
+				if (JSON.stringify(all[s.id] || null) === sent) { delete all[s.id]; previewing = true; try { writeTweaks(all); } finally { previewing = null; } }
+				if (current === s.id) mark();
 				return true;
 			});
 		},
@@ -4624,26 +4659,28 @@
 		redo: function () {
 			var h = FUTURE.pop(); if (!h) return false;
 			var was = ''; try { was = localStorage.getItem(TWEAKS_KEY) || '{}'; } catch (e) { /* private window */ }
-			HISTORY.push({ tweaks: was, side: storedSide(), style: current, what: h.what });
+			HISTORY.push({ tweaks: was, side: storedSide(), style: current, what: h.what, base: siteBase(current) });
 			undoing = true;
 			try { localStorage.setItem(TWEAKS_KEY, h.tweaks); } catch (e) { /* private window */ }
+			if (h.base) restoreBase(h.style, h.base); /* SHOWN IS SHOWN: the step is the style as it stood, saved record and changes together */
 			var s = byId(h.style) || byId(current);
 			if (s) { apply(s, wanted(s)); applyRoles(); }
 			if (h.side && h.side !== storedSide()) press('[data-quire-modes="palette"] [data-side="' + h.side + '"]');
-			undoing = false; lastPush = 0;
+			undoing = false; lastPush = 0; siteSaveSoon();
 			mark();
 			return true;
 		},
 		undo: function () {
 			var h = HISTORY.pop(); if (!h) return false;
 			var now = ''; try { now = localStorage.getItem(TWEAKS_KEY) || '{}'; } catch (e) { /* private window */ }
-			FUTURE.push({ tweaks: now, side: storedSide(), style: current, what: h.what }); /* what stands now, for Redo */
+			FUTURE.push({ tweaks: now, side: storedSide(), style: current, what: h.what, base: siteBase(current) }); /* what stands now, for Redo */
 			undoing = true;
 			try { localStorage.setItem(TWEAKS_KEY, h.tweaks); } catch (e) { /* private window */ }
+			if (h.base) restoreBase(h.style, h.base); /* SHOWN IS SHOWN: the step is the style as it stood, saved record and changes together */
 			var s = byId(h.style) || byId(current);
 			if (s) { apply(s, wanted(s)); applyRoles(); }
 			if (h.side && h.side !== storedSide()) press('[data-quire-modes="palette"] [data-side="' + h.side + '"]');
-			undoing = false; lastPush = 0;
+			undoing = false; lastPush = 0; siteSaveSoon();
 			mark();
 			return true;
 		},

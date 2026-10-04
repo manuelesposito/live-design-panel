@@ -676,7 +676,7 @@
 		MENU[mk] = { label: t(x.label), items: tileItems(x), pick: function (a) { tileAct(x, a); } };
 		return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '" data-sid="' + esc(id) + '">' +
 			'<button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-style="' + esc(id) + '" data-f="style:' + esc(id) + '">' +
-				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
+				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited && !x.site ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
 				'<span class="ldpw-nm">' + esc(t(x.label)) + '</span>' + (x.isDefault ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') +
 			'</button>' +
 			'<button type="button" class="ldpw-tm" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + t(x.label)) + '">' + svg(GLYPH.more) + '</button>' +
@@ -689,7 +689,7 @@
 		if (x.own || x.site) out.push(['rename', t('Rename…')]);
 		out.push(['duplicate', t('Duplicate')]);
 		var last = [];
-		if (x.edited) last.push(['revert', t(x.site ? 'Revert to Published' : 'Revert to Original')]);
+		if (x.edited && !x.site) last.push(['revert', t('Revert to Original')]);
 		if (x.own) last.push(['delete', t('Delete…')]);
 		if (x.site) last.push(['unpublish', t('Remove from Site…')]);
 		return last.length ? out.concat([null], last) : out;
@@ -729,10 +729,17 @@
 		var blue = phone() && built && s && x.id !== 'styles' && x.id !== 'readers' && x.id !== 'button' ? commit() : '';
 		return rev || blue ? '<div class="ldpw-foot">' + (rev || '<span></span>') + blue + '</div>' : '';
 	}
+	/* THE WORD BESIDE THE STYLE'S NAME (0.31.0): Edited for a style kept in this browser; for a style on the site,
+	   which saves itself, Saving… while a change is on its way, else nothing */
+	function editedWord(s, plain) {
+		var x = s && s.tile(s.current()); if (!x) return '';
+		var w = x.site ? (x.saving ? t('Saving…') : '') : (x.edited ? t('Edited') : '');
+		return plain ? w : w ? '<em>' + esc(w) + '</em>' : '';
+	}
 	/* THE ONE BLUE BUTTON names what it does: a built-in style is saved as a new one, a style on the site is published; one of your own keeps its changes by itself */
 	function commit() {
 		var s = St(), x = s.tile(s.current());
-		if (!x || x.host || x.own) return '';
+		if (!x || x.host || x.own || x.site) return ''; /* SHOWN IS SHOWN (0.31.0): a style on the site saves itself */
 		if (!x.edited && s.styles().original === x.id) return ''; /* Original untouched asks for nothing, as the lab's */
 		return '<button type="button" class="ldpw-blue ldpw-commit" data-act="commit" data-f="act:commit"' + (x.edited ? '' : ' disabled') + '>' + esc(x.site ? t('Publish') : t('Save As…')) + '</button>';
 	}
@@ -1077,7 +1084,7 @@
 		/* THE LAB'S ••• MENU: undo, then the style's own acts, copy and paste, the text size, the way back, then the panel's Settings and the current window */
 		var x0 = s && s.tile ? s.tile(s.current()) : null;
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
-			(x0 && x0.site && / disabled>/.test(commit()) || !(x0 && x0.site) ? ['saveas', t('Save As…'), !x0 || x0.host] : ['commit', t('Publish'), false]), ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
+			['saveas', t('Save As…'), !x0 || x0.host] /* no Publish: a style on the site saves itself (0.31.0) */, ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
 			[null, ['revertall', t(x0 && x0.site ? 'Revert to Published…' : 'Revert to Original…'), !n], null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']]), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
@@ -1418,7 +1425,7 @@
 		return '<nav class="ldpw-side" aria-label="' + esc(t('Sections')) + '">' +
 			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('Hide Sidebar')) + '" title="' + esc(t('Hide Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>') + '</div>' +
 			'<div class="ldpw-side-in">' + '<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear Search')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' + /* the lab's: the search scrolls with the list */ navButton({ id: 'styles', name: t('Styles') }) +
-				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + (St() && St().tile(St().current()) && St().tile(St().current()).edited ? '<em>' + esc(t('Edited')) + '</em>' : '') + '</div>' + sections().map(navButton).join('') + /* the lab's: Edited beside the style's name */
+				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + /* the lab's: Edited beside the style's name */
 				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'readers', name: t('Readers') }) + navButton({ id: 'button', name: t('Live Design Button') }) +
 			'</div>' + /* the panel's Settings and the way back to the current window are in the ••• menu, as the lab has them */
 			(phone() ? '' : '<span class="ldpw-grip" data-grip role="separator" aria-orientation="vertical" aria-label="' + esc(t('Sidebar width')) + '"></span>') + /* no tooltip, as the lab's */
@@ -1579,7 +1586,7 @@
 		var x = current(), s = St(), built = BUILT.indexOf(x.id) !== -1 && (x.id === 'settings' || s);
 		var deep = showChanges || showVersions || (x.id === 'type' && (role || fontFor));
 		var name = sq && sq.q.trim() ? t('Search') : showChanges ? t('Changes') : showVersions ? t('Versions') : editing ? label(editing) : x.id !== 'type' ? x.name : fontFor ? (role ? t('Font') : t(fontFor === 'body' ? 'Reading Font' : 'Interface Font')) : role ? t(roleMeta(role).label) : x.name;
-		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (s.tile(s.current()) && s.tile(s.current()).edited ? ' · ' + t('Edited') : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /title|headings|meta/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : x.id !== 'colour' && x.id !== 'type' ? x.name : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
+		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (editedWord(s, true) ? ' · ' + editedWord(s, true) : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /title|headings|meta/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : x.id !== 'colour' && x.id !== 'type' ? x.name : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
 		var back = editing || deep || phone();
 		var undo = built && s ? '<button type="button" class="ldpw-circ" data-act="undo" data-f="act:undo"' + (s.canUndo() ? '' : ' disabled') + ' aria-label="' + esc(undoName()) + '" title="' + esc(undoName()) + '">' + svg(GLYPH.undo) + '</button>' : '';
 		return '<div class="ldpw-detail">' +

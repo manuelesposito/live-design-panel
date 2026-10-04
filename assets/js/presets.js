@@ -1520,12 +1520,32 @@
 			if (!undoing && !previewing && was !== next) {
 				versionSoon(); FUTURE = []; 
 				var nowMs = Date.now();
-				if (nowMs - lastPush > 700) { HISTORY.push({ tweaks: was, side: storedSide(), style: current, what: changedKey(was, next) }); if (HISTORY.length > 40) HISTORY.shift(); }
+				if (nowMs - lastPush > 700) { HISTORY.push({ tweaks: was, side: storedSide(), style: current, what: changedKey(was, next), base: siteBase(current) }); if (HISTORY.length > 40) HISTORY.shift(); }
 				lastPush = nowMs;
 			}
 			if (next === '{}') localStorage.removeItem(TWEAKS_KEY); else localStorage.setItem(TWEAKS_KEY, next);
 		} catch (e) {  }
+		if (!previewing) siteSaveSoon();
 	}
+	var siteSaveTimer = 0, siteSaving = '', siteSent = {};
+	function siteBase(id) { var o = byId(id); return o && o.site ? JSON.stringify(o) : null; }
+	function restoreBase(id, json) { var o = byId(id); if (!o || !o.site) return; try { STYLES[STYLES.indexOf(o)] = JSON.parse(json); } catch (e) {  } }
+	function siteSaveSoon() {
+		if (!PUBLISH) return;
+		var s = byId(current); if (!s || !s.site) return;
+		clearTimeout(siteSaveTimer); siteSaveTimer = setTimeout(siteSaveNow, 1200);
+		root.setAttribute('data-site-saving', s.id); 
+	}
+	function siteSaveNow() {
+		clearTimeout(siteSaveTimer); siteSaveTimer = 0;
+		var s = byId(current), done = function () { if (!siteSaving && !siteSaveTimer) root.removeAttribute('data-site-saving'); };
+		if (!s || !s.site || !(readTweaks()[s.id] || siteSent[s.id])) { done(); return; }
+		var rec = window.ArchitraveStyles.exportStyle(); if (rec === siteSent[s.id]) { done(); return; } 
+		if (siteSaving) { siteSaveSoon(); return; } 
+		siteSaving = s.id;
+		window.ArchitraveStyles.updateSite().then(function () { siteSaving = ''; done(); renderHosts(); }, function () { siteSaving = ''; renderHosts(); setTimeout(siteSaveSoon, 5000); }); 
+	}
+	window.addEventListener('pagehide', function () { if (siteSaveTimer) siteSaveNow(); });
 	applyOptions();
 	applyTint();
 	applySans();
@@ -2117,6 +2137,7 @@
 	}
 	function applyNow(s, dials) {
 		if (versionTimer && s && s.id !== current) versionNow();
+		if (siteSaveTimer && s && s.id !== current) siteSaveNow(); 
 		applying = true;
 		stamp(s.id);
 		press('[data-quire-modes="palette"] [data-palette="' + dials.palette + '"]');
@@ -2243,7 +2264,7 @@
 		if (!PUBLISH || !PUBLISH.url || !window.fetch) return Promise.reject(new Error('cannot publish'));
 		var mine = ++SENT;
 		return fetch(PUBLISH.url, {
-			method: 'POST', credentials: 'same-origin',
+			method: 'POST', credentials: 'same-origin', keepalive: true, 
 			headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': PUBLISH.nonce },
 			body: JSON.stringify(body)
 		}).then(function (r) { return r.json().then(function (j) { if (!r.ok) { var e = new Error((j && j.message) || r.status); e.said = !!(j && j.code && j.message); throw e; } return j; }); }) 
@@ -2393,12 +2414,16 @@
 				return newId;
 			});
 		},
+		siteSaving: function (id) { return siteSaving === id || (!!siteSaveTimer && current === id); },
 		updateSite: function () {
 			var s = byId(current); if (!s || !s.site) return Promise.reject(new Error('not a site style'));
 			var record = JSON.parse(this.exportStyle()); record.label = s.label;
+			var sent = JSON.stringify(readTweaks()[s.id] || null), whole = this.exportStyle();
 			return sendSite({ action: 'update', id: s.id, record: record }).then(function () {
-				var all = readTweaks(); delete all[s.id]; writeTweaks(all);
-				var e = byId(s.id); if (e) apply(e, e);
+				siteSent[s.id] = whole;
+				var all = readTweaks();
+				if (JSON.stringify(all[s.id] || null) === sent) { delete all[s.id]; previewing = true; try { writeTweaks(all); } finally { previewing = null; } }
+				if (current === s.id) mark();
 				return true;
 			});
 		},
@@ -3066,26 +3091,28 @@
 		redo: function () {
 			var h = FUTURE.pop(); if (!h) return false;
 			var was = ''; try { was = localStorage.getItem(TWEAKS_KEY) || '{}'; } catch (e) {  }
-			HISTORY.push({ tweaks: was, side: storedSide(), style: current, what: h.what });
+			HISTORY.push({ tweaks: was, side: storedSide(), style: current, what: h.what, base: siteBase(current) });
 			undoing = true;
 			try { localStorage.setItem(TWEAKS_KEY, h.tweaks); } catch (e) {  }
+			if (h.base) restoreBase(h.style, h.base); 
 			var s = byId(h.style) || byId(current);
 			if (s) { apply(s, wanted(s)); applyRoles(); }
 			if (h.side && h.side !== storedSide()) press('[data-quire-modes="palette"] [data-side="' + h.side + '"]');
-			undoing = false; lastPush = 0;
+			undoing = false; lastPush = 0; siteSaveSoon();
 			mark();
 			return true;
 		},
 		undo: function () {
 			var h = HISTORY.pop(); if (!h) return false;
 			var now = ''; try { now = localStorage.getItem(TWEAKS_KEY) || '{}'; } catch (e) {  }
-			FUTURE.push({ tweaks: now, side: storedSide(), style: current, what: h.what }); 
+			FUTURE.push({ tweaks: now, side: storedSide(), style: current, what: h.what, base: siteBase(current) }); 
 			undoing = true;
 			try { localStorage.setItem(TWEAKS_KEY, h.tweaks); } catch (e) {  }
+			if (h.base) restoreBase(h.style, h.base); 
 			var s = byId(h.style) || byId(current);
 			if (s) { apply(s, wanted(s)); applyRoles(); }
 			if (h.side && h.side !== storedSide()) press('[data-quire-modes="palette"] [data-side="' + h.side + '"]');
-			undoing = false; lastPush = 0;
+			undoing = false; lastPush = 0; siteSaveSoon();
 			mark();
 			return true;
 		},

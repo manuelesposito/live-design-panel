@@ -210,7 +210,7 @@
 					ids.forEach(function (fid) { var f = F.filter(function (y) { return y.id === fid; })[0]; if (f && out.indexOf(f.family) === -1) out.push(f.family); });
 					return out;
 				}()),
-				on: s.current() === id, edited: !!(s.adjusted && s.adjusted(id)), isDefault: s.visibleOrder()[0] === id, seen: !!(s.seenByReaders && s.seenByReaders(id))
+				on: s.current() === id, edited: !!(s.adjusted && s.adjusted(id)), saving: !!(s.siteSaving && s.siteSaving(id)), isDefault: s.visibleOrder()[0] === id, seen: !!(s.seenByReaders && s.seenByReaders(id))
 			};
 		},
 		current: function () { var s = S(); return s ? s.current() : ''; },

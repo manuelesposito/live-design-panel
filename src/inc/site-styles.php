@@ -325,6 +325,7 @@ function architrave_style_versions() {
 	$out = array(
 		'styles' => array(),
 		'at'     => array(),
+		'kept'   => array(),
 	);
 	if ( ! is_array( $raw ) ) {
 		return $out;
@@ -348,6 +349,11 @@ function architrave_style_versions() {
 			$out['at'][ $id ] = (int) $t;
 		}
 	}
+	foreach ( ( is_array( $raw['kept'] ?? null ) ? $raw['kept'] : array() ) as $id => $t ) { /* when a version was last kept (0.31.0) */
+		if ( is_string( $id ) && preg_match( '/^site-[a-z0-9]{1,24}$/', $id ) ) {
+			$out['kept'][ $id ] = (int) $t;
+		}
+	}
 	return $out;
 }
 
@@ -362,9 +368,15 @@ function architrave_style_versions() {
 function architrave_style_versions_note( $id, $replaced, $gone = false ) {
 	$v = architrave_style_versions();
 	if ( $gone ) {
-		unset( $v['styles'][ $id ], $v['at'][ $id ] );
+		unset( $v['styles'][ $id ], $v['at'][ $id ], $v['kept'][ $id ] );
 	} else {
-		if ( is_array( $replaced ) ) {
+		/* A VERSION AT MOST EVERY TEN MINUTES (0.31.0): a style on the site saves itself a moment after each
+		   change now, so keeping every replaced record would spend the twenty on one evening's slider. The
+		   first save after a pause keeps what stood before it; the saves that follow within ten minutes
+		   replace without keeping. */
+		$kept = (int) ( $v['kept'][ $id ] ?? 0 );
+		if ( is_array( $replaced ) && time() - $kept >= 600 ) {
+			$v['kept'][ $id ] = time();
 			$list = $v['styles'][ $id ] ?? array();
 			array_unshift(
 				$list,
