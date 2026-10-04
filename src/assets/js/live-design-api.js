@@ -210,7 +210,7 @@
 	}
 
 	var LiveDesign = {
-		about: 'Live Design: style this website by name. describe() first; set() changes (one undo step); preview() shows without keeping; check() says whether the page still reads well. Nothing reaches readers until the owner publishes. set, preview, load and choose answer with a Promise.',
+		about: 'Live Design: style this website by name. describe() first; set() changes (one undo step); preview() shows without keeping; check() says whether the page still reads well. A style shown to readers saves itself: what you change in it reaches readers a moment later. To try things, work on a style that is not on the site (choose Original: the first change makes a copy only this browser keeps). set, preview, load and choose answer with a Promise.',
 		describe: function () {
 			var s = S(); if (!s) return { error: 'The panel is not ready on this page.' };
 			var sc = schema(), mean = meaning();
@@ -251,7 +251,7 @@
 				s.restoreVersion(base || pl.record);
 			}
 			if (pl.changed.length) after(pl.changed, why);
-			return painted().then(function () { return { changed: pl.changed, problems: pl.problems, madeCopy: ed.madeCopy || undefined, style: s.name(), check: check(), live: 'Only on this page for you. The owner publishes to show readers.' }; });
+			return painted().then(function () { return { changed: pl.changed, problems: pl.problems, madeCopy: ed.madeCopy || undefined, style: s.name(), check: check(), live: (function () { var x = s.tile && s.tile(s.current()); return x && x.site ? 'This style is on the site: readers see the change a moment later.' : 'Only in this browser: readers see it once the owner shows this style to readers.'; }()) }; });
 		}); },
 		preview: function (changes) { return editableRecord().then(function (ed) {
 			if (ed.error) return { changed: [], problems: [{ problem: ed.error }] };

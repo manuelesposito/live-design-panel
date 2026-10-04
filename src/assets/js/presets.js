@@ -4812,7 +4812,18 @@
 		});
 		if (changed) writeTweaks(all);
 		var s = byId(current), olds = s && !s.host && RESTED[s.id], d = now();
-		if (olds && !same(d, s) && olds.some(function (o) { return same(d, o); }) && !DIALS.some(function (k) { return (all[s.id] || {})[k] !== undefined; })) apply(s, wanted(s));
+		if (olds && !same(d, s) && olds.some(function (o) { return same(d, o); }) && !DIALS.some(function (k) { return (all[s.id] || {})[k] !== undefined; })) { apply(s, wanted(s)); return; }
+		/* A REMOVED STYLE'S LEFTOVERS (0.31.2, found on the AI helper's own browser: Original drawn in Brochure's STIX Two
+		   Text and tight lines). The face, the line spacing and the colour pair live under keys of their own and are put on
+		   before paint; when the style that set them left (the clean-up of 2026-10-02 took fifteen), nothing named them in
+		   RESTED and they stayed, over whatever style the browser fell back to. At load the style on the page now says
+		   which face, line spacing and pair it wears, with the reader's own changes (its tweaks) in it. The text size is
+		   the reader's own and is left as the page has it. */
+		var w = s && !s.host ? wanted(s) : null;
+		if (w && ['face', 'leading', 'palette'].some(function (k) { return k !== 'palette' ? w[k] !== d[k] : (w.palette || 'neutral') !== d.palette; })) {
+			var keep = {}; Object.keys(w).forEach(function (k) { keep[k] = w[k]; }); keep.reading = d.reading;
+			apply(s, keep);
+		}
 	}
 
 	document.addEventListener('DOMContentLoaded', function () {

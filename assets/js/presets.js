@@ -3220,7 +3220,12 @@
 		});
 		if (changed) writeTweaks(all);
 		var s = byId(current), olds = s && !s.host && RESTED[s.id], d = now();
-		if (olds && !same(d, s) && olds.some(function (o) { return same(d, o); }) && !DIALS.some(function (k) { return (all[s.id] || {})[k] !== undefined; })) apply(s, wanted(s));
+		if (olds && !same(d, s) && olds.some(function (o) { return same(d, o); }) && !DIALS.some(function (k) { return (all[s.id] || {})[k] !== undefined; })) { apply(s, wanted(s)); return; }
+		var w = s && !s.host ? wanted(s) : null;
+		if (w && ['face', 'leading', 'palette'].some(function (k) { return k !== 'palette' ? w[k] !== d[k] : (w.palette || 'neutral') !== d.palette; })) {
+			var keep = {}; Object.keys(w).forEach(function (k) { keep[k] = w[k]; }); keep.reading = d.reading;
+			apply(s, keep);
+		}
 	}
 	document.addEventListener('DOMContentLoaded', function () {
 		renderHosts();
