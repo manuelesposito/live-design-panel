@@ -2465,12 +2465,19 @@
 		clearTimeout(siteSaveTimer); siteSaveTimer = 0;
 		var s = byId(current), done = function () { if (!siteSaving && !siteSaveTimer) root.removeAttribute('data-site-saving'); };
 		if (!s || !s.site || !(readTweaks()[s.id] || siteSent[s.id])) { done(); return; }
-		var rec = window.ArchitraveStyles.exportStyle(); if (rec === siteSent[s.id]) { done(); return; } /* nothing new for the site */
+		var rec = window.ArchitraveStyles.exportStyle();
+		if (rec === siteSent[s.id]) { /* nothing new for the site: what this browser still holds is on it already, so it goes (0.31.1) */
+			var all = readTweaks(); if (all[s.id]) { delete all[s.id]; previewing = true; try { writeTweaks(all); } finally { previewing = null; } mark(); }
+			done(); return;
+		}
 		if (siteSaving) { siteSaveSoon(); return; } /* one at a time; the next waits for this one */
 		siteSaving = s.id;
 		window.ArchitraveStyles.updateSite().then(function () { siteSaving = ''; done(); renderHosts(); }, function () { siteSaving = ''; renderHosts(); setTimeout(siteSaveSoon, 5000); }); /* offline or refused: tried again, the change stays meanwhile */
 	}
 	window.addEventListener('pagehide', function () { if (siteSaveTimer) siteSaveNow(); });
+	/* CHANGES ALREADY WAITING (0.31.1): a browser that held changes to a style on the site from before 0.31.0
+	   (his "Test" colours) sends them once the page has loaded, as it would a new change */
+	window.addEventListener('load', function () { if (PUBLISH && byId(current) && byId(current).site && readTweaks()[current]) siteSaveSoon(); });
 	applyOptions();
 	applyTint();
 	applySans();
@@ -3807,13 +3814,14 @@
 		updateSite: function () {
 			var s = byId(current); if (!s || !s.site) return Promise.reject(new Error('not a site style'));
 			var record = JSON.parse(this.exportStyle()); record.label = s.label;
-			var sent = JSON.stringify(readTweaks()[s.id] || null), whole = this.exportStyle();
+			var rawOf = function (id) { try { return JSON.stringify((JSON.parse(localStorage.getItem(TWEAKS_KEY) || '{}') || {})[id] || null); } catch (e) { return ''; } }; /* as stored: read through cleanTweaks it loses what the new record now says too, and never matched (0.31.1) */
+			var sent = rawOf(s.id), whole = this.exportStyle();
 			return sendSite({ action: 'update', id: s.id, record: record }).then(function () {
 				siteSent[s.id] = whole;
 				/* SHOWN IS SHOWN (0.31.0): only what was sent is let go; a change made while it travelled stays and goes next,
 				   and the page is drawn again only if it still shows this style (the record now equals what it shows) */
 				var all = readTweaks();
-				if (JSON.stringify(all[s.id] || null) === sent) { delete all[s.id]; previewing = true; try { writeTweaks(all); } finally { previewing = null; } }
+				if (rawOf(s.id) === sent) { delete all[s.id]; previewing = true; try { writeTweaks(all); } finally { previewing = null; } }
 				if (current === s.id) mark();
 				return true;
 			});

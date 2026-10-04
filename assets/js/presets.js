@@ -1540,12 +1540,17 @@
 		clearTimeout(siteSaveTimer); siteSaveTimer = 0;
 		var s = byId(current), done = function () { if (!siteSaving && !siteSaveTimer) root.removeAttribute('data-site-saving'); };
 		if (!s || !s.site || !(readTweaks()[s.id] || siteSent[s.id])) { done(); return; }
-		var rec = window.ArchitraveStyles.exportStyle(); if (rec === siteSent[s.id]) { done(); return; } 
+		var rec = window.ArchitraveStyles.exportStyle();
+		if (rec === siteSent[s.id]) { 
+			var all = readTweaks(); if (all[s.id]) { delete all[s.id]; previewing = true; try { writeTweaks(all); } finally { previewing = null; } mark(); }
+			done(); return;
+		}
 		if (siteSaving) { siteSaveSoon(); return; } 
 		siteSaving = s.id;
 		window.ArchitraveStyles.updateSite().then(function () { siteSaving = ''; done(); renderHosts(); }, function () { siteSaving = ''; renderHosts(); setTimeout(siteSaveSoon, 5000); }); 
 	}
 	window.addEventListener('pagehide', function () { if (siteSaveTimer) siteSaveNow(); });
+	window.addEventListener('load', function () { if (PUBLISH && byId(current) && byId(current).site && readTweaks()[current]) siteSaveSoon(); });
 	applyOptions();
 	applyTint();
 	applySans();
@@ -2418,11 +2423,12 @@
 		updateSite: function () {
 			var s = byId(current); if (!s || !s.site) return Promise.reject(new Error('not a site style'));
 			var record = JSON.parse(this.exportStyle()); record.label = s.label;
-			var sent = JSON.stringify(readTweaks()[s.id] || null), whole = this.exportStyle();
+			var rawOf = function (id) { try { return JSON.stringify((JSON.parse(localStorage.getItem(TWEAKS_KEY) || '{}') || {})[id] || null); } catch (e) { return ''; } }; 
+			var sent = rawOf(s.id), whole = this.exportStyle();
 			return sendSite({ action: 'update', id: s.id, record: record }).then(function () {
 				siteSent[s.id] = whole;
 				var all = readTweaks();
-				if (JSON.stringify(all[s.id] || null) === sent) { delete all[s.id]; previewing = true; try { writeTweaks(all); } finally { previewing = null; } }
+				if (rawOf(s.id) === sent) { delete all[s.id]; previewing = true; try { writeTweaks(all); } finally { previewing = null; } }
 				if (current === s.id) mark();
 				return true;
 			});
