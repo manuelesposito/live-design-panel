@@ -943,19 +943,19 @@ html:root[data-cap-face="title"] {
 :root[data-links="bold"] {
 	--reading-link-ink: var(--text-primary);
 }
-:root[data-links="bold"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-links="bold"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button, .card-cover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	text-decoration-line: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: .18em;
 }
-:root[data-links="bold"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button):is(:hover, :focus-visible):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-links="bold"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button, .card-cover):is(:hover, :focus-visible):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	color: var(--accent-contrast); background: var(--accent); text-decoration-color: transparent;
 }
 :root[data-links="wash"] {
 	--reading-link-ink: var(--text-primary);
 }
-:root[data-links="wash"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-links="wash"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button, .card-cover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	text-decoration-line: none; background: var(--accent-muted); border-radius: var(--radius-xs); padding-inline: .12em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
 }
-:root[data-links="wash"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button):is(:hover, :focus-visible):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-links="wash"] .wp-block-post-content a:not(.wp-block-button__link, .quire-button, .card-cover):is(:hover, :focus-visible):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	color: var(--accent-contrast); background: var(--accent);
 }
 :root[data-opening="big"] .single-post-article .wp-block-post-content > p:first-child:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
