@@ -127,7 +127,10 @@
 			var cur = at(rec, path); if (cur === undefined) cur = liveValue(path); 
 			var r = settle(path, want, cur, a.allowed);
 			if (r.error) return problems.push({ key: path, problem: r.error });
-			if (JSON.stringify(cur) === JSON.stringify(r.value)) return;
+			if (JSON.stringify(cur) === JSON.stringify(r.value)) {
+				if (path.indexOf('colours.') === 0 && at(rec, path) === undefined) { put(rec, path, r.value); done.push({ key: path, from: cur, to: r.value, says: 'Kept as it shows, so it stays when other colours move.' }); }
+				return;
+			}
 			put(rec, path, r.value);
 			done.push({ key: path, from: cur, to: r.value, adjusted: r.adjusted });
 		});

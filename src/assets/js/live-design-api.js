@@ -138,7 +138,13 @@
 			var cur = at(rec, path); if (cur === undefined) cur = liveValue(path); /* a record names only what moved from its base */
 			var r = settle(path, want, cur, a.allowed);
 			if (r.error) return problems.push({ key: path, problem: r.error });
-			if (JSON.stringify(cur) === JSON.stringify(r.value)) return;
+			if (JSON.stringify(cur) === JSON.stringify(r.value)) {
+				/* A COLOUR NAMED IS KEPT (0.31.3, the AI helper's trial): white asked for the paper, white already showing,
+				   so it was left out; the record then named no paper, and once the other colours moved the engine worked
+				   one out from them, light grey. A colour the record does not hold yet is written even when it shows. */
+				if (path.indexOf('colours.') === 0 && at(rec, path) === undefined) { put(rec, path, r.value); done.push({ key: path, from: cur, to: r.value, says: 'Kept as it shows, so it stays when other colours move.' }); }
+				return;
+			}
 			put(rec, path, r.value);
 			done.push({ key: path, from: cur, to: r.value, adjusted: r.adjusted });
 		});
