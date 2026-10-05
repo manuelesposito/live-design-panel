@@ -119,15 +119,13 @@
 				return { id: 'preset:' + p.id, label: p.label, paper: p[sd].paper, ink: p[sd].ink, accent: p[sd].accent, day: p.light.paper, on: now === p.id, fresh: !!p.fresh, group: p.group || '', fixed: !!p.fixed }; 
 			});
 			if (!c || c.host) return all;
-			if (c.preset) { var twin = all.filter(function (x) { return x.id === 'preset:' + c.preset; })[0]; if (!twin) return all; return [{ id: 'own', label: twin.label, fixed: twin.fixed, paper: twin.paper, ink: twin.ink, accent: twin.accent, on: twin.on, group: 'everyday' }].concat(all.filter(function (x) { return x !== twin; })); }
 			var mine = ownColours(), hc = c.bare && c.colours && c.colours[sd], O = hc && hc.paper ? [hc.paper, hc.ink || ORIGINAL[sd][1], hc.accent || hc.ink || ORIGINAL[sd][2]] : ORIGINAL[sd]; 
 			var bare = !now && !['background', 'text', 'accent'].some(function (k) { return isHex(mine[k]); });
-			return [{ id: 'own', label: 'Standard', paper: O[0], ink: O[1], accent: O[2], on: bare, group: 'everyday' }].concat(all);
+			return [{ id: 'own', label: 'Standard', paper: O[0], ink: O[1], accent: O[2], on: bare, group: 'base' }].concat(all);
 		},
 		choosePreset: function (id) {
 			var s = S(); if (!s) return;
 			var c = currentStyle();
-			if (id === 'own' && c && c.preset) id = 'preset:' + c.preset;
 			if (id === 'own') {
 				if (s.preset && s.preset()) s.setPreset('');
 				['light', 'dark'].forEach(function (sd) { ['background', 'text', 'accent', 'background2', 'card', 'mutedText'].forEach(function (k) { s.clearColour(sd, k); }); });

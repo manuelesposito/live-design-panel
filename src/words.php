@@ -962,6 +962,8 @@ function live_design_window_words() {
 		'Show or hide the sidebar' => __( 'Show or hide the sidebar', 'live-design-panel' ),
 		'Copy, paste a style' => __( 'Copy, paste a style', 'live-design-panel' ),
 		'Everyday' => __( 'Everyday', 'live-design-panel' ),
+		'Base' => _x( 'Base', 'a group of colours', 'live-design-panel' ), /* the colour sets, 2026-10-05 */
+		'Coloured Text' => _x( 'Coloured Text', 'a group of colours', 'live-design-panel' ),
 		'Warm' => __( 'Warm', 'live-design-panel' ),
 		'Cool' => __( 'Cool', 'live-design-panel' ),
 		'Group Bold' => _x( 'Bold', 'a group of colours', 'live-design-panel' ), /* its own key: "Bold" alone is a weight */

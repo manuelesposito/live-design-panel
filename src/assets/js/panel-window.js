@@ -173,22 +173,18 @@
 	var MARKER_WORD = { yellow: 'Yellow', green: 'Green', pink: 'Pink', blue: 'Blue', orange: 'Orange', text: 'Like the reading text', muted: 'Like the date', own: 'Own Colour' };
 	var BUTTON_WORD = { accent: 'Accent', text: 'Text', own: 'Own Colour' }; /* the lab's words */
 	var SIDE_WORD = { auto: 'Auto', light: 'Light', dark: 'Dark' };
-	var PRESET_GROUPS = [['everyday', 'Everyday'], ['warm', 'Warm'], ['cool', 'Cool'], ['bold', 'Group Bold']];
-	/* THE LAB'S GROUPS AND ORDER (the prototype's PRESETS, 2026-09-28); a preset the lab does not list goes by its colour, after them */
-	var LAB_GROUP = { 'pair:neutral': 'everyday', 'pair:grey': 'everyday', 'preset:still': 'everyday', 'preset:clear': 'everyday', 'preset:soft': 'everyday', 'preset:essay': 'everyday',
-		'pair:paper': 'warm', 'preset:folio': 'warm', 'preset:brick': 'warm', 'preset:plum': 'warm', 'preset:sandstone': 'warm', 'preset:corten': 'warm',
-		'preset:cobalt': 'cool', 'preset:moss': 'cool', 'preset:lichen': 'cool', 'preset:meadow': 'cool',
-		'pair:terminal': 'bold', 'pair:arcade': 'bold' }; /* SLIMMED 2026-10-05 (Manuel: "so many similar presets, it's just noise"; lab/the-presets-slimmed.html): 32 tiles to 22, the reading styles' own five in, fifteen near twins out */
-	var LAB_RANK = Object.keys(LAB_GROUP);
-	function labRank(p) { if (p.id === 'own') return -1; var i = LAB_RANK.indexOf(p.id); return i === -1 ? 999 : i; }
+	/* THE COLOUR SETS (Manuel, 2026-10-05, lab/the-colour-sets.html): five groups of six, each preset naming its own, in the
+	   list's own order, which a choice never changes ("they shouldn't change order. It's totally confusing otherwise"). Base
+	   holds Standard (the theme's own) and the reading styles' five; "Everyday" read as "Alltag" in German and is gone. */
+	var PRESET_GROUPS = [['base', 'Base'], ['warm', 'Warm'], ['cool', 'Cool'], ['bold', 'Group Bold'], ['text', 'Coloured Text']];
+	function labRank(p) { return p.id === 'own' ? -1 : 0; }
 	function presetGroup(p) {
-		if (p.id === 'own') return 'everyday'; /* the style's own colours lead, as the lab's Standard */
-		if (LAB_GROUP[p.id]) return LAB_GROUP[p.id];
-		if (p.group && PRESET_GROUPS.some(function (g) { return g[0] === p.group; })) return p.group; /* a preset may name its group */
-		if (!p.day || !isHex(p.day)) return 'everyday'; /* the theme's own pairs lead */
-		var h = hexToHsl(p.day), hue = h[0], sat = h[1], lit = h[2];
-		if (sat > 45 && lit < 88) return 'bold'; /* hexToHsl answers in whole per cents */
-		if (sat < 12 || lit > 95) return 'everyday';
+		if (p.id === 'own') return 'base';
+		if (p.group && PRESET_GROUPS.some(function (g) { return g[0] === p.group; })) return p.group;
+		if (!p.day || !isHex(p.day)) return 'base'; /* another theme's own pairs */
+		var h = hexToHsl(p.day), hue = h[0], sat = h[1], lit = h[2]; /* a preset that names no group goes by its colour */
+		if (sat > 45 && lit < 88) return 'bold';
+		if (sat < 12 || lit > 95) return 'base';
 		return (hue >= 15 && hue < 75) || hue >= 330 ? 'warm' : 'cool';
 	}
 	var customView = null; /* the style whose colours are shown as wells without being its own yet */
@@ -212,7 +208,7 @@
 			return '<button type="button" class="ldpw-tile' + (p.on ? ' is-on' : '') + '" role="radio" aria-checked="' + !!p.on + '" data-preset="' + esc(p.id) + '" data-f="preset:' + esc(p.id) + '">' +
 				'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(nmOf(p)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(nmOf(p))) + '</span></button>';
 		};
-		var groups = { everyday: [], warm: [], cool: [], bold: [] };
+		var groups = { base: [], warm: [], cool: [], bold: [], text: [] };
 		s.presets().map(function (p, i) { return [labRank(p), i, p]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).forEach(function (x) { groups[presetGroup(x[2])].push(x[2]); });
 		PRESET_GROUPS.forEach(function (g) {
 			if (!groups[g[0]].length) return;
