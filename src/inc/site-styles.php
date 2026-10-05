@@ -128,10 +128,23 @@ function architrave_site_styles_clean( $state ) {
 			}
 		}
 	}
+	/* THE BASE STYLES (Manuel, 2026-10-05: "those six styles are the base styles … so you always can go back to
+	   them"): the site styles that are the panel's starting points (on elmastudio.de Book, Soft, Still, Essay and
+	   Clear; Original is the theme and was never a site style). They can be changed, renamed and reset, never
+	   removed: the remove action refuses them. Only ids of styles that exist are kept. */
+	$base = array();
+	if ( isset( $state['base'] ) && is_array( $state['base'] ) ) {
+		foreach ( $state['base'] as $base_id ) {
+			if ( is_string( $base_id ) && isset( $seen[ $base_id ] ) && ! in_array( $base_id, $base, true ) ) {
+				$base[] = $base_id;
+			}
+		}
+	}
 	return array(
 		'styles'  => $styles,
 		'default' => $default,
 		'readers' => $readers,
+		'base'    => $base,
 		/* READERS MAY COPY A STYLE (2026-09-23): off until the owner says so. */
 		'readersCopy' => ! empty( $state['readersCopy'] ),
 		/* THE LIVE DESIGN BUTTON (2026-09-23): where the door sits and how it looks. */
@@ -982,6 +995,9 @@ function architrave_site_styles_handle( $request ) {
 			break;
 
 		case 'remove':
+			if ( in_array( $id, $state['base'] ?? array(), true ) ) {
+				return new WP_Error( 'architrave_base_style', __( 'A base style stays on the site. It can be changed and reset, not removed.', 'live-design-panel' ), array( 'status' => 403 ) );
+			}
 			$state['styles'] = array_values(
 				array_filter(
 					$state['styles'],

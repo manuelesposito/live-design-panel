@@ -685,7 +685,7 @@
 		   to Original for one's own styles only, and went for the site's when they began to save themselves (0.31.0). */
 		var last = [['reset', t('Reset Style…'), !changedSince(x), '', '', changedSince(x)]]; /* grey while there is nothing to go back from, the dot in the tick's column while there is (his word, 2026-10-05) */
 		if (x.own) last.push(['delete', t('Delete…')]);
-		if (x.site) last.push(['unpublish', t('Remove from Site…')]);
+		if (x.site && !x.base) last.push(['unpublish', t('Remove from Site…')]); /* a base style stays (2026-10-05) */
 		return last.length ? out.concat([null], last) : out;
 	}
 	function done(word) { note = word; clearTimeout(noteTimer); noteTimer = setTimeout(function () { note = ''; if (open) render(); }, 2400); }

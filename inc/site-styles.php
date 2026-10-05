@@ -100,10 +100,20 @@ function architrave_site_styles_clean( $state ) {
 			}
 		}
 	}
+
+	$base = array();
+	if ( isset( $state['base'] ) && is_array( $state['base'] ) ) {
+		foreach ( $state['base'] as $base_id ) {
+			if ( is_string( $base_id ) && isset( $seen[ $base_id ] ) && ! in_array( $base_id, $base, true ) ) {
+				$base[] = $base_id;
+			}
+		}
+	}
 	return array(
 		'styles'  => $styles,
 		'default' => $default,
 		'readers' => $readers,
+		'base'    => $base,
 
 		'readersCopy' => ! empty( $state['readersCopy'] ),
 
@@ -744,6 +754,9 @@ function architrave_site_styles_handle( $request ) {
 			break;
 
 		case 'remove':
+			if ( in_array( $id, $state['base'] ?? array(), true ) ) {
+				return new WP_Error( 'architrave_base_style', __( 'A base style stays on the site. It can be changed and reset, not removed.', 'live-design-panel' ), array( 'status' => 403 ) );
+			}
 			$state['styles'] = array_values(
 				array_filter(
 					$state['styles'],

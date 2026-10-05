@@ -197,7 +197,7 @@
 			var m = modeTriple(w.palette || x.palette || 'neutral', sd), pc = p ? p[sd] : {};
 			var face = x.hostFace || ((window.ArchitraveFaces || []).filter(function (f) { return f.id === (w.face || x.face); })[0] || {}).family || '';
 			return {
-				id: id, label: x.label, own: !!x.own, site: !!x.site, host: !!x.host,
+				id: id, label: x.label, own: !!x.own, site: !!x.site, host: !!x.host, base: !!(s.isBase && s.isBase(id)),
 				paper: c.paper || pc.paper || m.paper, ink: c.ink || pc.ink || m.ink, accent: c.accent || pc.accent || m.accent, face: face,
 				faces: (function () { 
 					var F = window.ArchitraveFaces || [], ids = [w.face || x.face, w.sans || x.sans], roles = w.roles || x.roles || {}, out = [];

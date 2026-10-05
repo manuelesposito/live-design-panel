@@ -2354,6 +2354,7 @@
 		isOwn: function (id) { var s = byId(id); return !!(s && s.own); },
 		hostSide: function () { var h = byId('host'); return h && h.hostSide ? h.hostSide : ''; },
 		isSite: function (id) { var s = byId(id); return !!(s && s.site); },
+		isBase: function (id) { return !!(SITE && Array.isArray(SITE.base) && SITE.base.indexOf(id) !== -1); },
 		
 		guide: function () {
 			var meaning = {};

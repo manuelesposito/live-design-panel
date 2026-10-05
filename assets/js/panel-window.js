@@ -601,7 +601,7 @@
 		out.push(['duplicate', t('Duplicate')]);
 		var last = [['reset', t('Reset Style…'), !changedSince(x), '', '', changedSince(x)]]; 
 		if (x.own) last.push(['delete', t('Delete…')]);
-		if (x.site) last.push(['unpublish', t('Remove from Site…')]);
+		if (x.site && !x.base) last.push(['unpublish', t('Remove from Site…')]); 
 		return last.length ? out.concat([null], last) : out;
 	}
 	function done(word) { note = word; clearTimeout(noteTimer); noteTimer = setTimeout(function () { note = ''; if (open) render(); }, 2400); }
