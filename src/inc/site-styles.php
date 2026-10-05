@@ -326,9 +326,16 @@ function architrave_style_versions() {
 		'styles' => array(),
 		'at'     => array(),
 		'kept'   => array(),
+		'start'  => array(),
 	);
 	if ( ! is_array( $raw ) ) {
 		return $out;
+	}
+	foreach ( ( is_array( $raw['start'] ?? null ) ? $raw['start'] : array() ) as $id => $rec ) { /* where a style began (0.34.0) */
+		$record = is_string( $id ) && preg_match( '/^site-[a-z0-9]{1,24}$/', $id ) && is_array( $rec ) ? architrave_site_style_record( $rec ) : null;
+		if ( null !== $record ) {
+			$out['start'][ $id ] = $record;
+		}
 	}
 	foreach ( ( is_array( $raw['styles'] ?? null ) ? $raw['styles'] : array() ) as $id => $list ) {
 		if ( ! is_string( $id ) || ! preg_match( '/^site-[a-z0-9]{1,24}$/', $id ) || ! is_array( $list ) ) {
@@ -364,12 +371,22 @@ function architrave_style_versions() {
  * @param string     $id       The style.
  * @param array|null $replaced The record that stood before, or null.
  * @param bool       $gone     Whether the style was removed.
+ * @param array|null $start    The record a new style begins as.
  */
-function architrave_style_versions_note( $id, $replaced, $gone = false ) {
+function architrave_style_versions_note( $id, $replaced, $gone = false, $start = null ) {
 	$v = architrave_style_versions();
 	if ( $gone ) {
-		unset( $v['styles'][ $id ], $v['at'][ $id ], $v['kept'][ $id ] );
+		unset( $v['styles'][ $id ], $v['at'][ $id ], $v['kept'][ $id ], $v['start'][ $id ] );
 	} else {
+		/* WHERE A STYLE BEGAN (0.34.0, Manuel: "I can't see a button where I can bring it back to the original version"):
+		   kept once, never replaced by a later save, so Reset Style has something to go back to however long the style has
+		   saved itself since. A style that began before this was kept starts from what it was when it was first saved here. */
+		if ( ! isset( $v['start'][ $id ] ) ) {
+			$first = is_array( $start ) ? $start : ( is_array( $replaced ) ? $replaced : null );
+			if ( null !== $first ) {
+				$v['start'][ $id ] = $first;
+			}
+		}
 		/* A VERSION AT MOST EVERY TEN MINUTES (0.31.0): a style on the site saves itself a moment after each
 		   change now, so keeping every replaced record would spend the twenty on one evening's slider. The
 		   first save after a pause keeps what stood before it; the saves that follow within ten minutes
@@ -480,7 +497,7 @@ function architrave_site_styles_routes() {
 					'action'   => array(
 						'required' => true,
 						'type'     => 'string',
-						'enum'     => array( 'publish', 'update', 'remove', 'default', 'readers', 'readers-copy', 'button' ),
+						'enum'     => array( 'publish', 'update', 'remove', 'default', 'start', 'readers', 'readers-copy', 'button' ),
 					),
 					'id'       => array( 'type' => 'string' ),
 					'name'     => array( 'type' => 'string' ),
@@ -930,7 +947,7 @@ function architrave_site_styles_handle( $request ) {
 				return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'live-design-panel' ), array( 'status' => 400 ) );
 			}
 			$state['styles'][] = $clean;
-			architrave_style_versions_note( $clean['id'], null );
+			architrave_style_versions_note( $clean['id'], null, false, $clean );
 			/* ONLY WHEN ASKED (2026-09-23): the first style published used to become
 			   the site default by itself, so showing a style to readers could change
 			   what every visitor opens in. Make site default is its own choice now. */
@@ -981,6 +998,26 @@ function architrave_site_styles_handle( $request ) {
 
 		case 'default':
 			$state['default'] = $id;
+			break;
+
+		case 'start':
+			/* WHERE THE STYLE BEGAN, set by hand (0.34.0): for a style that began before the site kept this, the owner
+			   names what its beginning was. Nothing else about the style moves. */
+			$found = false;
+			foreach ( $state['styles'] as $existing ) {
+				$found = $found || $existing['id'] === $id;
+			}
+			if ( ! $found || ! is_array( $record ) ) {
+				return new WP_Error( 'architrave_no_style', __( 'No such style.', 'live-design-panel' ), array( 'status' => 404 ) );
+			}
+			$record['id'] = $id;
+			$clean        = architrave_site_style_record( $record );
+			if ( null === $clean ) {
+				return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'live-design-panel' ), array( 'status' => 400 ) );
+			}
+			$v                    = architrave_style_versions();
+			$v['start'][ $id ]    = $clean;
+			update_option( 'architrave_panel_style_versions', wp_json_encode( $v ), false );
 			break;
 
 		case 'readers':

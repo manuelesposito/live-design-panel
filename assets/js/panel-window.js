@@ -974,7 +974,7 @@
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
 			['saveas', t('Save As…'), !x0 || x0.host] , ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
-			[null, ['revertall', t(x0 && x0.site ? 'Revert to Published…' : 'Revert to Original…'), !n], null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']]), pick: function (a) {
+			[null, ['revertall', t('Reset Style…'), resetOff(x0, n)], null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']]), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
 			else if (a === 'copycss' || a === 'copyjson') copyCode(a === 'copycss' ? 'css' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
@@ -1026,7 +1026,17 @@
 		}, fail: t('That isn’t a style link. Copy one with Copy Style as a Link, then paste it here.') };
 		render('#ldpw-ask-field');
 	}
+	function resetOff(x, n) {
+		var s = St(); if (!x || x.host) return true;
+		if (x.site) { var st = s.startRecord ? s.startRecord() : null; return !(st && s.startDiffers(st)); }
+		return !n;
+	}
 	function askRevertAll() {
+		var s = St(), x = s.tile(s.current()), st = x && x.site && s.startRecord ? s.startRecord() : null;
+		if (st) { asking = { title: t('Reset “{name}” to how it began?').replace('{name}', nm(x)), text: t('Every change goes back to how the style was first made. Undo can bring the changes back.'), go: t('Reset Style'), danger: true, back: '[data-menu="barmore"]', run: function () { s.restoreVersion(st); done(t('Reset')); } }; return; }
+		askRevertAllSaved();
+	}
+	function askRevertAllSaved() {
 		var s = St(), x = s.tile(s.current());
 		asking = { title: t('Revert all changes to “{name}”?').replace('{name}', nm(x)), text: t('The style goes back to how it was saved. Undo can bring the changes back.'), go: t('Revert All'), danger: true, back: '[data-menu="barmore"]', run: function () { s.revertAll(); done(t('Reverted')); } };
 	}
@@ -1765,6 +1775,7 @@
 		door = from || door;
 		ensureWin();
 		showNow();
+		if (!RD() && St() && St().loadVersions) St().loadVersions().then(function () { if (open) render(); });
 	}
 	var sheetH = 'half'; 
 	function sheetSize() { if (!win || !phone()) return; if (RD() && sheetH !== 'full') { win.style.removeProperty('height'); return; } win.style.setProperty('height', (sheetH === 'half' ? 52 : 92) + 'dvh'); } 
@@ -2183,7 +2194,9 @@
 		e.preventDefault(); showKeys();
 	});
 	document.addEventListener('keydown', function (e) { if (open && !RD() && (e.metaKey || e.ctrlKey) && !e.altKey && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); if (cmd) { cmd = null; render(); } else openCmd(); } });
-	document.addEventListener('click', function (e) { if (open && e.isTrusted && !win.contains(e.target) && !(e.target.closest && e.target.closest('[data-reading-panel-open]'))) hide(true); });
+	
+	function inTransition(t) { var r = document.documentElement; if (t !== r) return false; try { return r.matches(':active-view-transition'); } catch (x) { return true;  } }
+	document.addEventListener('click', function (e) { if (open && e.isTrusted && !win.contains(e.target) && !inTransition(e.target) && !(e.target.closest && e.target.closest('[data-reading-panel-open]'))) hide(true); });
 	window.addEventListener('resize', function () { if (open) { render(); place(); } });
 	window.LiveDesignWindow = {
 		mount: function (h) {

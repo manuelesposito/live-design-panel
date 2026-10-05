@@ -228,9 +228,16 @@ function architrave_style_versions() {
 		'styles' => array(),
 		'at'     => array(),
 		'kept'   => array(),
+		'start'  => array(),
 	);
 	if ( ! is_array( $raw ) ) {
 		return $out;
+	}
+	foreach ( ( is_array( $raw['start'] ?? null ) ? $raw['start'] : array() ) as $id => $rec ) {
+		$record = is_string( $id ) && preg_match( '/^site-[a-z0-9]{1,24}$/', $id ) && is_array( $rec ) ? architrave_site_style_record( $rec ) : null;
+		if ( null !== $record ) {
+			$out['start'][ $id ] = $record;
+		}
 	}
 	foreach ( ( is_array( $raw['styles'] ?? null ) ? $raw['styles'] : array() ) as $id => $list ) {
 		if ( ! is_string( $id ) || ! preg_match( '/^site-[a-z0-9]{1,24}$/', $id ) || ! is_array( $list ) ) {
@@ -259,11 +266,18 @@ function architrave_style_versions() {
 	return $out;
 }
 
-function architrave_style_versions_note( $id, $replaced, $gone = false ) {
+function architrave_style_versions_note( $id, $replaced, $gone = false, $start = null ) {
 	$v = architrave_style_versions();
 	if ( $gone ) {
-		unset( $v['styles'][ $id ], $v['at'][ $id ], $v['kept'][ $id ] );
+		unset( $v['styles'][ $id ], $v['at'][ $id ], $v['kept'][ $id ], $v['start'][ $id ] );
 	} else {
+
+		if ( ! isset( $v['start'][ $id ] ) ) {
+			$first = is_array( $start ) ? $start : ( is_array( $replaced ) ? $replaced : null );
+			if ( null !== $first ) {
+				$v['start'][ $id ] = $first;
+			}
+		}
 
 		$kept = (int) ( $v['kept'][ $id ] ?? 0 );
 		if ( is_array( $replaced ) && time() - $kept >= 600 ) {
@@ -334,7 +348,7 @@ function architrave_site_styles_routes() {
 					'action'   => array(
 						'required' => true,
 						'type'     => 'string',
-						'enum'     => array( 'publish', 'update', 'remove', 'default', 'readers', 'readers-copy', 'button' ),
+						'enum'     => array( 'publish', 'update', 'remove', 'default', 'start', 'readers', 'readers-copy', 'button' ),
 					),
 					'id'       => array( 'type' => 'string' ),
 					'name'     => array( 'type' => 'string' ),
@@ -697,7 +711,7 @@ function architrave_site_styles_handle( $request ) {
 				return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'live-design-panel' ), array( 'status' => 400 ) );
 			}
 			$state['styles'][] = $clean;
-			architrave_style_versions_note( $clean['id'], null );
+			architrave_style_versions_note( $clean['id'], null, false, $clean );
 
 			if ( rest_sanitize_boolean( $request->get_param( 'default' ) ) ) {
 				$state['default'] = $clean['id'];
@@ -746,6 +760,25 @@ function architrave_site_styles_handle( $request ) {
 
 		case 'default':
 			$state['default'] = $id;
+			break;
+
+		case 'start':
+
+			$found = false;
+			foreach ( $state['styles'] as $existing ) {
+				$found = $found || $existing['id'] === $id;
+			}
+			if ( ! $found || ! is_array( $record ) ) {
+				return new WP_Error( 'architrave_no_style', __( 'No such style.', 'live-design-panel' ), array( 'status' => 404 ) );
+			}
+			$record['id'] = $id;
+			$clean        = architrave_site_style_record( $record );
+			if ( null === $clean ) {
+				return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'live-design-panel' ), array( 'status' => 400 ) );
+			}
+			$v                    = architrave_style_versions();
+			$v['start'][ $id ]    = $clean;
+			update_option( 'architrave_panel_style_versions', wp_json_encode( $v ), false );
 			break;
 
 		case 'readers':

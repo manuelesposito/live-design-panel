@@ -1089,7 +1089,7 @@
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
 			['saveas', t('Save As…'), !x0 || x0.host] /* no Publish: a style on the site saves itself (0.31.0) */, ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
-			[null, ['revertall', t(x0 && x0.site ? 'Revert to Published…' : 'Revert to Original…'), !n], null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']]), pick: function (a) {
+			[null, ['revertall', t('Reset Style…'), resetOff(x0, n)], null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']]), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
 			else if (a === 'copycss' || a === 'copyjson') copyCode(a === 'copycss' ? 'css' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
@@ -1144,7 +1144,20 @@
 		}, fail: t('That isn’t a style link. Copy one with Copy Style as a Link, then paste it here.') };
 		render('#ldpw-ask-field');
 	}
+	/* RESET STYLE (0.34.0, Manuel: "it was clear before where I could find it and now it's not clear anymore"): a style on the site saves itself,
+	   so there is no "published" to go back to and Revert to Published stood grey. It goes back to where the style began, which the site
+	   keeps; a style of one's own or Original goes back to how it was saved, as it did. Grey only when it already is that. */
+	function resetOff(x, n) {
+		var s = St(); if (!x || x.host) return true;
+		if (x.site) { var st = s.startRecord ? s.startRecord() : null; return !(st && s.startDiffers(st)); }
+		return !n;
+	}
 	function askRevertAll() {
+		var s = St(), x = s.tile(s.current()), st = x && x.site && s.startRecord ? s.startRecord() : null;
+		if (st) { asking = { title: t('Reset “{name}” to how it began?').replace('{name}', nm(x)), text: t('Every change goes back to how the style was first made. Undo can bring the changes back.'), go: t('Reset Style'), danger: true, back: '[data-menu="barmore"]', run: function () { s.restoreVersion(st); done(t('Reset')); } }; return; }
+		askRevertAllSaved();
+	}
+	function askRevertAllSaved() {
 		var s = St(), x = s.tile(s.current());
 		asking = { title: t('Revert all changes to “{name}”?').replace('{name}', nm(x)), text: t('The style goes back to how it was saved. Undo can bring the changes back.'), go: t('Revert All'), danger: true, back: '[data-menu="barmore"]', run: function () { s.revertAll(); done(t('Reverted')); } };
 	}
@@ -1994,6 +2007,8 @@
 		door = from || door;
 		ensureWin();
 		showNow();
+		/* the site's kept versions and where each style began, for Reset Style; asked for when the window opens, drawn again when they arrive */
+		if (!RD() && St() && St().loadVersions) St().loadVersions().then(function () { if (open) render(); });
 	}
 	/* ON A PHONE THE SHEET IS PULLED BY ITS TOP (the lab's): half or full, a flick decides, pulled low it closes */
 	var sheetH = 'half'; /* opens at half height so the page stays in view; a pull up or a tap on the head makes it tall */
@@ -2443,7 +2458,11 @@
 	/* ⌘K (Ctrl-K elsewhere) while the window is open: the search over every setting */
 	document.addEventListener('keydown', function (e) { if (open && !RD() && (e.metaKey || e.ctrlKey) && !e.altKey && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); if (cmd) { cmd = null; render(); } else openCmd(); } });
 	/* A press in the page closes it, as it closes today's window; the door answers for itself. */
-	document.addEventListener('click', function (e) { if (open && e.isTrusted && !win.contains(e.target) && !(e.target.closest && e.target.closest('[data-reading-panel-open]'))) hide(true); });
+	/* A PRESS WHILE THE PAGE IS CHANGING IS NOT A PRESS OUTSIDE (2026-10-05, Manuel: "if I click a few times on the undo button in row, it
+	   closes the panel"): the theme draws a style change as a view transition, and for its quarter second every press, the window's
+	   own included, lands on the page's root element. Undo, clicked again at once, read as a click on the page and closed the window. */
+	function inTransition(t) { var r = document.documentElement; if (t !== r) return false; try { return r.matches(':active-view-transition'); } catch (x) { return true; /* no way to ask: the root is not a place anyone means to click */ } }
+	document.addEventListener('click', function (e) { if (open && e.isTrusted && !win.contains(e.target) && !inTransition(e.target) && !(e.target.closest && e.target.closest('[data-reading-panel-open]'))) hide(true); });
 	window.addEventListener('resize', function () { if (open) { render(); place(); } });
 
 	window.LiveDesignWindow = {

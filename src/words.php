@@ -889,6 +889,10 @@ function live_design_window_words() {
 		'Could not copy' => __( 'Could not copy', 'live-design-panel' ),
 		'Revert to Original…' => __( 'Revert to Original…', 'live-design-panel' ),
 		'Revert to Published…' => __( 'Revert to Published…', 'live-design-panel' ),
+		'Reset Style…' => __( 'Reset Style…', 'live-design-panel' ), /* the ••• menu's way back, 0.34.0 */
+		'Reset Style' => __( 'Reset Style', 'live-design-panel' ),
+		'Reset “{name}” to how it began?' => __( 'Reset “{name}” to how it began?', 'live-design-panel' ),
+		'Every change goes back to how the style was first made. Undo can bring the changes back.' => __( 'Every change goes back to how the style was first made. Undo can bring the changes back.', 'live-design-panel' ),
 		'Command Menu…' => __( 'Command Menu…', 'live-design-panel' ),
 		'Share Preview…' => __( 'Share Preview…', 'live-design-panel' ),
 		'Style Copied' => __( 'Style Copied', 'live-design-panel' ),

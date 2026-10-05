@@ -366,6 +366,13 @@
 		previewing: function () { var s = S(); return !!(s && s.previewing && s.previewing()); },
 		restoreVersion: function (rec) { var s = S(); return !!(s && s.restoreVersion && s.restoreVersion(rec)); },
 		keepVersion: function () { var s = S(); return !!(s && s.keepVersion && s.keepVersion()); },
+		/* WHERE A SITE STYLE BEGAN (0.34.0): the record the site kept the first time it saved, and whether the style now differs from it */
+		startRecord: function () {
+			var s = S(); if (!s) return null;
+			var id = s.current(), x = s.list.filter(function (y) { return y.id === id; })[0];
+			return x && x.site && versionsHeld && versionsHeld.start && versionsHeld.start[id] || null;
+		},
+		startDiffers: function (rec) { var s = S(); if (!s || !rec) return false; var now = s.nowRecord(); return !!(now && (style.versionDiff(now, rec).length || style.versionDiff(rec, now).length)); },
 
 		/* UNDO, the engine's own */
 		canUndo: function () { var s = S(); return !!(s && s.canUndo && s.canUndo()); },
