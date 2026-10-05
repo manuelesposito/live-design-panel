@@ -372,7 +372,13 @@
 			var id = s.current(), x = s.list.filter(function (y) { return y.id === id; })[0];
 			return x && x.site && versionsHeld && versionsHeld.start && versionsHeld.start[id] || null;
 		},
-		startDiffers: function (rec) { var s = S(); if (!s || !rec) return false; var now = s.nowRecord(); return !!(now && (style.versionDiff(now, rec).length || style.versionDiff(rec, now).length)); },
+		startDiffers: function (rec) {
+			var s = S(); if (!s || !rec) return false; var now = s.nowRecord(); if (!now) return false;
+			/* the site writes an empty table as [] and the page as {}: neither names anything, so neither is a difference (found live, 0.34.0) */
+			var tidy = function (o) { var c = {}; Object.keys(o).forEach(function (k) { var v = o[k]; if (v && typeof v === 'object' && !Object.keys(v).length) return; c[k] = v && typeof v === 'object' && !Array.isArray(v) ? tidy(v) : v; }); return c; };
+			var a = tidy(now), b = tidy(rec);
+			return !!(style.versionDiff(a, b).length || style.versionDiff(b, a).length);
+		},
 
 		/* UNDO, the engine's own */
 		canUndo: function () { var s = S(); return !!(s && s.canUndo && s.canUndo()); },
