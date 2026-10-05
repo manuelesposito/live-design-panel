@@ -605,7 +605,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 566,
+        "line": 565,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -638,7 +638,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 591,
+        "line": 590,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -671,7 +671,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 572,
+        "line": 571,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -689,20 +689,21 @@
       "table": "PICKS",
       "kind": "pick",
       "choices": [
-        "sideLine",
+        "indented",
         "plain",
+        "sideLine",
         "filled"
       ],
-      "def": "sideLine",
+      "def": "indented",
       "attr": "data-quotes",
-      "means": "How quotes look, in an article and as a quote post: sideLine (set in from the edge, with a line at the side while lines are on; the rest), plain, or filled (in a box with its fill; a quote post's card). Quotes are italic.",
+      "means": "How quotes look, in an article and as a quote post: indented (set in from the edge, no line; the rest), plain (the words alone, not set in), sideLine (set in, with a vertical line at the side, whatever the lines setting) or filled (in a box with its fill; a quote post's card). Quotes are italic.",
       "label": "Quotes",
       "page": "Corners and lines",
       "section": "corners-and-lines",
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 572,
+        "line": 571,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -733,7 +734,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 572,
+        "line": 571,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -764,7 +765,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 572,
+        "line": 571,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -921,7 +922,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 591,
+        "line": 590,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -959,7 +960,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 550,
+        "line": 549,
         "in": "fillSlider"
       },
       "changesPage": "Corners and lines",
@@ -1001,7 +1002,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 565,
+        "line": 564,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -1032,7 +1033,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 566,
+        "line": 565,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -1069,7 +1070,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 566,
+        "line": 565,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -1105,7 +1106,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 566,
+        "line": 565,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -1136,7 +1137,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 545,
+        "line": 544,
         "in": "cornersSlider"
       },
       "changesPage": "Corners and lines",
@@ -1176,7 +1177,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 540,
+        "line": 539,
         "in": "linesSlider"
       },
       "changesPage": "Corners and lines",
@@ -1218,7 +1219,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 571,
+        "line": 570,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -1253,7 +1254,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 571,
+        "line": 570,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -1285,7 +1286,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 589,
+        "line": 588,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1315,7 +1316,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 589,
+        "line": 588,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1347,7 +1348,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 590,
+        "line": 589,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1379,7 +1380,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 590,
+        "line": 589,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1411,7 +1412,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 590,
+        "line": 589,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1436,7 +1437,7 @@
       "row": {
         "drawn": "switch",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 591,
+        "line": 590,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1474,7 +1475,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 591,
+        "line": 590,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1508,7 +1509,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 598,
+        "line": 597,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1533,7 +1534,7 @@
       "row": {
         "drawn": "switch",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 598,
+        "line": 597,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1566,7 +1567,7 @@
       "row": {
         "drawn": "switch",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 598,
+        "line": 597,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1604,7 +1605,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 599,
+        "line": 598,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1644,7 +1645,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 599,
+        "line": 598,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1677,7 +1678,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 599,
+        "line": 598,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1715,7 +1716,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 600,
+        "line": 599,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1743,7 +1744,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 600,
+        "line": 599,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1777,7 +1778,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 565,
+        "line": 564,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -3171,7 +3172,7 @@
       "row": {
         "drawn": "row",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 557,
+        "line": 556,
         "in": "highlightRow"
       },
       "changesPage": "Colour",
@@ -3215,7 +3216,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1067,
+        "line": 1066,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -3247,7 +3248,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1067,
+        "line": 1066,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3279,7 +3280,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1067,
+        "line": 1066,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3311,7 +3312,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1067,
+        "line": 1066,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3343,7 +3344,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1067,
+        "line": 1066,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3375,7 +3376,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1067,
+        "line": 1066,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3407,7 +3408,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1067,
+        "line": 1066,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3439,7 +3440,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1067,
+        "line": 1066,
         "in": "rolePage"
       },
       "changesPage": "Type",

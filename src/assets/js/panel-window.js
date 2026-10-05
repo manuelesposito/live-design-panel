@@ -422,7 +422,7 @@
 		currentItem: { gray: 'Gray', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' },
 		linewidth: { '1': '1 px', '2': '2 px', '3': '3 px', '5': '5 px' },
 		cards: { filled: 'Filled', fillOnly: 'Fill only', raised: 'Raised', topLine: 'Top line', cornerMarks: 'Corner marks' },
-		quotes: { sideLine: 'Side line', plain: 'Plain', filled: 'Filled' },
+		quotes: { indented: 'Indented', plain: 'Plain', sideLine: 'Side line', filled: 'Filled' },
 		notes: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
 		fields: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
 		borderStyle: { solid: 'Solid', dashed: 'Dashed', dotted: 'Dotted' },
@@ -440,8 +440,8 @@
 	var FX_WORD = {}; /* the effects' details' words; none since the clean-up (2026-10-02) */
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; /* the prototype's order, loud to quiet */
-	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], primaryButton: LEVEL_ORDER, secondaryButton: LEVEL_ORDER, tertiaryButton: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] /* bold, Poster's (0.15.38) */, cards: ['fillOnly', 'filled', 'raised', 'topLine', 'cornerMarks'], quotes: ['plain', 'sideLine', 'filled'] };
-	var GUEST_REST = { tags: 'text', currentItem: 'gray', quotes: 'sideLine', notes: 'filled', fields: 'filled' }; /* on another theme the rest is the theme's own tags and mark, so it says so */
+	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], primaryButton: LEVEL_ORDER, secondaryButton: LEVEL_ORDER, tertiaryButton: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] /* bold, Poster's (0.15.38) */, cards: ['fillOnly', 'filled', 'raised', 'topLine', 'cornerMarks'], quotes: ['plain', 'indented', 'sideLine', 'filled'] };
+	var GUEST_REST = { tags: 'text', currentItem: 'gray', quotes: 'indented', notes: 'filled', fields: 'filled' }; /* on another theme the rest is the theme's own tags and mark, so it says so */
 	/* a strength under its switch, its stops the list's, in words where the list's numbers say nothing */
 	function levelRow(key, unit, sub) {
 		var x = setting(key) || {}, s = St();
@@ -453,10 +453,9 @@
 		var items = list.map(function (id) { return [id, s.guest() && GUEST_REST[key] === id ? t('As the theme') : /(px| %)$/.test(words[id] || '') ? words[id] : t(words[id] || id)]; });
 		/* LINES OFF, ONLY WHAT DRAWS (Manuel, 2026-10-05: the buttons "don't do anything"). With Lines at None a card's
 		   Fill only, Top line and Corner marks draw the same as Filled, so they wait for the lines and the card shows what is
-		   drawn; the quote's side line is no line then, so it says what it does: Indented. */
+		   drawn. The quotes' four draw the same either way (2026-10-05). */
 		var unlined = !s.guest() && s.get('borderWidth') === 'none';
 		if (unlined && key === 'cards') { items = items.filter(function (x) { return x[0] === 'filled' || x[0] === 'raised'; }); return looksRow(key, items, null, s.get(key) === 'raised' ? 'raised' : 'filled'); }
-		if (unlined && key === 'quotes') items = items.map(function (x) { return x[0] === 'sideLine' ? [x[0], t('Indented'), 'indent'] : x; });
 		if (LOOK_DRAW[key]) return looksRow(key, items);
 		if (key === 'corners' || key === 'linewidth') return stepSlider(key, label(key), items.map(function (x) { return { id: x[0], label: x[1] }; }), s.get(key), function (id) { s.set(key, id); }, String(x.def)); /* amounts are sliders (decided 2026-09-27) */
 		if (bare) return pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); });
@@ -476,7 +475,7 @@
 		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on;
 	}
 	/* the drawings know the engine's own words for the surfaces (2026-10-03) */
-	var SURFACE_DRAW = { pictureFilter: { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' }, pictureFade: { none: 'off' }, cards: { filled: 'box', fillOnly: 'flat', topLine: 'top', cornerMarks: 'ticks' }, quotes: { sideLine: 'line', filled: 'box' }, notes: { filled: 'flat', outlined: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
+	var SURFACE_DRAW = { pictureFilter: { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' }, pictureFade: { none: 'off' }, cards: { filled: 'box', fillOnly: 'flat', topLine: 'top', cornerMarks: 'ticks' }, quotes: { indented: 'indent', sideLine: 'line', filled: 'box' }, notes: { filled: 'flat', outlined: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
 	function lookPic(draw, id) {
 		if (draw === 'button' || draw === 'tag') return '<i class="ldpw-lv" data-lk="' + id + '">' + (draw === 'tag' ? 'Tag' : 'Aa') + '</i>';
 		if (draw === 'link') return '<i class="ldpw-dln" data-ln="' + id + '">link</i>';

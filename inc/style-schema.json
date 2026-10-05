@@ -227,8 +227,9 @@
     "cornerMarks"
   ],
   "quotes": [
-    "sideLine",
+    "indented",
     "plain",
+    "sideLine",
     "filled"
   ],
   "notes": [
