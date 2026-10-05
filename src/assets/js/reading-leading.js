@@ -73,7 +73,7 @@
 			host.innerHTML = STEPS.map(function (s) {
 				return '<li><button type="button" class="quire-menu-item" role="menuitemradio" ' +
 					'aria-checked="false" data-leading-step="' + s.id + '">' +
-					'<span class="quire-menu-label">' + t(s.label) + '</span>' + CHECK + '</button></li>';
+					'<span class="quire-menu-label">' + (s.site || s.own ? s.label : t(s.label)) + '</span>' + CHECK + '</button></li>';
 			}).join('');
 		});
 

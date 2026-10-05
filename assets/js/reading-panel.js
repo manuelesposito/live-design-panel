@@ -115,7 +115,7 @@
 						'<span class="reading-tile-aa">Aa</span><span class="reading-tile-accent"></span>' +
 						'</span>' +
 						(Styles.adjusted(s.id) ? '<span class="reading-tile-adjusted" aria-label="' + t('adjusted') + '">•</span>' : '') +
-						'<span class="reading-tile-name">' + t(s.label) + '</span>' +
+						'<span class="reading-tile-name">' + (s.site || s.own ? s.label : t(s.label)) + '</span>' +
 						'</button>';
 				}).join('') +
 			'</div>';
@@ -126,7 +126,7 @@
 				'<div class="reading-dots" aria-hidden="true">' + ids.map(function (id, i) { return '<i' + (i <= at ? ' class="is-on"' : '') + '></i>'; }).join('') + '</div>' +
 			'</div>' +
 			'<div class="reading-segment quire-segmented reading-tall" role="radiogroup" aria-label="' + t('Appearance') + '">' +
-				SIDES.map(function (s) { return '<button type="button" role="radio"' + (s.id === n.side ? ' class="is-active"' : '') + ' aria-checked="' + (s.id === n.side) + '" data-panel-side="' + s.id + '">' + icon(s.icon) + '<span>' + t(s.label) + '</span></button>'; }).join('') +
+				SIDES.map(function (s) { return '<button type="button" role="radio"' + (s.id === n.side ? ' class="is-active"' : '') + ' aria-checked="' + (s.id === n.side) + '" data-panel-side="' + s.id + '">' + icon(s.icon) + '<span>' + (s.site || s.own ? s.label : t(s.label)) + '</span></button>'; }).join('') +
 			'</div>' +
 			tiles +
 			(isReader && Styles.readersCopy && Styles.readersCopy() ? '<button type="button" class="quire-button reading-customise" data-panel-copy-link>' + icon('copy') + '<span>' + t(linkCopied ? 'Copied' : 'Copy style') + '</span></button>' : '') +

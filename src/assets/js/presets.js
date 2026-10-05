@@ -3836,8 +3836,11 @@
 			if (!s || !name) return Promise.reject(new Error('nothing to rename'));
 			if (s.own) { s.label = name; writeOwn(); renderHosts(); return Promise.resolve(true); }
 			if (!s.site) return Promise.reject(new Error('a built-in style keeps its name'));
-			var record = JSON.parse(JSON.stringify(s)); delete record.site; record.label = name;
-			return sendSite({ action: 'update', id: id, record: record }).then(function () { return true; });
+			return refreshSite(true).then(function () { /* the site's version, not the one this page loaded with (0.32.2) */
+				var now = byId(id); if (!now || !now.site) throw new Error('no such style');
+				var record = JSON.parse(JSON.stringify(now)); delete record.site; record.label = name;
+				return sendSite({ action: 'update', id: id, record: record }).then(function () { return true; });
+			});
 		},
 		publishOwn: function (id, makeDefault) {
 			var s = byId(id); if (!s || !s.own) return Promise.reject(new Error('not your style'));
@@ -4235,10 +4238,10 @@
 		   on and the one copied is untouched; the copy stands first in Only visible to you. */
 		duplicate: function (id) {
 			var s = byId(id); if (!s) return null;
-			var record, name = t('{name} copy').replace('{name}', t(s.label));
+			var record, name = t('{name} copy').replace('{name}', s.site || s.own ? s.label : t(s.label));
 			/* NUMBERED, AS FINDER NUMBERS COPIES (2026-09-25): two tiles both
 			   called "Original copy" say nothing apart. */
-			var taken = function (l) { return STYLES.some(function (x) { return t(x.label) === l; }); };
+			var taken = function (l) { return STYLES.some(function (x) { return (x.site || x.own ? x.label : t(x.label)) === l; }); };
 			if (taken(name)) { var nth = 2; while (taken(name + ' ' + nth)) nth++; name = name + ' ' + nth; }
 			if (id === current) record = JSON.parse(this.exportStyle());
 			else {

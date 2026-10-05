@@ -40,6 +40,8 @@
 	var section = (function () { try { return sessionStorage.getItem(KEY) || 'styles'; } catch (e) { return 'styles'; } })(); /* the gallery first, as the prototype opens */
 
 	function t(w) { return (host && host.words && host.words[w]) || w; }
+	/* A STYLE'S NAME IS ITS NAME (0.32.2): only the theme's own look's word is translated; a name the owner gave a style on the site or of their own stays as given ("Quiet" showed as "Leise", because the panel has that word elsewhere) */
+	function nm(x) { return !x ? '' : x.site || x.own ? x.label : t(x.label); }
 	function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 	function phone() { return !window.matchMedia('(min-width: 1010px)').matches; }
 	function sections() { return ((host && host.settings && host.settings.sections) || []).map(function (x) { return x.id === 'corners-and-lines' ? Object.assign({}, x, { name: t('Corners & Lines') }) : x; }); } /* the lab's name for the page */
@@ -673,13 +675,13 @@
 	function tileHTML(id) {
 		var x = St().tile(id); if (!x) return '';
 		var mk = 'tile:' + id;
-		MENU[mk] = { label: t(x.label), items: tileItems(x), pick: function (a) { tileAct(x, a); } };
+		MENU[mk] = { label: nm(x), items: tileItems(x), pick: function (a) { tileAct(x, a); } };
 		return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '" data-sid="' + esc(id) + '">' +
 			'<button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-style="' + esc(id) + '" data-f="style:' + esc(id) + '">' +
 				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited && !x.site ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
-				'<span class="ldpw-nm">' + esc(t(x.label)) + '</span>' + (x.isDefault ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') +
+				'<span class="ldpw-nm">' + esc(nm(x)) + '</span>' + (x.isDefault ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') +
 			'</button>' +
-			'<button type="button" class="ldpw-tm" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + t(x.label)) + '">' + svg(GLYPH.more) + '</button>' +
+			'<button type="button" class="ldpw-tm" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + nm(x)) + '">' + svg(GLYPH.more) + '</button>' +
 		'</div>';
 	}
 	/* WHAT A TILE'S MENU OFFERS, the prototype's: Customise; its place on the site; the copy; the way back; the way out */
@@ -703,17 +705,17 @@
 		if (a === 'default') { s.makeDefault(id).then(function () { done(t('Default')); render(back); }, failed); return; }
 		if (a === 'seen') { btnWrite(s.setSeen(id, !x.seen), back); return; }
 		if (a === 'revert') { s.revert(id); return; }
-		if (a === 'rename') { asking = { title: t('Rename Style'), field: t(x.label), go: t('Rename'), back: back, run: function (v) { return s.rename(id, v); } }; return; }
-		if (a === 'delete') { asking = { title: t('Delete “{name}”?').replace('{name}', t(x.label)), text: t('You can’t undo this.'), go: t('Delete'), danger: true, back: '[data-sec="styles"]', run: function () { s.remove(id); } }; return; }
-		if (a === 'unpublish') { asking = { title: t('Remove “{name}” from the site?').replace('{name}', t(x.label)), text: t('Readers no longer see it. It stays here as one of your own styles.'), go: t('Remove'), danger: true, back: back, run: function () { return s.unpublish(id); } }; return; }
+		if (a === 'rename') { asking = { title: t('Rename Style'), field: nm(x), go: t('Rename'), back: back, run: function (v) { return s.rename(id, v); } }; return; }
+		if (a === 'delete') { asking = { title: t('Delete “{name}”?').replace('{name}', nm(x)), text: t('You can’t undo this.'), go: t('Delete'), danger: true, back: '[data-sec="styles"]', run: function () { s.remove(id); } }; return; }
+		if (a === 'unpublish') { asking = { title: t('Remove “{name}” from the site?').replace('{name}', nm(x)), text: t('Readers no longer see it. It stays here as one of your own styles.'), go: t('Remove'), danger: true, back: back, run: function () { return s.unpublish(id); } }; return; }
 	}
 	function stylesPage() {
 		var s = St(), st = s.styles(), out = '';
 		if (st.original) {
 			var o = s.tile(st.original), mk = 'tile:' + st.original;
-			MENU[mk] = { label: t(o.label), items: tileItems(o), pick: function (a) { tileAct(o, a); } };
-			out += '<div class="ldpw-stile ldpw-orig' + (o.on ? ' is-on' : '') + '"><button type="button" class="ldpw-origrow" role="radio" aria-checked="' + o.on + '" data-style="' + esc(o.id) + '" data-f="style:' + esc(o.id) + '" style="background:' + esc(o.paper) + ';color:' + esc(o.ink) + (o.face ? ';font-family:' + esc(o.face) : '') + '"><b>' + esc(t(o.label)) + '</b><small>' + esc(t('Your theme as it is')) + (st.originalAt === 0 ? ' · ' + esc(t('Default')) : '') + '</small></button>' +
-				'<button type="button" class="ldpw-tm" aria-haspopup="menu" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + t(o.label)) + '">' + svg(GLYPH.more) + '</button></div>';
+			MENU[mk] = { label: nm(o), items: tileItems(o), pick: function (a) { tileAct(o, a); } };
+			out += '<div class="ldpw-stile ldpw-orig' + (o.on ? ' is-on' : '') + '"><button type="button" class="ldpw-origrow" role="radio" aria-checked="' + o.on + '" data-style="' + esc(o.id) + '" data-f="style:' + esc(o.id) + '" style="background:' + esc(o.paper) + ';color:' + esc(o.ink) + (o.face ? ';font-family:' + esc(o.face) : '') + '"><b>' + esc(nm(o)) + '</b><small>' + esc(t('Your theme as it is')) + (st.originalAt === 0 ? ' · ' + esc(t('Default')) : '') + '</small></button>' +
+				'<button type="button" class="ldpw-tm" aria-haspopup="menu" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + nm(o)) + '">' + svg(GLYPH.more) + '</button></div>';
 		}
 		/* THE TWO GROUPS SORT (the lab's): drag a tile to change the order or to show or hide it; an empty group shows only while a tile is carried */
 		/* A GROUP FOLDS (the lab's, as a Finder sidebar's section): its title is the press; folded it says how many it holds */
@@ -746,9 +748,9 @@
 	function commitPress() {
 		var s = St(), x = s.tile(s.current()); if (!x) return;
 		if (x.site) {
-			asking = { title: t('Publish the changes to “{name}”?').replace('{name}', t(x.label)), text: t('Readers will see them the next time they open a page.'), go: t('Publish'), back: '[data-act="commit"]', run: function () { return s.publish().then(function () { done(t('Published')); }); } };
+			asking = { title: t('Publish the changes to “{name}”?').replace('{name}', nm(x)), text: t('Readers will see them the next time they open a page.'), go: t('Publish'), back: '[data-act="commit"]', run: function () { return s.publish().then(function () { done(t('Published')); }); } };
 		} else {
-			asking = { title: t('Save As New Style'), field: t('{name} Copy').replace('{name}', t(x.label)), go: t('Save'), back: '[data-act="commit"]', run: function (v) { s.saveAs(v); done(t('Saved')); } };
+			asking = { title: t('Save As New Style'), field: t('{name} Copy').replace('{name}', nm(x)), go: t('Save'), back: '[data-act="commit"]', run: function (v) { s.saveAs(v); done(t('Saved')); } };
 		}
 		render();
 	}
@@ -784,16 +786,16 @@
 		var s = St(), st = readerLists(s), out = '<p class="ldpw-hint">' + esc(t('Readers can choose from the styles turned on. The first one turned on is the default.')) + '</p>';
 		var rows = '', counted = (st.original ? [st.original] : []).concat(st.shown);
 		if (s.readerCounts && s.canPublish && s.canPublish() && !countsAsked) loadCounts();
-		if (st.original) { var o = s.tile(st.original), po = shareOf(st.original, counted); rows += '<div class="ldpw-r"><span class="ldpw-lb">' + esc(t(o.label)) + (po === null ? '<small>' + esc(t('Your theme as it is')) + '</small>' : usesLine(po)) + '</span><span class="ldpw-val">' + esc(t('Always shown')) + '</span></div>'; }
+		if (st.original) { var o = s.tile(st.original), po = shareOf(st.original, counted); rows += '<div class="ldpw-r"><span class="ldpw-lb">' + esc(nm(o)) + (po === null ? '<small>' + esc(t('Your theme as it is')) + '</small>' : usesLine(po)) + '</span><span class="ldpw-val">' + esc(t('Always shown')) + '</span></div>'; }
 		rows += st.shown.map(function (id, i) {
 			var x = s.tile(id), first = i === 0, pc = shareOf(id, counted);
-			var handle = '<button type="button" class="ldpw-handle" data-handle="' + esc(id) + '" data-f="handle:' + esc(id) + '" aria-label="' + esc(t('Move {name}').replace('{name}', t(x.label))) + '" aria-describedby="ldpw-order-hint"><span aria-hidden="true">≡</span></button>'; /* the lab's handle, a text glyph */
-			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(t(x.label)) + '' + (pc === null ? '<small>' + esc(first ? t('What a first visit opens in') : t('Readers can choose it')) + '</small>' : usesLine(pc)) + '</span>' +
+			var handle = '<button type="button" class="ldpw-handle" data-handle="' + esc(id) + '" data-f="handle:' + esc(id) + '" aria-label="' + esc(t('Move {name}').replace('{name}', nm(x))) + '" aria-describedby="ldpw-order-hint"><span aria-hidden="true">≡</span></button>'; /* the lab's handle, a text glyph */
+			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(nm(x)) + '' + (pc === null ? '<small>' + esc(first ? t('What a first visit opens in') : t('Readers can choose it')) + '</small>' : usesLine(pc)) + '</span>' +
 				(first ? '<span class="ldpw-val">' + esc(t('Default')) + '</span>' : sw2(id, true, x.label)) + handle + '</div>';
 		}).join('');
 		rows += st.hidden.map(function (id) {
 			var x = s.tile(id);
-			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(t(x.label)) + '<small>' + esc(x.own ? t('Yours; showing it publishes it') : t('Hidden from readers')) + '</small></span>' + sw2(id, false, x.label) + '<span class="ldpw-handle" aria-hidden="true"><span>≡</span></span></div>' /* a hidden row can be carried too (the lab's) */;
+			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(nm(x)) + '<small>' + esc(x.own ? t('Yours; showing it publishes it') : t('Hidden from readers')) + '</small></span>' + sw2(id, false, x.label) + '<span class="ldpw-handle" aria-hidden="true"><span>≡</span></span></div>' /* a hidden row can be carried too (the lab's) */;
 		}).join('');
 		var counting = countsHeld ? !!countsHeld.counting : true;
 		return out + '<div class="ldpw-box ldpw-sortable is-list" data-group="list">' + rows + '</div>' + '<p class="ldpw-hint" id="ldpw-order-hint">' + esc(t('Drag a style, or focus its handle and use the arrow keys.')) + '</p>' +
@@ -989,7 +991,7 @@
 			'<button type="button" class="ldpw-r ldpw-navrow ldpw-bluelink" data-act="share" data-f="act:share"><span class="ldpw-lb">' + esc(t('Share a Preview…')) + '</span></button>');
 	}
 	function askShare() {
-		var s = St(), x = s.tile(s.current()), name = x ? t(x.label) : '', edited = !!(x && x.edited);
+		var s = St(), x = s.tile(s.current()), name = x ? nm(x) : '', edited = !!(x && x.edited);
 		asking = { title: t('Share a Preview of “{name}”').replace('{name}', name), text: t(edited ? 'Anyone with the link sees your site in this style as it is now, with your unsaved changes. They can’t change anything, and your readers don’t see it. The link works for 7 days.' : 'Anyone with the link sees your site in this style as it is now. They can’t change anything, and your readers don’t see it. The link works for 7 days.'), go: t('Copy Link'), back: '[data-act="share"]', run: function () {
 			return s.sharePreview(name + (edited ? ', ' + t('edited') : '')).then(function (r) {
 				previewsHeld = (r && r.links) || previewsHeld;
@@ -1039,7 +1041,7 @@
 		if (p[0] === 'colours') return label('colours.{side}.' + p[2]) + ' › ' + t(p[1] === 'dark' ? 'Dark' : 'Light');
 		if (p[0] === 'effects') return t(FX_NAME[p[1]] || p[1]) + ' › ' + label(path);
 		var x = setting(p[0]);
-		return x && x.label ? t(x.label) : TOP_WORD[p[0]] ? t(TOP_WORD[p[0]]) : p[0];
+		return x && x.label ? nm(x) : TOP_WORD[p[0]] ? t(TOP_WORD[p[0]]) : p[0];
 	}
 	function changeValue(path, v) {
 		var k = path.split('.').pop();
@@ -1067,7 +1069,7 @@
 	}
 	function sectionName(id) { var l = sections().filter(function (x) { return x.id === id; })[0]; return l ? l.name : ''; }
 	function changesPage() {
-		var s = St(), list = s.changes(), x = s.tile(s.current()), name = t(x ? x.label : '');
+		var s = St(), list = s.changes(), x = s.tile(s.current()), name = nm(x);
 		if (!list.length) return '<p class="ldpw-hint ldpw-center">' + esc(t('No changes. {name} is as it was saved.').replace('{name}', name)) + '</p>';
 		return '<p class="ldpw-hint">' + esc(t(list.length === 1 ? 'One change to {name}. It can go back on its own.' : '{n} changes to {name}. Each can go back on its own.').replace('{n}', list.length).replace('{name}', name)) + '</p>' +
 			box(list.map(function (c) {
@@ -1143,7 +1145,7 @@
 	}
 	function askRevertAll() {
 		var s = St(), x = s.tile(s.current());
-		asking = { title: t('Revert all changes to “{name}”?').replace('{name}', t(x ? x.label : '')), text: t('The style goes back to how it was saved. Undo can bring the changes back.'), go: t('Revert All'), danger: true, back: '[data-menu="barmore"]', run: function () { s.revertAll(); done(t('Reverted')); } };
+		asking = { title: t('Revert all changes to “{name}”?').replace('{name}', nm(x)), text: t('The style goes back to how it was saved. Undo can bring the changes back.'), go: t('Revert All'), danger: true, back: '[data-menu="barmore"]', run: function () { s.revertAll(); done(t('Reverted')); } };
 	}
 
 	/* ===== VERSIONS: kept as you work and each time a style is published; one looked at on the page, then Restore (Undo takes it back) ===== */
@@ -1178,7 +1180,7 @@
 		var s = St(), x = s.tile(s.current()), v = versionRows();
 		if (!v) return '<p class="ldpw-hint ldpw-center">' + esc(t('Original has no versions. It is your theme as it is.')) + '</p>';
 		var rows = v.rows, sel = rows.some(function (r) { return r.key === verSel; }) ? verSel : 'now';
-		return '<p class="ldpw-hint">' + esc(t('Versions of {name} are kept as you work and each time it is published. Choose one to see it on the page.').replace('{name}', t(x ? x.label : ''))) + '</p>' +
+		return '<p class="ldpw-hint">' + esc(t('Versions of {name} are kept as you work and each time it is published. Choose one to see it on the page.').replace('{name}', nm(x))) + '</p>' +
 			box(rows.map(function (r, i) {
 				var next = rows[i + 1], on = r.key === sel;
 				var name = r.now ? t('Now') : r.base ? (v.site ? t('As Published') : v.own ? t('As Saved') : t('As It Comes')) : (r.published ? t('Published') + ', ' : '') + when(r.t);
@@ -1407,7 +1409,7 @@
 		document.addEventListener('pointercancel', function () { clearTimeout(timer); timer = null; }, true);
 	})();
 	/* the style the pages change, named over them as the prototype does */
-	function styleName() { var s = St(), x = s && s.tile ? s.tile(s.current()) : null; return x ? t(x.label) : ''; }
+	function styleName() { var s = St(), x = s && s.tile ? s.tile(s.current()) : null; return x ? nm(x) : ''; }
 	/* THE SIDEBAR HIDES (the prototype's, ⌃⌘S): the window narrows to its page; the close and the way back sit in the bar */
 	/* THE VIEWS (the lab's sidebar button, as Keynote's): the window with or without its sidebar, then the extra views */
 	function viewsMenu() {
@@ -1636,7 +1638,7 @@
 			var x = s.tile(id); if (!x) return '';
 			return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"><button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-rstyle="' + esc(id) + '" data-f="rstyle:' + esc(id) + '">' +
 				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
-				'<span class="ldpw-nm">' + esc(t(x.label)) + (id === def ? ' <em class="ldpw-def">' + esc(t('Default')) + '</em>' : '') + '</span>' + /* the lab's: Default beside the name */
+				'<span class="ldpw-nm">' + esc(nm(x)) + (id === def ? ' <em class="ldpw-def">' + esc(t('Default')) + '</em>' : '') + '</span>' + /* the lab's: Default beside the name */
 			'</button></div>';
 		}).join('');
 		/* THE READERS' SHEET THE APPLE WAY (0.29.0, lab/the-panel-apple-way.html, change 12): the text size one
