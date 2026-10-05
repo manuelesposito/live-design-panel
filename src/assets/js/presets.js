@@ -3081,7 +3081,7 @@
 	}
 	function markerBody(M) {
 		var light = lum(M) > 0.35;
-		return '--marker:' + M + ';--marker-ink:' + (light ? '#1c1c18' : '#f7f7f5') + ';--marker-line-own:' + (light ? 'color-mix(in oklab, ' + M + ', #000000 32%)' : M) + ';';
+		return '--marker:' + M + ';--marker-ink:' + (light ? '#1c1c18' : '#f7f7f5') + ';';
 	}
 	function buttonBody(B, P, I) {
 		var onPaper = P ? contrast(B, P) : 0, onInk = I ? contrast(B, I) : 0;
@@ -3230,8 +3230,8 @@
 			/* SOFT TEXT'S OWN COLOUR: the small text's rung, said on body as the small text's softness was */
 			if (v.muted) css += sideRule(side, '', '', '--ldp-muted:' + v.muted + ';') + sideRule(side, '', ' body', '--text-muted:' + v.muted + ';--wp--preset--color--text-muted:' + v.muted + ';--ldp-muted:' + v.muted + ';'); /* on the root too: a role's colour is resolved there */
 			/* (--ldp-field, the ground's colour for Aperitivo's awning, left with that style; nothing reads it) */
-			/* THE PEN OF YOUR OWN (2026-09-26): the pen, the ink read over it (dark on a
-			   light pen, light on a dark one) and the bar's deeper tone for the day. */
+			/* THE PEN OF YOUR OWN (2026-09-26): the pen and the ink read over it (dark on a
+			   light pen, light on a dark one). */
 			if (v.marker && !penOf(v.marker)) css += sideRule(side, '[data-marker-colour="own"]', '', markerBody(v.marker)); /* a named pen is the stylesheet's own */
 			if (v.meta) css += sideRule(side, '', '', '--kicker-own-colour:' + v.meta + ';');
 		});
@@ -3261,7 +3261,7 @@
 		var el = document.getElementById(COLOURS_STYLE);
 		if (!el && css) { el = document.createElement('style'); el.id = COLOURS_STYLE; (document.head || root).appendChild(el); }
 		if (el && el.textContent !== css) el.textContent = css;
-		if (typeof markerLine === 'function' && document.readyState !== 'loading') markerLine(); /* your own paper may have changed under the pen's bar (THE BAR ON A STRONG PAPER) */
+		if (typeof markerInk === 'function' && document.readyState !== 'loading') markerInk(); /* your own paper may have changed under the pen */
 		if (css) { if (root.getAttribute('data-colours') !== 'on') root.setAttribute('data-colours', 'on'); }
 		else root.removeAttribute('data-colours');
 		if (root.hasAttribute('data-darkground')) applyColourStamps(); /* once the options have been stamped: a colour moved may move the ground and the pen */
@@ -3286,33 +3286,6 @@
 	   would darken the whole page. Your own colours follow through the
 	   `.ground-dark` / `.ground-light` rules applyColours writes. On other
 	   themes the guest sheet darkens the footer instead (panel-page.css). */
-	/* THE BAR ON A STRONG PAPER (Manuel, 2026-09-26, Terracotta: the highlighter
-	   "should also be there … what would be the best color?"). The bar under a
-	   title takes a deeper tone of the pen by day, made for a light paper; on
-	   Terracotta's rust every one of them stood at 1.5:1 and the bar all but
-	   vanished. So when the paper itself is not light, the bar takes the pen,
-	   as it does by night (3.0 to 4.4:1 on the rust). Read from the paper as it
-	   is drawn, so a colour set and your own colours are judged alike. */
-	var markerProbe = null;
-	function markerLine() {
-		var on = false;
-		if (root.getAttribute('data-marker') === 'on' && !/-dark$/.test(root.getAttribute('data-theme') || '')) {
-			try {
-				if (!markerProbe) { markerProbe = document.createElement('canvas'); markerProbe.width = markerProbe.height = 1; }
-				var i = document.createElement('i');
-				i.style.cssText = 'position:absolute;visibility:hidden;color:var(--surface-base)';
-				root.appendChild(i);
-				var c = getComputedStyle(i).color;
-				root.removeChild(i);
-				var x = markerProbe.getContext('2d');
-				x.clearRect(0, 0, 1, 1); x.fillStyle = '#ffffff'; x.fillStyle = c; x.fillRect(0, 0, 1, 1);
-				var d = x.getImageData(0, 0, 1, 1).data;
-				on = lum('#' + [d[0], d[1], d[2]].map(function (n) { return ('0' + n.toString(16)).slice(-2); }).join('')) < 0.35;
-			} catch (e) { on = false; }
-		}
-		if (on) root.setAttribute('data-marker-bright', ''); else root.removeAttribute('data-marker-bright');
-		markerInk();
-	}
 	/* WHAT THE READING TEXT'S AND THE DATE'S PENS MARK IS READ IN THE BETTER OF
 	   PAPER AND INK (2026-09-26). The date's rung is half see-through on some
 	   pairs (Standard: the ink at 50 %), and paper letters on it stood at 3.2:1
@@ -3359,8 +3332,8 @@
 	}
 	(function () {
 		var go = function () {
-			markerLine();
-			new MutationObserver(markerLine).observe(root, { attributes: true, attributeFilter: ['data-theme', 'data-marker', 'data-style', 'data-colours', 'data-preset', 'data-marker-colour', 'data-soft', 'data-soft-level', 'data-quiet-level', 'data-small-soft', 'style'] }); /* the last five for the text and date pens' ink (markerInk) */
+			markerInk();
+			new MutationObserver(markerInk).observe(root, { attributes: true, attributeFilter: ['data-theme', 'data-marker', 'data-style', 'data-colours', 'data-preset', 'data-marker-colour', 'data-soft', 'data-soft-level', 'data-quiet-level', 'data-small-soft', 'style'] }); /* the last five for the text and date pens' ink (markerInk) */
 		};
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
 	})();

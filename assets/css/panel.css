@@ -530,27 +530,20 @@
 	--border-width-default: 5px;
 }
 :root[data-marker-colour="green"] {
-	--marker: #b4f07c; --marker-line: #57a012;
+	--marker: #b4f07c;
 }
 :root[data-marker-colour="pink"] {
-	--marker: #ffb0d8; --marker-line: #ff339a;
+	--marker: #ffb0d8;
 }
 :root[data-marker-colour="blue"] {
-	--marker: #a4d8ff; --marker-line: #008ffa;
+	--marker: #a4d8ff;
 }
 :root[data-marker-colour="orange"] {
-	--marker: #ffc46e; --marker-line: #cc7900;
-}
-:root[data-marker-colour="own"]:not([data-theme$="-dark"]):not([data-marker-bright]) {
-	--marker-line: var(--marker-line-own, var(--marker));
-}
-:root:root[data-marker-bright] {
-	--marker-line: var(--marker);
+	--marker: #ffc46e;
 }
 :root[data-marker-colour="text"], :root[data-marker-colour="text"] body {
 	--marker: var(--text-primary);
 	--marker-ink: var(--surface-base);
-	--marker-line: var(--marker);
 }
 :root[data-marker-colour="text"][data-soft="on"] body {
 	--marker: color-mix(in oklab, var(--text-primary), var(--surface-base) var(--soft-strength, 15%));
@@ -558,7 +551,6 @@
 :root[data-marker-colour="muted"], :root[data-marker-colour="muted"] body {
 	--marker: var(--text-muted);
 	--marker-ink: var(--surface-base);
-	--marker-line: var(--marker);
 }
 :root[data-marker="on"] mark:not([style*="background"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--marker-wash, var(--marker));
@@ -570,14 +562,6 @@
 :root[data-marker="on"] body ::selection {
 	background: var(--marker-wash, var(--marker));
 	color: var(--marker-ink);
-}
-:root[data-marker="on"] :is(.single-post-article > .wp-block-post-title, .post-card .wp-block-post-title:not(.quire-visually-hidden)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after {
-	content: '';
-	display: block;
-	inline-size: var(--space-12);
-	block-size: var(--space-1);
-	margin-block-start: 0.3em;
-	background: var(--marker-line);
 }
 :root[data-button="ink"] :is(.quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--accent: var(--text-primary);

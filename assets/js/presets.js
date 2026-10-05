@@ -1919,7 +1919,7 @@
 	}
 	function markerBody(M) {
 		var light = lum(M) > 0.35;
-		return '--marker:' + M + ';--marker-ink:' + (light ? '#1c1c18' : '#f7f7f5') + ';--marker-line-own:' + (light ? 'color-mix(in oklab, ' + M + ', #000000 32%)' : M) + ';';
+		return '--marker:' + M + ';--marker-ink:' + (light ? '#1c1c18' : '#f7f7f5') + ';';
 	}
 	function buttonBody(B, P, I) {
 		var onPaper = P ? contrast(B, P) : 0, onInk = I ? contrast(B, I) : 0;
@@ -2046,7 +2046,7 @@
 		var el = document.getElementById(COLOURS_STYLE);
 		if (!el && css) { el = document.createElement('style'); el.id = COLOURS_STYLE; (document.head || root).appendChild(el); }
 		if (el && el.textContent !== css) el.textContent = css;
-		if (typeof markerLine === 'function' && document.readyState !== 'loading') markerLine(); 
+		if (typeof markerInk === 'function' && document.readyState !== 'loading') markerInk(); 
 		if (css) { if (root.getAttribute('data-colours') !== 'on') root.setAttribute('data-colours', 'on'); }
 		else root.removeAttribute('data-colours');
 		if (root.hasAttribute('data-darkground')) applyColourStamps(); 
@@ -2056,26 +2056,6 @@
 		if (ownAccent) root.setAttribute('data-accent-own', ''); else root.removeAttribute('data-accent-own');
 	}
 	
-	var markerProbe = null;
-	function markerLine() {
-		var on = false;
-		if (root.getAttribute('data-marker') === 'on' && !/-dark$/.test(root.getAttribute('data-theme') || '')) {
-			try {
-				if (!markerProbe) { markerProbe = document.createElement('canvas'); markerProbe.width = markerProbe.height = 1; }
-				var i = document.createElement('i');
-				i.style.cssText = 'position:absolute;visibility:hidden;color:var(--surface-base)';
-				root.appendChild(i);
-				var c = getComputedStyle(i).color;
-				root.removeChild(i);
-				var x = markerProbe.getContext('2d');
-				x.clearRect(0, 0, 1, 1); x.fillStyle = '#ffffff'; x.fillStyle = c; x.fillRect(0, 0, 1, 1);
-				var d = x.getImageData(0, 0, 1, 1).data;
-				on = lum('#' + [d[0], d[1], d[2]].map(function (n) { return ('0' + n.toString(16)).slice(-2); }).join('')) < 0.35;
-			} catch (e) { on = false; }
-		}
-		if (on) root.setAttribute('data-marker-bright', ''); else root.removeAttribute('data-marker-bright');
-		markerInk();
-	}
 	var markerInkProbe = null;
 	function markerInk() {
 		var body = document.body; if (!body) return;
@@ -2110,8 +2090,8 @@
 	}
 	(function () {
 		var go = function () {
-			markerLine();
-			new MutationObserver(markerLine).observe(root, { attributes: true, attributeFilter: ['data-theme', 'data-marker', 'data-style', 'data-colours', 'data-preset', 'data-marker-colour', 'data-soft', 'data-soft-level', 'data-quiet-level', 'data-small-soft', 'style'] }); 
+			markerInk();
+			new MutationObserver(markerInk).observe(root, { attributes: true, attributeFilter: ['data-theme', 'data-marker', 'data-style', 'data-colours', 'data-preset', 'data-marker-colour', 'data-soft', 'data-soft-level', 'data-quiet-level', 'data-small-soft', 'style'] }); 
 		};
 		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
 	})();
