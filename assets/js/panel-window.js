@@ -861,7 +861,7 @@
 	function nameRow(bt) { return row(t('Name'), '<input type="text" class="ldpw-name" data-blabel data-f="blabel" maxlength="30" value="' + esc(bt.label || '') + '" placeholder="' + esc(t('Live Design')) + '" aria-label="' + esc(t('Name')) + '">'); }
 	var previewsHeld = null, previewsAsked = false;
 	function loadPreviews() { previewsAsked = true; St().previews().then(function (l) { previewsHeld = l || []; if (open) render(); }, function () { previewsHeld = []; }); }
-	function endsWord(until) { return t('Ends {date}').replace('{date}', new Date(until * 1000).toLocaleDateString(document.documentElement.lang || undefined, { day: 'numeric', month: 'long' })); }
+	function endsWord(until) { return t('Ends {date}').replace('{date}', new Date(until * 1000).toLocaleDateString('en', { day: 'numeric', month: 'long' })); }
 	function previewLinks() {
 		var s = St(); if (!s.previews || !s.canPublish || !s.canPublish()) return '';
 		if (!previewsAsked) loadPreviews();
@@ -1037,7 +1037,7 @@
 	}
 	function when(ms) {
 		if (!ms) return t('Earlier');
-		var d = new Date(ms), day = new Date(), y = new Date(Date.now() - 864e5), lang = document.documentElement.lang || undefined;
+		var d = new Date(ms), day = new Date(), y = new Date(Date.now() - 864e5), lang = 'en'; 
 		var hm = d.toLocaleTimeString(lang, { hour: '2-digit', minute: '2-digit' });
 		return (d.toDateString() === day.toDateString() ? t('Today') : d.toDateString() === y.toDateString() ? t('Yesterday') : d.toLocaleDateString(lang, { day: 'numeric', month: 'long' })) + ', ' + hm;
 	}
@@ -1350,7 +1350,7 @@
 	var KEYS = [['Open or close the window', 'Click the button, Esc to close'], ['Find anything', '⌘K'], ['Undo', '⌘Z'], ['Show or hide the sidebar', '⌃⌘S'], ['Copy, paste a style', '⌥⌘C, ⌥⌘V'], ['Choose on the page', '⌥-click'], ['Compare with no changes', 'Hold M'], ['Move a slider a step', '← →'], ['Put a slider back', 'Double-click it'], ['Search the settings', '⌘F'], ['Bigger or smaller text', '⌘+, ⌘−, ⌘0'], ['Settings', '⌘,'], ['This list', '?']];
 	function showKeys() { asking = { title: t('Keyboard Shortcuts'), keys: KEYS, go: t('Done'), back: '[data-act="keys"]', run: function () {} }; render('[data-act="ask-go"]'); }
 	function settingsPage() {
-		var s = St(), bt = s && s.button && s.button(), lang = (document.documentElement.getAttribute('lang') || 'en').split('-')[0];
+		var s = St(), bt = s && s.button && s.button();
 		var dots = '<span class="ldpw-dots" role="radiogroup" aria-label="' + esc(t('Accent colour')) + '">' + Object.keys(ACCENT).map(function (k) { var on = prefs.accent === k; return '<button type="button" class="ldpw-dotc' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-accent="' + k + '" data-f="accent:' + k + '" style="--c:' + accentHex(k) + '" aria-label="' + esc(t(ACCENT[k][0])) + '" title="' + esc(t(ACCENT[k][0])) + '"></button>'; }).join('') + '</span>';
 		var psw = function (k, on, lb) { return '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + !!on + '" data-pref="' + k + '" data-f="pref:' + k + '" aria-label="' + esc(lb) + '"></button>'; };
 		return '<p class="ldpw-hint">' + esc(t('Only for you, on this computer. Readers never see these.')) + '</p>' +
@@ -1361,8 +1361,7 @@
 			(bt ? gtitle(t('Aurora')) + box(bSwitch('aurora', 'Aurora', bt.aurora, false, t('Also on the Live Design button, so readers see it too')) + (bt.aurora && BANDS ? bandRow(bt) : '')) : '') +
 			gtitle(t('Sound')) + box(row(t('Sounds'), pop('psound', t('Sounds'), prefs.sound, [['off', t('Off')], ['clicks', t('Clicks')], ['all', t('Clicks and hover')]], function (id) { prefs.sound = id; savePrefs(); if (id !== 'off') sound('on'); }), prefs.sound === 'off' ? '' : esc(t('Soft ticks as you change things')))) +
 			gtitle(t('Help')) + box(row(t('Tips'), psw('tips', prefs.tips, t('Tips')), esc(t('Small hints the first time you meet something'))) +
-				'<button type="button" class="ldpw-r ldpw-navrow" data-act="keys" data-f="act:keys"><span class="ldpw-lb">' + esc(t('Keyboard Shortcuts')) + '</span><span class="ldpw-val">?</span><span class="ldpw-chev" aria-hidden="true"></span></button>' +
-				row(t('Language'), '<span class="ldpw-val">' + esc(lang === 'de' ? 'Deutsch' : 'English') + '</span>', esc(t('Follows your WordPress profile'))));
+				'<button type="button" class="ldpw-r ldpw-navrow" data-act="keys" data-f="act:keys"><span class="ldpw-lb">' + esc(t('Keyboard Shortcuts')) + '</span><span class="ldpw-val">?</span><span class="ldpw-chev" aria-hidden="true"></span></button>');
 	}
 	var actx = null, lastTick = {}, lastHover = 0, hoverKey = null;
 	function wake() { try { if (actx && actx.state === 'suspended') actx.resume(); } catch (e) {  } }

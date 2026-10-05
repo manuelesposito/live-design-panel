@@ -411,7 +411,7 @@
 
 	window.LiveDesignHost = {
 		name: 'wordpress',
-		words: (function () { var w = {}, k; for (k in (window.architraveWords || {})) w[k] = window.architraveWords[k]; for (k in (B.words || {})) w[k] = B.words[k]; return w; }()),
+		words: B.words || {}, /* its own words only (2026-10-05): window.architraveWords carries the theme's, in the site's language */
 		settings: { sections: B.sections || [], list: B.settings || [], roles: B.roles || [] },
 		style: style,
 		load: function () { return ask('GET', styles); },

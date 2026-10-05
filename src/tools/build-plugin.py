@@ -172,7 +172,6 @@ def members() -> list[tuple[Path, str]]:
         p
         for p in (THEME / OWN).rglob("*")
         if p.is_file() and not p.name.startswith(".") and str(p.relative_to(THEME / OWN)) not in ASSEMBLED
-        and p.relative_to(THEME / OWN).parts[0] != "languages"  # wordpress.org's review: translations come from translate.wordpress.org, never in the zip; the German goes to dist/ for elmastudio.de (upload-live.sh puts it in wp-content/languages/plugins/)
     )
     out = [(p, str(p.relative_to(THEME / OWN))) for p in own]
     out += [(THEME / rel, rel) for rel in COPIED]
@@ -506,10 +505,6 @@ def main() -> int:
     print(f"  {len(guest_css):>8}  {SLUG}/assets/css/panel-guest.css (panel.css behind the guard, for guests)")
     print(f"  {len(page_css):>8}  {SLUG}/assets/css/panel-page.css (the role table, for guests)")
     print(f"wrote {target.relative_to(THEME)} ({target.stat().st_size} bytes)")
-    mo = THEME / OWN / "languages" / f"{SLUG}-de_DE.mo"
-    if mo.is_file():
-        (target.parent / mo.name).write_bytes(mo.read_bytes())
-        print(f"wrote {(target.parent / mo.name).relative_to(THEME)} (the German, installed beside the plugin, not in it)")
     if args.to:
         import shutil
 

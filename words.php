@@ -3,8 +3,8 @@
  * What the panel says: the words its scripts ask for by their English (window.architraveWords,
  * t() in reading-panel.js) and the labels of the rows it brings. They lived in the theme's
  * architrave_settings_words() until theme 1.3.319 and join it again through its filter. The
- * German is in languages/live-design-panel-de_DE.po. A word the theme also says alone (Settings,
- * Light, Dark, Reading size …) stays in the theme's list and is not repeated here.
+ * panel speaks English only (2026-10-05); its German is gone. A word the theme also says alone
+ * (Settings, Light, Dark, Reading size …) stays in the theme's list and is not repeated here.
  *
  * @package LiveDesignPanel
  */
@@ -607,7 +607,7 @@ function architrave_panel_words( $words ) {
 add_filter( 'architrave_settings_words', 'architrave_panel_words' );
 
 function live_design_window_words() {
-	return array(
+	$words = array(
 		'Live Design'                   => __( 'Live Design', 'live-design-panel' ),
 		'Sections'                      => __( 'Sections', 'live-design-panel' ),
 		'Style'                         => __( 'Style', 'live-design-panel' ),
@@ -956,8 +956,6 @@ function live_design_window_words() {
 		'Tips' => __( 'Tips', 'live-design-panel' ),
 		'Small hints the first time you meet something' => __( 'Small hints the first time you meet something', 'live-design-panel' ),
 		'Keyboard Shortcuts' => __( 'Keyboard Shortcuts', 'live-design-panel' ),
-		'Language' => __( 'Language', 'live-design-panel' ),
-		'Follows your WordPress profile' => __( 'Follows your WordPress profile', 'live-design-panel' ),
 		'Follows your computer' => __( 'Follows your computer', 'live-design-panel' ),
 		'Done' => __( 'Done', 'live-design-panel' ),
 		'Blue' => __( 'Blue', 'live-design-panel' ),
@@ -1040,4 +1038,11 @@ function live_design_window_words() {
 		'Code' => __( 'Code', 'live-design-panel' ),
 		'Theme Monospace' => __( 'Theme Monospace', 'live-design-panel' ),
 	);
+
+	foreach ( architrave_panel_words( array() ) as $en => $word ) {
+		if ( $word !== $en && ! isset( $words[ $en ] ) ) {
+			$words[ $en ] = $word;
+		}
+	}
+	return $words;
 }
