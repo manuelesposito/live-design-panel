@@ -66,6 +66,31 @@
 	var PENDING = null; 
 	var WORDS = window.architraveWords || {};
 	function t(word) { return WORDS[word] || word; }
+	
+	var PRESETS = [
+		{ id: 'still', label: 'Still', light: { paper: '#f2f2f4', ink: '#1d1d1f', accent: '#0066cc', ground: '#e8e8ec', lift: '#ffffff', muted: '#66666b' }, dark: { paper: '#2c2c2e', ink: '#f5f5f7', accent: '#2997ff', ground: '#1c1c1e', lift: '#3a3a3c', muted: '#a1a1a6' }, fixed: true, group: 'everyday' },
+		{ id: 'clear', label: 'Clear', light: { paper: '#ffffff', ink: '#000000', accent: '#0040c0', ground: '#f2f2f2', lift: '#f0f0f0', muted: '#4a4a4a' }, dark: { paper: '#000000', ink: '#ffffff', accent: '#6cb4ff', ground: '#000000', lift: '#1a1a1a', muted: '#c7c7c7' }, fixed: true, group: 'everyday' },
+		{ id: 'soft', label: 'Soft', light: { paper: '#e9e7e3', ink: '#4a4845', accent: '#4f6178', ground: '#dfddd8', lift: '#e1ded9', muted: '#66635e' }, dark: { paper: '#2b2b2d', ink: '#a9a9ad', accent: '#8fa3bf', ground: '#222224', lift: '#353537', muted: '#8a8a8f' }, fixed: true, group: 'everyday' },
+		{ id: 'essay', label: 'Essay', light: { paper: '#fbf8f1', ink: '#26231f', accent: '#4a453e', ground: '#fbf8f1', lift: '#f3efe6', muted: '#6b665e' }, dark: { paper: '#1a1917', ink: '#d9d4ca', accent: '#c9c2b6', ground: '#1a1917', lift: '#24221f', muted: '#9a948a' }, fixed: true, group: 'everyday' },
+		{ id: 'folio', label: 'Folio', light: { paper: '#f8f1e3', ink: '#4f321c', accent: '#9a4a1e', ground: '#efe4cf', lift: '#f1e6d0', muted: '#7a5f45' }, dark: { paper: '#2a2118', ink: '#e9dcc6', accent: '#e39a6b', ground: '#1f1912', lift: '#352a1f', muted: '#b5a48c' }, fixed: true, group: 'warm' },
+		{ id: 'moss', label: 'Jade valley', light: { paper: '#eaf0e6', ink: '#1c2a1c', accent: '#2f6b36' }, dark: { paper: '#141a14', ink: '#dfe8dc', accent: '#7fc98a' } },
+		{ id: 'brick', label: 'Ember rock', light: { paper: '#f5e9e2', ink: '#2b1d18', accent: '#a8402a' }, dark: { paper: '#201715', ink: '#eddcd4', accent: '#e08268' } },
+		{ id: 'cobalt', label: 'Blue hour', light: { paper: '#eef1f8', ink: '#16203a', accent: '#2743a8' }, dark: { paper: '#121727', ink: '#e1e7f5', accent: '#8ba3f5' } },
+		{ id: 'meadow', label: 'Meadow morning', light: { paper: '#9dd36f', ink: '#2c2e2a', accent: '#1d4d0a' }, dark: { paper: '#2f4a25', ink: '#f5f1e4', accent: '#9dd36f' }, ground: { light: '#f5f1e4', dark: '#1e3218' }, lift: { light: '#ffffff', dark: '#43643a' } },   
+		{ id: 'lichen', label: 'Lichen night', light: { paper: '#f7f7f5', ink: '#222f30', accent: '#46731a' }, dark: { paper: '#222f30', ink: '#ffffff', accent: '#cef79e' } }, 
+		{ id: 'corten', label: 'Corten field', light: { paper: '#b84b30', ink: '#f8f4e9', accent: '#ffffff' }, dark: { paper: '#5f1d1a', ink: '#f8f4e9', accent: '#f2b49c' } }, 
+		{ id: 'sandstone', label: 'Sandstone', light: { paper: '#f8f4e9', ink: '#b84b30', accent: '#5f1d1a' }, dark: { paper: '#b84b30', ink: '#f8f4e9', accent: '#ffffff' } }, 
+		{ id: 'plum', label: 'Mallow evening', light: { paper: '#f2ecf3', ink: '#271e2c', accent: '#6f3a80' }, dark: { paper: '#1b161e', ink: '#e8dfea', accent: '#c496d6' } },
+		
+		{ id: 'vermilion', label: 'Vermilion', light: { paper: '#b82a16', ink: '#fff6ec', accent: '#ffe680' }, dark: { paper: '#2a0a06', ink: '#ffd9cc', accent: '#ff7a5c' }, fresh: true, group: 'bold' },
+		{ id: 'ultramarine', label: 'Ultramarine', light: { paper: '#1f33c9', ink: '#f2f4ff', accent: '#ffd23f' }, dark: { paper: '#0a0f33', ink: '#dfe4ff', accent: '#8c98ff' }, fresh: true, group: 'bold' },
+		{ id: 'cadmium', label: 'Cadmium yellow', light: { paper: '#ffd23f', ink: '#231c00', accent: '#b3124f' }, dark: { paper: '#1f1a05', ink: '#fff3c4', accent: '#ffd23f' }, fresh: true, group: 'bold' },
+		{ id: 'flamingo', label: 'Flamingo', light: { paper: '#ffc9da', ink: '#3b0a1f', accent: '#b01d5c' }, dark: { paper: '#2a0b18', ink: '#ffe0ea', accent: '#ff79aa' }, fresh: true, group: 'bold' },
+		{ id: 'viridian', label: 'Viridian', light: { paper: '#0b6358', ink: '#eafff9', accent: '#ffd59a' }, dark: { paper: '#062521', ink: '#cff5ec', accent: '#46d9c0' }, fresh: true, group: 'bold' },
+		{ id: 'ultraviolet', label: 'Ultraviolet', light: { paper: '#ece2ff', ink: '#24005c', accent: '#6a12e8' }, dark: { paper: '#16002e', ink: '#eadcff', accent: '#c6ff3d' }, fresh: true, group: 'bold' },
+		{ id: 'tangerine', label: 'Tangerine', light: { paper: '#ff8a1f', ink: '#1f0e00', accent: '#3d1a8f' }, dark: { paper: '#2a1300', ink: '#ffe3c7', accent: '#ff9a3d' }, fresh: true, group: 'bold' },
+		{ id: 'lagoon', label: 'Lagoon', light: { paper: '#b6f0de', ink: '#0b3b33', accent: '#c2185b' }, dark: { paper: '#0a2a26', ink: '#c9f7ea', accent: '#6ff0c8' }, fresh: true, group: 'bold' }
+	];
 	var STYLES = [
 		
 		{ id: 'standard', label: 'Classic',  palette: 'neutral', tint: 'purple', sans: 'inter', reading: 'default', face: 'newsreader', leading: 'default', justify: false, dropcap: false, rounded: true, lines: false, bold: false, scope: 'article', fills: true, roles: {} },
@@ -347,6 +372,7 @@
 		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 3; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } 
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
+		if (typeof data.preset === 'string' && presetById(data.preset)) entry.preset = data.preset; 
 		var shape = function (x) { var c = {}; Object.keys(x).forEach(function (k) { if (k !== 'id') c[k] = x[k]; }); return JSON.stringify(c); };
 		var had = STYLES.filter(function (x) { return x.own && shape(x) === shape(entry); })[0];
 		if (had) return had;
@@ -1614,44 +1640,13 @@
 			
 			var named = (s && s.preset && tw.preset === undefined) ? presetById(s.preset) : null;
 			var base = {}, t = engineSide((tw.colours && tw.colours[side]) || {}); 
-			[(named && named[side]) || {}, engineSide(s && s.colours && s.colours[side])].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
+			var mine = engineSide(s && s.colours && s.colours[side]);
+			if (tw.preset) Object.keys(mine).forEach(function (k) { if (BESIDE_PRESET.indexOf(colourKey(k)) === -1 || (k === 'muted' && !s.preset)) delete mine[k]; }); 
+			[(named && named[side]) || {}, mine].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
 			ENGINE_WELLS.forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
 		return out;
 	}
-	var PRESETS = [
-		{ id: 'chalk', label: 'Salt morning', light: { paper: '#f7f7f5', ink: '#1f2124', accent: '#4a5568' }, dark: { paper: '#17181a', ink: '#e8e8e6', accent: '#9aa7b8' } },
-		{ id: 'sand', label: 'Evening dune', light: { paper: '#f3e7d3', ink: '#2e2418', accent: '#a35a1f' }, dark: { paper: '#241c12', ink: '#eadfcb', accent: '#e0a35c' } },
-		{ id: 'linen', label: 'Linen noon', light: { paper: '#f1efe6', ink: '#26261f', accent: '#6b6a4f' }, dark: { paper: '#1d1d18', ink: '#e6e4d8', accent: '#b5b489' } },
-		{ id: 'moss', label: 'Jade valley', light: { paper: '#eaf0e6', ink: '#1c2a1c', accent: '#2f6b36' }, dark: { paper: '#141a14', ink: '#dfe8dc', accent: '#7fc98a' } },
-		{ id: 'fog', label: 'Foggy morning', light: { paper: '#eceff3', ink: '#1f262e', accent: '#3d6b8f' }, dark: { paper: '#161a1f', ink: '#dfe6ee', accent: '#86b6dd' } },
-		{ id: 'brick', label: 'Ember rock', light: { paper: '#f5e9e2', ink: '#2b1d18', accent: '#a8402a' }, dark: { paper: '#201715', ink: '#eddcd4', accent: '#e08268' } },
-		{ id: 'cobalt', label: 'Blue hour', light: { paper: '#eef1f8', ink: '#16203a', accent: '#2743a8' }, dark: { paper: '#121727', ink: '#e1e7f5', accent: '#8ba3f5' } },
-		{ id: 'olive', label: 'Cactus light', light: { paper: '#f0f0e2', ink: '#262a19', accent: '#5d6b1f' }, dark: { paper: '#1a1c14', ink: '#e5e7d5', accent: '#b6c563' } },
-		{ id: 'meadow', label: 'Meadow morning', light: { paper: '#9dd36f', ink: '#2c2e2a', accent: '#1d4d0a' }, dark: { paper: '#2f4a25', ink: '#f5f1e4', accent: '#9dd36f' }, ground: { light: '#f5f1e4', dark: '#1e3218' }, lift: { light: '#ffffff', dark: '#43643a' } },   
-		{ id: 'lichen', label: 'Lichen night', light: { paper: '#f7f7f5', ink: '#222f30', accent: '#46731a' }, dark: { paper: '#222f30', ink: '#ffffff', accent: '#cef79e' } }, 
-		{ id: 'corten', label: 'Corten field', light: { paper: '#b84b30', ink: '#f8f4e9', accent: '#ffffff' }, dark: { paper: '#5f1d1a', ink: '#f8f4e9', accent: '#f2b49c' } }, 
-		{ id: 'sandstone', label: 'Sandstone', light: { paper: '#f8f4e9', ink: '#b84b30', accent: '#5f1d1a' }, dark: { paper: '#b84b30', ink: '#f8f4e9', accent: '#ffffff' } }, 
-		{ id: 'plum', label: 'Mallow evening', light: { paper: '#f2ecf3', ink: '#271e2c', accent: '#6f3a80' }, dark: { paper: '#1b161e', ink: '#e8dfea', accent: '#c496d6' } },
-		{ id: 'rust', label: 'Rust desert', light: { paper: '#f6ece3', ink: '#2c2018', accent: '#b4531d' }, dark: { paper: '#211915', ink: '#eee0d3', accent: '#e79355' } },
-		{ id: 'navy', label: 'Sea night', light: { paper: '#edf0f2', ink: '#14212b', accent: '#0f4c70' }, dark: { paper: '#101a21', ink: '#dfe8ee', accent: '#6fb3d8' } },
-		{ id: 'sage', label: 'Oasis light', light: { paper: '#ecf1ed', ink: '#1e2a22', accent: '#3f7a5c' }, dark: { paper: '#151b17', ink: '#e0e9e3', accent: '#85c9a6' } },
-		{ id: 'charcoal', label: 'Grey hour', light: { paper: '#f0f0f0', ink: '#202020', accent: '#555555' }, dark: { paper: '#141414', ink: '#e4e4e4', accent: '#a0a0a0' } },
-		{ id: 'midnight', label: 'Indigo night', light: { paper: '#eaecf4', ink: '#171a2e', accent: '#303c8c' }, dark: { paper: '#0f1120', ink: '#dfe2f0', accent: '#8f9bea' } },
-		{ id: 'espresso', label: 'Earth shadow', light: { paper: '#f2ebe4', ink: '#241a14', accent: '#7a4a26' }, dark: { paper: '#1b1512', ink: '#e8ded4', accent: '#c89468' } },
-		{ id: 'carbon', label: 'Carbon night', light: { paper: '#f6f5f2', ink: '#1b1a1c', accent: '#3d4bb5' }, dark: { paper: '#1b1a1c', ink: '#f1f0ee', accent: '#9aa5e8' } },
-		{ id: 'graphite', label: 'Graphite', light: { paper: '#fbfbfa', ink: '#262626', accent: '#1a56c4' }, dark: { paper: '#161616', ink: '#d2d2d2', accent: '#7aaaf7', head: '#f6f6f6' } }, 
-		{ id: 'pure', label: 'Pure black and white', light: { paper: '#ffffff', ink: '#000000', accent: '#0037da' }, dark: { paper: '#000000', ink: '#e6e6e6', accent: '#6aa6ff', head: '#ffffff' } }, 
-		{ id: 'deepblue', label: 'Deep blue', light: { paper: '#f4f7fa', ink: '#1a2a3a', accent: '#1856c4' }, dark: { paper: '#0c1824', ink: '#c6d2de', accent: '#86b6ff', head: '#f2f6fa' } }, 
-		{ id: 'vermilion', label: 'Vermilion', light: { paper: '#b82a16', ink: '#fff6ec', accent: '#ffe680' }, dark: { paper: '#2a0a06', ink: '#ffd9cc', accent: '#ff7a5c' }, fresh: true, group: 'bold' },
-		{ id: 'ultramarine', label: 'Ultramarine', light: { paper: '#1f33c9', ink: '#f2f4ff', accent: '#ffd23f' }, dark: { paper: '#0a0f33', ink: '#dfe4ff', accent: '#8c98ff' }, fresh: true, group: 'bold' },
-		{ id: 'cadmium', label: 'Cadmium yellow', light: { paper: '#ffd23f', ink: '#231c00', accent: '#b3124f' }, dark: { paper: '#1f1a05', ink: '#fff3c4', accent: '#ffd23f' }, fresh: true, group: 'bold' },
-		{ id: 'flamingo', label: 'Flamingo', light: { paper: '#ffc9da', ink: '#3b0a1f', accent: '#b01d5c' }, dark: { paper: '#2a0b18', ink: '#ffe0ea', accent: '#ff79aa' }, fresh: true, group: 'bold' },
-		{ id: 'viridian', label: 'Viridian', light: { paper: '#0b6358', ink: '#eafff9', accent: '#ffd59a' }, dark: { paper: '#062521', ink: '#cff5ec', accent: '#46d9c0' }, fresh: true, group: 'bold' },
-		{ id: 'ultraviolet', label: 'Ultraviolet', light: { paper: '#ece2ff', ink: '#24005c', accent: '#6a12e8' }, dark: { paper: '#16002e', ink: '#eadcff', accent: '#c6ff3d' }, fresh: true, group: 'bold' },
-		{ id: 'tangerine', label: 'Tangerine', light: { paper: '#ff8a1f', ink: '#1f0e00', accent: '#3d1a8f' }, dark: { paper: '#2a1300', ink: '#ffe3c7', accent: '#ff9a3d' }, fresh: true, group: 'bold' },
-		{ id: 'lagoon', label: 'Lagoon', light: { paper: '#b6f0de', ink: '#0b3b33', accent: '#c2185b' }, dark: { paper: '#0a2a26', ink: '#c9f7ea', accent: '#6ff0c8' }, fresh: true, group: 'bold' }
-	];
 	var ACCENTS = [
 		{ id: 'red', label: 'Red', light: '#dc2626', dark: '#f87171' },
 		{ id: 'orange', label: 'Orange', light: '#c24400', dark: '#ff9a2e' },
@@ -1915,7 +1910,27 @@
 		var writing = (P && I) ? (onPaper >= onInk ? P : I) : (lum(B) > 0.35 ? '#111111' : '#ffffff');
 		return '--button-colour:' + B + ';--button-contrast:' + writing + ';';
 	}
-	function letGoPreset(entry) { var s = byId(current); if (s && s.preset) entry.preset = ''; else delete entry.preset; }
+	
+	function letGoPreset(entry) {
+		var s = byId(current), p = s && s.preset && entry.preset === undefined ? presetById(s.preset) : null;
+		if (p) {
+			entry.colours = entry.colours || {};
+			['light', 'dark'].forEach(function (sd) {
+				var have = entry.colours[sd] = entry.colours[sd] || {};
+				Object.keys(p[sd]).forEach(function (k) { var pub = colourKey(k); if (have[pub] === undefined && have[k] === undefined) have[pub] = p[sd][k]; });
+			});
+		}
+		if (s && s.preset) entry.preset = ''; else delete entry.preset;
+	}
+	function writeColours(into) {
+		var c = coloursOf(null, true), pn = presetById(presetOf());
+		delete into.preset; into.colours = {};
+		if (pn) {
+			into.preset = pn.id;
+			['light', 'dark'].forEach(function (side) { Object.keys(c[side]).forEach(function (k) { if (pn[side][k] === c[side][k]) delete c[side][k]; }); });
+		}
+		['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) into.colours[side] = publicSide(c[side]); });
+	}
 	var COLOURS_STYLE = 'architrave-own-colours';
 	function mixHex(a, b, w) {
 		var x = hexToOklch(a), y = hexToOklch(b), lab = function (o) { return [o.L, o.C * Math.cos(o.h), o.C * Math.sin(o.h)]; };
@@ -2290,6 +2305,14 @@
 			if (Object.keys(c).length) colours[side] = c;
 		});
 		if (Object.keys(colours).length) e.colours = colours;
+		var rp = rec.preset || '', bp = base.preset || '', pr = presetById(rp);
+		delete e.preset;
+		if (rp !== bp) {
+			if (pr) {
+				e.preset = rp; e.colours = {};
+				['light', 'dark'].forEach(function (side) { var c = publicSide(pr[side]), own = (rec.colours || {})[side] || {}; Object.keys(own).forEach(function (k) { c[colourKey(k)] = own[k]; }); e.colours[side] = c; });
+			} else if (bp) { e.preset = ''; e.colours = {}; ['light', 'dark'].forEach(function (side) { if ((rec.colours || {})[side]) e.colours[side] = rec.colours[side]; }); }
+		}
 		return e;
 	}
 	function writeQuiet(all) { var was = undoing; undoing = true; writeTweaks(all); undoing = was; }
@@ -2549,7 +2572,7 @@
 			return o.ground && !groundFlip(o.ground, o.paper || paperNow(other), o.ink) ? o.ground : o.paper ? sink(o.paper, 0.05) : canvasOf(other);
 		},
 		groundSides: function () { return groundSides(); },
-		presets: function () { return PRESETS.map(function (p) { return { id: p.id, label: p.label, light: { paper: p.light.paper, ink: p.light.ink, accent: p.light.accent }, dark: { paper: p.dark.paper, ink: p.dark.ink, accent: p.dark.accent }, fresh: !!p.fresh, group: p.group || '' }; }); },
+		presets: function () { return PRESETS.map(function (p) { return { id: p.id, label: p.label, light: { paper: p.light.paper, ink: p.light.ink, accent: p.light.accent }, dark: { paper: p.dark.paper, ink: p.dark.ink, accent: p.dark.accent }, fresh: !!p.fresh, group: p.group || '', fixed: !!p.fixed }; }); },
 		swatchList: function (key) { return (LISTS[COLOUR_ENGINE[key] || key] || []).map(function (x) { return { id: x.id, label: x.label, light: x.light, dark: x.dark }; }); },
 		listColour: listColourOf,
 		setListColour: function (key, id) {
@@ -2625,6 +2648,7 @@
 			}
 			var keep = entry.colours || {};
 			entry.colours = { light: { background: p.light.paper, text: p.light.ink, accent: p.light.accent }, dark: { background: p.dark.paper, text: p.dark.ink, accent: p.dark.accent } };
+			['light', 'dark'].forEach(function (sd) { [['ground', 'background2'], ['lift', 'card'], ['muted', 'mutedText']].forEach(function (k) { if (p[sd][k[0]]) entry.colours[sd][k[1]] = p[sd][k[0]]; }); });
 			['light', 'dark'].forEach(function (sd) { Object.keys(keep[sd] || {}).forEach(function (k) { if (BESIDE_PRESET.indexOf(colourKey(k)) !== -1) entry.colours[sd][colourKey(k)] = keep[sd][k]; }); });
 			entry.preset = p.id;
 			delete entry.unlinked; 
@@ -2646,7 +2670,11 @@
 			}
 			delete entry.colours[side][COLOUR_ENGINE[key]];
 			entry.colours[side][key] = hex.toLowerCase();
-			if (BESIDE_PRESET.indexOf(key) === -1) letGoPreset(entry); 
+			if (BESIDE_PRESET.indexOf(key) === -1) {
+				letGoPreset(entry); 
+				var away = side === 'dark' ? 'light' : 'dark'; 
+				if (!unlinkedOf() && entry.colours[away] && !(key === 'background2' && groundFlip(hex, (coloursResolved()[side] || {}).paper || paperNow(side)))) { delete entry.colours[away][key]; delete entry.colours[away][COLOUR_ENGINE[key]]; }
+			}
 			all[current] = entry; writeTweaks(all);
 			applyColours(); mark();
 		},
@@ -2678,8 +2706,7 @@
 			if (out.sans) { out.roles['interface'] = out.roles['interface'] || {}; out.roles['interface'].font = out.sans; }
 			delete out.face; delete out.sans;
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
-			var c = coloursOf(null, true); out.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = publicSide(c[side]); });
+			writeColours(out);
 			ENGINE_ONLY.forEach(function (k) { delete out[k]; }); 
 			return JSON.stringify(out);
 		},
@@ -2752,8 +2779,7 @@
 			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete entry[k]; }); 
 			entry.roles = typeMerged(s, tw); entry.architrave = 3;
 			var fxSave = effectsOf(s, tw); if (Object.keys(fxSave).length) entry.effects = fxSave;
-			var c = coloursOf(null, true); entry.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = publicSide(c[side]); });
+			writeColours(entry);
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			STYLES.push(entry); writeOwn(); renderHosts();
 			apply(entry, entry);
@@ -2770,8 +2796,7 @@
 			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete s[k]; }); 
 			s.roles = typeMerged(s, tw); s.architrave = 3;
 			var fxUp = effectsOf(s, tw); if (Object.keys(fxUp).length) s.effects = fxUp; else delete s.effects;
-			var c = coloursOf(null, true); s.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = publicSide(c[side]); });
+			writeColours(s);
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			writeOwn(); apply(s, s);
 			return true;

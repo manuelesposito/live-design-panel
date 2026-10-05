@@ -175,10 +175,10 @@
 	var SIDE_WORD = { auto: 'Auto', light: 'Light', dark: 'Dark' };
 	var PRESET_GROUPS = [['everyday', 'Everyday'], ['warm', 'Warm'], ['cool', 'Cool'], ['bold', 'Group Bold']];
 	/* THE LAB'S GROUPS AND ORDER (the prototype's PRESETS, 2026-09-28); a preset the lab does not list goes by its colour, after them */
-	var LAB_GROUP = { 'preset:gallery': 'everyday', 'preset:chalk': 'everyday', 'preset:carbon': 'everyday', 'pair:neutral': 'everyday', 'pair:grey': 'everyday', 'preset:vellum': 'everyday',
-		'pair:paper': 'warm', 'preset:sand': 'warm', 'preset:rust': 'warm', 'preset:brick': 'warm', 'preset:corten': 'warm', 'preset:sandstone': 'warm', 'preset:plum': 'warm',
-		'preset:cobalt': 'cool', 'preset:navy': 'cool', 'preset:midnight': 'cool', 'preset:draft': 'cool', 'preset:moss': 'cool', 'preset:meadow': 'cool', 'preset:lichen': 'cool',
-		'pair:terminal': 'bold', 'pair:arcade': 'bold', 'preset:limelight': 'bold', 'preset:bootblue': 'bold', 'preset:television': 'everyday', 'preset:silver': 'everyday', 'preset:aged': 'warm', 'preset:greygreen': 'cool', 'preset:newsprint': 'warm' };
+	var LAB_GROUP = { 'pair:neutral': 'everyday', 'pair:grey': 'everyday', 'preset:still': 'everyday', 'preset:clear': 'everyday', 'preset:soft': 'everyday', 'preset:essay': 'everyday',
+		'pair:paper': 'warm', 'preset:folio': 'warm', 'preset:brick': 'warm', 'preset:plum': 'warm', 'preset:sandstone': 'warm', 'preset:corten': 'warm',
+		'preset:cobalt': 'cool', 'preset:moss': 'cool', 'preset:lichen': 'cool', 'preset:meadow': 'cool',
+		'pair:terminal': 'bold', 'pair:arcade': 'bold' }; /* SLIMMED 2026-10-05 (Manuel: "so many similar presets, it's just noise"; lab/the-presets-slimmed.html): 32 tiles to 22, the reading styles' own five in, fifteen near twins out */
 	var LAB_RANK = Object.keys(LAB_GROUP);
 	/* A PRESET'S NAME AS THE LAB WRITES IT, in capitals word by word ("Salt Morning"); a translated name stays as its language writes it */
 	function titled(w) { var x = t(w); return x !== w ? x : w.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }); }
@@ -209,9 +209,10 @@
 		}
 		var out = viewBox;
 		/* IN THE PROTOTYPE'S GROUPS: the theme's own and the quiet ones, the warm, the cool, the bold, sorted by the day's paper */
+		var nmOf = function (p) { return p.fixed ? p.label : titled(p.label); }; /* a reading style's name stays its name (0.32.2) */
 		var tile = function (p) {
 			return '<button type="button" class="ldpw-tile' + (p.on ? ' is-on' : '') + '" role="radio" aria-checked="' + !!p.on + '" data-preset="' + esc(p.id) + '" data-f="preset:' + esc(p.id) + '">' +
-				'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(titled(p.label)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(titled(p.label))) + '</span></button>';
+				'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(nmOf(p)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(nmOf(p))) + '</span></button>';
 		};
 		var groups = { everyday: [], warm: [], cool: [], bold: [] };
 		s.presets().map(function (p, i) { return [labRank(p), i, p]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).forEach(function (x) { groups[presetGroup(x[2])].push(x[2]); });

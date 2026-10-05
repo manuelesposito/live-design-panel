@@ -76,6 +76,51 @@
 	var WORDS = window.architraveWords || {};
 	function t(word) { return WORDS[word] || word; }
 
+	/* THE PRESETS STAND FIRST (2026-10-05): a saved style may name one now (writeColours), and the page puts its style on long before the middle of this file, where the list stood; presetById then read an undefined list and the whole panel stopped. Plain data, nothing in it depends on what follows. */
+	/* THE COLOUR PRESETS (Manuel, 2026-09-16: "my point is having more colour
+	   presets that people can choose from … let's say in the beginning: 20").
+	   The five that were here are QDS modes, registered in the design system
+	   with a light and a dark side each, which is why there were five: a new
+	   one meant work in the system. These fifteen are not modes. They are what
+	   the reader's own colours already are — a paper, an ink and an accent per
+	   side — and the ladder mixes the rest from them, the canvas and the plane,
+	   the fields and the rungs, the lines, the inverse and the focus. So a
+	   preset is six values in a table, and the pair list holds twenty.
+
+	   NAMED IN OUR OWN WORDS. Codex and tweakcn offer forty-odd looks under
+	   names that belong to other projects; the colours are free to be inspired
+	   by, the names are theirs, and this theme's code names no outside product.
+	   These are materials and weathers, in the voice the first five speak:
+	   Kreide, Sand, Leinen, Moos, Nebel.
+
+	   Every pair is checked against the same gate the panel shows the reader:
+	   ink on paper at 4.5:1 or better on both sides (tools/check-presets.py). */
+	var PRESETS = [
+		/* THE READING STYLES' OWN (Manuel, 2026-10-05: "the other styles we made don't have a preset … which feels wrong"): Still, Clear, Soft, Essay and Folio name these, as Original's colours are its Standard. All six colours per side, so a style naming one carries no colours of its own and another preset chosen over it leaves none of them behind. `fixed`: a style's name, never translated (0.32.2). Clear took over from Pure black and white, Folio from Evening dune. */
+		{ id: 'still', label: 'Still', light: { paper: '#f2f2f4', ink: '#1d1d1f', accent: '#0066cc', ground: '#e8e8ec', lift: '#ffffff', muted: '#66666b' }, dark: { paper: '#2c2c2e', ink: '#f5f5f7', accent: '#2997ff', ground: '#1c1c1e', lift: '#3a3a3c', muted: '#a1a1a6' }, fixed: true, group: 'everyday' },
+		{ id: 'clear', label: 'Clear', light: { paper: '#ffffff', ink: '#000000', accent: '#0040c0', ground: '#f2f2f2', lift: '#f0f0f0', muted: '#4a4a4a' }, dark: { paper: '#000000', ink: '#ffffff', accent: '#6cb4ff', ground: '#000000', lift: '#1a1a1a', muted: '#c7c7c7' }, fixed: true, group: 'everyday' },
+		{ id: 'soft', label: 'Soft', light: { paper: '#e9e7e3', ink: '#4a4845', accent: '#4f6178', ground: '#dfddd8', lift: '#e1ded9', muted: '#66635e' }, dark: { paper: '#2b2b2d', ink: '#a9a9ad', accent: '#8fa3bf', ground: '#222224', lift: '#353537', muted: '#8a8a8f' }, fixed: true, group: 'everyday' },
+		{ id: 'essay', label: 'Essay', light: { paper: '#fbf8f1', ink: '#26231f', accent: '#4a453e', ground: '#fbf8f1', lift: '#f3efe6', muted: '#6b665e' }, dark: { paper: '#1a1917', ink: '#d9d4ca', accent: '#c9c2b6', ground: '#1a1917', lift: '#24221f', muted: '#9a948a' }, fixed: true, group: 'everyday' },
+		{ id: 'folio', label: 'Folio', light: { paper: '#f8f1e3', ink: '#4f321c', accent: '#9a4a1e', ground: '#efe4cf', lift: '#f1e6d0', muted: '#7a5f45' }, dark: { paper: '#2a2118', ink: '#e9dcc6', accent: '#e39a6b', ground: '#1f1912', lift: '#352a1f', muted: '#b5a48c' }, fixed: true, group: 'warm' },
+		{ id: 'moss', label: 'Jade valley', light: { paper: '#eaf0e6', ink: '#1c2a1c', accent: '#2f6b36' }, dark: { paper: '#141a14', ink: '#dfe8dc', accent: '#7fc98a' } },
+		{ id: 'brick', label: 'Ember rock', light: { paper: '#f5e9e2', ink: '#2b1d18', accent: '#a8402a' }, dark: { paper: '#201715', ink: '#eddcd4', accent: '#e08268' } },
+		{ id: 'cobalt', label: 'Blue hour', light: { paper: '#eef1f8', ink: '#16203a', accent: '#2743a8' }, dark: { paper: '#121727', ink: '#e1e7f5', accent: '#8ba3f5' } },
+		{ id: 'meadow', label: 'Meadow morning', light: { paper: '#9dd36f', ink: '#2c2e2a', accent: '#1d4d0a' }, dark: { paper: '#2f4a25', ink: '#f5f1e4', accent: '#9dd36f' }, ground: { light: '#f5f1e4', dark: '#1e3218' }, lift: { light: '#ffffff', dark: '#43643a' } }, /* THE GREEN PAPER (Manuel, 2026-09-26, lab/storybook-goes-green.html: "those two fit together", A by day and C by night). By day the reference's green is the paper and its cream the rail around it, links a dark green (5.7:1 on the green); by night a deep green that stays dark, the cream its ink and the fresh green its links. The dark grey night is gone: the reference has none. */ /* ITS OWN GROUND AND LIFT (Manuel, 2026-09-26: "it's nice and green and we want it to be a little bit fun … the green and the sand, then nice white stuff on it"): the reference's fresh green around the paper and under the rail, white menus, buttons and filled boxes on the sand; by night a deep green around the dark paper (cream on it 7:1) and a lifted grey for the white. */ /* Storybook's (2026-09-26): the reference's cream paper and warm near-black by day, its fresh green #8ed462 darkened for links (5.1:1; the green itself holds 1.7); by night its ink becomes the paper, the cream the ink, and the green reads as it is (7.7:1) */
+		{ id: 'lichen', label: 'Lichen night', light: { paper: '#f7f7f5', ink: '#222f30', accent: '#46731a' }, dark: { paper: '#222f30', ink: '#ffffff', accent: '#cef79e' } }, /* Specimen's (2026-09-26): the reference's off-white and green-black ink by day, its pale lime darkened for links (5.2:1; the lime itself holds 1.2); by night the ink becomes the paper, white the text, and the lime reads as it is (11.5:1) */
+		{ id: 'corten', label: 'Corten field', light: { paper: '#b84b30', ink: '#f8f4e9', accent: '#ffffff' }, dark: { paper: '#5f1d1a', ink: '#f8f4e9', accent: '#f2b49c' } }, /* Terracotta's (2026-09-26): the reference's rust field with its cream writing by day (4.7:1) and white links (5.1:1; no other hue holds 4.5 on the rust); by night its bordeaux under the same cream (11.4:1), links a pale clay (7.0:1) */
+		{ id: 'sandstone', label: 'Sandstone', light: { paper: '#f8f4e9', ink: '#b84b30', accent: '#5f1d1a' }, dark: { paper: '#b84b30', ink: '#f8f4e9', accent: '#ffffff' } }, /* Terracotta's lighter reading (2026-09-26): the reference's cream pages with rust writing by day (4.7:1) and bordeaux links (11.4:1); by night the rust field itself (4.7:1, white links 5.1:1) */
+		{ id: 'plum', label: 'Mallow evening', light: { paper: '#f2ecf3', ink: '#271e2c', accent: '#6f3a80' }, dark: { paper: '#1b161e', ink: '#e8dfea', accent: '#c496d6' } },
+		/* THE TILES' OWN (Manuel, 2026-09-19, Terminal's colour page stuck on Eigene: "for the tiles, we should always use a preset. In this case we probably won't have a preset. Therefore we should create one"). Terminal's and Blueprint's colours were written into their recipes as colours of their own, which the page reads as Eigene with no way back. They are presets now, named in the list's own voice, and the recipes name them. */
+		/* THE LAB'S EIGHT NEW BOLD ONES (lab/the-panel-prototype.html, 2026-09-28): strong papers, shown with a New badge and always in the Bold group */
+		{ id: 'vermilion', label: 'Vermilion', light: { paper: '#b82a16', ink: '#fff6ec', accent: '#ffe680' }, dark: { paper: '#2a0a06', ink: '#ffd9cc', accent: '#ff7a5c' }, fresh: true, group: 'bold' },
+		{ id: 'ultramarine', label: 'Ultramarine', light: { paper: '#1f33c9', ink: '#f2f4ff', accent: '#ffd23f' }, dark: { paper: '#0a0f33', ink: '#dfe4ff', accent: '#8c98ff' }, fresh: true, group: 'bold' },
+		{ id: 'cadmium', label: 'Cadmium yellow', light: { paper: '#ffd23f', ink: '#231c00', accent: '#b3124f' }, dark: { paper: '#1f1a05', ink: '#fff3c4', accent: '#ffd23f' }, fresh: true, group: 'bold' },
+		{ id: 'flamingo', label: 'Flamingo', light: { paper: '#ffc9da', ink: '#3b0a1f', accent: '#b01d5c' }, dark: { paper: '#2a0b18', ink: '#ffe0ea', accent: '#ff79aa' }, fresh: true, group: 'bold' },
+		{ id: 'viridian', label: 'Viridian', light: { paper: '#0b6358', ink: '#eafff9', accent: '#ffd59a' }, dark: { paper: '#062521', ink: '#cff5ec', accent: '#46d9c0' }, fresh: true, group: 'bold' },
+		{ id: 'ultraviolet', label: 'Ultraviolet', light: { paper: '#ece2ff', ink: '#24005c', accent: '#6a12e8' }, dark: { paper: '#16002e', ink: '#eadcff', accent: '#c6ff3d' }, fresh: true, group: 'bold' },
+		{ id: 'tangerine', label: 'Tangerine', light: { paper: '#ff8a1f', ink: '#1f0e00', accent: '#3d1a8f' }, dark: { paper: '#2a1300', ink: '#ffe3c7', accent: '#ff9a3d' }, fresh: true, group: 'bold' },
+		{ id: 'lagoon', label: 'Lagoon', light: { paper: '#b6f0de', ink: '#0b3b33', accent: '#c2185b' }, dark: { paper: '#0a2a26', ink: '#c9f7ea', accent: '#6ff0c8' }, fresh: true, group: 'bold' }
+	];
 	var STYLES = [
 		/* Standard is the site's own room, the one a first visit opens in:
 		   Neutral in the reader's side. It was called Night and pressed the dark
@@ -487,6 +532,7 @@
 		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 3; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } /* only known details, only off their rest */
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
+		if (typeof data.preset === 'string' && presetById(data.preset)) entry.preset = data.preset; /* a saved style names its preset (2026-10-05) */
 		var shape = function (x) { var c = {}; Object.keys(x).forEach(function (k) { if (k !== 'id') c[k] = x[k]; }); return JSON.stringify(c); };
 		var had = STYLES.filter(function (x) { return x.own && shape(x) === shape(entry); })[0];
 		if (had) return had;
@@ -2563,64 +2609,14 @@
 			/* A RECIPE MAY NAME A PRESET AND A WELL OF ITS OWN BESIDE IT (2026-09-26, Gallery's second blue on its button): the preset's six come first, the recipe's own wells over them. */
 			var named = (s && s.preset && tw.preset === undefined) ? presetById(s.preset) : null;
 			var base = {}, t = engineSide((tw.colours && tw.colours[side]) || {}); /* the seven's names or the engine's, read as the engine's */
-			[(named && named[side]) || {}, engineSide(s && s.colours && s.colours[side])].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
+			/* A PRESET CHOSEN OVER A STYLE'S OWN COLOURS (2026-10-05): only the style's wells that sit beside a preset stay under it; its ground, card and soft text went with its paper, or Blue hour chosen on Folio kept Folio's cream cards. */
+			var mine = engineSide(s && s.colours && s.colours[side]);
+			if (tw.preset) Object.keys(mine).forEach(function (k) { if (BESIDE_PRESET.indexOf(colourKey(k)) === -1 || (k === 'muted' && !s.preset)) delete mine[k]; }); /* soft text stays only where the style set it beside a preset of its own; on a style without one it is part of its six */
+			[(named && named[side]) || {}, mine].forEach(function (src) { Object.keys(src).forEach(function (k) { if (src[k]) base[k] = src[k]; }); });
 			ENGINE_WELLS.forEach(function (k) { var v = t[k] !== undefined ? t[k] : base[k]; if (v) out[side][k] = v; });
 		});
 		return out;
 	}
-	/* THE COLOUR PRESETS (Manuel, 2026-09-16: "my point is having more colour
-	   presets that people can choose from … let's say in the beginning: 20").
-	   The five that were here are QDS modes, registered in the design system
-	   with a light and a dark side each, which is why there were five: a new
-	   one meant work in the system. These fifteen are not modes. They are what
-	   the reader's own colours already are — a paper, an ink and an accent per
-	   side — and the ladder mixes the rest from them, the canvas and the plane,
-	   the fields and the rungs, the lines, the inverse and the focus. So a
-	   preset is six values in a table, and the pair list holds twenty.
-
-	   NAMED IN OUR OWN WORDS. Codex and tweakcn offer forty-odd looks under
-	   names that belong to other projects; the colours are free to be inspired
-	   by, the names are theirs, and this theme's code names no outside product.
-	   These are materials and weathers, in the voice the first five speak:
-	   Kreide, Sand, Leinen, Moos, Nebel.
-
-	   Every pair is checked against the same gate the panel shows the reader:
-	   ink on paper at 4.5:1 or better on both sides (tools/check-presets.py). */
-	var PRESETS = [
-		{ id: 'chalk', label: 'Salt morning', light: { paper: '#f7f7f5', ink: '#1f2124', accent: '#4a5568' }, dark: { paper: '#17181a', ink: '#e8e8e6', accent: '#9aa7b8' } },
-		{ id: 'sand', label: 'Evening dune', light: { paper: '#f3e7d3', ink: '#2e2418', accent: '#a35a1f' }, dark: { paper: '#241c12', ink: '#eadfcb', accent: '#e0a35c' } },
-		{ id: 'linen', label: 'Linen noon', light: { paper: '#f1efe6', ink: '#26261f', accent: '#6b6a4f' }, dark: { paper: '#1d1d18', ink: '#e6e4d8', accent: '#b5b489' } },
-		{ id: 'moss', label: 'Jade valley', light: { paper: '#eaf0e6', ink: '#1c2a1c', accent: '#2f6b36' }, dark: { paper: '#141a14', ink: '#dfe8dc', accent: '#7fc98a' } },
-		{ id: 'fog', label: 'Foggy morning', light: { paper: '#eceff3', ink: '#1f262e', accent: '#3d6b8f' }, dark: { paper: '#161a1f', ink: '#dfe6ee', accent: '#86b6dd' } },
-		{ id: 'brick', label: 'Ember rock', light: { paper: '#f5e9e2', ink: '#2b1d18', accent: '#a8402a' }, dark: { paper: '#201715', ink: '#eddcd4', accent: '#e08268' } },
-		{ id: 'cobalt', label: 'Blue hour', light: { paper: '#eef1f8', ink: '#16203a', accent: '#2743a8' }, dark: { paper: '#121727', ink: '#e1e7f5', accent: '#8ba3f5' } },
-		{ id: 'olive', label: 'Cactus light', light: { paper: '#f0f0e2', ink: '#262a19', accent: '#5d6b1f' }, dark: { paper: '#1a1c14', ink: '#e5e7d5', accent: '#b6c563' } },
-		{ id: 'meadow', label: 'Meadow morning', light: { paper: '#9dd36f', ink: '#2c2e2a', accent: '#1d4d0a' }, dark: { paper: '#2f4a25', ink: '#f5f1e4', accent: '#9dd36f' }, ground: { light: '#f5f1e4', dark: '#1e3218' }, lift: { light: '#ffffff', dark: '#43643a' } }, /* THE GREEN PAPER (Manuel, 2026-09-26, lab/storybook-goes-green.html: "those two fit together", A by day and C by night). By day the reference's green is the paper and its cream the rail around it, links a dark green (5.7:1 on the green); by night a deep green that stays dark, the cream its ink and the fresh green its links. The dark grey night is gone: the reference has none. */ /* ITS OWN GROUND AND LIFT (Manuel, 2026-09-26: "it's nice and green and we want it to be a little bit fun … the green and the sand, then nice white stuff on it"): the reference's fresh green around the paper and under the rail, white menus, buttons and filled boxes on the sand; by night a deep green around the dark paper (cream on it 7:1) and a lifted grey for the white. */ /* Storybook's (2026-09-26): the reference's cream paper and warm near-black by day, its fresh green #8ed462 darkened for links (5.1:1; the green itself holds 1.7); by night its ink becomes the paper, the cream the ink, and the green reads as it is (7.7:1) */
-		{ id: 'lichen', label: 'Lichen night', light: { paper: '#f7f7f5', ink: '#222f30', accent: '#46731a' }, dark: { paper: '#222f30', ink: '#ffffff', accent: '#cef79e' } }, /* Specimen's (2026-09-26): the reference's off-white and green-black ink by day, its pale lime darkened for links (5.2:1; the lime itself holds 1.2); by night the ink becomes the paper, white the text, and the lime reads as it is (11.5:1) */
-		{ id: 'corten', label: 'Corten field', light: { paper: '#b84b30', ink: '#f8f4e9', accent: '#ffffff' }, dark: { paper: '#5f1d1a', ink: '#f8f4e9', accent: '#f2b49c' } }, /* Terracotta's (2026-09-26): the reference's rust field with its cream writing by day (4.7:1) and white links (5.1:1; no other hue holds 4.5 on the rust); by night its bordeaux under the same cream (11.4:1), links a pale clay (7.0:1) */
-		{ id: 'sandstone', label: 'Sandstone', light: { paper: '#f8f4e9', ink: '#b84b30', accent: '#5f1d1a' }, dark: { paper: '#b84b30', ink: '#f8f4e9', accent: '#ffffff' } }, /* Terracotta's lighter reading (2026-09-26): the reference's cream pages with rust writing by day (4.7:1) and bordeaux links (11.4:1); by night the rust field itself (4.7:1, white links 5.1:1) */
-		{ id: 'plum', label: 'Mallow evening', light: { paper: '#f2ecf3', ink: '#271e2c', accent: '#6f3a80' }, dark: { paper: '#1b161e', ink: '#e8dfea', accent: '#c496d6' } },
-		{ id: 'rust', label: 'Rust desert', light: { paper: '#f6ece3', ink: '#2c2018', accent: '#b4531d' }, dark: { paper: '#211915', ink: '#eee0d3', accent: '#e79355' } },
-		{ id: 'navy', label: 'Sea night', light: { paper: '#edf0f2', ink: '#14212b', accent: '#0f4c70' }, dark: { paper: '#101a21', ink: '#dfe8ee', accent: '#6fb3d8' } },
-		{ id: 'sage', label: 'Oasis light', light: { paper: '#ecf1ed', ink: '#1e2a22', accent: '#3f7a5c' }, dark: { paper: '#151b17', ink: '#e0e9e3', accent: '#85c9a6' } },
-		{ id: 'charcoal', label: 'Grey hour', light: { paper: '#f0f0f0', ink: '#202020', accent: '#555555' }, dark: { paper: '#141414', ink: '#e4e4e4', accent: '#a0a0a0' } },
-		{ id: 'midnight', label: 'Indigo night', light: { paper: '#eaecf4', ink: '#171a2e', accent: '#303c8c' }, dark: { paper: '#0f1120', ink: '#dfe2f0', accent: '#8f9bea' } },
-		{ id: 'espresso', label: 'Earth shadow', light: { paper: '#f2ebe4', ink: '#241a14', accent: '#7a4a26' }, dark: { paper: '#1b1512', ink: '#e8ded4', accent: '#c89468' } },
-		/* THE TILES' OWN (Manuel, 2026-09-19, Terminal's colour page stuck on Eigene: "for the tiles, we should always use a preset. In this case we probably won't have a preset. Therefore we should create one"). Terminal's and Blueprint's colours were written into their recipes as colours of their own, which the page reads as Eigene with no way back. They are presets now, named in the list's own voice, and the recipes name them. */
-		{ id: 'carbon', label: 'Carbon night', light: { paper: '#f6f5f2', ink: '#1b1a1c', accent: '#3d4bb5' }, dark: { paper: '#1b1a1c', ink: '#f1f0ee', accent: '#9aa5e8' } },
-		{ id: 'graphite', label: 'Graphite', light: { paper: '#fbfbfa', ink: '#262626', accent: '#1a56c4' }, dark: { paper: '#161616', ink: '#d2d2d2', accent: '#7aaaf7', head: '#f6f6f6' } }, /* Terminal B's (2026-10-02, lab/the-article-in-terminal.html): a soft near-black with a light grey ink by night, the title a step brighter, an off-white by day; the links a terminal's blue */
-		{ id: 'pure', label: 'Pure black and white', light: { paper: '#ffffff', ink: '#000000', accent: '#0037da' }, dark: { paper: '#000000', ink: '#e6e6e6', accent: '#6aa6ff', head: '#ffffff' } }, /* Terminal B's second (2026-10-02): a terminal's plain black and white */
-		{ id: 'deepblue', label: 'Deep blue', light: { paper: '#f4f7fa', ink: '#1a2a3a', accent: '#1856c4' }, dark: { paper: '#0c1824', ink: '#c6d2de', accent: '#86b6ff', head: '#f2f6fa' } }, /* Terminal B's third (2026-10-02): a night sea */
-		/* THE LAB'S EIGHT NEW BOLD ONES (lab/the-panel-prototype.html, 2026-09-28): strong papers, shown with a New badge and always in the Bold group */
-		{ id: 'vermilion', label: 'Vermilion', light: { paper: '#b82a16', ink: '#fff6ec', accent: '#ffe680' }, dark: { paper: '#2a0a06', ink: '#ffd9cc', accent: '#ff7a5c' }, fresh: true, group: 'bold' },
-		{ id: 'ultramarine', label: 'Ultramarine', light: { paper: '#1f33c9', ink: '#f2f4ff', accent: '#ffd23f' }, dark: { paper: '#0a0f33', ink: '#dfe4ff', accent: '#8c98ff' }, fresh: true, group: 'bold' },
-		{ id: 'cadmium', label: 'Cadmium yellow', light: { paper: '#ffd23f', ink: '#231c00', accent: '#b3124f' }, dark: { paper: '#1f1a05', ink: '#fff3c4', accent: '#ffd23f' }, fresh: true, group: 'bold' },
-		{ id: 'flamingo', label: 'Flamingo', light: { paper: '#ffc9da', ink: '#3b0a1f', accent: '#b01d5c' }, dark: { paper: '#2a0b18', ink: '#ffe0ea', accent: '#ff79aa' }, fresh: true, group: 'bold' },
-		{ id: 'viridian', label: 'Viridian', light: { paper: '#0b6358', ink: '#eafff9', accent: '#ffd59a' }, dark: { paper: '#062521', ink: '#cff5ec', accent: '#46d9c0' }, fresh: true, group: 'bold' },
-		{ id: 'ultraviolet', label: 'Ultraviolet', light: { paper: '#ece2ff', ink: '#24005c', accent: '#6a12e8' }, dark: { paper: '#16002e', ink: '#eadcff', accent: '#c6ff3d' }, fresh: true, group: 'bold' },
-		{ id: 'tangerine', label: 'Tangerine', light: { paper: '#ff8a1f', ink: '#1f0e00', accent: '#3d1a8f' }, dark: { paper: '#2a1300', ink: '#ffe3c7', accent: '#ff9a3d' }, fresh: true, group: 'bold' },
-		{ id: 'lagoon', label: 'Lagoon', light: { paper: '#b6f0de', ink: '#0b3b33', accent: '#c2185b' }, dark: { paper: '#0a2a26', ink: '#c9f7ea', accent: '#6ff0c8' }, fresh: true, group: 'bold' }
-	];
 	/* THE ACCENT'S OWN LIST (Manuel, 2026-09-17: "we're going to pack more
 	   accent colours on that list so that it somehow makes sense that it's an
 	   own window. We should like the whole colour rainbow section there, like
@@ -3072,7 +3068,31 @@
 	   preset the TWEAK named simply goes; a preset the RECIPE names has to be
 	   masked with the empty string, as setCustom masks it, or presetOf() finds
 	   the recipe's again and Custom is gone with the next press. */
-	function letGoPreset(entry) { var s = byId(current); if (s && s.preset) entry.preset = ''; else delete entry.preset; }
+	/* AND IT KEEPS THE PRESET'S COLOURS AS ITS START (2026-10-05): masking the recipe's preset took its paper, ink and accent with it, so a card set by hand on Folio threw the page back to white. They are written into the tweak first, as setCustom writes them; what is already there stays. */
+	function letGoPreset(entry) {
+		var s = byId(current), p = s && s.preset && entry.preset === undefined ? presetById(s.preset) : null;
+		if (p) {
+			entry.colours = entry.colours || {};
+			['light', 'dark'].forEach(function (sd) {
+				var have = entry.colours[sd] = entry.colours[sd] || {};
+				Object.keys(p[sd]).forEach(function (k) { var pub = colourKey(k); if (have[pub] === undefined && have[k] === undefined) have[pub] = p[sd][k]; });
+			});
+		}
+		if (s && s.preset) entry.preset = ''; else delete entry.preset;
+	}
+	/* A STYLE'S COLOURS AS A RECORD KEEPS THEM (2026-10-05, Manuel: "the other styles we made don't have a preset"):
+	   saving wrote the preset's colours out and forgot its name, so after the first save no tile was ticked and a
+	   preset chosen later sat under the old ground and cards. Now the name, and of the colours only those that
+	   differ from it (a soft text or a button set beside it). Written onto `into`: export, Save As and Update. */
+	function writeColours(into) {
+		var c = coloursOf(null, true), pn = presetById(presetOf());
+		delete into.preset; into.colours = {};
+		if (pn) {
+			into.preset = pn.id;
+			['light', 'dark'].forEach(function (side) { Object.keys(c[side]).forEach(function (k) { if (pn[side][k] === c[side][k]) delete c[side][k]; }); });
+		}
+		['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) into.colours[side] = publicSide(c[side]); });
+	}
 	var COLOURS_STYLE = 'architrave-own-colours';
 	/* TINT THE GREYS (PICKS `greytint`, the extras, 2026-09-29): the paper takes a
 	   third of the share of the accent and every grey is mixed from an ink that
@@ -3629,6 +3649,17 @@
 			if (Object.keys(c).length) colours[side] = c;
 		});
 		if (Object.keys(colours).length) e.colours = colours;
+		/* A RECORD NAMES ITS PRESET (2026-10-05, writeColours): another preset than the saved one comes as a reader's
+		   choice comes, its colours written out with the record's own over them; none where the saved style names one
+		   masks it, and the record's colours, which are then all of them, stand alone. */
+		var rp = rec.preset || '', bp = base.preset || '', pr = presetById(rp);
+		delete e.preset;
+		if (rp !== bp) {
+			if (pr) {
+				e.preset = rp; e.colours = {};
+				['light', 'dark'].forEach(function (side) { var c = publicSide(pr[side]), own = (rec.colours || {})[side] || {}; Object.keys(own).forEach(function (k) { c[colourKey(k)] = own[k]; }); e.colours[side] = c; });
+			} else if (bp) { e.preset = ''; e.colours = {}; ['light', 'dark'].forEach(function (side) { if ((rec.colours || {})[side]) e.colours[side] = rec.colours[side]; }); }
+		}
 		return e;
 	}
 	/* written without a step of Undo: a look at a version is not a change */
@@ -3989,7 +4020,7 @@
 		   both sides at once, so the chain has nothing to follow and the ladder
 		   mixes everything else; choosing a mode, or moving a colour by hand,
 		   lets it go again. */
-		presets: function () { return PRESETS.map(function (p) { return { id: p.id, label: p.label, light: { paper: p.light.paper, ink: p.light.ink, accent: p.light.accent }, dark: { paper: p.dark.paper, ink: p.dark.ink, accent: p.dark.accent }, fresh: !!p.fresh, group: p.group || '' }; }); },
+		presets: function () { return PRESETS.map(function (p) { return { id: p.id, label: p.label, light: { paper: p.light.paper, ink: p.light.ink, accent: p.light.accent }, dark: { paper: p.dark.paper, ink: p.dark.ink, accent: p.dark.accent }, fresh: !!p.fresh, group: p.group || '', fixed: !!p.fixed }; }); },
 		/* THE THREE LISTS OF THE CUSTOMISATION AREA (Manuel, 2026-09-16): twenty
 		   papers, twenty inks, twenty accents, the same hues in all three. A
 		   colour chosen here is written on both sides at once, so the chain has
@@ -4111,6 +4142,8 @@
 			/* the preset's three, the wells beside a preset kept (2026-10-03: a highlighter, soft text or a role's own colour stays) */
 			var keep = entry.colours || {};
 			entry.colours = { light: { background: p.light.paper, text: p.light.ink, accent: p.light.accent }, dark: { background: p.dark.paper, text: p.dark.ink, accent: p.dark.accent } };
+			/* a reading style's preset brings its ground, card and soft text too (2026-10-05); a hand-set soft text still wins below */
+			['light', 'dark'].forEach(function (sd) { [['ground', 'background2'], ['lift', 'card'], ['muted', 'mutedText']].forEach(function (k) { if (p[sd][k[0]]) entry.colours[sd][k[1]] = p[sd][k[0]]; }); });
 			['light', 'dark'].forEach(function (sd) { Object.keys(keep[sd] || {}).forEach(function (k) { if (BESIDE_PRESET.indexOf(colourKey(k)) !== -1) entry.colours[sd][colourKey(k)] = keep[sd][k]; }); });
 			entry.preset = p.id;
 			delete entry.unlinked; /* both sides are written, so the chain is at rest */
@@ -4145,7 +4178,11 @@
 			}
 			delete entry.colours[side][COLOUR_ENGINE[key]];
 			entry.colours[side][key] = hex.toLowerCase();
-			if (BESIDE_PRESET.indexOf(key) === -1) letGoPreset(entry); /* a colour moved by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
+			if (BESIDE_PRESET.indexOf(key) === -1) {
+				letGoPreset(entry); /* a colour moved by hand is nobody's preset any more; the button's, the roles' and the pen's own colours sit beside a preset */
+				var away = side === 'dark' ? 'light' : 'dark'; /* linked, the other side follows this colour, not the preset's it was just given */
+				if (!unlinkedOf() && entry.colours[away] && !(key === 'background2' && groundFlip(hex, (coloursResolved()[side] || {}).paper || paperNow(side)))) { delete entry.colours[away][key]; delete entry.colours[away][COLOUR_ENGINE[key]]; }
+			}
 			all[current] = entry; writeTweaks(all);
 			applyColours(); mark();
 		},
@@ -4188,8 +4225,7 @@
 			if (out.sans) { out.roles['interface'] = out.roles['interface'] || {}; out.roles['interface'].font = out.sans; }
 			delete out.face; delete out.sans;
 			var fxOut = effectsOf(s, tw); if (Object.keys(fxOut).length) out.effects = fxOut;
-			var c = coloursOf(null, true); out.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) out.colours[side] = publicSide(c[side]); });
+			writeColours(out);
 			ENGINE_ONLY.forEach(function (k) { delete out[k]; }); /* worked out from the colours now: no key of a record */
 			return JSON.stringify(out);
 		},
@@ -4285,8 +4321,7 @@
 			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete entry[k]; }); /* worked out from the colours (2026-10-03) */
 			entry.roles = typeMerged(s, tw); entry.architrave = 3;
 			var fxSave = effectsOf(s, tw); if (Object.keys(fxSave).length) entry.effects = fxSave;
-			var c = coloursOf(null, true); entry.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) entry.colours[side] = publicSide(c[side]); });
+			writeColours(entry);
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			STYLES.push(entry); writeOwn(); renderHosts();
 			apply(entry, entry);
@@ -4306,8 +4341,7 @@
 			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete s[k]; }); /* worked out from the colours (2026-10-03) */
 			s.roles = typeMerged(s, tw); s.architrave = 3;
 			var fxUp = effectsOf(s, tw); if (Object.keys(fxUp).length) s.effects = fxUp; else delete s.effects;
-			var c = coloursOf(null, true); s.colours = {};
-			['light', 'dark'].forEach(function (side) { if (Object.keys(c[side]).length) s.colours[side] = publicSide(c[side]); });
+			writeColours(s);
 			var all = readTweaks(); delete all[current]; writeTweaks(all);
 			writeOwn(); apply(s, s);
 			return true;

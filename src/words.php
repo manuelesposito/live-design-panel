@@ -262,24 +262,12 @@ function architrave_panel_words( $words ) {
 		'Rose'         => _x( 'Rose', 'an accent colour', 'live-design-panel' ),
 		'Slate'        => _x( 'Slate', 'an accent colour', 'live-design-panel' ),
 		'Stone'        => _x( 'Stone', 'an accent colour', 'live-design-panel' ),
-		'Salt morning'  => _x( 'Salt morning', 'a colour preset', 'live-design-panel' ),
-		'Evening dune'  => _x( 'Evening dune', 'a colour preset', 'live-design-panel' ),
-		'Linen noon'    => _x( 'Linen noon', 'a colour preset', 'live-design-panel' ),
 		'Jade valley'   => _x( 'Jade valley', 'a colour preset', 'live-design-panel' ),
-		'Foggy morning' => _x( 'Foggy morning', 'a colour preset', 'live-design-panel' ),
 		'Ember rock'    => _x( 'Ember rock', 'a colour preset', 'live-design-panel' ),
 		'Blue hour'     => _x( 'Blue hour', 'a colour preset', 'live-design-panel' ),
-		'Carbon night'  => _x( 'Carbon night', 'a colour preset', 'live-design-panel' ), /* Terminal's (2026-09-19) */
 		'Risograph'     => __( 'Risograph', 'live-design-panel' ), /* the style, and the Pictures value (2026-10-02) */
 		'The pictures printed in the accent on the paper with a fine grain, as a one-ink press prints them.' => __( 'The pictures printed in the accent on the paper with a fine grain, as a one-ink press prints them.', 'live-design-panel' ),
-		'Cactus light'  => _x( 'Cactus light', 'a colour preset', 'live-design-panel' ),
 		'Mallow evening' => _x( 'Mallow evening', 'a colour preset', 'live-design-panel' ),
-		'Rust desert'   => _x( 'Rust desert', 'a colour preset', 'live-design-panel' ),
-		'Sea night'     => _x( 'Sea night', 'a colour preset', 'live-design-panel' ),
-		'Oasis light'   => _x( 'Oasis light', 'a colour preset', 'live-design-panel' ),
-		'Grey hour'     => _x( 'Grey hour', 'a colour preset', 'live-design-panel' ),
-		'Indigo night'  => _x( 'Indigo night', 'a colour preset', 'live-design-panel' ),
-		'Earth shadow'  => _x( 'Earth shadow', 'a colour preset', 'live-design-panel' ),
 		'Custom paper'  => __( 'Custom paper', 'live-design-panel' ),
 		'Custom ink'    => __( 'Custom ink', 'live-design-panel' ),
 		'Custom accent' => __( 'Custom accent', 'live-design-panel' ), /* the third editor, under Eigene (2026-09-17) */
@@ -489,8 +477,7 @@ function architrave_panel_words( $words ) {
 		/* Matrix B (2026-10-02): the code marks, the code rain, the heading width, decode, the two start screens, the vignette's two details, the Film green preset and the wake-up lines */
 		/* Terminal B (2026-10-02): the eight terminal rows and their values, its two new presets, and the words its page shows (the prompt's user, the front matter's keys, the dialogs' names) */
 		'Block' => __( 'Block', 'live-design-panel' ),
-		'Pure black and white' => __( 'Pure black and white', 'live-design-panel' ),
-		'Deep blue' => __( 'Deep blue', 'live-design-panel' ),
+		'Graphite' => __( 'Graphite', 'live-design-panel' ), /* a swatch's and an accent's name */
 		'reader' => __( 'reader', 'live-design-panel' ),
 		'Newsletter' => __( 'Newsletter', 'live-design-panel' ),
 		'1 bit' => __( '1 bit', 'live-design-panel' ),
@@ -1015,7 +1002,6 @@ function live_design_window_words() {
 		'Orange' => __( 'Orange', 'live-design-panel' ),
 		'Yellow' => __( 'Yellow', 'live-design-panel' ),
 		'Green' => __( 'Green', 'live-design-panel' ),
-		'Graphite' => __( 'Graphite', 'live-design-panel' ),
 		'Dusk' => __( 'Dusk', 'live-design-panel' ),
 		'Ocean' => __( 'Ocean', 'live-design-panel' ),
 		'Meadow' => __( 'Meadow', 'live-design-panel' ),

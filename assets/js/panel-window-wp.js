@@ -116,10 +116,10 @@
 			var s = S(); if (!s) return [];
 			var sd = side(), c = currentStyle(), now = s.preset ? s.preset() : '';
 			var all = (s.presets ? s.presets() : []).map(function (p) {
-				return { id: 'preset:' + p.id, label: p.label, paper: p[sd].paper, ink: p[sd].ink, accent: p[sd].accent, day: p.light.paper, on: now === p.id, fresh: !!p.fresh, group: p.group || '' }; 
+				return { id: 'preset:' + p.id, label: p.label, paper: p[sd].paper, ink: p[sd].ink, accent: p[sd].accent, day: p.light.paper, on: now === p.id, fresh: !!p.fresh, group: p.group || '', fixed: !!p.fixed }; 
 			});
 			if (!c || c.host) return all;
-			if (c.preset) { var twin = all.filter(function (x) { return x.id === 'preset:' + c.preset; })[0]; if (!twin) return all; return [{ id: 'own', label: 'Standard', paper: twin.paper, ink: twin.ink, accent: twin.accent, on: twin.on, group: 'everyday' }].concat(all.filter(function (x) { return x !== twin; })); }
+			if (c.preset) { var twin = all.filter(function (x) { return x.id === 'preset:' + c.preset; })[0]; if (!twin) return all; return [{ id: 'own', label: twin.label, fixed: twin.fixed, paper: twin.paper, ink: twin.ink, accent: twin.accent, on: twin.on, group: 'everyday' }].concat(all.filter(function (x) { return x !== twin; })); }
 			var mine = ownColours(), hc = c.bare && c.colours && c.colours[sd], O = hc && hc.paper ? [hc.paper, hc.ink || ORIGINAL[sd][1], hc.accent || hc.ink || ORIGINAL[sd][2]] : ORIGINAL[sd]; 
 			var bare = !now && !['background', 'text', 'accent'].some(function (k) { return isHex(mine[k]); });
 			return [{ id: 'own', label: 'Standard', paper: O[0], ink: O[1], accent: O[2], on: bare, group: 'everyday' }].concat(all);

@@ -134,12 +134,13 @@
 			var s = S(); if (!s) return [];
 			var sd = side(), c = currentStyle(), now = s.preset ? s.preset() : '';
 			var all = (s.presets ? s.presets() : []).map(function (p) {
-				return { id: 'preset:' + p.id, label: p.label, paper: p[sd].paper, ink: p[sd].ink, accent: p[sd].accent, day: p.light.paper, on: now === p.id, fresh: !!p.fresh, group: p.group || '' }; /* day: the light paper, which sorts it into its group on either side */
+				return { id: 'preset:' + p.id, label: p.label, paper: p[sd].paper, ink: p[sd].ink, accent: p[sd].accent, day: p.light.paper, on: now === p.id, fresh: !!p.fresh, group: p.group || '', fixed: !!p.fixed }; /* day: the light paper, which sorts it into its group on either side */
 			});
 			/* STANDARD FIRST (2026-09-28, the lab's first tile): the colours the style came with. Since the seven
 			   colours (2026-10-03) it is the theme's own three, and choosing it lets every colour set by hand go. */
 			if (!c || c.host) return all;
-			if (c.preset) { var twin = all.filter(function (x) { return x.id === 'preset:' + c.preset; })[0]; if (!twin) return all; return [{ id: 'own', label: 'Standard', paper: twin.paper, ink: twin.ink, accent: twin.accent, on: twin.on, group: 'everyday' }].concat(all.filter(function (x) { return x !== twin; })); }
+			/* A STYLE THAT NAMES A PRESET (Folio's own, 2026-10-05) leads with it under its own name: Standard is Original's word */
+			if (c.preset) { var twin = all.filter(function (x) { return x.id === 'preset:' + c.preset; })[0]; if (!twin) return all; return [{ id: 'own', label: twin.label, fixed: twin.fixed, paper: twin.paper, ink: twin.ink, accent: twin.accent, on: twin.on, group: 'everyday' }].concat(all.filter(function (x) { return x !== twin; })); }
 			var mine = ownColours(), hc = c.bare && c.colours && c.colours[sd], O = hc && hc.paper ? [hc.paper, hc.ink || ORIGINAL[sd][1], hc.accent || hc.ink || ORIGINAL[sd][2]] : ORIGINAL[sd]; /* a copy of another theme's own look: that theme's three, as measured */
 			var bare = !now && !['background', 'text', 'accent'].some(function (k) { return isHex(mine[k]); });
 			return [{ id: 'own', label: 'Standard', paper: O[0], ink: O[1], accent: O[2], on: bare, group: 'everyday' }].concat(all);

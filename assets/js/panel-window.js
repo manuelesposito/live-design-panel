@@ -158,10 +158,10 @@
 	var BUTTON_WORD = { accent: 'Accent', text: 'Text', own: 'Own Colour' }; 
 	var SIDE_WORD = { auto: 'Auto', light: 'Light', dark: 'Dark' };
 	var PRESET_GROUPS = [['everyday', 'Everyday'], ['warm', 'Warm'], ['cool', 'Cool'], ['bold', 'Group Bold']];
-	var LAB_GROUP = { 'preset:gallery': 'everyday', 'preset:chalk': 'everyday', 'preset:carbon': 'everyday', 'pair:neutral': 'everyday', 'pair:grey': 'everyday', 'preset:vellum': 'everyday',
-		'pair:paper': 'warm', 'preset:sand': 'warm', 'preset:rust': 'warm', 'preset:brick': 'warm', 'preset:corten': 'warm', 'preset:sandstone': 'warm', 'preset:plum': 'warm',
-		'preset:cobalt': 'cool', 'preset:navy': 'cool', 'preset:midnight': 'cool', 'preset:draft': 'cool', 'preset:moss': 'cool', 'preset:meadow': 'cool', 'preset:lichen': 'cool',
-		'pair:terminal': 'bold', 'pair:arcade': 'bold', 'preset:limelight': 'bold', 'preset:bootblue': 'bold', 'preset:television': 'everyday', 'preset:silver': 'everyday', 'preset:aged': 'warm', 'preset:greygreen': 'cool', 'preset:newsprint': 'warm' };
+	var LAB_GROUP = { 'pair:neutral': 'everyday', 'pair:grey': 'everyday', 'preset:still': 'everyday', 'preset:clear': 'everyday', 'preset:soft': 'everyday', 'preset:essay': 'everyday',
+		'pair:paper': 'warm', 'preset:folio': 'warm', 'preset:brick': 'warm', 'preset:plum': 'warm', 'preset:sandstone': 'warm', 'preset:corten': 'warm',
+		'preset:cobalt': 'cool', 'preset:moss': 'cool', 'preset:lichen': 'cool', 'preset:meadow': 'cool',
+		'pair:terminal': 'bold', 'pair:arcade': 'bold' }; 
 	var LAB_RANK = Object.keys(LAB_GROUP);
 	function titled(w) { var x = t(w); return x !== w ? x : w.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }); }
 	function labRank(p) { if (p.id === 'own') return -1; var i = LAB_RANK.indexOf(p.id); return i === -1 ? 999 : i; }
@@ -186,9 +186,10 @@
 			return viewBox + box('<div class="ldpw-note"><p>' + esc(t('Original is the theme as it comes, and stays that way. Make a copy to change its colours.')) + '</p><button type="button" class="ldpw-blue" data-act="copy" data-f="act:copy">' + esc(t('Make a Copy')) + '</button></div>');
 		}
 		var out = viewBox;
+		var nmOf = function (p) { return p.fixed ? p.label : titled(p.label); }; 
 		var tile = function (p) {
 			return '<button type="button" class="ldpw-tile' + (p.on ? ' is-on' : '') + '" role="radio" aria-checked="' + !!p.on + '" data-preset="' + esc(p.id) + '" data-f="preset:' + esc(p.id) + '">' +
-				'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(titled(p.label)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(titled(p.label))) + '</span></button>';
+				'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(nmOf(p)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(nmOf(p))) + '</span></button>';
 		};
 		var groups = { everyday: [], warm: [], cool: [], bold: [] };
 		s.presets().map(function (p, i) { return [labRank(p), i, p]; }).sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; }).forEach(function (x) { groups[presetGroup(x[2])].push(x[2]); });
