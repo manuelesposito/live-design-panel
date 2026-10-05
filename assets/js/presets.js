@@ -554,7 +554,7 @@
 			chosenitem: 'Retired 2026-10-03 and still read: becomes currentItem, the same looks.',
 			linewidth: 'Retired 2026-10-03 and still read: with lines, it becomes borderWidth (1, 2, 3, 5).',
 			cards: 'How cards look: filled (the rest: the card\'s fill and, with lines, its line), fillOnly (the fill without a line even with lines), raised (the paper, lifted by a shadow), topLine (a line along the top only, no fill, square; only with lines) or cornerMarks (only the four corners drawn). Architrave\'s page only.',
-			quotes: 'How quotes in an article look: sideLine (a line at the side, the rest), plain, or filled (in a box with its fill).',
+			quotes: 'How quotes look, in an article and as a quote post: sideLine (set in from the edge, with a line at the side while lines are on; the rest), plain, or filled (in a box with its fill; a quote post\'s card). Quotes are italic.',
 			notes: 'How a box the writer coloured inside an article looks: filled (the rest: its own fill), outlined (a line around it) or raised (lifted by a shadow).',
 			fields: 'How search, comment and sign-up fields look: filled (the rest: the fill, with lines its line), outlined (a line on the paper) or raised (lifted by a shadow).',
 			paragraphs: 'Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.',
@@ -708,7 +708,7 @@
 	};
 	var SERIFS = ['newsreader', 'libre-baskerville', 'vollkorn'];
 	
-	var ITALICS = ['newsreader', 'libre-baskerville', 'vollkorn', 'geist', 'plex-sans', 'jetbrains-mono'];
+	var ITALICS = ['newsreader', 'libre-baskerville', 'vollkorn', 'geist', 'plex-sans', 'jetbrains-mono', 'inter', 'hyperlegible']; 
 	function hasItalic(face) {
 		face = realFace(face); return ITALICS.indexOf(face) !== -1; }
 	
@@ -1862,7 +1862,7 @@
 			'--mode-swatch:' + P + ';' +
 			'--toggle-knob-ink:' + (dark ? I : 'var(--surface-raised)') + ';';
 	}
-	var LIFT_CARDS = ' :is(.support-box, .about-numbers, .release-panel, .release-archive-card, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote)';
+	var LIFT_CARDS = ' :is(.support-box, .about-numbers, .release-panel, .release-archive-card, [data-quotes="box"] :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote)'; 
 	function pairCss(side, c) {
 		var P = c.paper, I = c.ink, dark = lum(P) < lum(I);
 		var mix = function (a, b, pct) { return 'color-mix(in oklab, ' + a + ', ' + b + ' ' + pct + '%)'; };

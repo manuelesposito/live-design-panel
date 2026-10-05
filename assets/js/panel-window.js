@@ -406,6 +406,9 @@
 		var x = setting(key) || {}, s = St(), words = PICK_WORD[key] || {};
 		var list = (PICK_ORDER[key] || x.choices || []).filter(function (id) { return !(key === 'categories' && id === 'above' && s.guest() && s.get(key) !== 'above'); }); 
 		var items = list.map(function (id) { return [id, s.guest() && GUEST_REST[key] === id ? t('As the theme') : /(px| %)$/.test(words[id] || '') ? words[id] : t(words[id] || id)]; });
+		var unlined = !s.guest() && s.get('borderWidth') === 'none';
+		if (unlined && key === 'cards') { items = items.filter(function (x) { return x[0] === 'filled' || x[0] === 'raised'; }); return looksRow(key, items, null, s.get(key) === 'raised' ? 'raised' : 'filled'); }
+		if (unlined && key === 'quotes') items = items.map(function (x) { return x[0] === 'sideLine' ? [x[0], t('Indented'), 'indent'] : x; });
 		if (LOOK_DRAW[key]) return looksRow(key, items);
 		if (key === 'corners' || key === 'linewidth') return stepSlider(key, label(key), items.map(function (x) { return { id: x[0], label: x[1] }; }), s.get(key), function (id) { s.set(key, id); }, String(x.def)); 
 		if (bare) return pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); });
@@ -451,7 +454,7 @@
 		return '<div class="ldpw-r ldpw-lvrow"><div class="ldpw-top"><span class="ldpw-lb">' + esc(lb) + (LOOK_NOTE[key] ? '<small>' + esc(t(LOOK_NOTE[key])) + '</small>' : '') + '</span><span class="ldpw-val">' + esc(name) + '</span></div>' +
 			'<div class="ldpw-looks' + (list.length !== 6 ? ' is-n' + list.length : '') + '" role="radiogroup" aria-label="' + esc(lb) + '" style="' + esc(lookColours()) + '">' + list.map(function (x) {
 				var on = x[0] === v, nm = level && LOOK_SHORT[x[0]] ? t(LOOK_SHORT[x[0]]) : key === 'links' && x[0] === 'both' ? t('Both') : x[1];
-				return '<button type="button" class="ldpw-lk' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-look="' + key + '" data-v="' + esc(x[0]) + '" data-f="look:' + key + ':' + esc(x[0]) + '"><span class="ldpw-sw8" aria-hidden="true">' + lookPic(draw, (SURFACE_DRAW[key] || {})[x[0]] || x[0]) + '</span><span class="ldpw-nm">' + esc(nm) + '</span></button>';
+				return '<button type="button" class="ldpw-lk' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-look="' + key + '" data-v="' + esc(x[0]) + '" data-f="look:' + key + ':' + esc(x[0]) + '"><span class="ldpw-sw8" aria-hidden="true">' + lookPic(draw, x[2] || (SURFACE_DRAW[key] || {})[x[0]] || x[0]) + '</span><span class="ldpw-nm">' + esc(nm) + '</span></button>';
 			}).join('') + '</div></div>';
 	}
 	function moreButton() { return '<button type="button" class="ldpw-more" aria-expanded="' + more + '" data-act="more" data-f="act:more">' + esc(t(more ? 'Show Less' : 'Show More')) + '</button>'; }
