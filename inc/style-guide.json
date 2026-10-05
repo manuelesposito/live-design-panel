@@ -516,14 +516,14 @@
       "id": "corten",
       "label": "Burnt Sienna",
       "light": {
-        "background": "#b84b30",
-        "text": "#f8f4e9",
-        "accent": "#f8f4e9"
+        "background": "#3a1712",
+        "text": "#f4a585",
+        "accent": "#f4a585"
       },
       "dark": {
-        "background": "#5f1d1a",
-        "text": "#f8f4e9",
-        "accent": "#f8f4e9"
+        "background": "#24100c",
+        "text": "#eb9a7a",
+        "accent": "#eb9a7a"
       }
     },
     {
@@ -544,14 +544,14 @@
       "id": "indigo",
       "label": "Indigo",
       "light": {
-        "background": "#1d3f8f",
-        "text": "#f4f3ee",
-        "accent": "#f4f3ee"
+        "background": "#141f45",
+        "text": "#a9bdf7",
+        "accent": "#a9bdf7"
       },
       "dark": {
-        "background": "#101f4a",
-        "text": "#e6e9f5",
-        "accent": "#e6e9f5"
+        "background": "#0c1430",
+        "text": "#9fb4f2",
+        "accent": "#9fb4f2"
       }
     },
     {
@@ -572,14 +572,14 @@
       "id": "forest",
       "label": "Forest",
       "light": {
-        "background": "#2a5e34",
-        "text": "#f3f2e8",
-        "accent": "#f3f2e8"
+        "background": "#13291a",
+        "text": "#97d4a4",
+        "accent": "#97d4a4"
       },
       "dark": {
-        "background": "#112515",
-        "text": "#e3efe2",
-        "accent": "#e3efe2"
+        "background": "#0b1b10",
+        "text": "#8ccb99",
+        "accent": "#8ccb99"
       }
     }
   ]

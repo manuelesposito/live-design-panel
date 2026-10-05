@@ -92,11 +92,11 @@
 		{ id: 'ultramarine', label: 'Ultramarine', light: { paper: '#1f33c9', ink: '#f2f4ff', accent: '#f2f4ff' }, dark: { paper: '#0a0f33', ink: '#dfe4ff', accent: '#dfe4ff' }, group: 'bold' },
 		{ id: 'flamingo', label: 'Flamingo', light: { paper: '#ffc9da', ink: '#3b0a1f', accent: '#3b0a1f' }, dark: { paper: '#2a0b18', ink: '#ffe0ea', accent: '#ffe0ea' }, group: 'bold' },
 		{ id: 'sandstone', label: 'Venetian Red', light: { paper: '#f8f4e9', ink: '#b84b30', accent: '#b84b30' }, dark: { paper: '#2a1712', ink: '#f0a58e', accent: '#f0a58e' }, group: 'text' },
-		{ id: 'corten', label: 'Burnt Sienna', light: { paper: '#b84b30', ink: '#f8f4e9', accent: '#f8f4e9' }, dark: { paper: '#5f1d1a', ink: '#f8f4e9', accent: '#f8f4e9' }, group: 'text' },
+		{ id: 'corten', label: 'Burnt Sienna', light: { paper: '#3a1712', ink: '#f4a585', accent: '#f4a585' }, dark: { paper: '#24100c', ink: '#eb9a7a', accent: '#eb9a7a' }, group: 'text' },
 		{ id: 'prussian', label: 'Prussian Blue', light: { paper: '#f4f3ee', ink: '#1d3f8f', accent: '#1d3f8f' }, dark: { paper: '#121726', ink: '#a9bdf2', accent: '#a9bdf2' }, group: 'text' },
-		{ id: 'indigo', label: 'Indigo', light: { paper: '#1d3f8f', ink: '#f4f3ee', accent: '#f4f3ee' }, dark: { paper: '#101f4a', ink: '#e6e9f5', accent: '#e6e9f5' }, group: 'text' },
+		{ id: 'indigo', label: 'Indigo', light: { paper: '#141f45', ink: '#a9bdf7', accent: '#a9bdf7' }, dark: { paper: '#0c1430', ink: '#9fb4f2', accent: '#9fb4f2' }, group: 'text' },
 		{ id: 'sapgreen', label: 'Sap Green', light: { paper: '#f3f2e8', ink: '#2a5e34', accent: '#2a5e34' }, dark: { paper: '#131a14', ink: '#9fd0a6', accent: '#9fd0a6' }, group: 'text' },
-		{ id: 'forest', label: 'Forest', light: { paper: '#2a5e34', ink: '#f3f2e8', accent: '#f3f2e8' }, dark: { paper: '#112515', ink: '#e3efe2', accent: '#e3efe2' }, group: 'text' }
+		{ id: 'forest', label: 'Forest', light: { paper: '#13291a', ink: '#97d4a4', accent: '#97d4a4' }, dark: { paper: '#0b1b10', ink: '#8ccb99', accent: '#8ccb99' }, group: 'text' }
 	];
 	var STYLES = [
 		
