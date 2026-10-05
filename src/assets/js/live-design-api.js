@@ -106,7 +106,10 @@
 	}
 	/* the check measures the page as it is drawn after a change */
 	function painted() { return new Promise(function (done) { requestAnimationFrame(function () { requestAnimationFrame(function () { setTimeout(done, 30); }); }); }); }
-	function editableRecord() {
+	/* the site's styles as they are now, before any step (0.32.1): another browser may have changed the one shown here */
+	function fresh() { var e = E(); return e && e.refreshSite ? e.refreshSite(true) : Promise.resolve(false); }
+	function editableRecord() { return fresh().then(editableNow); }
+	function editableNow() {
 		var s = S(), e = E(); if (!s || !e) return Promise.resolve({ error: 'The panel is not ready on this page.' });
 		if (s.editable() && nowRecord()) return Promise.resolve({ record: nowRecord() });
 		var was = e.current();
@@ -283,12 +286,12 @@
 				return { now: explain(), check: check() };
 			});
 		},
-		choose: function (id) {
+		choose: function (id) { return fresh().then(function () {
 			var hit = styleList().filter(function (x) { return x.id === id || String(x.name).toLowerCase() === String(id).toLowerCase(); })[0];
 			if (!hit) return { problems: [{ problem: 'No style "' + id + '". Styles: ' + styleList().map(function (x) { return x.id; }).join(', ') }] };
 			S().choose(hit.id);
 			return until(function () { return E().current() === hit.id; }).then(function () { return { now: explain() }; });
-		},
+		}); },
 		/* PUBLISH, only when the owner asks: the look on the page becomes a style on the site and, unless
 		   { default: false }, what every first visit opens in. On WordPress it is live at once; on a site that is
 		   only files it waits in the browser until the site's file carries it (LDPSite.publish() gives the file). */

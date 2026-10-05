@@ -1540,9 +1540,36 @@
 	var siteSaveTimer = 0, siteSaving = '', siteSent = {};
 	function siteBase(id) { var o = byId(id); return o && o.site ? JSON.stringify(o) : null; }
 	function restoreBase(id, json) { var o = byId(id); if (!o || !o.site) return; try { STYLES[STYLES.indexOf(o)] = JSON.parse(json); } catch (e) {  } }
+	var siteFresh = 0, siteFreshing = null;
+	function refreshSite(now) {
+		if (!PUBLISH || !PUBLISH.url || !window.fetch) return Promise.resolve(false);
+		if (siteFreshing) return siteFreshing;
+		if (!now && Date.now() - siteFresh < 3000) return Promise.resolve(false);
+		siteFreshing = fetch(PUBLISH.url + (PUBLISH.url.indexOf('?') === -1 ? '?' : '&') + 'now=' + Date.now(), { credentials: 'same-origin', cache: 'no-store' })
+			.then(function (r) { return r.ok ? r.json() : null; })
+			.then(function (state) {
+				siteFresh = Date.now();
+				if (!state || !Array.isArray(state.styles)) return false;
+				var was = {}, moved = false;
+				STYLES.forEach(function (o) { if (o.site) was[o.id] = siteBase(o.id); });
+				takeSite(state);
+				STYLES.forEach(function (o) { if (o.site && was[o.id] !== siteBase(o.id)) { moved = true; delete siteSent[o.id]; } });
+				Object.keys(was).forEach(function (id) { if (!byId(id)) { moved = true; delete siteSent[id]; } });
+				if (!moved) return false;
+				var s = byId(current);
+				if (s) { applyNow(s, wanted(s)); applyRoles(); } else apply(STYLES[0], wanted(STYLES[0]));
+				renderHosts();
+				return true;
+			}, function () { return false; })
+			.then(function (v) { siteFreshing = null; return v; });
+		return siteFreshing;
+	}
+	document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') refreshSite(); });
+	window.addEventListener('focus', function () { refreshSite(); });
 	function siteSaveSoon() {
 		if (!PUBLISH) return;
 		var s = byId(current); if (!s || !s.site) return;
+		refreshSite();
 		clearTimeout(siteSaveTimer); siteSaveTimer = setTimeout(siteSaveNow, 1200);
 		root.setAttribute('data-site-saving', s.id); 
 	}
@@ -2431,6 +2458,7 @@
 			});
 		},
 		siteSaving: function (id) { return siteSaving === id || (!!siteSaveTimer && current === id); },
+		refreshSite: function (now) { return refreshSite(now); },
 		updateSite: function () {
 			var s = byId(current); if (!s || !s.site) return Promise.reject(new Error('not a site style'));
 			var record = JSON.parse(this.exportStyle()); record.label = s.label;

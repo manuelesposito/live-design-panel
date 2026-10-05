@@ -2466,9 +2466,44 @@
 	   So each step of Undo and Redo also holds the record it stood on (base), and puts it back with its tweaks. */
 	function siteBase(id) { var o = byId(id); return o && o.site ? JSON.stringify(o) : null; }
 	function restoreBase(id, json) { var o = byId(id); if (!o || !o.site) return; try { STYLES[STYLES.indexOf(o)] = JSON.parse(json); } catch (e) { /* kept as it is */ } }
+	/* THE SITE AS IT IS NOW (0.32.1, Manuel: "fix the helper bug, go"). A page held the site's styles as they were
+	   when it loaded. Another browser changed one (his Focus, edited in his own Chrome) and this page knew nothing:
+	   its next save sent its old copy with its one change in it, and the other browser's colours were gone; and a
+	   save it had sent before counted as still on the site, so sending the saved Focus again was skipped as
+	   "already there" while the helper said "on the site". Now the page asks the site again before a save goes
+	   (siteSaveSoon starts it, the 1.2 s wait covers it), when it comes back into view, and before every AI helper
+	   step. A style the site changed takes the site's version, and what this page changed stands on top of it; what
+	   was sent before counts no more. */
+	var siteFresh = 0, siteFreshing = null;
+	function refreshSite(now) {
+		if (!PUBLISH || !PUBLISH.url || !window.fetch) return Promise.resolve(false);
+		if (siteFreshing) return siteFreshing;
+		if (!now && Date.now() - siteFresh < 3000) return Promise.resolve(false);
+		siteFreshing = fetch(PUBLISH.url + (PUBLISH.url.indexOf('?') === -1 ? '?' : '&') + 'now=' + Date.now(), { credentials: 'same-origin', cache: 'no-store' })
+			.then(function (r) { return r.ok ? r.json() : null; })
+			.then(function (state) {
+				siteFresh = Date.now();
+				if (!state || !Array.isArray(state.styles)) return false;
+				var was = {}, moved = false;
+				STYLES.forEach(function (o) { if (o.site) was[o.id] = siteBase(o.id); });
+				takeSite(state);
+				STYLES.forEach(function (o) { if (o.site && was[o.id] !== siteBase(o.id)) { moved = true; delete siteSent[o.id]; } });
+				Object.keys(was).forEach(function (id) { if (!byId(id)) { moved = true; delete siteSent[id]; } });
+				if (!moved) return false;
+				var s = byId(current);
+				if (s) { applyNow(s, wanted(s)); applyRoles(); } else apply(STYLES[0], wanted(STYLES[0]));
+				renderHosts();
+				return true;
+			}, function () { return false; })
+			.then(function (v) { siteFreshing = null; return v; });
+		return siteFreshing;
+	}
+	document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') refreshSite(); });
+	window.addEventListener('focus', function () { refreshSite(); });
 	function siteSaveSoon() {
 		if (!PUBLISH) return;
 		var s = byId(current); if (!s || !s.site) return;
+		refreshSite();
 		clearTimeout(siteSaveTimer); siteSaveTimer = setTimeout(siteSaveNow, 1200);
 		root.setAttribute('data-site-saving', s.id); /* the window watches the root: it says Saving… until this goes */
 	}
@@ -3823,6 +3858,7 @@
 			});
 		},
 		siteSaving: function (id) { return siteSaving === id || (!!siteSaveTimer && current === id); },
+		refreshSite: function (now) { return refreshSite(now); },
 		updateSite: function () {
 			var s = byId(current); if (!s || !s.site) return Promise.reject(new Error('not a site style'));
 			var record = JSON.parse(this.exportStyle()); record.label = s.label;
