@@ -365,16 +365,20 @@
 		restoreVersion: function (rec) { var s = S(); return !!(s && s.restoreVersion && s.restoreVersion(rec)); },
 		keepVersion: function () { var s = S(); return !!(s && s.keepVersion && s.keepVersion()); },
 		/* WHERE A SITE STYLE BEGAN (0.34.0): the record the site kept the first time it saved, and whether the style now differs from it */
-		startRecord: function () {
+		startRecord: function (id) {
 			var s = S(); if (!s) return null;
-			var id = s.current(), x = s.list.filter(function (y) { return y.id === id; })[0];
+			id = id || s.current(); var x = s.list.filter(function (y) { return y.id === id; })[0];
 			return x && x.site && versionsHeld && versionsHeld.start && versionsHeld.start[id] || null;
 		},
-		startDiffers: function (rec) {
-			var s = S(); if (!s || !rec) return false; var now = s.nowRecord(); if (!now) return false;
-			/* the site writes an empty table as [] and the page as {}: neither names anything, so neither is a difference (found live, 0.34.0) */
-			var tidy = function (o) { var c = {}; Object.keys(o).forEach(function (k) { var v = o[k]; if (v && typeof v === 'object' && !Object.keys(v).length) return; c[k] = v && typeof v === 'object' && !Array.isArray(v) ? tidy(v) : v; }); return c; };
-			var a = tidy(now), b = tidy(rec);
+		/* whether a style differs from where it began: the current one as it stands, another as it is saved on the site (2026-10-05: every tile's ••• carries Reset Style) */
+		startDiffers: function (rec, id) {
+			var s = S(); if (!s || !rec) return false;
+			var cur = !id || id === s.current(), x = cur ? null : s.list.filter(function (y) { return y.id === id; })[0];
+			var now = cur ? s.nowRecord() : x; if (!now) return false;
+			/* the site writes an empty table as [] and the page as {}: neither names anything, so neither is a difference (found live, 0.34.0); a record's own words (id, name, where it lives) are not the look */
+			var skip = { id: 1, label: 1, site: 1, own: 1, architrave: 1, base: 1 };
+			var tidy = function (o, top) { var c = {}; Object.keys(o).forEach(function (k) { var v = o[k]; if (top && skip[k]) return; if (v && typeof v === 'object' && !Object.keys(v).length) return; c[k] = v && typeof v === 'object' && !Array.isArray(v) ? tidy(v) : v; }); return c; };
+			var a = tidy(now, true), b = tidy(rec, true);
 			return !!(style.versionDiff(a, b).length || style.versionDiff(b, a).length);
 		},
 

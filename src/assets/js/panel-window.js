@@ -357,7 +357,7 @@
 		if (more) {
 			var italic = s.hasItalic(face);
 			out += box(stepSlider(P + 'letterSpacing', t('Character spacing'), s.typeLetters.map(function (id) { return { id: id, label: t(LETTER_WORD[id]) }; }), v.letterSpacing, function (id) { s.setType(role, 'letterSpacing', id); }, 'normal') +
-				row(t('Italic'), swBtn('data-rset="italic"', italic && v.italic, t('Italic'), !italic), '', italic ? '' : 'is-off') +
+				row(t('Italic'), swBtn('data-rset="italic"', italic && v.italic, t('Italic'), !italic), italic ? '' : esc(t('This font has no italic')), italic ? '' : 'is-off') + /* why it is grey (2026-10-05, the audit) */
 				row(t('Capitals'), swBtn('data-rset="capitals"', v.capitals, t('Capitals'))));
 		}
 		if (role === 'body') {
@@ -582,7 +582,7 @@
 		return buttonsPreview() +
 			box(popRow('buttonColour', BUTTON_WORD, function (v) { return v === 'text' ? ink : s.colour(v === 'own' ? 'button' : 'accent'); }) + (rounded ? pickRow('buttonShape') : '')) +
 			gtitle(t('Levels')) + box(pickRow('primaryButton') + pickRow('secondaryButton') + (s.guest() ? '' : pickRow('tertiaryButton'))) +
-			gtitle(t('Tags, Links and Menus')) + box(pickRow('tags') + (rounded && s.get('buttonShape') !== 'cards' ? switchRow('tagsMatchButtons', false, esc(t('Tags take the corners of the buttons'))) : '') + pickRow('links') + pickRow('currentItem')) +
+			gtitle(t('Tags, Links and Menus')) + box(pickRow('tags') + (rounded && s.get('buttonShape') !== 'cards' ? switchRow('tagsMatchButtons', s.get('tags') === 'text', esc(t(s.get('tags') === 'text' ? 'Only when tags look like buttons' : 'Tags take the corners of the buttons'))) /* grey while tags are plain text: it has nothing to shape (2026-10-05, the audit) */ : '') + pickRow('links') + pickRow('currentItem')) +
 			hint('A theme’s buttons and an AI’s buttons are sorted into the three levels by what they are.');
 	}
 	/* THE PICTURES, ONE KEY PER ROW (2026-10-03, lab/the-pictures.html): the frame and the fade are one row of looks each, None first */
@@ -676,7 +676,7 @@
 				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited && !x.site ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
 				'<span class="ldpw-nm">' + esc(nm(x)) + '</span>' + (x.isDefault ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') +
 			'</button>' +
-			'<button type="button" class="ldpw-tm" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + nm(x)) + '">' + svg(GLYPH.more) + '</button>' +
+			'<button type="button" class="ldpw-tm' + (changedSince(x) ? ' has-dot' : '') + '" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + nm(x)) + '">' + svg(GLYPH.more) + (changedSince(x) ? '<i class="ldpw-badge" aria-hidden="true"></i>' : '') + '</button>' +
 		'</div>';
 	}
 	/* WHAT A TILE'S MENU OFFERS, the prototype's: Customise; its place on the site; the copy; the way back; the way out */
@@ -685,8 +685,10 @@
 		var out = [['customise', t('Customise')], null, ['default', t('Make Default'), x.isDefault], ['seen', t(x.seen ? 'Hide from Readers' : 'Show to Readers'), x.seen && x.isDefault]];
 		if (x.own || x.site) out.push(['rename', t('Rename…')]);
 		out.push(['duplicate', t('Duplicate')]);
-		var last = [];
-		if (x.edited && !x.site) last.push(['revert', t('Revert to Original')]);
+		/* RESET STYLE ON EVERY TILE (2026-10-05, Manuel: "I also can't find it in that circle menu with the three dots on each style … It's an
+		   important and highly used thing"): always there, the blue dot while the style has changed since it began. It had stood here as Revert
+		   to Original for one's own styles only, and went for the site's when they began to save themselves (0.31.0). */
+		var last = [['reset', t('Reset Style…'), false, changedSince(x) ? 'var(--ldpw-blue)' : '']];
 		if (x.own) last.push(['delete', t('Delete…')]);
 		if (x.site) last.push(['unpublish', t('Remove from Site…')]);
 		return last.length ? out.concat([null], last) : out;
@@ -699,7 +701,7 @@
 		if (a === 'duplicate') { s.duplicate(id); done(t('Duplicated')); return; }
 		if (a === 'default') { s.makeDefault(id).then(function () { done(t('Default')); render(back); }, failed); return; }
 		if (a === 'seen') { btnWrite(s.setSeen(id, !x.seen), back); return; }
-		if (a === 'revert') { s.revert(id); return; }
+		if (a === 'reset') { if (id !== s.current()) s.choose(id); askRevertAll(x); return; }
 		if (a === 'rename') { asking = { title: t('Rename Style'), field: nm(x), go: t('Rename'), back: back, run: function (v) { return s.rename(id, v); } }; return; }
 		if (a === 'delete') { asking = { title: t('Delete “{name}”?').replace('{name}', nm(x)), text: t('You can’t undo this.'), go: t('Delete'), danger: true, back: '[data-sec="styles"]', run: function () { s.remove(id); } }; return; }
 		if (a === 'unpublish') { asking = { title: t('Remove “{name}” from the site?').replace('{name}', nm(x)), text: t('Readers no longer see it. It stays here as one of your own styles.'), go: t('Remove'), danger: true, back: back, run: function () { return s.unpublish(id); } }; return; }
@@ -1083,7 +1085,7 @@
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
 			['saveas', t('Save As…'), !x0 || x0.host] /* no Publish: a style on the site saves itself (0.31.0) */, ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
-			(changedSince(x0, n) ? [null, ['revertall', t('Reset Style…'), false, 'var(--ldpw-blue)']] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']])), pick: function (a) {
+			(x0 && !x0.host ? [null, ['revertall', t('Reset Style…'), false, changedSince(x0, n) ? 'var(--ldpw-blue)' : '']] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']])), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
 			else if (a === 'copycss' || a === 'copyjson') copyCode(a === 'copycss' ? 'css' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
@@ -1146,11 +1148,13 @@
 	/* (2026-10-05, his second word on it: only there when there is something to go back from; no grey entry, a blue dot instead) */
 	function changedSince(x, n) {
 		var s = St(); if (!x || x.host) return false;
-		if (x.site) { var st = s.startRecord ? s.startRecord() : null; return !!(st && s.startDiffers(st)); }
-		return !!n;
+		var cur = x.id === s.current();
+		if (x.site) { var st = s.startRecord ? s.startRecord(x.id) : null; return !!(st && s.startDiffers(st, cur ? null : x.id)); }
+		return cur ? !!n : !!x.edited;
 	}
-	function askRevertAll() {
-		var s = St(), x = s.tile(s.current()), st = x && x.site && s.startRecord ? s.startRecord() : null;
+	function askRevertAll(tile) {
+		var s = St(), x = tile || s.tile(s.current()), st = x && x.site && s.startRecord ? s.startRecord(x.id) : null;
+		if (!changedSince(x, x.id === s.current() ? s.changes().length : undefined)) { done(t('Already as it began')); return; } /* a tile's own menu asks about that tile, put on a moment later (2026-10-05) */
 		if (st) { asking = { title: t('Reset “{name}” to how it began?').replace('{name}', nm(x)), text: t('Every change goes back to how the style was first made. Undo can bring the changes back.'), go: t('Reset Style'), danger: true, back: '[data-menu="barmore"]', run: function () { s.restoreVersion(st); done(t('Reset')); } }; return; }
 		askRevertAllSaved();
 	}

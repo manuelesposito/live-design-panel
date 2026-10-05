@@ -71,7 +71,8 @@
 #ldp-window .ldpw-circ.is-plain:hover:not(:disabled) { background: rgb(var(--ldpw-fx) / .07); }
 #ldp-window .ldpw-circ:active:not(:disabled) { transform: scale(.96); }
 #ldp-window .ldpw-circ:disabled { opacity: .35; cursor: default; }
-#ldp-window .ldpw-circ.has-dot { position: relative; }
+#ldp-window :is(.ldpw-circ, .ldpw-tm).has-dot { position: relative; }
+#ldp-window .ldpw-tm .ldpw-badge { position: absolute; top: 2px; right: 2px; width: 7px; height: 7px; border-radius: 50%; background: var(--ldpw-blue); pointer-events: none; }
 #ldp-window .ldpw-circ .ldpw-badge { position: absolute; top: 5px; right: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--ldpw-blue); pointer-events: none; } 
 #ldp-window .ldpw-scroll { flex: 1; overflow: auto; padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 12px; overscroll-behavior: contain; }
 #ldp-window .ldpw-hint { font-size: 12px; color: var(--ldpw-soft); margin: 0 4px; }
