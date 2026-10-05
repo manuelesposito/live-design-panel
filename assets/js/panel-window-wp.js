@@ -148,6 +148,7 @@
 			var s = S(); if (!s || !isHex(hex)) return;
 			var sd = side();
 			key = PUBLIC[key] || key;
+			if (key === 'highlight') { if (s.setHighlight) s.setHighlight(hex.toLowerCase()); return; }
 			if (key === 'background' || key === 'text') {
 				var other = key === 'background' ? 'text' : 'background', otherHex = cssHex(TOKEN[other]);
 				if (!isHex(ownColours()[other]) && isHex(otherHex)) s.setColour(sd, other, otherHex);

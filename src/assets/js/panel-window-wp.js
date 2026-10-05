@@ -171,6 +171,10 @@
 			var s = S(); if (!s || !isHex(hex)) return;
 			var sd = side();
 			key = PUBLIC[key] || key;
+			/* THE HIGHLIGHTER IS ONE PEN ON BOTH SIDES (0.49.2, Manuel: an own colour set in the editor "doesn't sit in
+			   the colour field"): written on the side shown alone, by night, the day kept the yellow the row had put
+			   on both, and the row and the page read the day's. As the row's pens do, it goes on both sides. */
+			if (key === 'highlight') { if (s.setHighlight) s.setHighlight(hex.toLowerCase()); return; }
 			/* The pair is written whole: a paper alone, over the room's ink, would leave the ladder half this style's. */
 			if (key === 'background' || key === 'text') {
 				var other = key === 'background' ? 'text' : 'background', otherHex = cssHex(TOKEN[other]);
