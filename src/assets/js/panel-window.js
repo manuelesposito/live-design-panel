@@ -240,7 +240,7 @@
 			if (!x) return '<hr>'; /* a line between kinds of action */
 			if (x[0] === '#') return '<div class="ldpw-mgt">' + esc(x[1]) + '</div>'; /* a group's title */
 			var on = x[0] === m.value, radio = m.value !== undefined;
-			return '<button type="button" role="' + (radio ? 'menuitemradio" aria-checked="' + on : 'menuitem') + '" data-pick="' + menu + '|' + x[0] + '" data-f="pick:' + menu + ':' + x[0] + '"' + (x[2] ? ' disabled' : '') + '><span class="ldpw-check" aria-hidden="true">' + (on ? '✓' : '') + '</span>' + (x[3] ? '<i class="ldpw-mdot" style="background:' + esc(x[3]) + '"></i>' : '') + (x[4] && MI[x[4]] ? '<svg class="ldpw-mi" viewBox="0 0 24 24" aria-hidden="true">' + MI[x[4]] + '</svg>' : '') + menuWords(x[1]) + '</button>';
+			return '<button type="button" role="' + (radio ? 'menuitemradio" aria-checked="' + on : 'menuitem') + '" data-pick="' + menu + '|' + x[0] + '" data-f="pick:' + menu + ':' + x[0] + '"' + (x[2] ? ' disabled' : '') + '><span class="ldpw-check" aria-hidden="true">' + (on ? '✓' : x[5] ? '<i class="ldpw-cdot"></i>' : '') + '</span>' + (x[3] ? '<i class="ldpw-mdot" style="background:' + esc(x[3]) + '"></i>' : '') + (x[4] && MI[x[4]] ? '<svg class="ldpw-mi" viewBox="0 0 24 24" aria-hidden="true">' + MI[x[4]] + '</svg>' : '') + menuWords(x[1]) + '</button>';
 		}).join('') + '</div>';
 	}
 
@@ -688,7 +688,7 @@
 		/* RESET STYLE ON EVERY TILE (2026-10-05, Manuel: "I also can't find it in that circle menu with the three dots on each style … It's an
 		   important and highly used thing"): always there, the blue dot while the style has changed since it began. It had stood here as Revert
 		   to Original for one's own styles only, and went for the site's when they began to save themselves (0.31.0). */
-		var last = [['reset', t('Reset Style…'), false, changedSince(x) ? 'var(--ldpw-blue)' : '']];
+		var last = [['reset', t('Reset Style…'), !changedSince(x), '', '', changedSince(x)]]; /* grey while there is nothing to go back from, the dot in the tick's column while there is (his word, 2026-10-05) */
 		if (x.own) last.push(['delete', t('Delete…')]);
 		if (x.site) last.push(['unpublish', t('Remove from Site…')]);
 		return last.length ? out.concat([null], last) : out;
@@ -1085,7 +1085,7 @@
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
 			['saveas', t('Save As…'), !x0 || x0.host] /* no Publish: a style on the site saves itself (0.31.0) */, ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
-			(x0 && !x0.host ? [null, ['revertall', t('Reset Style…'), false, changedSince(x0, n) ? 'var(--ldpw-blue)' : '']] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']])), pick: function (a) {
+			(x0 && !x0.host ? [null, ['revertall', t('Reset Style…'), !changedSince(x0, n), '', '', changedSince(x0, n)]] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']])), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
 			else if (a === 'copycss' || a === 'copyjson') copyCode(a === 'copycss' ? 'css' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }

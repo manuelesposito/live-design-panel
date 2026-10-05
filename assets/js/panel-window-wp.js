@@ -329,7 +329,15 @@
 			var now = cur ? s.nowRecord() : x; if (!now) return false;
 			var skip = { id: 1, label: 1, site: 1, own: 1, architrave: 1, base: 1 };
 			var tidy = function (o, top) { var c = {}; Object.keys(o).forEach(function (k) { var v = o[k]; if (top && skip[k]) return; if (v && typeof v === 'object' && !Object.keys(v).length) return; c[k] = v && typeof v === 'object' && !Array.isArray(v) ? tidy(v) : v; }); return c; };
-			var a = tidy(now, true), b = tidy(rec, true);
+			var form = function (o) {
+				o = JSON.parse(JSON.stringify(o || {})); var r = o.roles = o.roles || {};
+				var put = function (role, k, v) { if (v === undefined || v === null || v === '') return; r[role] = r[role] || {}; if (r[role][k] === undefined) r[role][k] = v; };
+				put('body', 'font', o.face); put('interface', 'font', o.sans);
+				put('body', 'lineHeight', { dense: 'tight', tight: 'snug', airy: 'relaxed', wide: 'loose' }[o.leading]);
+				delete o.face; delete o.sans; delete o.leading;
+				return o;
+			};
+			var a = tidy(form(now), true), b = tidy(form(rec), true);
 			return !!(style.versionDiff(a, b).length || style.versionDiff(b, a).length);
 		},
 		

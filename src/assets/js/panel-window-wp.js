@@ -378,7 +378,17 @@
 			/* the site writes an empty table as [] and the page as {}: neither names anything, so neither is a difference (found live, 0.34.0); a record's own words (id, name, where it lives) are not the look */
 			var skip = { id: 1, label: 1, site: 1, own: 1, architrave: 1, base: 1 };
 			var tidy = function (o, top) { var c = {}; Object.keys(o).forEach(function (k) { var v = o[k]; if (top && skip[k]) return; if (v && typeof v === 'object' && !Object.keys(v).length) return; c[k] = v && typeof v === 'object' && !Array.isArray(v) ? tidy(v) : v; }); return c; };
-			var a = tidy(now, true), b = tidy(rec, true);
+			/* ONE FORM FOR BOTH (2026-10-05, a dot on every tile not on): a style held by the page keeps its fonts and line spacing
+			   lifted out of its roles (face, sans, leading), a saved record keeps them in the roles; put back into the roles before comparing */
+			var form = function (o) {
+				o = JSON.parse(JSON.stringify(o || {})); var r = o.roles = o.roles || {};
+				var put = function (role, k, v) { if (v === undefined || v === null || v === '') return; r[role] = r[role] || {}; if (r[role][k] === undefined) r[role][k] = v; };
+				put('body', 'font', o.face); put('interface', 'font', o.sans);
+				put('body', 'lineHeight', { dense: 'tight', tight: 'snug', airy: 'relaxed', wide: 'loose' }[o.leading]);
+				delete o.face; delete o.sans; delete o.leading;
+				return o;
+			};
+			var a = tidy(form(now), true), b = tidy(form(rec), true);
 			return !!(style.versionDiff(a, b).length || style.versionDiff(b, a).length);
 		},
 
