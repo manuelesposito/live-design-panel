@@ -482,7 +482,8 @@
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
 		if (entry.palette === undefined) entry.palette = 'neutral';
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean' && inRecord(k)) entry[k] = data[k]; });
-		['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { if (typeof entry[k] === 'number') entry[k] = String(entry[k]); }); /* a pasted record may give the four jobs' sizes as numbers */
 		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 3; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } /* only known details, only off their rest */
 		if (data.colours && typeof data.colours === 'object') entry.colours = data.colours;
@@ -557,6 +558,10 @@
 	var LEVELS = {
 		fill: { stops: ['25', '50', '75', '100', '125', '150', '200', '300'], rest: '100', attr: 'data-fill', steps: true },
 		space: { stops: ['xcompact', 'compact', 'standard', 'spacious', 'xspacious'], rest: 'standard', attr: 'data-space', prop: '--space-step' },
+		spaceInside: { stops: ['16', '20', '24', '32', '40', '48'], rest: '32', attr: 'data-space-inside', prop: '--space-inside' },
+		spaceItems: { stops: ['48', '64', '80', '96', '128', '160'], rest: '80', attr: 'data-space-items', prop: '--space-items' },
+		spaceSections: { stops: ['40', '48', '64', '80', '96', '128'], rest: '64', attr: 'data-space-sections', prop: '--space-sections' },
+		spaceTitle: { stops: ['48', '64', '80', '96', '128', '160', '192'], rest: '96', attr: 'data-space-title', prop: '--space-title' },
 		measure: { stops: ['60', '64', '68', '72', '76', '80', '84', '88'], rest: '72', attr: 'data-measure', prop: '--measure-factor' },
 		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
 		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' }
@@ -635,7 +640,7 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own', 'muted'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'reading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'reading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { scope: SCOPE, capLines: ['2', '3', '4'], borderStyle: LINE_STYLE },
 		wells: ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight', 'button', 'title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'],
 		meaning: {
@@ -659,6 +664,10 @@
 			lineLength: 'How many letters a line of reading text holds: 60 to 88 in steps of 4; 72 is the theme\'s own (45 to 75 is the classic range for comfortable reading). The column grows with the text size. On another theme it sets the theme\'s content width.',
 			measure: 'Retired 2026-10-03 and still read: the line length is lineLength now, the same steps.',
 			space: 'The space of the page: xcompact, compact, standard, spacious or xspacious. Standard is the rest, the theme\'s own. Each kind of gap moves by its own amount: inside a group a little, between items more, between sections most, so what belongs together stays together. The reading text of an article keeps its own rhythm.',
+			spaceInside: 'Space inside a group, a style\'s own: a title and the line under it, the date and the text, the padding in a button. 32 is the rest; smaller gaps of the same job follow by the same steps, and a growing gap stops at spaceSections. In px of the theme\'s own scale; the theme\'s own is the rest. On another theme the gaps move by the same number of steps along the scale (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256). On a phone the three big jobs move half as many steps. The Space dial moves all four together, one step at a time.',
+			spaceItems: 'Space between items, a style\'s own: posts in a list, cards in a grid, given per side (two posts stand twice this far apart). 80 is the rest; the room above a heading moves with it. In px of the theme\'s own scale; the theme\'s own is the rest. On another theme the gaps move by the same number of steps along the scale (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256). On a phone the three big jobs move half as many steps. The Space dial moves all four together, one step at a time.',
+			spaceSections: 'Space between sections, a style\'s own: the bands a page is stacked from, the parts at the end of an article. 64 is the rest; a shrinking gap stops at spaceInside. In px of the theme\'s own scale; the theme\'s own is the rest. On another theme the gaps move by the same number of steps along the scale (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256). On a phone the three big jobs move half as many steps. The Space dial moves all four together, one step at a time.',
+			spaceTitle: 'Space above a page\'s title, a style\'s own: the room the title stands in. 96 is the rest. In px of the theme\'s own scale; the theme\'s own is the rest. On another theme the gaps move by the same number of steps along the scale (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256). On a phone the three big jobs move half as many steps. The Space dial moves all four together, one step at a time.',
 			frameWidth: 'Width of the frame around pictures in pixels: 4, 8 (the rest), 12, 16, 24 or 32. Only with a pictureFrame.',
 			framewidth: 'Retired 2026-10-03 and still read: becomes frameWidth, the same steps.',
 			framepattern: 'Retired 2026-10-03 and still read: with the frame on, becomes pictureFrame (plain, dots, checker).',
@@ -1694,6 +1703,8 @@
 		space: function (v) { return { xcompact: '0.5', compact: '0.7', spacious: '1.4', xspacious: '1.8' }[v]; }, /* the two outer steps (Manuel, the same evening, on TT5: "maybe an even tighter version and a more spacious version") */
 		/* FRAME WIDTH (the same morning): the mat around every picture in a piece and on the cards, 8 at rest (--space-2). Only with Frame around pictures. */
 		framewidth: function (v) { return v + 'px'; },
+		/* THE FOUR JOBS OF SPACE (2026-10-05, lab/the-space-of-the-six.html: a style's own table, one size per job on the theme's scale). The custom property only says the size; space.js (the plugin's) reads the attribute and moves each gap by whole steps. */
+		spaceInside: function (v) { return v + 'px'; }, spaceItems: function (v) { return v + 'px'; }, spaceSections: function (v) { return v + 'px'; }, spaceTitle: function (v) { return v + 'px'; },
 		/* THE DOT GRID'S SIZE AND STRENGTH (Manuel, 2026-09-25: "a setting where
 		   they could be changed, like to a bigger grid or a different colour"; his
 		   yes to two sliders and no colour, the dots always the look's own ink).
@@ -2341,7 +2352,7 @@
 	   and this one no longer reads (bold, wide, hyphens, tracking at the top
 	   level) and unaliased role values stayed in a reader's record and kept a
 	   style "adjusted" with nothing to reset. Only what is read survives. */
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -3556,6 +3567,7 @@
 	function entryFromRecord(rec) {
 		var base = liftLeading(JSON.parse(JSON.stringify(savedRecord() || {})), true), e = {}, J = JSON.stringify;
 		rec = liftLeading(JSON.parse(JSON.stringify(rec || {})), true); /* the body's line spacing back onto its dial */
+		['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { if (typeof rec[k] === 'number') rec[k] = String(rec[k]); }); /* the four jobs' sizes may come as numbers */
 		if (DIALS.some(function (d) { return rec[d] !== undefined && rec[d] !== base[d]; })) DIALS.forEach(function (d) { e[d] = rec[d] !== undefined ? rec[d] : base[d]; });
 		TWEAK_KEYS.forEach(function (k) { if (DIALS.indexOf(k) !== -1 || k === 'roles' || k === 'colours' || k === 'effects' || k === 'was') return; if (rec[k] !== undefined && J(rec[k]) !== J(base[k])) e[k] = rec[k]; });
 		var roles = {}, ra = typeOf(rec), rb = typeOf(base);
@@ -4124,7 +4136,7 @@
 			DIALS.forEach(function (d) { out[d] = w[d]; });
 			OPTS.forEach(function (k) { out[k] = optionOn(k); });
 			var loose = followers();
-			out.tint = tintOf(); out.sans = sansOf(); out.scope = scopeOf(); out.pictures = picturesOf(); out.capLines = capLinesOf(); out.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { out[k] = pickOf(k); }); out.line = levelOf('line'); out.fill = levelOf('fill'); out.softlevel = levelOf('softlevel'); out.quietlevel = levelOf('quietlevel'); out.smallsoft = levelOf('smallsoft'); out.linestyle = lineStyleOf(); out.corners = cornersOf(); out.fadeedges = fadeEdgesOf(); out.markercolour = markerColourOf(); out.framepattern = framePatternOf(); out.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { out[k] = layoutOf(k); }); out.space = levelOf('space'); out.framewidth = levelOf('framewidth');
+			out.tint = tintOf(); out.sans = sansOf(); out.scope = scopeOf(); out.pictures = picturesOf(); out.capLines = capLinesOf(); out.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { out[k] = pickOf(k); }); out.line = levelOf('line'); out.fill = levelOf('fill'); out.softlevel = levelOf('softlevel'); out.quietlevel = levelOf('quietlevel'); out.smallsoft = levelOf('smallsoft'); out.linestyle = lineStyleOf(); out.corners = cornersOf(); out.fadeedges = fadeEdgesOf(); out.markercolour = markerColourOf(); out.framepattern = framePatternOf(); out.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { out[k] = layoutOf(k); }); out.space = levelOf('space'); ['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { out[k] = levelOf(k); }); out.framewidth = levelOf('framewidth');
 			loose.forEach(function (k) { delete out[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			if (unlinkedOf()) out.unlinked = true; /* save and update carried it, the text did not: a shared or published style arrived with its sides linked (2026-09-26) */
 			out.roles = typeMerged(s, tw);
@@ -4229,7 +4241,7 @@
 			DIALS.forEach(function (d) { entry[d] = s.host ? now()[d] : w[d]; });
 			OPTS.forEach(function (k) { entry[k] = optionOn(k); });
 			var loose = followers();
-			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { entry[k] = layoutOf(k); }); entry.space = levelOf('space'); entry.framewidth = levelOf('framewidth'); entry.unlinked = unlinkedOf();
+			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { entry[k] = layoutOf(k); }); entry.space = levelOf('space'); ['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { entry[k] = levelOf(k); }); entry.framewidth = levelOf('framewidth'); entry.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete entry[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete entry[k]; }); /* worked out from the colours (2026-10-03) */
 			entry.roles = typeMerged(s, tw); entry.architrave = 3;
@@ -4250,7 +4262,7 @@
 			DIALS.forEach(function (d) { s[d] = w[d]; });
 			OPTS.forEach(function (k) { s[k] = optionOn(k); });
 			var loose = followers();
-			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.line = levelOf('line'); s.fill = levelOf('fill'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { s[k] = layoutOf(k); }); s.space = levelOf('space'); s.framewidth = levelOf('framewidth'); s.unlinked = unlinkedOf();
+			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.line = levelOf('line'); s.fill = levelOf('fill'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { s[k] = layoutOf(k); }); s.space = levelOf('space'); ['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { s[k] = levelOf(k); }); s.framewidth = levelOf('framewidth'); s.unlinked = unlinkedOf();
 			loose.forEach(function (k) { delete s[k]; }); /* a row that only follows soft is not written, so it goes on following */
 			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete s[k]; }); /* worked out from the colours (2026-10-03) */
 			s.roles = typeMerged(s, tw); s.architrave = 3;
@@ -4488,12 +4500,13 @@
 			writeTweaks(all);
 			applyCapLines(); mark();
 		},
-		levels: { line: LEVELS.line.stops, fill: LEVELS.fill.stops, measure: LEVELS.measure.stops, space: LEVELS.space.stops, framewidth: LEVELS.framewidth.stops,  },
+		levels: { line: LEVELS.line.stops, fill: LEVELS.fill.stops, measure: LEVELS.measure.stops, space: LEVELS.space.stops, spaceInside: LEVELS.spaceInside.stops, spaceItems: LEVELS.spaceItems.stops, spaceSections: LEVELS.spaceSections.stops, spaceTitle: LEVELS.spaceTitle.stops, framewidth: LEVELS.framewidth.stops,  },
 		level: function (k) { return LEVELS[k] ? levelOf(k) : ''; },
 		setLevel: function (k, v) {
 			if (k === 'measure') { this.setLayout('lineLength', String(v)); return; } /* the line length's key is lineLength (2026-10-03) */
 			if (k === 'line') { this.setLayout('borderStrength', String(v)); return; }
 			if (k === 'framewidth') { this.setLayout('frameWidth', String(v)); return; }
+			if (/^space[A-Z]/.test(k) && v !== undefined && v !== null) v = String(v); /* the four jobs' sizes are numbers to a person and an AI: 128 is '128' */
 			if (k === 'fill') { this.setLayout('fill', String(v)); return; }
 			var L = LEVELS[k]; if (!L || L.stops.indexOf(v) === -1) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};

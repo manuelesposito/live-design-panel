@@ -37,6 +37,10 @@
       "links",
       "lineLength",
       "space",
+      "spaceInside",
+      "spaceItems",
+      "spaceSections",
+      "spaceTitle",
       "frameWidth",
       "borderStyle",
       "buttonColour",
@@ -83,6 +87,10 @@
       "lineLength",
       "measure",
       "space",
+      "spaceInside",
+      "spaceItems",
+      "spaceSections",
+      "spaceTitle",
       "frameWidth",
       "framewidth",
       "framepattern",
@@ -1781,6 +1789,139 @@
       ],
       "rest": {
         "data-space": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "spaceInside",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "16",
+        "20",
+        "24",
+        "32",
+        "40",
+        "48"
+      ],
+      "def": "32",
+      "attr": "data-space-inside",
+      "prop": "--space-inside",
+      "means": "Space inside a group, a style's own: a title and the line under it, the date and the text, the padding in a button. 32 is the rest; smaller gaps of the same job follow by the same steps, and a growing gap stops at spaceSections. In px of the theme's own scale; the theme's own is the rest. On another theme the gaps move by the same number of steps along the scale (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256). On a phone the three big jobs move half as many steps. The Space dial moves all four together, one step at a time.",
+      "label": "Inside a group",
+      "page": "Layout",
+      "section": "layout",
+      "pageFrom": "kept",
+      "changesPage": "Layout",
+      "attrs": [
+        "data-space-inside"
+      ],
+      "props": [
+        "--space-inside"
+      ],
+      "rest": {
+        "data-space-inside": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "spaceItems",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "48",
+        "64",
+        "80",
+        "96",
+        "128",
+        "160"
+      ],
+      "def": "80",
+      "attr": "data-space-items",
+      "prop": "--space-items",
+      "means": "Space between items, a style's own: posts in a list, cards in a grid, given per side (two posts stand twice this far apart). 80 is the rest; the room above a heading moves with it. In px of the theme's own scale; the theme's own is the rest. On another theme the gaps move by the same number of steps along the scale (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256). On a phone the three big jobs move half as many steps. The Space dial moves all four together, one step at a time.",
+      "label": "Between items",
+      "page": "Layout",
+      "section": "layout",
+      "pageFrom": "kept",
+      "changesPage": "Layout",
+      "attrs": [
+        "data-space-items"
+      ],
+      "props": [
+        "--space-items"
+      ],
+      "rest": {
+        "data-space-items": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "spaceSections",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "40",
+        "48",
+        "64",
+        "80",
+        "96",
+        "128"
+      ],
+      "def": "64",
+      "attr": "data-space-sections",
+      "prop": "--space-sections",
+      "means": "Space between sections, a style's own: the bands a page is stacked from, the parts at the end of an article. 64 is the rest; a shrinking gap stops at spaceInside. In px of the theme's own scale; the theme's own is the rest. On another theme the gaps move by the same number of steps along the scale (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256). On a phone the three big jobs move half as many steps. The Space dial moves all four together, one step at a time.",
+      "label": "Between sections",
+      "page": "Layout",
+      "section": "layout",
+      "pageFrom": "kept",
+      "changesPage": "Layout",
+      "attrs": [
+        "data-space-sections"
+      ],
+      "props": [
+        "--space-sections"
+      ],
+      "rest": {
+        "data-space-sections": false
+      },
+      "inStandardAtRest": false
+    },
+    {
+      "key": "spaceTitle",
+      "group": "level",
+      "table": "LEVELS",
+      "kind": "dial",
+      "steps": [
+        "48",
+        "64",
+        "80",
+        "96",
+        "128",
+        "160",
+        "192"
+      ],
+      "def": "96",
+      "attr": "data-space-title",
+      "prop": "--space-title",
+      "means": "Space above a page's title, a style's own: the room the title stands in. 96 is the rest. In px of the theme's own scale; the theme's own is the rest. On another theme the gaps move by the same number of steps along the scale (2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256). On a phone the three big jobs move half as many steps. The Space dial moves all four together, one step at a time.",
+      "label": "Above the title",
+      "page": "Layout",
+      "section": "layout",
+      "pageFrom": "kept",
+      "changesPage": "Layout",
+      "attrs": [
+        "data-space-title"
+      ],
+      "props": [
+        "--space-title"
+      ],
+      "rest": {
+        "data-space-title": false
       },
       "inStandardAtRest": false
     },

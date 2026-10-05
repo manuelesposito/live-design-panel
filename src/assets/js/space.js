@@ -23,8 +23,32 @@
  *                      button. A button never gets shorter than 40px.
  *
  * The inside always moves least and the sections most, so the order of the
- * gaps never changes and a group can never come apart. On a phone every
- * amount is half as big: a small screen has no air to spare.
+ * gaps never changes and a group can never come apart.
+ *
+ * WHOLE STEPS ON THE SCALE, A STYLE'S OWN TABLE (Manuel, 2026-10-05,
+ * lab/the-space-of-the-six.html: "redo the sheet with the job tables", then
+ * "go"). The amounts above were multipliers, and a style that set its own
+ * rhythm on top of a step stacked two of them: "Spacious" came out tighter
+ * than Standard, and sizes such as 27 or 41 fell between the theme's steps.
+ * Now a gap moves by WHOLE STEPS along one scale (SCALE, the theme's
+ * --space-* steps and on up), so every size it gets is one the theme has. A
+ * style says its own size for four jobs (spaceInside 32, spaceItems 80,
+ * spaceSections 64, spaceTitle 96 at rest: Architrave's own), and each gap of
+ * a job moves by as many steps as its job moved. The Space dial moves all
+ * four by one more step each (Compact one down, Extra spacious two up). Two
+ * rules hold it together: ON A PHONE the three big jobs move half as many
+ * steps, rounded up (the same character with less air; Focus's 256 between
+ * two posts was too much on a phone), inside a group as on a desktop; and
+ * NEVER PAST THE NEXT JOB: a gap inside a group that grows stops at the
+ * style's room between sections, a bigger gap that shrinks stops at its room
+ * inside a group. With no table and the dial at Standard nothing is touched.
+ *
+ * SORTED BY WHAT THE GAP DOES (the same day): three of Architrave's gaps were
+ * taken for space inside a group. The gap between two posts is the padding
+ * of the one box each post's item holds (an item's only child: its padding is
+ * the gap between items); a gap of 64 or more counts as one between sections
+ * (the end of an article: categories, the author box); and the padding above
+ * the box that holds the page's title is the title's own room.
  *
  * NEVER TOUCHED: the reading text of an article (its paragraphs keep their
  * own rhythm; the designed sections inside a page do move), menus, the
@@ -111,17 +135,32 @@
 		}
 		held = [];
 	}
-	/* EACH STEP'S FOUR AMOUNTS: sections, items (and the room above a heading),
-	   inside a group. The inside always moves least, so the order holds at
-	   every step. The two outer steps joined the same evening (Manuel, on
-	   TT5: "maybe an even tighter version and a more spacious version"). */
-	var STEPS = {
-		xcompact: [0.5, 0.75, 0.75],
-		compact: [0.7, 0.85, 0.85],
-		spacious: [1.4, 1.2, 1.15],
-		xspacious: [1.8, 1.4, 1.3]
-	};
-	function stepOf() { return STEPS[root.getAttribute('data-space')] || null; }
+	/* THE SCALE every gap lands on, the dial's steps and the four jobs: G inside
+	   a group, I between items (and the room above a heading), S between
+	   sections, A above the title; each with its attribute and its rest. */
+	var SCALE = [2, 4, 6, 8, 10, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 128, 160, 192, 256];
+	var DIAL = { xcompact: -2, compact: -1, spacious: 1, xspacious: 2 };
+	var JOBS = { G: ['data-space-inside', 32], I: ['data-space-items', 80], S: ['data-space-sections', 64], A: ['data-space-title', 96] };
+	function at(v) { var b = 0; for (var i = 1; i < SCALE.length; i++) if (Math.abs(SCALE[i] - v) < Math.abs(SCALE[b] - v)) b = i; return b; }
+	/* past the scale's top a gap keeps the top step's ratio (4/3 a step), so it never shrinks when it should grow */
+	function stepBy(v, n) {
+		if (v < 3 || !n) return v;
+		var top = SCALE[SCALE.length - 1], w = v > top ? v * Math.pow(top / SCALE[SCALE.length - 2], n) : SCALE[Math.max(0, Math.min(SCALE.length - 1, at(v) + n))];
+		return n > 0 ? Math.max(v, w) : Math.min(v, w);
+	}
+	function half(n) { return n > 0 ? Math.ceil(n / 2) : -Math.ceil(-n / 2); }
+	/* how many steps each job moves on this page, and the style's own size of each; null when nothing moves */
+	function planOf(vw) {
+		var d = DIAL[root.getAttribute('data-space')] || 0, n = {}, size = {}, any = false;
+		Object.keys(JOBS).forEach(function (k) {
+			var own = parseFloat(root.getAttribute(JOBS[k][0])) || JOBS[k][1], i = Math.max(0, Math.min(SCALE.length - 1, at(own) + d));
+			n[k] = i - at(JOBS[k][1]);
+			if (vw <= 720 && k !== 'G') n[k] = half(n[k]);
+			size[k] = SCALE[i];
+			if (n[k]) any = true;
+		});
+		return any ? { n: n, size: size } : null;
+	}
 	/* the reader's text size against the theme's; 1 on Architrave, which does its own */
 	function textOf() { return parseFloat(window.getComputedStyle(root).getPropertyValue('--panel-step-body')) || 1; }
 	function px(v) { return parseFloat(v) || 0; }
@@ -144,24 +183,32 @@
 	function runNow() {
 		document.dispatchEvent(new Event('architrave-space-reading')); /* guest-rows.js takes its own gaps off first */
 		giveBack();
-		var step = stepOf(), T = textOf();
-		if (!step && Math.abs(T - 1) < 0.01) return;
-		step = step || [1, 1, 1];
-		var f = step[0];
+		var T = textOf(), P = planOf(root.clientWidth);
+		if (!P && Math.abs(T - 1) < 0.01) return;
 		var paper = document.querySelector('.content-column') || document.body; /* Architrave's paper; the whole page anywhere else */
 		var W = paper.getBoundingClientRect().width || root.clientWidth;
-		var vw = root.clientWidth;
-		var phone = Math.min(1, Math.max(0.5, 0.5 + 0.5 * (vw - 390) / (1024 - 390)));
-		var S = (1 + (step[0] - 1) * phone) * (1 + (T - 1) * 0.5); /* sections */
-		var I = (1 + (step[1] - 1) * phone) * (1 + (T - 1) * 0.75); /* items, and the room above a heading */
-		var G = (1 + (step[2] - 1) * phone) * T; /* inside a group */
+		/* the reader's text size: inside a group the gaps grow as much as the text, between items three quarters of that, between sections and above the title half */
+		var TF = { S: 1 + (T - 1) * 0.5, I: 1 + (T - 1) * 0.75, G: T, A: 1 + (T - 1) * 0.5, T: T };
+		/* THE TITLE'S ROOM: the nearest box above the page's visible title with its own room on top, that one box only */
+		var titleBox = null, h1 = Array.prototype.find.call(paper.querySelectorAll('h1'), function (h) { var b = h.getBoundingClientRect(); return b.width > 2 && b.height > 2 && !h.closest(SKIP); });
+		for (var tb = h1 && h1.parentElement; tb && tb !== root; tb = tb.parentElement) if (px(window.getComputedStyle(tb).paddingTop) >= 32) { titleBox = tb; break; }
 		var jobs = [], done = new Map();
-		function job(e, n, v) {
+		function job(e, n, v, k) {
 			var own = done.get(e);
 			if (!own) done.set(e, own = {});
 			if (own[n]) return;
 			own[n] = true;
-			jobs.push([e, n, Math.round(v * 10) / 10]);
+			if (k === 'G' && v >= 64) k = 'S';
+			if (k && k !== 'T' && n === 'paddingTop' && e === titleBox) k = 'A';
+			var w = v;
+			/* a height is not a gap: a card's min-height keeps its proportion and is not put on the scale */
+			if (k && k !== 'T' && P && n !== 'minHeight') {
+				w = stepBy(v, P.n[k]);
+				if (k === 'G' && w > v) w = Math.max(v, Math.min(w, P.size.S));
+				if (k !== 'G' && w < v && v > P.size.G) w = Math.max(w, P.size.G);
+			}
+			if (k) w *= TF[k];
+			jobs.push([e, n, Math.round(w * 10) / 10]);
 		}
 		var all = paper.querySelectorAll('*'), list = [], text = [];
 		for (var i = 0; i < all.length; i++) {
@@ -177,8 +224,8 @@
 		/* THE ARTICLE'S GAPS follow its text, and nothing else of it moves */
 		text.forEach(function (x) {
 			var e = x[0], g = x[1];
-			if (e.previousElementSibling && px(g.marginTop) >= 4) job(e, 'marginTop', px(g.marginTop) * T);
-			if (e.nextElementSibling && px(g.marginBottom) >= 4) job(e, 'marginBottom', px(g.marginBottom) * T);
+			if (e.previousElementSibling && px(g.marginTop) >= 4) job(e, 'marginTop', px(g.marginTop), 'T');
+			if (e.nextElementSibling && px(g.marginBottom) >= 4) job(e, 'marginBottom', px(g.marginBottom), 'T');
 		});
 		/* ITEMS first: what stands in a set is never a section of its own */
 		var itemOf = new Set();
@@ -191,7 +238,7 @@
 				var tops = kids.map(function (k) { return Math.round(k.getBoundingClientRect().top); });
 				var sideBySide = tops.some(function (t, n) { return n > 0 && Math.abs(t - tops[0]) < 2; });
 				if (kids.length >= 2 && sideBySide && kids.every(function (k) { return tall(k, 60) && !heading(k); })) {
-					['rowGap', 'columnGap'].forEach(function (n) { if (px(g[n]) >= 8) job(e, n, px(g[n]) * I); });
+					['rowGap', 'columnGap'].forEach(function (n) { if (px(g[n]) >= 8) job(e, n, px(g[n]), 'I'); });
 					kids.forEach(function (k) { itemOf.add(k); });
 				}
 			}
@@ -200,9 +247,12 @@
 				if (kids.length >= 3 && kids.every(function (k) { return tall(k, 28); })) kids.forEach(function (k) {
 					itemOf.add(k);
 					var kg = window.getComputedStyle(k);
-					['paddingTop', 'paddingBottom'].forEach(function (n) { if (px(kg[n]) >= 2) job(k, n, px(kg[n]) * I); });
-					if (px(kg.minHeight) >= 24) job(k, 'minHeight', px(kg.minHeight) * I);
-					if (k.previousElementSibling && px(kg.marginTop) >= 2) job(k, 'marginTop', px(kg.marginTop) * I);
+					['paddingTop', 'paddingBottom'].forEach(function (n) { if (px(kg[n]) >= 2) job(k, n, px(kg[n]), 'I'); });
+					if (px(kg.minHeight) >= 24) job(k, 'minHeight', px(kg.minHeight), 'I');
+					if (k.previousElementSibling && px(kg.marginTop) >= 2) job(k, 'marginTop', px(kg.marginTop), 'I');
+					/* an item that is one box: the box's padding is the gap between items (Architrave's posts) */
+					var one = k.children.length === 1 ? k.firstElementChild : null, og = one && window.getComputedStyle(one);
+					if (og && og.backgroundColor === 'rgba(0, 0, 0, 0)' && og.display !== 'inline' && !one.closest(SKIP) && !frame(og, one.getBoundingClientRect())) ['paddingTop', 'paddingBottom'].forEach(function (n) { if (px(og[n]) >= 16) job(one, n, px(og[n]), 'I'); });
 				});
 			}
 		});
@@ -213,13 +263,13 @@
 			var band = !inItem(e) && (wide || e.matches('header, footer, .wp-block-template-part'));
 			/* A SECTION: its own padding above and below, and the gap to a
 			   neighbour that is itself a block, not the heading it belongs to */
-			if (band && !frame(g, r)) ['paddingTop', 'paddingBottom'].forEach(function (n) { if (px(g[n]) >= 16) job(e, n, px(g[n]) * S); });
+			if (band && !frame(g, r)) ['paddingTop', 'paddingBottom'].forEach(function (n) { if (px(g[n]) >= 16) job(e, n, px(g[n]), 'S'); });
 			var big = !inItem(e) && r.height >= 160 && e.parentElement && r.width >= e.parentElement.getBoundingClientRect().width * 0.9;
 			/* both sides of the gap, since two margins that meet collapse into the larger */
-			if ((wide || big) && prev && !heading(prev) && tall(prev, 60) && px(g.marginTop) >= 16) { job(e, 'marginTop', px(g.marginTop) * S); job(prev, 'marginBottom', px(window.getComputedStyle(prev).marginBottom) * S); }
-			if ((wide || big) && next && !heading(e) && tall(next, 60) && px(g.marginBottom) >= 16) { job(e, 'marginBottom', px(g.marginBottom) * S); job(next, 'marginTop', px(window.getComputedStyle(next).marginTop) * S); }
+			if ((wide || big) && prev && !heading(prev) && tall(prev, 60) && px(g.marginTop) >= 16) { job(e, 'marginTop', px(g.marginTop), 'S'); job(prev, 'marginBottom', px(window.getComputedStyle(prev).marginBottom), 'S'); }
+			if ((wide || big) && next && !heading(e) && tall(next, 60) && px(g.marginBottom) >= 16) { job(e, 'marginBottom', px(g.marginBottom), 'S'); job(next, 'marginTop', px(window.getComputedStyle(next).marginTop), 'S'); }
 			/* A HEADING that starts a new part: room above like an item */
-			if (heading(e) && prev && tall(prev, 60) && e.parentElement.getBoundingClientRect().width >= W * 0.55 && px(g.marginTop) >= 8) job(e, 'marginTop', px(g.marginTop) * I);
+			if (heading(e) && prev && tall(prev, 60) && e.parentElement.getBoundingClientRect().width >= W * 0.55 && px(g.marginTop) >= 8) job(e, 'marginTop', px(g.marginTop), 'I');
 		});
 		/* INSIDE A GROUP: everything else, a little. The page's own side
 		   margins (a wide band's left and right) are the frame, not a gap. */
@@ -237,12 +287,9 @@
 				if (n === 'marginTop' && !e.previousElementSibling) return;
 				if (n === 'marginBottom' && !e.nextElementSibling) return;
 				var v = px(g[n]);
-				if (v >= 4) job(e, n, v * G);
+				if (v >= 4) job(e, n, v, 'G');
 			});
-			if (f < 1 && e.matches('.wp-block-button__link, .wp-element-button, button, input[type="submit"]')) {
-				var h = r.height;
-				if (h * G < 40) job(e, 'minHeight', Math.min(40, h));
-			}
+			if (P && P.n.G < 0 && e.matches('.wp-block-button__link, .wp-element-button, button, input[type="submit"]')) job(e, 'minHeight', Math.min(40, r.height)); /* a button never gets shorter than 40px */
 		});
 		for (var j = 0; j < jobs.length; j++) put(jobs[j][0], PROPS[jobs[j][1]], jobs[j][2]);
 		mend(paper, inItem);
@@ -307,7 +354,7 @@
 	var soon = null;
 	function later() { clearTimeout(soon); soon = setTimeout(run, 200); }
 	/* nothing to do until the reader leaves Standard */
-	function wake() { if (root.hasAttribute('data-space') || held.length || Math.abs(textOf() - 1) >= 0.01) later(); }
+	function wake() { if (root.hasAttribute('data-space') || root.hasAttribute('data-space-inside') || root.hasAttribute('data-space-items') || root.hasAttribute('data-space-sections') || root.hasAttribute('data-space-title') || held.length || Math.abs(textOf() - 1) >= 0.01) later(); }
 	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wake); else wake();
 	window.addEventListener('load', wake);
 	window.addEventListener('resize', wake);
@@ -321,7 +368,7 @@
 		frame = requestAnimationFrame(run);
 	}
 	new MutationObserver(function (list) {
-		var reader = list.some(function (m) { return m.attributeName === 'data-space' || m.attributeName === 'data-reading'; });
-		if (reader && (root.hasAttribute('data-space') || held.length || Math.abs(textOf() - 1) >= 0.01)) now(); else wake();
-	}).observe(root, { attributes: true, attributeFilter: ['data-space', 'data-chosen', 'data-look', 'data-face', 'data-ui-face', 'data-reading', 'data-leading', 'data-measure', 'data-rounded', 'data-corners', 'data-categories', 'data-widepicture'] });
+		var reader = list.some(function (m) { return /^data-space/.test(m.attributeName) || m.attributeName === 'data-reading'; });
+		if (reader && (root.hasAttribute('data-space') || root.hasAttribute('data-space-inside') || root.hasAttribute('data-space-items') || root.hasAttribute('data-space-sections') || root.hasAttribute('data-space-title') || held.length || Math.abs(textOf() - 1) >= 0.01)) now(); else wake();
+	}).observe(root, { attributes: true, attributeFilter: ['data-space', 'data-space-inside', 'data-space-items', 'data-space-sections', 'data-space-title', 'data-chosen', 'data-look', 'data-face', 'data-ui-face', 'data-reading', 'data-leading', 'data-measure', 'data-rounded', 'data-corners', 'data-categories', 'data-widepicture'] });
 }());

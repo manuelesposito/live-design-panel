@@ -196,7 +196,7 @@
 		var face = function (f) { return f === 'body' ? face(body.font) : f === 'interface' ? face(ui.font) : f === 'host' ? 'the theme\'s own font' : f ? s.faceOf(f) : ''; };
 		return name + ': a ' + s.side() + ' page, background ' + s.colour('paper') + ', text ' + s.colour('ink') + ', accent ' + s.colour('accent') + '. ' +
 			'Headings in ' + face(head.font) + ' ' + (head.weight || '') + '; reading text in ' + face(body.font) + ' at ' + body.px + ' px, line spacing ' + body.lineHeight + '. ' +
-			'Space ' + s.get('space') + ', line length ' + s.get('lineLength') + ' letters, corners ' + s.get('radius') + ', lines ' + s.get('borderWidth') + '.';
+			'Space ' + s.get('space') + ' (inside a group ' + s.get('spaceInside') + ', between items ' + s.get('spaceItems') + ', between sections ' + s.get('spaceSections') + ', above the title ' + s.get('spaceTitle') + ' px), line length ' + s.get('lineLength') + ' letters, corners ' + s.get('radius') + ', lines ' + s.get('borderWidth') + '.';
 	}
 	function after(changed, why) {
 		try { S().keepVersion(); } catch (e) { /* Versions keeps what stood already */ }

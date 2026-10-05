@@ -396,6 +396,11 @@ function architrave_panel_words( $words ) {
 		'Line length' => __( 'Line length', 'live-design-panel' ),
 		/* Space, its own dial (2026-09-25, lab/the-space-of-a-page.html); Compact and Standard are above. */
 		'Space' => __( 'Space', 'live-design-panel' ),
+		/* the four jobs of space, a style's own sizes (2026-10-05, lab/the-space-of-the-six.html) */
+		'Inside a group' => __( 'Inside a group', 'live-design-panel' ),
+		'Between items' => __( 'Between items', 'live-design-panel' ),
+		'Between sections' => __( 'Between sections', 'live-design-panel' ),
+		'Above the title' => __( 'Above the title', 'live-design-panel' ),
 		'Spacious' => __( 'Spacious', 'live-design-panel' ),
 		'Extra compact' => __( 'Extra compact', 'live-design-panel' ),
 		'Extra spacious' => __( 'Extra spacious', 'live-design-panel' ),
