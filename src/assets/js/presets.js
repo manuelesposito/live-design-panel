@@ -568,6 +568,9 @@
 	   Architrave, and the two the owner picked (readerPicks, below, for the
 	   two before the owner has picked). The owner sees everything, as before. */
 	var READER = !!window.architravePanelReader;
+	/* THE ORIGINAL (2026-10-05): the theme's own look, Standard on Architrave, the host's look elsewhere. It stands
+	   first among what readers meet, always shown, and is never part of the order the owner drags. */
+	function isOriginal(id) { var x = byId(id); return !!x && (!!x.host || (!GUEST && x.id === 'standard')); }
 	function readerPicks() {
 		if (SITE && Array.isArray(SITE.readers)) return SITE.readers.filter(function (id) { return typeof id === 'string'; }); /* AS MANY AS THE OWNER LIKES (Manuel, 2026-09-23: "make it choosable more than 2, as much as the user likes to show"); two until then */
 		/* Until the owner picks: on a guest, two of the public four (Book is
@@ -3704,9 +3707,8 @@
 			   then the picks in the order For readers holds them, which the owner
 			   drags. */
 			if (READER) {
-				var picks = readerPicks();
-				return all.filter(function (s) { return s.host || s.id === DEFAULT; })
-					.concat(picks.map(function (id) { return all.filter(function (s) { return s.id === id && !s.host && s.id !== DEFAULT; })[0]; }).filter(Boolean));
+				/* Original first, then the owner's order, the default where it stands (2026-10-05) */
+				return this.visibleOrder().map(function (id) { return all.filter(function (s) { return s.id === id; })[0]; }).filter(Boolean);
 			}
 			/* THE OWNER'S ONE GRID (Manuel, 2026-09-23: "the tiles on top and the
 			   tiles below … it's already getting quite crowded"): the site default
@@ -3834,7 +3836,19 @@
 		   published first; Classic is the absence of a default. */
 		makeDefault: function (id) {
 			if (!byId(id)) return Promise.reject(new Error('no style'));
-			return this.setVisible([id].concat(this.visibleOrder().filter(function (x) { return x !== id; }))); /* the old default steps to second place, still seen */
+			/* THE DEFAULT IS CHOSEN, NOT PLACED (2026-10-05): nothing moves; a style not yet shown is shown at the end
+			   (one of your own is published first), Original as the default is no default at all */
+			var self = this, go = byId(id).own ? this.publishOwn(id, false) : Promise.resolve(id);
+			return go.then(function (nid) {
+				nid = nid || id;
+				var order = self.visibleOrder(), wasDefault = SITE['default'] || '', def = isOriginal(nid) ? '' : nid;
+				if (def && order.indexOf(def) === -1) order = order.concat([def]);
+				var picks = order.filter(function (x) { return !isOriginal(x); }), wasReaders = SITE.readers;
+				SITE['default'] = def; SITE.readers = picks.slice(); takeSite(SITE); renderHosts();
+				return sendSite({ action: 'readers', ids: picks })
+					.then(function () { return def !== wasDefault ? sendSite({ action: 'default', id: def }) : null; })
+					.then(function () { mark(); return true; }, function (e) { SITE['default'] = wasDefault; SITE.readers = wasReaders; takeSite(SITE); renderHosts(); throw e; });
+			});
 		},
 		/* SHOWN TO READERS OR NOT, from a tile: one of yours is published and
 		   added; any other is added to or taken off For readers' list. */
@@ -3958,15 +3972,19 @@
 		   at once; the site follows. */
 		visibleOrder: function () {
 			if (PENDING) return PENDING.filter(function (id) { return !!byId(id); });
-			/* ORIGINAL IS ALWAYS SEEN (2026-09-24): first when no style is the default,
-			   else right behind it. It is no pick, so it has no other place. */
-			var first = [DEFAULT].concat(STYLES.filter(function (x) { return x.host && x.id !== DEFAULT; }).map(function (x) { return x.id; }));
-			return first.concat(readerPicks().filter(function (id) { return first.indexOf(id) === -1 && !!byId(id); }));
+			/* THE DEFAULT NO LONGER STANDS FIRST (Manuel, 2026-10-05: "sometimes I want to keep a certain order but I
+			   want to switch the defaults"): Original first, always seen, then the shown styles in the owner's order,
+			   the default among them where it was put. A site saved before kept its default apart from the list; it
+			   is taken in at the front, where it stood. */
+			var first = STYLES.filter(function (x) { return isOriginal(x.id); }).map(function (x) { return x.id; });
+			var picks = readerPicks().filter(function (id) { return first.indexOf(id) === -1 && !!byId(id); });
+			if (DEFAULT && !isOriginal(DEFAULT) && picks.indexOf(DEFAULT) === -1 && byId(DEFAULT)) picks.unshift(DEFAULT);
+			return first.concat(picks.filter(function (id, i) { return picks.indexOf(id) === i; }));
 		},
 		setVisible: function (ids) {
 			var self = this;
 			ids = (ids || []).filter(function (id, i, a) { return !!byId(id) && a.indexOf(id) === i; });
-			if (!ids.length) return Promise.reject(new Error('someone has to be first'));
+			if (!ids.length) return Promise.reject(new Error('nothing to show'));
 			var owns = ids.filter(function (id) { return byId(id).own; });
 			/* THE GRID TAKES THE NEW ORDER AT ONCE (Manuel, 2026-09-24: "it will snap back
 			   for a second to where it was until it's loaded"): one of your own is
@@ -3978,8 +3996,10 @@
 				return p.then(function () { return self.publishOwn(id, false).then(function (nid) { var k = ids.indexOf(id); if (nid && k !== -1) ids[k] = nid; }); });
 			}, Promise.resolve());
 			return chain.then(function () {
-				var picks = ids.slice(1).filter(function (id) { return !byId(id).host; }); /* Original is always offered; it is no pick */
-				var def = ids[0] === NONE ? '' : ids[0];
+				var picks = ids.filter(function (id) { return !isOriginal(id); }); /* Original is always offered; it is no pick */
+				/* the order only: the default stays the default, unless it is no longer shown, when Original takes over (2026-10-05) */
+				var def = SITE['default'] || '';
+				if (def && picks.indexOf(def) === -1) def = '';
 				var wasDefault = SITE['default'] || '', wasReaders = SITE.readers;
 				if (def !== null) SITE['default'] = def;
 				SITE.readers = picks.slice();

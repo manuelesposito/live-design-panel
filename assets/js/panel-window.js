@@ -582,21 +582,22 @@
 		if (!win || !open) return;
 		Array.prototype.forEach.call(win.querySelectorAll('.ldpw-tile[data-style], .ldpw-tile[data-rstyle]'), function (b) { warmFaces(b.getAttribute('data-style') || b.getAttribute('data-rstyle'), false); });
 	}
-	function tileHTML(id) {
+	function tileHTML(id, fixed) {
 		var x = St().tile(id); if (!x) return '';
 		var mk = 'tile:' + id;
 		MENU[mk] = { label: nm(x), items: tileItems(x), pick: function (a) { tileAct(x, a); } };
-		return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '" data-sid="' + esc(id) + '">' +
+		return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"' + (fixed ? '' : ' data-sid="' + esc(id) + '"') + '>' + 
 			'<button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-style="' + esc(id) + '" data-f="style:' + esc(id) + '">' +
 				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited && !x.site ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
-				'<span class="ldpw-nm">' + esc(nm(x)) + '</span>' + (x.isDefault ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') +
+				'<span class="ldpw-nm">' + esc(nm(x)) + (x.isDefault ? ' <em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' + 
 			'</button>' +
 			'<button type="button" class="ldpw-tm' + (changedSince(x) ? ' has-dot' : '') + '" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + nm(x)) + '">' + svg(GLYPH.more) + (changedSince(x) ? '<i class="ldpw-badge" aria-hidden="true"></i>' : '') + '</button>' +
 		'</div>';
 	}
 	function tileItems(x) {
 		if (x.host) return [['customise', t('Duplicate to Customise')], ['duplicate', t('Duplicate')]];
-		var out = [['customise', t('Customise')], null, ['default', t('Make Default'), x.isDefault], ['seen', t(x.seen ? 'Hide from Readers' : 'Show to Readers'), x.seen && x.isDefault]];
+		var orig = St().styles().original === x.id; 
+		var out = [['customise', t('Customise')], null, ['default', t('Make Default'), x.isDefault]].concat(orig ? [] : [['seen', t(x.seen ? 'Hide from Readers' : 'Show to Readers'), x.seen && x.isDefault]]);
 		if (x.own || x.site) out.push(['rename', t('Rename…')]);
 		out.push(['duplicate', t('Duplicate')]);
 		var last = [['reset', t('Reset Style…'), !changedSince(x), '', '', changedSince(x)]]; 
@@ -619,18 +620,13 @@
 	}
 	function stylesPage() {
 		var s = St(), st = s.styles(), out = '';
-		if (st.original) {
-			var o = s.tile(st.original), mk = 'tile:' + st.original;
-			MENU[mk] = { label: nm(o), items: tileItems(o), pick: function (a) { tileAct(o, a); } };
-			out += '<div class="ldpw-stile ldpw-orig' + (o.on ? ' is-on' : '') + '"><button type="button" class="ldpw-origrow" role="radio" aria-checked="' + o.on + '" data-style="' + esc(o.id) + '" data-f="style:' + esc(o.id) + '" style="background:' + esc(o.paper) + ';color:' + esc(o.ink) + (o.face ? ';font-family:' + esc(o.face) : '') + '"><b>' + esc(nm(o)) + '</b><small>' + esc(t('Your theme as it is')) + (st.originalAt === 0 ? ' · ' + esc(t('Default')) : '') + '</small></button>' +
-				'<button type="button" class="ldpw-tm" aria-haspopup="menu" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + nm(o)) + '">' + svg(GLYPH.more) + '</button></div>';
-		}
+		var orig = st.original ? tileHTML(st.original, true) : '';
 		
 		var fold = prefs.fold || {};
 		function head(g, w, n) { var o = !fold[g]; return '<button type="button" class="ldpw-gtitle ldpw-fold" data-fold="' + g + '" data-f="fold:' + g + '" aria-expanded="' + o + '">' + esc(w) + (o ? '' : ' <small>' + n + '</small>') + '</button>'; }
-		out += head('shown', t('Shown to Readers'), st.shown.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.shown ? ' is-folded' : '') + '" data-group="shown" role="radiogroup" aria-label="' + esc(t('Shown to Readers')) + '">' + st.shown.map(tileHTML).join('') + '</div>';
-		out += head('hidden', t('Hidden from Readers'), st.hidden.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.hidden ? ' is-folded' : '') + '" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(tileHTML).join('') + '</div>';
-		return out + '<p class="ldpw-hint">' + esc(t('Drag a style to change its order or to show or hide it. The first one shown is the default.')) + '</p>';
+		out += head('shown', t('Shown to Readers'), st.shown.length + (orig ? 1 : 0)) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.shown ? ' is-folded' : '') + '" data-group="shown" role="radiogroup" aria-label="' + esc(t('Shown to Readers')) + '">' + orig + st.shown.map(function (id) { return tileHTML(id); }).join('') + '</div>';
+		out += head('hidden', t('Hidden from Readers'), st.hidden.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.hidden ? ' is-folded' : '') + '" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(function (id) { return tileHTML(id); }).join('') + '</div>';
+		return out + '<p class="ldpw-hint">' + esc(t('Drag a style to change its order or to show or hide it. Make Default is in each style’s ••• menu.')) + '</p>';
 	}
 	function foot(x, s, deep, built) {
 		var rev = built && s && !editing && !deep && pagePaths(x.id).length ? '<button type="button" class="ldpw-link" data-act="revertpage" data-f="act:revertpage">' + esc(t('Revert {page}').replace('{page}', x.name)) + '</button>' : '';
@@ -677,17 +673,15 @@
 	}
 	function usesLine(pc) { return '<small class="ldpw-uses"><i style="--pc:' + pc + '%" aria-hidden="true"></i>' + esc(t('{n}% of readers').replace('{n}', pc)) + '</small>'; }
 	function readerLists(s) {
-		var st = s.styles(); if (!(st.originalAt > -1) && !(st.original && !s.tile(st.original).host)) return st;
-		var seen = s.visibleOrder().filter(function (x) { var y = s.tile(x); return y && !y.host; });
-		return { original: null, shown: seen, hidden: st.hidden.concat(seen.indexOf(st.original) === -1 && st.original ? [st.original] : []) };
+		return s.styles(); 
 	}
 	function readersPage() {
-		var s = St(), st = readerLists(s), out = '<p class="ldpw-hint">' + esc(t('Readers can choose from the styles turned on. The first one turned on is the default.')) + '</p>';
+		var s = St(), st = readerLists(s), out = '<p class="ldpw-hint">' + esc(t('Readers can choose from the styles turned on. A first visit opens in the default.')) + '</p>';
 		var rows = '', counted = (st.original ? [st.original] : []).concat(st.shown);
 		if (s.readerCounts && s.canPublish && s.canPublish() && !countsAsked) loadCounts();
-		if (st.original) { var o = s.tile(st.original), po = shareOf(st.original, counted); rows += '<div class="ldpw-r"><span class="ldpw-lb">' + esc(nm(o)) + (po === null ? '<small>' + esc(t('Your theme as it is')) + '</small>' : usesLine(po)) + '</span><span class="ldpw-val">' + esc(t('Always shown')) + '</span></div>'; }
+		if (st.original) { var o = s.tile(st.original), po = shareOf(st.original, counted); rows += '<div class="ldpw-r"><span class="ldpw-lb">' + esc(nm(o)) + (po === null ? '<small>' + esc(t('Your theme as it is')) + '</small>' : usesLine(po)) + '</span><span class="ldpw-val">' + esc(t(o.isDefault ? 'Default' : 'Always shown')) + '</span></div>'; }
 		rows += st.shown.map(function (id, i) {
-			var x = s.tile(id), first = i === 0, pc = shareOf(id, counted);
+			var x = s.tile(id), first = !!x.isDefault, pc = shareOf(id, counted); 
 			var handle = '<button type="button" class="ldpw-handle" data-handle="' + esc(id) + '" data-f="handle:' + esc(id) + '" aria-label="' + esc(t('Move {name}').replace('{name}', nm(x))) + '" aria-describedby="ldpw-order-hint"><span aria-hidden="true">≡</span></button>'; 
 			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(nm(x)) + '' + (pc === null ? '<small>' + esc(first ? t('What a first visit opens in') : t('Readers can choose it')) + '</small>' : usesLine(pc)) + '</span>' +
 				(first ? '<span class="ldpw-val">' + esc(t('Default')) + '</span>' : sw2(id, true, x.label)) + handle + '</div>';
@@ -771,10 +765,9 @@
 		return { shown: ids(win.querySelector('.ldpw-sortable[data-group="shown"]')), list: ids(win.querySelector('.ldpw-sortable[data-group="list"]')) };
 	}
 	function commitOrder(o, id) {
-		var s = St(), st0 = s.styles(), before = s.visibleOrder().filter(function (x) { var y = s.tile(x); return y && !y.host; }), next;
+		var s = St(), st0 = s.styles(), before = s.visibleOrder().filter(function (x) { var y = s.tile(x); return y && !y.host && x !== st0.original; }), next;
 		if (o.list) { next = o.list.filter(function (x) { return before.indexOf(x) !== -1; }); }
-		else { next = (o.shown || st0.shown).slice(); if (st0.originalAt > -1) next.splice(Math.min(st0.originalAt, next.length), 0, st0.original); } 
-		if (!next.length) { done(t('At least one style stays shown to readers')); render(); return; }
+		else { next = (o.shown || st0.shown).slice(); } 
 		next = withOriginal(next); before = withOriginal(before);
 		var landed = function () { var el = win.querySelector('[data-sid="' + id + '"]'); if (el) { el.classList.remove('is-landed'); void el.offsetWidth; el.classList.add('is-landed'); } };
 		if (next.join() === before.join()) { render(); landed(); return; }
@@ -1102,7 +1095,7 @@
 		var out = [], seen = {}, holder = document.createElement('div');
 		function collect(where, go) {
 			holder.innerHTML = pageBody(current());
-			holder.querySelectorAll('.ldpw-r > .ldpw-lb, .ldpw-top > .ldpw-lb, .ldpw-navrow > .ldpw-lb, .ldpw-nm, .ldpw-origrow > b').forEach(function (el) {
+			holder.querySelectorAll('.ldpw-r > .ldpw-lb, .ldpw-top > .ldpw-lb, .ldpw-navrow > .ldpw-lb, .ldpw-nm').forEach(function (el) {
 				if (el.closest('.ldpw-looks')) return; 
 				var lb = firstText(el), key = lb + '|' + where;
 				if (!lb || seen[key]) return;
@@ -1156,7 +1149,7 @@
 		render();
 		if (!e.where) { var nav = win.querySelector('[data-sec="' + section + '"]'); if (nav) nav.focus({ preventScroll: true }); return; }
 		var hit = null;
-		win.querySelectorAll('.ldpw-scroll .ldpw-lb, .ldpw-scroll .ldpw-nm, .ldpw-scroll .ldpw-origrow > b').forEach(function (el) { if (!hit && firstText(el) === e.label) hit = el; });
+		win.querySelectorAll('.ldpw-scroll .ldpw-lb, .ldpw-scroll .ldpw-nm').forEach(function (el) { if (!hit && firstText(el) === e.label) hit = el; });
 		if (!hit) return;
 		var rowEl = hit.closest('.ldpw-r, .ldpw-stile, .ldpw-tile') || hit;
 		rowEl.scrollIntoView({ block: 'center' });
@@ -1465,12 +1458,12 @@
 	var readerCopied = false;
 	function readerHTML() {
 		var r = host.reader, s = St(), st = s ? s.styles() : { shown: [], original: null }, ids = r.sizes(), at = ids.indexOf(r.size());
-		var vo = s && s.visibleOrder ? s.visibleOrder() : [], list = (st.original ? [st.original] : []).concat(st.shown), def = vo[0] || st.shown[0]; 
+		var vo = s && s.visibleOrder ? s.visibleOrder() : [], list = (st.original ? [st.original] : []).concat(st.shown), def = s.readerFirst ? s.readerFirst() : (vo[0] || st.shown[0]); 
 		var tiles = list.map(function (id) {
 			var x = s.tile(id); if (!x) return '';
 			return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"><button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-rstyle="' + esc(id) + '" data-f="rstyle:' + esc(id) + '">' +
 				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
-				'<span class="ldpw-nm">' + esc(nm(x)) + (id === def ? ' <em class="ldpw-def">' + esc(t('Default')) + '</em>' : '') + '</span>' + 
+				'<span class="ldpw-nm">' + esc(nm(x)) + (id === def ? ' <em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' + 
 			'</button></div>';
 		}).join('');
 		var stepper = '<div class="ldpw-box ldpw-rsize"><div class="ldpw-cap"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +
@@ -1799,7 +1792,7 @@
 			win.setAttribute('aria-labelledby', 'ldpw-title');
 			win.hidden = true;
 			win.addEventListener('click', onClick);
-			win.addEventListener('pointerdown', function (e) { var b = e.target.closest && e.target.closest('.ldpw-tile[data-style], .ldpw-tile[data-rstyle], .ldpw-origrow[data-style]'); if (b) warmFaces(b.getAttribute('data-style') || b.getAttribute('data-rstyle'), true); }, { passive: true }); 
+			win.addEventListener('pointerdown', function (e) { var b = e.target.closest && e.target.closest('.ldpw-tile[data-style], .ldpw-tile[data-rstyle]'); if (b) warmFaces(b.getAttribute('data-style') || b.getAttribute('data-rstyle'), true); }, { passive: true }); 
 			win.addEventListener('keydown', onKey);
 			win.addEventListener('input', onInput);
 			win.addEventListener('change', onChange);

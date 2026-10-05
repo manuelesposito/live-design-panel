@@ -394,6 +394,7 @@
 	}
 	
 	var READER = !!window.architravePanelReader;
+	function isOriginal(id) { var x = byId(id); return !!x && (!!x.host || (!GUEST && x.id === 'standard')); }
 	function readerPicks() {
 		if (SITE && Array.isArray(SITE.readers)) return SITE.readers.filter(function (id) { return typeof id === 'string'; }); 
 		return [];  
@@ -2337,9 +2338,7 @@
 		shown: function () {
 			var all = STYLES.filter(offered);
 			if (READER) {
-				var picks = readerPicks();
-				return all.filter(function (s) { return s.host || s.id === DEFAULT; })
-					.concat(picks.map(function (id) { return all.filter(function (s) { return s.id === id && !s.host && s.id !== DEFAULT; })[0]; }).filter(Boolean));
+				return this.visibleOrder().map(function (id) { return all.filter(function (s) { return s.id === id; })[0]; }).filter(Boolean);
 			}
 			var seen = this.visibleOrder(), rest = all.filter(function (s) { return seen.indexOf(s.id) === -1; });
 			rest = rest.filter(function (s) { return !s.own && !s.site; })
@@ -2434,7 +2433,17 @@
 		},
 		makeDefault: function (id) {
 			if (!byId(id)) return Promise.reject(new Error('no style'));
-			return this.setVisible([id].concat(this.visibleOrder().filter(function (x) { return x !== id; }))); 
+			var self = this, go = byId(id).own ? this.publishOwn(id, false) : Promise.resolve(id);
+			return go.then(function (nid) {
+				nid = nid || id;
+				var order = self.visibleOrder(), wasDefault = SITE['default'] || '', def = isOriginal(nid) ? '' : nid;
+				if (def && order.indexOf(def) === -1) order = order.concat([def]);
+				var picks = order.filter(function (x) { return !isOriginal(x); }), wasReaders = SITE.readers;
+				SITE['default'] = def; SITE.readers = picks.slice(); takeSite(SITE); renderHosts();
+				return sendSite({ action: 'readers', ids: picks })
+					.then(function () { return def !== wasDefault ? sendSite({ action: 'default', id: def }) : null; })
+					.then(function () { mark(); return true; }, function (e) { SITE['default'] = wasDefault; SITE.readers = wasReaders; takeSite(SITE); renderHosts(); throw e; });
+			});
 		},
 		
 		unpublishKeep: function (id) {
@@ -2527,21 +2536,24 @@
 		},
 		visibleOrder: function () {
 			if (PENDING) return PENDING.filter(function (id) { return !!byId(id); });
-			var first = [DEFAULT].concat(STYLES.filter(function (x) { return x.host && x.id !== DEFAULT; }).map(function (x) { return x.id; }));
-			return first.concat(readerPicks().filter(function (id) { return first.indexOf(id) === -1 && !!byId(id); }));
+			var first = STYLES.filter(function (x) { return isOriginal(x.id); }).map(function (x) { return x.id; });
+			var picks = readerPicks().filter(function (id) { return first.indexOf(id) === -1 && !!byId(id); });
+			if (DEFAULT && !isOriginal(DEFAULT) && picks.indexOf(DEFAULT) === -1 && byId(DEFAULT)) picks.unshift(DEFAULT);
+			return first.concat(picks.filter(function (id, i) { return picks.indexOf(id) === i; }));
 		},
 		setVisible: function (ids) {
 			var self = this;
 			ids = (ids || []).filter(function (id, i, a) { return !!byId(id) && a.indexOf(id) === i; });
-			if (!ids.length) return Promise.reject(new Error('someone has to be first'));
+			if (!ids.length) return Promise.reject(new Error('nothing to show'));
 			var owns = ids.filter(function (id) { return byId(id).own; });
 			PENDING = ids;
 			var chain = owns.reduce(function (p, id) {
 				return p.then(function () { return self.publishOwn(id, false).then(function (nid) { var k = ids.indexOf(id); if (nid && k !== -1) ids[k] = nid; }); });
 			}, Promise.resolve());
 			return chain.then(function () {
-				var picks = ids.slice(1).filter(function (id) { return !byId(id).host; }); 
-				var def = ids[0] === NONE ? '' : ids[0];
+				var picks = ids.filter(function (id) { return !isOriginal(id); }); 
+				var def = SITE['default'] || '';
+				if (def && picks.indexOf(def) === -1) def = '';
 				var wasDefault = SITE['default'] || '', wasReaders = SITE.readers;
 				if (def !== null) SITE['default'] = def;
 				SITE.readers = picks.slice();

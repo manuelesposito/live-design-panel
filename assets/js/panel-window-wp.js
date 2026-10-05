@@ -188,7 +188,7 @@
 			var all = s.shown(), host = all.filter(function (x) { return x.host; })[0], seen = s.visibleOrder();
 			var orig = host ? host.id : (!window.architravePanelGuest && all.some(function (x) { return x.id === 'standard'; }) ? 'standard' : null);
 			var ids = all.filter(function (x) { return !x.host && x.id !== orig; }).map(function (x) { return x.id; });
-			return { original: orig, originalAt: host ? -1 : seen.indexOf(orig), shown: seen.filter(function (id) { return ids.indexOf(id) !== -1; }), hidden: ids.filter(function (id) { return seen.indexOf(id) === -1; }) };
+			return { original: orig, shown: seen.filter(function (id) { return ids.indexOf(id) !== -1; }), hidden: ids.filter(function (id) { return seen.indexOf(id) === -1; }) };
 		},
 		tile: function (id) {
 			var s = S(), x = s ? s.list.filter(function (y) { return y.id === id; })[0] : null; if (!x) return null;
@@ -206,7 +206,7 @@
 					ids.forEach(function (fid) { var f = F.filter(function (y) { return y.id === fid; })[0]; if (f && out.indexOf(f.family) === -1) out.push(f.family); });
 					return out;
 				}()),
-				on: s.current() === id, edited: !!(s.adjusted && s.adjusted(id)), saving: !!(s.siteSaving && s.siteSaving(id)), isDefault: s.visibleOrder()[0] === id, seen: !!(s.seenByReaders && s.seenByReaders(id))
+				on: s.current() === id, edited: !!(s.adjusted && s.adjusted(id)), saving: !!(s.siteSaving && s.siteSaving(id)), isDefault: (s.readerFirst ? s.readerFirst() : s.visibleOrder()[0]) === id , seen: !!(s.seenByReaders && s.seenByReaders(id))
 			};
 		},
 		current: function () { var s = S(); return s ? s.current() : ''; },

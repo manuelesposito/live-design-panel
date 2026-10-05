@@ -179,12 +179,6 @@
 #ldp-window .ldpw-tm { position: absolute; right: 6px; top: 58px; width: 24px; height: 24px; border-radius: 12px; display: grid; place-items: center; background: rgb(0 0 0 / .55); color: #fff; opacity: 0; transition: opacity .12s; }
 #ldp-window .ldpw-tm svg { width: 14px; height: 14px; }
 #ldp-window .ldpw-stile:hover .ldpw-tm, #ldp-window .ldpw-stile:focus-within .ldpw-tm, #ldp-window .ldpw-tm[aria-expanded="true"] { opacity: 1; }
-#ldp-window .ldpw-orig { flex: none; }
-#ldp-window .ldpw-origrow { display: flex; flex-direction: column; gap: 2px; width: 100%; padding: 14px 16px; border-radius: 12px; box-shadow: inset 0 0 0 1px rgb(var(--ldpw-fx) / .08); }
-#ldp-window .ldpw-origrow b { font-size: 19px; font-weight: 700; }
-#ldp-window .ldpw-origrow small { font-size: 12.5px; color: var(--ldpw-soft); font-family: "LDP Inter", "Inter Variable", system-ui, sans-serif; }
-#ldp-window .ldpw-orig.is-on .ldpw-origrow { box-shadow: 0 0 0 2px var(--ldpw-bg), 0 0 0 4px var(--ldpw-blue); }
-#ldp-window .ldpw-orig .ldpw-tm { top: 50%; right: 10px; translate: 0 -50%; }
 #ldp-window .ldpw-menu hr { border: 0; height: 1px; margin: 5px 8px; background: var(--ldpw-line); }
 #ldp-window .ldpw-menu button:disabled { color: color-mix(in srgb, currentColor 35%, transparent); background: none; }
 #ldp-window .ldpw-commit { margin-left: 4px; }
@@ -450,7 +444,6 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-maphint { padding: 0; margin: 8px 0 2px; }
 @font-face { font-family: "LDP Inter"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("../../fonts/inter-latin-opsz-normal.woff2") format("woff2"); }
 #ldp-window { font-family: "LDP Inter", "Inter Variable", system-ui, sans-serif; font-feature-settings: "cv01", "ss03"; }
-#ldp-window .ldpw-origrow small { font-family: inherit; }
 #ldp-window .ldpw-menu .ldpw-mi { width: 16px; height: 16px; flex: none; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
 #ldp-window .ldpw-sfind { cursor: text; }
 #ldp-window .ldpw-sfind:hover { color: var(--ldpw-soft); background: var(--ldpw-row); }
@@ -507,11 +500,8 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-styles .ldpw-nm { line-height: 18px; }
 #ldp-window .ldpw-styles .ldpw-stile:has(> .ldpw-tm) .ldpw-nm { padding-right: 30px; } 
 #ldp-window .ldpw-stile .ldpw-tm { top: calc(100cqw * 88 / 132 + 7px + (18px - 24px) / 2); bottom: auto; right: 0; }
-#ldp-window .ldpw-orig .ldpw-tm { top: 50%; bottom: auto; right: 10px; translate: 0 -50%; }
 #ldp-window .ldpw-lift .ldpw-nm { display: block; text-align: left; margin-top: 7px; }
-#ldp-window .ldpw-origrow small { font-family: "LDP Inter", "Inter Variable", system-ui, sans-serif; }
 #ldp-window, #ldp-window *, .ldpw-goo, .ldpw-glow { text-shadow: none !important; }
-#ldp-window .ldpw-origrow small { color: inherit; opacity: .7; }
 #ldp-window .ldpw-getrow .ldpw-lb { font-size: 15px; }
 #ldp-window .ldpw-get { display: inline-grid; place-items: center; min-width: 58px; height: 28px; padding: 0 14px; border-radius: 14px; background: var(--ldpw-row2); color: var(--ldpw-blue); font-weight: 600; font-size: 13px; letter-spacing: .01em; flex: none; transition: background-color .15s, color .15s, transform .12s; }
 #ldp-window .ldpw-get:hover:not(:disabled) { background: color-mix(in srgb, var(--ldpw-blue) 16%, var(--ldpw-row2)); }
@@ -572,7 +562,6 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 .ldpw-lap span { filter: blur(14px); opacity: 1; }
 .ldpw-lap span i { inset: 0; padding: 5px; }
 #ldp-window.is-reader .ldpw-tiles.ldpw-styles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
-#ldp-window .ldpw-nm .ldpw-def { font-style: normal; font-size: 10px; font-weight: 600; color: var(--ldpw-soft); margin-left: 4px; }
 #ldp-window.is-reader .ldpw-bar .ldpw-blue { flex: none; }
 #ldp-window.is-reader .ldpw-scroll > .ldpw-hint { margin: 4px 2px 0; }
 #ldp-window { --ldpw-fill: rgb(118 118 128 / .24); --ldpw-hover: rgb(118 118 128 / .3); --ldpw-press: rgb(118 118 128 / .48); --ldpw-track: rgb(120 120 128 / .36); --ldpw-chip: #636366; }
@@ -602,11 +591,10 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-ttl b, #ldp-window .ldpw-empty-title, #ldp-window .ldpw-sheet-title { font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
 #ldp-window .ldpw-ttl small, #ldp-window .ldpw-gt, #ldp-window .ldpw-lead, #ldp-window .ldpw-mgt, #ldp-window .ldpw-lk .ldpw-nm { font-size: 12px; }
 #ldp-window .ldpw-gtitle { font-size: 13px; font-weight: 600; }
-#ldp-window :is(.ldpw-hint, .ldpw-note p, .ldpw-sub, .ldpw-field-label, .ldpw-pick label, .ldpw-pick small, .ldpw-hit small, .ldpw-tip, .ldpw-tip b, .ldpw-keys, .ldpw-origrow small, .ldpw-nm, .ldpw-link, .ldpw-more) { font-size: 13px; }
+#ldp-window :is(.ldpw-hint, .ldpw-note p, .ldpw-sub, .ldpw-field-label, .ldpw-pick label, .ldpw-pick small, .ldpw-hit small, .ldpw-tip, .ldpw-tip b, .ldpw-keys, .ldpw-nm, .ldpw-link, .ldpw-more) { font-size: 13px; }
 #ldp-window .ldpw-r .ldpw-lb small { font-size: 13px; }
 #ldp-window .ldpw-r.ldpw-fxd > .ldpw-lb, #ldp-window .ldpw-getrow .ldpw-lb { font-size: 14px; }
-#ldp-window .ldpw-origrow b { font-size: 17px; font-weight: 600; }
-#ldp-window :is(.ldpw-new, .ldpw-def) { font-size: 11px; font-weight: 600; }
+#ldp-window .ldpw-new { font-size: 11px; font-weight: 600; }
 #ldp-window b { font-weight: 600; }
 #ldp-window :is(.ldpw-blue, .ldpw-red) { font-weight: 500; }
 #ldp-window .ldpw-box { border-radius: 12px; }
@@ -677,8 +665,9 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 }
 #ldp-window .ldpw-rlooks + .ldpw-r { box-shadow: inset 0 1px 0 var(--ldpw-line); }
 #ldp-window .ldpw-styles .ldpw-nm, #ldp-window .ldpw-lift .ldpw-nm { margin-top: 10px; }
-#ldp-window .ldpw-stile:not(.ldpw-orig) .ldpw-tm { top: calc(100cqw * 88 / 132 + 10px + (18px - 22px) / 2); }
+#ldp-window .ldpw-stile .ldpw-tm { top: calc(100cqw * 88 / 132 + 10px + (18px - 22px) / 2); }
 #ldp-window .ldpw-stile .ldpw-tm { width: 22px; height: 22px; border-radius: 11px; background: var(--ldpw-fill); color: var(--ldpw-ink); transition: opacity .12s, background-color .15s; }
 #ldp-window .ldpw-stile .ldpw-tm svg { width: 13px; height: 13px; }
 #ldp-window .ldpw-tm[aria-expanded="true"] { background: var(--ldpw-press); }
 @media (hover: hover) { #ldp-window .ldpw-stile .ldpw-tm:hover { background: var(--ldpw-press); } }
+#ldp-window .ldpw-dflt { display: inline-block; margin-left: 5px; padding: 1px 6px; border-radius: 999px; background: var(--ldpw-fill); color: var(--ldpw-ink); font-style: normal; font-size: 10.5px; font-weight: 600; line-height: 15px; vertical-align: 1px; }
