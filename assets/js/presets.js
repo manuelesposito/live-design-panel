@@ -380,7 +380,7 @@
 		DIALS.forEach(function (d) { if (data[d] !== undefined) entry[d] = data[d]; });
 		if (entry.palette === undefined) entry.palette = 'neutral';
 		OPTS.forEach(function (k) { if (typeof data[k] === 'boolean' && inRecord(k)) entry[k] = data[k]; });
-		['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
+		['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links'].forEach(function (k) { if (data[k] !== undefined) entry[k] = data[k]; });
 		['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { if (typeof entry[k] === 'number') entry[k] = String(entry[k]); }); 
 		if (data.roles && typeof data.roles === 'object') { entry.roles = data.roles; entry.architrave = 3; }
 		if (data.effects && typeof data.effects === 'object') { var fx0 = effectsOf({ effects: data.effects }, null); if (Object.keys(fx0).length) entry.effects = fx0; } 
@@ -504,7 +504,7 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own', 'muted'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'reading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'links', 'lineLength', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'reading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'links', 'lineLength', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'effects', 'roles', 'colours'],
 		choices: { scope: SCOPE, capLines: ['2', '3', '4'], borderStyle: LINE_STYLE },
 		wells: ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight', 'button', 'title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'],
 		meaning: {
@@ -601,7 +601,6 @@
 			hairlines: 'Retired 2026-10-03 and still read: with lines at 1, true becomes borderWidth hairline.',
 			tint: 'Retired 2026-10-03 and still read: the accent\'s name becomes the accent colour on both sides.',
 			scope: 'Legacy. The theme always applies paragraph settings everywhere.',
-			unlinked: 'true when the light and dark colours were set independently; false lets one side follow the other.',
 			effects: 'The extras\' details, one object per effect (title, serif, arrival, cardlight, moving, button, pattern, guides, tint, aurora, pointer, dividers, topline, picglow), each holding only the details that differ from their rest; the effect\'s own switch is its flat pick (titlefinish, headitalics, headarrival, cardlight, buttonfinish, toppattern, guides, greytint, pageglow, movinglight) or, for the last four, its look.',
 			roles: 'Typography by seven roles, named for their job and tied to the HTML every site has. title: the one big line of a page (h1, the post title). headings: the headings inside the text (h2 to h6) and the site\'s name. body: what people read (p, li). quote: quotations. meta: small facts around the text (dates, authors, categories, tags, captions). interface: menus, buttons, fields, labels. code: code, pre, kbd. Every role takes font, size, weight, lineHeight, letterSpacing, capitals, italic; title and headings also align; every role also takes a colour (text, mutedText, accent or own). A dial left out is the theme\'s own. size is a step from the role\'s own size (-4 to +6, each 1.125 apart). lineHeight: tight, snug, normal, relaxed, loose. letterSpacing: tighter, tight, normal, wide, wider, widest. Records say architrave 3 (2 before the seven colours); older records with the eight roles are read into the seven.',
 			colours: 'Seven colours per side, named for their job, as hex: background (Paper: the page the text sits on), background2 (Ground: the space around the page and the rails, a theme\'s second background), card (Cards: menus, boxes, fields standing on the page), text, mutedText (Soft text: dates, captions, small facts), accent (the brand colour: links and the main buttons) and highlight (the highlighter\'s colour; left out, none). Beside them the button\'s own colour and each type role\'s own (title, headings, body, quote, meta, interface, code), used with button own and roles.<role>.colour own. Leave out what you do not need: the rest is mixed from background and text. text on background must reach 4.5:1 and accent on background 3:1 on both sides. A background2 on the other side of its background (dark around a light page, light around a dark one) is a dark ground, worn around the page on wide screens with its own words, lines and links. Older records name paper, ink, ground, lift and marker; they are read as these. primary, foreground and muted-foreground are read as accent, text and mutedText.'
@@ -1489,7 +1488,7 @@
 		try { localStorage.removeItem('architrave-links'); } catch (e) {  }
 	}
 	
-	var TWEAK_KEYS = DIALS.concat(OPTS, ['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'unlinked', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
+	var TWEAK_KEYS = DIALS.concat(OPTS, ['pictureFilter', 'colourOnHover', 'dimInDark', 'pictureFrame', 'frameWidth', 'pictureFade', 'pictureShadow', 'pictureCorners', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tagsMatchButtons', 'currentItem', 'lineLength', 'titleWidth', 'pictureWidth', 'figureWidth', 'radius', 'borderWidth', 'borderStyle', 'borderStrength', 'tint', 'sans', 'scope', 'roles', 'colours', 'pictures', 'capLines', 'line', 'fill', 'softlevel', 'quietlevel', 'smallsoft', 'measure', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'framewidth', 'linestyle', 'corners', 'fadeedges', 'markercolour', 'framepattern', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tags', 'chosenitem', 'linewidth', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'piccorners', 'pictureshadow', 'opening', 'widefigures', 'fullpicture', 'categories', 'links', 'preset', 'was', 'effects']).filter(function (k) { return k === 'palette' || inRecord(k); });
 	function cleanTweaks(all) {
 		var out = {};
 		Object.keys(all || {}).forEach(function (id) {
@@ -1765,10 +1764,14 @@
 		return oklchToHex(o);
 	}
 	
-	function unlinkedOf() {
-		var s = byId(current), tw = readTweaks()[current];
-		if (tw && typeof tw.unlinked === 'boolean') return tw.unlinked;
-		return !!(s && s.unlinked);
+	function darkByHand(entry, key, presets) {
+		var d = entry.colours && entry.colours.dark, v = d && (d[key] || d[COLOUR_ENGINE[key]]);
+		if (!v) return false;
+		return !presets.some(function (p) {
+			var pv = '';
+			if (p && p.dark) Object.keys(p.dark).forEach(function (k) { if (colourKey(k) === key) pv = p.dark[k]; });
+			return pv && String(pv).toLowerCase() === String(v).toLowerCase();
+		});
 	}
 	function accentForPaper(hex, paper, min) {
 		min = min || 4.5;
@@ -2421,7 +2424,6 @@
 				pictureFilter: LAYOUT.pictureFilter.list, colourOnHover: 'boolean', dimInDark: 'boolean', pictureFrame: LAYOUT.pictureFrame.list, frameWidth: LAYOUT.frameWidth.list, pictureFade: LAYOUT.pictureFade.list, pictureShadow: LAYOUT.pictureShadow.list, pictureCorners: LAYOUT.pictureCorners.list,
 				buttonColour: LAYOUT.buttonColour.list, buttonShape: LAYOUT.buttonShape.list, primaryButton: LAYOUT.primaryButton.list, secondaryButton: LAYOUT.secondaryButton.list, tertiaryButton: LAYOUT.tertiaryButton.list, tagsMatchButtons: 'boolean', currentItem: LAYOUT.currentItem.list,
 				radius: LAYOUT.radius.list, borderWidth: LAYOUT.borderWidth.list, borderStyle: LAYOUT.borderStyle.list, borderStrength: LAYOUT.borderStrength.list,
-				unlinked: 'boolean',
 				roles: roles,
 				effects: (function () { var o = {}; Object.keys(EFFECTS).forEach(function (fid) { o[fid] = {}; Object.keys(EFFECTS[fid]).forEach(function (d) { o[fid][d] = EFFECTS[fid][d].list; }); }); return o; })(),
 				colours: { light: side, dark: side }
@@ -2664,7 +2666,6 @@
 			['light', 'dark'].forEach(function (sd) { [['ground', 'background2'], ['lift', 'card'], ['muted', 'mutedText']].forEach(function (k) { if (p[sd][k[0]]) entry.colours[sd][k[1]] = p[sd][k[0]]; }); });
 			['light', 'dark'].forEach(function (sd) { Object.keys(keep[sd] || {}).forEach(function (k) { if (BESIDE_PRESET.indexOf(colourKey(k)) !== -1) entry.colours[sd][colourKey(k)] = keep[sd][k]; }); });
 			entry.preset = p.id;
-			delete entry.unlinked; 
 			all[current] = entry;
 			writeTweaks(all);
 			if (!accentOn()) { try { localStorage.removeItem(ACCENT_KEY); } catch (e) {  } applyAccent(); }
@@ -2677,16 +2678,18 @@
 			if (['light', 'dark'].indexOf(side) === -1 || WELL_KEYS.indexOf(key) === -1 || !/^#[0-9a-f]{6}$/i.test(hex || '')) return;
 			var all = readTweaks(), entry = all[current] || {};
 			entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {};
-			if (!unlinkedOf()) {
-				var other = side === 'dark' ? 'light' : 'dark';
-				if (entry.colours[other] && !(key === 'background2' && groundFlip(hex, (coloursResolved()[side] || {}).paper || paperNow(side)))) { delete entry.colours[other][key]; delete entry.colours[other][COLOUR_ENGINE[key]]; if (!Object.keys(entry.colours[other]).length) delete entry.colours[other]; }
-			}
+			var presetsWere = [presetById(presetOf()), presetById((byId(current) || {}).preset)];
+			var dayLeads = function () {
+				if (side !== 'light' || !entry.colours.dark || darkByHand(entry, key, presetsWere)) return;
+				if (key === 'background2' && groundFlip(hex, (coloursResolved().light || {}).paper || paperNow('light'))) return;
+				delete entry.colours.dark[key]; delete entry.colours.dark[COLOUR_ENGINE[key]]; if (!Object.keys(entry.colours.dark).length) delete entry.colours.dark;
+			};
+			dayLeads();
 			delete entry.colours[side][COLOUR_ENGINE[key]];
 			entry.colours[side][key] = hex.toLowerCase();
 			if (BESIDE_PRESET.indexOf(key) === -1) {
 				letGoPreset(entry); 
-				var away = side === 'dark' ? 'light' : 'dark'; 
-				if (!unlinkedOf() && entry.colours[away] && !(key === 'background2' && groundFlip(hex, (coloursResolved()[side] || {}).paper || paperNow(side)))) { delete entry.colours[away][key]; delete entry.colours[away][COLOUR_ENGINE[key]]; }
+				dayLeads(); 
 			}
 			all[current] = entry; writeTweaks(all);
 			applyColours(); mark();
@@ -2710,7 +2713,6 @@
 			var loose = followers();
 			out.tint = tintOf(); out.sans = sansOf(); out.scope = scopeOf(); out.pictures = picturesOf(); out.capLines = capLinesOf(); out.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { out[k] = pickOf(k); }); out.line = levelOf('line'); out.fill = levelOf('fill'); out.softlevel = levelOf('softlevel'); out.quietlevel = levelOf('quietlevel'); out.smallsoft = levelOf('smallsoft'); out.linestyle = lineStyleOf(); out.corners = cornersOf(); out.fadeedges = fadeEdgesOf(); out.markercolour = markerColourOf(); out.framepattern = framePatternOf(); out.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { out[k] = layoutOf(k); }); out.space = levelOf('space'); ['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { out[k] = levelOf(k); }); out.framewidth = levelOf('framewidth');
 			loose.forEach(function (k) { delete out[k]; }); 
-			if (unlinkedOf()) out.unlinked = true; 
 			out.roles = typeMerged(s, tw);
 			var lhOut = { dense: 'tight', tight: 'snug', airy: 'relaxed', wide: 'loose' }[out.leading];
 			delete out.leading;
@@ -2787,7 +2789,7 @@
 			DIALS.forEach(function (d) { entry[d] = s.host ? now()[d] : w[d]; });
 			OPTS.forEach(function (k) { entry[k] = optionOn(k); });
 			var loose = followers();
-			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { entry[k] = layoutOf(k); }); entry.space = levelOf('space'); ['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { entry[k] = levelOf(k); }); entry.framewidth = levelOf('framewidth'); entry.unlinked = unlinkedOf();
+			entry.tint = tintOf(); entry.sans = sansOf(); entry.scope = scopeOf(); entry.pictures = picturesOf(); entry.capLines = capLinesOf(); entry.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { entry[k] = pickOf(k); }); entry.line = levelOf('line'); entry.fill = levelOf('fill'); entry.softlevel = levelOf('softlevel'); entry.quietlevel = levelOf('quietlevel'); entry.smallsoft = levelOf('smallsoft'); entry.linestyle = lineStyleOf(); entry.corners = cornersOf(); entry.fadeedges = fadeEdgesOf(); entry.markercolour = markerColourOf(); entry.framepattern = framePatternOf(); entry.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { entry[k] = layoutOf(k); }); entry.space = levelOf('space'); ['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { entry[k] = levelOf(k); }); entry.framewidth = levelOf('framewidth');
 			loose.forEach(function (k) { delete entry[k]; }); 
 			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete entry[k]; }); 
 			entry.roles = typeMerged(s, tw); entry.architrave = 3;
@@ -2804,7 +2806,7 @@
 			DIALS.forEach(function (d) { s[d] = w[d]; });
 			OPTS.forEach(function (k) { s[k] = optionOn(k); });
 			var loose = followers();
-			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.line = levelOf('line'); s.fill = levelOf('fill'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { s[k] = layoutOf(k); }); s.space = levelOf('space'); ['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { s[k] = levelOf(k); }); s.framewidth = levelOf('framewidth'); s.unlinked = unlinkedOf();
+			s.tint = tintOf(); s.sans = sansOf(); s.scope = scopeOf(); s.pictures = picturesOf(); s.capLines = capLinesOf(); s.button = buttonOf(); Object.keys(PICKS).forEach(function (k) { s[k] = pickOf(k); }); s.line = levelOf('line'); s.fill = levelOf('fill'); s.softlevel = levelOf('softlevel'); s.quietlevel = levelOf('quietlevel'); s.smallsoft = levelOf('smallsoft'); s.linestyle = lineStyleOf(); s.corners = cornersOf(); s.fadeedges = fadeEdgesOf(); s.markercolour = markerColourOf(); s.framepattern = framePatternOf(); s.measure = levelOf('measure'); Object.keys(LAYOUT).forEach(function (k) { s[k] = layoutOf(k); }); s.space = levelOf('space'); ['spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle'].forEach(function (k) { s[k] = levelOf(k); }); s.framewidth = levelOf('framewidth');
 			loose.forEach(function (k) { delete s[k]; }); 
 			ENGINE_ONLY.forEach(function (k) { if (k !== 'palette') delete s[k]; }); 
 			s.roles = typeMerged(s, tw); s.architrave = 3;
@@ -2979,27 +2981,6 @@
 		scopeNow: scopeOf,
 		pictures: PICTURES,
 		picturesNow: picturesOf,
-		linked: function () { return !unlinkedOf(); },
-		setLinked: function (on, side) {
-			var all = readTweaks(), entry = all[current] || {}, s = byId(current);
-			if (on) {
-				var other = side === 'dark' ? 'light' : 'dark';
-				if (entry.colours && entry.colours[other]) { delete entry.colours[other]; if (!Object.keys(entry.colours).length) delete entry.colours; }
-				if (s && s.unlinked) entry.unlinked = false; else delete entry.unlinked;
-			} else {
-				var res = coloursResolved();
-				entry.colours = entry.colours || {};
-				['light', 'dark'].forEach(function (s2) {
-					entry.colours[s2] = entry.colours[s2] || {};
-					['paper', 'ink', 'accent'].forEach(function (k) { if (res[s2][k]) entry.colours[s2][k] = res[s2][k]; });
-					if (!Object.keys(entry.colours[s2]).length) delete entry.colours[s2];
-				});
-				entry.unlinked = true;
-			}
-			if (Object.keys(entry).length) all[current] = entry; else delete all[current];
-			writeTweaks(all);
-			applyColours(); mark();
-		},
 		capLines: ['2', '3', '4'],
 		setCapLines: function (v) {
 			if (CAP_LINES.indexOf(v) === -1) return;

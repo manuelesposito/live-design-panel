@@ -551,7 +551,6 @@ function architrave_panel_words( $words ) {
 		'A removed font downloads again when you pick it.' => __( 'A removed font downloads again when you pick it.', 'live-design-panel' ),
 		'Sharing' => __( 'Sharing', 'live-design-panel' ), /* For readers: may they copy a style (2026-09-23) */
 		'Readers can copy styles' => __( 'Readers can copy styles', 'live-design-panel' ),
-		'Same colours for light and dark' => __( 'Same colours for light and dark', 'live-design-panel' ), /* the layout pass, 2026-09-23 */
 		'Drop cap height' => __( 'Drop cap height', 'live-design-panel' ), /* the layout pass, 2026-09-23 */
 		'Own size' => __( 'Own size', 'live-design-panel' ), /* the layout pass, 2026-09-23 */
 		'Own weight' => __( 'Own weight', 'live-design-panel' ), /* the layout pass, 2026-09-23 */
@@ -1045,7 +1044,6 @@ function live_design_window_words() {
 		'Dates, captions, small facts' => __( 'Dates, captions, small facts', 'live-design-panel' ),
 		'Links and main buttons' => __( 'Links and main buttons', 'live-design-panel' ),
 		'Marked words and selected text' => __( 'Marked words and selected text', 'live-design-panel' ),
-		'Night is worked out from day' => __( 'Night is worked out from day', 'live-design-panel' ),
 		'Night’s Ground' => __( 'Night’s Ground', 'live-design-panel' ),
 		'Day’s Ground' => __( 'Day’s Ground', 'live-design-panel' ),
 		'Text softness' => __( 'Text softness', 'live-design-panel' ),

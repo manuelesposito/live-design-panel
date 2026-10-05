@@ -195,8 +195,7 @@
 		var s = St(), side = s.side();
 		/* APPEARANCE FIRST (0.30.0, Manuel: "I use this all the time and I have to always scroll down"): the pictures
 		   on top of the page, the presets and the seven colours under them */
-		var viewBox = gtitle(t('Appearance')) + box(sidePicks('view', viewWant || s.view()) +
-				(s.editable() ? row(label('unlinked'), sw('unlinked', !s.get('unlinked'), label('unlinked')), esc(t('Night is worked out from day'))) : '')) +
+		var viewBox = gtitle(t('Appearance')) + box(sidePicks('view', viewWant || s.view())) + /* the switch Same colours for light and dark is gone (2026-10-05): the day leads, the night keeps what was set on it */
 			'<p class="ldpw-hint">' + esc(t(side === 'dark' ? 'You are looking at the dark side. The style holds both; readers choose their own.' : 'You are looking at the light side. The style holds both; readers choose their own.')) + '</p>';
 		if (!s.editable()) {
 			return viewBox + box('<div class="ldpw-note"><p>' + esc(t('Original is the theme as it comes, and stays that way. Make a copy to change its colours.')) + '</p><button type="button" class="ldpw-blue" data-act="copy" data-f="act:copy">' + esc(t('Make a Copy')) + '</button></div>');
@@ -1023,8 +1022,8 @@
 
 	/* ===== CHANGES: what differs from the style as it was saved or published, each with its own way back ===== */
 	var DIAL_WORD = { font: 'Font', weight: 'Weight', size: 'Size', letterSpacing: 'Character spacing', capitals: 'Capitals', italic: 'Italic', lineHeight: 'Line spacing', align: 'Alignment', colour: 'Colour' };
-	var TOP_WORD = { face: 'Reading font', sans: 'Interface font', reading: 'Size', leading: 'Line spacing', palette: 'Colour', preset: 'Colour', tint: 'Colour', accent: 'Accent', capLines: 'Drop cap height', unlinked: 'Same colours for light and dark' };
-	var TOP_SECTION = { face: 'type', sans: 'type', reading: 'type', leading: 'type', roles: 'type', capLines: 'type', justify: 'type', dropcap: 'type', hyphenate: 'type', capface: 'type', palette: 'colour', preset: 'colour', tint: 'colour', accent: 'colour', colours: 'colour', unlinked: 'colour', effects: 'effects' };
+	var TOP_WORD = { face: 'Reading font', sans: 'Interface font', reading: 'Size', leading: 'Line spacing', palette: 'Colour', preset: 'Colour', tint: 'Colour', accent: 'Accent', capLines: 'Drop cap height' };
+	var TOP_SECTION = { face: 'type', sans: 'type', reading: 'type', leading: 'type', roles: 'type', capLines: 'type', justify: 'type', dropcap: 'type', hyphenate: 'type', capface: 'type', palette: 'colour', preset: 'colour', tint: 'colour', accent: 'colour', colours: 'colour', effects: 'effects' };
 	function changeName(path) {
 		var p = path.split('.'), s = St();
 		if (p[0] === 'roles') {
@@ -2281,7 +2280,7 @@
 		}
 		if (b.hasAttribute('data-set')) {
 			var k = b.getAttribute('data-set');
-			if (k === 'unlinked') s.set(k, b.getAttribute('aria-checked') === 'true'); else s.set(k, !s.get(k));
+			s.set(k, !s.get(k));
 			render(); return;
 		}
 		if (b.hasAttribute('data-menu')) { var mk = b.getAttribute('data-menu'); menu = menu === mk ? null : mk; render(menu ? (mk === 'secs' ? '[data-menuq]' : '.ldpw-menu [aria-checked="true"]') : null); return; }
