@@ -150,20 +150,20 @@
       "id": "still",
       "label": "Slate",
       "light": {
-        "background": "#edf0f4",
-        "text": "#1b232c",
+        "background": "#f2f2f4",
+        "text": "#1d1d1f",
         "accent": "#0066cc",
-        "background2": "#d9dce0",
-        "card": "#f8f9fb",
-        "mutedText": "#636971"
+        "background2": "#e8e8ec",
+        "card": "#ffffff",
+        "mutedText": "#66666b"
       },
       "dark": {
-        "background": "#1d232a",
-        "text": "#e5eaf0",
+        "background": "#2c2c2e",
+        "text": "#f5f5f7",
         "accent": "#2997ff",
-        "background2": "#12181e",
-        "card": "#2b3138",
-        "mutedText": "#8a8f96"
+        "background2": "#1c1c1e",
+        "card": "#3a3a3c",
+        "mutedText": "#a1a1a6"
       }
     },
     {
@@ -172,7 +172,7 @@
       "light": {
         "background": "#ffffff",
         "text": "#000000",
-        "accent": "#0040c0",
+        "accent": "#000000",
         "background2": "#f2f2f2",
         "card": "#f0f0f0",
         "mutedText": "#4a4a4a"
@@ -180,7 +180,7 @@
       "dark": {
         "background": "#000000",
         "text": "#ffffff",
-        "accent": "#6cb4ff",
+        "accent": "#ffffff",
         "background2": "#000000",
         "card": "#1a1a1a",
         "mutedText": "#c7c7c7"
@@ -188,42 +188,42 @@
     },
     {
       "id": "soft",
-      "label": "Sage",
+      "label": "Dove Grey",
       "light": {
-        "background": "#e6e9e1",
-        "text": "#3c4338",
+        "background": "#e9e7e3",
+        "text": "#4a4845",
         "accent": "#4f6178",
-        "background2": "#d2d5cd",
-        "card": "#f5f6f3",
-        "mutedText": "#61675d"
+        "background2": "#dfddd8",
+        "card": "#e1ded9",
+        "mutedText": "#66635e"
       },
       "dark": {
-        "background": "#262b25",
-        "text": "#b8c0b1",
+        "background": "#2b2b2d",
+        "text": "#a9a9ad",
         "accent": "#8fa3bf",
-        "background2": "#1b1f1a",
-        "card": "#343933",
-        "mutedText": "#8f9689"
+        "background2": "#222224",
+        "card": "#353537",
+        "mutedText": "#8a8a8f"
       }
     },
     {
       "id": "essay",
       "label": "Ivory",
       "light": {
-        "background": "#f8f5ef",
-        "text": "#1e1b18",
-        "accent": "#4a453e",
-        "background2": "#e4e1db",
-        "card": "#fcfbf9",
-        "mutedText": "#716d69"
+        "background": "#fbf8f1",
+        "text": "#26231f",
+        "accent": "#8b1e1e",
+        "background2": "#fbf8f1",
+        "card": "#f3efe6",
+        "mutedText": "#6b665e"
       },
       "dark": {
-        "background": "#1b1917",
-        "text": "#ddd7cd",
-        "accent": "#c9c2b6",
-        "background2": "#100e0d",
-        "card": "#292724",
-        "mutedText": "#88847d"
+        "background": "#1a1917",
+        "text": "#d9d4ca",
+        "accent": "#e08a7c",
+        "background2": "#1a1917",
+        "card": "#24221f",
+        "mutedText": "#9a948a"
       }
     },
     {
