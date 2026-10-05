@@ -1458,12 +1458,12 @@
 	var readerCopied = false;
 	function readerHTML() {
 		var r = host.reader, s = St(), st = s ? s.styles() : { shown: [], original: null }, ids = r.sizes(), at = ids.indexOf(r.size());
-		var vo = s && s.visibleOrder ? s.visibleOrder() : [], list = (st.original ? [st.original] : []).concat(st.shown), def = s.readerFirst ? s.readerFirst() : (vo[0] || st.shown[0]); 
+		var list = (st.original ? [st.original] : []).concat(st.shown); 
 		var tiles = list.map(function (id) {
 			var x = s.tile(id); if (!x) return '';
 			return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"><button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-rstyle="' + esc(id) + '" data-f="rstyle:' + esc(id) + '">' +
 				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
-				'<span class="ldpw-nm">' + esc(nm(x)) + (id === def ? ' <em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' + 
+				'<span class="ldpw-nm">' + esc(nm(x)) + (x.isDefault ? ' <em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' + 
 			'</button></div>';
 		}).join('');
 		var stepper = '<div class="ldpw-box ldpw-rsize"><div class="ldpw-cap"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +

@@ -1636,12 +1636,12 @@
 	var readerCopied = false;
 	function readerHTML() {
 		var r = host.reader, s = St(), st = s ? s.styles() : { shown: [], original: null }, ids = r.sizes(), at = ids.indexOf(r.size());
-		var vo = s && s.visibleOrder ? s.visibleOrder() : [], list = (st.original ? [st.original] : []).concat(st.shown), def = s.readerFirst ? s.readerFirst() : (vo[0] || st.shown[0]); /* the default is first in the order readers meet, Original included (2026-10-01, the panel audit: with Classic as the site's default the badge went to the style after it) */
+		var list = (st.original ? [st.original] : []).concat(st.shown); /* Original first, then the owner's order; the badge goes by each tile's isDefault, as in the owner's grid (0.49.1: the reader's bridge has no readerFirst, so it fell to the first tile) */
 		var tiles = list.map(function (id) {
 			var x = s.tile(id); if (!x) return '';
 			return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"><button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-rstyle="' + esc(id) + '" data-f="rstyle:' + esc(id) + '">' +
 				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
-				'<span class="ldpw-nm">' + esc(nm(x)) + (id === def ? ' <em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' + /* the lab's: Default beside the name */
+				'<span class="ldpw-nm">' + esc(nm(x)) + (x.isDefault ? ' <em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' + /* the lab's: Default beside the name */
 			'</button></div>';
 		}).join('');
 		/* THE READERS' SHEET THE APPLE WAY (0.29.0, lab/the-panel-apple-way.html, change 12): the text size one
