@@ -163,7 +163,6 @@
 		'preset:cobalt': 'cool', 'preset:moss': 'cool', 'preset:lichen': 'cool', 'preset:meadow': 'cool',
 		'pair:terminal': 'bold', 'pair:arcade': 'bold' }; 
 	var LAB_RANK = Object.keys(LAB_GROUP);
-	function titled(w) { var x = t(w); return x !== w ? x : w.replace(/(^|\s)([a-z])/g, function (m, a, b) { return a + b.toUpperCase(); }); }
 	function labRank(p) { if (p.id === 'own') return -1; var i = LAB_RANK.indexOf(p.id); return i === -1 ? 999 : i; }
 	function presetGroup(p) {
 		if (p.id === 'own') return 'everyday'; 
@@ -186,7 +185,7 @@
 			return viewBox + box('<div class="ldpw-note"><p>' + esc(t('Original is the theme as it comes, and stays that way. Make a copy to change its colours.')) + '</p><button type="button" class="ldpw-blue" data-act="copy" data-f="act:copy">' + esc(t('Make a Copy')) + '</button></div>');
 		}
 		var out = viewBox;
-		var nmOf = function (p) { return p.fixed ? p.label : titled(p.label); }; 
+		var nmOf = function (p) { return p.label; }; 
 		var tile = function (p) {
 			return '<button type="button" class="ldpw-tile' + (p.on ? ' is-on' : '') + '" role="radio" aria-checked="' + !!p.on + '" data-preset="' + esc(p.id) + '" data-f="preset:' + esc(p.id) + '">' +
 				'<span class="ldpw-pic" style="background:' + esc(p.paper) + ';--pi:' + esc(p.ink) + ';--pa:' + esc(p.accent) + '" aria-hidden="true"><i></i><i></i><i></i></span><span class="ldpw-nm">' + (p.fresh ? '<span class="ldpw-nmt">' + esc(nmOf(p)) + '</span><em class="ldpw-new">' + esc(t('New')) + '</em>' : esc(nmOf(p))) + '</span></button>';
@@ -974,7 +973,7 @@
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
 			['saveas', t('Save As…'), !x0 || x0.host] , ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
-			[null, ['revertall', t('Reset Style…'), resetOff(x0, n)], null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']]), pick: function (a) {
+			(changedSince(x0, n) ? [null, ['revertall', t('Reset Style…'), false, 'var(--ldpw-blue)']] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']])), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
 			else if (a === 'copycss' || a === 'copyjson') copyCode(a === 'copycss' ? 'css' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
@@ -987,7 +986,8 @@
 			else if (a === 'bigger' || a === 'smaller' || a === 'actual') zoomBy(a);
 			else barAct(a);
 		} };
-		return '<button type="button" class="ldpw-circ" aria-haspopup="menu" aria-expanded="' + (menu === 'barmore') + '" data-menu="barmore" data-f="menu:barmore" aria-label="' + esc(t('More')) + '" title="' + esc(t('More')) + '">' + svg(GLYPH.more) + '</button>';
+		var dot = changedSince(x0, n);
+		return '<button type="button" class="ldpw-circ' + (dot ? ' has-dot' : '') + '" aria-haspopup="menu" aria-expanded="' + (menu === 'barmore') + '" data-menu="barmore" data-f="menu:barmore" aria-label="' + esc(t('More') + (dot ? ', ' + t('Changed') : '')) + '" title="' + esc(t('More')) + '">' + svg(GLYPH.more) + (dot ? '<i class="ldpw-badge" aria-hidden="true"></i>' : '') + '</button>';
 	}
 	function barAct(a) {
 		if (a === 'undo') { var s = St(); if (s && s.canUndo()) { s.undo(); render('[data-menu="barmore"]'); } }
@@ -1026,10 +1026,11 @@
 		}, fail: t('That isn’t a style link. Copy one with Copy Style as a Link, then paste it here.') };
 		render('#ldpw-ask-field');
 	}
-	function resetOff(x, n) {
-		var s = St(); if (!x || x.host) return true;
-		if (x.site) { var st = s.startRecord ? s.startRecord() : null; return !(st && s.startDiffers(st)); }
-		return !n;
+	
+	function changedSince(x, n) {
+		var s = St(); if (!x || x.host) return false;
+		if (x.site) { var st = s.startRecord ? s.startRecord() : null; return !!(st && s.startDiffers(st)); }
+		return !!n;
 	}
 	function askRevertAll() {
 		var s = St(), x = s.tile(s.current()), st = x && x.site && s.startRecord ? s.startRecord() : null;

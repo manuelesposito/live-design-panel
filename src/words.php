@@ -262,12 +262,8 @@ function architrave_panel_words( $words ) {
 		'Rose'         => _x( 'Rose', 'an accent colour', 'live-design-panel' ),
 		'Slate'        => _x( 'Slate', 'an accent colour', 'live-design-panel' ),
 		'Stone'        => _x( 'Stone', 'an accent colour', 'live-design-panel' ),
-		'Jade valley'   => _x( 'Jade valley', 'a colour preset', 'live-design-panel' ),
-		'Ember rock'    => _x( 'Ember rock', 'a colour preset', 'live-design-panel' ),
-		'Blue hour'     => _x( 'Blue hour', 'a colour preset', 'live-design-panel' ),
 		'Risograph'     => __( 'Risograph', 'live-design-panel' ), /* the style, and the Pictures value (2026-10-02) */
 		'The pictures printed in the accent on the paper with a fine grain, as a one-ink press prints them.' => __( 'The pictures printed in the accent on the paper with a fine grain, as a one-ink press prints them.', 'live-design-panel' ),
-		'Mallow evening' => _x( 'Mallow evening', 'a colour preset', 'live-design-panel' ),
 		'Custom paper'  => __( 'Custom paper', 'live-design-panel' ),
 		'Custom ink'    => __( 'Custom ink', 'live-design-panel' ),
 		'Custom accent' => __( 'Custom accent', 'live-design-panel' ), /* the third editor, under Eigene (2026-09-17) */
@@ -521,14 +517,6 @@ function architrave_panel_words( $words ) {
 		'Top rule' => __( 'Top rule', 'live-design-panel' ), /* the lift row on Colour › Custom (2026-09-26); Ground is above */
 		'Highlighter' => __( 'Highlighter', 'live-design-panel' ),
 		'Highlighter colour' => __( 'Highlighter colour', 'live-design-panel' ),
-		'Vermilion' => _x( 'Vermilion', 'a colour preset', 'live-design-panel' ),
-		'Ultramarine' => _x( 'Ultramarine', 'a colour preset', 'live-design-panel' ),
-		'Cadmium yellow' => _x( 'Cadmium yellow', 'a colour preset', 'live-design-panel' ),
-		'Flamingo' => _x( 'Flamingo', 'a colour preset', 'live-design-panel' ),
-		'Viridian' => _x( 'Viridian', 'a colour preset', 'live-design-panel' ),
-		'Ultraviolet' => _x( 'Ultraviolet', 'a colour preset', 'live-design-panel' ),
-		'Tangerine' => _x( 'Tangerine', 'a colour preset', 'live-design-panel' ),
-		'Lagoon' => _x( 'Lagoon', 'a colour preset', 'live-design-panel' ),
 		'New' => _x( 'New', 'a badge on a colour preset added lately', 'live-design-panel' ),
 		'The pictures in the pair’s paper and its accent colour.' => __( 'The pictures in the pair’s paper and its accent colour.', 'live-design-panel' ),
 		'The pictures in printed dots, as a newspaper screens them.' => __( 'The pictures in printed dots, as a newspaper screens them.', 'live-design-panel' ),

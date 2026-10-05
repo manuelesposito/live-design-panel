@@ -148,27 +148,27 @@
   "colourPresets": [
     {
       "id": "still",
-      "label": "Still",
+      "label": "Slate",
       "light": {
-        "background": "#f2f2f4",
-        "text": "#1d1d1f",
+        "background": "#edf0f4",
+        "text": "#1b232c",
         "accent": "#0066cc",
-        "background2": "#e8e8ec",
-        "card": "#ffffff",
-        "mutedText": "#66666b"
+        "background2": "#d9dce0",
+        "card": "#f8f9fb",
+        "mutedText": "#636971"
       },
       "dark": {
-        "background": "#2c2c2e",
-        "text": "#f5f5f7",
+        "background": "#1d232a",
+        "text": "#e5eaf0",
         "accent": "#2997ff",
-        "background2": "#1c1c1e",
-        "card": "#3a3a3c",
-        "mutedText": "#a1a1a6"
+        "background2": "#12181e",
+        "card": "#2b3138",
+        "mutedText": "#8a8f96"
       }
     },
     {
       "id": "clear",
-      "label": "Clear",
+      "label": "Titanium White",
       "light": {
         "background": "#ffffff",
         "text": "#000000",
@@ -188,47 +188,47 @@
     },
     {
       "id": "soft",
-      "label": "Soft",
+      "label": "Sage",
       "light": {
-        "background": "#e9e7e3",
-        "text": "#4a4845",
+        "background": "#e6e9e1",
+        "text": "#3c4338",
         "accent": "#4f6178",
-        "background2": "#dfddd8",
-        "card": "#e1ded9",
-        "mutedText": "#66635e"
+        "background2": "#d2d5cd",
+        "card": "#f5f6f3",
+        "mutedText": "#61675d"
       },
       "dark": {
-        "background": "#2b2b2d",
-        "text": "#a9a9ad",
+        "background": "#262b25",
+        "text": "#b8c0b1",
         "accent": "#8fa3bf",
-        "background2": "#222224",
-        "card": "#353537",
-        "mutedText": "#8a8a8f"
+        "background2": "#1b1f1a",
+        "card": "#343933",
+        "mutedText": "#8f9689"
       }
     },
     {
       "id": "essay",
-      "label": "Essay",
+      "label": "Ivory",
       "light": {
-        "background": "#fbf8f1",
-        "text": "#26231f",
+        "background": "#f8f5ef",
+        "text": "#1e1b18",
         "accent": "#4a453e",
-        "background2": "#fbf8f1",
-        "card": "#f3efe6",
-        "mutedText": "#6b665e"
+        "background2": "#e4e1db",
+        "card": "#fcfbf9",
+        "mutedText": "#716d69"
       },
       "dark": {
-        "background": "#1a1917",
-        "text": "#d9d4ca",
+        "background": "#1b1917",
+        "text": "#ddd7cd",
         "accent": "#c9c2b6",
-        "background2": "#1a1917",
-        "card": "#24221f",
-        "mutedText": "#9a948a"
+        "background2": "#100e0d",
+        "card": "#292724",
+        "mutedText": "#88847d"
       }
     },
     {
       "id": "folio",
-      "label": "Folio",
+      "label": "Sepia",
       "light": {
         "background": "#f8f1e3",
         "text": "#4f321c",
@@ -248,7 +248,7 @@
     },
     {
       "id": "moss",
-      "label": "Jade valley",
+      "label": "Jade",
       "light": {
         "background": "#eaf0e6",
         "text": "#1c2a1c",
@@ -262,7 +262,7 @@
     },
     {
       "id": "brick",
-      "label": "Ember rock",
+      "label": "Terracotta",
       "light": {
         "background": "#f5e9e2",
         "text": "#2b1d18",
@@ -276,7 +276,7 @@
     },
     {
       "id": "cobalt",
-      "label": "Blue hour",
+      "label": "Cobalt",
       "light": {
         "background": "#eef1f8",
         "text": "#16203a",
@@ -290,7 +290,7 @@
     },
     {
       "id": "meadow",
-      "label": "Meadow morning",
+      "label": "Pistachio",
       "light": {
         "background": "#9dd36f",
         "text": "#2c2e2a",
@@ -304,7 +304,7 @@
     },
     {
       "id": "lichen",
-      "label": "Lichen night",
+      "label": "Lichen",
       "light": {
         "background": "#f7f7f5",
         "text": "#222f30",
@@ -318,7 +318,7 @@
     },
     {
       "id": "corten",
-      "label": "Corten field",
+      "label": "Burnt Sienna",
       "light": {
         "background": "#b84b30",
         "text": "#f8f4e9",
@@ -332,7 +332,7 @@
     },
     {
       "id": "sandstone",
-      "label": "Sandstone",
+      "label": "Venetian Red",
       "light": {
         "background": "#f8f4e9",
         "text": "#b84b30",
@@ -346,7 +346,7 @@
     },
     {
       "id": "plum",
-      "label": "Mallow evening",
+      "label": "Mauve",
       "light": {
         "background": "#f2ecf3",
         "text": "#271e2c",
@@ -388,7 +388,7 @@
     },
     {
       "id": "cadmium",
-      "label": "Cadmium yellow",
+      "label": "Cadmium Yellow",
       "light": {
         "background": "#ffd23f",
         "text": "#231c00",
