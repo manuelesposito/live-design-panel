@@ -33,7 +33,6 @@
       "pictureFilter",
       "capLines",
       "borderStrength",
-      "fill",
       "links",
       "lineLength",
       "space",
@@ -52,7 +51,6 @@
       "currentItem",
       "cards",
       "quotes",
-      "notes",
       "fields",
       "paragraphs",
       "capface",
@@ -605,7 +603,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 565,
+        "line": 555,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -638,7 +636,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 590,
+        "line": 581,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -657,21 +655,19 @@
       "kind": "pick",
       "choices": [
         "filled",
-        "fillOnly",
-        "raised",
-        "topLine",
-        "cornerMarks"
+        "outlined",
+        "raised"
       ],
       "def": "filled",
       "attr": "data-cards",
-      "means": "How cards look: filled (the rest: the card's fill and, with lines, its line), fillOnly (the fill without a line even with lines), raised (the paper, lifted by a shadow), topLine (a line along the top only, no fill, square; only with lines) or cornerMarks (only the four corners drawn). Architrave's page only.",
+      "means": "How cards and boxes look: the theme's cards (link cards, the support box) and a box the writer coloured in an article (a Group block with a background): filled (the rest: the card's own fill, and with lines its line), outlined (a line on the paper, whatever the lines setting; a coloured box keeps its colour) or raised (lifted by a shadow).",
       "label": "Cards",
       "page": "Corners and lines",
       "section": "corners-and-lines",
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 571,
+        "line": 563,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -703,7 +699,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 571,
+        "line": 563,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -712,37 +708,6 @@
       ],
       "rest": {
         "data-quotes": "ABSENT"
-      },
-      "inStandardAtRest": false
-    },
-    {
-      "key": "notes",
-      "group": "pick",
-      "table": "PICKS",
-      "kind": "pick",
-      "choices": [
-        "filled",
-        "outlined",
-        "raised"
-      ],
-      "def": "filled",
-      "attr": "data-notes",
-      "means": "How a box the writer coloured inside an article looks: filled (the rest: its own fill), outlined (a line around it) or raised (lifted by a shadow).",
-      "label": "Notes",
-      "page": "Corners and lines",
-      "section": "corners-and-lines",
-      "row": {
-        "drawn": "looks",
-        "file": "plugin/assets/js/panel-window.js",
-        "line": 571,
-        "in": "shapePage"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-notes"
-      ],
-      "rest": {
-        "data-notes": "ABSENT"
       },
       "inStandardAtRest": false
     },
@@ -765,7 +730,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 571,
+        "line": 563,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -922,7 +887,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 590,
+        "line": 581,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -933,52 +898,6 @@
         "data-links": "ABSENT"
       },
       "inStandardAtRest": false
-    },
-    {
-      "key": "fill",
-      "group": "level",
-      "table": "LEVELS",
-      "kind": "dial",
-      "steps": [
-        "none",
-        "25",
-        "50",
-        "75",
-        "100",
-        "125",
-        "150",
-        "200",
-        "300"
-      ],
-      "def": "100",
-      "attr": "data-fill",
-      "scalesSteps": true,
-      "means": "How strong the fills of cards, buttons and fields are: none (no fills; with no lines either, controls are plain glyphs), or 25 to 300 per cent of the colour pair's own steps; 100 is the theme's own. Architrave's page only for the strength; on another theme only none and 100.",
-      "label": "Fill strength",
-      "page": "Corners and lines",
-      "section": "corners-and-lines",
-      "row": {
-        "drawn": "slider",
-        "file": "plugin/assets/js/panel-window.js",
-        "line": 549,
-        "in": "fillSlider"
-      },
-      "changesPage": "Corners and lines",
-      "attrs": [
-        "data-fills"
-      ],
-      "rest": {
-        "data-fills": "REST"
-      },
-      "restValues": {
-        "data-fills": "on"
-      },
-      "inStandardAtRest": {
-        "attrs": [
-          "data-fills"
-        ],
-        "props": []
-      }
     },
     {
       "key": "lineLength",
@@ -1002,7 +921,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 564,
+        "line": 554,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -1033,7 +952,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 565,
+        "line": 555,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -1070,7 +989,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 565,
+        "line": 555,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -1106,7 +1025,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 565,
+        "line": 555,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -1137,7 +1056,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 544,
+        "line": 539,
         "in": "cornersSlider"
       },
       "changesPage": "Corners and lines",
@@ -1177,7 +1096,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 539,
+        "line": 534,
         "in": "linesSlider"
       },
       "changesPage": "Corners and lines",
@@ -1219,7 +1138,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 570,
+        "line": 562,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -1236,25 +1155,21 @@
       "group": "other",
       "kind": "pick",
       "choices": [
-        "6",
         "10",
-        "14",
         "20",
-        "30",
         "45",
-        "60",
-        "80",
+        "70",
         "100"
       ],
       "def": "45",
-      "means": "How strong the lines are: the text colour's share in the line colour, 6 to 100 per cent; 45 is the theme's own. Only with a borderWidth.",
+      "means": "How strong the lines are: the text colour's share in the line colour, 10, 20, 45 (the theme's own), 70 or 100 per cent. Only with a borderWidth.",
       "label": null,
       "page": "Corners and lines",
       "section": "corners-and-lines",
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 570,
+        "line": 562,
         "in": "shapePage"
       },
       "changesPage": "Corners and lines",
@@ -1286,7 +1201,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 588,
+        "line": 579,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1316,7 +1231,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 588,
+        "line": 579,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1348,7 +1263,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 589,
+        "line": 580,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1380,7 +1295,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 589,
+        "line": 580,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1412,7 +1327,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 589,
+        "line": 580,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1437,7 +1352,7 @@
       "row": {
         "drawn": "switch",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 590,
+        "line": 581,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1475,7 +1390,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 590,
+        "line": 581,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -1509,7 +1424,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 597,
+        "line": 588,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1534,7 +1449,7 @@
       "row": {
         "drawn": "switch",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 597,
+        "line": 588,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1567,7 +1482,7 @@
       "row": {
         "drawn": "switch",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 597,
+        "line": 588,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1605,7 +1520,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 598,
+        "line": 589,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1645,7 +1560,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 598,
+        "line": 589,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1678,7 +1593,7 @@
       "row": {
         "drawn": "looks",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 598,
+        "line": 589,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1716,7 +1631,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 599,
+        "line": 590,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1744,7 +1659,7 @@
       "row": {
         "drawn": "pop-up",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 599,
+        "line": 590,
         "in": "picturesPage"
       },
       "changesPage": "Pictures",
@@ -1778,7 +1693,7 @@
       "row": {
         "drawn": "slider",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 564,
+        "line": 554,
         "in": "layoutPage"
       },
       "changesPage": "Layout",
@@ -3172,7 +3087,7 @@
       "row": {
         "drawn": "row",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 556,
+        "line": 546,
         "in": "highlightRow"
       },
       "changesPage": "Colour",
@@ -3216,7 +3131,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1066,
+        "line": 1057,
         "in": "buttonsPage"
       },
       "changesPage": "Buttons",
@@ -3248,7 +3163,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1066,
+        "line": 1057,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3280,7 +3195,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1066,
+        "line": 1057,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3312,7 +3227,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1066,
+        "line": 1057,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3344,7 +3259,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1066,
+        "line": 1057,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3376,7 +3291,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1066,
+        "line": 1057,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3408,7 +3323,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1066,
+        "line": 1057,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3440,7 +3355,7 @@
       "row": {
         "drawn": "pop-up item",
         "file": "plugin/assets/js/panel-window.js",
-        "line": 1066,
+        "line": 1057,
         "in": "rolePage"
       },
       "changesPage": "Type",
@@ -3547,6 +3462,10 @@
       "means": "Retired 2026-10-03 and still read: with lines, it becomes borderWidth (1, 2, 3, 5)."
     },
     {
+      "key": "notes",
+      "means": "Retired 2026-10-05 and still read: a box the writer coloured follows cards now."
+    },
+    {
       "key": "piccorners",
       "means": "Retired 2026-10-03 and still read: becomes pictureCorners (cards is match)."
     },
@@ -3581,6 +3500,10 @@
     {
       "key": "fills",
       "means": "Retired 2026-10-03 and still read: false becomes fill none."
+    },
+    {
+      "key": "fill",
+      "means": "Retired 2026-10-05 and still read: none becomes cards and fields outlined; a strength is dropped (the fills are the colours' own, the Cards colour)."
     },
     {
       "key": "softlevel",

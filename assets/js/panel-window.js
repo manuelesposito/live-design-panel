@@ -378,9 +378,8 @@
 		tags: { text: 'Text only', filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined' },
 		currentItem: { gray: 'Gray', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' },
 		linewidth: { '1': '1 px', '2': '2 px', '3': '3 px', '5': '5 px' },
-		cards: { filled: 'Filled', fillOnly: 'Fill only', raised: 'Raised', topLine: 'Top line', cornerMarks: 'Corner marks' },
+		cards: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
 		quotes: { indented: 'Indented', plain: 'Plain', sideLine: 'Side line', filled: 'Filled' },
-		notes: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
 		fields: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
 		borderStyle: { solid: 'Solid', dashed: 'Dashed', dotted: 'Dotted' },
 		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
@@ -396,8 +395,8 @@
 	var FX_WORD = {}; 
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; 
-	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], primaryButton: LEVEL_ORDER, secondaryButton: LEVEL_ORDER, tertiaryButton: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] , cards: ['fillOnly', 'filled', 'raised', 'topLine', 'cornerMarks'], quotes: ['plain', 'indented', 'sideLine', 'filled'] };
-	var GUEST_REST = { tags: 'text', currentItem: 'gray', quotes: 'indented', notes: 'filled', fields: 'filled' }; 
+	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], primaryButton: LEVEL_ORDER, secondaryButton: LEVEL_ORDER, tertiaryButton: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] , cards: ['filled', 'outlined', 'raised'], quotes: ['plain', 'indented', 'sideLine', 'filled'] };
+	var GUEST_REST = { tags: 'text', currentItem: 'gray', quotes: 'indented', cards: 'filled', fields: 'filled' }; 
 	function levelRow(key, unit, sub) {
 		var x = setting(key) || {}, s = St();
 		return stepSlider(key, label(key), (x.steps || x.choices || []).map(function (id) { return { id: id, label: LEVEL_WORD[key] ? t(LEVEL_WORD[key][id] || id) : id + unit }; }), String(s.get(key)), function (id) { s.set(key, id); }, String(x.def), sub);
@@ -406,16 +405,14 @@
 		var x = setting(key) || {}, s = St(), words = PICK_WORD[key] || {};
 		var list = (PICK_ORDER[key] || x.choices || []).filter(function (id) { return !(key === 'categories' && id === 'above' && s.guest() && s.get(key) !== 'above'); }); 
 		var items = list.map(function (id) { return [id, s.guest() && GUEST_REST[key] === id ? t('As the theme') : /(px| %)$/.test(words[id] || '') ? words[id] : t(words[id] || id)]; });
-		var unlined = !s.guest() && s.get('borderWidth') === 'none';
-		if (unlined && key === 'cards') { items = items.filter(function (x) { return x[0] === 'filled' || x[0] === 'raised'; }); return looksRow(key, items, null, s.get(key) === 'raised' ? 'raised' : 'filled'); }
 		if (LOOK_DRAW[key]) return looksRow(key, items);
 		if (key === 'corners' || key === 'linewidth') return stepSlider(key, label(key), items.map(function (x) { return { id: x[0], label: x[1] }; }), s.get(key), function (id) { s.set(key, id); }, String(x.def)); 
 		if (bare) return pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); });
 		return row(label(key), pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); }));
 	}
-	var LOOK_DRAW = { pictureFilter: 'picture', pictureFrame: 'frame', pictureFade: 'fade', primaryButton: 'button', secondaryButton: 'button', tertiaryButton: 'button', tags: 'tag', links: 'link', currentItem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', notes: 'surface', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
+	var LOOK_DRAW = { pictureFilter: 'picture', pictureFrame: 'frame', pictureFade: 'fade', primaryButton: 'button', secondaryButton: 'button', tertiaryButton: 'button', tags: 'tag', links: 'link', currentItem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
 	var LOOK_SHORT = { shadow: 'Shadow', text: 'Text' };
-	var LOOK_NOTE = { primaryButton: 'The main action, like Subscribe', secondaryButton: 'A second choice next to it', tertiaryButton: 'Small actions, like Share', links: 'In the text', currentItem: 'The page you are on, the tab that is open', notes: 'Tips and remarks in a box', fields: 'Search, comment and sign-up fields' };  
+	var LOOK_NOTE = { primaryButton: 'The main action, like Subscribe', secondaryButton: 'A second choice next to it', tertiaryButton: 'Small actions, like Share', links: 'In the text', currentItem: 'The page you are on, the tab that is open', cards: 'Link cards and coloured boxes in the text', fields: 'Search, comment and sign-up fields' };  
 	var PIC_FILTER = { plain: 'none', bw: 'grayscale(1)', sepia: 'sepia(.85) contrast(1.05)', duo: 'grayscale(1) sepia(1) saturate(1.6) hue-rotate(175deg) brightness(.95)', accent: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(200deg) saturate(2.2)', grain: 'contrast(1.1) saturate(.85)', warm: 'sepia(.18) saturate(1.12) contrast(1.02)' };
 	function lookColours() {
 		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('buttonColour');
@@ -423,7 +420,7 @@
 		var on = s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink;
 		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on;
 	}
-	var SURFACE_DRAW = { pictureFilter: { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' }, pictureFade: { none: 'off' }, cards: { filled: 'box', fillOnly: 'flat', topLine: 'top', cornerMarks: 'ticks' }, quotes: { indented: 'indent', sideLine: 'line', filled: 'box' }, notes: { filled: 'flat', outlined: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
+	var SURFACE_DRAW = { pictureFilter: { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' }, pictureFade: { none: 'off' }, cards: { filled: 'flat', outlined: 'box' }, quotes: { indented: 'indent', sideLine: 'line', filled: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
 	function lookPic(draw, id) {
 		if (draw === 'button' || draw === 'tag') return '<i class="ldpw-lv" data-lk="' + id + '">' + (draw === 'tag' ? 'Tag' : 'Aa') + '</i>';
 		if (draw === 'link') return '<i class="ldpw-dln" data-ln="' + id + '">link</i>';
@@ -485,11 +482,6 @@
 		var stops = [{ id: 'none', label: t('Square') }].concat(PICK_ORDER.corners.map(function (id) { return { id: id, label: t(words[id]) }; }));
 		return stepSlider('radius', t('Corners'), stops, s.get('radius'), function (id) { s.set('radius', id); }, 'medium');
 	}
-	function fillSlider() {
-		var s = St(), x = setting('fill') || {}, guest = s.guest(); 
-		var stops = (guest ? ['none', '100'] : x.steps || []).map(function (id) { return { id: id, label: id === 'none' ? t('None') : guest ? t('As the theme') : id + ' %' }; });
-		return stepSlider('fill', t('Fills'), stops, s.get('fill'), function (id) { s.set('fill', id); }, '100');
-	}
 	var PENS = { yellow: '#fff347', green: '#b4f07c', pink: '#ffb0d8', blue: '#a4d8ff', orange: '#ffc46e' };
 	function highlightRow() {
 		var s = St(), h = s.highlight ? s.highlight() : '', now = !h ? 'off' : Object.keys(PENS).filter(function (n) { return PENS[n] === h; })[0] || 'own';
@@ -508,9 +500,8 @@
 	}
 	function shapePage() {
 		var s = St(), lines = s.get('borderWidth') !== 'none';
-		return box(cornersSlider() + linesSlider() + (lines ? levelRow('borderStrength', ' %') + pickRow('borderStyle') : '') + fillSlider()) +
-			gtitle(t('Surfaces')) + box((s.guest() ? '' : pickRow('cards')) + pickRow('quotes') + pickRow('notes') + pickRow('fields')) +
-			hint('A surface on the other side of the page, like a dark section on light paper, passes its own colours to the text and buttons inside it.');
+		return box(cornersSlider() + linesSlider() + (lines ? levelRow('borderStrength', ' %') + pickRow('borderStyle') : '')) +
+			gtitle(t('Surfaces')) + box(pickRow('cards') + pickRow('quotes') + pickRow('fields'));
 	}
 	function buttonsPreview() {
 		var s = St(), lv = function (k) { return s.get(k); }, links = s.get('links');
@@ -1215,8 +1206,7 @@
 		['.wp-block-site-title', 'type', 'role:headings', 'Site name'],
 		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'currentItem', 'Chosen item'],
 		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictureFilter', 'Pictures'],
-		['.post-link-card, .support-box, .release-panel, .theme-card', 'corners-and-lines', 'cards', 'Cards'],
-		['.wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'notes', 'Notes'],
+		['.post-link-card, .support-box, .release-panel, .theme-card, .wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'cards', 'Cards'],
 		['input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea, .quire-search-field', 'corners-and-lines', 'fields', 'Fields'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li) a', 'buttons', 'links', 'Links'],
 		['code, pre, kbd', 'type', 'role:code', 'Code'],

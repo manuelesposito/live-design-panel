@@ -529,14 +529,6 @@
 :root[data-lines="on"][data-line-width="5"] {
 	--border-width-default: 5px;
 }
-:root[data-lines="on"][data-cards="top"] :is(.post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border-width: var(--border-width-default) 0 0;
-	border-style: solid;
-	border-color: var(--line);
-	border-radius: 0;
-	background: transparent;
-	box-shadow: none;
-}
 :root[data-marker-colour="green"] {
 	--marker: #b4f07c; --marker-line: #57a012;
 }
@@ -861,9 +853,10 @@
 	text-decoration-thickness: var(--border-width-thick);
 	text-underline-offset: 0.35em;
 }
-:root[data-cards="flat"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-cards="outline"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-color: transparent;
-	box-shadow: none;
+	background: var(--surface-base);
+	box-shadow: inset 0 0 0 max(1px, var(--border-width-default)) var(--line);
 }
 :root[data-cards="raised"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-color: transparent;
@@ -895,10 +888,10 @@
 :root[data-quotes="plain"] :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	padding-inline-start: 0;
 }
-:root[data-notes="box"] :is(#ldp-lv, .single-post-article .wp-block-post-content .wp-block-group.has-background):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-cards="outline"] :is(#ldp-lv, .single-post-article .wp-block-post-content .wp-block-group.has-background):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	box-shadow: inset 0 0 0 max(1px, var(--border-width-default)) var(--line);
 }
-:root[data-notes="raised"] :is(#ldp-lv, .single-post-article .wp-block-post-content .wp-block-group.has-background):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-cards="raised"] :is(#ldp-lv, .single-post-article .wp-block-post-content .wp-block-group.has-background):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-primary) 6%, transparent), 0 1px 2px rgb(0 0 0 / 0.08), 0 10px 28px rgb(0 0 0 / 0.14);
 }
 :root[data-fields="box"] body :is(#ldp-lv, .quire-input, .quire-textarea, input.mailpoet_text, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"]), .quire-search-field):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -935,17 +928,6 @@
 }
 :root[data-paragraphs="indented"] :is(.single-post-article .wp-block-post-content, body.single .entry-content) > p:has(+ p, + span + p):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	margin-block-end: 0;
-}
-:root[data-lines="on"][data-cards="ticks"] :is(.post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	--ldp-tk: 14px;
-	border: 0;
-	border-radius: 0;
-	box-shadow: none;
-	background:
-	linear-gradient(var(--line), var(--line)) top left / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) top left / 1px var(--ldp-tk) no-repeat,
-	linear-gradient(var(--line), var(--line)) top right / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) top right / 1px var(--ldp-tk) no-repeat,
-	linear-gradient(var(--line), var(--line)) bottom left / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) bottom left / 1px var(--ldp-tk) no-repeat,
-	linear-gradient(var(--line), var(--line)) bottom right / var(--ldp-tk) 1px no-repeat, linear-gradient(var(--line), var(--line)) bottom right / 1px var(--ldp-tk) no-repeat;
 }
 :root[data-pic-corners="square"] .content-column :is(img:not(.emoji, .avatar, .wp-block-site-logo img), figure, .wp-block-post-featured-image, .wp-block-gallery, .wp-block-image):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-radius: 0;

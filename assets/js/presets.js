@@ -265,7 +265,13 @@
 		if (rec.line !== undefined) { if (rec.borderStrength === undefined) rec.borderStrength = String(rec.line); delete rec.line; }
 		if (rec.linestyle !== undefined) { if (rec.borderStyle === undefined) rec.borderStyle = rec.linestyle; delete rec.linestyle; }
 		if (rec.fills !== undefined) { rec.fill = own('fills', true) === false ? 'none' : String(rec.fill !== undefined ? rec.fill : own('fill', '100')); delete rec.fills; }
-		var SURF = { cards: { box: 'filled', flat: 'fillOnly', top: 'topLine', ticks: 'cornerMarks' }, quotes: { line: 'indented', indent: 'indented', box: 'filled' }, notes: { flat: 'filled', box: 'outlined' }, fields: { flat: 'filled', box: 'outlined' } };
+		if (rec.fill !== undefined) {
+			if (String(rec.fill) === 'none') ['cards', 'fields'].forEach(function (k) { if (rec[k] === undefined || rec[k] === 'filled' || rec[k] === 'flat' || rec[k] === 'box' && k === 'cards' || rec[k] === 'fillOnly') rec[k] = 'outlined'; });
+			delete rec.fill;
+		}
+		delete rec.notes;
+		if (rec.borderStrength !== undefined) { var bs = +rec.borderStrength; rec.borderStrength = isNaN(bs) ? '45' : ['10', '20', '45', '70', '100'].reduce(function (a, b) { return Math.abs(+b - bs) < Math.abs(+a - bs) ? b : a; }); }
+		var SURF = { cards: { box: 'filled', flat: 'filled', fillOnly: 'filled', top: 'outlined', topLine: 'outlined', ticks: 'outlined', cornerMarks: 'outlined', outline: 'outlined' }, quotes: { line: 'indented', indent: 'indented', box: 'filled' }, notes: { flat: 'filled', box: 'outlined' }, fields: { flat: 'filled', box: 'outlined' } };
 		Object.keys(SURF).forEach(function (k) { if (rec[k] !== undefined && SURF[k][rec[k]]) rec[k] = SURF[k][rec[k]]; });
 		var FILTER = { plain: 'none', bw: 'grayscale', duo: 'tinted', accent: 'duotone' };
 		if (rec.pictures !== undefined) { if (rec.pictureFilter === undefined) rec.pictureFilter = FILTER[rec.pictures] || rec.pictures; delete rec.pictures; }
@@ -411,10 +417,9 @@
 	var FADE_EDGES = ['sides', 'bottom', 'all'];
 	var MARKERS = ['yellow', 'green', 'pink', 'blue', 'orange', 'text', 'muted', 'own'];
 	var FRAME_PATTERNS = ['plain', 'dots', 'checker'];
-	var PICKS = { categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, cards: { attr: 'data-cards', list: ['filled', 'fillOnly', 'raised', 'topLine', 'cornerMarks'] }, quotes: { attr: 'data-quotes', list: ['indented', 'plain', 'sideLine', 'filled'] }, notes: { attr: 'data-notes', list: ['filled', 'outlined', 'raised'] }, fields: { attr: 'data-fields', list: ['filled', 'outlined', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] }, fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] } };
+	var PICKS = { categories: { attr: 'data-categories', list: ['below', 'above', 'hidden'] }, tags: { attr: 'data-tags', list: ['text', 'filled', 'tinted', 'gray', 'outlined'] }, cards: { attr: 'data-cards', list: ['filled', 'outlined', 'raised'] }, quotes: { attr: 'data-quotes', list: ['indented', 'plain', 'sideLine', 'filled'] }, fields: { attr: 'data-fields', list: ['filled', 'outlined', 'raised'] }, paragraphs: { attr: 'data-paragraphs', list: ['spaced', 'indented'] }, capface: { attr: 'data-cap-face', list: ['text', 'bold', 'fraunces', 'title'] }, hyphenate: { attr: 'data-hyphenate', list: ['auto', 'few', 'any', 'off'] }, opening: { attr: 'data-opening', list: ['off', 'big'] }, links: { attr: 'data-links', list: ['both', 'coloured', 'underlined', 'bold', 'wash'] }, fullpicture: { attr: 'data-full-picture', list: ['off', 'on'] }, widefigures: { attr: 'data-wide-figures', list: ['off', 'on'] }, linewidth: { attr: 'data-line-width', list: ['1', '2', '3', '5'] }, buttonstyle: { attr: 'data-button-style', list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'] }, buttonmedium: { attr: 'data-button-medium', list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'] }, buttonquiet: { attr: 'data-button-quiet', list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'] }, buttonshape: { attr: 'data-button-shape', list: ['cards', 'square', 'rounded', 'pill'] }, chosenitem: { attr: 'data-chosen-item', list: ['gray', 'filled', 'outlined', 'bold'] }, pictureshadow: { attr: 'data-picture-shadow', list: ['off', 'soft'] }, piccorners: { attr: 'data-pic-corners', list: ['cards', 'square'] } };
 	var EFFECTS = {};
 	var LEVELS = {
-		fill: { stops: ['25', '50', '75', '100', '125', '150', '200', '300'], rest: '100', attr: 'data-fill', steps: true },
 		space: { stops: ['xcompact', 'compact', 'standard', 'spacious', 'xspacious'], rest: 'standard', attr: 'data-space', prop: '--space-step' },
 		spaceInside: { stops: ['16', '20', '24', '32', '40', '48'], rest: '32', attr: 'data-space-inside', prop: '--space-inside' },
 		spaceItems: { stops: ['48', '64', '80', '96', '128', '160'], rest: '80', attr: 'data-space-items', prop: '--space-items' },
@@ -422,6 +427,7 @@
 		spaceTitle: { stops: ['48', '64', '80', '96', '128', '160', '192'], rest: '96', attr: 'data-space-title', prop: '--space-title' },
 		measure: { stops: ['60', '64', '68', '72', '76', '80', '84', '88'], rest: '72', attr: 'data-measure', prop: '--measure-factor' },
 		line: { stops: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45', attr: 'data-line', prop: '--line-strength' },
+		fill: { stops: ['25', '50', '75', '100', '125', '150', '200', '300'], rest: '100', attr: 'data-fill', steps: true },
 		framewidth: { stops: ['4', '8', '12', '16', '24', '32'], rest: '8', attr: 'data-frame-width', prop: '--picture-frame' }
 	};
 	var TYPE_ROLES = ['title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'];
@@ -498,7 +504,7 @@
 	var ROLE_COLOURS = ['ink', 'accent', 'own', 'muted'];
 	var LIST = {
 		labelMax: 40,
-		schema: ['architrave', 'label', 'base', 'reading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'fill', 'links', 'lineLength', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'notes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
+		schema: ['architrave', 'label', 'base', 'reading', 'justify', 'dropcap', 'radius', 'borderWidth', 'titleWidth', 'colourOnHover', 'dimInDark', 'pictureFade', 'pictureFrame', 'pictureWidth', 'categories', 'tagsMatchButtons', 'alternates', 'scope', 'pictureFilter', 'capLines', 'borderStrength', 'links', 'lineLength', 'space', 'spaceInside', 'spaceItems', 'spaceSections', 'spaceTitle', 'frameWidth', 'borderStyle', 'buttonColour', 'buttonShape', 'primaryButton', 'secondaryButton', 'tertiaryButton', 'tags', 'currentItem', 'cards', 'quotes', 'fields', 'paragraphs', 'capface', 'hyphenate', 'pictureCorners', 'pictureShadow', 'opening', 'figureWidth', 'unlinked', 'effects', 'roles', 'colours'],
 		choices: { scope: SCOPE, capLines: ['2', '3', '4'], borderStyle: LINE_STYLE },
 		wells: ['background', 'background2', 'card', 'text', 'mutedText', 'accent', 'highlight', 'button', 'title', 'headings', 'body', 'quote', 'meta', 'interface', 'code'],
 		meaning: {
@@ -514,7 +520,7 @@
 			rounded: 'Retired 2026-10-03 and still read: false becomes radius none.',
 			borderWidth: 'The lines around cards, buttons and fields and between rows: none (the theme\'s own: no lines but link underlines), hairline (half a pixel), or 1, 2, 3 or 5 px.',
 			lines: 'Retired 2026-10-03 and still read: false becomes borderWidth none; true takes linewidth (and hairline with hairlines).',
-			borderStrength: 'How strong the lines are: the text colour\'s share in the line colour, 6 to 100 per cent; 45 is the theme\'s own. Only with a borderWidth.',
+			borderStrength: 'How strong the lines are: the text colour\'s share in the line colour, 10, 20, 45 (the theme\'s own), 70 or 100 per cent. Only with a borderWidth.',
 			line: 'Retired 2026-10-03 and still read: the lines\' strength becomes borderStrength, the same steps.',
 			corners: 'Retired 2026-10-03 and still read: the corner size becomes radius (small, medium, large, xlarge).',
 			marker: 'Retired 2026-10-03 and still read: true becomes colours.<side>.highlight, the pen\'s colour; false none.',
@@ -553,9 +559,9 @@
 			currentItem: 'How the current item is marked (the page you are on in the menu, the open tab): gray (the rest: the theme\'s own mark), filled with the button colour, outlined in it, or bold and underlined.',
 			chosenitem: 'Retired 2026-10-03 and still read: becomes currentItem, the same looks.',
 			linewidth: 'Retired 2026-10-03 and still read: with lines, it becomes borderWidth (1, 2, 3, 5).',
-			cards: 'How cards look: filled (the rest: the card\'s fill and, with lines, its line), fillOnly (the fill without a line even with lines), raised (the paper, lifted by a shadow), topLine (a line along the top only, no fill, square; only with lines) or cornerMarks (only the four corners drawn). Architrave\'s page only.',
+			cards: 'How cards and boxes look: the theme\'s cards (link cards, the support box) and a box the writer coloured in an article (a Group block with a background): filled (the rest: the card\'s own fill, and with lines its line), outlined (a line on the paper, whatever the lines setting; a coloured box keeps its colour) or raised (lifted by a shadow).',
 			quotes: 'How quotes look, in an article and as a quote post: indented (set in from the edge, no line; the rest), plain (the words alone, not set in), sideLine (set in, with a vertical line at the side, whatever the lines setting) or filled (in a box with its fill; a quote post\'s card). Quotes are italic.',
-			notes: 'How a box the writer coloured inside an article looks: filled (the rest: its own fill), outlined (a line around it) or raised (lifted by a shadow).',
+			notes: 'Retired 2026-10-05 and still read: a box the writer coloured follows cards now.',
 			fields: 'How search, comment and sign-up fields look: filled (the rest: the fill, with lines its line), outlined (a line on the paper) or raised (lifted by a shadow).',
 			paragraphs: 'Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.',
 			capface: 'The drop cap\'s letter: text (the rest, the reading text\'s own face and weight), bold (the reading face in bold, as the title), fraunces (a soft old-style display capital) or title (the heading role\'s own face, weight, slant and colour). Shows with Drop cap on.',
@@ -574,7 +580,7 @@
 			borderStyle: 'solid (the rest), dashed or dotted lines. Dashes are long only with radius none. Only with a borderWidth.',
 			linestyle: 'Retired 2026-10-03 and still read: becomes borderStyle (solid, dashed, dotted).',
 			fills: 'Retired 2026-10-03 and still read: false becomes fill none.',
-			fill: 'How strong the fills of cards, buttons and fields are: none (no fills; with no lines either, controls are plain glyphs), or 25 to 300 per cent of the colour pair\'s own steps; 100 is the theme\'s own. Architrave\'s page only for the strength; on another theme only none and 100.',
+			fill: 'Retired 2026-10-05 and still read: none becomes cards and fields outlined; a strength is dropped (the fills are the colours\' own, the Cards colour).',
 			softlevel: 'Retired 2026-10-03: Softer reading text\'s strength; the reading text takes Soft text\'s one shade.',
 			quietlevel: 'Retired 2026-10-03 and still read: with soft, the small text\'s strength becomes Soft text\'s own colour (colours.<side>.mutedText).',
 			smallsoft: 'Retired 2026-10-03 and still read: the small text\'s strength becomes Soft text\'s own colour (colours.<side>.mutedText), the text that far toward the background.',
@@ -613,9 +619,9 @@
 	function penOf(hex) { var h = String(hex || '').toLowerCase(); return Object.keys(PENS).filter(function (n) { return PENS[n] === h; })[0] || ''; }
 	var TYPE_COLOURS = ['text', 'mutedText', 'accent', 'own'];
 	function typeColourRest(role) { return role === 'meta' ? 'mutedText' : 'text'; } 
-	var ENGINE_ONLY = ['palette', 'tint', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'marker', 'markercolour', 'darkground', 'measure', 'widehead', 'widepicture', 'fullpicture', 'widefigures', 'rounded', 'corners', 'lines', 'linewidth', 'hairlines', 'line', 'linestyle', 'fills', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tagsfollow', 'chosenitem', 'pictures', 'picturehover', 'picturedim', 'pictureframe', 'framepattern', 'framewidth', 'picturefade', 'fadeedges', 'pictureshadow', 'piccorners']; 
+	var ENGINE_ONLY = ['palette', 'tint', 'soft', 'softlevel', 'quietlevel', 'smallsoft', 'marker', 'markercolour', 'darkground', 'measure', 'widehead', 'widepicture', 'fullpicture', 'widefigures', 'rounded', 'corners', 'lines', 'linewidth', 'hairlines', 'line', 'linestyle', 'fills', 'button', 'buttonshape', 'buttonstyle', 'buttonmedium', 'buttonquiet', 'tagsfollow', 'chosenitem', 'pictures', 'picturehover', 'picturedim', 'pictureframe', 'framepattern', 'framewidth', 'picturefade', 'fadeedges', 'pictureshadow', 'piccorners', 'fill']; 
 	var LAYOUT = { lineLength: { list: ['60', '64', '68', '72', '76', '80', '84', '88'], rest: '72' }, titleWidth: { list: ['content', 'wide'], rest: 'content' }, pictureWidth: { list: ['content', 'wide', 'full'], rest: 'content' }, figureWidth: { list: ['content', 'wide'], rest: 'content' },
-		radius: { list: ['none', 'small', 'medium', 'large', 'xlarge'], rest: 'medium' }, borderWidth: { list: ['none', 'hairline', '1', '2', '3', '5'], rest: 'none' }, borderStyle: { list: ['solid', 'dashed', 'dotted'], rest: 'solid' }, borderStrength: { list: ['6', '10', '14', '20', '30', '45', '60', '80', '100'], rest: '45' }, fill: { list: ['none', '25', '50', '75', '100', '125', '150', '200', '300'], rest: '100' },
+		radius: { list: ['none', 'small', 'medium', 'large', 'xlarge'], rest: 'medium' }, borderWidth: { list: ['none', 'hairline', '1', '2', '3', '5'], rest: 'none' }, borderStyle: { list: ['solid', 'dashed', 'dotted'], rest: 'solid' }, borderStrength: { list: ['10', '20', '45', '70', '100'], rest: '45' },
 		buttonColour: { list: ['accent', 'text', 'own'], rest: 'accent' }, buttonShape: { list: ['match', 'square', 'rounded', 'pill'], rest: 'match' },
 		primaryButton: { list: ['filled', 'outlined', 'shadow', 'tinted', 'gray', 'text'], rest: 'filled' }, secondaryButton: { list: ['gray', 'filled', 'tinted', 'outlined', 'shadow', 'text'], rest: 'gray' }, tertiaryButton: { list: ['text', 'filled', 'tinted', 'gray', 'outlined', 'shadow'], rest: 'text' },
 		tagsMatchButtons: { list: [false, true], rest: false }, currentItem: { list: ['gray', 'filled', 'outlined', 'bold'], rest: 'gray' },
@@ -624,7 +630,7 @@
 		pictureShadow: { list: ['none', 'soft'], rest: 'none' }, pictureCorners: { list: ['match', 'square'], rest: 'match' } };
 	var FILTER_ENGINE = { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' };
 	var RENAMED_PICK = { buttonstyle: 'primaryButton', buttonmedium: 'secondaryButton', buttonquiet: 'tertiaryButton', buttonshape: 'buttonShape', chosenitem: 'currentItem' }; 
-	var SURFACE_ENGINE = { cards: { filled: 'box', fillOnly: 'flat', raised: 'raised', topLine: 'top', cornerMarks: 'ticks' }, quotes: { indented: 'indent', sideLine: 'line', plain: 'plain', filled: 'box' }, notes: { filled: 'flat', outlined: 'box', raised: 'raised' }, fields: { filled: 'flat', outlined: 'box', raised: 'raised' } };
+	var SURFACE_ENGINE = { cards: { filled: 'box', outlined: 'outline', raised: 'raised' }, quotes: { indented: 'indent', sideLine: 'line', plain: 'plain', filled: 'box' }, notes: { filled: 'flat', outlined: 'box', raised: 'raised' }, fields: { filled: 'flat', outlined: 'box', raised: 'raised' } };
 	function surfaceWord(key, v) { var m = SURFACE_ENGINE[key]; if (!m || m[v]) return v; var w = Object.keys(m).filter(function (k) { return m[k] === v; })[0]; return w || v; }
 	function layoutOwn(k) { var L = LAYOUT[k], s = byId(current), b = s && byId(baseOf(s)); if (s && L.list.indexOf(s[k]) !== -1) return s[k]; if (b && L.list.indexOf(b[k]) !== -1) return b[k]; return L.rest; }
 	function layoutOf(k) { var tw = readTweaks()[current]; return tw && LAYOUT[k].list.indexOf(tw[k]) !== -1 ? tw[k] : layoutOwn(k); }
@@ -1100,7 +1106,7 @@
 		if (k === 'measure') return layoutOf('lineLength');
 		if (k === 'line') return layoutOf('borderStrength');
 		if (k === 'framewidth') return layoutOf('frameWidth');
-		if (k === 'fill') { var fv = layoutOf('fill'); return fv === 'none' ? L.rest : fv; }
+		if (k === 'fill') return L.rest; 
 		if (tw && L.stops.indexOf(tw[k]) !== -1) return tw[k];
 		return levelRest(k);
 	}
@@ -1452,7 +1458,7 @@
 		if (k === 'rounded') return layoutOf('radius') !== 'none';
 		if (k === 'lines') return layoutOf('borderWidth') !== 'none';
 		if (k === 'hairlines') return layoutOf('borderWidth') === 'hairline';
-		if (k === 'fills') return layoutOf('fill') !== 'none';
+		if (k === 'fills') return true; 
 		if (k === 'tagsfollow') return layoutOf('tagsMatchButtons') === true;
 		if (k === 'picturehover') return layoutOf('colourOnHover') === true;
 		if (k === 'picturedim') return layoutOf('dimInDark') === true;
@@ -2414,7 +2420,7 @@
 				lineLength: LAYOUT.lineLength.list, titleWidth: LAYOUT.titleWidth.list, pictureWidth: LAYOUT.pictureWidth.list, figureWidth: LAYOUT.figureWidth.list,
 				pictureFilter: LAYOUT.pictureFilter.list, colourOnHover: 'boolean', dimInDark: 'boolean', pictureFrame: LAYOUT.pictureFrame.list, frameWidth: LAYOUT.frameWidth.list, pictureFade: LAYOUT.pictureFade.list, pictureShadow: LAYOUT.pictureShadow.list, pictureCorners: LAYOUT.pictureCorners.list,
 				buttonColour: LAYOUT.buttonColour.list, buttonShape: LAYOUT.buttonShape.list, primaryButton: LAYOUT.primaryButton.list, secondaryButton: LAYOUT.secondaryButton.list, tertiaryButton: LAYOUT.tertiaryButton.list, tagsMatchButtons: 'boolean', currentItem: LAYOUT.currentItem.list,
-				radius: LAYOUT.radius.list, borderWidth: LAYOUT.borderWidth.list, borderStyle: LAYOUT.borderStyle.list, borderStrength: LAYOUT.borderStrength.list, fill: LAYOUT.fill.list,
+				radius: LAYOUT.radius.list, borderWidth: LAYOUT.borderWidth.list, borderStyle: LAYOUT.borderStyle.list, borderStrength: LAYOUT.borderStrength.list,
 				unlinked: 'boolean',
 				roles: roles,
 				effects: (function () { var o = {}; Object.keys(EFFECTS).forEach(function (fid) { o[fid] = {}; Object.keys(EFFECTS[fid]).forEach(function (d) { o[fid][d] = EFFECTS[fid][d].list; }); }); return o; })(),
@@ -2833,7 +2839,7 @@
 			if (k === 'picturedim') { this.setLayout('dimInDark', !!on); return; }
 			if (k === 'pictureframe') { this.setLayout('pictureFrame', on ? (layoutOf('pictureFrame') === 'none' ? 'plain' : layoutOf('pictureFrame')) : 'none'); return; }
 			if (k === 'picturefade') { this.setLayout('pictureFade', on ? (layoutOf('pictureFade') === 'none' ? 'sides' : layoutOf('pictureFade')) : 'none'); return; }
-			if (k === 'fills') { this.setLayout('fill', on ? (layoutOf('fill') === 'none' ? '100' : layoutOf('fill')) : 'none'); return; }
+			if (k === 'fills') return; 
 			if (k === 'widepicture') { this.setLayout('pictureWidth', on ? (layoutOf('pictureWidth') === 'full' ? 'full' : 'wide') : 'content'); return; }
 			if (k === 'marker') { setBothSides('highlight', on ? (highlightNow() || PENS.yellow) : ''); return; }
 			if (k === 'darkground') { var cr = coloursResolved(); if (on) this.setColour('light', 'background2', cr.dark.ground && !groundFlip(cr.dark.ground, cr.dark.paper || paperNow('dark')) ? cr.dark.ground : cr.dark.paper ? sink(cr.dark.paper, 0.05) : canvasOf('dark')); else if (groundSides(cr).light) this.clearColour('light', 'background2'); return; }
@@ -3010,7 +3016,7 @@
 			if (k === 'line') { this.setLayout('borderStrength', String(v)); return; }
 			if (k === 'framewidth') { this.setLayout('frameWidth', String(v)); return; }
 			if (/^space[A-Z]/.test(k) && v !== undefined && v !== null) v = String(v); 
-			if (k === 'fill') { this.setLayout('fill', String(v)); return; }
+			if (k === 'fill') return; 
 			var L = LEVELS[k]; if (!L || L.stops.indexOf(v) === -1) return;
 			var s = byId(current), all = readTweaks(), entry = all[current] || {};
 			if (v === levelRest(k)) delete entry[k]; else entry[k] = v;

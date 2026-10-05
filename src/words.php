@@ -785,6 +785,7 @@ function live_design_window_words() {
 		'Small actions, like Share' => __( 'Small actions, like Share', 'live-design-panel' ),
 		'The page you are on, the tab that is open' => __( 'The page you are on, the tab that is open', 'live-design-panel' ),
 		'Tips and remarks in a box' => __( 'Tips and remarks in a box', 'live-design-panel' ),
+		'Link cards and coloured boxes in the text' => __( 'Link cards and coloured boxes in the text', 'live-design-panel' ), /* Cards, with Notes in it (2026-10-05) */
 		'Search, comment and sign-up fields' => __( 'Search, comment and sign-up fields', 'live-design-panel' ),
 		'In the text' => __( 'In the text', 'live-design-panel' ),
 		'Both' => __( 'Both', 'live-design-panel' ),
