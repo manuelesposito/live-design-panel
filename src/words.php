@@ -808,7 +808,6 @@ function live_design_window_words() {
 		'Beside the name in the menu' => __( 'Beside the name in the menu', 'live-design-panel' ),
 		'Brush' => __( 'Brush', 'live-design-panel' ),
 		'Copy Style' => __( 'Copy Style', 'live-design-panel' ),
-		'Text size' => __( 'Text size', 'live-design-panel' ), /* the readers' window (2026-09-28) */
 		'{member} follows {role}. Give it its own setting where it should differ.' => __( '{member} follows {role}. Give it its own setting where it should differ.', 'live-design-panel' ),
 		'Follows {role}' => __( 'Follows {role}', 'live-design-panel' ),
 		'All caps' => __( 'All caps', 'live-design-panel' ),

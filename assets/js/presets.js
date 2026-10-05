@@ -1310,7 +1310,7 @@
 				var b = document.createElement('div'), W = window.architraveWords || {}, w = function (x) { return W[x] || x; };
 				b.className = 'ldp-preview-bar'; b.setAttribute('role', 'status');
 				if (pv.ended) b.textContent = w('This preview link has ended.');
-				else { var until = new Date(pv.until * 1000), strong = document.createElement('b'); strong.textContent = pv.name; b.appendChild(document.createTextNode(w('Preview of') + ' ')); b.appendChild(strong); b.appendChild(document.createTextNode(' · ' + w('Ends') + ' ' + until.toLocaleDateString(document.documentElement.lang || undefined, { day: 'numeric', month: 'long' }))); }
+				else { var until = new Date(pv.until * 1000), strong = document.createElement('b'); strong.textContent = pv.name; b.appendChild(document.createTextNode(w('Preview of') + ' ')); b.appendChild(strong); b.appendChild(document.createTextNode(' · ' + w('Ends') + ' ' + until.toLocaleDateString('en', { day: 'numeric', month: 'long' }) )); }
 				document.body.appendChild(b);
 			};
 			if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bar); else bar();

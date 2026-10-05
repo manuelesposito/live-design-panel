@@ -77,6 +77,9 @@
 		settings: ['#8e8e93', '<path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/><circle cx="12" cy="12" r="3"/>']
 	};
 	var GLYPH = {
+		sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+		moon: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/><path d="M20 3v4"/><path d="M22 5h-4"/>',
+		auto: '<circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor"/>',
 		close: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
 		back: '<path d="m15 18-6-6 6-6"/>',
 		undo: '<path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11"/>',
@@ -131,6 +134,17 @@
 			return '<button type="button" class="ldpw-rlook' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" tabindex="' + (on ? 0 : -1) + '" data-seg="' + name + '" data-v="' + o[0] + '" data-f="seg:' + name + ':' + o[0] + '">' +
 				'<span class="ldpw-rpic is-' + o[0] + '" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>' + esc(o[1]) + '</span><span class="ldpw-rtick" aria-hidden="true"></span></button>';
 		}).join('') + '</div>';
+	}
+	/* LIGHT AND DARK BEHIND ONE BUTTON (0.44.0, Manuel: "go with your recommendation", Apple Books' moon):
+	   the button shows the side chosen, its menu offers Light, Dark and Automatic. The owner's sits in the top
+	   bar on every page, the readers' beside the text size; it is the only place either chooses a side. */
+	function sideButton(key, value, set, cls) {
+		MENU[key] = { label: t('Appearance'), value: value, items: [['light', t('Light'), 0, '', 'sun'], ['dark', t('Dark'), 0, '', 'moon'], ['auto', t('Automatic'), 0, '', 'auto']], pick: set };
+		return '<button type="button" class="' + cls + '" aria-haspopup="menu" aria-expanded="' + (menu === key) + '" data-menu="' + key + '" data-f="menu:' + key + '" aria-label="' + esc(t('Appearance')) + '" title="' + esc(t('Appearance')) + '">' + svg(GLYPH[value === 'light' ? 'sun' : value === 'dark' ? 'moon' : 'auto']) + '</button>';
+	}
+	function ownerMoon() {
+		var s = St();
+		return s ? sideButton('view', viewWant || s.view(), function (v) { s.setView(v); viewWant = v; setTimeout(function () { viewWant = null; if (open) render(); }, 600); }, 'ldpw-circ is-plain') : '';
 	}
 	/* A SLIDER OVER THE LIST'S STEPS, the rest a taller tick (macOS draws its stops under the track) */
 	function slider(key, unit) {
@@ -193,10 +207,9 @@
 	   always shown, each for the side you are looking at; no Preset or Custom to switch between. */
 	function colourPage() {
 		var s = St(), side = s.side();
-		/* APPEARANCE FIRST (0.30.0, Manuel: "I use this all the time and I have to always scroll down"): the pictures
-		   on top of the page, the presets and the seven colours under them */
-		var viewBox = gtitle(t('Appearance')) + box(sidePicks('view', viewWant || s.view()) +
-				(s.editable() ? row(label('unlinked'), sw('unlinked', !s.get('unlinked'), label('unlinked')), esc(t('Night is worked out from day'))) : '')) +
+		/* THE SIDE IS CHOSEN IN THE TOP BAR (0.44.0): the Appearance pictures that stood here (0.30.0) went to the
+		   moon button, one place on every page; what stays is the switch that ties night to day, and the hint */
+		var viewBox = (s.editable() ? box(row(label('unlinked'), sw('unlinked', !s.get('unlinked'), label('unlinked')), esc(t('Night is worked out from day')))) : '') +
 			'<p class="ldpw-hint">' + esc(t(side === 'dark' ? 'You are looking at the dark side. The style holds both; readers choose their own.' : 'You are looking at the light side. The style holds both; readers choose their own.')) + '</p>';
 		if (!s.editable()) {
 			return viewBox + box('<div class="ldpw-note"><p>' + esc(t('Original is the theme as it comes, and stays that way. Make a copy to change its colours.')) + '</p><button type="button" class="ldpw-blue" data-act="copy" data-f="act:copy">' + esc(t('Make a Copy')) + '</button></div>');
@@ -223,7 +236,7 @@
 	}
 	/* THE SHORTCUT IN ITS OWN COLUMN, as the lab and a Mac draw it: an item's words end at two spaces, the keys follow */
 	/* THE LAB'S MENU ICONS (Lucide, ISC) */
-	var MI = { sidebar:'<rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M9 3v18" />', solo:'<rect x="2" y="4" width="20" height="16" rx="2" /> <path d="M10 4v4" /> <path d="M2 8h20" /> <path d="M6 4v4" />', changes:'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M9 10h6" /> <path d="M12 13V7" /> <path d="M9 17h6" />', versions:'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> <path d="M12 7v5l4 2" />', share:'<path d="M12 2v13" /> <path d="m16 6-4-4-4 4" /> <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />', cmd:'<path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />', reader:'<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" />' };
+	var MI = { sun: GLYPH.sun, moon: GLYPH.moon, auto: GLYPH.auto, sidebar:'<rect width="18" height="18" x="3" y="3" rx="2" /> <path d="M9 3v18" />', solo:'<rect x="2" y="4" width="20" height="16" rx="2" /> <path d="M10 4v4" /> <path d="M2 8h20" /> <path d="M6 4v4" />', changes:'<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M9 10h6" /> <path d="M12 13V7" /> <path d="M9 17h6" />', versions:'<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> <path d="M12 7v5l4 2" />', share:'<path d="M12 2v13" /> <path d="m16 6-4-4-4 4" /> <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />', cmd:'<path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3" />', reader:'<path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" />' };
 	function menuWords(w) { var i = String(w).indexOf('  '); return i < 0 ? '<span class="ldpw-mw">' + esc(w) + '</span>' : '<span class="ldpw-mw">' + esc(w.slice(0, i)) + '</span><kbd>' + esc(w.slice(i + 2).trim()) + '</kbd>'; }
 	var menuQ = '', menuIndex = null; /* what is typed in a menu's own search (the title's menu of sections), and what it searches */
 	function menuHTML() {
@@ -669,8 +682,7 @@
 		MENU[mk] = { label: nm(x), items: tileItems(x), pick: function (a) { tileAct(x, a); } };
 		return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '" data-sid="' + esc(id) + '">' +
 			'<button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-style="' + esc(id) + '" data-f="style:' + esc(id) + '">' +
-				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited && !x.site ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
-				'<span class="ldpw-nm">' + esc(nm(x)) + '</span>' + (x.isDefault ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') +
+				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '"><b aria-hidden="true">Aa</b><span class="ldpw-nm">' + esc(nm(x)) + '</span>' + (x.isDefault ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') + (x.edited && !x.site ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' + /* the name inside, as Apple Books' tiles (0.44.0) */
 			'</button>' +
 			'<button type="button" class="ldpw-tm' + (changedSince(x) ? ' has-dot' : '') + '" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + nm(x)) + '">' + svg(GLYPH.more) + (changedSince(x) ? '<i class="ldpw-badge" aria-hidden="true"></i>' : '') + '</button>' +
 		'</div>';
@@ -1435,12 +1447,13 @@
 	function sideHTML() {
 		var shutter = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '" title="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>'; /* the lab's: on a phone the name first and the × at the right */
 		return '<nav class="ldpw-side" aria-label="' + esc(t('Sections')) + '">' +
-			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('Hide Sidebar')) + '" title="' + esc(t('Hide Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>') + '</div>' +
+			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? '<span class="ldpw-shend">' + ownerMoon() + shutter + '</span>' /* the moon on a phone's first page too, beside the × */ : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('Hide Sidebar')) + '" title="' + esc(t('Hide Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>') + '</div>' +
 			'<div class="ldpw-side-in">' + '<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear Search')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' + /* the lab's: the search scrolls with the list */ navButton({ id: 'styles', name: t('Styles') }) +
 				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + /* the lab's: Edited beside the style's name */
 				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'readers', name: t('Readers') }) + navButton({ id: 'button', name: t('Live Design Button') }) +
 			'</div>' + /* the panel's Settings and the way back to the current window are in the ••• menu, as the lab has them */
 			(phone() ? '' : '<span class="ldpw-grip" data-grip role="separator" aria-orientation="vertical" aria-label="' + esc(t('Sidebar width')) + '"></span>') + /* no tooltip, as the lab's */
+			(phone() && phoneList ? menuHTML() : '') + /* a phone's first page shows only this list, so the moon's menu opens here (0.44.0) */
 		'</nav>';
 	}
 	/* THE PANEL'S OWN SETTINGS (the prototype's prefsPage): only for this person on this computer, kept in the
@@ -1599,13 +1612,14 @@
 		var name = sq && sq.q.trim() ? t('Search') : showChanges ? t('Changes') : showVersions ? t('Versions') : editing ? label(editing) : x.id !== 'type' ? x.name : fontFor ? (role ? t('Font') : t(fontFor === 'body' ? 'Reading Font' : 'Interface Font')) : role ? t(roleMeta(role).label) : x.name;
 		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'readers' || x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (editedWord(s, true) ? ' · ' + editedWord(s, true) : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /title|headings|meta/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : x.id !== 'colour' && x.id !== 'type' ? x.name : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
 		var back = editing || deep || phone();
+		var moon = built && s ? ownerMoon() : '';
 		var undo = built && s ? '<button type="button" class="ldpw-circ" data-act="undo" data-f="act:undo"' + (s.canUndo() ? '' : ' disabled') + ' aria-label="' + esc(undoName()) + '" title="' + esc(undoName()) + '">' + svg(GLYPH.undo) + '</button>' : '';
 		return '<div class="ldpw-detail">' +
 			'<div class="ldpw-bar">' + (prefs.noSide && !phone() ? '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close3" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button><button type="button" class="ldpw-circ is-plain" aria-haspopup="menu" data-menu="views" data-f="menu:views2" aria-label="' + esc(t('Show Sidebar')) + '" title="' + esc(t('Show Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>' : '') + (back ? '<button type="button" class="ldpw-circ is-plain" data-act="' + (editing || deep ? 'back' : 'list') + '" data-f="act:back" aria-label="' + esc(t('Back')) + '">' + svg(GLYPH.back) + '</button>' : '') +
 				(prefs.noSide && !phone() && !deep && !editing && !(sq && sq.q.trim()) ? secsTitle(x, name, sub) : '<div class="ldpw-ttl"><b>' + esc(name) + '</b>' + (sub && (prefs.noSide || phone() || editing || deep) ? '<small>' + esc(sub) + '</small>' : '') + '</div>') + /* the lab's: without the sidebar the title is the way to the other sections */ /* the lab's: the style's name stands over the sidebar's group, so under the title only while the sidebar is hidden */
-				(s && s.editable() && !phone() && prefs.tips && !prefs.seenAim ? '<div class="ldpw-tip" role="note"><b>' + esc(t('Click anything on the page')) + '</b><span>' + esc(t('It opens its setting here. Or hold ⌥ and click, even with the window closed.')) + '</span><button type="button" class="ldpw-tipx" data-act="tipoff" data-f="act:tipoff" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button></div>' : '') + (s && s.editable() && !phone() ? '<button type="button" class="ldpw-circ is-plain' + (aiming ? ' is-aim' : '') + '" data-act="aim" data-f="act:aim" aria-pressed="' + aiming + '" aria-label="' + esc(t('Choose on the Page')) + '" title="' + esc(t('Click anything on the page to open its setting. Or hold ⌥ and click.')) + '">' + svg(GLYPH.aim) + '</button>' : '') + (s && s.editable() && built ? '<button type="button" class="ldpw-circ is-plain' + (comparing ? ' is-aim' : '') + '" data-act="compare" data-f="act:compare" aria-label="' + esc(t('Hold to Compare')) + '" title="' + esc(t('Hold to see the page without your changes (hold M)')) + '"' + (s.changes().length ? '' : ' disabled') + '>' + svg(GLYPH.compare) + '</button>' : '') + undo + (built && s ? barMore() : settingsMore()) /* the lab's: the style's ••• on its Settings page too */ + (built && s && x.id !== 'styles' && x.id !== 'readers' && x.id !== 'button' && !phone() ? commit() : '') +
+				(s && s.editable() && !phone() && prefs.tips && !prefs.seenAim ? '<div class="ldpw-tip" role="note"><b>' + esc(t('Click anything on the page')) + '</b><span>' + esc(t('It opens its setting here. Or hold ⌥ and click, even with the window closed.')) + '</span><button type="button" class="ldpw-tipx" data-act="tipoff" data-f="act:tipoff" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button></div>' : '') + (s && s.editable() && !phone() ? '<button type="button" class="ldpw-circ is-plain' + (aiming ? ' is-aim' : '') + '" data-act="aim" data-f="act:aim" aria-pressed="' + aiming + '" aria-label="' + esc(t('Choose on the Page')) + '" title="' + esc(t('Click anything on the page to open its setting. Or hold ⌥ and click.')) + '">' + svg(GLYPH.aim) + '</button>' : '') + (s && s.editable() && built ? '<button type="button" class="ldpw-circ is-plain' + (comparing ? ' is-aim' : '') + '" data-act="compare" data-f="act:compare" aria-label="' + esc(t('Hold to Compare')) + '" title="' + esc(t('Hold to see the page without your changes (hold M)')) + '"' + (s.changes().length ? '' : ' disabled') + '>' + svg(GLYPH.compare) + '</button>' : '') + moon + undo + (built && s ? barMore() : settingsMore()) /* the lab's: the style's ••• on its Settings page too */ + (built && s && x.id !== 'styles' && x.id !== 'readers' && x.id !== 'button' && !phone() ? commit() : '') +
 				(phone() ? '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close2" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</div>' +
-			'<div class="ldpw-scroll">' + pageBody(x) + '</div>' + foot(x, s, deep, built) + menuHTML() + (note ? '<p class="ldpw-note-line" role="status">' + esc(note) + '</p>' : '') +
+			'<div class="ldpw-scroll">' + pageBody(x) + '</div>' + foot(x, s, deep, built) + (phone() && phoneList ? '' : menuHTML()) + (note ? '<p class="ldpw-note-line" role="status">' + esc(note) + '</p>' : '') +
 		'</div>';
 	}
 	/* UNDO SAYS WHAT IT TAKES BACK ("Undo Highlighter"), in today's window's words */
@@ -1646,8 +1660,7 @@
 		var tiles = list.map(function (id) {
 			var x = s.tile(id); if (!x) return '';
 			return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"><button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-rstyle="' + esc(id) + '" data-f="rstyle:' + esc(id) + '">' +
-				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
-				'<span class="ldpw-nm">' + esc(nm(x)) + (id === def ? ' <em class="ldpw-def">' + esc(t('Default')) + '</em>' : '') + '</span>' + /* the lab's: Default beside the name */
+				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '"><b aria-hidden="true">Aa</b><span class="ldpw-nm">' + esc(nm(x)) + '</span>' + (id === def ? '<span class="ldpw-sub">' + esc(t('Default')) + '</span>' : '') + '</span>' + /* the name inside, as Apple Books' tiles (0.44.0) */
 			'</button></div>';
 		}).join('');
 		/* THE READERS' SHEET THE APPLE WAY (0.29.0, lab/the-panel-apple-way.html, change 12): the text size one
@@ -1655,10 +1668,9 @@
 		   pictures with a round tick under the chosen one (iPhone Display & Brightness). Both were a 28 px
 		   switch and two 30 px buttons, too small for a finger. The pictures keep data-seg, so the arrows
 		   and the press work as the segments' did. */
-		var stepper = '<div class="ldpw-box ldpw-rsize"><div class="ldpw-cap"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +
+		var stepper = '<div class="ldpw-rsize"><div class="ldpw-cap"><button type="button" data-rsize="-1" data-f="rsize:-1" aria-label="' + esc(t('Smaller')) + '"' + (at <= 0 ? ' disabled' : '') + '>A</button>' +
 			'<button type="button" class="is-big" data-rsize="1" data-f="rsize:1" aria-label="' + esc(t('Larger')) + '"' + (at >= ids.length - 1 ? ' disabled' : '') + '>A</button></div>' +
-			'<span class="ldpw-rdots" aria-hidden="true">' + ids.map(function (id, i) { return '<i' + (i === at ? ' class="is-on"' : '') + '></i>'; }).join('') + '</span></div>';
-		var looks = box(sidePicks('rside', r.side()));
+			sideButton('rside', r.side(), function (v) { r.setSide(v); }, 'ldpw-rmoon') + '</div>'; /* ONE ROW, as Apple Books (0.44.0): the size capsule and the moon; the step dots and the Appearance pictures are gone */
 		var shut = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>';
 		/* THE LAB'S READER WINDOW (2026-09-28): in the owner's Preview as Reader the bar says so under the name and ends
 		   with a blue Done (back to the page as the owner), and a line at the foot says what a visitor sees */
@@ -1667,11 +1679,11 @@
 				'<div class="ldpw-ttl"><b id="ldpw-title">' + esc(t('Live Design')) + '</b>' + (pv ? '<small>' + esc(t('Preview as Reader')) + '</small>' : '') + '</div>' +
 				(pv ? '<button type="button" class="ldpw-blue" data-act="endpreview" data-f="act:endpreview">' + esc(t('Done')) + '</button>' : '') + (phone() ? shut : '') + '</div>' + /* on a phone the × at the right, as the owner's sheet */
 			'<div class="ldpw-scroll">' +
-				gtitle(t('Text size')) + stepper + gtitle(t('Appearance')) + looks +
+				stepper +
 				(list.length > 1 ? '<div class="ldpw-tiles ldpw-styles" role="radiogroup" aria-label="' + esc(t('Styles')) + '">' + tiles + '</div>' : '') +
 				(r.canCopy() ? box('<button type="button" class="ldpw-r ldpw-rlink" data-rcopy data-f="rcopy">' + esc(t(readerCopied ? 'Style Copied' : 'Copy Style')) + '</button>') : '') +
 				(pv ? '<p class="ldpw-hint">' + esc(t('What a visitor sees: the site default first, no styles of your own, no unsaved changes. It closes when they click the page.')) + '</p>' : '') +
-			'</div></div>';
+			'</div>' + menuHTML() + '</div>';
 	}
 	function readerClick(b) {
 		var r = host.reader;
@@ -1683,6 +1695,8 @@
 		if (b.getAttribute('data-act') === 'endpreview') { hide(); try { window.close(); } catch (e) { /* kept */ }
 			setTimeout(function () { var u = new URL(window.location.href); u.searchParams.delete('ldp-as-reader'); window.location.href = u.toString(); }, 150); return true; }
 		if (b.hasAttribute('data-rsize')) { var ids = r.sizes(), i = ids.indexOf(r.size()) + (+b.getAttribute('data-rsize')); if (ids[i]) r.setSize(ids[i]); render('[data-f="' + b.getAttribute('data-f') + '"]'); return true; }
+		if (b.hasAttribute('data-menu')) { var mk = b.getAttribute('data-menu'); menu = menu === mk ? null : mk; render(menu ? '.ldpw-menu [aria-checked="true"]' : null); return true; }
+		if (b.hasAttribute('data-pick')) { var pk = b.getAttribute('data-pick'), m = MENU[pk.slice(0, pk.indexOf('|'))]; menu = null; if (m) m.pick(pk.slice(pk.indexOf('|') + 1)); render('[data-menu="rside"]'); return true; }
 		if (b.getAttribute('data-seg') === 'rside') { r.setSide(b.getAttribute('data-v')); render('[data-seg="rside"][data-v="' + b.getAttribute('data-v') + '"]'); return true; }
 		if (b.hasAttribute('data-rstyle')) { St().choose(b.getAttribute('data-rstyle')); render('[data-rstyle="' + b.getAttribute('data-rstyle') + '"]'); return true; }
 		if (b.hasAttribute('data-rcopy')) {
@@ -1735,6 +1749,7 @@
 			var rMoved = []; win.querySelectorAll('.ldpw-seg').forEach(function (g) { var k = g.querySelector('[data-seg]'), now = g.style.getPropertyValue('--i'), was = k ? rWas[k.getAttribute('data-seg')] : undefined; if (was !== undefined && was !== now) { g.style.setProperty('--i', was); rMoved.push(function () { g.style.setProperty('--i', now); }); } });
 			if (rMoved.length) { void win.offsetWidth; rMoved.forEach(function (f) { f(); }); }
 			var f0 = focus ? win.querySelector(focus) : had0 ? win.querySelector('[data-f="' + had0 + '"]') : null;
+			placeMenu(); /* the moon's menu under its button (0.44.0) */
 			if (f0) f0.focus({ preventScroll: true });
 			return;
 		}
