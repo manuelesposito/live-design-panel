@@ -170,8 +170,6 @@
 #ldp-window .ldpw-spic b { position: absolute; left: 12px; top: 8px; font-size: 22px; line-height: 1; font-weight: 400; }
 #ldp-window .ldpw-dot { position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; border-radius: 4px; background: var(--ldpw-blue); box-shadow: 0 0 0 2px rgb(0 0 0 / .25); }
 #ldp-window .ldpw-styles .ldpw-nm { text-align: left; padding: 0 2px; }
-#ldp-window .ldpw-uses { display: flex; align-items: center; gap: 8px; } 
-#ldp-window .ldpw-uses i { display: block; width: 64px; height: 4px; border-radius: 2px; flex: none; background: linear-gradient(90deg, var(--ldpw-blue) var(--pc), rgb(var(--ldpw-fx) / .12) var(--pc)); }
 #ldp-window .ldpw-nm:has(.ldpw-new) { display: flex; justify-content: center; gap: 3px; } 
 #ldp-window .ldpw-nmt { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 #ldp-window .ldpw-nm .ldpw-new { flex: none; font-style: normal; font-size: 10px; font-weight: 650; color: var(--ldpw-blue); }
@@ -188,14 +186,6 @@
 #ldp-window .ldpw-field { width: 100%; height: auto; margin: 0; padding: 8px 10px; border-radius: 8px; border: 0; background: var(--ldpw-bg); color: var(--ldpw-ink); box-shadow: none; font: inherit; }
 #ldp-window .ldpw-field:focus { outline: 2px solid var(--ldpw-blue); }
 #ldp-window .ldpw-note-line { position: absolute; left: 50%; bottom: 14px; translate: -50% 0; z-index: 3; padding: 7px 14px; border-radius: 16px; background: var(--ldpw-menu); box-shadow: 0 8px 24px rgb(0 0 0 / .25), 0 0 0 .5px rgb(var(--ldpw-fx) / .12); font-size: 13px; white-space: nowrap; animation: ldpw-menu-in .15s ease-out; }
-#ldp-window .ldpw-handle { width: 28px; height: 32px; display: grid; place-items: center; flex: none; color: var(--ldpw-soft); cursor: grab; touch-action: none; border-radius: 6px; margin-right: -6px; }
-#ldp-window .ldpw-handle svg { width: 16px; height: 16px; }
-#ldp-window .ldpw-handle.is-none { cursor: default; }
-#ldp-window .ldpw-rrow { transition: transform .18s ease; background: var(--ldpw-row); }
-#ldp-window .ldpw-box > .ldpw-rrow:first-child { border-radius: 13px 13px 0 0; }
-#ldp-window .ldpw-box > .ldpw-rrow:last-child { border-radius: 0 0 13px 13px; }
-#ldp-window .ldpw-rrow.is-dragging { transition: none; z-index: 3; background: var(--ldpw-row2); border-radius: 10px; box-shadow: 0 8px 24px rgb(0 0 0 / .3); cursor: grabbing; }
-#ldp-window .ldpw-rrow.is-dragging .ldpw-handle { cursor: grabbing; }
 #ldp-window .ldpw-spotrow { flex-direction: column; align-items: stretch; gap: 8px; padding-top: 10px; padding-bottom: 10px; }
 #ldp-window .ldpw-spotmap { --pad: 16px; position: relative; height: 124px; border-radius: 12px; background: var(--ldpw-bg); box-shadow: inset 0 0 0 1px var(--ldpw-line); overflow: hidden; }
 #ldp-window .ldpw-mini { position: absolute; inset: 14px 44px; border-radius: 6px; background: rgb(var(--ldpw-fx) / .05); display: flex; flex-direction: column; gap: 6px; padding: 12px 14px; }
@@ -544,7 +534,6 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-gt { display: flex; gap: 6px; align-items: baseline; min-width: 0; }
 #ldp-window .ldpw-gt span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 #ldp-window .ldpw-gt em { font-style: normal; font-weight: 500; flex: none; }
-#ldp-window .ldpw-handle { font-size: 16px; }
 #ldp-window .ldpw-lvprev { margin-bottom: 14px; }
 #ldp-window .ldpw-lvprev .ldpw-lv { font-weight: 600; font-size: 13px; padding: 9px 14px; border-radius: var(--radius-control, 8px); }
 #ldp-window .ldpw-pv { border-radius: var(--radius-control, 8px); }
@@ -672,3 +661,4 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-tm[aria-expanded="true"] { background: var(--ldpw-press); }
 @media (hover: hover) { #ldp-window .ldpw-stile .ldpw-tm:hover { background: var(--ldpw-press); } }
 #ldp-window .ldpw-dflt { display: inline-block; margin-left: 5px; padding: 1px 6px; border-radius: 999px; background: var(--ldpw-fill); color: var(--ldpw-ink); font-style: normal; font-size: 10.5px; font-weight: 600; line-height: 15px; vertical-align: 1px; }
+#ldp-window .ldpw-tuse { display: block; padding: 0 2px; margin-top: 1px; font-size: 11.5px; line-height: 15px; color: var(--ldpw-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; } 
