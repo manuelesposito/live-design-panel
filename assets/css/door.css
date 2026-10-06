@@ -1,4 +1,4 @@
-/* Live Design Panel: the door (the Live Design button) and the seam where the
+/* Vibetiles: the door (the Vibetiles button) and the seam where the
    panel joins it. This was panel.php's own <style> block until 2026-09-25; it
    is a stylesheet now, delivered through wp_add_inline_style on the
    architrave-panel-door handle so it still stands after every other sheet, and

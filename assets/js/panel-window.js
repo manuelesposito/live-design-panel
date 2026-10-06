@@ -23,7 +23,7 @@
  *   host.load(), host.save(record), host.publish(record)
  *                         the style's own storage; not used yet
  *
- * The door (the Live Design button) is the site's; the window only asks
+ * The door (the Vibetiles button) is the site's; the window only asks
  * `takes(door)` whether it should open instead of today's.
  */
 (function () {

@@ -1,10 +1,10 @@
 <?php
 /**
- * Live Design Panel: everything the plugin does. Read by live-design-panel.php once it
+ * Vibetiles: everything the plugin does. Read by live-design-panel.php once it
  * has made sure no older copy of the plugin is running (see there for why this is a
  * file of its own).
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -1244,7 +1244,7 @@ function architrave_panel_guard_block( $css, $guest ) {
 }
 
 /**
- * THE OWNER'S SETTINGS FOR THE DOOR (2026-09-23, the Live Design button page),
+ * THE OWNER'S SETTINGS FOR THE DOOR (2026-09-23, the Vibetiles button page),
  * read in one place: the markup in wp_footer and the stylesheet delivery at
  * enqueue time both ask this, so the two cannot disagree within a request.
  *

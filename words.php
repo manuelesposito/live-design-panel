@@ -6,7 +6,7 @@
  * panel speaks English only (2026-10-05); its German is gone. A word the theme also says alone
  * (Settings, Light, Dark, Reading size …) stays in the theme's list and is not repeated here.
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

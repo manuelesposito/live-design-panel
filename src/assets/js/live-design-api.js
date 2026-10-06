@@ -6,7 +6,7 @@
  * colours.dark.accent; the words a saved style uses, since 0.27.0), sees each change as ONE step the owner can undo, and gets the
  * reading check back in numbers. It speaks the lab prototype's words (describe, set,
  * preview, endPreview, check, explain, undo, redo, style, load, choose, open), so the
- * connector (tools/live-design-mcp.mjs) works on the lab page and on a real site alike.
+ * connector (github.com/manuelesposito/vibetiles-connector) works on the lab page and on a real site alike.
  *
  * It owns nothing: every read and write goes through the window's host
  * (window.LiveDesignHost.style) and the engine's own description of the record

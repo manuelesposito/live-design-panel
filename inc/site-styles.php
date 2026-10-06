@@ -38,7 +38,7 @@
  * anything that wants to read the site's looks, another site, an
  * assistant, can.
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

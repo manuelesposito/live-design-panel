@@ -16,7 +16,7 @@
  * 2022. A face not fetched yet is simply a stack whose first name the browser
  * does not have, so it falls back to its section's system face.
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -76,7 +76,7 @@ function architrave_fonts_write_css() {
 		wp_delete_file( $dir . 'fonts.css' );
 		return;
 	}
-	$rules = array( '/* Live Design Panel: the library faces fetched for this site. Written by the plugin; each face\'s licence is beside its files. */' );
+	$rules = array( '/* Vibetiles: the library faces fetched for this site. Written by the plugin; each face\'s licence is beside its files. */' );
 	foreach ( architrave_fonts_have() as $id ) {
 		foreach ( $faces[ $id ]['files'] as $f ) {
 			$rules[] = sprintf(

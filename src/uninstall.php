@@ -5,7 +5,7 @@
  * `architrave_site_styles` is deliberately left: it belongs to the Architrave
  * theme, which can still read it, and it predates the plugin.
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 defined( 'WP_UNINSTALL_PLUGIN' ) || exit;

@@ -17,7 +17,7 @@
  * WordPress: it is handed a small host object by assets/js/panel-window-wp.js,
  * the only file that knows these routes, this option and today's window.
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

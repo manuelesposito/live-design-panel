@@ -6,7 +6,7 @@
  * panel speaks English only (2026-10-05); its German is gone. A word the theme also says alone
  * (Settings, Light, Dark, Reading size …) stays in the theme's list and is not repeated here.
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -135,7 +135,7 @@ function architrave_panel_words( $words ) {
 		'Fields' => __( 'Fields', 'vibetiles' ),
 		'The search field in the left sidebar' => __( 'The search field in the left sidebar', 'vibetiles' ),
 		'Name' => __( 'Name', 'vibetiles' ),
-		'Icon' => __( 'Icon', 'vibetiles' ), /* the Live Design button in a menu (2026-09-24) */
+		'Icon' => __( 'Icon', 'vibetiles' ), /* the Vibetiles button in a menu (2026-09-24) */
 		'Icon and name' => __( 'Icon and name', 'vibetiles' ), /* the button's Show (2026-09-24) */
 		'Name on hover' => __( 'Name on hover', 'vibetiles' ),
 		'Corners' => __( 'Corners', 'vibetiles' ),
@@ -600,7 +600,7 @@ function architrave_panel_words( $words ) {
 		'Green'        => __( 'Green', 'vibetiles' ),
 		'Blue'         => __( 'Blue', 'vibetiles' ),
 		'Orange'       => __( 'Orange', 'vibetiles' ), /* the arcade's accent (2026-09-14) */
-		'Vibetiles button' => __( 'Vibetiles button', 'vibetiles' ), /* the Live Design button page (2026-09-23) */
+		'Vibetiles button' => __( 'Vibetiles button', 'vibetiles' ), /* the Vibetiles button page (2026-09-23) */
 		'Where' => __( 'Where', 'vibetiles' ),
 		'Automatic' => __( 'Automatic', 'vibetiles' ),
 		'Bottom centre' => __( 'Bottom centre', 'vibetiles' ),

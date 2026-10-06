@@ -1,4 +1,4 @@
-/* Live Design Panel: fonts on demand, the owner's half (2026-09-23,
+/* Vibetiles: fonts on demand, the owner's half (2026-09-23,
    docs/fonts-on-demand.md; the server's half is fonts-on-demand.php).
 
    A library face's files are not in the plugin. The first time the page

@@ -1,4 +1,4 @@
-/* Live Design Panel: panel.css as a guest gets it, every rule that draws the
+/* Vibetiles: panel.css as a guest gets it, every rule that draws the
    panel one ID heavier (see split_style.GUARD). GENERATED; do not edit. */
 :root[data-theme="paper-dark"] {
 	--text-primary: rgb(from var(--ink-alpha-strong) r g b / 1);

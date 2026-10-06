@@ -114,7 +114,7 @@
 	var SHOWN = ['neutral', 'paper', 'terminal', 'grey', 'arcade']; /* terminal: the Terminal tile's own colours (2026-09-10); grey: Poster's (2026-09-12); arcade (2026-09-15, Manuel: "I can't click Arcade"): the settings panel listed it, but its row presses this list's button, and the list had none */
 	/* ALONE, THE THEME IS THE NEUTRAL ROOM (Manuel, 2026-09-21, the panel's
 	   move to a plugin: "Standard only"). The coloured rooms are the styles'
-	   own and come with the Live Design Panel plugin; functions.php says
+	   own and come with the Vibetiles plugin; functions.php says
 	   whether it runs (window.architravePanelActive, printed before this
 	   file). A room a reader chose earlier is kept in storage and returns
 	   with the plugin; meanwhile the first room, neutral, is worn. */

@@ -23,7 +23,7 @@
  *   host.load(), host.save(record), host.publish(record)
  *                         the style's own storage; not used yet
  *
- * The door (the Live Design button) is the site's; the window only asks
+ * The door (the Vibetiles button) is the site's; the window only asks
  * `takes(door)` whether it should open instead of today's.
  */
 (function () {
@@ -1517,7 +1517,7 @@
 		el.textContent = 'body > :not([id^="ldp"]):not(script):not(style) { zoom: ' + z + '; }';
 	}
 	function zoomItems() { var z = +prefs.zoom || 1; return [['bigger', t('Bigger Text') + '  ⌘+', z >= 1.4], ['smaller', t('Smaller Text') + '  ⌘−', z <= 0.8], ['actual', t('Actual Size') + '  ⌘0', z === 1]]; }
-	/* THE AURORA'S COLOURS (the prototype's BANDS): the light under the Live Design button, a site setting (button.band) */
+	/* THE AURORA'S COLOURS (the prototype's BANDS): the light under the Vibetiles button, a site setting (button.band) */
 	var BANDS = { dusk: ['Dusk', 'oklch(60% .2 258), oklch(72% .13 232), oklch(58% .21 292), oklch(72% .14 345), oklch(56% .19 275)'], ocean: ['Ocean', 'oklch(62% .15 235), oklch(78% .12 200), oklch(58% .15 255), oklch(82% .1 185), oklch(60% .16 220)'], meadow: ['Meadow', 'oklch(72% .17 145), oklch(85% .15 115), oklch(66% .15 170), oklch(82% .14 95), oklch(64% .16 150)'], candy: ['Candy', 'oklch(72% .19 350), oklch(84% .12 30), oklch(70% .18 320), oklch(88% .12 90), oklch(68% .2 300)'], ember: ['Ember', 'oklch(64% .21 30), oklch(80% .16 65), oklch(60% .22 15), oklch(85% .14 90), oklch(58% .2 40)'], mono: ['Silver', 'oklch(88% 0 0), oklch(62% 0 0), oklch(95% 0 0), oklch(52% 0 0), oklch(78% 0 0)'] };
 	function bandRow(bt) {
 		var cur = BANDS[bt.band] ? bt.band : 'dusk';

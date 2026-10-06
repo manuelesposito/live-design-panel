@@ -14,7 +14,7 @@
 	var pill = document.querySelector('.architrave-panel-opener');
 	if (!pill) return;
 	var at = { x: 0, y: 0 }, drag = null, moved = false;
-	/* THE OWNER'S SETTINGS (2026-09-23, the Live Design button page), printed on
+	/* THE OWNER'S SETTINGS (2026-09-23, the Vibetiles button page), printed on
 	   the door by panel.php and changed live by presets.js's event. */
 	var S = {};
 	(function () { var own = pill.style.getPropertyValue('--opener-own').trim(); if (own) { var n = parseInt(own.slice(1), 16), l = 0.2126 * (n >> 16 & 255) + 0.7152 * (n >> 8 & 255) + 0.0722 * (n & 255); pill.style.setProperty('--opener-own-ink', l > 150 ? '#111111' : '#ffffff'); } }()); /* words that read on the button's own colour, from the first paint */
@@ -358,7 +358,7 @@
 	/* PICKING A PLACE PUTS THE DOOR THERE (Manuel, 2026-09-23: "once the button
 	   is moved it doesn't go back to its setting even when I click the setting").
 	   A drag is a nudge for this browser only, kept per place; choosing a place
-	   on the Live Design button page, even the one already chosen, forgets the
+	   on the Vibetiles button page, even the one already chosen, forgets the
 	   nudge, so the door stands exactly where the setting says. */
 	window.addEventListener('architrave-button-settings', function (e) {
 		var d = e.detail || {};
@@ -377,7 +377,7 @@
 		/* ON AUTOMATIC IT STAYS IN ITS ROW (Manuel, 2026-09-30: "it shouldn't be possible to pull out when it's automatic"). For
 		   two days the owner could pull it out of the site's row (the lab's, 2026-09-28); on a real site that was a press that
 		   slipped, a button that changed size under the hand and a place nobody chose. It moves once Automatic is switched off
-		   on the Live Design Button page: by the map there, or by dragging the button itself. */
+		   on the Vibetiles button page: by the map there, or by dragging the button itself. */
 		if (e.button !== 0 || docked) return;
 		drag = { x: e.clientX, y: e.clientY, ox: at.x, oy: at.y, pid: e.pointerId };
 		moved = false;

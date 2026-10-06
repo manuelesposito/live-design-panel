@@ -1,10 +1,10 @@
 <?php
 /**
- * Live Design Panel: everything the plugin does. Read by live-design-panel.php once it
+ * Vibetiles: everything the plugin does. Read by live-design-panel.php once it
  * has made sure no older copy of the plugin is running (see there for why this is a
  * file of its own).
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

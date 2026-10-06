@@ -38,7 +38,7 @@
  * anything that wants to read the site's looks, another site, an
  * assistant, can.
  *
- * @package LiveDesignPanel
+ * @package Vibetiles
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -479,7 +479,7 @@ function architrave_site_styles_may_publish() {
  *   readers  { ids }                      the styles readers are offered
  *                                         beside the site's own
  *   readers-copy { on }                   whether readers may copy a style
- *   button   { settings }                 where the Live Design button sits
+ *   button   { settings }                 where the Vibetiles button sits
  *                                         and how it looks
  *
  * Every answer is the whole state, so the page rebuilds from one truth.

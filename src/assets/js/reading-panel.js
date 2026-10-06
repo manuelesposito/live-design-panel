@@ -465,7 +465,7 @@
 	}
 
 	/* THE BUTTON BECOMES THE PANEL (Manuel, 2026-09-24, lab/the-button-becomes-the-panel.html,
-	   picture 8: "build 7 with snappy spring"). The Live Design button does not stay
+	   picture 8: "build 7 with snappy spring"). The Vibetiles button does not stay
 	   under an open panel: a drop rises out of it, the two join like water (a blur
 	   and a hard edge on the pair, as Apple's glass shapes merge when they come
 	   close), and the drop becomes the panel with a light overshoot that settles.
