@@ -715,6 +715,9 @@ function live_design_window_words() {
 		'Versions of {name} are kept as you work and each time it is published. Choose one to see it on the page.' => __( 'Versions of {name} are kept as you work and each time it is published. Choose one to see it on the page.', 'vibetiles' ),
 		/* THE BUTTON SECTION */
 		'Vibetiles Button' => __( 'Vibetiles Button', 'vibetiles' ),
+		'Button' => __( 'Button', 'vibetiles' ),
+		'{name} Style' => __( '{name} Style', 'vibetiles' ),
+		'Settings' => __( 'Settings', 'vibetiles' ),
 		'Show to' => __( 'Show to', 'vibetiles' ),
 		'Readers get Copy style, a link that carries the whole style to any site with the panel.' => __( 'Readers get Copy style, a link that carries the whole style to any site with the panel.', 'vibetiles' ),
 		'This site has no Vibetiles button settings.' => __( 'This site has no Vibetiles button settings.', 'vibetiles' ),
@@ -908,12 +911,6 @@ function live_design_window_words() {
 		'Saving…' => __( 'Saving…', 'vibetiles' ), /* beside a style on the site while a change goes out (0.31.0) */
 		'The ground around the paper turns dark; the paper stays light' => __( 'The ground around the paper turns dark; the paper stays light', 'vibetiles' ),
 		'Show icon' => __( 'Show icon', 'vibetiles' ),
-		'{n}% of readers' => /* translators: {n} is a whole number */ __( '{n}% of readers', 'vibetiles' ),
-		'Count readers’ styles' => __( 'Count readers’ styles', 'vibetiles' ),
-		'One page view in ten sends only the style’s name. No cookie, nothing about the reader.' => __( 'One page view in ten sends only the style’s name. No cookie, nothing about the reader.', 'vibetiles' ),
-		'No readers counted yet. The shares show once some are.' => __( 'No readers counted yet. The shares show once some are.', 'vibetiles' ),
-		'Readers in the last 30 days.' => __( 'Readers in the last 30 days.', 'vibetiles' ),
-		'Not counting. Turned off, the numbers are deleted.' => __( 'Not counting. Turned off, the numbers are deleted.', 'vibetiles' ),
 		'Ground colour' => __( 'Ground colour', 'vibetiles' ), /* the dark ground's own colour, Colour › Show More (2026-09-28) */
 		'Your own' => __( 'Your own', 'vibetiles' ),
 		'The night’s paper' => __( 'The night’s paper', 'vibetiles' ),

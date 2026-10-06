@@ -2304,15 +2304,6 @@
 		markChosen(); /* the mark follows the tile, and nothing else moves it */
 	}
 	stamp(current);
-	/* READER NUMBERS (2026-09-28, the prototype's Readers page): one page view in ten tells the site
-	   which style it was read in, and nothing else: no cookie, nothing kept in the browser. The site
-	   prints the address only while the owner lets it count (inc/site-styles.php). */
-	(function () {
-		var to = window.architraveSiteStyles && window.architraveSiteStyles.count;
-		if (!READER || PREVIEW_LINK || !to || !navigator.sendBeacon || Math.random() >= 0.1) return;
-		try { navigator.sendBeacon(to, new Blob([JSON.stringify({ style: current })], { type: 'application/json' })); } catch (e) { /* not counted */ }
-	})();
-
 	/* A FIRST VISIT ON A SITE DEFAULT (2026-09-18). The dials' own scripts
 	   have already stamped their rest before this runs, and a style presses
 	   its recipe only on a press; so a reader arriving with nothing chosen

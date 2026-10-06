@@ -647,175 +647,18 @@ function architrave_preview_routes() {
 add_action( 'rest_api_init', 'architrave_preview_routes' );
 
 /**
- * READER NUMBERS (2026-09-28, the prototype's Readers page): how many readers
- * read in each style, the last 30 days. One page view in ten sends the style's
- * id and nothing else: no cookie, nothing stored in the browser, no address or
- * user kept. The site keeps a count per day and style in one option, not
- * autoloaded; the owner sees the shares and may turn the counting off.
+ * READER NUMBERS ARE GONE (2026-10-06, Manuel: "take that whole function out, I don't like it"):
+ * readers' pages no longer send their style and the site keeps no counts. What an earlier
+ * version kept is deleted once, the first time an owner's screen loads.
  */
-define( 'ARCHITRAVE_COUNT_DAYS', 30 );
-
-/**
- * Whether readers' styles are counted: on until the owner turns it off.
- *
- * @return bool
- */
-function architrave_reader_counting() {
-	return '0' !== (string) get_option( 'architrave_panel_count_readers', '1' );
-}
-
-/**
- * The counts per day, the days older than the window dropped.
- *
- * @return array<string, array<string, int>> 'Y-m-d' => { style id => count }
- */
-function architrave_reader_count_days() {
-	$raw  = json_decode( (string) get_option( 'architrave_panel_reader_counts', '{}' ), true );
-	$from = gmdate( 'Y-m-d', time() - ( ARCHITRAVE_COUNT_DAYS - 1 ) * DAY_IN_SECONDS );
-	$out  = array();
-	foreach ( is_array( $raw ) ? $raw : array() as $day => $counts ) {
-		if ( is_string( $day ) && preg_match( '/^\d{4}-\d{2}-\d{2}$/', $day ) && $day >= $from && is_array( $counts ) ) {
-			$out[ $day ] = array_map( 'intval', $counts );
-		}
+function architrave_reader_counts_forget() {
+	if ( false !== get_option( 'architrave_panel_reader_counts' ) || false !== get_option( 'architrave_panel_count_readers' ) ) {
+		delete_option( 'architrave_panel_reader_counts' );
+		delete_option( 'architrave_panel_count_readers' );
 	}
-	return $out;
 }
-
-/**
- * What the owner's window shows: the sum per style over the window.
- *
- * @return array{counting: bool, days: int, counts: array<string, int>}
- */
-function architrave_reader_counts() {
-	$sum = array();
-	foreach ( architrave_reader_count_days() as $counts ) {
-		foreach ( $counts as $id => $n ) {
-			$sum[ $id ] = ( isset( $sum[ $id ] ) ? $sum[ $id ] : 0 ) + $n;
-		}
-	}
-	return array(
-		'counting' => architrave_reader_counting(),
-		'days'     => ARCHITRAVE_COUNT_DAYS,
-		'counts'   => (object) $sum,
-	);
-}
-
-/**
- * Whether a reader's page may count this style: the theme's own look, a built-in
- * style (plugin/settings.json's list) or one the site has published.
- *
- * @param string $id A style's id.
- * @return bool
- */
-function architrave_reader_count_known( $id ) {
-	if ( 'host' === $id ) {
-		return true;
-	}
-	$state = architrave_site_styles();
-	foreach ( $state['styles'] as $style ) {
-		if ( $style['id'] === $id ) {
-			return true;
-		}
-	}
-	static $builtin = null;
-	if ( null === $builtin ) {
-		$builtin = array();
-		$file    = defined( 'ARCHITRAVE_PANEL_FILE' ) ? plugin_dir_path( ARCHITRAVE_PANEL_FILE ) . 'settings.json' : '';
-		$list    = $file && is_readable( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : null; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file of the plugin's own.
-		foreach ( ( is_array( $list ) && isset( $list['settings'] ) ? $list['settings'] : array() ) as $setting ) {
-			if ( isset( $setting['key'], $setting['choices'] ) && 'base' === $setting['key'] && is_array( $setting['choices'] ) ) {
-				foreach ( $setting['choices'] as $choice ) {
-					$builtin[] = is_array( $choice ) ? ( isset( $choice['id'] ) ? $choice['id'] : '' ) : (string) $choice;
-				}
-			}
-		}
-	}
-	return in_array( $id, $builtin, true );
-}
-
-/**
- * POST architrave/v1/site-styles/count (anyone: a reader's page view), GET
- * architrave/v1/site-styles/counts and POST .../counting (whoever may publish).
- */
-function architrave_reader_count_routes() {
-	register_rest_route(
-		'architrave/v1',
-		'/site-styles/count',
-		array(
-			'methods'             => WP_REST_Server::CREATABLE,
-			'permission_callback' => '__return_true',
-			'args'                => array(
-				'style' => array(
-					'type'     => 'string',
-					'required' => true,
-					'pattern'  => '^[a-z][a-z0-9-]{0,40}$',
-				),
-			),
-			'callback'            => static function ( $request ) {
-				if ( ! architrave_reader_counting() ) {
-					return new WP_REST_Response( null, 204 );
-				}
-				$id   = (string) $request['style'];
-				/* ONLY A STYLE THE SITE HAS (2026-10-01, the panel audit): anyone may post here,
-				   and forty made-up names a day filled the day's list before the real styles. */
-				if ( ! architrave_reader_count_known( $id ) ) {
-					return new WP_REST_Response( null, 204 );
-				}
-				/* AT MOST THIRTY AN HOUR FROM ONE ADDRESS (2026-10-02, the panel audit): a page sends
-				   one view in ten, so a reader never comes near it, while a script posting all day
-				   could fill the counts. The address is kept only as a salted hash, for an hour. */
-				$who   = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-				$throt = 'ldp_count_' . substr( md5( wp_salt( 'nonce' ) . $who ), 0, 20 );
-				$sent  = (int) get_transient( $throt );
-				if ( $sent >= 30 ) {
-					return new WP_REST_Response( null, 204 );
-				}
-				set_transient( $throt, $sent + 1, HOUR_IN_SECONDS );
-				$days = architrave_reader_count_days();
-				$day  = gmdate( 'Y-m-d' );
-				$seen = isset( $days[ $day ] ) ? $days[ $day ] : array();
-				if ( ! isset( $seen[ $id ] ) && count( $seen ) >= 40 ) {
-					return new WP_REST_Response( null, 204 ); /* a day holds forty styles at most */
-				}
-				$seen[ $id ]  = ( isset( $seen[ $id ] ) ? $seen[ $id ] : 0 ) + 1;
-				$days[ $day ] = $seen;
-				update_option( 'architrave_panel_reader_counts', wp_json_encode( $days ), false );
-				return new WP_REST_Response( null, 204 );
-			},
-		)
-	);
-	register_rest_route(
-		'architrave/v1',
-		'/site-styles/counts',
-		array(
-			'methods'             => WP_REST_Server::READABLE,
-			'permission_callback' => 'architrave_site_styles_may_publish',
-			'callback'            => static function () {
-				return rest_ensure_response( architrave_reader_counts() );
-			},
-		)
-	);
-	register_rest_route(
-		'architrave/v1',
-		'/site-styles/counting',
-		array(
-			'methods'             => WP_REST_Server::CREATABLE,
-			'permission_callback' => 'architrave_site_styles_may_publish',
-			'args'                => array(
-				'on' => array( 'required' => true ),
-			),
-			'callback'            => static function ( $request ) {
-				$on = rest_sanitize_boolean( $request['on'] );
-				update_option( 'architrave_panel_count_readers', $on ? '1' : '0', false );
-				if ( ! $on ) {
-					delete_option( 'architrave_panel_reader_counts' ); /* off means forgotten, too */
-				}
-				return rest_ensure_response( architrave_reader_counts() );
-			},
-		)
-	);
-}
-add_action( 'rest_api_init', 'architrave_reader_count_routes' );
+add_action( 'admin_init', 'architrave_reader_counts_forget' );
+add_action( 'rest_api_init', 'architrave_reader_counts_forget' );
 
 /**
  * The preview a page was opened with, `?ldp-preview=<id>`: its record as a style
@@ -1108,9 +951,6 @@ function architrave_site_styles_print() {
 			unset( $preview['record'] );
 		}
 		$state['preview'] = $preview;
-	}
-	if ( ! $preview && architrave_reader_counting() && ! architrave_as_reader() ) {
-		$state['count'] = rest_url( 'architrave/v1/site-styles/count' ); /* a reader's page sends its style here, one view in ten (presets.js) */
 	}
 	$script = 'window.architraveSiteStyles = ' . wp_json_encode( $state ) . ';';
 	/*

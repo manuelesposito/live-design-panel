@@ -49,7 +49,7 @@
 		var list = sections();
 		if (section === 'settings') return { id: 'settings', name: t('Settings') };
 		if (section === 'styles') return { id: 'styles', name: t('Styles') };
-		if (section === 'button') return { id: 'button', name: t('Vibetiles Button') };
+		if (section === 'button') return { id: 'button', name: t('Button') }; /* "Button" in the sidebar and the title (2026-10-06, Manuel) */
 		for (var i = 0; i < list.length; i++) if (list[i].id === section) return list[i];
 		return list[0] || { id: 'settings', name: t('Settings') };
 	}
@@ -666,16 +666,16 @@
 		Array.prototype.forEach.call(win.querySelectorAll('.ldpw-tile[data-style], .ldpw-tile[data-rstyle]'), function (b) { warmFaces(b.getAttribute('data-style') || b.getAttribute('data-rstyle'), false); });
 	}
 	/* ===== STYLES: the gallery, as the prototype's: the theme's own look, then what readers are shown, then what they are not ===== */
-	var tileShares = null; /* while counting: each shown style's share of readers, set as the gallery is drawn */
 	function tileHTML(id, fixed) {
 		var x = St().tile(id); if (!x) return '';
-		var pc = tileShares ? tileShares[id] : null;
 		var mk = 'tile:' + id;
 		MENU[mk] = { label: nm(x), items: tileItems(x), pick: function (a) { tileAct(x, a); } };
 		return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"' + (fixed ? '' : ' data-sid="' + esc(id) + '"') + '>' + /* Original's tile stays where it is: no data-sid, nothing to drag (2026-10-05) */
 			'<button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-style="' + esc(id) + '" data-f="style:' + esc(id) + '">' +
-				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited && !x.site ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + '</span>' +
-				'<span class="ldpw-nm">' + esc(nm(x)) + (x.isDefault ? ' <em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' + (pc != null ? '<span class="ldpw-tuse">' + esc(t('{n}% of readers').replace('{n}', pc)) + '</span>' : '') + /* DEFAULT, A BADGE BESIDE THE NAME (2026-10-05): the same on every tile, Original's too */
+				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.edited && !x.site ? '<em class="ldpw-dot" title="' + esc(t('Edited')) + '"></em>' : '') + (x.isDefault ? '<em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' +
+				/* DEFAULT, A BADGE IN THE PICTURE'S TOP RIGHT CORNER (2026-10-06, Manuel: beside the name it cut "Original" to "Original …"
+				   and hid itself); the picture is hidden from a screen reader, so the name says it there */
+				'<span class="ldpw-nm">' + esc(nm(x)) + (x.isDefault ? '<span class="ldpw-sr">, ' + esc(t('Default')) + '</span>' : '') + '</span>' +
 			'</button>' +
 			'<button type="button" class="ldpw-tm' + (changedSince(x) ? ' has-dot' : '') + '" aria-haspopup="menu" aria-expanded="' + (menu === mk) + '" data-menu="' + esc(mk) + '" data-f="menu:' + esc(mk) + '" aria-label="' + esc(t('More') + ': ' + nm(x)) + '">' + svg(GLYPH.more) + (changedSince(x) ? '<i class="ldpw-badge" aria-hidden="true"></i>' : '') + '</button>' +
 		'</div>';
@@ -716,8 +716,6 @@
 		var s = St(), st = s.styles(), out = '';
 		/* ORIGINAL SITS WITH THE OTHERS (Manuel, 2026-10-05): a tile like theirs, first among what readers meet, where
 		   the big row stood; it does not move and is not hidden (tileHTML fixed) */
-		var counted = (st.original ? [st.original] : []).concat(st.shown);
-		tileShares = {}; counted.forEach(function (id) { tileShares[id] = shareOf(id, counted); });
 		var orig = st.original ? tileHTML(st.original, true) : '';
 		/* THE TWO GROUPS SORT (the lab's): drag a tile to change the order or to show or hide it; an empty group shows only while a tile is carried */
 		/* A GROUP FOLDS (the lab's, as a Finder sidebar's section): its title is the press; folded it says how many it holds */
@@ -726,8 +724,7 @@
 		out += head('shown', t('Shown to Readers'), st.shown.length + (orig ? 1 : 0)) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.shown ? ' is-folded' : '') + '" data-group="shown" role="radiogroup" aria-label="' + esc(t('Shown to Readers')) + '">' + orig + st.shown.map(function (id) { return tileHTML(id); }).join('') + '</div>';
 		out += head('hidden', t('Hidden from Readers'), st.hidden.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.hidden ? ' is-folded' : '') + '" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(function (id) { return tileHTML(id); }).join('') + '</div>';
 		/* a phone cannot drag (sortDown), so it is not told to (2026-10-06, the sweep) */
-		return out + '<p class="ldpw-hint">' + esc(phone() ? t('Show, hide and Make Default are in each style’s ••• menu.') : t('Drag a style to change its order or to show or hide it. Make Default is in each style’s ••• menu.')) + '</p>' +
-			countBox(s, counted);
+		return out + '<p class="ldpw-hint">' + esc(phone() ? t('Show, hide and Make Default are in each style’s ••• menu.') : t('Drag a style to change its order or to show or hide it. Make Default is in each style’s ••• menu.')) + '</p>';
 	}
 	/* THE FOOT: Revert this page at the left; on a phone the blue button stands at the right, where a thumb finds it (the lab's) */
 	function foot(x, s, deep, built) {
@@ -768,26 +765,6 @@
 		});
 	}
 
-
-	/* ===== READER NUMBERS (the prototype's): each style's share of the page views counted, the last 30 days (inc/site-styles.php).
-	   THE READERS PAGE WENT INTO STYLES (2026-10-06, Manuel: "not much on that page that is not already there"): showing,
-	   hiding, the order and the default were the gallery's already; the count's switch stands at its foot and each
-	   shown style's share under its tile ===== */
-	var countsHeld = null, countsAsked = false;
-	function loadCounts() { countsAsked = true; St().readerCounts().then(function (c) { countsHeld = c || null; if (open && section === 'styles') render(); }, function () { countsHeld = { counting: true }; if (open && section === 'styles') render(); }); } /* no answer: the switch as before, never stuck on Loading */
-	function shareOf(id, ids) {
-		var c = countsHeld && countsHeld.counting && countsHeld.counts; if (!c || ids.indexOf(id) < 0) return null;
-		var sum = ids.reduce(function (a, x) { return a + (+c[x] || 0); }, 0);
-		return sum ? Math.round((+c[id] || 0) * 100 / sum) : null;
-	}
-	function countBox(s, counted) {
-		if (!s.readerCounts || !s.canPublish || !s.canPublish()) return '';
-		if (!countsAsked) loadCounts();
-		var counting = countsHeld ? !!countsHeld.counting : true;
-		return box(row(t('Count readers’ styles'), '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + counting + '"' + (countsHeld ? '' : ' disabled') + ' data-act="counting" data-f="act:counting" aria-label="' + esc(t('Count readers’ styles')) + '"></button>', esc(t('One page view in ten sends only the style’s name. No cookie, nothing about the reader.')))) +
-			/* until the site answers the switch waits, grey, and says so (2026-10-06, the sweep: it showed On before it knew) */
-			'<p class="ldpw-hint">' + esc(!countsHeld ? t('Loading…') : counting ? (!counted.some(function (x) { return shareOf(x, counted) !== null; }) ? t('No readers counted yet. The shares show once some are.') : t('Readers in the last 30 days.')) : t('Not counting. Turned off, the numbers are deleted.')) + '</p>';
-	}
 
 	/* ===== SORTING (2026-09-28, the lab's, for the style tiles and the Readers rows alike, as Photos' albums): press
 	   and move a little to lift it; it follows the pointer exactly, a dashed gap shows where it will land and the
@@ -1440,9 +1417,12 @@
 		return '<nav class="ldpw-side" aria-label="' + esc(t('Sections')) + '">' +
 			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Vibetiles')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('View')) + '" title="' + esc(t('View')) + '">' + svg(GLYPH.side) + '</button>') + '</div>' +
 			'<div class="ldpw-side-in">' + '<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear Search')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' + /* the lab's: the search scrolls with the list */ navButton({ id: 'styles', name: t('Styles') }) +
-				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + /* the lab's: Edited beside the style's name */
-				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'button', name: t('Vibetiles Button') }) +
-			'</div>' + /* the panel's Settings and the way back to the current window are in the ••• menu, as the lab has them */
+				/* THE STYLE'S PAGES under "<name> Style" (2026-10-06, Manuel: the word "style" as part of the section title) */
+				'<div class="ldpw-gt"><span>' + esc(styleName() ? t('{name} Style').replace('{name}', styleName()) : t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + /* the lab's: Edited beside the style's name */
+				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'button', name: t('Button') }) +
+				/* SETTINGS IN THE SIDEBAR (2026-10-06, Manuel): its own section under Site; still in the ••• menu and on ⌘, too */
+				'<div class="ldpw-gt">' + esc(t('Settings')) + '</div>' + navButton({ id: 'settings', name: t('Settings') }) +
+			'</div>' + /* the way back to the current window is in the ••• menu, as the lab has them */
 			(phone() ? '' : '<span class="ldpw-grip" data-grip role="separator" aria-orientation="vertical" aria-label="' + esc(t('Sidebar width')) + '"></span>') + /* no tooltip, as the lab's */
 		'</nav>';
 	}
@@ -1584,7 +1564,7 @@
 	function secsTitle(x, name, sub) {
 		var ids = ['styles'].concat(sections().map(function (y) { return y.id; }), ['button', 'settings']);
 		var nameOf = function (id) { var was = section; section = id; var nm = current().name; section = was; return nm; }, s0 = St();
-		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), [['#', t('Site')], ['button', nameOf('button')]]);
+		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), [['#', t('Site')], ['button', nameOf('button')], ['#', t('Settings')], ['settings', nameOf('settings')]]);
 		MENU.secs = { label: t('Sections'), value: x.id, search: true, items: items, pick: function (id) {
 			if (id.indexOf('hit:') === 0) { var e = MENU.secs.hits[+id.slice(4)]; menuQ = ''; goTo(e); return; }
 			sq = null; section = id; phoneList = false; editing = null; role = null; fontFor = null; more = false; showChanges = false; showVersions = false;
@@ -1657,8 +1637,8 @@
 		var tiles = list.map(function (id) {
 			var x = s.tile(id); if (!x) return '';
 			return '<div class="ldpw-stile' + (x.on ? ' is-on' : '') + '"><button type="button" class="ldpw-tile" role="radio" aria-checked="' + x.on + '" data-rstyle="' + esc(id) + '" data-f="rstyle:' + esc(id) + '">' +
-				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i></span>' +
-				'<span class="ldpw-nm">' + esc(nm(x)) + (x.isDefault ? ' <em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' + /* the lab's: Default beside the name */
+				'<span class="ldpw-pic ldpw-spic" style="background:' + esc(x.paper) + ';color:' + esc(x.ink) + ';--pi:' + esc(x.ink) + ';--pa:' + esc(x.accent) + (x.face ? ';font-family:' + esc(tileFace(x.face)) : '') + '" aria-hidden="true"><b>Aa</b><i></i><i></i><i></i>' + (x.isDefault ? '<em class="ldpw-dflt">' + esc(t('Default')) + '</em>' : '') + '</span>' +
+				'<span class="ldpw-nm">' + esc(nm(x)) + (x.isDefault ? '<span class="ldpw-sr">, ' + esc(t('Default')) + '</span>' : '') + '</span>' + /* Default in the picture's corner, as in the owner's grid (2026-10-06) */
 			'</button></div>';
 		}).join('');
 		/* THE READERS' SHEET THE APPLE WAY (0.29.0, lab/the-panel-apple-way.html, change 12): the text size one
@@ -2235,12 +2215,6 @@
 		if (act === 'share') { askShare(); return; }
 		if (act === 'settings') { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); return; }
 		if (act === 'revertpage') { var sp = St(); pagePaths(current().id).forEach(function (pth) { sp.revertPath(pth); }); done(t('Reverted')); render('.ldpw-nav.is-on'); return; }
-		if (act === 'counting') {
-			var was = countsHeld ? !!countsHeld.counting : true;
-			countsHeld = { counting: !was, days: 30, counts: was ? {} : (countsHeld && countsHeld.counts) || {} };
-			St().setCounting(!was).then(function (c) { countsHeld = c || countsHeld; render('[data-act="counting"]'); }, failed);
-			render('[data-act="counting"]'); return;
-		}
 		if (act === 'asreader') { window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank'); return; }
 		if (b.hasAttribute('data-plink')) {
 			var pl = b.getAttribute('data-plink').split(':'), url = s.previewURL(pl[1]);

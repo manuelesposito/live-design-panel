@@ -1429,12 +1429,6 @@
 		markChosen(); 
 	}
 	stamp(current);
-	(function () {
-		var to = window.architraveSiteStyles && window.architraveSiteStyles.count;
-		if (!READER || PREVIEW_LINK || !to || !navigator.sendBeacon || Math.random() >= 0.1) return;
-		try { navigator.sendBeacon(to, new Blob([JSON.stringify({ style: current })], { type: 'application/json' })); } catch (e) {  }
-	})();
-	
 	var seeded = false;
 	if (linked || (current !== stored && current === DEFAULT && DEFAULT !== NONE)) {
 		var w0 = wanted(byId(current));

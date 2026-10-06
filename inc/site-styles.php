@@ -473,140 +473,14 @@ function architrave_preview_routes() {
 }
 add_action( 'rest_api_init', 'architrave_preview_routes' );
 
-define( 'ARCHITRAVE_COUNT_DAYS', 30 );
-
-function architrave_reader_counting() {
-	return '0' !== (string) get_option( 'architrave_panel_count_readers', '1' );
-}
-
-function architrave_reader_count_days() {
-	$raw  = json_decode( (string) get_option( 'architrave_panel_reader_counts', '{}' ), true );
-	$from = gmdate( 'Y-m-d', time() - ( ARCHITRAVE_COUNT_DAYS - 1 ) * DAY_IN_SECONDS );
-	$out  = array();
-	foreach ( is_array( $raw ) ? $raw : array() as $day => $counts ) {
-		if ( is_string( $day ) && preg_match( '/^\d{4}-\d{2}-\d{2}$/', $day ) && $day >= $from && is_array( $counts ) ) {
-			$out[ $day ] = array_map( 'intval', $counts );
-		}
+function architrave_reader_counts_forget() {
+	if ( false !== get_option( 'architrave_panel_reader_counts' ) || false !== get_option( 'architrave_panel_count_readers' ) ) {
+		delete_option( 'architrave_panel_reader_counts' );
+		delete_option( 'architrave_panel_count_readers' );
 	}
-	return $out;
 }
-
-function architrave_reader_counts() {
-	$sum = array();
-	foreach ( architrave_reader_count_days() as $counts ) {
-		foreach ( $counts as $id => $n ) {
-			$sum[ $id ] = ( isset( $sum[ $id ] ) ? $sum[ $id ] : 0 ) + $n;
-		}
-	}
-	return array(
-		'counting' => architrave_reader_counting(),
-		'days'     => ARCHITRAVE_COUNT_DAYS,
-		'counts'   => (object) $sum,
-	);
-}
-
-function architrave_reader_count_known( $id ) {
-	if ( 'host' === $id ) {
-		return true;
-	}
-	$state = architrave_site_styles();
-	foreach ( $state['styles'] as $style ) {
-		if ( $style['id'] === $id ) {
-			return true;
-		}
-	}
-	static $builtin = null;
-	if ( null === $builtin ) {
-		$builtin = array();
-		$file    = defined( 'ARCHITRAVE_PANEL_FILE' ) ? plugin_dir_path( ARCHITRAVE_PANEL_FILE ) . 'settings.json' : '';
-		$list    = $file && is_readable( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : null; // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- a file of the plugin's own.
-		foreach ( ( is_array( $list ) && isset( $list['settings'] ) ? $list['settings'] : array() ) as $setting ) {
-			if ( isset( $setting['key'], $setting['choices'] ) && 'base' === $setting['key'] && is_array( $setting['choices'] ) ) {
-				foreach ( $setting['choices'] as $choice ) {
-					$builtin[] = is_array( $choice ) ? ( isset( $choice['id'] ) ? $choice['id'] : '' ) : (string) $choice;
-				}
-			}
-		}
-	}
-	return in_array( $id, $builtin, true );
-}
-
-function architrave_reader_count_routes() {
-	register_rest_route(
-		'architrave/v1',
-		'/site-styles/count',
-		array(
-			'methods'             => WP_REST_Server::CREATABLE,
-			'permission_callback' => '__return_true',
-			'args'                => array(
-				'style' => array(
-					'type'     => 'string',
-					'required' => true,
-					'pattern'  => '^[a-z][a-z0-9-]{0,40}$',
-				),
-			),
-			'callback'            => static function ( $request ) {
-				if ( ! architrave_reader_counting() ) {
-					return new WP_REST_Response( null, 204 );
-				}
-				$id   = (string) $request['style'];
-
-				if ( ! architrave_reader_count_known( $id ) ) {
-					return new WP_REST_Response( null, 204 );
-				}
-
-				$who   = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-				$throt = 'ldp_count_' . substr( md5( wp_salt( 'nonce' ) . $who ), 0, 20 );
-				$sent  = (int) get_transient( $throt );
-				if ( $sent >= 30 ) {
-					return new WP_REST_Response( null, 204 );
-				}
-				set_transient( $throt, $sent + 1, HOUR_IN_SECONDS );
-				$days = architrave_reader_count_days();
-				$day  = gmdate( 'Y-m-d' );
-				$seen = isset( $days[ $day ] ) ? $days[ $day ] : array();
-				if ( ! isset( $seen[ $id ] ) && count( $seen ) >= 40 ) {
-					return new WP_REST_Response( null, 204 );
-				}
-				$seen[ $id ]  = ( isset( $seen[ $id ] ) ? $seen[ $id ] : 0 ) + 1;
-				$days[ $day ] = $seen;
-				update_option( 'architrave_panel_reader_counts', wp_json_encode( $days ), false );
-				return new WP_REST_Response( null, 204 );
-			},
-		)
-	);
-	register_rest_route(
-		'architrave/v1',
-		'/site-styles/counts',
-		array(
-			'methods'             => WP_REST_Server::READABLE,
-			'permission_callback' => 'architrave_site_styles_may_publish',
-			'callback'            => static function () {
-				return rest_ensure_response( architrave_reader_counts() );
-			},
-		)
-	);
-	register_rest_route(
-		'architrave/v1',
-		'/site-styles/counting',
-		array(
-			'methods'             => WP_REST_Server::CREATABLE,
-			'permission_callback' => 'architrave_site_styles_may_publish',
-			'args'                => array(
-				'on' => array( 'required' => true ),
-			),
-			'callback'            => static function ( $request ) {
-				$on = rest_sanitize_boolean( $request['on'] );
-				update_option( 'architrave_panel_count_readers', $on ? '1' : '0', false );
-				if ( ! $on ) {
-					delete_option( 'architrave_panel_reader_counts' );
-				}
-				return rest_ensure_response( architrave_reader_counts() );
-			},
-		)
-	);
-}
-add_action( 'rest_api_init', 'architrave_reader_count_routes' );
+add_action( 'admin_init', 'architrave_reader_counts_forget' );
+add_action( 'rest_api_init', 'architrave_reader_counts_forget' );
 
 function architrave_preview_asked() {
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- a read-only view of a style, by an unguessable id.
@@ -844,9 +718,6 @@ function architrave_site_styles_print() {
 			unset( $preview['record'] );
 		}
 		$state['preview'] = $preview;
-	}
-	if ( ! $preview && architrave_reader_counting() && ! architrave_as_reader() ) {
-		$state['count'] = rest_url( 'architrave/v1/site-styles/count' );
 	}
 	$script = 'window.architraveSiteStyles = ' . wp_json_encode( $state ) . ';';
 

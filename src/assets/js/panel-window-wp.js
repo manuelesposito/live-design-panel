@@ -317,8 +317,6 @@
 			var s = S(); if (!s || !s.exportStyle) return Promise.reject(new Error('no style'));
 			return ask('POST', styles.replace(/\/site-styles(\?|$)/, '/site-styles/previews$1'), { record: JSON.parse(s.exportStyle()), name: name });
 		},
-		readerCounts: function () { return ask('GET', styles.replace(/\/site-styles(\?|$)/, '/site-styles/counts$1')); },
-		setCounting: function (on) { return ask('POST', styles.replace(/\/site-styles(\?|$)/, '/site-styles/counting$1'), { on: !!on }); },
 		stopPreview: function (id) { return ask('DELETE', styles.replace(/\/site-styles(\?|$)/, '/site-styles/previews/' + id + '$1')); },
 		previewURL: function (id) { return window.location.origin + window.location.pathname + '?ldp-preview=' + id; },
 		/* COPY AND PASTE A STYLE (the prototype's ⌥⌘C and ⌥⌘V): the style as a link that carries it whole, and a link or record put on */
