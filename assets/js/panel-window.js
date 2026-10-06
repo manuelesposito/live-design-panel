@@ -890,12 +890,14 @@
 			'<div class="ldpw-spotmap" role="radiogroup" aria-label="' + esc(t('Where')) + '"><span class="ldpw-mini" aria-hidden="true"><i></i><i></i><i></i></span>' +
 			SPOTS.map(function (id) { var on = bt.place === id; return '<button type="button" class="ldpw-spot' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-spot="' + id + '" data-f="spot:' + id + '" aria-label="' + esc(t(BTN_WORD.place[id])) + '" title="' + esc(t(BTN_WORD.place[id])) + '"></button>'; }).join('') +
 			'<span class="ldpw-minidoor" data-at="' + esc(bt.place) + '" aria-hidden="true"></span></div><p class="ldpw-hint ldpw-maphint">' + esc(t('Or drag the button itself on the page.')) + '</p></div>';
-		var aur = (inMenu && word) || (auto && s.buttonInSlot && s.buttonInSlot()) ? t('Off') : bt.aurora ? t((BANDS[bt.band] || BANDS.dusk)[0]) : t('Off');
+		
+		var rests = (inMenu && word) || (auto && s.buttonInSlot && s.buttonInSlot());
 		var out = gtitle(t('Live Design Button')) + box(bSwitch('auto', 'Automatic', auto, false, auto ? t('In your site’s menu, as one of its items') : '') +
 			(inMenu ? bSwitch('icon', 'Show icon', bt.icon !== false, false, t('Beside the name in the menu')) : '') + map +
 			(auto ? '' : row(t('Size'), seg('bsize', bt.size, BTN_ORDER.size.map(function (id) { return [id, t(BTN_WORD.size[id])]; }), t('Size'))) + bPop('show', 'Show', bt) + bPop('corners', 'Corners', bt) + bPop('color', 'Colour', bt)) +
 			bPop('glyph', 'Icon', bt) + (inMenu || bt.show !== 'icon' ? nameRow(bt) : '') +
-			navRow('data-act="settings" data-f="act:aurora"', t('Aurora'), aur));
+			bSwitch('aurora', 'Aurora', bt.aurora, rests, rests ? t('Rests while the button sits in your menu; it shows on a floating button') : '') +
+			(bt.aurora && !rests ? bandRow(bt) : ''));
 		out += gtitle(t('Readers')) + box(row(t('Show to'), seg('who', bt.who, [['everyone', t('Everyone')], ['me', t('Only me')]], t('Who sees the button'))) +
 			row(t('Allow readers to copy styles'), '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + s.readersCopy() + '" data-copyon data-f="copyon" aria-label="' + esc(t('Allow readers to copy styles')) + '"></button>', esc(t('Readers can take a style to their own site'))));
 		out += previewLinks();
@@ -1384,7 +1386,6 @@
 	var KEYS = [['Open or close the window', 'Click the button, Esc to close'], ['Search', '⌘K or ⌘F'], ['Undo', '⌘Z'], ['Show or hide the sidebar', '⌃⌘S'], ['Copy, paste a style', '⌥⌘C, ⌥⌘V'], ['Choose on the page', '⌥-click'], ['Compare with no changes', 'Hold M'], ['Move a slider a step', '← →'], ['Put a slider back', 'Double-click it'], ['Bigger or smaller text', '⌘+, ⌘−, ⌘0'], ['Settings', '⌘,'], ['This list', '?']];
 	function showKeys() { asking = { title: t('Keyboard Shortcuts'), keys: KEYS, go: t('Done'), back: '[data-act="keys"]', run: function () {} }; render('[data-act="ask-go"]'); }
 	function settingsPage() {
-		var s = St(), bt = s && s.button && s.button();
 		var dots = '<span class="ldpw-dots" role="radiogroup" aria-label="' + esc(t('Accent colour')) + '">' + Object.keys(ACCENT).map(function (k) { var on = prefs.accent === k; return '<button type="button" class="ldpw-dotc' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-accent="' + k + '" data-f="accent:' + k + '" style="--c:' + accentHex(k) + '" aria-label="' + esc(t(ACCENT[k][0])) + '" title="' + esc(t(ACCENT[k][0])) + '"></button>'; }).join('') + '</span>';
 		var psw = function (k, on, lb) { return '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + !!on + '" data-pref="' + k + '" data-f="pref:' + k + '" aria-label="' + esc(lb) + '"></button>'; };
 		return '<p class="ldpw-hint">' + esc(t('Window, Sound and Help are only for you, on this computer.')) + '</p>' +
@@ -1392,7 +1393,6 @@
 				row(t('Glass'), psw('glass', prefs.glass, t('Glass')), esc(t('The page shows softly through the window'))) +
 				row(t('Accent colour'), dots) +
 				row(t('Reduce motion'), psw('motion', prefs.motion === 'reduced', t('Reduce motion')))) +
-			(bt ? gtitle(t('Aurora')) + box(bSwitch('aurora', 'Aurora', bt.aurora, false, t('Also on the Live Design button, so readers see it too')) + (bt.aurora && BANDS ? bandRow(bt) : '')) : '') +
 			gtitle(t('Sound')) + box(row(t('Sounds'), pop('psound', t('Sounds'), prefs.sound, [['off', t('Off')], ['clicks', t('Clicks')], ['all', t('Clicks and hover')]], function (id) { prefs.sound = id; savePrefs(); if (id !== 'off') sound('on'); }), prefs.sound === 'off' ? '' : esc(t('Soft ticks as you change things')))) +
 			gtitle(t('Help')) + box(row(t('Tips'), psw('tips', prefs.tips, t('Tips')), esc(t('Small hints the first time you meet something'))) +
 				'<button type="button" class="ldpw-r ldpw-navrow" data-act="keys" data-f="act:keys"><span class="ldpw-lb">' + esc(t('Keyboard Shortcuts')) + '</span><span class="ldpw-val">?</span><span class="ldpw-chev" aria-hidden="true"></span></button>');
@@ -2008,7 +2008,7 @@
 		if (act === 'sqclear') { sq = null; render('[data-sideq]'); return; }
 		if (b.hasAttribute('data-sqhit')) { goTo(sqResults()[+b.getAttribute('data-sqhit')]); return; }
 		if (act === 'share') { askShare(); return; }
-		if (act === 'settings') { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('[data-f="bset:aurora"], .ldpw-nav.is-on'); return; }
+		if (act === 'settings') { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); return; }
 		if (act === 'revertpage') { var sp = St(); pagePaths(current().id).forEach(function (pth) { sp.revertPath(pth); }); done(t('Reverted')); render('.ldpw-nav.is-on'); return; }
 		if (act === 'counting') {
 			var was = countsHeld ? !!countsHeld.counting : true;

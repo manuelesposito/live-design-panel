@@ -834,7 +834,7 @@ function live_design_window_words() {
 		'Or drag the button itself on the page.' => __( 'Or drag the button itself on the page.', 'live-design-panel' ),
 		'Own Colour…' => __( 'Own Colour…', 'live-design-panel' ),
 		'Own Colour' => __( 'Own Colour', 'live-design-panel' ),
-		'Also on the Live Design button, so readers see it too' => __( 'Also on the Live Design button, so readers see it too', 'live-design-panel' ),
+		'Rests while the button sits in your menu; it shows on a floating button' => __( 'Rests while the button sits in your menu; it shows on a floating button', 'live-design-panel' ),
 		'Redo' => __( 'Redo', 'live-design-panel' ),
 		'Redo {what}' => __( 'Redo {what}', 'live-design-panel' ),
 		'Copy as CSS' => __( 'Copy as CSS', 'live-design-panel' ),

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Live Design Panel
  * Description:       Design your site on the live page: a panel with dials for colours, fonts, sizes and spacing, light and dark, and saved styles your readers can pick too.
- * Version:           0.50.0
+ * Version:           0.50.1
  * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Elmastudio
