@@ -1,4 +1,4 @@
-=== Live Design Panel ===
+=== Vibetiles ===
 Contributors: manuelesposito
 Tags: style sharing, typography, fonts, dark mode, styles
 Requires at least: 6.6
@@ -12,7 +12,7 @@ Design your site on the live page: colours, fonts, sizes, light and dark. Save s
 
 == Description ==
 
-Live Design Panel puts a small button on your site. Press it and a panel opens, on the real page, with dials for colours, fonts, text sizes, line spacing, light and dark. Turn a dial and the page changes in front of you. When it looks right, save it as a style.
+Vibetiles puts a small button on your site. Press it and a panel opens, on the real page, with dials for colours, fonts, text sizes, line spacing, light and dark. Turn a dial and the page changes in front of you. When it looks right, save it as a style.
 
 The panel works on block themes. It does not touch your theme's design: until you move a dial, the page is exactly what your theme draws, and the Original tile gives that back at any time.
 
@@ -35,9 +35,9 @@ A reader gets a smaller panel: reading size, light and dark, and the styles you 
 
 == Installation ==
 
-1. In your WordPress admin, go to Plugins, Add New, and search for "Live Design Panel". Or upload the plugin zip there.
+1. In your WordPress admin, go to Plugins, Add New, and search for "Vibetiles". Or upload the plugin zip there.
 2. Activate the plugin.
-3. Open your site while you are logged in. Press the Live Design button on the page (or Alt+D) and the panel opens.
+3. Open your site while you are logged in. Press the Vibetiles button on the page (or Alt+D) and the panel opens.
 
 Nothing on your site changes until you move a dial.
 
@@ -70,7 +70,7 @@ In their own browsers only. The plugin stores one thing on your server: the styl
 
 = Does the other person need the plugin to use a style I share? =
 
-Yes. A style link opens in the Live Design Panel, so the site it is pasted into needs the plugin too. The theme there can be a different one: the style carries colours, fonts and sizes, and the panel applies them to whatever theme the site uses.
+Yes. A style link opens in Vibetiles, so the site it is pasted into needs the plugin too. The theme there can be a different one: the style carries colours, fonts and sizes, and the panel applies them to whatever theme the site uses.
 
 = Is it safe to paste a style someone sent me? =
 

@@ -251,14 +251,14 @@ function live_design_window_action_link( $links ) {
 	}
 	$to   = 'new' === live_design_window_saved() ? 'current' : 'new';
 	$url  = wp_nonce_url( add_query_arg( array( 'action' => 'live_design_window', 'window' => $to ), admin_url( 'admin-post.php' ) ), 'live_design_window' );
-	$word = 'new' === $to ? __( 'Try the New Window', 'live-design-panel' ) : __( 'Use the Current Window', 'live-design-panel' );
+	$word = 'new' === $to ? __( 'Try the New Window', 'vibetiles' ) : __( 'Use the Current Window', 'vibetiles' );
 	$links['live-design-window'] = '<a href="' . esc_url( $url ) . '">' . esc_html( $word ) . '</a>';
 	return $links;
 }
 
 function live_design_window_admin_post() {
 	if ( ! live_design_window_may() ) {
-		wp_die( esc_html__( 'You may not change the panel window.', 'live-design-panel' ), '', array( 'response' => 403 ) );
+		wp_die( esc_html__( 'You may not change the panel window.', 'vibetiles' ), '', array( 'response' => 403 ) );
 	}
 	check_admin_referer( 'live_design_window' );
 	$to  = isset( $_GET['window'] ) && 'new' === sanitize_key( wp_unslash( $_GET['window'] ) ) ? 'new' : 'current';
@@ -278,8 +278,8 @@ function live_design_window_notice() {
 		return;
 	}
 	$word = 'new' === $set
-		? __( 'The new window is on. It opens from the Live Design button on your site; readers see no difference.', 'live-design-panel' )
-		: __( 'The current window is back. It opens from the Live Design button as before.', 'live-design-panel' );
+		? __( 'The new window is on. It opens from the Vibetiles button on your site; readers see no difference.', 'vibetiles' )
+		: __( 'The current window is back. It opens from the Vibetiles button as before.', 'vibetiles' );
 	echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( $word ) . '</p></div>';
 }
 

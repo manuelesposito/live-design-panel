@@ -70,7 +70,7 @@
 			reload(j.css);
 		}).catch(function (e) {
 			failed[id] = true; /* once a page: a face that could not be fetched is not asked for again on every change */
-			if (window.console) console.warn('Live Design Panel: could not fetch the font ' + id + ': ' + e.message);
+			if (window.console) console.warn('Vibetiles: could not fetch the font ' + id + ': ' + e.message);
 		}).then(function () {
 			delete busy[id];
 			paint();
@@ -134,7 +134,7 @@
 			label((j.removed || []).length ? 'Unused fonts removed' : 'No unused fonts');
 		}).catch(function (err) {
 			pruning = false;
-			if (window.console) console.warn('Live Design Panel: could not remove unused fonts: ' + err.message);
+			if (window.console) console.warn('Vibetiles: could not remove unused fonts: ' + err.message);
 		});
 	});
 

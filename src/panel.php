@@ -732,7 +732,7 @@ function architrave_panel_host_style() {
 	 */
 	return apply_filters(
 		'live_design_panel_host_style',
-		array( 'id' => 'host', 'label' => __( 'Original', 'live-design-panel' ) )
+		array( 'id' => 'host', 'label' => __( 'Original', 'vibetiles' ) )
 	);
 }
 
@@ -1333,7 +1333,7 @@ function architrave_panel_guest_button() {
 		return;
 	}
 	$bt      = architrave_panel_button_settings();
-	$bt_word = '' !== $bt['label'] ? $bt['label'] : __( 'Live Design', 'live-design-panel' );
+	$bt_word = '' !== $bt['label'] ? $bt['label'] : __( 'Vibetiles', 'vibetiles' );
 	/* ONLY ME: no button for a reader (its stylesheet hides the theme's own doors too). */
 	if ( 'me' === $bt['who'] && ! current_user_can( 'edit_theme_options' ) ) {
 		return;
@@ -1359,6 +1359,6 @@ function architrave_panel_host_notice() {
 	if ( ! $screen || 'plugins' !== $screen->id ) {
 		return;
 	}
-	echo '<div class="notice notice-warning"><p>' . esc_html__( 'The Architrave theme on this site is older than 1.3.315 and still carries its own panel, so Live Design Panel is standing back. Update the theme to hand the panel over.', 'live-design-panel' ) . '</p></div>';
+	echo '<div class="notice notice-warning"><p>' . esc_html__( 'The Architrave theme on this site is older than 1.3.315 and still carries its own panel, so Vibetiles is standing back. Update the theme to hand the panel over.', 'vibetiles' ) . '</p></div>';
 }
 add_action( 'admin_notices', 'architrave_panel_host_notice' );

@@ -119,7 +119,7 @@
 						'</button>';
 				}).join('') +
 			'</div>';
-		var html = '<div class="reading-sheet-top">' + head(t('Live Design')) + '</div><div class="reading-sheet-body">' +
+		var html = '<div class="reading-sheet-top">' + head(t('Vibetiles')) + '</div><div class="reading-sheet-body">' +
 			'<div class="reading-stepper reading-tall" role="group" aria-label="' + t('Reading size') + '">' +
 				'<button type="button" data-panel-size="down" aria-label="' + t('Smaller') + '"' + (at <= 0 ? ' aria-disabled="true"' : '') + '>A</button>' +
 				'<button type="button" class="big" data-panel-size="up" aria-label="' + t('Larger') + '"' + (at >= ids.length - 1 ? ' aria-disabled="true"' : '') + '>A</button>' +

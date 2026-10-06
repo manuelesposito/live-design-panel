@@ -1,15 +1,15 @@
 <?php
 /**
- * Plugin Name:       Live Design Panel
+ * Plugin Name:       Vibetiles
  * Description:       Design your site on the live page: a panel with dials for colours, fonts, sizes and spacing, light and dark, and saved styles your readers can pick too.
- * Version:           0.51.0
+ * Version:           0.52.0
  * Requires at least: 6.6
  * Requires PHP:      7.4
  * Author:            Elmastudio
  * Author URI:        https://elmastudio.de
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       live-design-panel
+ * Text Domain:       vibetiles
  *
  * The panel began inside the Architrave theme (2026-09-21) and this folder is
  * still ASSEMBLED by that theme's `tools/build-plugin.py`, so there is one
@@ -45,7 +45,7 @@ if ( defined( 'ARCHITRAVE_PANEL_VERSION' ) ) {
 		static function () {
 			$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 			if ( current_user_can( 'activate_plugins' ) && $screen && 'plugins' === $screen->id ) { /* on the Plugins screen only, where the old copy is */
-				echo '<div class="notice notice-warning"><p>' . esc_html__( 'Live Design Panel is the new name of Architrave Panel. Deactivate and delete "Architrave Panel"; Live Design Panel takes over at once.', 'live-design-panel' ) . '</p></div>';
+				echo '<div class="notice notice-warning"><p>' . esc_html__( 'Vibetiles is the new name of Live Design Panel (and of Architrave Panel before it). Deactivate and delete the old plugin; Vibetiles takes over at once.', 'vibetiles' ) . '</p></div>';
 			}
 		}
 	);

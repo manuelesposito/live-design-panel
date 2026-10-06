@@ -179,7 +179,7 @@
 		   like Apple Books"): the controls say what they are; the words stay
 		   for the screen reader. The title is the button's own name, Live
 		   Design (Manuel, 2026-09-24). */
-		var html = '<div class="reading-sheet-top">' + head(t('Live Design')) + '</div><div class="reading-sheet-body">' +
+		var html = '<div class="reading-sheet-top">' + head(t('Vibetiles')) + '</div><div class="reading-sheet-body">' +
 			/* The dots hang under the stepper and show on a press (Manuel,
 			   2026-09-13: "they were nice when they were appearing underneath"). */
 			'<div class="reading-stepper reading-tall" role="group" aria-label="' + t('Reading size') + '">' +

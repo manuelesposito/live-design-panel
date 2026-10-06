@@ -6,7 +6,7 @@ is under way the panel's files stay HERE, in the theme, where they are worked
 on every day; the plugin is put together from them, so there is one copy and
 nothing can drift. This is the same idea as the kit's `build.mjs --sync`.
 
-    python3 tools/build-plugin.py           build dist/live-design-panel.zip and list it
+    python3 tools/build-plugin.py           build dist/vibetiles.zip and list it
     python3 tools/build-plugin.py --list    list what would ship, build nothing
     python3 tools/build-plugin.py --to DIR  also lay the built plugin out in DIR (its own
                                             repository, ~/Developer/live-design-panel: what is
@@ -31,7 +31,7 @@ from pathlib import Path
 THEME = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(THEME / "tools"))
 import php_strip  # noqa: E402  (the shipped PHP without its notes)
-SLUG = "live-design-panel"
+SLUG = "vibetiles"
 OWN = "plugin"
 COPIED = [
     "assets/js/reading-face.js",

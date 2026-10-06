@@ -112,12 +112,12 @@ function architrave_fonts_get( $url ) {
 function architrave_fonts_fetch( $id ) {
 	$faces = architrave_fonts_manifest();
 	if ( empty( $faces[ $id ] ) ) {
-		return new WP_Error( 'architrave_no_font', __( 'No such font.', 'live-design-panel' ), array( 'status' => 404 ) );
+		return new WP_Error( 'architrave_no_font', __( 'No such font.', 'vibetiles' ), array( 'status' => 404 ) );
 	}
 	$dir = architrave_fonts_dir()['path'];
 	$fs  = architrave_fonts_fs();
 	if ( ! wp_mkdir_p( $dir ) || ! wp_is_writable( $dir ) || ! $fs ) {
-		return new WP_Error( 'architrave_font_folder', __( 'The uploads folder cannot be written to.', 'live-design-panel' ), array( 'status' => 500 ) );
+		return new WP_Error( 'architrave_font_folder', __( 'The uploads folder cannot be written to.', 'vibetiles' ), array( 'status' => 500 ) );
 	}
 
 	$jobs   = array( array( $faces[ $id ]['licence']['url'], $faces[ $id ]['licence']['name'], false ) );
@@ -141,7 +141,7 @@ function architrave_fonts_fetch( $id ) {
 		$tmp = $dir . $name . '.part';
 		if ( ! $fs->put_contents( $tmp, $body, FS_CHMOD_FILE ) || ! $fs->move( $tmp, $dir . $name, true ) ) {
 			wp_delete_file( $tmp );
-			return new WP_Error( 'architrave_font_folder', __( 'The uploads folder cannot be written to.', 'live-design-panel' ), array( 'status' => 500 ) );
+			return new WP_Error( 'architrave_font_folder', __( 'The uploads folder cannot be written to.', 'vibetiles' ), array( 'status' => 500 ) );
 		}
 	}
 	architrave_fonts_write_css();
@@ -235,7 +235,7 @@ function architrave_fonts_route() {
 						return $done;
 					}
 				} else {
-					return new WP_Error( 'architrave_no_action', __( 'Nothing to do.', 'live-design-panel' ), array( 'status' => 400 ) );
+					return new WP_Error( 'architrave_no_action', __( 'Nothing to do.', 'vibetiles' ), array( 'status' => 400 ) );
 				}
 				return rest_ensure_response(
 					array(

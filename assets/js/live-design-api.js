@@ -220,7 +220,7 @@
 		return undefined;
 	}
 	var LiveDesign = {
-		about: 'Live Design: style this website by name. describe() first; set() changes (one undo step); preview() shows without keeping; check() says whether the page still reads well. A style shown to readers saves itself: what you change in it reaches readers a moment later. To try things, work on a style that is not on the site (choose Original: the first change makes a copy only this browser keeps). set, preview, load and choose answer with a Promise.',
+		about: 'Vibetiles: style this website by name. describe() first; set() changes (one undo step); preview() shows without keeping; check() says whether the page still reads well. A style shown to readers saves itself: what you change in it reaches readers a moment later. To try things, work on a style that is not on the site (choose Original: the first change makes a copy only this browser keeps). set, preview, load and choose answer with a Promise.',
 		describe: function () {
 			var s = S(); if (!s) return { error: 'The panel is not ready on this page.' };
 			var sc = schema(), mean = meaning();
@@ -315,4 +315,5 @@
 		open: function () { if (window.LiveDesignWindow && !window.LiveDesignWindow.isOpen()) window.LiveDesignWindow.open(); return { open: !!(window.LiveDesignWindow && window.LiveDesignWindow.isOpen()) }; }
 	};
 	window.LiveDesign = LiveDesign;
+	window.Vibetiles = LiveDesign; 
 }());

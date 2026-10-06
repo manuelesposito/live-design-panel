@@ -603,18 +603,18 @@ function architrave_preview_routes() {
 					$name  = isset( $request['name'] ) ? mb_substr( sanitize_text_field( (string) $request['name'] ), 0, 60 ) : '';
 					$given = is_array( $request['record'] ) ? $request['record'] : array();
 					$given['id']    = 'site-preview'; /* the cleaner keeps a record by its site- id and its name; the page gives it its own id */
-					$given['label'] = '' !== $name ? $name : __( 'Style', 'live-design-panel' );
+					$given['label'] = '' !== $name ? $name : __( 'Style', 'vibetiles' );
 					$record = architrave_site_style_record( $given );
 					if ( ! $record ) {
-						return new WP_Error( 'architrave_no_record', __( 'That is no style.', 'live-design-panel' ), array( 'status' => 400 ) );
+						return new WP_Error( 'architrave_no_record', __( 'That is no style.', 'vibetiles' ), array( 'status' => 400 ) );
 					}
 					$links = architrave_preview_links();
 					if ( count( $links ) >= 20 ) {
-						return new WP_Error( 'architrave_too_many', __( 'Stop a preview link before making another.', 'live-design-panel' ), array( 'status' => 400 ) );
+						return new WP_Error( 'architrave_too_many', __( 'Stop a preview link before making another.', 'vibetiles' ), array( 'status' => 400 ) );
 					}
 					$id           = strtolower( wp_generate_password( 16, false, false ) );
 					$links[ $id ] = array(
-						'name'   => '' !== $name ? $name : __( 'Style', 'live-design-panel' ),
+						'name'   => '' !== $name ? $name : __( 'Style', 'vibetiles' ),
 						'until'  => time() + ARCHITRAVE_PREVIEW_DAYS * DAY_IN_SECONDS,
 						'record' => $record,
 					);
@@ -867,7 +867,7 @@ function architrave_site_style_route() {
 						return rest_ensure_response( $record );
 					}
 				}
-				return new WP_Error( 'architrave_no_style', __( 'No such style.', 'live-design-panel' ), array( 'status' => 404 ) );
+				return new WP_Error( 'architrave_no_style', __( 'No such style.', 'vibetiles' ), array( 'status' => 404 ) );
 			},
 		)
 	);
@@ -942,13 +942,13 @@ function architrave_site_styles_handle( $request ) {
 	switch ( $action ) {
 		case 'publish':
 			if ( ! is_array( $record ) ) {
-				return new WP_Error( 'architrave_no_record', __( 'No style was sent.', 'live-design-panel' ), array( 'status' => 400 ) );
+				return new WP_Error( 'architrave_no_record', __( 'No style was sent.', 'vibetiles' ), array( 'status' => 400 ) );
 			}
 			/* THE SITE HOLDS 24 STYLES (2026-10-01, the panel audit): a 25th was appended,
 			   cut by the cleaner, and the route still answered yes; with "make default" the
 			   default pointed at nothing and was wiped, and the panel put another style on. */
 			if ( isset( $state['styles'] ) && is_array( $state['styles'] ) && count( $state['styles'] ) >= 24 ) {
-				return new WP_Error( 'architrave_too_many', __( 'The site holds 24 styles. Remove one before publishing another.', 'live-design-panel' ), array( 'status' => 400 ) );
+				return new WP_Error( 'architrave_too_many', __( 'The site holds 24 styles. Remove one before publishing another.', 'vibetiles' ), array( 'status' => 400 ) );
 			}
 			$name = trim( (string) $request->get_param( 'name' ) );
 			if ( '' !== $name ) {
@@ -957,7 +957,7 @@ function architrave_site_styles_handle( $request ) {
 			$record['id'] = 'site-' . strtolower( base_convert( (string) time(), 10, 36 ) ) . strtolower( wp_generate_password( 4, false ) );
 			$clean        = architrave_site_style_record( $record );
 			if ( null === $clean ) {
-				return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'live-design-panel' ), array( 'status' => 400 ) );
+				return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'vibetiles' ), array( 'status' => 400 ) );
 			}
 			$state['styles'][] = $clean;
 			architrave_style_versions_note( $clean['id'], null, false, $clean );
@@ -971,7 +971,7 @@ function architrave_site_styles_handle( $request ) {
 
 		case 'update':
 			if ( ! is_array( $record ) ) {
-				return new WP_Error( 'architrave_no_record', __( 'No style was sent.', 'live-design-panel' ), array( 'status' => 400 ) );
+				return new WP_Error( 'architrave_no_record', __( 'No style was sent.', 'vibetiles' ), array( 'status' => 400 ) );
 			}
 			$found = false;
 			foreach ( $state['styles'] as $i => $existing ) {
@@ -982,7 +982,7 @@ function architrave_site_styles_handle( $request ) {
 					}
 					$clean = architrave_site_style_record( $record );
 					if ( null === $clean ) {
-						return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'live-design-panel' ), array( 'status' => 400 ) );
+						return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'vibetiles' ), array( 'status' => 400 ) );
 					}
 					architrave_style_versions_note( $id, $existing );
 					$state['styles'][ $i ] = $clean;
@@ -990,13 +990,13 @@ function architrave_site_styles_handle( $request ) {
 				}
 			}
 			if ( ! $found ) {
-				return new WP_Error( 'architrave_no_style', __( 'No such style.', 'live-design-panel' ), array( 'status' => 404 ) );
+				return new WP_Error( 'architrave_no_style', __( 'No such style.', 'vibetiles' ), array( 'status' => 404 ) );
 			}
 			break;
 
 		case 'remove':
 			if ( in_array( $id, $state['base'] ?? array(), true ) ) {
-				return new WP_Error( 'architrave_base_style', __( 'A base style stays on the site. It can be changed and reset, not removed.', 'live-design-panel' ), array( 'status' => 403 ) );
+				return new WP_Error( 'architrave_base_style', __( 'A base style stays on the site. It can be changed and reset, not removed.', 'vibetiles' ), array( 'status' => 403 ) );
 			}
 			$state['styles'] = array_values(
 				array_filter(
@@ -1024,12 +1024,12 @@ function architrave_site_styles_handle( $request ) {
 				$found = $found || $existing['id'] === $id;
 			}
 			if ( ! $found || ! is_array( $record ) ) {
-				return new WP_Error( 'architrave_no_style', __( 'No such style.', 'live-design-panel' ), array( 'status' => 404 ) );
+				return new WP_Error( 'architrave_no_style', __( 'No such style.', 'vibetiles' ), array( 'status' => 404 ) );
 			}
 			$record['id'] = $id;
 			$clean        = architrave_site_style_record( $record );
 			if ( null === $clean ) {
-				return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'live-design-panel' ), array( 'status' => 400 ) );
+				return new WP_Error( 'architrave_bad_record', __( 'That is not a style.', 'vibetiles' ), array( 'status' => 400 ) );
 			}
 			$v                    = architrave_style_versions();
 			$v['start'][ $id ]    = $clean;
@@ -1050,7 +1050,7 @@ function architrave_site_styles_handle( $request ) {
 			break;
 
 		default:
-			return new WP_Error( 'architrave_no_action', __( 'Nothing to do.', 'live-design-panel' ), array( 'status' => 400 ) );
+			return new WP_Error( 'architrave_no_action', __( 'Nothing to do.', 'vibetiles' ), array( 'status' => 400 ) );
 	}
 
 	return rest_ensure_response( architrave_site_styles_write( $state ) );
@@ -1078,7 +1078,7 @@ function architrave_as_reader_head() {
 		return;
 	}
 	$words = array(
-		'bar' => __( 'Preview as Reader. Nothing you pick here is kept.', 'live-design-panel' ),
+		'bar' => __( 'Preview as Reader. Nothing you pick here is kept.', 'vibetiles' ),
 	);
 	/* A STORAGE OF ITS OWN, IN MEMORY (2026-10-01, the panel audit): the preview cleared the
 	   site's whole storage and put it back as the tab closed. It opens in a new tab, so the
@@ -1145,7 +1145,7 @@ function architrave_site_styles_customize( $wp_customize ) {
 	$wp_customize->add_section(
 		'architrave_styles',
 		array(
-			'title'    => __( 'Styles', 'live-design-panel' ),
+			'title'    => __( 'Styles', 'vibetiles' ),
 			'priority' => 31,
 		)
 	);
@@ -1163,8 +1163,8 @@ function architrave_site_styles_customize( $wp_customize ) {
 		array(
 			'type'        => 'textarea',
 			'section'     => 'architrave_styles',
-			'label'       => __( 'Published styles', 'live-design-panel' ),
-			'description' => __( 'The styles every reader sees as tiles, and which one a first visit opens in. Publish a look from the Design panel on the site itself; this field shows what is published, and clearing it brings Standard back.', 'live-design-panel' ),
+			'label'       => __( 'Published styles', 'vibetiles' ),
+			'description' => __( 'The styles every reader sees as tiles, and which one a first visit opens in. Publish a look from the Design panel on the site itself; this field shows what is published, and clearing it brings Standard back.', 'vibetiles' ),
 		)
 	);
 }

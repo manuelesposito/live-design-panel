@@ -348,7 +348,7 @@
 		/* its icon and its name in a menu (2026-09-24): the name as text, never as markup */
 		if (next && next.icon !== undefined) pill.setAttribute('data-icon', next.icon ? 'true' : 'false');
 		if (next && next.label !== undefined) {
-			var word = pill.querySelector('.opener-word > span > span'), name = String(next.label || '').trim() || (window.architraveWords && window.architraveWords['Live Design']) || 'Live Design';
+			var word = pill.querySelector('.opener-word > span > span'), name = String(next.label || '').trim() || (window.architraveWords && window.architraveWords['Vibetiles']) || 'Vibetiles';
 			if (word) word.textContent = name;
 			pill.setAttribute('aria-label', name);
 			pill.setAttribute('data-named', String(next.label || '').trim() ? 'true' : 'false');

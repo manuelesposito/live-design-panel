@@ -47,7 +47,7 @@
 		var list = sections();
 		if (section === 'settings') return { id: 'settings', name: t('Settings') };
 		if (section === 'styles') return { id: 'styles', name: t('Styles') };
-		if (section === 'button') return { id: 'button', name: t('Live Design Button') };
+		if (section === 'button') return { id: 'button', name: t('Vibetiles Button') };
 		for (var i = 0; i < list.length; i++) if (list[i].id === section) return list[i];
 		return list[0] || { id: 'settings', name: t('Settings') };
 	}
@@ -803,7 +803,7 @@
 			btnWrite(St().setButton(key, id), '[data-menu="btn-' + key + '"]');
 		}, dots ? function (v) { return doorColour(v, bt); } : null), key === 'show' ? esc(t('What the button shows')) : '');
 	}
-	function nameRow(bt) { return row(t('Name'), '<input type="text" class="ldpw-name" data-blabel data-f="blabel" maxlength="30" value="' + esc(bt.label || '') + '" placeholder="' + esc(t('Live Design')) + '" aria-label="' + esc(t('Name')) + '">'); }
+	function nameRow(bt) { return row(t('Name'), '<input type="text" class="ldpw-name" data-blabel data-f="blabel" maxlength="30" value="' + esc(bt.label || '') + '" placeholder="' + esc(t('Vibetiles')) + '" aria-label="' + esc(t('Name')) + '">'); }
 	var previewsHeld = null, previewsAsked = false;
 	function loadPreviews() { previewsAsked = true; St().previews().then(function (l) { previewsHeld = l || []; if (open) render(); }, function () { previewsHeld = []; }); }
 	function endsWord(until) { return t('Ends {date}').replace('{date}', new Date(until * 1000).toLocaleDateString('en', { day: 'numeric', month: 'long' })); }
@@ -833,7 +833,7 @@
 	}
 	function buttonPage() {
 		var s = St(), bt = s.button();
-		if (!bt) return '<p class="ldpw-hint">' + esc(t('This site has no Live Design button settings.')) + '</p>';
+		if (!bt) return '<p class="ldpw-hint">' + esc(t('This site has no Vibetiles button settings.')) + '</p>';
 		var auto = bt.place === 'auto', inMenu = auto && s.buttonInMenu(), word = inMenu && s.buttonWordInMenu();
 		var map = auto ? '' : '<div class="ldpw-r ldpw-spotrow"><div class="ldpw-top"><span class="ldpw-lb">' + esc(t('Where')) + '</span><span class="ldpw-val">' + esc(t(BTN_WORD.place[bt.place] || '')) + '</span></div>' +
 			'<div class="ldpw-spotmap" role="radiogroup" aria-label="' + esc(t('Where')) + '"><span class="ldpw-mini" aria-hidden="true"><i></i><i></i><i></i></span>' +
@@ -841,7 +841,7 @@
 			'<span class="ldpw-minidoor" data-at="' + esc(bt.place) + '" aria-hidden="true"></span></div><p class="ldpw-hint ldpw-maphint">' + esc(t('Or drag the button itself on the page.')) + '</p></div>';
 		
 		var rests = (inMenu && word) || (auto && s.buttonInSlot && s.buttonInSlot());
-		var out = gtitle(t('Live Design Button')) + box(bSwitch('auto', 'Automatic', auto, false, auto ? t('In your site’s menu, as one of its items') : '') +
+		var out = gtitle(t('Vibetiles Button')) + box(bSwitch('auto', 'Automatic', auto, false, auto ? t('In your site’s menu, as one of its items') : '') +
 			(inMenu ? bSwitch('icon', 'Show icon', bt.icon !== false, false, t('Beside the name in the menu')) : '') + map +
 			(auto ? '' : row(t('Size'), seg('bsize', bt.size, BTN_ORDER.size.map(function (id) { return [id, t(BTN_WORD.size[id])]; }), t('Size'))) + bPop('show', 'Show', bt) + bPop('corners', 'Corners', bt) + bPop('color', 'Colour', bt)) +
 			bPop('glyph', 'Icon', bt) + (inMenu || bt.show !== 'icon' ? nameRow(bt) : '') +
@@ -950,7 +950,7 @@
 		else if (kind === 'theme') code = themeJson();
 		else {
 			var cs = getComputedStyle(document.documentElement), name = styleName();
-			code = '/' + '* ' + name + ', made with Live Design *' + '/\n:root {\n' + ['--surface-base', '--surface-canvas', '--surface-raised', '--text-primary', '--text-secondary', '--text-muted', '--accent', '--accent-contrast', '--line', '--radius-sm', '--radius-lg', '--radius-control', '--radius-row', '--font-reading', '--font-sans', '--text-reading-body', '--text-article-title']
+			code = '/' + '* ' + name + ', made with Vibetiles *' + '/\n:root {\n' + ['--surface-base', '--surface-canvas', '--surface-raised', '--text-primary', '--text-secondary', '--text-muted', '--accent', '--accent-contrast', '--line', '--radius-sm', '--radius-lg', '--radius-control', '--radius-row', '--font-reading', '--font-sans', '--text-reading-body', '--text-article-title']
 				.map(function (k) { var v = cs.getPropertyValue(k).trim(); return v ? '  ' + k + ': ' + v + ';' : ''; }).filter(Boolean).join('\n') + '\n}\n';
 		}
 		if (!code) { done(t('Could not copy')); render(); return; }
@@ -970,7 +970,7 @@
 		var btn = s.get('buttonColour') === 'text' ? P('contrast') : s.get('buttonColour') === 'own' ? s.colour('button') : P('accent');
 		var tj = {
 			$schema: 'https://schemas.wp.org/trunk/theme.json', version: 3, title: styleName(),
-			description: 'Made with Live Design Panel: the ' + (s.side() === 'dark' ? 'dark' : 'light') + ' side only (a style variation has one side). Left out: the other side, the space between parts, picture looks, line and box styles.',
+			description: 'Made with Vibetiles: the ' + (s.side() === 'dark' ? 'dark' : 'light') + ' side only (a style variation has one side). Left out: the other side, the space between parts, picture looks, line and box styles.',
 			settings: { color: { palette: pal }, typography: { fontFamilies: fonts } },
 			styles: {
 				color: { background: P('base'), text: P('contrast') },
@@ -992,7 +992,7 @@
 		if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(ok, ok); else ok();
 	}
 	function askPaste() {
-		asking = { title: t('Paste a Style'), text: t('Paste a style link from any site with Live Design. It comes in as a style of your own; the one you are on stays as it is.'), field: '', fieldLabel: t('Style or link'), go: t('Paste'), back: '[data-menu="barmore"]', run: function (v) {
+		asking = { title: t('Paste a Style'), text: t('Paste a style link from any site with Vibetiles. It comes in as a style of your own; the one you are on stays as it is.'), field: '', fieldLabel: t('Style or link'), go: t('Paste'), back: '[data-menu="barmore"]', run: function (v) {
 			return St().importLink(v).then(function (id) { if (!id) throw new Error('no style'); section = 'colour'; done(t('Style Pasted')); });
 		}, fail: t('That isn’t a style link. Copy one with Copy Style, then paste it here.') };
 		render('#ldpw-ask-field');
@@ -1272,10 +1272,10 @@
 	function sideHTML() {
 		var shutter = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '" title="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>'; 
 		return '<nav class="ldpw-side" aria-label="' + esc(t('Sections')) + '">' +
-			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('View')) + '" title="' + esc(t('View')) + '">' + svg(GLYPH.side) + '</button>') + '</div>' +
+			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Vibetiles')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('View')) + '" title="' + esc(t('View')) + '">' + svg(GLYPH.side) + '</button>') + '</div>' +
 			'<div class="ldpw-side-in">' + '<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear Search')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' +  navButton({ id: 'styles', name: t('Styles') }) +
 				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + 
-				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'button', name: t('Live Design Button') }) +
+				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'button', name: t('Vibetiles Button') }) +
 			'</div>' + 
 			(phone() ? '' : '<span class="ldpw-grip" data-grip role="separator" aria-orientation="vertical" aria-label="' + esc(t('Sidebar width')) + '"></span>') + 
 		'</nav>';
@@ -1407,7 +1407,7 @@
 		var x = current(), s = St(), built = BUILT.indexOf(x.id) !== -1 && (x.id === 'settings' || s);
 		var deep = showChanges || showVersions || (x.id === 'type' && (role || fontFor));
 		var name = sq && sq.q.trim() ? t('Search') : showChanges ? t('Changes') : showVersions ? t('Versions') : editing ? label(editing) : x.id !== 'type' ? x.name : fontFor ? (role ? t('Font') : t(fontFor === 'body' ? 'Reading Font' : 'Interface Font')) : role ? t(roleMeta(role).label) : x.name;
-		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (editedWord(s, true) ? ' · ' + editedWord(s, true) : '') : editing ? (editing === 'door.own' ? t('Live Design Button') : editing === 'colours.{side}.button' ? t('Buttons') : /title|headings|meta/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : x.id !== 'colour' && x.id !== 'type' ? x.name : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
+		var sub = (showChanges || showVersions) && s ? s.name() : x.id === 'button' ? t('Site') : x.id === 'styles' && s ? s.name() + (editedWord(s, true) ? ' · ' + editedWord(s, true) : '') : editing ? (editing === 'door.own' ? t('Vibetiles Button') : editing === 'colours.{side}.button' ? t('Buttons') : /title|headings|meta/.test(editing) && role ? t('Type') + ' › ' + t(roleMeta(role).label) : x.id !== 'colour' && x.id !== 'type' ? x.name : t('Colour')) : fontFor ? (role ? t('Type') + ' › ' + t(roleMeta(fontFor).label) : t('Type')) : role ? t('Type') : built && s && x.id !== 'settings' ? s.name() : x.settings ? t('{n} settings').replace('{n}', x.settings) : '';
 		var back = editing || deep || phone();
 		var undo = built && s ? '<button type="button" class="ldpw-circ" data-act="undo" data-f="act:undo"' + (s.canUndo() ? '' : ' disabled') + ' aria-label="' + esc(undoName()) + '" title="' + esc(undoName()) + '">' + svg(GLYPH.undo) + '</button>' : '';
 		return '<div class="ldpw-detail">' +
@@ -1472,7 +1472,7 @@
 		var shut = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>';
 		var pv = !!r.preview;
 		return '<div class="ldpw-detail"><div class="ldpw-bar">' + (phone() ? '' : shut) +
-				'<div class="ldpw-ttl"><b id="ldpw-title">' + esc(t('Live Design')) + '</b>' + (pv ? '<small>' + esc(t('Preview as Reader')) + '</small>' : '') + '</div>' +
+				'<div class="ldpw-ttl"><b id="ldpw-title">' + esc(t('Vibetiles')) + '</b>' + (pv ? '<small>' + esc(t('Preview as Reader')) + '</small>' : '') + '</div>' +
 				(pv ? '<button type="button" class="ldpw-blue" data-act="endpreview" data-f="act:endpreview">' + esc(t('Done')) + '</button>' : '') + (phone() ? shut : '') + '</div>' + 
 			'<div class="ldpw-scroll">' +
 				gtitle(t('Text size')) + stepper + gtitle(t('Appearance')) + looks +
