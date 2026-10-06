@@ -660,5 +660,5 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window .ldpw-stile .ldpw-tm svg { width: 13px; height: 13px; }
 #ldp-window .ldpw-tm[aria-expanded="true"] { background: var(--ldpw-press); }
 @media (hover: hover) { #ldp-window .ldpw-stile .ldpw-tm:hover { background: var(--ldpw-press); } }
-#ldp-window .ldpw-dflt { position: absolute; top: 7px; right: 7px; padding: 1px 7px; border-radius: 999px; background: rgb(255 255 255 / .92); color: #1d1d1f; font-style: normal; font-family: "LDP Inter", "Inter Variable", system-ui, sans-serif; letter-spacing: 0; font-size: 10.5px; font-weight: 600; line-height: 16px; box-shadow: 0 1px 3px rgb(0 0 0 / .18); } 
-#ldp-window .ldpw-spic:has(.ldpw-dflt) .ldpw-dot { top: 11px; right: 72px; } 
+#ldp-window .ldpw-dflt { position: absolute; top: 6px; right: 6px; padding: 0 6px; border-radius: 999px; background: var(--ldpw-menu); color: var(--ldpw-ink); font-style: normal; font-family: "LDP Inter", "Inter Variable", system-ui, sans-serif; letter-spacing: 0; font-size: 10px; font-weight: 590; line-height: 15px; box-shadow: 0 0 0 .5px rgb(0 0 0 / .14); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); } 
+#ldp-window .ldpw-spic:has(.ldpw-dflt) .ldpw-dot { top: 9.5px; right: 60px; } 

@@ -1419,9 +1419,8 @@
 			'<div class="ldpw-side-in">' + '<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear Search')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' + /* the lab's: the search scrolls with the list */ navButton({ id: 'styles', name: t('Styles') }) +
 				/* THE STYLE'S PAGES under "<name> Style" (2026-10-06, Manuel: the word "style" as part of the section title) */
 				'<div class="ldpw-gt"><span>' + esc(styleName() ? t('{name} Style').replace('{name}', styleName()) : t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + /* the lab's: Edited beside the style's name */
-				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'button', name: t('Button') }) +
-				/* SETTINGS IN THE SIDEBAR (2026-10-06, Manuel): its own section under Site; still in the ••• menu and on ⌘, too */
-				'<div class="ldpw-gt">' + esc(t('Settings')) + '</div>' + navButton({ id: 'settings', name: t('Settings') }) +
+				/* BUTTON AND SETTINGS IN ONE SECTION, "More" (2026-10-06, Manuel: "we don't need two sections"); Settings is still in the ••• menu and on ⌘, too */
+				'<div class="ldpw-gt">' + esc(t('More')) + '</div>' + navButton({ id: 'button', name: t('Button') }) + navButton({ id: 'settings', name: t('Settings') }) +
 			'</div>' + /* the way back to the current window is in the ••• menu, as the lab has them */
 			(phone() ? '' : '<span class="ldpw-grip" data-grip role="separator" aria-orientation="vertical" aria-label="' + esc(t('Sidebar width')) + '"></span>') + /* no tooltip, as the lab's */
 		'</nav>';
@@ -1564,7 +1563,7 @@
 	function secsTitle(x, name, sub) {
 		var ids = ['styles'].concat(sections().map(function (y) { return y.id; }), ['button', 'settings']);
 		var nameOf = function (id) { var was = section; section = id; var nm = current().name; section = was; return nm; }, s0 = St();
-		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), [['#', t('Site')], ['button', nameOf('button')], ['#', t('Settings')], ['settings', nameOf('settings')]]);
+		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), [['#', t('More')], ['button', nameOf('button')], ['settings', nameOf('settings')]]);
 		MENU.secs = { label: t('Sections'), value: x.id, search: true, items: items, pick: function (id) {
 			if (id.indexOf('hit:') === 0) { var e = MENU.secs.hits[+id.slice(4)]; menuQ = ''; goTo(e); return; }
 			sq = null; section = id; phoneList = false; editing = null; role = null; fontFor = null; more = false; showChanges = false; showVersions = false;
