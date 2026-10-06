@@ -306,6 +306,7 @@
 #ldp-window .ldpw-dln:is([data-ln="coloured"], [data-ln="both"]) { color: var(--la); }
 #ldp-window .ldpw-dln:is([data-ln="underlined"], [data-ln="both"]) { text-decoration: underline; }
 #ldp-window .ldpw-dln[data-ln="bold"] { text-decoration: underline 2px; text-decoration-color: var(--la); text-underline-offset: .18em; } 
+#ldp-window .ldpw-dln[data-ln="wash"] { background: color-mix(in srgb, var(--la) 22%, transparent); border-radius: 3px; padding-inline: .12em; } 
 #ldp-window .ldpw-dch { display: flex; gap: 3px; font: 500 10px/1 "LDP Inter", "Inter Variable", system-ui, sans-serif; }
 #ldp-window .ldpw-dch > * { padding: 4px 5px; border-radius: 4px; text-decoration: none; color: color-mix(in oklab, var(--li) 55%, var(--lp)); font-weight: 500; }
 #ldp-window .ldpw-dch b { color: var(--li); }

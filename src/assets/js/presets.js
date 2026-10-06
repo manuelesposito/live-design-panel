@@ -2175,6 +2175,15 @@
 			if (bodyT) document.body.style.setProperty('transition', bodyT, bodyP); else document.body.style.removeProperty('transition');
 			if (had) root.setAttribute('data-chosen', '');
 			if (hadC !== null) root.setAttribute('data-colours', hadC);
+			/* AS #RRGGBB (2026-10-06, the panel sweep): the page answers rgb(), oklch() or color(), and every colour
+			   sum here (lum, contrast, hexToOklch) reads hex only, so on another theme a night made from the day came
+			   out wrong (contrast read NaN) and the AI was told rgb() where it is asked to write hex. One pixel drawn
+			   reads any colour the browser knows. */
+			var hexOf = function (c) {
+				if (!c || /^#[0-9a-f]{6}$/i.test(c)) return c;
+				try { var cv = document.createElement('canvas'); cv.width = cv.height = 1; var cx = cv.getContext('2d'); cx.fillStyle = '#000'; cx.fillStyle = c; cx.fillRect(0, 0, 1, 1); var px = cx.getImageData(0, 0, 1, 1).data; return '#' + [px[0], px[1], px[2]].map(function (n) { return (n < 16 ? '0' : '') + n.toString(16); }).join(''); } catch (e) { return c; }
+			};
+			[light, dark].forEach(function (sd) { Object.keys(sd).forEach(function (k) { sd[k] = hexOf(sd[k]); }); });
 			rec.colours = { light: light, dark: dark };
 			rec.hostFace = face;
 			/* THE SIDE THE THEME IS ON (2026-09-24, the audit: on Twenty Twenty-Five's white
@@ -2182,7 +2191,7 @@
 			   dark, and offered the dark side's colours). A light page is light. The
 			   plugin says so before the first paint (architravePanelHostSide); the
 			   page is the second opinion, for a palette too thin to read. */
-			var ch = (light.paper.match(/[\d.]+/g) || [255, 255, 255]).slice(0, 3).map(Number);
+			var ch = /^#[0-9a-f]{6}$/i.test(light.paper || '') ? [1, 3, 5].map(function (i) { return parseInt(light.paper.substr(i, 2), 16); }) : [255, 255, 255];
 			rec.hostSide = window.architravePanelHostSide || ((0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2]) < 128 ? 'dark' : 'light');
 		}); });
 	}
@@ -3760,11 +3769,11 @@
 				meaning: meaning,
 				rules: [
 					'Send only the keys you want to change from the base; a smaller record is a better record.',
-					'A first visit opens on the dark side, so design the dark colours first and check both.',
+					'The day leads: set the light colours, and the dark side works each one out from them unless you set it too. Check both sides.', /* was: a first visit opens dark (stale since 0.11.47 and 0.46.0; the sweep, 2026-10-06) */
 					'Colours: seven per side, named for their job. background is the page the text sits on (people see Paper); background2 the space around it and the rails, a second background a theme may have (Ground); card what stands on the page: menus, boxes, fields (Cards); text; mutedText the quiet text of dates and captions (Soft text); accent the brand colour of links and main buttons; highlight the highlighter, left out for none. Leave out what you do not need: the rest is worked out from background and text.',
 					'Contrast: text on background at 4.5:1 or better, accent on background at 3:1 or better, on both sides.',
 					'A background2 on the other side of the background (dark around a light page, or light around a dark one) is a dark ground: it is worn around the page on wide screens, with its own words, lines and links.',
-					'A strength key (line, fill, framewidth) does nothing unless its switch is true.',
+					'A detail shows only with its setting on: borderStyle and borderStrength need a borderWidth, frameWidth a pictureFrame, capLines and capface a dropcap, colourOnHover a pictureFilter.', /* the old line named retired keys (the sweep, 2026-10-06) */
 					'Pick fonts from the listed ids only; the theme ships no others.',
 					'To try a record without publishing it, open the site at /#style= followed by the base64url of the record JSON.'
 				],
@@ -4187,7 +4196,18 @@
 			   case was left as it was. */
 			var presetsWere = [presetById(presetOf()), presetById((byId(current) || {}).preset)];
 			var dayLeads = function () {
-				if (side !== 'light' || !entry.colours.dark || darkByHand(entry, key, presetsWere)) return;
+				if (side !== 'light') return;
+				/* ANOTHER THEME'S NIGHT FOLLOWS TOO (2026-10-06, the panel sweep): a copy of a guest's Original holds the
+				   theme's own two sides as its colours, so the night's looked set by hand and never followed (an accent
+				   made blue by day stayed the theme's grey at night). The theme's own night colour is not by hand: it
+				   is cleared ('' = none of its own), and the night works it out from the day. */
+				var dk = entry.colours.dark, sNow = byId(current), hostDark = ((byId('host') || {}).colours || {}).dark || {};
+				if (dk && dk[key] === '') return;
+				if (sNow && sNow.bare && !(dk && (dk[key] || dk[COLOUR_ENGINE[key]]))) {
+					var mineDark = sNow.colours && sNow.colours.dark && (sNow.colours.dark[key] || sNow.colours.dark[COLOUR_ENGINE[key]]), theirs = hostDark[key] || hostDark[COLOUR_ENGINE[key]];
+					if (mineDark && theirs && String(mineDark).toLowerCase() === String(theirs).toLowerCase()) { entry.colours.dark = dk || {}; entry.colours.dark[key] = ''; return; }
+				}
+				if (!entry.colours.dark || darkByHand(entry, key, presetsWere)) return;
 				/* A DARK GROUND IS ITS SIDE'S OWN (2026-10-03): the other side's ground is left as it is */
 				if (key === 'background2' && groundFlip(hex, (coloursResolved().light || {}).paper || paperNow('light'))) return;
 				delete entry.colours.dark[key]; delete entry.colours.dark[COLOUR_ENGINE[key]]; if (!Object.keys(entry.colours.dark).length) delete entry.colours.dark;
@@ -4820,14 +4840,14 @@
 			return true;
 		},
 		previewing: function () { return !!previewing; },
-		restoreVersion: function (rec) {
+		restoreVersion: function (rec, what) { /* what: the name Undo says (a setting's key, 'changes'); a version brought back by default */
 			var s = byId(current); if (!s || s.host || !rec) return false;
 			endPreview();
 			keepVersion(); /* what stood is kept too, so the list can bring it back as well as Undo */
 			var all = readTweaks(), e = entryFromRecord(rec);
 			if (Object.keys(e).length) all[s.id] = e; else delete all[s.id];
 			lastPush = 0; writeTweaks(all);
-			if (HISTORY.length) HISTORY[HISTORY.length - 1].what = 'version';
+			if (HISTORY.length) HISTORY[HISTORY.length - 1].what = what || 'version';
 			applyNow(s, wanted(s)); applyRoles();
 			return true;
 		},

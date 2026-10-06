@@ -611,6 +611,13 @@
 :root[data-chosen][data-links="coloured"]:not([data-accent="off"]) :is(.wp-block-post-content, .entry-content) a:not(.wp-block-button__link, .wp-element-button):not(:hover, :focus-visible):not(:where([data-ldp-layout] *, [data-ldp-designed] *)) {
 	text-decoration-line: none !important;
 }
+/* Bold line (2026-10-06, the panel sweep): the rule above every link says the font's own thin underline with
+   !important, so on another theme Bold drew the thin line. The thick one in the accent, as on Architrave. */
+:root[data-chosen][data-links="bold"] :is(.wp-block-post-content, .entry-content) a:not(.wp-block-button__link, .wp-element-button):not(:where([data-ldp-layout] *, [data-ldp-designed] *)) {
+	text-decoration-color: var(--accent) !important;
+	text-decoration-thickness: 3px !important;
+	text-underline-offset: .18em !important;
+}
 
 /* ── The column ───────────────────────────────────────────────────────────
    Architrave measures its column in characters, so bigger text is a wider

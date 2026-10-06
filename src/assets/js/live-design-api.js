@@ -121,7 +121,7 @@
 
 	/* Every change planned first, nothing written until all of it is known: the side is a view, the preset a pick, the rest one record. */
 	function plan(changes, base) {
-		var sc = schema(), rec = clone(base) || {}, done = [], problems = [], view = null, preset = null;
+		var sc = schema(), rec = clone(base) || {}, done = [], problems = [], unchanged = [], view = null, preset = null;
 		Object.keys(changes || {}).forEach(function (path) {
 			var want = changes[path];
 			if (path === 'side' || path === 'view.side') {
@@ -138,6 +138,7 @@
 			}
 			var a = allowedFor(path, sc);
 			if (a.error) return problems.push({ key: path, problem: a.error });
+			if (!hereOn(path)) return problems.push({ key: path, problem: 'Does nothing on this theme: only Architrave\'s own page draws it.' }); /* D3 */
 			var cur = at(rec, path); if (cur === undefined) cur = liveValue(path); /* a record names only what moved from its base */
 			var r = settle(path, want, cur, a.allowed);
 			if (r.error) return problems.push({ key: path, problem: r.error });
@@ -146,12 +147,25 @@
 				   so it was left out; the record then named no paper, and once the other colours moved the engine worked
 				   one out from them, light grey. A colour the record does not hold yet is written even when it shows. */
 				if (path.indexOf('colours.') === 0 && at(rec, path) === undefined) { put(rec, path, r.value); done.push({ key: path, from: cur, to: r.value, says: 'Kept as it shows, so it stays when other colours move.' }); }
+				else unchanged.push({ key: path, says: 'already ' + (typeof r.value === 'string' ? r.value : JSON.stringify(r.value)) }); /* an AI told nothing tries again (D4) */
 				return;
 			}
 			put(rec, path, r.value);
 			done.push({ key: path, from: cur, to: r.value, adjusted: r.adjusted });
 		});
-		return { record: rec, changed: done, problems: problems, view: view, preset: preset };
+		/* THE DAY LEADS FOR THE AI TOO (2026-10-06, the panel sweep): a copy of another theme's Original holds that
+		   theme's night as its own colours, so a colour the AI set by day never reached the night. A night colour that
+		   is still the theme's own, and not asked for in the same step, is let go: the night works it out from the day. */
+		if (window.architravePanelGuest && rec.colours && rec.colours.dark) {
+			var ENG = { background: 'paper', text: 'ink', background2: 'ground', card: 'lift', mutedText: 'muted', highlight: 'marker' }, theirs = {};
+			try { theirs = (E().colours('host') || {}).dark || {}; } catch (e) { /* no theme night to compare with */ }
+			done.forEach(function (c) {
+				var m = /^colours\.light\.(\w+)$/.exec(c.key); if (!m || changes['colours.dark.' + m[1]] !== undefined) return;
+				var mine = rec.colours.dark[m[1]], th = theirs[m[1]] || theirs[ENG[m[1]]];
+				if (mine && th && String(mine).toLowerCase() === String(th).toLowerCase()) delete rec.colours.dark[m[1]];
+			});
+		}
+		return { record: rec, changed: done, problems: problems, unchanged: unchanged, view: view, preset: preset };
 	}
 
 	/* THE READING CHECK, measured on the page: contrast of text, links and buttons, the reading size,
@@ -177,9 +191,9 @@
 			facts.lettersPerLine = per > 0 ? Math.round(p.getBoundingClientRect().width / per) : null;
 		}
 		var warn = [], add = function (key, says, fix) { warn.push({ key: key, says: says, fix: fix }); };
-		if (facts.textContrast < 4.5) add('colours.' + facts.side + '.text', 'The text is hard to read on its paper (contrast ' + facts.textContrast + ', needs 4.5).', null);
+		if (facts.textContrast < 4.5) add('colours.' + facts.side + '.text', 'The text is hard to read on its paper (contrast ' + facts.textContrast + ', needs 4.5).', (function () { var o = {}; o['colours.' + facts.side + '.text'] = facts.side === 'dark' ? '#f2f2f2' : '#1d1d1f'; return o; }())); /* a fix with more contrast: near black by day, near white by night (D5) */
 		if (facts.linkContrast < 3) add('colours.' + facts.side + '.accent', 'Links are hard to tell from the paper (contrast ' + facts.linkContrast + ', needs 3).', { links: 'both' });
-		if (facts.buttonTextContrast < 4.5) add('buttonColour', 'The text on strong buttons is hard to read (contrast ' + facts.buttonTextContrast + ').', { buttonColour: 'text' });
+		if (facts.buttonTextContrast < 4.5) add('buttonColour', 'The text on the main buttons is hard to read (contrast ' + facts.buttonTextContrast + ').', { buttonColour: 'text' });
 		if (facts.readingSize && facts.readingSize < 16) add('roles.body.size', 'Reading text under 16 px is small for long reading.', { 'roles.body.size': '+1' });
 		if (facts.lettersPerLine && facts.lettersPerLine > 90) add('lineLength', 'Lines of about ' + facts.lettersPerLine + ' letters are long; 60 to 75 read best.', { lineLength: '68' });
 		if (facts.lineSpacing && facts.lineSpacing < 1.3) add('roles.body.lineHeight', 'Lines of reading text sit tight (' + facts.lineSpacing + '); 1.4 to 1.7 read best.', { 'roles.body.lineHeight': 'relaxed' });
@@ -218,6 +232,21 @@
 		return o;
 	}
 
+	/* WHERE A SETTING IS IN THE WINDOW, WHAT EVERY ENTRY MEANS, WHAT WORKS HERE (2026-10-06, the whole-panel pass D1 to D3):
+	   the window's page by name, so the AI can tell the owner where to look; the type dials' and the colour wells' meanings,
+	   which the template entries (roles.{role}.size, colours.{side}.accent) lacked; on another theme the keys only
+	   Architrave's page draws are marked here: false, and set() says so. */
+	var PAGE = { colour: 'Colour', type: 'Type', layout: 'Layout', 'corners-and-lines': 'Corners & Lines', buttons: 'Buttons', pictures: 'Pictures' };
+	var WELL_MEANS = { background: 'The page the text sits on (Paper).', background2: 'The space around the page and the rails, a second background a theme may have (Ground).', card: 'What stands on the page: menus, boxes, fields (Cards).', text: 'The text.', mutedText: 'The quiet text of dates and captions (Soft text).', accent: 'The brand colour of links and main buttons.', highlight: 'The highlighter: marked words and selected text. Left out: none.', button: 'The buttons\' own colour, used when buttonColour is own.' };
+	var ARCHITRAVE_ONLY = ['titleWidth', 'pictureWidth', 'figureWidth', 'tertiaryButton', 'pictureFade', 'pictureShadow', 'pictureCorners', 'opening'];
+	function hereOn(key) { return !(window.architravePanelGuest && ARCHITRAVE_ONLY.indexOf(key) !== -1); }
+	function meansOf(key, mean) {
+		if (mean[key]) return mean[key];
+		var m = /^roles\.\{role\}\.(\w+)$/.exec(key); if (m) { try { return ((E().guide().typography || {}).dials || {})[m[1]]; } catch (e) { return undefined; } }
+		m = /^colours\.\{side\}\.(\w+)$/.exec(key); if (m) return WELL_MEANS[m[1]] || 'The own colour of the ' + m[1] + ' role, used when its colour is own.';
+		return undefined;
+	}
+
 	var LiveDesign = {
 		about: 'Live Design: style this website by name. describe() first; set() changes (one undo step); preview() shows without keeping; check() says whether the page still reads well. A style shown to readers saves itself: what you change in it reaches readers a moment later. To try things, work on a style that is not on the site (choose Original: the first change makes a copy only this browser keeps). set, preview, load and choose answer with a Promise.',
 		describe: function () {
@@ -228,9 +257,11 @@
 				about: this.about,
 				site: document.title,
 				style: { id: s.current(), name: s.name(), editable: s.editable(), note: s.editable() ? undefined : 'This is the theme\'s own look; your first change makes a copy of it.' },
-				settings: list().map(function (x) {
+				settings: list().filter(function (x) { return x.key !== 'scope'; }) /* legacy: it does nothing anywhere (2026-10-06, D3) */.map(function (x) {
 					var a = x.key in sc ? sc[x.key] : (x.choices || x.steps);
-					return { key: x.key, section: x.section, name: x.label, means: mean[x.key], kind: x.kind, now: x.key in rec ? rec[x.key] : s.get(x.key), default: x.def, values: a };
+					var o = { key: x.key, section: x.section, where: PAGE[x.section] || undefined, name: x.label || undefined, means: meansOf(x.key, mean), kind: x.kind, now: x.key in rec ? rec[x.key] : s.get(x.key), default: x.def, values: a };
+					if (!hereOn(x.key)) { o.here = false; o.means = (o.means ? o.means + ' ' : '') + 'Does nothing on this theme.'; }
+					return o;
 				}),
 				colours: { wells: Object.keys(((sc.colours || {}).light) || {}), now: rec.colours || null, how: 'colours.<light|dark>.<well> as #rrggbb, e.g. colours.dark.accent. Set both sides.' },
 				type: {
@@ -247,7 +278,11 @@
 		},
 		get: function (path) { var rec = nowRecord() || {}; return path ? at(rec, path) : rec; },
 		/* ONE STEP, UNDOABLE, KEPT IN VERSIONS */
-		set: function (changes, why) { return editableRecord().then(function (ed) {
+		set: function (changes, why) {
+			/* A STEP THAT CHANGES NOTHING MAKES NO COPY (2026-10-06, D4): planned first against what shows; the copy of Original waits for a real change */
+			var dry = S() && !S().editable() ? plan(changes, {}) : null;
+			if (dry && !dry.changed.length && !dry.view && !dry.preset) return Promise.resolve({ changed: [], unchanged: dry.unchanged, problems: dry.problems, style: S().name(), check: check() });
+			return editableRecord().then(function (ed) {
 			if (ed.error) return { changed: [], problems: [{ problem: ed.error }] };
 			var pl = plan(changes, ed.record), s = S(), E0 = E();
 			if (pl.view) s.setView(pl.view);
@@ -257,10 +292,12 @@
 				var base = pl.preset ? nowRecord() : null; /* a preset first, then the record's own keys on top of it */
 				if (base) pl.changed.forEach(function (c) { if (c.key !== 'side' && c.key !== 'preset') put(base, c.key, c.to); });
 				if (E0 && E0.previewing && E0.previewing()) s.previewVersion(null);
-				s.restoreVersion(base || pl.record);
+				/* Undo names what it takes back (2026-10-06, the sweep: every AI step said "Undo Restore"): the one setting, or "Changes" */
+				var keys = pl.changed.filter(function (c) { return c.key !== 'side' && c.key !== 'preset'; }).map(function (c) { return c.key; });
+				s.restoreVersion(base || pl.record, keys.length === 1 ? keys[0] : 'changes');
 			}
 			if (pl.changed.length) after(pl.changed, why);
-			return painted().then(function () { return { changed: pl.changed, problems: pl.problems, madeCopy: ed.madeCopy || undefined, style: s.name(), check: check(), live: (function () { var x = s.tile && s.tile(s.current()); return x && x.site ? 'This style is on the site: readers see the change a moment later.' : 'Only in this browser: readers see it once the owner shows this style to readers.'; }()) }; });
+			return painted().then(function () { return { changed: pl.changed, unchanged: pl.unchanged.length ? pl.unchanged : undefined, problems: pl.problems, madeCopy: ed.madeCopy || undefined, style: s.name(), check: check(), live: (function () { var x = s.tile && s.tile(s.current()); return x && x.site ? 'This style is on the site: readers see the change a moment later.' : 'Only in this browser: readers see it once the owner shows this style to readers.'; }()) }; });
 		}); },
 		preview: function (changes) { return editableRecord().then(function (ed) {
 			if (ed.error) return { changed: [], problems: [{ problem: ed.error }] };

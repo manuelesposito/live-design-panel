@@ -1368,9 +1368,14 @@
 			if (bodyT) document.body.style.setProperty('transition', bodyT, bodyP); else document.body.style.removeProperty('transition');
 			if (had) root.setAttribute('data-chosen', '');
 			if (hadC !== null) root.setAttribute('data-colours', hadC);
+			var hexOf = function (c) {
+				if (!c || /^#[0-9a-f]{6}$/i.test(c)) return c;
+				try { var cv = document.createElement('canvas'); cv.width = cv.height = 1; var cx = cv.getContext('2d'); cx.fillStyle = '#000'; cx.fillStyle = c; cx.fillRect(0, 0, 1, 1); var px = cx.getImageData(0, 0, 1, 1).data; return '#' + [px[0], px[1], px[2]].map(function (n) { return (n < 16 ? '0' : '') + n.toString(16); }).join(''); } catch (e) { return c; }
+			};
+			[light, dark].forEach(function (sd) { Object.keys(sd).forEach(function (k) { sd[k] = hexOf(sd[k]); }); });
 			rec.colours = { light: light, dark: dark };
 			rec.hostFace = face;
-			var ch = (light.paper.match(/[\d.]+/g) || [255, 255, 255]).slice(0, 3).map(Number);
+			var ch = /^#[0-9a-f]{6}$/i.test(light.paper || '') ? [1, 3, 5].map(function (i) { return parseInt(light.paper.substr(i, 2), 16); }) : [255, 255, 255];
 			rec.hostSide = window.architravePanelHostSide || ((0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2]) < 128 ? 'dark' : 'light');
 		}); });
 	}
@@ -2370,11 +2375,11 @@
 				meaning: meaning,
 				rules: [
 					'Send only the keys you want to change from the base; a smaller record is a better record.',
-					'A first visit opens on the dark side, so design the dark colours first and check both.',
+					'The day leads: set the light colours, and the dark side works each one out from them unless you set it too. Check both sides.', 
 					'Colours: seven per side, named for their job. background is the page the text sits on (people see Paper); background2 the space around it and the rails, a second background a theme may have (Ground); card what stands on the page: menus, boxes, fields (Cards); text; mutedText the quiet text of dates and captions (Soft text); accent the brand colour of links and main buttons; highlight the highlighter, left out for none. Leave out what you do not need: the rest is worked out from background and text.',
 					'Contrast: text on background at 4.5:1 or better, accent on background at 3:1 or better, on both sides.',
 					'A background2 on the other side of the background (dark around a light page, or light around a dark one) is a dark ground: it is worn around the page on wide screens, with its own words, lines and links.',
-					'A strength key (line, fill, framewidth) does nothing unless its switch is true.',
+					'A detail shows only with its setting on: borderStyle and borderStrength need a borderWidth, frameWidth a pictureFrame, capLines and capface a dropcap, colourOnHover a pictureFilter.', 
 					'Pick fonts from the listed ids only; the theme ships no others.',
 					'To try a record without publishing it, open the site at /#style= followed by the base64url of the record JSON.'
 				],
@@ -2673,7 +2678,14 @@
 			entry.colours = entry.colours || {}; entry.colours[side] = entry.colours[side] || {};
 			var presetsWere = [presetById(presetOf()), presetById((byId(current) || {}).preset)];
 			var dayLeads = function () {
-				if (side !== 'light' || !entry.colours.dark || darkByHand(entry, key, presetsWere)) return;
+				if (side !== 'light') return;
+				var dk = entry.colours.dark, sNow = byId(current), hostDark = ((byId('host') || {}).colours || {}).dark || {};
+				if (dk && dk[key] === '') return;
+				if (sNow && sNow.bare && !(dk && (dk[key] || dk[COLOUR_ENGINE[key]]))) {
+					var mineDark = sNow.colours && sNow.colours.dark && (sNow.colours.dark[key] || sNow.colours.dark[COLOUR_ENGINE[key]]), theirs = hostDark[key] || hostDark[COLOUR_ENGINE[key]];
+					if (mineDark && theirs && String(mineDark).toLowerCase() === String(theirs).toLowerCase()) { entry.colours.dark = dk || {}; entry.colours.dark[key] = ''; return; }
+				}
+				if (!entry.colours.dark || darkByHand(entry, key, presetsWere)) return;
 				if (key === 'background2' && groundFlip(hex, (coloursResolved().light || {}).paper || paperNow('light'))) return;
 				delete entry.colours.dark[key]; delete entry.colours.dark[COLOUR_ENGINE[key]]; if (!Object.keys(entry.colours.dark).length) delete entry.colours.dark;
 			};
@@ -3224,14 +3236,14 @@
 			return true;
 		},
 		previewing: function () { return !!previewing; },
-		restoreVersion: function (rec) {
+		restoreVersion: function (rec, what) { 
 			var s = byId(current); if (!s || s.host || !rec) return false;
 			endPreview();
 			keepVersion(); 
 			var all = readTweaks(), e = entryFromRecord(rec);
 			if (Object.keys(e).length) all[s.id] = e; else delete all[s.id];
 			lastPush = 0; writeTweaks(all);
-			if (HISTORY.length) HISTORY[HISTORY.length - 1].what = 'version';
+			if (HISTORY.length) HISTORY[HISTORY.length - 1].what = what || 'version';
 			applyNow(s, wanted(s)); applyRoles();
 			return true;
 		},

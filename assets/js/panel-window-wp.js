@@ -119,7 +119,7 @@
 			if (!c || c.host) return all;
 			var mine = ownColours(), hc = c.bare && c.colours && c.colours[sd], O = hc && hc.paper ? [hc.paper, hc.ink || ORIGINAL[sd][1], hc.accent || hc.ink || ORIGINAL[sd][2]] : ORIGINAL[sd]; 
 			var bare = !now && !['background', 'text', 'accent'].some(function (k) { return isHex(mine[k]); });
-			return [{ id: 'own', label: 'Standard', paper: O[0], ink: O[1], accent: O[2], on: bare, group: 'base' }].concat(all);
+			return [{ id: 'own', label: 'Original',  paper: O[0], ink: O[1], accent: O[2], on: bare, group: 'base' }].concat(all);
 		},
 		choosePreset: function (id) {
 			var s = S(); if (!s) return;
@@ -315,7 +315,7 @@
 		},
 		previewVersion: function (rec) { var s = S(); return !!(s && s.previewVersion && s.previewVersion(rec || null)); },
 		previewing: function () { var s = S(); return !!(s && s.previewing && s.previewing()); },
-		restoreVersion: function (rec) { var s = S(); return !!(s && s.restoreVersion && s.restoreVersion(rec)); },
+		restoreVersion: function (rec, what) { var s = S(); return !!(s && s.restoreVersion && s.restoreVersion(rec, what)); },
 		keepVersion: function () { var s = S(); return !!(s && s.keepVersion && s.keepVersion()); },
 		startRecord: function (id) {
 			var s = S(); if (!s) return null;

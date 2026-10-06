@@ -55,7 +55,8 @@
 	function St() { return host && host.style; }
 	function setting(key) { var l = (host && host.settings && host.settings.list) || []; for (var i = 0; i < l.length; i++) if (l[i].key === key) return l[i]; return null; }
 	var OWN_LABEL = { links: 'Links' }; 
-	var LAB_LABEL = { currentItem: 'Chosen item', pictureFilter: 'Picture look', colourOnHover: 'Colour on hover', dimInDark: 'Dim in dark appearance', pictureFrame: 'Frame', frameWidth: 'Frame width', pictureFade: 'Fade first picture', pictureShadow: 'Picture shadow', pictureCorners: 'Picture corners', buttonColour: 'Colour', radius: 'Corners', borderWidth: 'Lines', borderStyle: 'Line style', borderStrength: 'Line strength', fill: 'Fills', lineLength: 'Line length', titleWidth: 'Title width', pictureWidth: 'Picture width', figureWidth: 'Pictures in the text', 'door.own': 'Own Colour', 'colours.{side}.background': 'Paper', 'colours.{side}.background2': 'Ground', 'colours.{side}.card': 'Cards', 'colours.{side}.text': 'Text', 'colours.{side}.mutedText': 'Soft text', 'colours.{side}.accent': 'Accent', 'colours.{side}.highlight': 'Highlighter', button: 'Colour', buttonShape: 'Corners', primaryButton: 'Strong', secondaryButton: 'Medium', tertiaryButton: 'Quiet', tagsMatchButtons: 'Tags match buttons', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover'};
+	
+	var LAB_LABEL = { fill: 'Fills', 'door.own': 'Own Colour', button: 'Colour', pictures: 'Picture look', picturedim: 'Dim in dark appearance', picturehover: 'Colour on hover' };
 	function label(key) { if (LAB_LABEL[key]) return t(LAB_LABEL[key]); var x = setting(key); return t(x && x.label ? x.label : OWN_LABEL[key] || key); }
 	
 	var MARK = {
@@ -298,6 +299,9 @@
 			if (!ids.length) return;
 			out += gtitle(t(g[0])) + box(ids.map(function (id) { var v = s.type(id), off = s.dead('role:' + id); return navRow('data-role="' + id + '" data-f="role:' + id + '"' + (off ? ' disabled' : ''), t(roleMeta(id).label), faceName(realFace(v.font)) + ' · ' + weightWord(v.weight)); }).join(''));
 		});
+		var drop = s.get('dropcap');
+		out += gtitle(t('Paragraphs')) + box(row(t('Justified text'), sw('justify', s.get('justify'), t('Justified text'))) + pickRow('hyphenate') + row(t('Drop cap'), sw('dropcap', drop, t('Drop cap')), esc(t('A large first letter'))) +
+			(drop ? row(t('Drop cap height'), pop('caplines', t('Drop cap height'), s.capLines(), ['2', '3', '4'].map(function (n) { return [n, t('{n} lines').replace('{n}', n)]; }), function (id) { s.setCapLines(id); })) + pickRow('capface') : '') + pickRow('paragraphs') + (s.guest() ? '' : pickRow('opening')));
 		return out;
 	}
 	function rolePage() {
@@ -319,11 +323,6 @@
 			out += box(stepSlider(P + 'letterSpacing', t('Character spacing'), s.typeLetters.map(function (id) { return { id: id, label: t(LETTER_WORD[id]) }; }), v.letterSpacing, function (id) { s.setType(role, 'letterSpacing', id); }, 'normal') +
 				row(t('Italic'), swBtn('data-rset="italic"', italic && v.italic, t('Italic'), !italic), italic ? '' : esc(t('This font has no italic')), italic ? '' : 'is-off') + 
 				row(t('Capitals'), swBtn('data-rset="capitals"', v.capitals, t('Capitals'))));
-		}
-		if (role === 'body') {
-			var drop = s.get('dropcap');
-			out += gtitle(t('Paragraph')) + box(row(t('Justified text'), sw('justify', s.get('justify'), t('Justified text'))) + pickRow('hyphenate') + row(t('Drop cap'), sw('dropcap', drop, t('Drop cap'))) +
-				(drop ? row(t('Drop cap height'), pop('caplines', t('Drop cap height'), s.capLines(), ['2', '3', '4'].map(function (n) { return [n, t('{n} lines').replace('{n}', n)]; }), function (id) { s.setCapLines(id); })) + pickRow('capface') : '') + pickRow('paragraphs') + (s.guest() ? '' : pickRow('opening'))); 
 		}
 		return out;
 	}
@@ -369,13 +368,13 @@
 		corners: { small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'Very large' },
 		linestyle: { solid: 'Solid', dashed: 'Dashed', dotted: 'Dotted' },
 		categories: { below: 'Below title', above: 'Above title', hidden: 'Hidden' },
-		links: { both: 'Coloured and underlined', coloured: 'Coloured', underlined: 'Underlined', bold: 'Bold line', wash: 'Highlighter' },
-		buttonShape: { cards: 'Match corners', square: 'Square', rounded: 'Rounded', pill: 'Pill' },
-		primaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
-		secondaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
-		tertiaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
-		tags: { text: 'Text only', filled: 'Filled', tinted: 'Tinted', gray: 'Gray', outlined: 'Outlined' },
-		currentItem: { gray: 'Gray', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' },
+		links: { both: 'Coloured and underlined', coloured: 'Coloured', underlined: 'Underlined', bold: 'Bold line', wash: 'Marked' },
+		buttonShape: { match: 'Like the cards', square: 'Square', rounded: 'Rounded', pill: 'Pill' },
+		primaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Grey', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
+		secondaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Grey', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
+		tertiaryButton: { filled: 'Filled', tinted: 'Tinted', gray: 'Grey', outlined: 'Outlined', shadow: 'Outlined with shadow', text: 'Text only' },
+		tags: { text: 'Text only', filled: 'Filled', tinted: 'Tinted', gray: 'Grey', outlined: 'Outlined' },
+		currentItem: { gray: 'Grey', filled: 'Filled', outlined: 'Outlined', bold: 'Bold' },
 		linewidth: { '1': '1 px', '2': '2 px', '3': '3 px', '5': '5 px' },
 		cards: { filled: 'Filled', outlined: 'Outlined', raised: 'Raised' },
 		quotes: { indented: 'Indented', plain: 'Plain', sideLine: 'Side line', filled: 'Filled' },
@@ -384,8 +383,8 @@
 		pictures: { plain: 'As they are', bw: 'Black & white', sepia: 'Sepia', duo: 'Tinted', accent: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
 		pictureFilter: { none: 'As they are', grayscale: 'Black & white', sepia: 'Sepia', tinted: 'Tinted', duotone: 'Duotone', grain: 'Grain', warm: 'Sun-warmed', hidden: 'Hidden' },
 		pictureFrame: { none: 'None', plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
-		pictureFade: { none: 'Off', bottom: 'Bottom', sides: 'Sides and bottom', all: 'All sides' },
-		pictureShadow: { none: 'Off', soft: 'Soft' }, pictureCorners: { match: 'Like the cards', square: 'Square' },
+		pictureFade: { none: 'None', bottom: 'Bottom', sides: 'Sides and bottom', all: 'All sides' },
+		pictureShadow: { none: 'None', soft: 'Soft' }, pictureCorners: { match: 'Like the cards', square: 'Square' },
 		framepattern: { plain: 'Plain', dots: 'Dots', checker: 'Checkerboard' },
 		capface: { text: 'Text font', bold: 'Text font, bold', fraunces: 'Fraunces', title: 'Title font' }, hyphenate: { auto: 'With justified text', few: 'Long words only', any: 'Wherever possible', off: 'Never' }, paragraphs: { spaced: 'Spaced', indented: 'Indented' }, piccorners: { cards: 'Like the cards', square: 'Square' }, pictureshadow: { off: 'Off', soft: 'Soft' }, opening: { off: 'Off', big: 'Big' }, widefigures: { off: 'Off', on: 'On' }, subcolour: { title: 'Like the title', ink: 'Text' }
 	};
@@ -394,7 +393,7 @@
 	var FX_WORD = {}; 
 	Object.keys(FX_WORD).forEach(function (k) { PICK_WORD['effects.' + k] = FX_WORD[k]; });
 	var LEVEL_ORDER = ['filled', 'tinted', 'gray', 'outlined', 'shadow', 'text']; 
-	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], primaryButton: LEVEL_ORDER, secondaryButton: LEVEL_ORDER, tertiaryButton: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold'] , cards: ['filled', 'outlined', 'raised'], quotes: ['plain', 'indented', 'sideLine', 'filled'] };
+	var PICK_ORDER = { fadeedges: ['bottom', 'sides', 'all'], corners: ['small', 'medium', 'large', 'xlarge'], primaryButton: LEVEL_ORDER, secondaryButton: LEVEL_ORDER, tertiaryButton: LEVEL_ORDER, tags: ['filled', 'tinted', 'gray', 'outlined', 'text'], links: ['coloured', 'underlined', 'both', 'bold', 'wash'] , cards: ['filled', 'outlined', 'raised'], quotes: ['plain', 'indented', 'sideLine', 'filled'] };
 	var GUEST_REST = { tags: 'text', currentItem: 'gray', quotes: 'indented', cards: 'filled', fields: 'filled' }; 
 	function levelRow(key, unit, sub) {
 		var x = setting(key) || {}, s = St();
@@ -407,11 +406,12 @@
 		if (LOOK_DRAW[key]) return looksRow(key, items);
 		if (key === 'corners' || key === 'linewidth') return stepSlider(key, label(key), items.map(function (x) { return { id: x[0], label: x[1] }; }), s.get(key), function (id) { s.set(key, id); }, String(x.def)); 
 		if (bare) return pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); });
-		return row(label(key), pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); }));
+		return row(label(key), pop(key, label(key), s.get(key), items, function (id) { s.set(key, id); }), ROW_NOTE[key] ? esc(t(ROW_NOTE[key])) : '');
 	}
 	var LOOK_DRAW = { pictureFilter: 'picture', pictureFrame: 'frame', pictureFade: 'fade', primaryButton: 'button', secondaryButton: 'button', tertiaryButton: 'button', tags: 'tag', links: 'link', currentItem: 'chosen', cards: 'surface', pictureframe: 'frame', picturefade: 'fade', quotes: 'quote', fields: 'surface', pictures: 'picture', framepattern: 'frame', fadeedges: 'fade' };
 	var LOOK_SHORT = { shadow: 'Shadow', text: 'Text' };
-	var LOOK_NOTE = { primaryButton: 'The main action, like Subscribe', secondaryButton: 'A second choice next to it', tertiaryButton: 'Small actions, like Share', links: 'In the text', currentItem: 'The page you are on, the tab that is open', cards: 'Link cards and coloured boxes in the text', fields: 'Search, comment and sign-up fields' };  
+	var ROW_NOTE = { hyphenate: 'Where words break at the end of a line', opening: 'The first paragraph a size larger', borderStrength: 'How dark the lines are' };
+	var LOOK_NOTE = { primaryButton: 'The main action, like Subscribe', secondaryButton: 'A second choice next to it', tertiaryButton: 'Small actions, like Share', links: 'In the text', currentItem: 'The page you are on, the tab that is open', cards: 'Link cards and coloured boxes in the text', fields: 'Search, comment and sign-up fields', quotes: 'Quotations in an article', pictureFilter: 'Every picture on the site', pictureFrame: 'A mat around each picture' };  
 	var PIC_FILTER = { plain: 'none', bw: 'grayscale(1)', sepia: 'sepia(.85) contrast(1.05)', duo: 'grayscale(1) sepia(1) saturate(1.6) hue-rotate(175deg) brightness(.95)', accent: 'grayscale(1) contrast(1.2) sepia(.6) hue-rotate(200deg) saturate(2.2)', grain: 'contrast(1.1) saturate(.85)', warm: 'sepia(.18) saturate(1.12) contrast(1.02)' };
 	function lookColours() {
 		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('buttonColour');
@@ -474,17 +474,17 @@
 	
 	function linesSlider() {
 		var s = St(), stops = [{ id: 'none', label: t('None') }, { id: 'hairline', label: t('Hairline') }].concat(['1', '2', '3', '5'].map(function (id) { return { id: id, label: id + ' px' }; }));
-		return stepSlider('borderWidth', t('Lines'), stops, s.get('borderWidth'), function (id) { s.set('borderWidth', id); }, 'none');
+		return stepSlider('borderWidth', t('Lines'), stops, s.get('borderWidth'), function (id) { s.set('borderWidth', id); }, 'none', t('Around cards, buttons and fields'));
 	}
 	function cornersSlider() {
 		var s = St(), words = PICK_WORD.corners;
 		var stops = [{ id: 'none', label: t('Square') }].concat(PICK_ORDER.corners.map(function (id) { return { id: id, label: t(words[id]) }; }));
-		return stepSlider('radius', t('Corners'), stops, s.get('radius'), function (id) { s.set('radius', id); }, 'medium');
+		return stepSlider('radius', t('Corners'), stops, s.get('radius'), function (id) { s.set('radius', id); }, 'medium', t('Of cards, buttons, fields and pictures'));
 	}
 	var PENS = { yellow: '#fff347', green: '#b4f07c', pink: '#ffb0d8', blue: '#a4d8ff', orange: '#ffc46e' };
 	function highlightRow() {
 		var s = St(), h = s.highlight ? s.highlight() : '', now = !h ? 'off' : Object.keys(PENS).filter(function (n) { return PENS[n] === h; })[0] || 'own';
-		var items = [['off', t('Off')]].concat(Object.keys(PENS).map(function (id) { return [id, t(MARKER_WORD[id]), false, PENS[id]]; }), [['own', t('Own Colour…'), false, now === 'own' ? h : '#ffd60a']]);
+		var items = [['off', t('None')]].concat(Object.keys(PENS).map(function (id) { return [id, t(MARKER_WORD[id]), false, PENS[id]]; }), [['own', t('Own Colour…'), false, now === 'own' ? h : '#ffd60a']]);
 		return row(label('colours.{side}.highlight'), pop('highlight', label('colours.{side}.highlight'), now, items, function (id) {
 			if (id === 'off') { s.setHighlight(''); return; }
 			if (id === 'own') { if (now === 'off') s.setHighlight('#ffd60a'); editing = 'colours.{side}.highlight'; return; }
@@ -493,14 +493,15 @@
 	}
 	function layoutPage() {
 		var s = St(), guest = s.guest(), hidden = s.get('pictureFilter') === 'hidden';
-		return box(levelRow('space', '') + levelRow('lineLength', ' ' + t('letters'), t('Of the reading text; the column grows with its size'))) +
-			gtitle(t('Article Head')) + box((guest || hidden ? '' : widthRow('pictureWidth')) + (guest ? '' : widthRow('titleWidth')) + (guest || hidden ? '' : widthRow('figureWidth')) + row(label('categories'), pickRow('categories', true), esc(t('The line of categories the article is filed under')))) +
+		return box(levelRow('space', '', t('Room between the parts of a page; the text keeps its own')) + levelRow('lineLength', ' ' + t('letters'), t('Of the reading text; the column grows with its size'))) +
+			moreButton() + (more ? box(levelRow('spaceInside', ' px', t('A title and the line under it, a button’s padding')) + levelRow('spaceItems', ' px', t('Posts in a list, cards in a grid')) + levelRow('spaceSections', ' px', t('The bands a page is built from')) + levelRow('spaceTitle', ' px', t('The room a page’s title stands in'))) : '') +
+			gtitle(t('Article')) + box((guest || hidden ? '' : widthRow('pictureWidth')) + (guest ? '' : widthRow('titleWidth')) + (guest || hidden ? '' : widthRow('figureWidth')) + row(label('categories'), pickRow('categories', true), esc(t('The line of categories the article is filed under')))) +
 			(guest ? '' : hint('Content is as wide as the reading column. Wide steps out on both sides. Full reaches the edges of the paper.'));
 	}
 	function shapePage() {
 		var s = St(), lines = s.get('borderWidth') !== 'none';
-		return box(cornersSlider() + linesSlider() + (lines ? levelRow('borderStrength', ' %') + pickRow('borderStyle') : '')) +
-			gtitle(t('Surfaces')) + box(pickRow('cards') + pickRow('quotes') + pickRow('fields'));
+		return box(cornersSlider() + linesSlider() + (lines ? levelRow('borderStrength', ' %', t(ROW_NOTE.borderStrength)) + pickRow('borderStyle') : '')) +
+			gtitle(t('Boxes')) + box(pickRow('cards') + pickRow('quotes') + pickRow('fields'));
 	}
 	function buttonsPreview() {
 		var s = St(), lv = function (k) { return s.get(k); }, links = s.get('links');
@@ -517,13 +518,13 @@
 		return buttonsPreview() +
 			box(popRow('buttonColour', BUTTON_WORD, function (v) { return v === 'text' ? ink : s.colour(v === 'own' ? 'button' : 'accent'); }) + (rounded ? pickRow('buttonShape') : '')) +
 			gtitle(t('Levels')) + box(pickRow('primaryButton') + pickRow('secondaryButton') + (s.guest() ? '' : pickRow('tertiaryButton'))) +
-			gtitle(t('Tags, Links and Menus')) + box(pickRow('tags') + (rounded && s.get('buttonShape') !== 'cards' ? switchRow('tagsMatchButtons', s.get('tags') === 'text', esc(t(s.get('tags') === 'text' ? 'Only when tags look like buttons' : 'Tags take the corners of the buttons')))  : '') + pickRow('links') + pickRow('currentItem')) +
+			gtitle(t('Tags, Links and Menus')) + box(pickRow('tags') + (rounded && s.get('buttonShape') !== 'match' ? switchRow('tagsMatchButtons', s.get('tags') === 'text', esc(t(s.get('tags') === 'text' ? 'Only when tags look like buttons' : 'Tags take the corners of the buttons')))  : '') + pickRow('links') + pickRow('currentItem')) +
 			hint('A theme’s buttons and an AI’s buttons are sorted into the three levels by what they are.');
 	}
 	function looksOf(key) { var words = PICK_WORD[key] || {}, x = setting(key) || {}; return (x.choices || Object.keys(words)).map(function (id) { return [id, t(words[id] || id)]; }); }
 	function picturesPage() {
 		var s = St(), look = s.get('pictureFilter'), hidden = look === 'hidden', frame = s.get('pictureFrame');
-		return box(pickRow('pictureFilter') + (look === 'none' || hidden ? '' : switchRow('colourOnHover', false, esc(t('The picture shows its colours under the pointer')))) + (hidden ? '' : switchRow('dimInDark', s.side() !== 'dark', s.side() !== 'dark' ? esc(t('Dims only in dark appearance')) : '')) +
+		return box(pickRow('pictureFilter') + (look === 'none' || hidden ? '' : switchRow('colourOnHover', false, esc(t('The picture shows its colours under the pointer')))) + (hidden ? '' : switchRow('dimInDark', false, esc(t('Only in dark appearance'))) ) +
 			(hidden ? '' : looksRow('pictureFrame', looksOf('pictureFrame')) + (frame !== 'none' ? levelRow('frameWidth', ' px') : '') + (s.guest() ? '' : looksRow('pictureFade', looksOf('pictureFade'))))) +
 			(hidden || s.guest() ? '' : box(pickRow('pictureShadow') + pickRow('pictureCorners'))); 
 	}
@@ -600,6 +601,7 @@
 		var out = [['customise', t('Customise')], null, ['default', t('Make Default'), x.isDefault]].concat(orig ? [] : [['seen', t(x.seen ? 'Hide from Readers' : 'Show to Readers'), x.seen && x.isDefault]]);
 		if (x.own || x.site) out.push(['rename', t('Rename…')]);
 		out.push(['duplicate', t('Duplicate')]);
+		if (phone() && x.seen && !orig) { var sh = readerLists(St()).shown, at = sh.indexOf(x.id); if (at > -1) out.push(null, ['moveleft', t('Move Left'), at === 0], ['moveright', t('Move Right'), at === sh.length - 1]); }
 		var last = [['reset', t('Reset Style…'), !changedSince(x), '', '', changedSince(x)]]; 
 		if (x.own) last.push(['delete', t('Delete…')]);
 		if (x.site && !x.base) last.push(['unpublish', t('Remove from Site…')]); 
@@ -611,7 +613,8 @@
 		var s = St(), id = x.id, back = '[data-style="' + id + '"]';
 		if (a === 'customise') { if (x.host) s.duplicate(id); else s.choose(id); section = 'colour'; return; }
 		if (a === 'duplicate') { s.duplicate(id); done(t('Duplicated')); return; }
-		if (a === 'default') { s.makeDefault(id).then(function () { done(t('Default')); render(back); }, failed); return; }
+		if (a === 'moveleft' || a === 'moveright') { moveBy(id, a === 'moveleft' ? -1 : 1); return; }
+		if (a === 'default') { s.makeDefault(id).then(function () { done(t('Made Default')); render(back); }, failed); return; }
 		if (a === 'seen') { btnWrite(s.setSeen(id, !x.seen), back); return; }
 		if (a === 'reset') { if (id !== s.current()) s.choose(id); askRevertAll(x); return; }
 		if (a === 'rename') { asking = { title: t('Rename Style'), field: nm(x), go: t('Rename'), back: back, run: function (v) { return s.rename(id, v); } }; return; }
@@ -626,7 +629,7 @@
 		function head(g, w, n) { var o = !fold[g]; return '<button type="button" class="ldpw-gtitle ldpw-fold" data-fold="' + g + '" data-f="fold:' + g + '" aria-expanded="' + o + '">' + esc(w) + (o ? '' : ' <small>' + n + '</small>') + '</button>'; }
 		out += head('shown', t('Shown to Readers'), st.shown.length + (orig ? 1 : 0)) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.shown ? ' is-folded' : '') + '" data-group="shown" role="radiogroup" aria-label="' + esc(t('Shown to Readers')) + '">' + orig + st.shown.map(function (id) { return tileHTML(id); }).join('') + '</div>';
 		out += head('hidden', t('Hidden from Readers'), st.hidden.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.hidden ? ' is-folded' : '') + '" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(function (id) { return tileHTML(id); }).join('') + '</div>';
-		return out + '<p class="ldpw-hint">' + esc(t('Drag a style to change its order or to show or hide it. Make Default is in each style’s ••• menu.')) + '</p>';
+		return out + '<p class="ldpw-hint">' + esc(phone() ? t('Show, hide and Make Default are in each style’s ••• menu.') : t('Drag a style to change its order or to show or hide it. Make Default is in each style’s ••• menu.')) + '</p>';
 	}
 	function foot(x, s, deep, built) {
 		var rev = built && s && !editing && !deep && pagePaths(x.id).length ? '<button type="button" class="ldpw-link" data-act="revertpage" data-f="act:revertpage">' + esc(t('Revert {page}').replace('{page}', x.name)) + '</button>' : '';
@@ -665,7 +668,7 @@
 	
 	var dragging = null; 
 	var countsHeld = null, countsAsked = false;
-	function loadCounts() { countsAsked = true; St().readerCounts().then(function (c) { countsHeld = c || null; if (open && section === 'readers') render(); }, function () { countsHeld = null; }); }
+	function loadCounts() { countsAsked = true; St().readerCounts().then(function (c) { countsHeld = c || null; if (open && section === 'readers') render(); }, function () { countsHeld = { counting: true }; if (open && section === 'readers') render(); }); } 
 	function shareOf(id, ids) {
 		var c = countsHeld && countsHeld.counting && countsHeld.counts; if (!c) return null;
 		var sum = ids.reduce(function (a, x) { return a + (+c[x] || 0); }, 0);
@@ -683,17 +686,18 @@
 		rows += st.shown.map(function (id, i) {
 			var x = s.tile(id), first = !!x.isDefault, pc = shareOf(id, counted); 
 			var handle = '<button type="button" class="ldpw-handle" data-handle="' + esc(id) + '" data-f="handle:' + esc(id) + '" aria-label="' + esc(t('Move {name}').replace('{name}', nm(x))) + '" aria-describedby="ldpw-order-hint"><span aria-hidden="true">≡</span></button>'; 
+			if (phone()) handle = '<button type="button" class="ldpw-handle" data-moveby="-1" data-id="' + esc(id) + '" data-f="up:' + esc(id) + '" aria-label="' + esc(t('Move Up') + ': ' + nm(x)) + '"' + (i === 0 ? ' disabled' : '') + '><span aria-hidden="true">↑</span></button><button type="button" class="ldpw-handle" data-moveby="1" data-id="' + esc(id) + '" data-f="down:' + esc(id) + '" aria-label="' + esc(t('Move Down') + ': ' + nm(x)) + '"' + (i === st.shown.length - 1 ? ' disabled' : '') + '><span aria-hidden="true">↓</span></button>';
 			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(nm(x)) + '' + (pc === null ? '<small>' + esc(first ? t('What a first visit opens in') : t('Readers can choose it')) + '</small>' : usesLine(pc)) + '</span>' +
 				(first ? '<span class="ldpw-val">' + esc(t('Default')) + '</span>' : sw2(id, true, x.label)) + handle + '</div>';
 		}).join('');
 		rows += st.hidden.map(function (id) {
 			var x = s.tile(id);
-			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(nm(x)) + '<small>' + esc(x.own ? t('Yours; showing it publishes it') : t('Hidden from readers')) + '</small></span>' + sw2(id, false, x.label) + '<span class="ldpw-handle" aria-hidden="true"><span>≡</span></span></div>' ;
+			return '<div class="ldpw-r ldpw-rrow" data-rrow="' + esc(id) + '" data-sid="' + esc(id) + '"><span class="ldpw-lb">' + esc(nm(x)) + '<small>' + esc(x.own ? t('Yours; showing it publishes it') : t('Hidden from readers')) + '</small></span>' + sw2(id, false, x.label) + (phone() ? '' : '<span class="ldpw-handle" aria-hidden="true"><span>≡</span></span>') + '</div>' ;
 		}).join('');
 		var counting = countsHeld ? !!countsHeld.counting : true;
-		return out + '<div class="ldpw-box ldpw-sortable is-list" data-group="list">' + rows + '</div>' + '<p class="ldpw-hint" id="ldpw-order-hint">' + esc(t('Drag a style, or focus its handle and use the arrow keys.')) + '</p>' +
-			(s.readerCounts ? box(row(t('Count readers’ styles'), '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + counting + '" data-act="counting" data-f="act:counting" aria-label="' + esc(t('Count readers’ styles')) + '"></button>', esc(t('One page view in ten sends only the style’s name. No cookie, nothing about the reader.')))) +
-				'<p class="ldpw-hint">' + esc(counting ? (countsHeld && !counted.some(function (x) { return shareOf(x, counted) !== null; }) ? t('No readers counted yet. The shares show once some are.') : t('Readers in the last 30 days.')) : t('Not counting. Turned off, the numbers are deleted.')) + '</p>' : '') +
+		return out + '<div class="ldpw-box ldpw-sortable is-list" data-group="list">' + rows + '</div>' + (phone() ? '' : '<p class="ldpw-hint" id="ldpw-order-hint">' + esc(t('Drag a style, or focus its handle and use the arrow keys.')) + '</p>') +
+			(s.readerCounts ? box(row(t('Count readers’ styles'), '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + counting + '"' + (countsHeld ? '' : ' disabled') + ' data-act="counting" data-f="act:counting" aria-label="' + esc(t('Count readers’ styles')) + '"></button>', esc(t('One page view in ten sends only the style’s name. No cookie, nothing about the reader.')))) +
+				'<p class="ldpw-hint">' + esc(!countsHeld ? t('Loading…') : counting ? (countsHeld && !counted.some(function (x) { return shareOf(x, counted) !== null; }) ? t('No readers counted yet. The shares show once some are.') : t('Readers in the last 30 days.')) : t('Not counting. Turned off, the numbers are deleted.')) + '</p>' : '') +
 			''; 
 	}
 	function sw2(id, on, lb) { return '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + on + '" data-seen="' + esc(id) + '" data-f="seen:' + esc(id) + '" aria-label="' + esc(t('Show to Readers') + ': ' + t(lb)) + '"></button>'; }
@@ -833,7 +837,7 @@
 		show: { icon: 'Icon', both: 'Icon and name', hover: 'Name on hover' },
 		glyph: { sliders: 'Sliders', aa: 'Aa', sparkles: 'Sparkle', brush: 'Brush' },
 		corners: { site: 'Rounded', round: 'Round' }, 
-		color: { panel: 'Panel', site: 'Site colour', own: 'Own Colour…' }
+		color: { panel: 'Neutral', site: 'Site Colour', own: 'Own Colour…' }
 	};
 	var BTN_ORDER = { size: ['small', 'medium', 'large'], show: ['icon', 'both', 'hover'], corners: ['site', 'round'], color: ['panel', 'site', 'own'], glyph: ['sliders', 'aa', 'sparkles', 'brush'] };
 	var SPOTS = ['top-left', 'top-right', 'left', 'right', 'bottom-left', 'bottom-center', 'bottom-right'];
@@ -848,7 +852,7 @@
 		return row(t(lb), pop('btn-' + key, t(lb), bt[key], BTN_ORDER[key].map(function (id) { return [id, t(BTN_WORD[key][id]), false, dots ? doorColour(id, bt) : '']; }), function (id) {
 			if (key === 'color' && id === 'own') { editing = 'door.own'; btnWrite(St().setButton('color', 'own'), '[data-act="back"]'); return; } 
 			btnWrite(St().setButton(key, id), '[data-menu="btn-' + key + '"]');
-		}, dots ? function (v) { return doorColour(v, bt); } : null));
+		}, dots ? function (v) { return doorColour(v, bt); } : null), key === 'show' ? esc(t('What the button shows')) : '');
 	}
 	function nameRow(bt) { return row(t('Name'), '<input type="text" class="ldpw-name" data-blabel data-f="blabel" maxlength="30" value="' + esc(bt.label || '') + '" placeholder="' + esc(t('Live Design')) + '" aria-label="' + esc(t('Name')) + '">'); }
 	var previewsHeld = null, previewsAsked = false;
@@ -892,13 +896,17 @@
 			(auto ? '' : row(t('Size'), seg('bsize', bt.size, BTN_ORDER.size.map(function (id) { return [id, t(BTN_WORD.size[id])]; }), t('Size'))) + bPop('show', 'Show', bt) + bPop('corners', 'Corners', bt) + bPop('color', 'Colour', bt)) +
 			bPop('glyph', 'Icon', bt) + (inMenu || bt.show !== 'icon' ? nameRow(bt) : '') +
 			navRow('data-act="settings" data-f="act:aurora"', t('Aurora'), aur));
-		out += gtitle(t('Visitors')) + box(row(t('Show to'), seg('who', bt.who, [['everyone', t('Everyone')], ['me', t('Only me')]], t('Who sees the button'))) +
-			row(t('Allow readers to copy styles'), '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + s.readersCopy() + '" data-copyon data-f="copyon" aria-label="' + esc(t('Allow readers to copy styles')) + '"></button>'));
+		out += gtitle(t('Readers')) + box(row(t('Show to'), seg('who', bt.who, [['everyone', t('Everyone')], ['me', t('Only me')]], t('Who sees the button'))) +
+			row(t('Allow readers to copy styles'), '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + s.readersCopy() + '" data-copyon data-f="copyon" aria-label="' + esc(t('Allow readers to copy styles')) + '"></button>', esc(t('Readers can take a style to their own site'))));
 		out += previewLinks();
 		return out;
 	}
 	function btnWrite(p, focus) { render(focus); p.then(function () { render(focus); }, failed); }
 	
+	var ALONE = { primaryButton: 'Main buttons', secondaryButton: 'Other buttons', tertiaryButton: 'Quiet buttons', buttonColour: 'Button colour', buttonShape: 'Button corners' };
+	var WIDTH_WORD = { content: 'Content', wide: 'Wide', full: 'Full' };
+	var VALUE_WORD = { radius: { none: 'Square', small: 'Small', medium: 'Medium', large: 'Large', xlarge: 'Very large' }, borderWidth: { none: 'None', hairline: 'Hairline', '1': '1 px', '2': '2 px', '3': '3 px', '5': '5 px' }, buttonColour: BUTTON_WORD, titleWidth: WIDTH_WORD, pictureWidth: WIDTH_WORD, figureWidth: WIDTH_WORD, scope: { article: 'In articles', all: 'Everywhere' } };
+	var VALUE_UNIT = { lineLength: ' letters', borderStrength: ' %', frameWidth: ' px', spaceInside: ' px', spaceItems: ' px', spaceSections: ' px', spaceTitle: ' px', capLines: ' lines' };
 	var DIAL_WORD = { font: 'Font', weight: 'Weight', size: 'Size', letterSpacing: 'Character spacing', capitals: 'Capitals', italic: 'Italic', lineHeight: 'Line spacing', align: 'Alignment', colour: 'Colour' };
 	var TOP_WORD = { face: 'Reading font', sans: 'Interface font', reading: 'Size', leading: 'Line spacing', palette: 'Colour', preset: 'Colour', tint: 'Colour', accent: 'Accent', capLines: 'Drop cap height' };
 	var TOP_SECTION = { face: 'type', sans: 'type', reading: 'type', leading: 'type', roles: 'type', capLines: 'type', justify: 'type', dropcap: 'type', hyphenate: 'type', capface: 'type', palette: 'colour', preset: 'colour', tint: 'colour', accent: 'colour', colours: 'colour', effects: 'effects' };
@@ -910,6 +918,8 @@
 		}
 		if (p[0] === 'colours') return label('colours.{side}.' + p[2]) + ' › ' + t(p[1] === 'dark' ? 'Dark' : 'Light');
 		if (p[0] === 'effects') return t(FX_NAME[p[1]] || p[1]) + ' › ' + label(path);
+		if (ALONE[p[0]]) return t(ALONE[p[0]]); 
+		if (LAB_LABEL[p[0]] || (setting(p[0]) && setting(p[0]).label)) return label(p[0]);
 		var x = setting(p[0]);
 		return x && x.label ? nm(x) : TOP_WORD[p[0]] ? t(TOP_WORD[p[0]]) : p[0];
 	}
@@ -923,6 +933,8 @@
 		if (path.indexOf('roles.') === 0 && k === 'lineHeight' && LINE_WORD[v]) return t(LINE_WORD[v]);
 		if (path.indexOf('roles.') === 0 && k === 'letterSpacing' && LETTER_WORD[v]) return t(LETTER_WORD[v]);
 		if (path.indexOf('roles.') === 0 && k === 'font') return faceName(v);
+		if (!w && VALUE_WORD[k]) w = VALUE_WORD[k][v];
+		if (!w && VALUE_UNIT[k]) return v + VALUE_UNIT[k];
 		return w ? t(w) : k === 'size' ? v + ' px' : String(v);
 	}
 	var DRAWN_ON = { pictureFilter: 'pictures', colourOnHover: 'pictures', dimInDark: 'pictures', pictureFrame: 'pictures', frameWidth: 'pictures', pictureFade: 'pictures', pictureShadow: 'pictures', pictureCorners: 'pictures', buttonColour: 'buttons', radius: 'corners-and-lines', borderWidth: 'corners-and-lines', borderStyle: 'corners-and-lines', borderStrength: 'corners-and-lines', fill: 'corners-and-lines', lineLength: 'layout', titleWidth: 'layout', pictureWidth: 'layout', figureWidth: 'layout', button: 'buttons', buttonShape: 'buttons', primaryButton: 'buttons', secondaryButton: 'buttons', tertiaryButton: 'buttons', tags: 'buttons', tagsMatchButtons: 'buttons', links: 'buttons', currentItem: 'buttons' };
@@ -942,7 +954,7 @@
 				return '<div class="ldpw-r"><button type="button" class="ldpw-lb ldpw-golink" data-goto="' + esc(sec) + '" data-f="goto:' + esc(c.path) + '"' + (sec ? '' : ' disabled') + '>' + esc(changeName(c.path)) + '<small>' + (isHex(c.value) ? '<i class="ldpw-dotwell" style="background:' + esc(c.value) + '"></i>' : '') + esc(val + (where ? ' · ' + where : '')) + '</small></button>' +
 					'<button type="button" class="ldpw-get" data-revert="' + esc(c.path) + '" data-f="revert:' + esc(c.path) + '">' + esc(t('Revert')) + '</button></div>';
 			}).join('')) +
-			'<button type="button" class="ldpw-more ldpw-bluelink" data-act="revert-all" data-f="act:revert-all">' + esc(t('Revert All…')) + '</button>';
+			'<button type="button" class="ldpw-more ldpw-bluelink" data-act="revert-all" data-f="act:revert-all">' + esc(t('Reset Style…')) + '</button>';
 	}
 	function barMore() {
 		var s = St(), n = s ? s.changes().length : 0;
@@ -950,10 +962,10 @@
 		var x0 = s && s.tile ? s.tile(s.current()) : null;
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
 			['saveas', t('Save As…'), !x0 || x0.host] , ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
-			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
-			(x0 && !x0.host ? [null, ['revertall', t('Reset Style…'), !changedSince(x0, n), '', '', changedSince(x0, n)]] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Command Menu…') + '  ⌘K']])), pick: function (a) {
+			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['copytheme', t('Copy as theme.json')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
+			(x0 && !x0.host ? [null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n] , ['revertall', t('Reset Style…'), !changedSince(x0, n), '', '', changedSince(x0, n)]] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Search…') + '  ⌘K']])), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
-			else if (a === 'copycss' || a === 'copyjson') copyCode(a === 'copycss' ? 'css' : 'json');
+			else if (a === 'copycss' || a === 'copyjson' || a === 'copytheme') copyCode(a === 'copycss' ? 'css' : a === 'copytheme' ? 'theme' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
 			else if (a === 'saveas') { var sx = s.tile(s.current()); asking = { title: t('Save As New Style'), field: t('{name} Copy').replace('{name}', t(sx.label)), go: t('Save'), back: '[data-menu="barmore"]', run: function (v) { s.saveAs(v); done(t('Saved')); } }; render(); }
 			else if (a === 'versions') openVersions();
@@ -976,7 +988,7 @@
 		else if (a === 'ask') { asking = true; render('x'); }
 	}
 	function settingsMore() {
-		MENU.barmore = { label: t('More'), items: [['cmdk', t('Command Menu…') + '  ⌘K'], null].concat(zoomItems(), []), pick: function (a) {
+		MENU.barmore = { label: t('More'), items: [['cmdk', t('Search…') + '  ⌘K'], null].concat(zoomItems(), []), pick: function (a) {
 			if (a === 'cmdk') openCmd(); else if (a === 'bigger' || a === 'smaller' || a === 'actual') zoomBy(a); else barAct(a);
 		} };
 		return '<button type="button" class="ldpw-circ" aria-haspopup="menu" aria-expanded="' + (menu === 'barmore') + '" data-menu="barmore" data-f="menu:barmore" aria-label="' + esc(t('More')) + '" title="' + esc(t('More')) + '">' + svg(GLYPH.more) + '</button>';
@@ -984,14 +996,44 @@
 	function copyCode(kind) {
 		var s = St(), code = '';
 		if (kind === 'json') { try { code = JSON.stringify(JSON.parse(s.exportStyle()), null, 2); } catch (e) { code = ''; } }
+		else if (kind === 'theme') code = themeJson();
 		else {
 			var cs = getComputedStyle(document.documentElement), name = styleName();
 			code = '/' + '* ' + name + ', made with Live Design *' + '/\n:root {\n' + ['--surface-base', '--surface-canvas', '--surface-raised', '--text-primary', '--text-secondary', '--text-muted', '--accent', '--accent-contrast', '--line', '--radius-sm', '--radius-lg', '--radius-control', '--radius-row', '--font-reading', '--font-sans', '--text-reading-body', '--text-article-title']
 				.map(function (k) { var v = cs.getPropertyValue(k).trim(); return v ? '  ' + k + ': ' + v + ';' : ''; }).filter(Boolean).join('\n') + '\n}\n';
 		}
 		if (!code) { done(t('Could not copy')); render(); return; }
-		var ok = function () { done(t(kind === 'css' ? 'CSS Copied' : 'JSON Copied')); render(); };
+		var ok = function () { done(t(kind === 'css' ? 'CSS Copied' : kind === 'theme' ? 'theme.json Copied' : 'JSON Copied')); render(); };
 		if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(ok, ok); else ok();
+	}
+	function themeJson() {
+		var s = St(), cs = getComputedStyle(document.documentElement), v = function (k) { return cs.getPropertyValue(k).trim(); };
+		var body = s.type('body') || {}, head = s.type('headings') || {}, title = s.type('title') || {};
+		var at = function (sels) { var list = sels.split(', '); for (var i = 0; i < list.length; i++) { var e = [].slice.call(document.querySelectorAll(list[i])).filter(function (x) { return !x.closest('#ldp-window, .reading-panel') && x.getClientRects().length; })[0]; if (e) return getComputedStyle(e); } return null; }; 
+		var pText = at('.wp-block-post-content > p, .entry-content > p, main p'), pUi = at('.wp-block-navigation-item__content, nav a, button'), pH1 = at('h1.wp-block-post-title, h1');
+		var face = function (c, slug, name) { return c && c.fontFamily ? { slug: slug, name: name, fontFamily: c.fontFamily } : null; };
+		var fonts = [face(pText, 'reading', 'Reading'), face(pUi, 'interface', 'Interface')].filter(Boolean);
+		var pal = [['background', 'base', 'Paper'], ['background2', 'ground', 'Ground'], ['card', 'card', 'Cards'], ['text', 'contrast', 'Text'], ['mutedText', 'soft', 'Soft text'], ['accent', 'accent', 'Accent']]
+			.map(function (c) { return { slug: c[1], name: c[2], color: s.colour(c[0]) }; });
+		var pBtn = at('.wp-element-button, .wp-block-button__link, .quire-button.primary'), P = function (slug) { return 'var(--wp--preset--color--' + slug + ')'; }, radius = pBtn ? pBtn.borderTopLeftRadius : v('--radius-control');
+		var btn = s.get('buttonColour') === 'text' ? P('contrast') : s.get('buttonColour') === 'own' ? s.colour('button') : P('accent');
+		var tj = {
+			$schema: 'https://schemas.wp.org/trunk/theme.json', version: 3, title: styleName(),
+			description: 'Made with Live Design Panel: the ' + (s.side() === 'dark' ? 'dark' : 'light') + ' side only (a style variation has one side). Left out: the other side, the space between parts, picture looks, line and box styles.',
+			settings: { color: { palette: pal }, typography: { fontFamilies: fonts } },
+			styles: {
+				color: { background: P('base'), text: P('contrast') },
+				typography: { fontFamily: fonts[0] ? 'var(--wp--preset--font-family--reading)' : undefined, fontSize: pText ? pText.fontSize : body.px ? body.px + 'px' : undefined, lineHeight: pText && /px$/.test(pText.lineHeight) ? String(Math.round(parseFloat(pText.lineHeight) / parseFloat(pText.fontSize) * 100) / 100) : undefined },
+				elements: {
+					link: { color: { text: P('accent') } },
+					heading: { typography: { fontWeight: head.weight ? String(WEIGHT_NUMBER[head.weight] || 600) : undefined }, color: { text: P('contrast') } },
+					h1: { typography: { fontSize: pH1 ? pH1.fontSize : title.px ? title.px + 'px' : undefined, fontWeight: pH1 ? pH1.fontWeight : title.weight ? String(WEIGHT_NUMBER[title.weight] || 700) : undefined } },
+					button: { color: { background: btn, text: P('base') }, border: radius ? { radius: radius } : undefined },
+					caption: { color: { text: P('soft') } }
+				}
+			}
+		};
+		return JSON.stringify(tj, null, 2); 
 	}
 	function copyStyle() {
 		var link = St().shareLink(); if (!link) return;
@@ -1001,7 +1043,7 @@
 	function askPaste() {
 		asking = { title: t('Paste a Style'), text: t('Paste a style link from any site with Live Design. It comes in as a style of your own; the one you are on stays as it is.'), field: '', fieldLabel: t('Style or link'), go: t('Paste'), back: '[data-menu="barmore"]', run: function (v) {
 			return St().importLink(v).then(function (id) { if (!id) throw new Error('no style'); section = 'colour'; done(t('Style Pasted')); });
-		}, fail: t('That isn’t a style link. Copy one with Copy Style as a Link, then paste it here.') };
+		}, fail: t('That isn’t a style link. Copy one with Copy Style, then paste it here.') };
 		render('#ldpw-ask-field');
 	}
 	
@@ -1019,7 +1061,7 @@
 	}
 	function askRevertAllSaved() {
 		var s = St(), x = s.tile(s.current());
-		asking = { title: t('Revert all changes to “{name}”?').replace('{name}', nm(x)), text: t('The style goes back to how it was saved. Undo can bring the changes back.'), go: t('Revert All'), danger: true, back: '[data-menu="barmore"]', run: function () { s.revertAll(); done(t('Reverted')); } };
+		asking = { title: t('Reset “{name}”?').replace('{name}', nm(x)), text: t('The style goes back to how it was saved. Undo can bring the changes back.'), go: t('Reset Style'), danger: true, back: '[data-menu="barmore"]', run: function () { s.revertAll(); done(t('Reverted')); } };
 	}
 	
 	function openVersions() {
@@ -1191,12 +1233,12 @@
 	window.addEventListener('blur', compareOff);
 	var TARGETS = [
 		['mark', 'colour', 'highlight', 'Highlighter'],
-		['.quire-button.primary, .rail-newsletter-trigger, [data-ldp-button="main"]', 'buttons', 'primaryButton', 'Main buttons'],
+		['.quire-button.primary, .rail-newsletter-trigger, [data-ldp-button="main"]', 'buttons', 'primaryButton', 'Main'],
 		['.quire-button.ghost', 'buttons', 'tertiaryButton', 'Quiet buttons'],
-		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'secondaryButton', 'Other buttons'],
+		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'secondaryButton', 'Other'],
 		['.article-tags a, .taxonomy-post_tag a', 'buttons', 'tags', 'Tags'],
 		['.wp-block-site-title', 'type', 'role:headings', 'Site name'],
-		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'currentItem', 'Chosen item'],
+		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'currentItem', 'Current item'],
 		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictureFilter', 'Pictures'],
 		['.post-link-card, .support-box, .release-panel, .theme-card, .wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'cards', 'Cards'],
 		['input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea, .quire-search-field', 'corners-and-lines', 'fields', 'Fields'],
@@ -1268,8 +1310,8 @@
 	
 	function viewsMenu() {
 		var s = St(), n = s && s.changes ? s.changes().length : 0;
-		MENU.views = { label: t('View'), value: prefs.noSide ? 'solo' : 'side', items: [['side', t('Sidebar') + '  ⌃⌘S', false, '', 'sidebar'], ['solo', t('Settings Only'), false, '', 'solo'], null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n, '', 'changes'], ['versions', t('Browse Versions'), !s, '', 'versions'], ['reader', t('Preview as Reader'), false, '', 'reader']], pick: function (a) {
-			if (a === 'side' && prefs.noSide) sideToggle(); else if (a === 'solo' && !prefs.noSide) sideToggle();
+		MENU.views = { label: t('View'), value: '', items: [['side', t(prefs.noSide ? 'Show Sidebar' : 'Hide Sidebar') + '  ⌃⌘S', false, '', 'sidebar'], null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n, '', 'changes'], ['versions', t('Browse Versions'), !s, '', 'versions'], ['reader', t('Preview as Reader'), false, '', 'reader']], pick: function (a) {
+			if (a === 'side') sideToggle(); 
 			else if (a === 'changes') { sq = null; showChanges = true; showVersions = false; editing = null; }
 			else if (a === 'versions') { sq = null; openVersions(); }
 			else if (a === 'reader') window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank');
@@ -1279,7 +1321,7 @@
 	function sideHTML() {
 		var shutter = '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close" aria-label="' + esc(t('Close')) + '" title="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>'; 
 		return '<nav class="ldpw-side" aria-label="' + esc(t('Sections')) + '">' +
-			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('Hide Sidebar')) + '" title="' + esc(t('Hide Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>') + '</div>' +
+			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Live Design')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('View')) + '" title="' + esc(t('View')) + '">' + svg(GLYPH.side) + '</button>') + '</div>' +
 			'<div class="ldpw-side-in">' + '<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear Search')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' +  navButton({ id: 'styles', name: t('Styles') }) +
 				'<div class="ldpw-gt"><span>' + esc(styleName() || t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + 
 				'<div class="ldpw-gt">' + esc(t('Site')) + '</div>' + navButton({ id: 'readers', name: t('Readers') }) + navButton({ id: 'button', name: t('Live Design Button') }) +
@@ -1339,13 +1381,13 @@
 		var cur = BANDS[bt.band] ? bt.band : 'dusk';
 		return row(t('Colours'), '<span class="ldpw-dots" role="radiogroup" aria-label="' + esc(t('Colours')) + '">' + Object.keys(BANDS).map(function (k) { var on = cur === k; return '<button type="button" class="ldpw-dotc is-band' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-band="' + k + '" data-f="band:' + k + '" style="--c:linear-gradient(135deg, ' + BANDS[k][1] + ')" aria-label="' + esc(t(BANDS[k][0])) + '" title="' + esc(t(BANDS[k][0])) + '"></button>'; }).join('') + '</span>', esc(t(BANDS[cur][0])));
 	}
-	var KEYS = [['Open or close the window', 'Click the button, Esc to close'], ['Find anything', '⌘K'], ['Undo', '⌘Z'], ['Show or hide the sidebar', '⌃⌘S'], ['Copy, paste a style', '⌥⌘C, ⌥⌘V'], ['Choose on the page', '⌥-click'], ['Compare with no changes', 'Hold M'], ['Move a slider a step', '← →'], ['Put a slider back', 'Double-click it'], ['Search the settings', '⌘F'], ['Bigger or smaller text', '⌘+, ⌘−, ⌘0'], ['Settings', '⌘,'], ['This list', '?']];
+	var KEYS = [['Open or close the window', 'Click the button, Esc to close'], ['Search', '⌘K or ⌘F'], ['Undo', '⌘Z'], ['Show or hide the sidebar', '⌃⌘S'], ['Copy, paste a style', '⌥⌘C, ⌥⌘V'], ['Choose on the page', '⌥-click'], ['Compare with no changes', 'Hold M'], ['Move a slider a step', '← →'], ['Put a slider back', 'Double-click it'], ['Bigger or smaller text', '⌘+, ⌘−, ⌘0'], ['Settings', '⌘,'], ['This list', '?']];
 	function showKeys() { asking = { title: t('Keyboard Shortcuts'), keys: KEYS, go: t('Done'), back: '[data-act="keys"]', run: function () {} }; render('[data-act="ask-go"]'); }
 	function settingsPage() {
 		var s = St(), bt = s && s.button && s.button();
 		var dots = '<span class="ldpw-dots" role="radiogroup" aria-label="' + esc(t('Accent colour')) + '">' + Object.keys(ACCENT).map(function (k) { var on = prefs.accent === k; return '<button type="button" class="ldpw-dotc' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-accent="' + k + '" data-f="accent:' + k + '" style="--c:' + accentHex(k) + '" aria-label="' + esc(t(ACCENT[k][0])) + '" title="' + esc(t(ACCENT[k][0])) + '"></button>'; }).join('') + '</span>';
 		var psw = function (k, on, lb) { return '<button type="button" class="ldpw-sw" role="switch" aria-checked="' + !!on + '" data-pref="' + k + '" data-f="pref:' + k + '" aria-label="' + esc(lb) + '"></button>'; };
-		return '<p class="ldpw-hint">' + esc(t('Only for you, on this computer. Readers never see these.')) + '</p>' +
+		return '<p class="ldpw-hint">' + esc(t('Window, Sound and Help are only for you, on this computer.')) + '</p>' +
 			gtitle(t('Window')) + box(sidePicks('plook', prefs.look) +
 				row(t('Glass'), psw('glass', prefs.glass, t('Glass')), esc(t('The page shows softly through the window'))) +
 				row(t('Accent colour'), dots) +
@@ -1421,7 +1463,7 @@
 		var back = editing || deep || phone();
 		var undo = built && s ? '<button type="button" class="ldpw-circ" data-act="undo" data-f="act:undo"' + (s.canUndo() ? '' : ' disabled') + ' aria-label="' + esc(undoName()) + '" title="' + esc(undoName()) + '">' + svg(GLYPH.undo) + '</button>' : '';
 		return '<div class="ldpw-detail">' +
-			'<div class="ldpw-bar">' + (prefs.noSide && !phone() ? '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close3" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button><button type="button" class="ldpw-circ is-plain" aria-haspopup="menu" data-menu="views" data-f="menu:views2" aria-label="' + esc(t('Show Sidebar')) + '" title="' + esc(t('Show Sidebar')) + '  ⌃⌘S">' + svg(GLYPH.side) + '</button>' : '') + (back ? '<button type="button" class="ldpw-circ is-plain" data-act="' + (editing || deep ? 'back' : 'list') + '" data-f="act:back" aria-label="' + esc(t('Back')) + '">' + svg(GLYPH.back) + '</button>' : '') +
+			'<div class="ldpw-bar">' + (prefs.noSide && !phone() ? '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close3" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button><button type="button" class="ldpw-circ is-plain" aria-haspopup="menu" data-menu="views" data-f="menu:views2" aria-label="' + esc(t('View')) + '" title="' + esc(t('View')) + '">' + svg(GLYPH.side) + '</button>' : '') + (back ? '<button type="button" class="ldpw-circ is-plain" data-act="' + (editing || deep ? 'back' : 'list') + '" data-f="act:back" aria-label="' + esc(t('Back')) + '">' + svg(GLYPH.back) + '</button>' : '') +
 				(prefs.noSide && !phone() && !deep && !editing && !(sq && sq.q.trim()) ? secsTitle(x, name, sub) : '<div class="ldpw-ttl"><b>' + esc(name) + '</b>' + (sub && (prefs.noSide || phone() || editing || deep) ? '<small>' + esc(sub) + '</small>' : '') + '</div>') +  
 				(s && s.editable() && !phone() && prefs.tips && !prefs.seenAim ? '<div class="ldpw-tip" role="note"><b>' + esc(t('Click anything on the page')) + '</b><span>' + esc(t('It opens its setting here. Or hold ⌥ and click, even with the window closed.')) + '</span><button type="button" class="ldpw-tipx" data-act="tipoff" data-f="act:tipoff" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button></div>' : '') + (s && s.editable() && !phone() ? '<button type="button" class="ldpw-circ is-plain' + (aiming ? ' is-aim' : '') + '" data-act="aim" data-f="act:aim" aria-pressed="' + aiming + '" aria-label="' + esc(t('Choose on the Page')) + '" title="' + esc(t('Click anything on the page to open its setting. Or hold ⌥ and click.')) + '">' + svg(GLYPH.aim) + '</button>' : '') + (s && s.editable() && built ? '<button type="button" class="ldpw-circ is-plain' + (comparing ? ' is-aim' : '') + '" data-act="compare" data-f="act:compare" aria-label="' + esc(t('Hold to Compare')) + '" title="' + esc(t('Hold to see the page without your changes (hold M)')) + '"' + (s.changes().length ? '' : ' disabled') + '>' + svg(GLYPH.compare) + '</button>' : '') + undo + (built && s ? barMore() : settingsMore())  + (built && s && x.id !== 'styles' && x.id !== 'readers' && x.id !== 'button' && !phone() ? commit() : '') +
 				(phone() ? '<button type="button" class="ldpw-closer" data-act="close" data-f="act:close2" aria-label="' + esc(t('Close')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</div>' +
@@ -1432,8 +1474,17 @@
 		justify: 'Justified text', hyphenate: 'Hyphens', dropcap: 'Drop cap', capLines: 'Drop cap height', capface: 'Drop cap font', pictures: 'Picture effects', picturedim: 'Dim in the dark',
 		pictureframe: 'Frame around pictures', picturefade: 'Fade the edges', fadeedges: 'Fade the edges', marker: 'Highlighter', markercolour: 'Highlighter', button: 'Button colour', pillbuttons: 'Pill buttons', widepicture: 'Wide top picture', widehead: 'Wide title', measure: 'Line length', space: 'Space', framewidth: 'Frame width', framepattern: 'Frame pattern', palette: 'Colour', tint: 'Colour', preset: 'Colour', colours: 'Colour', accent: 'Colour',
 		face: 'Font', sans: 'Font', reading: 'Size', leading: 'Line spacing', reset: 'Reset everything', version: 'Restore' };
-	function redoName() { var w = St() && St().redoWhat ? St().redoWhat() : ''; return WHAT[w] ? t('Redo {what}').replace('{what}', t(WHAT[w])) : t('Redo'); }
-	function undoName() { var w = St() ? St().undoWhat() : ''; return WHAT[w] ? t('Undo {what}').replace('{what}', t(WHAT[w])) : t('Undo'); }
+	function whatName(w) {
+		if (!w) return '';
+		if (ALONE[w]) return t(ALONE[w]);
+		if (LAB_LABEL[w] || (setting(w) && setting(w).label && w.indexOf('{') === -1)) return label(w); 
+		if (WHAT[w]) return t(WHAT[w]);
+		if (w === 'changes') return t('Changes');
+		if (w.indexOf('roles.') === 0 || w.indexOf('colours.') === 0 || LAB_LABEL[w] || (setting(w) && setting(w).label) || TOP_WORD[w]) return changeName(w);
+		return '';
+	}
+	function redoName() { var w = whatName(St() && St().redoWhat ? St().redoWhat() : ''); return w ? t('Redo {what}').replace('{what}', w) : t('Redo'); }
+	function undoName() { var w = whatName(St() ? St().undoWhat() : ''); return w ? t('Undo {what}').replace('{what}', w) : t('Undo'); }
 	function sheetHTML() {
 		if (asking !== true) {
 			var a = asking;
@@ -2044,6 +2095,7 @@
 			});
 			btnWrite(wr, '[data-spot="' + sp + '"]'); return;
 		}
+		if (b.hasAttribute('data-moveby')) { moveBy(b.getAttribute('data-id'), +b.getAttribute('data-moveby')); return; } 
 		if (b.hasAttribute('data-copyon')) { btnWrite(s.setReadersCopy(b.getAttribute('aria-checked') !== 'true'), '[data-copyon]'); return; }
 		if (b.hasAttribute('data-seen')) { var sid = b.getAttribute('data-seen'), on = b.getAttribute('aria-checked') !== 'true'; btnWrite(s.setSeen(sid, on)); return; }
 		if (b.hasAttribute('data-style')) { s.choose(b.getAttribute('data-style')); render('[data-style="' + b.getAttribute('data-style') + '"]'); return; }
