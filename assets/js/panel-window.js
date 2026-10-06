@@ -445,7 +445,10 @@
 	function looksRow(key, list, words, value, name) {
 		var s = St(), v = value !== undefined ? value : s.get(key), draw = LOOK_DRAW[key], lb = name || label(key), level = draw === 'button' || draw === 'tag';
 		var name = (list.filter(function (x) { return x[0] === v; })[0] || [v, v])[1];
-		return '<div class="ldpw-r ldpw-lvrow"><div class="ldpw-top"><span class="ldpw-lb">' + esc(lb) + (LOOK_NOTE[key] ? '<small>' + esc(t(LOOK_NOTE[key])) + '</small>' : '') + '</span><span class="ldpw-val">' + esc(name) + '</span></div>' +
+		var n = MARKED[key] && value === undefined ? onPage(key).length : -1; 
+		var dot = LOOK_NOTE[key] ? ' · ' : '';
+		var count = n < 0 ? '' : n ? dot + '<button type="button" class="ldpw-onpage" data-onpage="' + key + '" data-f="onpage:' + key + '">' + esc(t(n === 1 ? '1 on this page' : '{n} on this page').replace('{n}', n)) + '</button>' : dot + esc(t('None on this page'));
+		return '<div class="ldpw-r ldpw-lvrow"' + (n < 0 ? '' : ' data-mark="' + key + '"') + '><div class="ldpw-top"><span class="ldpw-lb">' + esc(lb) + (LOOK_NOTE[key] || count ? '<small>' + (LOOK_NOTE[key] ? esc(t(LOOK_NOTE[key])) : '') + count + '</small>' : '') + '</span><span class="ldpw-val">' + esc(name) + '</span></div>' +
 			'<div class="ldpw-looks' + (list.length !== 6 ? ' is-n' + list.length : '') + '" role="radiogroup" aria-label="' + esc(lb) + '" style="' + esc(lookColours()) + '">' + list.map(function (x) {
 				var on = x[0] === v, nm = level && LOOK_SHORT[x[0]] ? t(LOOK_SHORT[x[0]]) : key === 'links' && x[0] === 'both' ? t('Both') : x[1];
 				return '<button type="button" class="ldpw-lk' + (on ? ' is-on' : '') + '" role="radio" aria-checked="' + on + '" data-look="' + key + '" data-v="' + esc(x[0]) + '" data-f="look:' + key + ':' + esc(x[0]) + '"><span class="ldpw-sw8" aria-hidden="true">' + lookPic(draw, x[2] || (SURFACE_DRAW[key] || {})[x[0]] || x[0]) + '</span><span class="ldpw-nm">' + esc(nm) + '</span></button>';
@@ -502,20 +505,9 @@
 		return box(cornersSlider() + linesSlider() + (lines ? levelRow('borderStrength', ' %', t(ROW_NOTE.borderStrength)) + pickRow('borderStyle') : '')) +
 			gtitle(t('Boxes')) + box(pickRow('cards') + pickRow('quotes') + pickRow('fields'));
 	}
-	function buttonsPreview() {
-		var s = St(), lv = function (k) { return s.get(k); }, links = s.get('links');
-		var part = function (key, html) { return '<button type="button" class="ldpw-pv" data-jump="' + key + '" data-f="jump:' + key + '" aria-label="' + esc(label(key)) + '">' + html + '</button>'; };
-		return '<div class="ldpw-lvprev" style="' + esc(lookColours()) + '">' +
-			'<div>' + part('primaryButton', '<i class="ldpw-lv" data-lk="' + lv('primaryButton') + '">' + esc(t('Subscribe')) + '</i>') + part('secondaryButton', '<i class="ldpw-lv" data-lk="' + lv('secondaryButton') + '">' + esc(t('Archive')) + '</i>') +
-				(s.guest() ? '' : part('tertiaryButton', '<i class="ldpw-lv" data-lk="' + lv('tertiaryButton') + '">' + esc(t('Share')) + '</i>')) + '</div>' +
-			'<div>' + part('tags', '<i class="ldpw-lv ldpw-tag" data-lk="' + lv('tags') + '">' + esc(t('Design')) + '</i>') +
-				part('links', '<span class="ldpw-pvt">' + esc(t('Read')) + ' <i class="ldpw-dln" data-ln="' + links + '">' + esc(t('a link')) + '</i></span>') +
-				part('currentItem', '<i class="ldpw-dch" data-ch="' + lv('currentItem') + '"><b>' + esc(t('Latest')) + '</b><u>' + esc(t('Popular')) + '</u></i>') + '</div></div>';
-	}
 	function buttonsPage() {
 		var s = St(), ink = s.colour('ink'), rounded = s.get('rounded');
-		return buttonsPreview() +
-			box(popRow('buttonColour', BUTTON_WORD, function (v) { return v === 'text' ? ink : s.colour(v === 'own' ? 'button' : 'accent'); }) + (rounded ? pickRow('buttonShape') : '')) +
+		return box(popRow('buttonColour', BUTTON_WORD, function (v) { return v === 'text' ? ink : s.colour(v === 'own' ? 'button' : 'accent'); }) + (rounded ? pickRow('buttonShape') : '')) +
 			gtitle(t('Levels')) + box(pickRow('primaryButton') + pickRow('secondaryButton') + (s.guest() ? '' : pickRow('tertiaryButton'))) +
 			gtitle(t('Tags, Links and Menus')) + box(pickRow('tags') + (rounded && s.get('buttonShape') !== 'match' ? switchRow('tagsMatchButtons', s.get('tags') === 'text', esc(t(s.get('tags') === 'text' ? 'Only when tags look like buttons' : 'Tags take the corners of the buttons')))  : '') + pickRow('links') + pickRow('currentItem')) +
 			hint('A theme’s buttons and an AI’s buttons are sorted into the three levels by what they are.');
@@ -1217,6 +1209,38 @@
 		if (rowEl) { rowEl.scrollIntoView({ block: 'center' }); rowEl.classList.remove('is-glow'); void rowEl.offsetWidth; rowEl.classList.add('is-glow'); ctl.focus({ preventScroll: true }); }
 		if (x.el.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) x.el.animate([{ outline: '2px solid #0a84ff', outlineOffset: '3px' }, { outline: '2px solid transparent', outlineOffset: '3px' }], { duration: 700, easing: 'ease-out' });
 	}
+	var MARKED = { primaryButton: 1, secondaryButton: 1, tertiaryButton: 1, tags: 1, links: 1, currentItem: 1 }, marksOf = null, markBoxes = [];
+	function onPage(key) {
+		var out = [];
+		TARGETS.forEach(function (tg) {
+			if (tg[2] !== key) return;
+			document.querySelectorAll(tg[0]).forEach(function (el) { var x = targetOf(el); if (x && x.key === key && x.el === el && out.indexOf(el) < 0 && seen(el)) out.push(el); });
+		});
+		return out;
+	}
+	function seen(el) {
+		if (!el.getClientRects().length || el.closest('[inert], [aria-hidden="true"]')) return false;
+		if (el.checkVisibility && !el.checkVisibility({ visibilityProperty: true, opacityProperty: true })) return false;
+		var r = el.getBoundingClientRect(); return r.right > 0 && r.left < window.innerWidth;
+	}
+	function marksShow(key) {
+		if (marksOf === key) return;
+		marksHide(); if (!key || RD() || phone()) return;
+		marksOf = key;
+		var vh = window.innerHeight, vw = window.innerWidth, wr = win.getBoundingClientRect(), boxes = [];
+		onPage(key).forEach(function (el) {
+			var r = el.getBoundingClientRect(); if (r.bottom < 0 || r.top > vh || r.right < 0 || r.left > vw) return; 
+			var b = document.createElement('div'); b.className = 'ldp-mark'; b.setAttribute('aria-hidden', 'true');
+			b.style.cssText = 'left:' + (r.left - 3) + 'px;top:' + (r.top - 3) + 'px;width:' + (r.width + 6) + 'px;height:' + (r.height + 6) + 'px';
+			boxes.push({ b: b, r: r, under: r.right > wr.left && r.left < wr.right && r.bottom > wr.top && r.top < wr.bottom });
+			document.body.appendChild(b); markBoxes.push(b);
+		});
+		var host = boxes.filter(function (x) { return !x.under; })[0] || boxes[0];
+		if (host) { host.b.innerHTML = '<span>' + esc(t(ALONE[key] || label(key))) + '</span>'; var bar = document.getElementById('wpadminbar'), roof = bar && bar.getClientRects().length ? bar.getBoundingClientRect().bottom : 0; host.b.classList.toggle('is-below', host.r.top - roof < 34); } 
+	}
+	function marksHide() { marksOf = null; markBoxes.forEach(function (b) { b.remove(); }); markBoxes = []; }
+	window.addEventListener('scroll', function (e) { if (win && e.target && e.target.nodeType === 1 && win.contains(e.target)) return; marksHide(); }, true); 
+	window.addEventListener('resize', marksHide);
 	function mayAim(e) { return !RD() && (aiming || e.altKey) && !phone() && St() && St().editable && St().editable(); }
 	document.addEventListener('pointermove', function (e) { if (mayAim(e)) aimShow(targetOf(e.target)); else if (aimBox && !aimBox.hidden) aimShow(null); }, true);
 	document.addEventListener('click', function (e) {
@@ -1831,6 +1855,8 @@
 				el.value = String(at); el.dispatchEvent(new Event('input', { bubbles: true })); el.dispatchEvent(new Event('change', { bubbles: true }));
 			});
 			win.addEventListener('pointerdown', sheetPull);
+			win.addEventListener('pointerover', function (e) { var r = e.target.closest && e.target.closest('.ldpw-r[data-mark]'); if (r) marksShow(r.getAttribute('data-mark')); else marksHide(); });
+			win.addEventListener('pointerleave', marksHide);
 			win.addEventListener('pointerdown', function (e) { if (e.target.matches && e.target.matches('input[type="range"]')) holding = true; });
 			win.addEventListener('focusout', function () { setTimeout(function () { if (open && dirty && !holding) render(); }, 0); });
 			document.body.appendChild(win);
@@ -1862,6 +1888,7 @@
 		if (door && door.setAttribute) door.setAttribute('aria-expanded', 'true');
 	}
 	function hide(keepFocus) {
+		marksHide();
 		if (!win || !open) return;
 		var lp = document.querySelector('body > .ldpw-lap'); if (lp) lp.remove();
 		sound('close');
@@ -1935,6 +1962,7 @@
 		if (act === 'share') { askShare(); return; }
 		if (act === 'settings') { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); return; }
 		if (act === 'revertpage') { var sp = St(); pagePaths(current().id).forEach(function (pth) { sp.revertPath(pth); }); done(t('Reverted')); render('.ldpw-nav.is-on'); return; }
+		if (b.hasAttribute('data-onpage')) { var first = onPage(b.getAttribute('data-onpage'))[0]; if (first) { marksHide(); first.scrollIntoView({ block: 'center', behavior: 'smooth' }); if (first.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) first.animate([{ outline: '2px solid #0a84ff', outlineOffset: '3px' }, { outline: '2px solid transparent', outlineOffset: '3px' }], { duration: 900, delay: 300, easing: 'ease-out' }); } return; }
 		if (act === 'asreader') { window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank'); return; }
 		if (b.hasAttribute('data-plink')) {
 			var pl = b.getAttribute('data-plink').split(':'), url = s.previewURL(pl[1]);
@@ -1992,7 +2020,6 @@
 			if (m2) m2.pick(p.slice(p.indexOf('|') + 1));
 			render(editing && editing !== was ? '.ldpw-scroll [data-f="hex"]' : '[data-menu="' + mk2 + '"]'); return;
 		}
-		if (b.hasAttribute('data-jump')) { var jr = win.querySelector('.ldpw-scroll [data-look="' + b.getAttribute('data-jump') + '"].is-on'); if (jr) { jr.scrollIntoView({ block: 'center', behavior: 'smooth' }); jr.focus({ preventScroll: true }); var jrow = jr.closest('.ldpw-r'); if (jrow) { jrow.classList.remove('is-glow'); void jrow.offsetWidth; jrow.classList.add('is-glow'); } } return; }
 		if (b.hasAttribute('data-look')) { var lk = b.getAttribute('data-look'), lv = b.getAttribute('data-v'); if (PAIR[lk]) setPair(lk, lv); else s.set(lk, lv); render('[data-look="' + lk + '"][data-v="' + lv + '"]'); return; }
 		if (b.hasAttribute('data-hit')) { pickCmd(+b.getAttribute('data-hit')); return; }
 		if (b.hasAttribute('data-ver')) { pickVersion(b.getAttribute('data-ver')); return; }
