@@ -416,7 +416,8 @@
 		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('buttonColour');
 		var btn = who === 'text' ? ink : who === 'own' ? s.colour('button') : accent;
 		var on = s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink;
-		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on;
+		var line = getComputedStyle(document.documentElement).getPropertyValue('--border-strong').trim() || 'color-mix(in oklab, ' + ink + ' 32%, ' + paper + ')';
+		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on + ';--ll:' + line;
 	}
 	var SURFACE_DRAW = { pictureFilter: { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' }, pictureFade: { none: 'off' }, cards: { filled: 'flat', outlined: 'box' }, quotes: { indented: 'indent', sideLine: 'line', filled: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
 	function lookPic(draw, id) {

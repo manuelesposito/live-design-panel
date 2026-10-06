@@ -468,7 +468,10 @@
 		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('buttonColour');
 		var btn = who === 'text' ? ink : who === 'own' ? s.colour('button') : accent;
 		var on = s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink;
-		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on;
+		/* --ll: THE PAGE'S OWN LINE GREY (2026-10-06, Manuel: the quote's side line was purple here and grey on the site):
+		   the theme draws a quote's side line in --border-strong; a theme without it gets ink a third into the paper */
+		var line = getComputedStyle(document.documentElement).getPropertyValue('--border-strong').trim() || 'color-mix(in oklab, ' + ink + ' 32%, ' + paper + ')';
+		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on + ';--ll:' + line;
 	}
 	/* the drawings know the engine's own words for the surfaces (2026-10-03) */
 	var SURFACE_DRAW = { pictureFilter: { none: 'plain', grayscale: 'bw', tinted: 'duo', duotone: 'accent' }, pictureFade: { none: 'off' }, cards: { filled: 'flat', outlined: 'box' }, quotes: { indented: 'indent', sideLine: 'line', filled: 'box' }, fields: { filled: 'flat', outlined: 'box' } };
