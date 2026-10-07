@@ -165,7 +165,7 @@
 		var ids = Object.keys(R), NEWER = ['headings', 'body', 'meta', 'interface', 'code'];
 		var oldDial = /^(face|tracking|words|caps|leading|members)$/;
 		var old = ids.some(function (k) { return ['head', 'read', 'kicker', 'small', 'comment', 'ui'].indexOf(k) !== -1; }) ||
-			ids.some(function (k) { var o = R[k]; return o && typeof o === 'object' && Object.keys(o).some(function (d) { return oldDial.test(d) || (d === 'size' && /^[0-9a-z]+$/.test(String(o[d]))); }); }) ||
+			ids.some(function (k) { var o = R[k]; return o && typeof o === 'object' && Object.keys(o).some(function (d) { return oldDial.test(d) || (d === 'size' && String(o[d]) !== '0' && /^[0-9a-z]+$/.test(String(o[d]))); }); }) ||
 			(R.title && !ids.some(function (k) { return NEWER.indexOf(k) !== -1; }));
 		if (!old) return rec;
 		var RUNGS = [11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 32, 36, 40, 44, 48, 56, 64, 72, 80, 96, 112, 128];
@@ -2225,6 +2225,7 @@
 		if (!s || s.host) return; 
 		var entry = {}, held = all[s.id] || {};
 		TWEAK_KEYS.forEach(function (k) { if (DIALS.indexOf(k) === -1 && held[k] !== undefined) entry[k] = held[k]; });
+		if (entry.roles && held.architrave) entry.architrave = held.architrave;
 		if (!same(dials, s)) DIALS.forEach(function (d) { entry[d] = dials[d]; });
 		if (Object.keys(entry).length) all[s.id] = entry; else delete all[s.id];
 		if (JSON.stringify(all) !== JSON.stringify(readTweaks())) writeTweaks(all);

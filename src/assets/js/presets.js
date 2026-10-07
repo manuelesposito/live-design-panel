@@ -267,7 +267,10 @@
 		var ids = Object.keys(R), NEWER = ['headings', 'body', 'meta', 'interface', 'code'];
 		var oldDial = /^(face|tracking|words|caps|leading|members)$/;
 		var old = ids.some(function (k) { return ['head', 'read', 'kicker', 'small', 'comment', 'ui'].indexOf(k) !== -1; }) ||
-			ids.some(function (k) { var o = R[k]; return o && typeof o === 'object' && Object.keys(o).some(function (d) { return oldDial.test(d) || (d === 'size' && /^[0-9a-z]+$/.test(String(o[d]))); }); }) ||
+			/* "0" IS THE SEVEN'S REST, NEVER AN OLD SIZE (2026-10-07, Manuel: the blue dot stayed after Reset Style): the old
+			   sizes were pixel rungs from 11, percentages and xs..xl. A tweak keeps no `architrave`, so Reset putting Soft's
+			   dates back to "0" read as an old record here, the step came out empty, and the old -1 stayed on the site. */
+			ids.some(function (k) { var o = R[k]; return o && typeof o === 'object' && Object.keys(o).some(function (d) { return oldDial.test(d) || (d === 'size' && String(o[d]) !== '0' && /^[0-9a-z]+$/.test(String(o[d]))); }); }) ||
 			(R.title && !ids.some(function (k) { return NEWER.indexOf(k) !== -1; }));
 		if (!old) return rec;
 		var RUNGS = [11, 12, 13, 14, 16, 18, 20, 22, 24, 26, 28, 32, 36, 40, 44, 48, 56, 64, 72, 80, 96, 112, 128];
@@ -3544,6 +3547,9 @@
 		   holds; the dials are set here, the rest is carried over. */
 		var entry = {}, held = all[s.id] || {};
 		TWEAK_KEYS.forEach(function (k) { if (DIALS.indexOf(k) === -1 && held[k] !== undefined) entry[k] = held[k]; });
+		/* and the roles' version (2026-10-07): TWEAK_KEYS has no `architrave`, so a press dropped it and the next read took
+		   roles of the seven for the old eight (a title on its own became the old Interface titles and lost its size) */
+		if (entry.roles && held.architrave) entry.architrave = held.architrave;
 		if (!same(dials, s)) DIALS.forEach(function (d) { entry[d] = dials[d]; });
 		if (Object.keys(entry).length) all[s.id] = entry; else delete all[s.id];
 		/* Nothing written when nothing changed (the audit): the observer
