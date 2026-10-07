@@ -2610,7 +2610,7 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 :root[data-small-leading] .single-post-article .wp-block-post-content blockquote cite, :root[data-small-leading] :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote cite {
 	line-height: calc(var(--text-base-line-height) * var(--small-leading, 1));
 }
-:root[data-ui-weight] :is(.index-pagination .page-numbers, .quire-tooltip-bubble, .rail-newsletter-door:not(.is-page) :is(.rail-newsletter-door-title, .rail-newsletter-door-sub, .rail-newsletter-door-words, .rail-newsletter-door-count), .rail-newsletter-door-hint, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title, .arch-row-title, .about-numbers, .related-list, .theme-card .card-title, .post-ruler .ruler-label, .post-link-card .card-name), :root[data-ui-weight] :is(.sidebar-column, .mobile-panel) .rail-language a {
+:root[data-ui-weight] :is(.index-pagination .page-numbers, .quire-tooltip-bubble, .rail-newsletter-door:not(.is-page, .is-simple) :is(.rail-newsletter-door-title, .rail-newsletter-door-sub, .rail-newsletter-door-words, .rail-newsletter-door-count), .rail-newsletter-door:not(.is-simple) .rail-newsletter-door-hint, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title, .arch-row-title, .about-numbers, .related-list, .theme-card .card-title, .post-ruler .ruler-label, .post-link-card .card-name), :root[data-ui-weight] :is(.sidebar-column, .mobile-panel) .rail-language a {
 	font-weight: var(--ui-weight);
 }
 :root[data-ui-size] .index-pagination .page-numbers {
@@ -2622,13 +2622,13 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 :root:not(#live-design-panel-guard)[data-head-m-sub-size] .quire-masthead {
 	font-size: max(var(--text-floor-ui), calc(var(--text-masthead) * var(--head-size-sub, 1)));
 }
-:root:is([data-ui-size], [data-ui-members]) .rail-newsletter-door:not(.is-page) :is(.rail-newsletter-door-title, .rail-newsletter-door-sub, .rail-newsletter-door-words) {
+:root:is([data-ui-size], [data-ui-members]) .rail-newsletter-door:not(.is-page, .is-simple) :is(.rail-newsletter-door-title, .rail-newsletter-door-sub, .rail-newsletter-door-words) {
 	font-size: max(var(--text-floor-ui), calc(var(--text-lg) * var(--ui-size-newsletter, var(--ui-size, 1))));
 }
-:root[data-ui-size] .rail-newsletter-door-hint {
+:root[data-ui-size] .rail-newsletter-door:not(.is-simple) .rail-newsletter-door-hint {
 	font-size: max(var(--text-floor-ui), calc(var(--text-base) * var(--ui-size)));
 }
-:root[data-ui-size] .rail-newsletter-door-form :is(.quire-input, .mailpoet_text, label, .mailpoet_message) {
+:root[data-ui-size] .rail-newsletter-door:not(.is-simple) .rail-newsletter-door-form :is(.quire-input, .mailpoet_text, label, .mailpoet_message) {
 	font-size: max(var(--text-floor-ui), calc(var(--text-sm-contextual) * var(--ui-size)));
 }
 :root:is([data-ui-size], [data-ui-members]) .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title {

@@ -1195,6 +1195,9 @@
 		[':is(.wp-block-post-content, .entry-content) :is(h2, h3, h4, h5, h6), .wp-block-heading', 'type', 'role:headings', 'Headings'],
 		['.article-kicker, .post-kicker, .taxonomy-category', 'type', 'role:meta', 'Small text'],
 		['.article-meta, .post-meta, .wp-block-post-date, .wp-block-post-terms, figcaption', 'type', 'role:meta', 'Small text'],
+		
+		['.rail-newsletter-lightbox .rail-newsletter-door-head', 'type', 'role:headings', 'Headings'],
+		['.rail-newsletter-lightbox .rail-newsletter-door-hint', 'type', 'role:meta', 'Small text'],
 		['.rail-newsletter-door-head', 'type', 'role:title', 'Title'],
 		['.wp-block-post-excerpt, .rail-newsletter-door-hint, .empty-note', 'type', 'role:body', 'Reading text'],
 		['blockquote cite, .ruler-label small, .arch-row-date, .wp-block-post-author__name, .release-route-kind, .release-routes-note, .entry-content:has(.rail-newsletter-door.is-page) > p.wp-block-paragraph', 'type', 'role:meta', 'Small text'],

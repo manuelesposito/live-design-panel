@@ -1366,6 +1366,9 @@
 		/* EVERY TEXT THE LIST LEFT OUT (Manuel, 2026-10-07, the footer's credit: "where else can I not pick text?"). Found by
 		   tools/check-pick-map.js on thirteen kinds of page: each text's own row is the one whose size moves it, measured,
 		   not guessed. Before the quote, the navigation and the paragraph, which caught some of these under the wrong row. */
+		/* THE LIGHTBOX'S WORDS (Manuel, 2026-10-07, Elmastudio Site 0.2.21): its title is Headings and its line Small text, unlike the newsletter page's card below. */
+		['.rail-newsletter-lightbox .rail-newsletter-door-head', 'type', 'role:headings', 'Headings'],
+		['.rail-newsletter-lightbox .rail-newsletter-door-hint', 'type', 'role:meta', 'Small text'],
 		['.rail-newsletter-door-head', 'type', 'role:title', 'Title'],
 		['.wp-block-post-excerpt, .rail-newsletter-door-hint, .empty-note', 'type', 'role:body', 'Reading text'],
 		/* THE ROUTE CARD'S GREY LINE (Manuel, 2026-10-07, the Vibetiles page: "how is that possible that that little text is reading text?"): a paragraph in the content, so the paragraph row below caught it, while Small text is what sizes it. */
