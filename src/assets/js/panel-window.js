@@ -1334,6 +1334,8 @@
 		['.wp-block-comment-author-name, .wp-block-comment-date, .wp-block-comment-reply-link', 'type', 'role:meta', 'Small text'],
 		['.comment-form, .comment-respond form, .form-submit', 'type', 'role:interface', 'Interface'],
 		['.wp-block-comments-title, .comment-reply-title, .comments-side-title', 'type', 'role:headings', 'Headings'],
+		/* THE SMALL LINES THE TITLE CARRIES (Manuel, 2026-10-07, the About page's date: "i cant pick it"): style.css hands these to Small text, but no row here claimed them, so the date fell through to the page's Colour. Before the title, since the date sits inside the title's head. */
+		['.page-updated, .head-count, .head-kind-sans, .listen-time, .post-gallery-caption, .author-box .wp-block-post-author__bio', 'type', 'role:meta', 'Small text'],
 		['h1, .wp-block-post-title', 'type', 'role:title', 'Title'],
 		[':is(.wp-block-post-content, .entry-content) :is(h2, h3, h4, h5, h6), .wp-block-heading', 'type', 'role:headings', 'Headings'],
 		['.article-kicker, .post-kicker, .taxonomy-category', 'type', 'role:meta', 'Small text'],
