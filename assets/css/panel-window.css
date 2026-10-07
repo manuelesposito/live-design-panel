@@ -32,6 +32,7 @@
 	}
 #ldp-window[hidden] { display: none; }
 #ldp-window { view-transition-name: ldp-window; }
+#ldp-window.is-primed, #ldp-window[hidden] { view-transition-name: none; }
 ::view-transition-group(ldp-window), ::view-transition-new(ldp-window) { animation: none; }
 ::view-transition-old(ldp-window) { display: none; }
 #ldp-window.is-reskin, #ldp-window.is-reskin *, #ldp-window.is-reskin *::before, #ldp-window.is-reskin *::after { transition: none !important; } 
