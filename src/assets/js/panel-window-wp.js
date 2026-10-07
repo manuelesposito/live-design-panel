@@ -351,7 +351,10 @@
 					if (!p && skip[k]) return;
 					var q = p ? p + '.' + k : k, u = x[k], v = y ? y[k] : undefined;
 					/* inside the colours and the roles a key left out is the rest, so one named against one left out differs (2026-10-03: the highlighter is a colour now, written only when on) */
-					var inner = /^(colours|roles)(\.|$)/.test(q) && q.indexOf('.') !== -1;
+					/* AND THE TWO TABLES THEMSELVES (2026-10-07, Manuel: "I changed my essay style but I can't reset it"): Essay began
+					   on its preset with no colours written, and his change wrote the whole table; a table one side left out was
+					   no difference, so every colour he changed was invisible and Reset Style stayed grey. Left out is the rest here too. */
+					var inner = /^(colours|roles)(\.|$)/.test(q);
 					if (v === undefined && inner) { if (u && typeof u === 'object' && !Array.isArray(u)) walk(u, {}, q); else out.push(q); return; }
 					if (v === undefined) return;
 					if (u && typeof u === 'object' && !Array.isArray(u) && v && typeof v === 'object') walk(u, v, q);

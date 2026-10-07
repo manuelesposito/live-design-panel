@@ -302,7 +302,8 @@
 				Object.keys(x || {}).forEach(function (k) {
 					if (!p && skip[k]) return;
 					var q = p ? p + '.' + k : k, u = x[k], v = y ? y[k] : undefined;
-					var inner = /^(colours|roles)(\.|$)/.test(q) && q.indexOf('.') !== -1;
+					
+					var inner = /^(colours|roles)(\.|$)/.test(q);
 					if (v === undefined && inner) { if (u && typeof u === 'object' && !Array.isArray(u)) walk(u, {}, q); else out.push(q); return; }
 					if (v === undefined) return;
 					if (u && typeof u === 'object' && !Array.isArray(u) && v && typeof v === 'object') walk(u, v, q);
