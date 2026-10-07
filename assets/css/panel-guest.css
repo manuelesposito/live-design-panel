@@ -1165,7 +1165,7 @@ html:root[data-cap-face="title"] {
 }
 :root[data-frame-pattern]:not([data-pictureframe="off"]):not([data-lines="on"]) :is(.post-card .post-media img, .single-post-article .article-media img, :is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-color: transparent;
-	background-color: var(--surface-hover);
+	background-color: var(--picture-mat);
 }
 :root[data-frame-pattern="dots"][data-frame-pattern]:not([data-pictureframe="off"]) :is(.post-card .post-media img, .single-post-article .article-media img, :is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text-primary) 28%, transparent) 1px, transparent 1.25px);
@@ -1445,7 +1445,7 @@ html:root[data-soft="on"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navi
 	--picture-filter: sepia(1) contrast(.95);
 }
 :root[data-picturedim="on"][data-theme$="-dark"]:is(:not([data-pictures]), [data-pictures="bw"], [data-pictures="sepia"], [data-pictures="grain"]) {
-	--picture-dim: brightness(.85);
+	--picture-dim: brightness(.85); --picture-dim-amount: .85;
 }
 @media (hover: hover) {
 	:root[data-picturehover="on"] :is(.post-card .post-media, .single-post-article .article-media) img:hover, :root[data-picturehover="on"] body img:not(.emoji, .wp-smiley):hover:not(:where(.reading-panel *, #wpadminbar *)), :root[data-picturehover="on"] :is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content :is(img:not(.emoji, .wp-smiley):hover, figure:hover > img, figure:hover > a > img) {
@@ -1580,7 +1580,7 @@ html:root[data-cap-face="fraunces"] {
 	outline-offset: calc(-1 * (var(--picture-frame) + var(--border-width-default)));
 }
 :root[data-lines="on"]:not([data-pictureframe="off"]):not([data-fills="off"]) :is(.post-card .post-media img, .single-post-article .article-media img, .single-post-article .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot), .post-card.format-link .post-format-body .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	background-color: var(--surface-hover);
+	background-color: var(--picture-mat);
 }
 :root[data-read-weight] .single-post-article .wp-block-post-content, :root[data-read-weight] .post-card :is(.post-body, .post-format-body) {
 	--font-weight-reading: var(--read-weight);
@@ -1650,6 +1650,7 @@ html:root[data-cap-face="fraunces"] {
 }
 :root[data-fills="off"] :is(.release-panel, .release-archive-card):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--panel-ground: var(--surface-base);
+	--picture-box-mat: initial;
 	background: var(--surface-base);
 }
 :root[data-lines="on"] .support-box:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
