@@ -1208,6 +1208,7 @@
 		['.rail-newsletter-field', 'type', 'role:interface', 'Interface'],
 		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:interface', 'Interface'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:body', 'Reading text'],
+		['.release-route', 'corners-and-lines', 'cards', 'Cards'],
 		['main, .content-column, .wp-site-blocks, body', 'colour', '', 'Colour']
 	];
 	var aiming = false, aimBox = null;

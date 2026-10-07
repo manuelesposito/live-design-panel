@@ -1382,6 +1382,8 @@
 		['.rail-newsletter-field', 'type', 'role:interface', 'Interface'],
 		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:interface', 'Interface'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:body', 'Reading text'],
+		/* THE ROUTE CARD ITSELF (2026-10-07): its texts answer to their type rows above, the card's own ground to Cards. Here, not with the other cards, whose closest() would swallow the heading and the paragraph. */
+		['.release-route', 'corners-and-lines', 'cards', 'Cards'],
 		['main, .content-column, .wp-site-blocks, body', 'colour', '', 'Colour']
 	];
 	var aiming = false, aimBox = null;
