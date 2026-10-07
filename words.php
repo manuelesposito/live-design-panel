@@ -887,6 +887,7 @@ function live_design_window_words() {
 		'The site as a first visit gets it, in a new tab. Nothing picked there is kept.' => __( 'The site as a first visit gets it, in a new tab. Nothing picked there is kept.', 'vibetiles' ),
 		'Preview Links' => __( 'Preview Links', 'vibetiles' ),
 		'Copy' => __( 'Copy', 'vibetiles' ),
+		'Copied' => __( 'Copied', 'vibetiles' ),
 		'Open' => __( 'Open', 'vibetiles' ),
 		'Stop' => __( 'Stop', 'vibetiles' ),
 		'No preview links' => __( 'No preview links', 'vibetiles' ),

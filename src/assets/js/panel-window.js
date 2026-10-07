@@ -266,7 +266,7 @@
 			return '<div class="ldpw-r ldpw-sl ldpw-hsl"><div class="ldpw-top"><span class="ldpw-lb">' + esc(t(lb)) + '</span><span class="ldpw-val" data-hsl-val="' + key + '">' + val + (key === 'h' ? '°' : '%') + '</span></div>' +
 				'<input type="range" min="0" max="' + max + '" step="1" value="' + val + '" data-hsl="' + key + '" data-f="hsl:' + key + '" style="--track:' + track + '" aria-label="' + esc(t(lb)) + '"></div>';
 		}
-		return '<div class="ldpw-pick"><span class="ldpw-big" style="background:' + v + '"></span><div><label for="ldpw-hex">' + esc(named ? t(named.label) : t('Hex')) + '</label><input id="ldpw-hex" data-hex data-f="hex" value="' + v.toUpperCase() + '" spellcheck="false" maxlength="7" autocomplete="off"></div>' +
+		return '<div class="ldpw-pick"><button type="button" class="ldpw-big" data-hex-copy data-f="hexcopy" title="' + esc(t('Copy')) + '" aria-label="' + esc(t('Copy')) + '" style="background:' + v + '"></button><div><label for="ldpw-hex">' + esc(named ? t(named.label) : t('Hex')) + '</label><input id="ldpw-hex" data-hex data-f="hex" value="' + v.toUpperCase() + '" spellcheck="false" maxlength="7" autocomplete="off"></div>' +
 				(window.EyeDropper ? '<button type="button" class="ldpw-circ" data-act="pipette" data-f="act:pipette" aria-label="' + esc(t('Pick a colour from the page')) + '" title="' + esc(t('Pick a colour from the page')) + '">' + svg(GLYPH.pipette) + '</button>' : '') +
 				(q ? '<small data-ratio title="' + q.toFixed(1) + ':1">' + esc(readable(q) + ' ' + t(k === 'background' ? 'against the text' : 'against the paper')) + '</small>' : '') + '</div>' +
 			box(hs('Hue', 'h', 360, hsl[0], 'linear-gradient(90deg,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)') +
@@ -2378,6 +2378,7 @@
 		if (b.hasAttribute('data-preset')) { s.choosePreset(b.getAttribute('data-preset')); render(); return; }
 		if (b.hasAttribute('data-edit')) { editing = b.getAttribute('data-edit'); render('[data-act="back"]'); return; }
 		if (b.hasAttribute('data-hex-pick')) { setHex(b.getAttribute('data-hex-pick')); render(); return; }
+		if (b.hasAttribute('data-hex-copy')) { var hx = win.querySelector('[data-hex]'), hv = hx ? hx.value.trim().toUpperCase() : ''; if (hv && hv[0] !== '#') hv = '#' + hv; if (hv && navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(hv).catch(function () {}); done(t('Copied')); render(); return; } /* the swatch copies its hex, # included (Manuel, 2026-10-07) */
 		var sec = b.getAttribute('data-sec');
 		if (sec) {
 			sq = null; section = sec; phoneList = false; editing = null; role = null; fontFor = null; more = false; showChanges = false; showVersions = false;
