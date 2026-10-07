@@ -1340,25 +1340,38 @@
 	   The first match wins, so the specific parts come before the paragraph and the page. */
 	var TARGETS = [
 		['mark', 'colour', 'highlight', 'Highlighter'],
-		['.quire-button.primary, .rail-newsletter-trigger, [data-ldp-button="main"]', 'buttons', 'primaryButton', 'Main'],
+		/* THE CONTENT'S OWN BUTTONS TOO (2026-10-07, the pick audit): a Buttons block in an article is drawn as a main or an other
+		   button (style.css THE BUTTONS), but no row here named it, so it fell through to Colour. .rail-newsletter-trigger was dead. */
+		['.quire-button.primary, [data-ldp-button="main"], .quire-icon-button.filled, :is(.wp-block-post-content, .entry-content) .wp-block-button:not(.is-style-outline) > .wp-block-button__link', 'buttons', 'primaryButton', 'Main'],
 		['.quire-button.ghost', 'buttons', 'tertiaryButton', 'Quiet buttons'],
-		['.quire-button, [data-ldp-button="secondary"]', 'buttons', 'secondaryButton', 'Other'],
+		['.quire-button, [data-ldp-button="secondary"], .wp-block-button.is-style-outline > .wp-block-button__link', 'buttons', 'secondaryButton', 'Other'],
 		['.article-tags a, .taxonomy-post_tag a', 'buttons', 'tags', 'Tags'],
 		/* THE SITE'S NAME BEFORE THE CHOSEN ITEM (2026-10-02, Manuel: "on the page title I would like to have the setting for the page title but instead I get the button"): on the home page WordPress marks the name's link aria-current="page", so the Chosen item row below caught it. It follows Headings since the seven roles (lab/the-site-name.html). */
 		['.wp-block-site-title', 'type', 'role:headings', 'Site name'],
 		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'currentItem', 'Current item'],
+		/* A CAPTION BEFORE ITS PICTURE (2026-10-07, the pick audit): the picture's box swallowed the caption inside it, which Small text sizes. */
+		['.wp-block-image figcaption, .wp-element-caption', 'type', 'role:meta', 'Small text'],
 		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictureFilter', 'Pictures'],
-		['.post-link-card, .post-neighbour, .support-box, .release-panel, .theme-card, .wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'cards', 'Cards'],
 		['input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea, .quire-search-field', 'corners-and-lines', 'fields', 'Fields'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li) a', 'buttons', 'links', 'Links'],
 		/* THE SEVEN ROLES (2026-10-02): each part opens the role it answers to; the comments' parts too. Code before
 		   the paragraph it sits in. */
+		/* THE SECTIONS BAR'S KEY CAPS ARE INTERFACE, not code (the pick audit, 2026-10-07): before the kbd row below. */
+		['.post-sections-key', 'type', 'role:interface', 'Interface'],
 		['code, pre, kbd', 'type', 'role:code', 'Code'],
 		['.wp-block-comment-author-name, .wp-block-comment-date, .wp-block-comment-reply-link', 'type', 'role:meta', 'Small text'],
 		['.comment-form, .comment-respond form, .form-submit', 'type', 'role:interface', 'Interface'],
 		['.wp-block-comments-title, .comment-reply-title, .comments-side-title', 'type', 'role:headings', 'Headings'],
 		/* THE SMALL LINES THE TITLE CARRIES (Manuel, 2026-10-07, the About page's date: "i cant pick it"): style.css hands these to Small text, but no row here claimed them, so the date fell through to the page's Colour. Before the title, since the date sits inside the title's head. */
 		['.page-updated, .head-count, .head-kind-sans, .listen-time, .post-gallery-caption, .author-box .wp-block-post-author__bio', 'type', 'role:meta', 'Small text'],
+		/* THE WORDS INSIDE THE CARDS (2026-10-07, the pick audit: "every text style should be reached"): the cards' own boxes
+		   used to stand above these rows and closest() took the words with the box. A card's name is Interface (the link
+		   card's tokens), its grey line Small text, the support box's and the readers' note's words Reading text. */
+		['.post-link-card .card-title, .theme-card .card-title, p.release-group-title, .release-route-title', 'type', 'role:interface', 'Interface'],
+		['.post-link-card .card-sub, .theme-card .card-sub, p.release-checked, p.release-archive-banner, .related-row-date, .readers-note-date', 'type', 'role:meta', 'Small text'],
+		['.support-box-text, .readers-note-body, .head-desc', 'type', 'role:body', 'Reading text'],
+		/* an h1 inside the content is a heading of the text, not the page's title (style.css hands it the sub tokens) */
+		['.wp-block-post-content > h1', 'type', 'role:headings', 'Headings'],
 		['h1, .wp-block-post-title', 'type', 'role:title', 'Title'],
 		[':is(.wp-block-post-content, .entry-content) :is(h2, h3, h4, h5, h6), .wp-block-heading', 'type', 'role:headings', 'Headings'],
 		['.article-kicker, .post-kicker, .taxonomy-category', 'type', 'role:meta', 'Small text'],
@@ -1367,6 +1380,9 @@
 		   tools/check-pick-map.js on thirteen kinds of page: each text's own row is the one whose size moves it, measured,
 		   not guessed. Before the quote, the navigation and the paragraph, which caught some of these under the wrong row. */
 		/* THE LIGHTBOX'S WORDS (Manuel, 2026-10-07, Elmastudio Site 0.2.21): its title is Headings and its line Small text, unlike the newsletter page's card below. */
+		/* THE FLOATING CARD ON THE COLLAPSED RAIL (the pick audit, 2026-10-07): its head and hint are the newsletter part of
+		   Interface (style.css), neither the lightbox's nor the page's; and the page's "check your inbox" line is Interface too. */
+		['.rail-promo .rail-newsletter-door-head, .rail-promo .rail-newsletter-door-hint, .rail-newsletter-door.is-page .inbox', 'type', 'role:interface', 'Interface'],
 		['.rail-newsletter-lightbox .rail-newsletter-door-head', 'type', 'role:headings', 'Headings'],
 		['.rail-newsletter-lightbox .rail-newsletter-door-hint', 'type', 'role:meta', 'Small text'],
 		['.rail-newsletter-door-head', 'type', 'role:title', 'Title'],
@@ -1380,10 +1396,15 @@
 		['.quire-nav-section-heading, .quire-nav-section-head', 'type', 'role:interface', 'Interface'],
 		/* THE NEWSLETTER CARD ABOVE MORE (Manuel, 2026-10-07: "I cannot select the text in the newsletter button. It selects the whole sidebar."): the card is new since Elmastudio Site 0.2.10 and no row named it, so the sidebar caught it. Its two lines are a row's and a section title's, sized by Interface. */
 		['.rail-newsletter-field', 'type', 'role:interface', 'Interface'],
+		/* THE SECTIONS BAR (the pick audit, 2026-10-07): a div, not a nav; its name and toggle are Interface, its list of sections reads in the Reading text. */
+		['.post-sections-list', 'type', 'role:body', 'Reading text'],
+		['.post-sections-phone-name, .post-sections-phone-toggle, .post-sections-bar', 'type', 'role:interface', 'Interface'],
 		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:interface', 'Interface'],
-		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:body', 'Reading text'],
-		/* THE ROUTE CARD ITSELF (2026-10-07): its texts answer to their type rows above, the card's own ground to Cards. Here, not with the other cards, whose closest() would swallow the heading and the paragraph. */
-		['.release-route', 'corners-and-lines', 'cards', 'Cards'],
+		[':is(.wp-block-post-content, .entry-content) :is(p, li, td, th, summary)', 'type', 'role:body', 'Reading text'],
+		/* THE CARDS THEMSELVES COME AFTER THEIR WORDS (2026-10-07, the pick audit; the route card first, 2026-10-07 morning):
+		   the texts answer to their type rows above, the card's own ground to Cards. Above the words, closest() took every
+		   word in a link card, a theme card, the support box, the release panel or a coloured group with the box. */
+		['.release-route, .post-link-card, .post-neighbour, .support-box, .release-panel, .theme-card, .wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'cards', 'Cards'],
 		['main, .content-column, .wp-site-blocks, body', 'colour', '', 'Colour']
 	];
 	var aiming = false, aimBox = null;
