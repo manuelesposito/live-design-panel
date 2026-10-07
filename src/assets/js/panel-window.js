@@ -1340,6 +1340,13 @@
 		[':is(.wp-block-post-content, .entry-content) :is(h2, h3, h4, h5, h6), .wp-block-heading', 'type', 'role:headings', 'Headings'],
 		['.article-kicker, .post-kicker, .taxonomy-category', 'type', 'role:meta', 'Small text'],
 		['.article-meta, .post-meta, .wp-block-post-date, .wp-block-post-terms, figcaption', 'type', 'role:meta', 'Small text'],
+		/* EVERY TEXT THE LIST LEFT OUT (Manuel, 2026-10-07, the footer's credit: "where else can I not pick text?"). Found by
+		   tools/check-pick-map.js on thirteen kinds of page: each text's own row is the one whose size moves it, measured,
+		   not guessed. Before the quote, the navigation and the paragraph, which caught some of these under the wrong row. */
+		['.rail-newsletter-door-head', 'type', 'role:title', 'Title'],
+		['.wp-block-post-excerpt, .rail-newsletter-door-hint, .empty-note', 'type', 'role:body', 'Reading text'],
+		['blockquote cite, .ruler-label small, .arch-row-date, .wp-block-post-author__name, .entry-content:has(.rail-newsletter-door.is-page) > p.wp-block-paragraph', 'type', 'role:meta', 'Small text'],
+		['.post-more, .arch-row-title, .comments-side-credit, .comment-replying-to, .comment-badge, .about-numbers-row, .theme-switch, .theme-count, .empty-back, .sent-word', 'type', 'role:interface', 'Interface'],
 		['blockquote', 'type', 'role:quote', 'Quotes'],
 		['.wp-block-comment-content, .comment-content', 'type', 'role:body', 'Reading text'],
 		/* THE SMALL WORDS THAT HAD NO ROW OF THEIR OWN HERE (Manuel, 2026-10-01: "I can't click that little text with our tool to find out which setting it is"): the rail's section titles fell through to the whole rail as Interface, and the plate at the page's foot to Colour. */
