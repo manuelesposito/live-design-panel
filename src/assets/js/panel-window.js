@@ -1369,7 +1369,7 @@
 		['.rail-newsletter-door-head', 'type', 'role:title', 'Title'],
 		['.wp-block-post-excerpt, .rail-newsletter-door-hint, .empty-note', 'type', 'role:body', 'Reading text'],
 		/* THE ROUTE CARD'S GREY LINE (Manuel, 2026-10-07, the Vibetiles page: "how is that possible that that little text is reading text?"): a paragraph in the content, so the paragraph row below caught it, while Small text is what sizes it. */
-		['blockquote cite, .ruler-label small, .arch-row-date, .wp-block-post-author__name, .release-route-kind, .entry-content:has(.rail-newsletter-door.is-page) > p.wp-block-paragraph', 'type', 'role:meta', 'Small text'],
+		['blockquote cite, .ruler-label small, .arch-row-date, .wp-block-post-author__name, .release-route-kind, .release-routes-note, .entry-content:has(.rail-newsletter-door.is-page) > p.wp-block-paragraph', 'type', 'role:meta', 'Small text'],
 		['.post-more, .arch-row-title, .comments-side-credit, .comment-replying-to, .comment-badge, .about-numbers-row, .theme-switch, .theme-count, .empty-back, .sent-word', 'type', 'role:interface', 'Interface'],
 		['blockquote', 'type', 'role:quote', 'Quotes'],
 		['.wp-block-comment-content, .comment-content', 'type', 'role:body', 'Reading text'],
