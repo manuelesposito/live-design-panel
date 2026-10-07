@@ -136,12 +136,12 @@
 	border-style: dashed;
 }
 :root[data-lines="on"][data-line-style="dashed"][data-button-medium="outlined"] :is(
-	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dashed;
 }
 :root[data-lines="on"][data-line-style="dashed"][data-button-medium="shadow"] :is(
-	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dashed;
 }
@@ -334,12 +334,12 @@
 	border-style: dotted;
 }
 :root[data-lines="on"][data-line-style="dotted"][data-button-medium="outlined"] :is(
-	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dotted;
 }
 :root[data-lines="on"][data-line-style="dotted"][data-button-medium="shadow"] :is(
-	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+	:is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dotted;
 }
@@ -570,7 +570,7 @@
 	--accent: var(--button-colour);
 	--accent-contrast: var(--button-contrast);
 }
-:root[data-button-shape] .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link {
+:root[data-button-shape] .wp-block-post-content .wp-block-button > .wp-block-button__link {
 	border-radius: var(--radius-control);
 }
 :root:is([data-button-style="outlined"], [data-button-style="shadow"])[data-button-style] :is(.quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -593,15 +593,15 @@
 	box-shadow: 1px 1px 0 var(--accent);
 	translate: var(--space-0-5) var(--space-0-5);
 }
-:root:is([data-button-style], [data-button-medium], [data-button-quiet]) :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .quire-button.ghost):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-button-style], [data-button-medium], [data-button-quiet]) :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link, .quire-button.ghost):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--lv-fill: var(--accent);
 	--lv-on: var(--accent-contrast);
 }
-:root:is([data-button-style], [data-button-medium], [data-button-quiet])[data-button="ink"] :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .quire-button.ghost):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-button-style], [data-button-medium], [data-button-quiet])[data-button="ink"] :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link, .quire-button.ghost):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--lv-fill: var(--text-primary);
 	--lv-on: var(--surface-base);
 }
-:root:is([data-button-style], [data-button-medium], [data-button-quiet])[data-button="own"] :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .quire-button.ghost):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root:is([data-button-style], [data-button-medium], [data-button-quiet])[data-button="own"] :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link, .quire-button.ghost):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--lv-fill: var(--button-colour);
 	--lv-on: var(--button-contrast);
 }
@@ -629,35 +629,35 @@
 	border-color: transparent;
 	box-shadow: none;
 }
-:root[data-button-medium="filled"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-button-medium="filled"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--lv-fill);
 	color: var(--lv-on);
 	border-color: transparent;
 	box-shadow: none;
 }
-:root[data-button-medium="tinted"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-button-medium="tinted"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: color-mix(in oklab, var(--lv-fill) 16%, var(--surface-base));
 	color: color-mix(in oklab, var(--lv-fill) 70%, var(--text-primary));
 	border-color: transparent;
 	box-shadow: none;
 }
-:root[data-button-medium="outlined"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-button-medium="outlined"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: transparent;
 	color: var(--lv-fill);
 	border: max(1px, var(--border-width-default)) solid var(--lv-fill);
 	box-shadow: none;
 }
-:root[data-button-medium="shadow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-button-medium="shadow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--surface-base);
 	color: var(--lv-fill);
 	border: max(1px, var(--border-width-default)) solid var(--lv-fill);
 	box-shadow: 3px 3px 0 var(--lv-fill);
 }
-:root[data-button-medium="shadow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):active:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-button-medium="shadow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):active:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	box-shadow: 1px 1px 0 var(--lv-fill);
 	translate: var(--space-0-5) var(--space-0-5);
 }
-:root[data-button-medium="text"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-button-medium="text"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: transparent;
 	color: color-mix(in oklab, var(--lv-fill) 80%, var(--text-primary));
 	border-color: transparent;
@@ -713,22 +713,22 @@
 	:root[data-button-style="text"] :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: transparent; text-decoration: underline; text-underline-offset: 0.2em;
 	}
-	:root[data-button-medium="filled"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-button-medium="filled"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		opacity: var(--opacity-fill-hover);
 	}
-	:root[data-button-medium="tinted"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-button-medium="tinted"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: color-mix(in oklab, var(--lv-fill) 24%, var(--surface-base));
 	}
-	:root[data-button-medium="outlined"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-button-medium="outlined"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: color-mix(in oklab, var(--lv-fill) 8%, transparent);
 	}
-	:root[data-button-medium="shadow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-button-medium="shadow"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: color-mix(in oklab, var(--lv-fill) 12%, var(--surface-base));
 	}
-	:root[data-button-medium="text"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-button-medium="text"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: transparent; text-decoration: underline; text-underline-offset: 0.2em;
 	}
-	:root[data-button-medium="text"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row)):has(svg):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-style="text"] :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled):has(svg):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-button-medium="text"] :is(#ldp-lv, .quire-button:not(.primary, .ghost, .danger, .comments-pill, .reading-nav, .reading-row), .wp-block-post-content .wp-block-button.is-style-outline > .wp-block-button__link):has(svg):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-button-style="text"] :is(#ldp-lv, .quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger, .quire-icon-button.filled):has(svg):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: var(--surface-selected); text-decoration: none;
 	}
 	:root[data-button-quiet="filled"] :is(#ldp-lv, .quire-button.ghost):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -836,12 +836,12 @@
 	text-decoration-thickness: var(--border-width-thick);
 	text-underline-offset: 0.35em;
 }
-:root[data-cards="outline"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-cards="outline"] :is(#ldp-lv, .post-link-card, .post-neighbour, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-color: transparent;
 	background: var(--surface-base);
 	box-shadow: inset 0 0 0 max(1px, var(--border-width-default)) var(--line);
 }
-:root[data-cards="raised"] :is(#ldp-lv, .post-link-card, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-cards="raised"] :is(#ldp-lv, .post-link-card, .post-neighbour, .support-box, .release-panel, .release-archive-card, .theme-card, .about-numbers):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-color: transparent;
 	background: var(--surface-base);
 	box-shadow: 0 0 0 1px color-mix(in srgb, var(--text-primary) 6%, transparent), 0 1px 2px rgb(0 0 0 / 0.08), 0 10px 28px rgb(0 0 0 / 0.14);

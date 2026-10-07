@@ -1325,7 +1325,7 @@
 		['.wp-block-site-title', 'type', 'role:headings', 'Site name'],
 		['.current-menu-item > a, .quire-segmented .is-active, [aria-current="page"]', 'buttons', 'currentItem', 'Current item'],
 		['.article-media, .post-media, .wp-block-post-featured-image, .wp-block-image, .wp-block-post-content img', 'pictures', 'pictureFilter', 'Pictures'],
-		['.post-link-card, .support-box, .release-panel, .theme-card, .wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'cards', 'Cards'],
+		['.post-link-card, .post-neighbour, .support-box, .release-panel, .theme-card, .wp-block-post-content .wp-block-group.has-background, .entry-content .wp-block-group.has-background', 'corners-and-lines', 'cards', 'Cards'],
 		['input:not([type="checkbox"]):not([type="radio"]):not([type="submit"]), textarea, .quire-search-field', 'corners-and-lines', 'fields', 'Fields'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li) a', 'buttons', 'links', 'Links'],
 		/* THE SEVEN ROLES (2026-10-02): each part opens the role it answers to; the comments' parts too. Code before
