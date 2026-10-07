@@ -2186,6 +2186,8 @@
 		setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(function () { prime(); }); }, 700); /* built again for the next time, once the flow back has run */
 		if (morph.can() && morph.live()) morph.close(function () { if (!open) { win.hidden = true; zoomPage(); } }); else { if (door && door.style) { door.style.visibility = ''; door.style.opacity = ''; } if (sheetSlides()) sheetLeave(); else { win.hidden = true; sheetSize(); zoomPage(); } } /* and flows back into it; on a phone it leaves downward */
 		if (door && door.setAttribute) { door.setAttribute('aria-expanded', 'false'); if (!keepFocus && door.focus) door.focus({ preventScroll: true }); }
+		/* EVERY DOOR CLOSES, NOT ONLY THE ONE THAT OPENED (Manuel, 2026-10-07: Automatic switched on with the window open, the row's square stood pressed, a shade off its neighbour and deaf to the pointer, until the next opening). The square took the open state from the floating door when it became the button (panel-opener.js toSlot), and only the floating door was told the window had closed. */
+		Array.prototype.forEach.call(document.querySelectorAll('[data-reading-panel-open][aria-expanded="true"]'), function (d) { d.setAttribute('aria-expanded', 'false'); });
 	}
 	document.addEventListener('pointerup', function () { if (!holding) return; holding = false; if (open && dirty) { settleUntil = Date.now() + 200; render(); } }); /* the knob shrinks back before the window is drawn again, as the lab's */
 

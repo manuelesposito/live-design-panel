@@ -1899,6 +1899,7 @@
 		setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(function () { prime(); }); }, 700); 
 		if (morph.can() && morph.live()) morph.close(function () { if (!open) { win.hidden = true; zoomPage(); } }); else { if (door && door.style) { door.style.visibility = ''; door.style.opacity = ''; } if (sheetSlides()) sheetLeave(); else { win.hidden = true; sheetSize(); zoomPage(); } } 
 		if (door && door.setAttribute) { door.setAttribute('aria-expanded', 'false'); if (!keepFocus && door.focus) door.focus({ preventScroll: true }); }
+		Array.prototype.forEach.call(document.querySelectorAll('[data-reading-panel-open][aria-expanded="true"]'), function (d) { d.setAttribute('aria-expanded', 'false'); });
 	}
 	document.addEventListener('pointerup', function () { if (!holding) return; holding = false; if (open && dirty) { settleUntil = Date.now() + 200; render(); } }); 
 	

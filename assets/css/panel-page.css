@@ -808,11 +808,15 @@
    same tokens (style.css, AND EVERY PICTURE IN THE BODY STANDS IN THE SAME
    FIELD, THE FRAME'S PATTERN): the pictures in a post and a post's own
    picture, in a list too. Nothing else: a cover, a hero, a background or a
-   logo is the theme's design, and a frame there would break it. Only under a
+   logo is the theme's design, and a frame there would break it. A picture
+   block counts at any depth, in a group or columns as much as on its own,
+   since Architrave frames every picture in a post; never in a gallery, where
+   the pictures are a set (Manuel, 2026-09-05), and never a full-width one,
+   whose edges meet the page's (2026-10-07). Only under a
    look; the theme's own look keeps its pictures exactly. `border-box`, since
    a theme often gives a post's picture a fixed height, and the mat has to
    fit inside it rather than push the picture out. */
-:root[data-chosen]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+:root[data-chosen]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) .wp-block-image:not(.alignfull) img, :is(.wp-block-post-content, .entry-content) > :is(figure, p):not(.alignfull) img):not(.emoji, .wp-smiley):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *, .wp-block-gallery *)) {
 	box-sizing: border-box !important;
 	border: var(--picture-frame) solid var(--surface-hover) !important;
 	/* the look's picture corner (Pictures take the look's corner, below): a
@@ -824,19 +828,19 @@
 }
 /* With Lines on the frame is a line with the frame's width of clear ground
    inside it, as on Architrave. */
-:root[data-chosen][data-lines="on"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+:root[data-chosen][data-lines="on"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) .wp-block-image:not(.alignfull) img, :is(.wp-block-post-content, .entry-content) > :is(figure, p):not(.alignfull) img):not(.emoji, .wp-smiley):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *, .wp-block-gallery *)) {
 	border: var(--border-width-default, 1px) solid var(--line) !important;
 	padding: var(--picture-frame) !important;
 	background-color: transparent !important;
 }
 /* The pattern in the mat: the dot grid or the checkerboard. */
-:root[data-chosen][data-frame-pattern="dots"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+:root[data-chosen][data-frame-pattern="dots"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) .wp-block-image:not(.alignfull) img, :is(.wp-block-post-content, .entry-content) > :is(figure, p):not(.alignfull) img):not(.emoji, .wp-smiley):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *, .wp-block-gallery *)) {
 	background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--text-primary) 28%, transparent) 1px, transparent 1.25px) !important;
 	background-size: var(--space-1-5, 6px) var(--space-1-5, 6px) !important;
 	background-repeat: repeat !important;
 	background-origin: border-box !important;
 }
-:root[data-chosen][data-frame-pattern="checker"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+:root[data-chosen][data-frame-pattern="checker"]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) .wp-block-image:not(.alignfull) img, :is(.wp-block-post-content, .entry-content) > :is(figure, p):not(.alignfull) img):not(.emoji, .wp-smiley):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *, .wp-block-gallery *)) {
 	background-image: repeating-conic-gradient(color-mix(in srgb, var(--text-primary) 9%, transparent) 0 25%, transparent 0 50%) !important;
 	background-size: var(--space-3, 12px) var(--space-3, 12px) !important;
 	background-repeat: repeat !important;
@@ -846,11 +850,11 @@
    checkerboard by night: "the corner looks somehow off"). Catalogue's line is
    a translucent ink, and a pattern painted under it broke the line up along
    every edge and at the round corner; Architrave clips it the same way. */
-:root[data-chosen][data-lines="on"][data-frame-pattern]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+:root[data-chosen][data-lines="on"][data-frame-pattern]:not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) .wp-block-image:not(.alignfull) img, :is(.wp-block-post-content, .entry-content) > :is(figure, p):not(.alignfull) img):not(.emoji, .wp-smiley):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *, .wp-block-gallery *)) {
 	background-origin: padding-box !important;
 	background-clip: padding-box !important;
 }
-:root[data-chosen][data-frame-pattern]:not([data-lines="on"]):not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) > :is(.wp-block-image, figure, p) img:not(.emoji, .wp-smiley)):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *)) {
+:root[data-chosen][data-frame-pattern]:not([data-lines="on"]):not([data-pictureframe="off"]):not([data-pictures="hidden"]) :is(:is(.wp-block-post-featured-image, .post-thumbnail) img, :is(.wp-block-post-content, .entry-content) .wp-block-image:not(.alignfull) img, :is(.wp-block-post-content, .entry-content) > :is(figure, p):not(.alignfull) img):not(.emoji, .wp-smiley):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener, .architrave-panel-opener *, .wp-block-cover *, .wp-block-gallery *)) {
 	border-color: transparent !important;
 }
 
