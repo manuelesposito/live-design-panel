@@ -305,6 +305,7 @@
 					
 					var inner = /^(colours|roles)(\.|$)/.test(q);
 					if (v === undefined && inner) { if (u && typeof u === 'object' && !Array.isArray(u)) walk(u, {}, q); else out.push(q); return; }
+					if (v === undefined && !p && k === 'preset') { out.push(q); return; }
 					if (v === undefined) return;
 					if (u && typeof u === 'object' && !Array.isArray(u) && v && typeof v === 'object') walk(u, v, q);
 					else if (JSON.stringify(u) !== JSON.stringify(v)) out.push(q);

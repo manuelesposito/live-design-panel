@@ -356,6 +356,11 @@
 					   no difference, so every colour he changed was invisible and Reset Style stayed grey. Left out is the rest here too. */
 					var inner = /^(colours|roles)(\.|$)/.test(q);
 					if (v === undefined && inner) { if (u && typeof u === 'object' && !Array.isArray(u)) walk(u, {}, q); else out.push(q); return; }
+					/* AND THE COLOUR PRESET (2026-10-07, Manuel: "the Book style has lost its colour ... we cannot reset"): Book's
+					   record had let its preset go and written no colours, its start named the preset with no colours; the one
+					   difference was a key one side left out, so Reset Style was hidden exactly when it was needed. A preset
+					   left out is the theme's own colours, which is a difference. */
+					if (v === undefined && !p && k === 'preset') { out.push(q); return; }
 					if (v === undefined) return;
 					if (u && typeof u === 'object' && !Array.isArray(u) && v && typeof v === 'object') walk(u, v, q);
 					else if (JSON.stringify(u) !== JSON.stringify(v)) out.push(q);
