@@ -6,8 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 /* Quire Design System — quire-icons.php
  * GENERATED FILE — do not edit.
  *
- * version 0.75.8
- * build   38507ae4ac9c
+ * version 0.75.14
+ * build   a366436454a8
  *
  * Source:  design-system/tokens/icons.json
  * Wiring:  design-system/tokens/manifest.json
@@ -40,15 +40,17 @@ return array(
 	// unaltered: the small a's bowl is a 1.02-ratio arc and redrawing it by hand
 	// is how a copy stops matching the family.
 	'a-large-small' => "<path d=\"m15 16 2.536-7.328a1.02 1.02 1 0 1 1.928 0L22 16\"/><path d=\"M15.697 14h5.606\"/><path d=\"m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16\"/><path d=\"M3.304 13h6.392\"/>", // lucide:a-large-small
+	// THE OLDER POST (Architrave, 2026-09-15): the date line's two arrows walk
+	// the posts; the mirror of `arrow-right`. Architrave carried it in its copy
+	// of this registry by hand; written back here 2026-10-07 so the copy can be
+	// current again. Lucide's own path, unaltered.
+	'arrow-left' => "<path d=\"m12 19-7-7 7-7\"/><path d=\"M19 12H5\"/>", // lucide:arrow-left
 	// Where you are in a list, and where a row will take you (DS-280). The
 	// family had `arrow-up-right`, which is the LEAVING mark — it means this
 	// link goes somewhere off this site — and `chevron-right`, which means this
 	// row opens something. Neither says 'this one, here, now'. Lucide's own
 	// path, unaltered.
 	'arrow-right' => "<path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/>", // lucide:arrow-right
-	// THE OLDER POST (2026-09-15): the date line's two arrows walk the posts;
-	// the mirror of the mark above, Lucide's own path, unaltered.
-	'arrow-left' => "<path d=\"m12 19-7-7 7-7\"/><path d=\"M19 12H5\"/>", // lucide:arrow-left
 	'arrow-up-right' => "<path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/>", // lucide:arrow-up-right
 	// A POST FORMAT'S MARK (DS-290). WordPress lets a post declare what KIND of
 	// thing it is — eight formats plus the standard post — and a list of a
@@ -65,6 +67,16 @@ return array(
 	// other candidate and its six dots at 16px are texture, not information.
 	'calendar' => "<path d=\"M8 2v3\"/><path d=\"M16 2v3\"/><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M3 9h18\"/>", // lucide:calendar
 	'check' => "<path d=\"M20 6 9 17l-5-5\"/>", // lucide:check
+	// TAKE THIS OUT OF THE SET (DS-380). The row control of a list whose items
+	// are INCLUDED or not: Apple's edit mode draws it as a minus in a circle at
+	// the row's start (UIKit's delete editing style, the Control Center and
+	// Health favourites lists), paired with `circle-plus`; an item that cannot
+	// be taken out carries no control at all. Lucide's own path, unaltered.
+	'circle-minus' => "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M8 12h8\"/>", // lucide:circle-minus
+	// PUT THIS INTO THE SET (DS-380), the pair of `circle-minus`: Apple's insert
+	// editing style, the plus in a circle at the start of a row that can join
+	// the included list. Lucide's own path, unaltered.
+	'circle-plus' => "<circle cx=\"12\" cy=\"12\" r=\"10\"/><path d=\"M8 12h8\"/><path d=\"M12 8v8\"/>", // lucide:circle-plus
 	'chevron-down' => "<path d=\"m6 9 6 6 6-6\"/>", // lucide:chevron-down
 	'chevron-left' => "<path d=\"m15 18-6-6 6-6\"/>", // lucide:chevron-left
 	'chevron-right' => "<path d=\"m9 18 6-6-6-6\"/>", // lucide:chevron-right
@@ -73,6 +85,8 @@ return array(
 	'chevrons-up-down' => "<path d=\"m7 15 5 5 5-5\"/><path d=\"m7 9 5-5 5 5\"/>", // lucide:chevrons-up-down
 	'settings' => "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", // lucide:settings
 	'eye-closed' => "<path d=\"m15 18-.722-3.25\"/><path d=\"M2 8a10.645 10.645 0 0 0 20 0\"/><path d=\"m20 15-1.726-2.05\"/><path d=\"m4 15 1.726-2.05\"/><path d=\"m9 18 .722-3.25\"/>", // lucide:eye-closed
+	'pipette' => "<path d=\"m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12\"/><path d=\"m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z\"/><path d=\"m2 22 .414-.414\"/>", // lucide:pipette
+	'unlink' => "<path d=\"m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71\"/><path d=\"m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71\"/><line x1=\"8\" x2=\"8\" y1=\"2\" y2=\"5\"/><line x1=\"2\" x2=\"5\" y1=\"8\" y2=\"8\"/><line x1=\"16\" x2=\"16\" y1=\"19\" y2=\"22\"/><line x1=\"19\" x2=\"22\" y1=\"16\" y2=\"16\"/>", // lucide:unlink
 	// Drawn to the menu mark's own width (4→20 rather than Lucide's 6→18)
 	// because the two are one control in two states: they swap in place, and ink
 	// that changes width makes the control jump.
@@ -215,6 +229,12 @@ return array(
 	'message-square-dashed' => "<path d=\"M14 3h2\"/><path d=\"M16 19h-2\"/><path d=\"M2 12v-2\"/><path d=\"M2 16v5.286a.71.71 0 0 0 1.212.502l1.149-1.149\"/><path d=\"M20 19a2 2 0 0 0 2-2v-1\"/><path d=\"M22 10v2\"/><path d=\"M22 6V5a2 2 0 0 0-2-2\"/><path d=\"M4 3a2 2 0 0 0-2 2v1\"/><path d=\"M8 19h2\"/><path d=\"M8 3h2\"/>", // lucide:message-square-dashed
 	'moon' => "<path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/>", // lucide:moon
 	'more' => "<circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/><circle cx=\"5\" cy=\"12\" r=\"1\"/>", // lucide:ellipsis
+	// THE RAIL'S MORE (Manuel, 2026-10-07: 'the three vertical dot icon from the
+	// Lucide icon in front of the More button, not the chevron up'). The up
+	// chevron said only WHERE the menu would open; the dots say WHAT the button
+	// holds, as `more` does on a row. Vertical because the button stands in a
+	// column and opens a column. Lucide's own path, unaltered.
+	'more-vertical' => "<circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"12\" cy=\"5\" r=\"1\"/><circle cx=\"12\" cy=\"19\" r=\"1\"/>", // lucide:ellipsis-vertical
 	'newspaper' => "<path d=\"M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2\"/><path d=\"M18 14h-8\"/><path d=\"M15 18h-5\"/><path d=\"M10 6h8v4h-8V6Z\"/>", // lucide:newspaper
 	'palette' => "<circle cx=\"13.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"17.5\" cy=\"10.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"8.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"6.5\" cy=\"12.5\" r=\".5\" fill=\"currentColor\"/><path d=\"M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z\"/>", // lucide:palette
 	'panel-close' => "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M9 3v18\"/><path d=\"m16 15-3-3 3-3\"/>", // lucide:panel-left-close
@@ -362,4 +382,15 @@ return array(
 	'volume-2' => "<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\"/><path d=\"M16 9a5 5 0 0 1 0 6\"/><path d=\"M19.364 18.364a9 9 0 0 0 0-12.728\"/>", // lucide:volume-2
 	// Sound is off. The twin of `volume-2`.
 	'volume-x' => "<path d=\"M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z\"/><line x1=\"22\" x2=\"16\" y1=\"9\" y2=\"15\"/><line x1=\"16\" x2=\"22\" y1=\"9\" y2=\"15\"/>", // lucide:volume-x
+	// ONE STEP BACK (DS-381). The undo control of an editing surface, drawn as
+	// Apple draws it: an arrow that turns back on itself (SF Symbols
+	// arrow.uturn.backward), in the head of the page beside the More button, the
+	// way Pages, Keynote and Freeform put Undo in their toolbar. Lucide's own
+	// path, unaltered.
+	'undo' => "<path d=\"M9 14 4 9l5-5\"/><path d=\"M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5a5.5 5.5 0 0 1-5.5 5.5H11\"/>", // lucide:undo-2
+	// MOVE THIS ROW (DS-382). The handle at the end of a row in a list the
+	// person can order, as Apple draws it in edit mode (SF Symbols
+	// line.3.horizontal): three equal lines. Not `menu`, which is the site's
+	// two-line menu mark. Lucide's own path, unaltered.
+	'reorder' => "<path d=\"M4 6h16\"/><path d=\"M4 12h16\"/><path d=\"M4 18h16\"/>", // lucide:menu
 );

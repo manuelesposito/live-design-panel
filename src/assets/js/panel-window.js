@@ -623,7 +623,7 @@
 		var s = St(), night = s.side() === 'dark', guest = s.guest();
 		var fx = function (id, d) { return pickRow('effects.' + id + '.' + d).replace('class="ldpw-r', 'class="ldpw-r ldpw-fxd'); }; /* one detail of an effect, set in under it (ldpw-fxd) */
 		var on = function (key, rest) { return s.get(key) !== rest; };
-		var rest = function (key) { var x = setting(key); return x ? (x.def !== undefined && x.def !== null ? x.def : (x.choices || x.steps || [])[0]) : undefined; };
+		var rest = function (key) { if (s.guest() && GUEST_REST[key]) return GUEST_REST[key]; var x = setting(key); return x ? (x.def !== undefined && x.def !== null ? x.def : (x.choices || x.steps || [])[0]) : undefined; };
 		/* a row: its key, whether it is on (off its rest), and its html with its details while it is on */
 		var R = function (key, details, isOn) { var lit = isOn !== undefined ? !!isOn : on(key, rest(key)); return { k: key, on: lit, html: pickRow(key) + (lit && details ? details() : '') }; };
 		var F = function (id, d, details) { var key = 'effects.' + id + '.' + d, lit = on(key, rest(key)); return { k: key, on: lit, html: fx(id, d) + (lit && details ? details() : '') }; };
@@ -1373,7 +1373,7 @@
 		['.wp-block-post-excerpt, .rail-newsletter-door-hint, .empty-note', 'type', 'role:body', 'Reading text'],
 		/* THE ROUTE CARD'S GREY LINE (Manuel, 2026-10-07, the Vibetiles page: "how is that possible that that little text is reading text?"): a paragraph in the content, so the paragraph row below caught it, while Small text is what sizes it. */
 		['blockquote cite, .ruler-label small, .arch-row-date, .wp-block-post-author__name, .release-route-kind, .release-routes-note, .entry-content:has(.rail-newsletter-door.is-page) > p.wp-block-paragraph', 'type', 'role:meta', 'Small text'],
-		['.post-more, .arch-row-title, .comments-side-credit, .comment-replying-to, .comment-badge, .about-numbers-row, .theme-switch, .theme-count, .empty-back, .sent-word', 'type', 'role:interface', 'Interface'],
+		['.post-more, .arch-row-title, .paper-credit, .comment-replying-to, .comment-badge, .about-numbers-row, .theme-switch, .theme-count, .empty-back, .sent-word', 'type', 'role:interface', 'Interface'],
 		['blockquote', 'type', 'role:quote', 'Quotes'],
 		['.wp-block-comment-content, .comment-content', 'type', 'role:body', 'Reading text'],
 		/* THE SMALL WORDS THAT HAD NO ROW OF THEIR OWN HERE (Manuel, 2026-10-01: "I can't click that little text with our tool to find out which setting it is"): the rail's section titles fell through to the whole rail as Interface, and the plate at the page's foot to Colour. */

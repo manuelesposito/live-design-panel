@@ -544,7 +544,7 @@
 		var s = St(), night = s.side() === 'dark', guest = s.guest();
 		var fx = function (id, d) { return pickRow('effects.' + id + '.' + d).replace('class="ldpw-r', 'class="ldpw-r ldpw-fxd'); }; 
 		var on = function (key, rest) { return s.get(key) !== rest; };
-		var rest = function (key) { var x = setting(key); return x ? (x.def !== undefined && x.def !== null ? x.def : (x.choices || x.steps || [])[0]) : undefined; };
+		var rest = function (key) { if (s.guest() && GUEST_REST[key]) return GUEST_REST[key]; var x = setting(key); return x ? (x.def !== undefined && x.def !== null ? x.def : (x.choices || x.steps || [])[0]) : undefined; };
 		var R = function (key, details, isOn) { var lit = isOn !== undefined ? !!isOn : on(key, rest(key)); return { k: key, on: lit, html: pickRow(key) + (lit && details ? details() : '') }; };
 		var F = function (id, d, details) { var key = 'effects.' + id + '.' + d, lit = on(key, rest(key)); return { k: key, on: lit, html: fx(id, d) + (lit && details ? details() : '') }; };
 		var H = function (key, html, lit) { return { k: key, on: !!lit, html: html }; };
@@ -1201,7 +1201,7 @@
 		['.rail-newsletter-door-head', 'type', 'role:title', 'Title'],
 		['.wp-block-post-excerpt, .rail-newsletter-door-hint, .empty-note', 'type', 'role:body', 'Reading text'],
 		['blockquote cite, .ruler-label small, .arch-row-date, .wp-block-post-author__name, .release-route-kind, .release-routes-note, .entry-content:has(.rail-newsletter-door.is-page) > p.wp-block-paragraph', 'type', 'role:meta', 'Small text'],
-		['.post-more, .arch-row-title, .comments-side-credit, .comment-replying-to, .comment-badge, .about-numbers-row, .theme-switch, .theme-count, .empty-back, .sent-word', 'type', 'role:interface', 'Interface'],
+		['.post-more, .arch-row-title, .paper-credit, .comment-replying-to, .comment-badge, .about-numbers-row, .theme-switch, .theme-count, .empty-back, .sent-word', 'type', 'role:interface', 'Interface'],
 		['blockquote', 'type', 'role:quote', 'Quotes'],
 		['.wp-block-comment-content, .comment-content', 'type', 'role:body', 'Reading text'],
 		['.quire-nav-section-heading, .quire-nav-section-head', 'type', 'role:interface', 'Interface'],

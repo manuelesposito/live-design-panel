@@ -1,8 +1,8 @@
 /* Quire Design System — quire.icons.js
  * GENERATED FILE — do not edit.
  *
- * version 0.75.13
- * build   58d0f22a4ee9
+ * version 0.75.14
+ * build   215436735861
  *
  * Source:  design-system/tokens/icons.json
  * Wiring:  design-system/tokens/manifest.json
@@ -29,6 +29,7 @@
     "viewBox": "0 0 24 24",
     "icons": {
       "a-large-small": "<path d=\"m15 16 2.536-7.328a1.02 1.02 1 0 1 1.928 0L22 16\"/><path d=\"M15.697 14h5.606\"/><path d=\"m2 16 4.039-9.69a.5.5 0 0 1 .923 0L11 16\"/><path d=\"M3.304 13h6.392\"/>",
+      "arrow-left": "<path d=\"m12 19-7-7 7-7\"/><path d=\"M19 12H5\"/>",
       "arrow-right": "<path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/>",
       "arrow-up-right": "<path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/>",
       "audio-lines": "<path d=\"M2 10v3\"/><path d=\"M6 6v11\"/><path d=\"M10 3v18\"/><path d=\"M14 8v7\"/><path d=\"M18 5v13\"/><path d=\"M22 10v3\"/>",
@@ -74,6 +75,7 @@
       "message-square-dashed": "<path d=\"M14 3h2\"/><path d=\"M16 19h-2\"/><path d=\"M2 12v-2\"/><path d=\"M2 16v5.286a.71.71 0 0 0 1.212.502l1.149-1.149\"/><path d=\"M20 19a2 2 0 0 0 2-2v-1\"/><path d=\"M22 10v2\"/><path d=\"M22 6V5a2 2 0 0 0-2-2\"/><path d=\"M4 3a2 2 0 0 0-2 2v1\"/><path d=\"M8 19h2\"/><path d=\"M8 3h2\"/>",
       "moon": "<path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/>",
       "more": "<circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"19\" cy=\"12\" r=\"1\"/><circle cx=\"5\" cy=\"12\" r=\"1\"/>",
+      "more-vertical": "<circle cx=\"12\" cy=\"12\" r=\"1\"/><circle cx=\"12\" cy=\"5\" r=\"1\"/><circle cx=\"12\" cy=\"19\" r=\"1\"/>",
       "newspaper": "<path d=\"M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2\"/><path d=\"M18 14h-8\"/><path d=\"M15 18h-5\"/><path d=\"M10 6h8v4h-8V6Z\"/>",
       "palette": "<circle cx=\"13.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"17.5\" cy=\"10.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"8.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"6.5\" cy=\"12.5\" r=\".5\" fill=\"currentColor\"/><path d=\"M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z\"/>",
       "panel-close": "<rect width=\"18\" height=\"18\" x=\"3\" y=\"3\" rx=\"2\"/><path d=\"M9 3v18\"/><path d=\"m16 15-3-3 3-3\"/>",

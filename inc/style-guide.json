@@ -52,7 +52,7 @@
     "chosenitem": "Retired 2026-10-03 and still read: becomes currentItem, the same looks.",
     "linewidth": "Retired 2026-10-03 and still read: with lines, it becomes borderWidth (1, 2, 3, 5).",
     "cards": "How cards and boxes look: the theme's cards (link cards, the support box) and a box the writer coloured in an article (a Group block with a background): filled (the rest: the card's own fill, and with lines its line), outlined (a line on the paper, whatever the lines setting; a coloured box keeps its colour) or raised (lifted by a shadow).",
-    "quotes": "How quotes look, in an article and as a quote post: indented (set in from the edge, no line; the rest), plain (the words alone, not set in), sideLine (set in, with a vertical line at the side, whatever the lines setting) or filled (in a box with its fill; a quote post's card). Quotes are italic.",
+    "quotes": "How quotes look, in an article and as a quote post: sideLine (set in, with a vertical line at the side, whatever the lines setting; the rest on Architrave), indented (set in from the edge, no line; the rest on another theme), plain (the words alone, not set in) or filled (in a box with its fill; a quote post's card). Quotes are italic.",
     "notes": "Retired 2026-10-05 and still read: a box the writer coloured follows cards now.",
     "fields": "How search, comment and sign-up fields look: filled (the rest: the fill, with lines its line), outlined (a line on the paper) or raised (lifted by a shadow).",
     "paragraphs": "Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.",

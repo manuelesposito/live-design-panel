@@ -863,10 +863,10 @@
 :root[data-quotes="line"] :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-inline-start: var(--border-width-thick) solid var(--border-strong);
 }
-:root[data-quotes="line"][data-lines="on"][data-line-style="dashed"] :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-quotes="line"][data-lines="on"][data-line-style="dashed"] :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root:not([data-quotes])[data-lines="on"][data-line-style="dashed"] :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-inline-start-style: dashed;
 }
-:root[data-quotes="line"][data-lines="on"][data-line-style="dotted"] :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-quotes="line"][data-lines="on"][data-line-style="dotted"] :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root:not([data-quotes])[data-lines="on"][data-line-style="dotted"] :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-inline-start-style: dotted;
 }
 :root[data-quotes="plain"] :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -1597,7 +1597,7 @@ html:root[data-cap-face="fraunces"] {
 :root[data-kicker-leading] :is(.single-post-article .article-kicker, .post-card .post-kicker) {
 	line-height: calc(var(--line-height-article-label) * var(--kicker-leading, 1));
 }
-:root[data-ui-weight] :is(.sidebar-column, .mobile-panel) .wp-block-navigation-item__content, :root[data-ui-weight] .quire-menu-item:not(.reading-panel .quire-menu-item), :root[data-ui-weight] :is(.rail-more-trigger, .post-card .post-more, .comments-side-foot .comments-side-credit, .seat-label, .quire-badge, .sidebar-column .wp-block-latest-posts a) {
+:root[data-ui-weight] :is(.sidebar-column, .mobile-panel) .wp-block-navigation-item__content, :root[data-ui-weight] .quire-menu-item:not(.reading-panel .quire-menu-item), :root[data-ui-weight] :is(.rail-more-trigger, .post-card .post-more, .content-column .paper-credit, .seat-label, .quire-badge, .sidebar-column .wp-block-latest-posts a) {
 	font-weight: var(--ui-weight);
 }
 :root[data-ui-weight] .quire-button:not(.reading-panel .quire-button):not(.comments-section .quire-button) {
@@ -2911,22 +2911,22 @@ html:root[data-interface-colour] :is(.sidebar-column, .mobile-panel) :is(.wp-blo
 :root[data-ui-m-labels-tracking][data-ui-m-labels-tracking] :is(.quire-tooltip-bubble, .quire-badge:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))) {
 	letter-spacing: var(--ui-tracking-labels);
 }
-:root[data-ui-m-credit-weight] :is(body.has-frame .comments-side-foot .comments-side-credit) {
+:root[data-ui-m-credit-weight] :is(.content-column .paper-credit) {
 	--ui-weight: var(--ui-weight-credit);
 }
-:root[data-ui-m-credit-caps] :is(body.has-frame .comments-side-foot .comments-side-credit) {
+:root[data-ui-m-credit-caps] :is(.content-column .paper-credit) {
 	--ui-case: var(--ui-case-credit);
 }
-:root[data-ui-m-credit-tracking] :is(body.has-frame .comments-side-foot .comments-side-credit) {
+:root[data-ui-m-credit-tracking] :is(.content-column .paper-credit) {
 	--ui-tracking: var(--ui-tracking-credit);
 }
-:root[data-ui-m-credit-weight][data-ui-m-credit-weight] :is(body.has-frame .comments-side-foot .comments-side-credit) {
+:root[data-ui-m-credit-weight][data-ui-m-credit-weight] :is(.content-column .paper-credit) {
 	font-weight: var(--ui-weight-credit);
 }
-:root[data-ui-m-credit-caps][data-ui-m-credit-caps] :is(body.has-frame .comments-side-foot .comments-side-credit) {
+:root[data-ui-m-credit-caps][data-ui-m-credit-caps] :is(.content-column .paper-credit) {
 	text-transform: var(--ui-case-credit);
 }
-:root[data-ui-m-credit-tracking][data-ui-m-credit-tracking] :is(body.has-frame .comments-side-foot .comments-side-credit) {
+:root[data-ui-m-credit-tracking][data-ui-m-credit-tracking] :is(.content-column .paper-credit) {
 	letter-spacing: var(--ui-tracking-credit);
 }
 :root[data-head-m-sub-align][data-head-m-sub-align] :is(.single-post-article .wp-block-post-content > :is(h1, h2, h3, h4, h5, h6)):not([class*="has-text-align-"]) {

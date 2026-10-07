@@ -561,7 +561,7 @@
 			chosenitem: 'Retired 2026-10-03 and still read: becomes currentItem, the same looks.',
 			linewidth: 'Retired 2026-10-03 and still read: with lines, it becomes borderWidth (1, 2, 3, 5).',
 			cards: 'How cards and boxes look: the theme\'s cards (link cards, the support box) and a box the writer coloured in an article (a Group block with a background): filled (the rest: the card\'s own fill, and with lines its line), outlined (a line on the paper, whatever the lines setting; a coloured box keeps its colour) or raised (lifted by a shadow).',
-			quotes: 'How quotes look, in an article and as a quote post: indented (set in from the edge, no line; the rest), plain (the words alone, not set in), sideLine (set in, with a vertical line at the side, whatever the lines setting) or filled (in a box with its fill; a quote post\'s card). Quotes are italic.',
+			quotes: 'How quotes look, in an article and as a quote post: sideLine (set in, with a vertical line at the side, whatever the lines setting; the rest on Architrave), indented (set in from the edge, no line; the rest on another theme), plain (the words alone, not set in) or filled (in a box with its fill; a quote post\'s card). Quotes are italic.',
 			notes: 'Retired 2026-10-05 and still read: a box the writer coloured follows cards now.',
 			fields: 'How search, comment and sign-up fields look: filled (the rest: the fill, with lines its line), outlined (a line on the paper) or raised (lifted by a shadow).',
 			paragraphs: 'Paragraphs spaced apart (the rest) or indented with no space between, as print sets them.',
@@ -1173,7 +1173,7 @@
 		var s = byId(current), b = s && byId(baseOf(s)), tw = readTweaks()[current] || {};
 		return []; 
 	}
-	function pickRest(key) { return key === 'links' && optionOn('soft') ? 'underlined' : PICKS[key].list[0]; }
+	function pickRest(key) { return key === 'links' && optionOn('soft') ? 'underlined' : key === 'quotes' && !GUEST ? 'sideLine' : PICKS[key].list[0]; } 
 	function pickOf(key) {
 		if (key === 'fullpicture') return layoutOf('pictureWidth') === 'full' ? 'on' : 'off';
 		if (key === 'widefigures') return layoutOf('figureWidth') === 'wide' ? 'on' : 'off';
@@ -1185,7 +1185,7 @@
 		if (tw && d.list.indexOf(tw[key]) !== -1) return tw[key];
 		return (s && d.list.indexOf(s[key]) !== -1) ? s[key] : pickRest(key);
 	}
-	function applyPicks() { Object.keys(PICKS).forEach(function (k) { var d = PICKS[k], v = pickOf(k), e = SURFACE_ENGINE[k] && SURFACE_ENGINE[k][v] ? SURFACE_ENGINE[k][v] : v; if (v === d.list[0]) root.removeAttribute(d.attr); else if (root.getAttribute(d.attr) !== e) root.setAttribute(d.attr, e); }); screenEffects(); } 
+	function applyPicks() { Object.keys(PICKS).forEach(function (k) { var d = PICKS[k], v = pickOf(k), e = SURFACE_ENGINE[k] && SURFACE_ENGINE[k][v] ? SURFACE_ENGINE[k][v] : v; if (v === (k === 'quotes' ? pickRest(k) : d.list[0])) root.removeAttribute(d.attr); else if (root.getAttribute(d.attr) !== e) root.setAttribute(d.attr, e); }); screenEffects(); } 
 	function effectsOf(s, tw) {
 		var out = {};
 		Object.keys(EFFECTS).forEach(function (fid) {
