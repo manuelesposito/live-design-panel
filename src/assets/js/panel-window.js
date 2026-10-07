@@ -1375,6 +1375,8 @@
 		['.wp-block-comment-content, .comment-content', 'type', 'role:body', 'Reading text'],
 		/* THE SMALL WORDS THAT HAD NO ROW OF THEIR OWN HERE (Manuel, 2026-10-01: "I can't click that little text with our tool to find out which setting it is"): the rail's section titles fell through to the whole rail as Interface, and the plate at the page's foot to Colour. */
 		['.quire-nav-section-heading, .quire-nav-section-head', 'type', 'role:interface', 'Interface'],
+		/* THE NEWSLETTER CARD ABOVE MORE (Manuel, 2026-10-07: "I cannot select the text in the newsletter button. It selects the whole sidebar."): the card is new since Elmastudio Site 0.2.10 and no row named it, so the sidebar caught it. Its two lines are a row's and a section title's, sized by Interface. */
+		['.rail-newsletter-field', 'type', 'role:interface', 'Interface'],
 		['nav, .wp-block-navigation, .sidebar-column', 'type', 'role:interface', 'Interface'],
 		[':is(.wp-block-post-content, .entry-content) :is(p, li)', 'type', 'role:body', 'Reading text'],
 		['main, .content-column, .wp-site-blocks, body', 'colour', '', 'Colour']
