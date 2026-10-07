@@ -466,7 +466,7 @@
 			{ id: 'fields', rest: 13, weight: 'regular' },
 			{ id: 'menus', rest: 13, lead: true },
 			{ id: 'labels', rest: 11, weight: 'regular' },
-			{ id: 'credit', rest: 11, weight: 'regular' }
+			{ id: 'credit', rest: 12, weight: 'regular' }
 		],
 		head: [
 			{ id: 'title', rest: 64, lead: true },
