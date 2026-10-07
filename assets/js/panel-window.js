@@ -275,12 +275,31 @@
 	function faceName(id) { if (FOLLOW[id]) return t(FOLLOW[id]); if (!id) return t('Theme Monospace'); var f = St().faces(id).filter(function (x) { return x.id === id; })[0]; return f ? f.label : id; }
 	function realFace(id) { for (var i = 0; i < 3 && FOLLOW[id]; i++) id = St().type(id).font; return FOLLOW[id] ? 'inter' : id; }
 	function fontCost() {
-		var s = St(), faces = {}, files = [], fams = {};
-		roles().forEach(function (r) { var f = realFace((s.type(r.id) || {}).font); if (f) faces[f] = 1; }); 
-		try { files = performance.getEntriesByType('resource').filter(function (e) {
-			if (!/\.(woff2?|ttf|otf)(\?|$)/i.test(e.name)) return false;
-			return Object.keys(faces).some(function (f) { if (new RegExp('/' + f + '(-latin|/)').test(e.name)) { fams[f] = 1; return true; } return false; });
-		}); } catch (e) {  }
+		var drawn = {}, rules = {}, files = [], fams = {};
+		var fam = function (v) { return String(v || '').split(',')[0].trim().replace(/^["']|["']$/g, '').toLowerCase(); };
+		var slant = function (v) { return /italic|oblique/.test(v || '') ? 'italic' : 'normal'; };
+		try {
+			[].forEach.call(document.body.querySelectorAll('*'), function (el) {
+				if (el.closest('#ldp-window, .reading-panel, .architrave-panel-opener, #wpadminbar')) return;
+				var own = [].some.call(el.childNodes, function (n) { return 3 === n.nodeType && /\S/.test(n.nodeValue); });
+				if (!own || !el.getClientRects().length) return;
+				var cs = getComputedStyle(el); drawn[fam(cs.fontFamily) + '|' + slant(cs.fontStyle)] = 1;
+			});
+			var walk = function (list, base) { [].forEach.call(list || [], function (r) {
+				if (r.cssRules) { walk(r.cssRules, base); return; }
+				if (!(window.CSSFontFaceRule && r instanceof CSSFontFaceRule)) return;
+				var key = fam(r.style.getPropertyValue('font-family')) + '|' + slant(r.style.getPropertyValue('font-style'));
+				(r.style.getPropertyValue('src').match(/url\(\s*["']?[^"')]+/g) || []).forEach(function (u) {
+					try { rules[new URL(u.replace(/^url\(\s*["']?/, ''), base).href.split('?')[0]] = key; } catch (e) {  }
+				});
+			}); };
+			[].forEach.call(document.styleSheets, function (sh) { try { walk(sh.cssRules, sh.href || location.href); } catch (e) {  } });
+			files = performance.getEntriesByType('resource').filter(function (e) {
+				var key = rules[e.name.split('?')[0]];
+				if (!key || !drawn[key]) return false;
+				fams[key.split('|')[0]] = 1; return true;
+			});
+		} catch (e) {  }
 		var kb = Math.round(files.reduce(function (a, e) { return a + (e.decodedBodySize || e.encodedBodySize || e.transferSize || 0); }, 0) / 1024);
 		return { fonts: Object.keys(fams).length, files: files.length, kb: kb };
 	}
