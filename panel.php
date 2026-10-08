@@ -518,6 +518,7 @@ function architrave_panel_enqueue_scripts() {
 		'architrave-reading-panel'   => array( 'assets/js/reading-panel.js', array( 'architrave-presets', 'architrave-reading-scale', 'architrave-reading-face', 'architrave-reading-leading', 'architrave-color-mode', 'quire-icons' ), true ),
 		'architrave-panel-opener'    => array( 'assets/js/panel-opener.js', array( 'architrave-reading-panel' ), true ),
 		'architrave-space'           => array( 'assets/js/space.js', array(), true ),
+		'architrave-dropcap'         => array( 'assets/js/dropcap.js', array(), true ),
 	);
 	foreach ( $list as $handle => $item ) {
 		wp_enqueue_script( $handle, $base . $item[0], $item[1], architrave_panel_asset_version( $item[0] ), array( 'in_footer' => $item[2] ) );

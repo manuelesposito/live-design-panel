@@ -90,6 +90,9 @@ The readable source and the build scripts are at https://github.com/manuelesposi
 
 == Changelog ==
 
+= 0.56.7 =
+* A drop cap is drawn only where the first paragraph has room for it: at least two lines more than the cap is tall. A short opening keeps its first letter plain.
+
 = 0.56.2 =
 * Try mode: a page can offer "Try it on this page", and a visitor tries the panel without anything being saved.
 * The writing on a filled button is chosen by its fill, so it always reads.

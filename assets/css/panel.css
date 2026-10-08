@@ -922,7 +922,7 @@
 html:root[data-cap-face="title"] {
 	--reading-dropcap-face: var(--head-face, var(--font-reading)); --reading-dropcap-weight: min(900, calc(var(--head-weight, 600) + 200)); --reading-dropcap-settings: "opsz" 11;
 }
-:root[data-dropcap="on"][data-cap-face="title"] :is(.single-post-article .wp-block-post-content, .post-card .post-body :is(.wp-block-post-excerpt, .entry-content)) > p:first-of-type::first-letter {
+:root[data-dropcap="on"][data-cap-face="title"] .single-post-article .wp-block-post-content > p:first-of-type::first-letter {
 	font-style: var(--head-style, normal); color: var(--head-colour, inherit);
 }
 :root[data-links="bold"] {
@@ -2556,16 +2556,16 @@ button.reading-row {
 	display: block;
 	background: none;
 }
-:root[data-lines="on"] .post-share-split .post-share-more-btn {
+:root:is([data-lines="on"], [data-button-medium="outlined"], [data-button-medium="shadow"]) .post-share-split .post-share-more-btn {
 	margin-inline-start: calc(-1 * var(--border-width-default));
 }
-:root[data-lines="on"] .post-share-split > :is(.copy-url-btn, .post-share-more) {
+:root:is([data-lines="on"], [data-button-medium="outlined"], [data-button-medium="shadow"]) .post-share-split > :is(.copy-url-btn, .post-share-more) {
 	position: relative;
 }
-:root[data-lines="on"] body .post-share-split .post-share-more-btn:not(:hover):not(:focus-visible):not([aria-expanded="true"]):not(:active) {
+:root:is([data-lines="on"], [data-button-medium="outlined"], [data-button-medium="shadow"]) body .post-share-split :is(#ldp-lv, .post-share-more-btn):not(:hover):not(:focus-visible):not([aria-expanded="true"]):not(:active) {
 	border-inline-start-color: transparent;
 }
-:root[data-lines="on"] .post-share-split :is(.copy-url-btn:hover, .copy-url-btn:focus-visible, .post-share-more:has(.post-share-more-btn:hover), .post-share-more:has(.post-share-more-btn:focus-visible), .post-share-more:has([aria-expanded="true"])) {
+:root:is([data-lines="on"], [data-button-medium="outlined"], [data-button-medium="shadow"]) .post-share-split :is(.copy-url-btn:hover, .copy-url-btn:focus-visible, .post-share-more:has(.post-share-more-btn:hover), .post-share-more:has(.post-share-more-btn:focus-visible), .post-share-more:has([aria-expanded="true"])) {
 	z-index: 1;
 }
 .reading-row.is-disabled .reading-row-label {

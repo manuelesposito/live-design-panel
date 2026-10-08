@@ -108,8 +108,9 @@
 	z-index: calc(var(--layer-overlay) + 3);
 	width: var(--layout-content-width-min);
 	max-width: calc(100vw - 2 * var(--space-4));
-	padding: var(--space-4);
-	border-radius: calc(var(--space-4) + var(--radius-control-base));
+	--card-padding: var(--space-4);
+	padding: var(--card-padding);
+	border-radius: calc(var(--card-padding) + var(--radius-control-base));
 	background: var(--surface-raised);
 	color: var(--text-primary);
 	box-shadow: var(--elevation-floating);
