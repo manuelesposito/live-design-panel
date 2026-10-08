@@ -511,7 +511,7 @@ def main() -> int:
         dest = Path(args.to).expanduser()
         dest.mkdir(parents=True, exist_ok=True)
         for child in dest.iterdir():
-            if child.name in (".git", "README.md", "LICENSE", ".gitignore", ".wporg-assets"):
+            if child.name in (".git", ".github", "README.md", "LICENSE", ".gitignore", ".wporg-assets"):
                 continue  # .wporg-assets: the directory's screenshots/banner/icon, which live in SVN's assets/, never in the zip
             shutil.rmtree(child) if child.is_dir() else child.unlink()
         with zipfile.ZipFile(target) as z:

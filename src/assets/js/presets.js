@@ -97,7 +97,7 @@
 	   ink on paper at 4.5:1 or better on both sides (tools/check-presets.py). */
 	var PRESETS = [
 		/* THE COLOUR SETS (Manuel, 2026-10-05, lab/the-colour-sets.html: "all sections have six colors … make sure that they all have quite a distinction"): five groups of six in a fixed order, never moved by a choice. BASE: the six reading styles' own (Standard, Original's, is the panel's own first tile, not listed here), Ivory a touch creamier. WARM and COOL: light papers, each with a link colour of its own. BOLD: coloured papers with NO link colour (the ink, underlined: "that's getting too colorful"). COLOURED TEXT: the text itself in colour, each beside its dark twin: the same colour as text on a deep paper of its own hue (2026-10-05, Manuel: "if it says colorful text, it should have colorful text"; the twins had cream text on the colour). The reading styles name theirs (still, clear, soft, essay, folio) and carry all six colours per side, so another preset chosen over them leaves none behind. Names are colour names, shown as written in every language. */
-		{ id: 'still', label: 'Slate', light: { paper: '#f2f2f4', ink: '#1d1d1f', accent: '#0066cc', ground: '#e8e8ec', lift: '#ffffff', muted: '#66666b' }, dark: { paper: '#2c2c2e', ink: '#f5f5f7', accent: '#2997ff', ground: '#1c1c1e', lift: '#3a3a3c', muted: '#a1a1a6' }, group: 'base', fixed: true },
+		{ id: 'still', label: 'Slate', light: { paper: '#f2f2f4', ink: '#1d1d1f', accent: '#0066cc', button: '#0071e3', ground: '#e8e8ec', lift: '#ffffff', muted: '#66666b' }, dark: { paper: '#2c2c2e', ink: '#f5f5f7', accent: '#2997ff', button: '#2997ff', ground: '#1c1c1e', lift: '#3a3a3c', muted: '#a1a1a6' }, group: 'base', fixed: true }, /* Slate's button is Apple's button blue and its links Apple's link blue (2026-10-08, Manuel on the Vibetiles page's download card: "i dont like that blue, its so dark, looks unfresh"): #0066cc filled a pill like a bank's; the lighter #0071e3 is what apple.com fills a button with, and the links keep #0066cc as there. */
 		{ id: 'clear', label: 'Titanium White', light: { paper: '#ffffff', ink: '#000000', accent: '#000000', ground: '#f2f2f2', lift: '#f0f0f0', muted: '#4a4a4a' }, dark: { paper: '#000000', ink: '#ffffff', accent: '#ffffff', ground: '#000000', lift: '#1a1a1a', muted: '#c7c7c7' }, group: 'base', fixed: true },
 		{ id: 'soft', label: 'Dove Grey', light: { paper: '#e9e7e3', ink: '#4a4845', accent: '#4f6178', ground: '#dfddd8', lift: '#e1ded9', muted: '#66635e' }, dark: { paper: '#2b2b2d', ink: '#a9a9ad', accent: '#8fa3bf', ground: '#222224', lift: '#353537', muted: '#8a8a8f' }, group: 'base', fixed: true },
 		{ id: 'essay', label: 'Ivory', light: { paper: '#faf5e9', ink: '#26231f', accent: '#8b1e1e', ground: '#faf5e9', lift: '#f1eadb', muted: '#6b665e' }, dark: { paper: '#1a1917', ink: '#d9d4ca', accent: '#e08a7c', ground: '#1a1917', lift: '#24221f', muted: '#9a948a' }, group: 'base', fixed: true },
@@ -1874,8 +1874,11 @@
 	   as Custom and never drops a preset. Record key `button`, stamped as
 	   data-button off the rest. */
 	/* BUTTONS: the list's tables above (plugin/settings.json). */
+	/* A PALETTE MAY NAME ITS BUTTON (2026-10-08, Slate): where the colours in force carry a button well, Accent
+	   means that well, not the link colour, as Apple fills a button with #0071e3 and writes a link in #0066cc.
+	   Text and Own stay what they say. */
 	function buttonOf() {
-		var bc = layoutOf('buttonColour'); return bc === 'text' ? 'ink' : bc; /* buttonColour since 2026-10-03 */
+		var bc = layoutOf('buttonColour'); if (bc === 'accent') { var cs = coloursOf(); if (cs.light.button || cs.dark.button) bc = 'own'; } return bc === 'text' ? 'ink' : bc; /* buttonColour since 2026-10-03 */
 		var s = byId(current), tw = readTweaks()[current];
 		if (tw && BUTTONS.indexOf(tw.button) !== -1) return tw.button;
 		return (s && BUTTONS.indexOf(s.button) !== -1) ? s.button : BUTTONS[0];

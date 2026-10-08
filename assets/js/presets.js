@@ -68,7 +68,7 @@
 	function t(word) { return WORDS[word] || word; }
 	
 	var PRESETS = [
-		{ id: 'still', label: 'Slate', light: { paper: '#f2f2f4', ink: '#1d1d1f', accent: '#0066cc', ground: '#e8e8ec', lift: '#ffffff', muted: '#66666b' }, dark: { paper: '#2c2c2e', ink: '#f5f5f7', accent: '#2997ff', ground: '#1c1c1e', lift: '#3a3a3c', muted: '#a1a1a6' }, group: 'base', fixed: true },
+		{ id: 'still', label: 'Slate', light: { paper: '#f2f2f4', ink: '#1d1d1f', accent: '#0066cc', button: '#0071e3', ground: '#e8e8ec', lift: '#ffffff', muted: '#66666b' }, dark: { paper: '#2c2c2e', ink: '#f5f5f7', accent: '#2997ff', button: '#2997ff', ground: '#1c1c1e', lift: '#3a3a3c', muted: '#a1a1a6' }, group: 'base', fixed: true }, 
 		{ id: 'clear', label: 'Titanium White', light: { paper: '#ffffff', ink: '#000000', accent: '#000000', ground: '#f2f2f2', lift: '#f0f0f0', muted: '#4a4a4a' }, dark: { paper: '#000000', ink: '#ffffff', accent: '#ffffff', ground: '#000000', lift: '#1a1a1a', muted: '#c7c7c7' }, group: 'base', fixed: true },
 		{ id: 'soft', label: 'Dove Grey', light: { paper: '#e9e7e3', ink: '#4a4845', accent: '#4f6178', ground: '#dfddd8', lift: '#e1ded9', muted: '#66635e' }, dark: { paper: '#2b2b2d', ink: '#a9a9ad', accent: '#8fa3bf', ground: '#222224', lift: '#353537', muted: '#8a8a8f' }, group: 'base', fixed: true },
 		{ id: 'essay', label: 'Ivory', light: { paper: '#faf5e9', ink: '#26231f', accent: '#8b1e1e', ground: '#faf5e9', lift: '#f1eadb', muted: '#6b665e' }, dark: { paper: '#1a1917', ink: '#d9d4ca', accent: '#e08a7c', ground: '#1a1917', lift: '#24221f', muted: '#9a948a' }, group: 'base', fixed: true },
@@ -1162,7 +1162,7 @@
 	function applyFramePattern() { var v = framePatternOf(); if (v === FRAME_PATTERNS[0]) root.removeAttribute('data-frame-pattern'); else if (root.getAttribute('data-frame-pattern') !== v) root.setAttribute('data-frame-pattern', v); }
 	
 	function buttonOf() {
-		var bc = layoutOf('buttonColour'); return bc === 'text' ? 'ink' : bc; 
+		var bc = layoutOf('buttonColour'); if (bc === 'accent') { var cs = coloursOf(); if (cs.light.button || cs.dark.button) bc = 'own'; } return bc === 'text' ? 'ink' : bc; 
 		var s = byId(current), tw = readTweaks()[current];
 		if (tw && BUTTONS.indexOf(tw.button) !== -1) return tw.button;
 		return (s && BUTTONS.indexOf(s.button) !== -1) ? s.button : BUTTONS[0];
