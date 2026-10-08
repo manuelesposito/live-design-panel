@@ -105,8 +105,34 @@
 	var PROPS = {
 		paddingTop: 'padding-top', paddingBottom: 'padding-bottom', paddingLeft: 'padding-left', paddingRight: 'padding-right',
 		marginTop: 'margin-top', marginBottom: 'margin-bottom', rowGap: 'row-gap', columnGap: 'column-gap', minHeight: 'min-height',
-		groove: '--groove' /* a named groove, moved by its name (2026-10-08) */
+		'--groove': '--groove', '--card-padding': '--card-padding' /* named distances, moved by their name (2026-10-08) */
 	};
+	/* THE NAMED DISTANCES. A segmented control names its groove; a card names
+	   its padding and takes its corner from it (padding plus the inner corner,
+	   the nesting rule), as the link card, the theme card, the quote card and
+	   the download tile do. Only the element that DECLARES the name owns it: a
+	   custom property inherits, so a button inside the track reads the groove
+	   too, and it is told apart by its parent carrying the same value. */
+	var NAMED = ['--groove', '--card-padding'];
+	function owns(e, g) {
+		for (var i = 0; i < NAMED.length; i++) {
+			var v = g.getPropertyValue(NAMED[i]).trim();
+			if (!v) continue;
+			var p = e.parentElement;
+			if (!p || window.getComputedStyle(p).getPropertyValue(NAMED[i]).trim() !== v) return NAMED[i];
+		}
+		return '';
+	}
+	/* The name's value in px, read off a probe (a custom property computes to
+	   its text, "0.25rem", not to a length). */
+	function measure(e, name) {
+		var probe = document.createElement('i');
+		probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;width:var(' + name + ')';
+		e.appendChild(probe);
+		var w = px(window.getComputedStyle(probe).width);
+		probe.remove();
+		return w;
+	}
 	var held = []; /* [element, css name, its own inline value, its own priority] */
 	/* HELD STILL (0.11.149): read and written with transitions at no length;
 	   guest-size.js says why. */
@@ -290,10 +316,13 @@
 			   moved the track to 6 while everything derived stayed at 4: the chip sat 4
 			   taller than the segment under it and the hover drew a different shape.
 			   Where an element names its groove, the groove is what moves, once, and the
-			   padding, the gap and every derived distance follow it in CSS. */
-			if (g.getPropertyValue('--groove').trim()) {
-				var gv = px(g.paddingTop);
-				if (gv >= 2) job(e, 'groove', gv, 'G');
+			   padding, the gap and every derived distance follow it in CSS. The same for a
+			   card's named padding (the audit the same day): its corner is that padding
+			   plus the inner corner, and moving the padding alone had left the corner. */
+			var named = owns(e, g);
+			if (named) {
+				var gv = measure(e, named);
+				if (gv >= 2) job(e, named, gv, 'G');
 				return;
 			}
 			['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight', 'marginTop', 'marginBottom', 'rowGap', 'columnGap'].forEach(function (n) {

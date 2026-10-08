@@ -104,8 +104,26 @@
 	var PROPS = {
 		paddingTop: 'padding-top', paddingBottom: 'padding-bottom', paddingLeft: 'padding-left', paddingRight: 'padding-right',
 		marginTop: 'margin-top', marginBottom: 'margin-bottom', rowGap: 'row-gap', columnGap: 'column-gap', minHeight: 'min-height',
-		groove: '--groove' 
+		'--groove': '--groove', '--card-padding': '--card-padding' 
 	};
+	var NAMED = ['--groove', '--card-padding'];
+	function owns(e, g) {
+		for (var i = 0; i < NAMED.length; i++) {
+			var v = g.getPropertyValue(NAMED[i]).trim();
+			if (!v) continue;
+			var p = e.parentElement;
+			if (!p || window.getComputedStyle(p).getPropertyValue(NAMED[i]).trim() !== v) return NAMED[i];
+		}
+		return '';
+	}
+	function measure(e, name) {
+		var probe = document.createElement('i');
+		probe.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none;width:var(' + name + ')';
+		e.appendChild(probe);
+		var w = px(window.getComputedStyle(probe).width);
+		probe.remove();
+		return w;
+	}
 	var held = []; 
 	var still = window.ldpStill || (window.ldpStill = (function () {
 		var sheet = null, depth = 0;
@@ -253,9 +271,10 @@
 		list.forEach(function (x) {
 			var e = x[0], g = x[1], r = x[2];
 			var band = r.width >= W * 0.9 - 40, ratio = frame(g, r);
-			if (g.getPropertyValue('--groove').trim()) {
-				var gv = px(g.paddingTop);
-				if (gv >= 2) job(e, 'groove', gv, 'G');
+			var named = owns(e, g);
+			if (named) {
+				var gv = measure(e, named);
+				if (gv >= 2) job(e, named, gv, 'G');
 				return;
 			}
 			['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight', 'marginTop', 'marginBottom', 'rowGap', 'columnGap'].forEach(function (n) {
