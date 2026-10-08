@@ -90,10 +90,160 @@ The readable source and the build scripts are at https://github.com/manuelesposi
 
 == Changelog ==
 
+= 0.56.2 =
+* Try mode: a page can offer "Try it on this page", and a visitor tries the panel without anything being saved.
+* The writing on a filled button is chosen by its fill, so it always reads.
+
+= 0.55.21 =
+* The pick tool: point at any text on the page and the panel opens its row. It finds dates, captions, cards and small print too.
+* A click on a colour swatch copies its hex value.
+* Reset Style puts sizes and colours back for good, also for a style that began on a preset.
+* The fonts line counts what readers download.
+* The picture frame reaches every picture in a post, on any theme, and follows the night dimming.
+* No glass over the page while it changes. The Buttons page points at the real page.
+* The old name is gone from every file.
+
+= 0.54.0 =
+* Button and Settings share one section. The Default badge follows the window.
+
+= 0.53.1 =
+* Reader counting removed. Button, Original Style and Settings moved into the Styles page.
+
+= 0.52.0 =
+* The plugin is called Vibetiles; it was Live Design Panel. Saved styles carry over.
+
+= 0.51.0 =
+* The Readers page moved into Styles.
+
+= 0.50.1 =
+* Every switch in the panel pressed in a sweep, and the bugs it found fixed.
+
+= 0.49.2 =
+* Original sits with the other styles. Default is a badge and no longer jumps first.
+* A highlighter colour of your own is kept.
+
+= 0.48.0 =
+* The six base styles stay on the site and cannot be removed.
+
+= 0.47.0 =
+* The highlighter no longer draws a bar under titles.
+
+= 0.46.0 =
+* Light and dark each keep their own colours; the "Same colours" switch is gone.
+
+= 0.45.0 =
+* Light and dark stay on the Colour page. A one-moon switch tried in 0.44.0 was taken back.
+
+= 0.43.0 =
+* The panel speaks English only; the German translation was removed.
+
+= 0.42.1 =
+* Every surface in three words. Corners & Lines from nine rows to six.
+* Appearance is picked the Mac way.
+
+= 0.41.0 =
+* One quote look for all six base styles, a step larger, with more air.
+
+= 0.40.0 =
+* Four quote looks, each doing what it says.
+
+= 0.39.0 =
+* The Quotes settings reach quote posts. Quotes are always italic.
+
+= 0.38.3 =
+* Reset Style on every style, grey when there is nothing to reset.
+* Coloured Text colours the text in all six base styles.
+
+= 0.37.0 =
+* Five colour sets of six, in an order that never moves.
+
+= 0.36.0 =
+* The six base styles' colours tuned style by style.
+
+= 0.35.0 =
+* Colour names. One recipe for the six base styles.
+
+= 0.34.1 =
+* Reset Style. Undo no longer closes the window.
+
+= 0.33.0 =
+* Every style ticks its colours. Colour presets slimmed from 32 to 22.
+
+= 0.32.2 =
+* Space is set by its job, in whole steps on one scale.
+* A renamed style keeps its name; a page takes the site's newer version before it saves.
+
+= 0.31.4 =
+* A style on the site saves itself; there is no Publish step. A removed style's leftovers are cleared.
+* A link card no longer fills with the link colour.
+
+= 0.30.1 =
+* Appearance shown as pictures, on top of Colour.
+
+= 0.29.1 =
+* The panel reworked the Apple way. No grey left behind after a tap.
+
+= 0.28.0 =
+* The old panel pages' styles removed.
+
+= 0.27.0 =
+* The AI helper speaks the panel's own words.
+
+= 0.26.0 =
+* The two fonts sit under their roles.
+
+= 0.25.0 =
+* Line spacing in plain words. The readers' panel cleaned out.
+
+= 0.24.0 =
+* Pictures: one key per row.
+
+= 0.23.0 =
+* Buttons named as design systems name them: primary, secondary, tertiary.
+
+= 0.22.0 =
+* Corners and lines in CSS's words. One set of words for the surfaces.
+
+= 0.21.0 =
+* The layout in WordPress's words. Line length on every theme.
+
+= 0.20.0 =
+* Seven colours named for their job. The dark ground is a colour.
+
+= 0.19.0 =
+* Seven type roles. The site name follows Headings.
+
+= 0.18.0 =
+* No Effects page. The site name has its own settings.
+
+= 0.17.0 =
+* Original alone: Instrument and its effects removed. 94 settings.
+
+= 0.16.0 =
+* The clean-up: fourteen styles out. Two styles, 151 settings.
+
+= 0.15.58 =
+* Eleven styles: Tube, Brochure, Terminal, Arcade, Matrix, Blueprint, Book, Gallery, Poster, Aperitivo, Risograph.
+* A change of look much faster. The Effects page sorted. Every setting pressed in every style.
+
+= 0.14.3 =
+* Every effect with its strength and colour.
+
+= 0.13.1 =
+* The extras. The moving light follows the corners.
+
+= 0.12.16 =
+* Ready for wordpress.org: the readme, the keyboard check, the readers' window with Done, a sliding switch and A buttons.
+* The AI can publish, on WordPress and on a site that is only files.
+* The button stays in the header. Light and dark in one step.
+
 = 0.12.0 =
 * First public release.
 
 == Upgrade Notice ==
+
+= 0.52.0 =
+The plugin is now called Vibetiles. Saved styles carry over.
 
 = 0.12.0 =
 First public release.
