@@ -35,6 +35,11 @@ function architrave_panel_runs() {
 	return 'old' !== architrave_panel_where();
 }
 
+function architrave_panel_try() {
+
+	return ! current_user_can( 'edit_theme_options' ) && (bool) apply_filters( 'live_design_panel_try', false );
+}
+
 function architrave_panel_answer( $active ) {
 	return $active && architrave_panel_has_host();
 }

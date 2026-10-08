@@ -37,7 +37,8 @@
 	var note = '', noteTimer = 0;  
 	var KEY = 'ldp-window-section';
 	var BUILT = ['styles', 'button', 'colour', 'type', 'layout', 'corners-and-lines', 'buttons', 'pictures', 'effects', 'settings'];
-	var section = (function () { try { var v = sessionStorage.getItem(KEY) || 'styles'; return v === 'readers' ? 'styles' : v; } catch (e) { return 'styles'; } })(); 
+	var section = (function () { try { var v = sessionStorage.getItem(KEY) || 'styles'; return v === 'readers' ? 'styles' : v; } catch (e) { return 'styles'; } })();
+	function ownerOnly(id) { return id === 'button' || id === 'settings'; }  
 	function t(w) { return (host && host.words && host.words[w]) || w; }
 	function nm(x) { return !x ? '' : x.site || x.own ? x.label : t(x.label); }
 	function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -45,6 +46,7 @@
 	function sections() { return ((host && host.settings && host.settings.sections) || []).map(function (x) { return x.id === 'corners-and-lines' ? Object.assign({}, x, { name: t('Corners & Lines') }) : x; }); } 
 	function current() {
 		var list = sections();
+		if (TRY() && ownerOnly(section)) section = 'styles'; 
 		if (section === 'settings') return { id: 'settings', name: t('Settings') };
 		if (section === 'styles') return { id: 'styles', name: t('Styles') };
 		if (section === 'button') return { id: 'button', name: t('Button') }; 
@@ -608,6 +610,7 @@
 	}
 	function tileItems(x) {
 		if (x.host) return [['customise', t('Duplicate to Customise')], ['duplicate', t('Duplicate')]];
+		if (TRY()) return [['customise', t('Customise')], ['duplicate', t('Duplicate')]].concat(x.own ? [['rename', t('Rename…')]] : [], [null, ['reset', t('Reset Style…'), !changedSince(x), '', '', changedSince(x)]], x.own ? [['delete', t('Delete…')]] : []);
 		var orig = St().styles().original === x.id; 
 		var out = [['customise', t('Customise')], null, ['default', t('Make Default'), x.isDefault]].concat(orig ? [] : [['seen', t(x.seen ? 'Hide from Readers' : 'Show to Readers'), x.seen && x.isDefault]]);
 		if (x.own || x.site) out.push(['rename', t('Rename…')]);
@@ -638,6 +641,10 @@
 		
 		var fold = prefs.fold || {};
 		function head(g, w, n) { var o = !fold[g]; return '<button type="button" class="ldpw-gtitle ldpw-fold" data-fold="' + g + '" data-f="fold:' + g + '" aria-expanded="' + o + '">' + esc(w) + (o ? '' : ' <small>' + n + '</small>') + '</button>'; }
+		if (TRY()) {
+			return '<div class="ldpw-gtitle">' + esc(t('Styles')) + '</div><div class="ldpw-tiles ldpw-styles" role="radiogroup" aria-label="' + esc(t('Styles')) + '">' + orig + st.shown.concat(st.hidden).map(function (id) { return tileHTML(id); }).join('') + '</div>' +
+				'<p class="ldpw-hint">' + esc(t('You are trying Vibetiles. Everything you change stays on this page and is gone when you leave.')) + '</p>';
+		}
 		out += head('shown', t('Shown to Readers'), st.shown.length + (orig ? 1 : 0)) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.shown ? ' is-folded' : '') + '" data-group="shown" role="radiogroup" aria-label="' + esc(t('Shown to Readers')) + '">' + orig + st.shown.map(function (id) { return tileHTML(id); }).join('') + '</div>';
 		out += head('hidden', t('Hidden from Readers'), st.hidden.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.hidden ? ' is-folded' : '') + '" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(function (id) { return tileHTML(id); }).join('') + '</div>';
 		return out + '<p class="ldpw-hint">' + esc(phone() ? t('Show, hide and Make Default are in each style’s ••• menu.') : t('Drag a style to change its order or to show or hide it. Make Default is in each style’s ••• menu.')) + '</p>';
@@ -654,6 +661,7 @@
 	}
 	function commit() {
 		var s = St(), x = s.tile(s.current());
+		if (TRY()) return ''; 
 		if (!x || x.host || x.own || x.site) return ''; 
 		if (!x.edited && s.styles().original === x.id) return ''; 
 		return '<button type="button" class="ldpw-blue ldpw-commit" data-act="commit" data-f="act:commit"' + (x.edited ? '' : ' disabled') + '>' + esc(x.site ? t('Publish') : t('Save As…')) + '</button>';
@@ -679,7 +687,7 @@
 	
 	var sorting = null, justSorted = false;
 	function sortDown(e) {
-		if (e.button !== 0 || asking || RD() || phone() || !e.target.closest) return;
+		if (e.button !== 0 || asking || RD() || TRY() || phone() || !e.target.closest) return;
 		var item = e.target.closest('.ldpw-sortable > [data-sid]');
 		if (!item || e.target.closest('.ldpw-sw, .ldpw-tm, .ldpw-pop, [data-menu]:not([data-sid])')) return;
 		var x0 = e.clientX, y0 = e.clientY, started = false;
@@ -904,9 +912,9 @@
 		var ed = s && s.editable();
 		var x0 = s && s.tile ? s.tile(s.current()) : null;
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
-			['saveas', t('Save As…'), !x0 || x0.host] , ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
+			].concat(TRY() ? [] : [['saveas', t('Save As…'), !x0 || x0.host] , ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null], [ 
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['copytheme', t('Copy as theme.json')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
-			(x0 && !x0.host ? [null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n] , ['revertall', t('Reset Style…'), !changedSince(x0, n), '', '', changedSince(x0, n)]] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Search…') + '  ⌘K']])), pick: function (a) {
+			(x0 && !x0.host ? [null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n] , ['revertall', t('Reset Style…'), !changedSince(x0, n), '', '', changedSince(x0, n)]] : []).concat(TRY() ? [null, ['cmdk', t('Search…') + '  ⌘K']] : [null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Search…') + '  ⌘K']]))), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
 			else if (a === 'copycss' || a === 'copyjson' || a === 'copytheme') copyCode(a === 'copycss' ? 'css' : a === 'copytheme' ? 'theme' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
@@ -927,7 +935,7 @@
 		else if (a === 'aim') { var b = win.querySelector('[data-act="aim"]'); if (b) b.click(); }
 		else if (a === 'commit') commitPress();
 		else if (a === 'share') askShare();
-		else if (a === 'settings') { sq = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on, [data-menu="barmore"]'); }
+		else if (a === 'settings' && !TRY()) { sq = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on, [data-menu="barmore"]'); }
 		else if (a === 'ask') { asking = true; render('x'); }
 	}
 	function settingsMore() {
@@ -1089,7 +1097,7 @@
 			});
 		}
 		editing = null; fontFor = null; showChanges = false; showVersions = false; menu = null;
-		['styles'].concat(sections().map(function (x) { return x.id; }), ['button', 'settings']).forEach(function (id) {
+		['styles'].concat(sections().map(function (x) { return x.id; }), TRY() ? [] : ['button', 'settings']).forEach(function (id) {
 			section = id; role = null; more = id === 'colour'; fxAll = id === 'effects'; 
 			var name = current().name;
 			out.push({ label: name, where: '', go: { section: id } });
@@ -1304,7 +1312,7 @@
 	
 	function viewsMenu() {
 		var s = St(), n = s && s.changes ? s.changes().length : 0;
-		MENU.views = { label: t('View'), value: '', items: [['side', t(prefs.noSide ? 'Show Sidebar' : 'Hide Sidebar') + '  ⌃⌘S', false, '', 'sidebar'], null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n, '', 'changes'], ['versions', t('Browse Versions'), !s, '', 'versions'], ['reader', t('Preview as Reader'), false, '', 'reader']], pick: function (a) {
+		MENU.views = { label: t('View'), value: '', items: [['side', t(prefs.noSide ? 'Show Sidebar' : 'Hide Sidebar') + '  ⌃⌘S', false, '', 'sidebar'], null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n, '', 'changes'], ].concat(TRY() ? [] : [['versions', t('Browse Versions'), !s, '', 'versions'], ['reader', t('Preview as Reader'), false, '', 'reader']]), pick: function (a) {
 			if (a === 'side') sideToggle(); 
 			else if (a === 'changes') { sq = null; showChanges = true; showVersions = false; editing = null; }
 			else if (a === 'versions') { sq = null; openVersions(); }
@@ -1318,7 +1326,7 @@
 			'<div class="ldpw-shead">' + (phone() ? '' : shutter) + '<b id="ldpw-title"' + (phone() ? '' : ' class="ldpw-sr"') + '>' + esc(t('Vibetiles')) + '</b>' + (phone() ? shutter : '<button type="button" class="ldpw-circ is-plain ldpw-sidebtn" aria-haspopup="menu" data-menu="views" data-f="menu:views" aria-label="' + esc(t('View')) + '" title="' + esc(t('View')) + '">' + svg(GLYPH.side) + '</button>') + '</div>' +
 			'<div class="ldpw-side-in">' + '<label class="ldpw-sfind"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg><input type="search" data-sideq data-f="sideq" value="' + esc(sq ? sq.q : '') + '" placeholder="' + esc(t('Search')) + '" aria-label="' + esc(t('Search')) + '" autocomplete="off" spellcheck="false">' + (sq && sq.q ? '<button type="button" class="ldpw-sqx" data-act="sqclear" data-f="act:sqclear" aria-label="' + esc(t('Clear Search')) + '">' + svg(GLYPH.close) + '</button>' : '') + '</label>' +  navButton({ id: 'styles', name: t('Styles') }) +
 				'<div class="ldpw-gt"><span>' + esc(styleName() ? t('{name} Style').replace('{name}', styleName()) : t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + 
-				'<div class="ldpw-gt">' + esc(t('More')) + '</div>' + navButton({ id: 'button', name: t('Button') }) + navButton({ id: 'settings', name: t('Settings') }) +
+				(TRY() ? '' : '<div class="ldpw-gt">' + esc(t('More')) + '</div>' + navButton({ id: 'button', name: t('Button') }) + navButton({ id: 'settings', name: t('Settings') })) + 
 			'</div>' + 
 			(phone() ? '' : '<span class="ldpw-grip" data-grip role="separator" aria-orientation="vertical" aria-label="' + esc(t('Sidebar width')) + '"></span>') + 
 		'</nav>';
@@ -1435,9 +1443,9 @@
 		'</div>';
 	}
 	function secsTitle(x, name, sub) {
-		var ids = ['styles'].concat(sections().map(function (y) { return y.id; }), ['button', 'settings']);
+		var ids = ['styles'].concat(sections().map(function (y) { return y.id; }), TRY() ? [] : ['button', 'settings']);
 		var nameOf = function (id) { var was = section; section = id; var nm = current().name; section = was; return nm; }, s0 = St();
-		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), [['#', t('More')], ['button', nameOf('button')], ['settings', nameOf('settings')]]);
+		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), TRY() ? [] : [['#', t('More')], ['button', nameOf('button')], ['settings', nameOf('settings')]]);
 		MENU.secs = { label: t('Sections'), value: x.id, search: true, items: items, pick: function (id) {
 			if (id.indexOf('hit:') === 0) { var e = MENU.secs.hits[+id.slice(4)]; menuQ = ''; goTo(e); return; }
 			sq = null; section = id; phoneList = false; editing = null; role = null; fontFor = null; more = false; showChanges = false; showVersions = false;
@@ -1497,6 +1505,7 @@
 	}
 	
 	function RD() { return !!(host && host.reader); }
+	function TRY() { return !!(host && host.tryMode); }
 	var readerCopied = false;
 	function readerHTML() {
 		var r = host.reader, s = St(), st = s ? s.styles() : { shown: [], original: null }, ids = r.sizes(), at = ids.indexOf(r.size());
@@ -1796,7 +1805,7 @@
 		door = from || door;
 		ensureWin();
 		showNow();
-		if (!RD() && St() && St().loadVersions) St().loadVersions().then(function () { if (open) render(); });
+		if (!RD() && !TRY() && St() && St().loadVersions) St().loadVersions().then(function () { if (open) render(); });
 	}
 	var sheetH = 'half'; 
 	function sheetSize() { if (!win || !phone()) return; if (RD() && sheetH !== 'full') { win.style.removeProperty('height'); return; } win.style.setProperty('height', (sheetH === 'half' ? 52 : 92) + 'dvh'); } 
@@ -1933,7 +1942,7 @@
 		sound('close');
 		open = false; asking = false; menu = null; cmd = null; 
 		if (St() && St().previewing()) { St().previewVersion(null); verSel = 'now'; }
-		if (St() && !RD()) St().keepVersion(); 
+		if (St() && !RD() && !TRY()) St().keepVersion(); 
 		setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(function () { prime(); }); }, 700); 
 		if (morph.can() && morph.live()) morph.close(function () { if (!open) { win.hidden = true; zoomPage(); } }); else { if (door && door.style) { door.style.visibility = ''; door.style.opacity = ''; } if (sheetSlides()) sheetLeave(); else { win.hidden = true; sheetSize(); zoomPage(); } } 
 		if (door && door.setAttribute) { door.setAttribute('aria-expanded', 'false'); if (!keepFocus && door.focus) door.focus({ preventScroll: true }); }
@@ -2000,7 +2009,7 @@
 		if (act === 'sqclear') { sq = null; render('[data-sideq]'); return; }
 		if (b.hasAttribute('data-sqhit')) { goTo(sqResults()[+b.getAttribute('data-sqhit')]); return; }
 		if (act === 'share') { askShare(); return; }
-		if (act === 'settings') { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); return; }
+		if (act === 'settings' && !TRY()) { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); return; }
 		if (act === 'revertpage') { var sp = St(); pagePaths(current().id).forEach(function (pth) { sp.revertPath(pth); }); done(t('Reverted')); render('.ldpw-nav.is-on'); return; }
 		if (b.hasAttribute('data-onpage')) { var first = onPage(b.getAttribute('data-onpage'))[0]; if (first) { marksHide(); first.scrollIntoView({ block: 'center', behavior: 'smooth' }); if (first.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) first.animate([{ outline: '2px solid #0a84ff', outlineOffset: '3px' }, { outline: '2px solid transparent', outlineOffset: '3px' }], { duration: 900, delay: 300, easing: 'ease-out' }); } return; }
 		if (act === 'asreader') { window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank'); return; }
@@ -2201,7 +2210,7 @@
 		if (e.key === '=' || e.key === '+') { e.preventDefault(); zoomBy('bigger'); return; }
 		if (e.key === '-') { e.preventDefault(); zoomBy('smaller'); return; }
 		if (e.key === '0') { e.preventDefault(); zoomBy('actual'); return; }
-		if (e.key === ',') { e.preventDefault(); sq = null; cmd = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); }
+		if (e.key === ',' && !TRY()) { e.preventDefault(); sq = null; cmd = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); }
 	});
 	document.addEventListener('keydown', function (e) {
 		var a = document.activeElement, typing = a && /INPUT|TEXTAREA|SELECT/.test(a.tagName) && a.type !== 'range';

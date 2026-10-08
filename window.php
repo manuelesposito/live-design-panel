@@ -49,6 +49,9 @@ function live_design_window_now() {
 }
 
 function live_design_window_reader() {
+	if ( architrave_panel_try() ) {
+		return false;
+	}
 	// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- a view of the page as a reader gets it; it saves nothing.
 	return ! live_design_window_may() || isset( $_GET['ldp-as-reader'] );
 }
@@ -207,8 +210,9 @@ function live_design_window_enqueue() {
 				'window' => 'new',
 				'now'    => 'new',
 				'reader' => $reader,
+				'try'    => architrave_panel_try(),
 				'url'    => rest_url( 'architrave/v1/window' ),
-				'nonce'  => $reader ? '' : wp_create_nonce( 'wp_rest' ),
+				'nonce'  => $reader || architrave_panel_try() ? '' : wp_create_nonce( 'wp_rest' ),
 			)
 		) . ';',
 		'before'
@@ -238,7 +242,7 @@ function live_design_window_enqueue() {
 add_action( 'wp_enqueue_scripts', 'live_design_window_enqueue', 13 );
 
 function live_design_api_enqueue() {
-	if ( ! wp_script_is( 'live-design-window-wp', 'enqueued' ) || live_design_window_reader() ) {
+	if ( ! wp_script_is( 'live-design-window-wp', 'enqueued' ) || live_design_window_reader() || architrave_panel_try() ) {
 		return;
 	}
 	wp_enqueue_script( 'live-design-api', plugin_dir_url( ARCHITRAVE_PANEL_FILE ) . 'assets/js/live-design-api.js', array( 'live-design-window-wp' ), architrave_panel_asset_version( 'assets/js/live-design-api.js' ), array( 'in_footer' => true ) );

@@ -710,6 +710,8 @@ function live_design_window_words() {
 		'Remove from Site…' => __( 'Remove from Site…', 'vibetiles' ),
 		'Shown to Readers' => __( 'Shown to Readers', 'vibetiles' ),
 		'Hidden from Readers' => __( 'Hidden from Readers', 'vibetiles' ),
+		'You are trying Vibetiles. Everything you change stays on this page and is gone when you leave.' => __( 'You are trying Vibetiles. Everything you change stays on this page and is gone when you leave.', 'vibetiles' ),
+		'Trying'              => __( 'Trying', 'vibetiles' ),
 		'The first style shown to readers is the default: a first visit opens in it.' => __( 'The first style shown to readers is the default: a first visit opens in it.', 'vibetiles' ),
 		'Save As…' => __( 'Save As…', 'vibetiles' ),
 		'Publish the changes to “{name}”?' => __( 'Publish the changes to “{name}”?', 'vibetiles' ),

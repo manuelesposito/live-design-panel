@@ -37,7 +37,8 @@
 	var note = '', noteTimer = 0; /* a short line at the foot after a write: Saved, Published, or what went wrong */ /* what the pop-ups and sliders of the page on screen do, filled as it is drawn */
 	var KEY = 'ldp-window-section';
 	var BUILT = ['styles', 'button', 'colour', 'type', 'layout', 'corners-and-lines', 'buttons', 'pictures', 'effects', 'settings'];
-	var section = (function () { try { var v = sessionStorage.getItem(KEY) || 'styles'; return v === 'readers' ? 'styles' : v; } catch (e) { return 'styles'; } })(); /* the gallery first, as the prototype opens; the Readers page is in it now (2026-10-06) */
+	var section = (function () { try { var v = sessionStorage.getItem(KEY) || 'styles'; return v === 'readers' ? 'styles' : v; } catch (e) { return 'styles'; } })();
+	function ownerOnly(id) { return id === 'button' || id === 'settings'; } /* the two pages a visitor trying the window has no use for (0.56.0) */ /* the gallery first, as the prototype opens; the Readers page is in it now (2026-10-06) */
 
 	function t(w) { return (host && host.words && host.words[w]) || w; }
 	/* A STYLE'S NAME IS ITS NAME (0.32.2): only the theme's own look's word is translated; a name the owner gave a style on the site or of their own stays as given ("Quiet" showed as "Leise", because the panel has that word elsewhere) */
@@ -47,6 +48,7 @@
 	function sections() { return ((host && host.settings && host.settings.sections) || []).map(function (x) { return x.id === 'corners-and-lines' ? Object.assign({}, x, { name: t('Corners & Lines') }) : x; }); } /* the lab's name for the page */
 	function current() {
 		var list = sections();
+		if (TRY() && ownerOnly(section)) section = 'styles'; /* a visitor trying the window never lands on Button or Settings, whatever asked (0.56.0) */
 		if (section === 'settings') return { id: 'settings', name: t('Settings') };
 		if (section === 'styles') return { id: 'styles', name: t('Styles') };
 		if (section === 'button') return { id: 'button', name: t('Button') }; /* "Button" in the sidebar and the title (2026-10-06, Manuel) */
@@ -703,6 +705,8 @@
 	/* WHAT A TILE'S MENU OFFERS, the prototype's: Customise; its place on the site; the copy; the way back; the way out */
 	function tileItems(x) {
 		if (x.host) return [['customise', t('Duplicate to Customise')], ['duplicate', t('Duplicate')]];
+		/* a visitor trying the window (0.56.0): Customise, Duplicate, Rename for a copy, Reset, Delete for a copy; nothing about readers or the site */
+		if (TRY()) return [['customise', t('Customise')], ['duplicate', t('Duplicate')]].concat(x.own ? [['rename', t('Rename…')]] : [], [null, ['reset', t('Reset Style…'), !changedSince(x), '', '', changedSince(x)]], x.own ? [['delete', t('Delete…')]] : []);
 		var orig = St().styles().original === x.id; /* Original is always shown to readers (2026-10-05) */
 		var out = [['customise', t('Customise')], null, ['default', t('Make Default'), x.isDefault]].concat(orig ? [] : [['seen', t(x.seen ? 'Hide from Readers' : 'Show to Readers'), x.seen && x.isDefault]]);
 		if (x.own || x.site) out.push(['rename', t('Rename…')]);
@@ -741,6 +745,11 @@
 		/* A GROUP FOLDS (the lab's, as a Finder sidebar's section): its title is the press; folded it says how many it holds */
 		var fold = prefs.fold || {};
 		function head(g, w, n) { var o = !fold[g]; return '<button type="button" class="ldpw-gtitle ldpw-fold" data-fold="' + g + '" data-f="fold:' + g + '" aria-expanded="' + o + '">' + esc(w) + (o ? '' : ' <small>' + n + '</small>') + '</button>'; }
+		/* THE TRY MODE (0.56.0): one group, the site's styles and what the visitor duplicated, nothing to drag, and a line that says what this is */
+		if (TRY()) {
+			return '<div class="ldpw-gtitle">' + esc(t('Styles')) + '</div><div class="ldpw-tiles ldpw-styles" role="radiogroup" aria-label="' + esc(t('Styles')) + '">' + orig + st.shown.concat(st.hidden).map(function (id) { return tileHTML(id); }).join('') + '</div>' +
+				'<p class="ldpw-hint">' + esc(t('You are trying Vibetiles. Everything you change stays on this page and is gone when you leave.')) + '</p>';
+		}
 		out += head('shown', t('Shown to Readers'), st.shown.length + (orig ? 1 : 0)) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.shown ? ' is-folded' : '') + '" data-group="shown" role="radiogroup" aria-label="' + esc(t('Shown to Readers')) + '">' + orig + st.shown.map(function (id) { return tileHTML(id); }).join('') + '</div>';
 		out += head('hidden', t('Hidden from Readers'), st.hidden.length) + '<div class="ldpw-tiles ldpw-styles ldpw-sortable' + (fold.hidden ? ' is-folded' : '') + '" data-group="hidden" role="radiogroup" aria-label="' + esc(t('Hidden from Readers')) + '">' + st.hidden.map(function (id) { return tileHTML(id); }).join('') + '</div>';
 		/* a phone cannot drag (sortDown), so it is not told to (2026-10-06, the sweep) */
@@ -762,6 +771,7 @@
 	/* THE ONE BLUE BUTTON names what it does: a built-in style is saved as a new one, a style on the site is published; one of your own keeps its changes by itself */
 	function commit() {
 		var s = St(), x = s.tile(s.current());
+		if (TRY()) return ''; /* nothing to save for a visitor trying the window (0.56.0) */
 		if (!x || x.host || x.own || x.site) return ''; /* SHOWN IS SHOWN (0.31.0): a style on the site saves itself */
 		if (!x.edited && s.styles().original === x.id) return ''; /* Original untouched asks for nothing, as the lab's */
 		return '<button type="button" class="ldpw-blue ldpw-commit" data-act="commit" data-f="act:commit"' + (x.edited ? '' : ' disabled') + '>' + esc(x.site ? t('Publish') : t('Save As…')) + '</button>';
@@ -792,7 +802,7 @@
 	   a plain click still clicks. ===== */
 	var sorting = null, justSorted = false;
 	function sortDown(e) {
-		if (e.button !== 0 || asking || RD() || phone() || !e.target.closest) return;
+		if (e.button !== 0 || asking || RD() || TRY() || phone() || !e.target.closest) return;
 		var item = e.target.closest('.ldpw-sortable > [data-sid]');
 		if (!item || e.target.closest('.ldpw-sw, .ldpw-tm, .ldpw-pop, [data-menu]:not([data-sid])')) return;
 		var x0 = e.clientX, y0 = e.clientY, started = false;
@@ -1045,9 +1055,9 @@
 		/* THE LAB'S ••• MENU: undo, then the style's own acts, copy and paste, the text size, the way back, then the panel's Settings and the current window */
 		var x0 = s && s.tile ? s.tile(s.current()) : null;
 		MENU.barmore = { label: t('More'), items: [['undo', undoName() + '  ⌘Z', !(s && s.canUndo())], ['redo', redoName() + '  ⇧⌘Z', !(s && s.canRedo && s.canRedo())], null,
-			['saveas', t('Save As…'), !x0 || x0.host] /* no Publish: a style on the site saves itself (0.31.0) */, ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null,
+			].concat(TRY() ? [] : [['saveas', t('Save As…'), !x0 || x0.host] /* no Publish: a style on the site saves itself (0.31.0) */, ['versions', t('Browse Versions')], ['share', t('Share Preview…')], null], [ /* none of the three for a visitor trying the window (0.56.0) */
 			['copystyle', t('Copy Style') + '  ⌥⌘C'], ['copycss', t('Copy as CSS')], ['copyjson', t('Copy as JSON')], ['copytheme', t('Copy as theme.json')], ['pastestyle', t('Paste Style…') + '  ⌥⌘V'], null].concat(zoomItems(),
-			(x0 && !x0.host ? [null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n] /* where people look for what they changed (2026-10-06, C4) */, ['revertall', t('Reset Style…'), !changedSince(x0, n), '', '', changedSince(x0, n)]] : []).concat([null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Search…') + '  ⌘K']])), pick: function (a) {
+			(x0 && !x0.host ? [null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n] /* where people look for what they changed (2026-10-06, C4) */, ['revertall', t('Reset Style…'), !changedSince(x0, n), '', '', changedSince(x0, n)]] : []).concat(TRY() ? [null, ['cmdk', t('Search…') + '  ⌘K']] : [null, ['settings', t('Settings…') + '  ⌘,'], ['cmdk', t('Search…') + '  ⌘K']]))), pick: function (a) {
 			if (a === 'redo') { if (s && s.canRedo && s.canRedo()) { s.redo(); render('[data-menu="barmore"]'); } }
 			else if (a === 'copycss' || a === 'copyjson' || a === 'copytheme') copyCode(a === 'copycss' ? 'css' : a === 'copytheme' ? 'theme' : 'json');
 			else if (a === 'changes') { showChanges = true; showVersions = false; editing = null; }
@@ -1070,7 +1080,7 @@
 		else if (a === 'aim') { var b = win.querySelector('[data-act="aim"]'); if (b) b.click(); }
 		else if (a === 'commit') commitPress();
 		else if (a === 'share') askShare();
-		else if (a === 'settings') { sq = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on, [data-menu="barmore"]'); }
+		else if (a === 'settings' && !TRY()) { sq = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on, [data-menu="barmore"]'); }
 		else if (a === 'ask') { asking = true; render('x'); }
 	}
 	/* on the panel's Settings page: the way back to a style's pages, the search and the current window */
@@ -1246,7 +1256,7 @@
 			});
 		}
 		editing = null; fontFor = null; showChanges = false; showVersions = false; menu = null;
-		['styles'].concat(sections().map(function (x) { return x.id; }), ['button', 'settings']).forEach(function (id) {
+		['styles'].concat(sections().map(function (x) { return x.id; }), TRY() ? [] : ['button', 'settings']).forEach(function (id) {
 			section = id; role = null; more = id === 'colour'; fxAll = id === 'effects'; /* what Colour keeps under Show More is found too, and opens it */
 			var name = current().name;
 			out.push({ label: name, where: '', go: { section: id } });
@@ -1501,7 +1511,7 @@
 	/* THE VIEWS (the lab's sidebar button, as Keynote's): the window with or without its sidebar, then the extra views */
 	function viewsMenu() {
 		var s = St(), n = s && s.changes ? s.changes().length : 0;
-		MENU.views = { label: t('View'), value: '', items: [['side', t(prefs.noSide ? 'Show Sidebar' : 'Hide Sidebar') + '  ⌃⌘S', false, '', 'sidebar'], null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n, '', 'changes'], ['versions', t('Browse Versions'), !s, '', 'versions'], ['reader', t('Preview as Reader'), false, '', 'reader']], pick: function (a) {
+		MENU.views = { label: t('View'), value: '', items: [['side', t(prefs.noSide ? 'Show Sidebar' : 'Hide Sidebar') + '  ⌃⌘S', false, '', 'sidebar'], null, ['changes', t('Show Changes') + (n ? ' (' + n + ')' : ''), !n, '', 'changes'], ].concat(TRY() ? [] : [['versions', t('Browse Versions'), !s, '', 'versions'], ['reader', t('Preview as Reader'), false, '', 'reader']]), pick: function (a) {
 			if (a === 'side') sideToggle(); /* one item that says what it will do, as Finder's (2026-10-06, the whole-panel pass A11) */
 			else if (a === 'changes') { sq = null; showChanges = true; showVersions = false; editing = null; }
 			else if (a === 'versions') { sq = null; openVersions(); }
@@ -1517,7 +1527,7 @@
 				/* THE STYLE'S PAGES under "<name> Style" (2026-10-06, Manuel: the word "style" as part of the section title) */
 				'<div class="ldpw-gt"><span>' + esc(styleName() ? t('{name} Style').replace('{name}', styleName()) : t('Style')) + '</span>' + editedWord(St()) + '</div>' + sections().map(navButton).join('') + /* the lab's: Edited beside the style's name */
 				/* BUTTON AND SETTINGS IN ONE SECTION, "More" (2026-10-06, Manuel: "we don't need two sections"); Settings is still in the ••• menu and on ⌘, too */
-				'<div class="ldpw-gt">' + esc(t('More')) + '</div>' + navButton({ id: 'button', name: t('Button') }) + navButton({ id: 'settings', name: t('Settings') }) +
+				(TRY() ? '' : '<div class="ldpw-gt">' + esc(t('More')) + '</div>' + navButton({ id: 'button', name: t('Button') }) + navButton({ id: 'settings', name: t('Settings') })) + /* no More for a visitor trying the window (0.56.0) */
 			'</div>' + /* the way back to the current window is in the ••• menu, as the lab has them */
 			(phone() ? '' : '<span class="ldpw-grip" data-grip role="separator" aria-orientation="vertical" aria-label="' + esc(t('Sidebar width')) + '"></span>') + /* no tooltip, as the lab's */
 		'</nav>';
@@ -1658,9 +1668,9 @@
 	}
 	/* THE TITLE AS A MENU OF THE SECTIONS (the lab's), while the sidebar is hidden */
 	function secsTitle(x, name, sub) {
-		var ids = ['styles'].concat(sections().map(function (y) { return y.id; }), ['button', 'settings']);
+		var ids = ['styles'].concat(sections().map(function (y) { return y.id; }), TRY() ? [] : ['button', 'settings']);
 		var nameOf = function (id) { var was = section; section = id; var nm = current().name; section = was; return nm; }, s0 = St();
-		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), [['#', t('More')], ['button', nameOf('button')], ['settings', nameOf('settings')]]);
+		var items = [['styles', nameOf('styles')], ['#', s0 ? s0.name() : '']].concat(sections().map(function (y) { return [y.id, y.name]; }), TRY() ? [] : [['#', t('More')], ['button', nameOf('button')], ['settings', nameOf('settings')]]);
 		MENU.secs = { label: t('Sections'), value: x.id, search: true, items: items, pick: function (id) {
 			if (id.indexOf('hit:') === 0) { var e = MENU.secs.hits[+id.slice(4)]; menuQ = ''; goTo(e); return; }
 			sq = null; section = id; phoneList = false; editing = null; role = null; fontFor = null; more = false; showChanges = false; showVersions = false;
@@ -1726,6 +1736,11 @@
 	   text size, their side, the styles the owner offers (the default first), Copy Style when allowed.
 	   Every pick is the reader's own and stays in their browser, as the small panel's did. */
 	function RD() { return !!(host && host.reader); }
+	/* THE TRY MODE (0.56.0, Manuel: the project page's button opened the readers' sheet, "that's sad and also not coming across"):
+	   a visitor on the site's try page gets this whole window. What only an owner can do is left out (Shown to Readers and the
+	   order, Make Default, Save As, Versions, Share, the Button and Settings pages), the page's storage is a copy in memory
+	   (inc/site-styles.php), and the host has no route or nonce, so nothing reaches the site. */
+	function TRY() { return !!(host && host.tryMode); }
 	var readerCopied = false;
 	function readerHTML() {
 		var r = host.reader, s = St(), st = s ? s.styles() : { shown: [], original: null }, ids = r.sizes(), at = ids.indexOf(r.size());
@@ -2090,7 +2105,7 @@
 		ensureWin();
 		showNow();
 		/* the site's kept versions and where each style began, for Reset Style; asked for when the window opens, drawn again when they arrive */
-		if (!RD() && St() && St().loadVersions) St().loadVersions().then(function () { if (open) render(); });
+		if (!RD() && !TRY() && St() && St().loadVersions) St().loadVersions().then(function () { if (open) render(); });
 	}
 	/* ON A PHONE THE SHEET IS PULLED BY ITS TOP (the lab's): half or full, a flick decides, pulled low it closes */
 	var sheetH = 'half'; /* opens at half height so the page stays in view; a pull up or a tap on the head makes it tall */
@@ -2243,7 +2258,7 @@
 		sound('close');
 		open = false; asking = false; menu = null; cmd = null; /* ⌘K closes with the window, or it floated over the next opening and kept the window from redrawing (2026-10-01, the panel audit) */
 		if (St() && St().previewing()) { St().previewVersion(null); verSel = 'now'; }
-		if (St() && !RD()) St().keepVersion(); /* closing is a moment to keep what stands */
+		if (St() && !RD() && !TRY()) St().keepVersion(); /* closing is a moment to keep what stands */
 		setTimeout(function () { (window.requestIdleCallback || function (f) { return setTimeout(f, 50); })(function () { prime(); }); }, 700); /* built again for the next time, once the flow back has run */
 		if (morph.can() && morph.live()) morph.close(function () { if (!open) { win.hidden = true; zoomPage(); } }); else { if (door && door.style) { door.style.visibility = ''; door.style.opacity = ''; } if (sheetSlides()) sheetLeave(); else { win.hidden = true; sheetSize(); zoomPage(); } } /* and flows back into it; on a phone it leaves downward */
 		if (door && door.setAttribute) { door.setAttribute('aria-expanded', 'false'); if (!keepFocus && door.focus) door.focus({ preventScroll: true }); }
@@ -2315,7 +2330,7 @@
 		if (act === 'sqclear') { sq = null; render('[data-sideq]'); return; }
 		if (b.hasAttribute('data-sqhit')) { goTo(sqResults()[+b.getAttribute('data-sqhit')]); return; }
 		if (act === 'share') { askShare(); return; }
-		if (act === 'settings') { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); return; }
+		if (act === 'settings' && !TRY()) { section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); return; }
 		if (act === 'revertpage') { var sp = St(); pagePaths(current().id).forEach(function (pth) { sp.revertPath(pth); }); done(t('Reverted')); render('.ldpw-nav.is-on'); return; }
 		if (b.hasAttribute('data-onpage')) { var first = onPage(b.getAttribute('data-onpage'))[0]; if (first) { marksHide(); first.scrollIntoView({ block: 'center', behavior: 'smooth' }); if (first.animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) first.animate([{ outline: '2px solid #0a84ff', outlineOffset: '3px' }, { outline: '2px solid transparent', outlineOffset: '3px' }], { duration: 900, delay: 300, easing: 'ease-out' }); } return; }
 		if (act === 'asreader') { window.open(window.location.origin + window.location.pathname + '?ldp-as-reader=1', '_blank'); return; }
@@ -2525,7 +2540,7 @@
 		if (e.key === '=' || e.key === '+') { e.preventDefault(); zoomBy('bigger'); return; }
 		if (e.key === '-') { e.preventDefault(); zoomBy('smaller'); return; }
 		if (e.key === '0') { e.preventDefault(); zoomBy('actual'); return; }
-		if (e.key === ',') { e.preventDefault(); sq = null; cmd = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); }
+		if (e.key === ',' && !TRY()) { e.preventDefault(); sq = null; cmd = null; section = 'settings'; role = null; fontFor = null; editing = null; showChanges = false; showVersions = false; phoneList = false; render('.ldpw-nav.is-on'); }
 	});
 	/* ? shows the keyboard shortcuts */
 	document.addEventListener('keydown', function (e) {

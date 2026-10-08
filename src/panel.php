@@ -71,6 +71,26 @@ function architrave_panel_runs() {
 }
 
 /**
+ * THE TRY MODE (0.56.0, 2026-10-08, Manuel: the project page's button opened the
+ * readers' sheet, "that's sad and also not coming across"). On a page the site
+ * names through the filter `live_design_panel_try`, a visitor who may not edit
+ * the design gets the owner's whole window: every section, every dial, Choose
+ * on the Page, Undo. Nothing of it reaches the site: the page's storage is a
+ * copy in memory that dies with the page (inc/site-styles.php,
+ * architrave_try_head), no route or nonce is printed, the server refuses every
+ * write from a visitor as it always did, and the window hides what only an
+ * owner can do (Shown to Readers, Make Default, Save, Versions, Share, the
+ * Button and Settings pages). An owner on the same page gets their own window,
+ * as everywhere.
+ *
+ * @return bool
+ */
+function architrave_panel_try() {
+	/* asked afresh each time: the filter reads the page, which an early call would not know yet */
+	return ! current_user_can( 'edit_theme_options' ) && (bool) apply_filters( 'live_design_panel_try', false );
+}
+
+/**
  * STAND BACK FROM A THEME THAT IS TOO OLD. The theme asks
  * `architrave_panel_active()` and would hand the panel over on the constant
  * alone; where this version cannot work with it, the answer is no, and the

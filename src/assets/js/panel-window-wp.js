@@ -427,6 +427,8 @@
 		publish: notYet,
 		/* THE READERS' PAGE (2026-09-28, the lab's readerHTML): a reader, or an owner in Preview as Reader, gets
 		   the text size, the side and the styles offered, with the same presses the small panel made */
+		/* THE TRY MODE (0.56.0): the whole window for a visitor on the site's try page; the window hides what only an owner can do, and the page's storage is a copy in memory (inc/site-styles.php) */
+		tryMode: !!W.try,
 		reader: W.reader ? {
 			preview: /[?&]ldp-as-reader=/.test(window.location.search), /* the owner looking through Preview as Reader */
 			sizes: function () { var R = window.QuireReading; return R ? R.ids : []; },

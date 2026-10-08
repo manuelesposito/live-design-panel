@@ -362,6 +362,8 @@
 		load: function () { return ask('GET', styles); },
 		save: notYet,
 		publish: notYet,
+		
+		tryMode: !!W.try,
 		reader: W.reader ? {
 			preview: /[?&]ldp-as-reader=/.test(window.location.search), 
 			sizes: function () { var R = window.QuireReading; return R ? R.ids : []; },

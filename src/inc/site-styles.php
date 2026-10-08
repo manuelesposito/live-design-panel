@@ -914,6 +914,24 @@ function architrave_as_reader() {
 }
 
 /**
+ * A STORAGE OF ITS OWN, IN MEMORY (2026-10-01, the panel audit): the preview cleared the
+ * site's whole storage and put it back as the tab closed. It opens in a new tab, so the
+ * owner's own tab read an empty storage meanwhile, what it saved was overwritten on the
+ * way back, and a preview tab that never closed cleanly lost everything. Now the page
+ * gets a Storage that lives as long as it does; the real one is never touched. Where
+ * the browser will not let it be replaced, the old way stands. Since 0.56.0 the try
+ * mode uses it too, SEEDED with a copy of what the browser holds: the visitor's own
+ * size, side and style stand as on every other page, and nothing they do here is kept.
+ *
+ * @param bool $seed Start from a copy of the real storage (true) or empty (false).
+ * @return string The script, without tags.
+ */
+function architrave_storage_aside_script( $seed ) {
+	$copy = $seed ? 'try{for(var ci=0;ci<window.localStorage.length;ci++){var ck=window.localStorage.key(ci);m[ck]=window.localStorage.getItem(ck);}}catch(e){}' : '';
+	return '(function(){var m={},S={getItem:function(k){k=String(k);return Object.prototype.hasOwnProperty.call(m,k)?m[k]:null;},setItem:function(k,v){m[String(k)]=String(v);},removeItem:function(k){delete m[String(k)];},clear:function(){m={};},key:function(i){var a=Object.keys(m);return i<a.length?a[i]:null;}};Object.defineProperty(S,"length",{get:function(){return Object.keys(m).length;}});' . $copy . 'var own=false;try{Object.defineProperty(window,"localStorage",{configurable:true,get:function(){return S;}});own=window.localStorage===S;}catch(e){}if(!own){try{var h={},i,k;for(i=0;i<localStorage.length;i++){k=localStorage.key(i);h[k]=localStorage.getItem(k);}' . ( $seed ? '' : 'localStorage.clear();' ) . 'window.addEventListener("pagehide",function(){try{localStorage.clear();Object.keys(h).forEach(function(k){localStorage.setItem(k,h[k]);});}catch(e){}});}catch(e){}}})();';
+}
+
+/**
  * The first thing in the head on a reader's preview: the storage set aside.
  */
 function architrave_as_reader_head() {
@@ -923,15 +941,21 @@ function architrave_as_reader_head() {
 	$words = array(
 		'bar' => __( 'Preview as Reader. Nothing you pick here is kept.', 'vibetiles' ),
 	);
-	/* A STORAGE OF ITS OWN, IN MEMORY (2026-10-01, the panel audit): the preview cleared the
-	   site's whole storage and put it back as the tab closed. It opens in a new tab, so the
-	   owner's own tab read an empty storage meanwhile, what it saved was overwritten on the
-	   way back, and a preview tab that never closed cleanly lost everything. Now the page
-	   gets an empty Storage that lives as long as it does; the real one is never touched.
-	   Where the browser will not let it be replaced, the old way stands. */
-	wp_print_inline_script_tag( '(function(){var m={},S={getItem:function(k){k=String(k);return Object.prototype.hasOwnProperty.call(m,k)?m[k]:null;},setItem:function(k,v){m[String(k)]=String(v);},removeItem:function(k){delete m[String(k)];},clear:function(){m={};},key:function(i){var a=Object.keys(m);return i<a.length?a[i]:null;}};Object.defineProperty(S,"length",{get:function(){return Object.keys(m).length;}});var own=false;try{Object.defineProperty(window,"localStorage",{configurable:true,get:function(){return S;}});own=window.localStorage===S;}catch(e){}if(!own){try{var h={},i,k;for(i=0;i<localStorage.length;i++){k=localStorage.key(i);h[k]=localStorage.getItem(k);}localStorage.clear();window.addEventListener("pagehide",function(){try{localStorage.clear();Object.keys(h).forEach(function(k){localStorage.setItem(k,h[k]);});}catch(e){}});}catch(e){}}window.architraveAsReader=true;document.documentElement.setAttribute("data-ldp-as-reader","");document.addEventListener("DOMContentLoaded",function(){var b=document.createElement("div");b.className="ldp-preview-bar";b.setAttribute("role","status");b.textContent=' . wp_json_encode( $words['bar'] ) . ';document.body.appendChild(b);});})();' ); /* printed through WordPress; the one word is JSON-encoded */
+	wp_print_inline_script_tag( architrave_storage_aside_script( false ) . 'window.architraveAsReader=true;document.documentElement.setAttribute("data-ldp-as-reader","");document.addEventListener("DOMContentLoaded",function(){var b=document.createElement("div");b.className="ldp-preview-bar";b.setAttribute("role","status");b.textContent=' . wp_json_encode( $words['bar'] ) . ';document.body.appendChild(b);});' ); /* printed through WordPress; the one word is JSON-encoded */
 }
 add_action( 'wp_head', 'architrave_as_reader_head', 0 );
+
+/**
+ * THE TRY MODE'S HEAD (0.56.0, plugin/panel.php architrave_panel_try): the storage
+ * set aside, seeded, before any script reads it; the page says so on its root.
+ */
+function architrave_try_head() {
+	if ( ! function_exists( 'architrave_panel_try' ) || ! architrave_panel_try() ) {
+		return;
+	}
+	wp_print_inline_script_tag( architrave_storage_aside_script( true ) . 'window.architravePanelTry=true;document.documentElement.setAttribute("data-ldp-try","");' );
+}
+add_action( 'wp_head', 'architrave_try_head', 0 );
 
 /**
  * The state, printed before presets.js so a site style is a style on first
@@ -959,7 +983,8 @@ function architrave_site_styles_print() {
 	 * cached page is a reader's page, which is right: whoever may publish is
 	 * logged in, and a logged-in page is not served from the cache.
 	 */
-	if ( ! architrave_site_styles_may_publish() || architrave_as_reader() ) {
+	$try = function_exists( 'architrave_panel_try' ) && architrave_panel_try(); /* the try mode (0.56.0): the owner's engine, with nothing to publish to */
+	if ( ( ! architrave_site_styles_may_publish() || architrave_as_reader() ) && ! $try ) {
 		$script .= 'window.architravePanelReader = true;';
 	}
 	if ( architrave_site_styles_may_publish() && ! architrave_as_reader() ) {
