@@ -103,7 +103,8 @@
 	var LAYOUT = '.alignfull, .alignwide, .wp-block-columns, .wp-block-cover, .wp-block-media-text, .wp-block-query, .is-layout-flex, .is-layout-grid, .has-background, [data-ldp-layout]';
 	var PROPS = {
 		paddingTop: 'padding-top', paddingBottom: 'padding-bottom', paddingLeft: 'padding-left', paddingRight: 'padding-right',
-		marginTop: 'margin-top', marginBottom: 'margin-bottom', rowGap: 'row-gap', columnGap: 'column-gap', minHeight: 'min-height'
+		marginTop: 'margin-top', marginBottom: 'margin-bottom', rowGap: 'row-gap', columnGap: 'column-gap', minHeight: 'min-height',
+		groove: '--groove' 
 	};
 	var held = []; 
 	var still = window.ldpStill || (window.ldpStill = (function () {
@@ -252,6 +253,11 @@
 		list.forEach(function (x) {
 			var e = x[0], g = x[1], r = x[2];
 			var band = r.width >= W * 0.9 - 40, ratio = frame(g, r);
+			if (g.getPropertyValue('--groove').trim()) {
+				var gv = px(g.paddingTop);
+				if (gv >= 2) job(e, 'groove', gv, 'G');
+				return;
+			}
 			['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight', 'marginTop', 'marginBottom', 'rowGap', 'columnGap'].forEach(function (n) {
 				if (band && /padding(Left|Right)/.test(n)) return;
 				if (ratio && /padding(Top|Bottom)/.test(n)) return;

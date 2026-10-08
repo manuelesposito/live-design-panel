@@ -104,7 +104,8 @@
 	var LAYOUT = '.alignfull, .alignwide, .wp-block-columns, .wp-block-cover, .wp-block-media-text, .wp-block-query, .is-layout-flex, .is-layout-grid, .has-background, [data-ldp-layout]';
 	var PROPS = {
 		paddingTop: 'padding-top', paddingBottom: 'padding-bottom', paddingLeft: 'padding-left', paddingRight: 'padding-right',
-		marginTop: 'margin-top', marginBottom: 'margin-bottom', rowGap: 'row-gap', columnGap: 'column-gap', minHeight: 'min-height'
+		marginTop: 'margin-top', marginBottom: 'margin-bottom', rowGap: 'row-gap', columnGap: 'column-gap', minHeight: 'min-height',
+		groove: '--groove' /* a named groove, moved by its name (2026-10-08) */
 	};
 	var held = []; /* [element, css name, its own inline value, its own priority] */
 	/* HELD STILL (0.11.149): read and written with transitions at no length;
@@ -281,6 +282,20 @@
 		list.forEach(function (x) {
 			var e = x[0], g = x[1], r = x[2];
 			var band = r.width >= W * 0.9 - 40, ratio = frame(g, r);
+			/* A NAMED DISTANCE IS MOVED BY ITS NAME (Manuel, 2026-10-08, the themes page's
+			   switches at Extra spacious: "that hover has a different shape than the active").
+			   A segmented control names its groove (`--groove`, DS-300): its padding and gap
+			   are that one number, and so are the chip's inset, the segment's corner and
+			   the hover's box, all derived from it. Writing the padding and the gap alone
+			   moved the track to 6 while everything derived stayed at 4: the chip sat 4
+			   taller than the segment under it and the hover drew a different shape.
+			   Where an element names its groove, the groove is what moves, once, and the
+			   padding, the gap and every derived distance follow it in CSS. */
+			if (g.getPropertyValue('--groove').trim()) {
+				var gv = px(g.paddingTop);
+				if (gv >= 2) job(e, 'groove', gv, 'G');
+				return;
+			}
 			['paddingTop', 'paddingBottom', 'paddingLeft', 'paddingRight', 'marginTop', 'marginBottom', 'rowGap', 'columnGap'].forEach(function (n) {
 				if (band && /padding(Left|Right)/.test(n)) return;
 				if (ratio && /padding(Top|Bottom)/.test(n)) return;
