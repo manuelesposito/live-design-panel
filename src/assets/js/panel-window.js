@@ -2555,7 +2555,17 @@
 	   closes the panel"): the theme draws a style change as a view transition, and for its quarter second every press, the window's
 	   own included, lands on the page's root element. Undo, clicked again at once, read as a click on the page and closed the window. */
 	function inTransition(t) { var r = document.documentElement; if (t !== r) return false; try { return r.matches(':active-view-transition'); } catch (x) { return true; /* no way to ask: the root is not a place anyone means to click */ } }
-	document.addEventListener('click', function (e) { if (open && e.isTrusted && !win.contains(e.target) && !inTransition(e.target) && !(e.target.closest && e.target.closest('[data-reading-panel-open]'))) hide(true); });
+	/* AND A PRESS THAT BEGAN IN THE WINDOW IS THE WINDOW'S (2026-10-08, Manuel, still: "when I click a lot of times, undo, undo, undo, it
+	   sometimes closes the panel"). The second hole: Undo redraws the window, and where a step changes how many things the bar holds (the
+	   unsaved dot leaving as the style comes back to its saved state) the bar is drawn anew, so the button that was pressed is no longer in
+	   the window by the time this listener sees the click; a detached target is "outside". Where the press BEGAN decides, read on
+	   pointerdown before anything redraws, and a target the page no longer holds is never a place anyone meant to click. */
+	var pressedIn = false;
+	document.addEventListener('pointerdown', function (e) { pressedIn = !!(win && win.contains(e.target)); }, true);
+	document.addEventListener('click', function (e) {
+		var inside = pressedIn; pressedIn = false;
+		if (open && e.isTrusted && !inside && e.target.isConnected && !win.contains(e.target) && !inTransition(e.target) && !(e.target.closest && e.target.closest('[data-reading-panel-open]'))) hide(true);
+	});
 	window.addEventListener('resize', function () { if (open) { render(); place(); } });
 
 	window.LiveDesignWindow = {

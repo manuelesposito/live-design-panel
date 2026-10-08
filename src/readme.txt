@@ -90,6 +90,9 @@ The readable source and the build scripts are at https://github.com/manuelesposi
 
 == Changelog ==
 
+= 0.56.9 =
+* Pressing Undo several times in a row no longer closes the panel.
+
 = 0.56.8 =
 * A menu, a field or a quiet button on the inverted rail takes the rail's own colours. The style's card colour stays on the paper, where the card is.
 

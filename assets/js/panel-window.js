@@ -2220,7 +2220,12 @@
 	document.addEventListener('keydown', function (e) { if (open && !RD() && (e.metaKey || e.ctrlKey) && !e.altKey && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); if (cmd) { cmd = null; render(); } else openCmd(); } });
 	
 	function inTransition(t) { var r = document.documentElement; if (t !== r) return false; try { return r.matches(':active-view-transition'); } catch (x) { return true;  } }
-	document.addEventListener('click', function (e) { if (open && e.isTrusted && !win.contains(e.target) && !inTransition(e.target) && !(e.target.closest && e.target.closest('[data-reading-panel-open]'))) hide(true); });
+	var pressedIn = false;
+	document.addEventListener('pointerdown', function (e) { pressedIn = !!(win && win.contains(e.target)); }, true);
+	document.addEventListener('click', function (e) {
+		var inside = pressedIn; pressedIn = false;
+		if (open && e.isTrusted && !inside && e.target.isConnected && !win.contains(e.target) && !inTransition(e.target) && !(e.target.closest && e.target.closest('[data-reading-panel-open]'))) hide(true);
+	});
 	window.addEventListener('resize', function () { if (open) { render(); place(); } });
 	window.LiveDesignWindow = {
 		mount: function (h) {
