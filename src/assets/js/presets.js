@@ -3080,9 +3080,19 @@
 	function accentCss(side, A, P, I) {
 		return sideRule(side, ':not([data-accent="off"])', '', accentBody(A, P, I));
 	}
+	/* THE WRITING ON A FILLED COLOUR (2026-10-08). Paper or ink, by this order: the ink whenever it
+	   reads on the fill (a contrast of 2.5 or more), else the better of the two. Pure contrast had
+	   put the dark paper on Still's bright blue (4.6 against the soft white ink's 2.8), a look
+	   nobody sets by hand; white on a blue button is the common way. The floor is 2.5, not 3: a
+	   style's ink is seldom pure white or black (Still's is #f5f5f7), and a bold label on a
+	   filled pill reads well above it. */
+	function writingOn(X, P, I) {
+		if (!(P && I)) return lum(X) > 0.35 ? '#111111' : '#ffffff';
+		var onPaper = contrast(X, P), onInk = contrast(X, I);
+		return onInk >= 2.5 ? I : (onPaper >= onInk ? P : I);
+	}
 	function accentBody(A, P, I) {
-		var onPaper = P ? contrast(A, P) : 0, onInk = I ? contrast(A, I) : 0;
-		var contrastInk = (P && I) ? (onPaper >= onInk ? P : I) : (lum(A) > 0.35 ? '#111111' : '#ffffff');
+		var contrastInk = writingOn(A, P, I);
 		return '--accent:' + A + ';--accent-contrast:' + contrastInk + ';--accent-muted:color-mix(in oklab, ' + A + ', ' + (P || 'var(--surface-base)') + ' 78%);--focus:color-mix(in srgb, ' + A + ' 40%, transparent);';
 	}
 	function markerBody(M) {
@@ -3090,8 +3100,7 @@
 		return '--marker:' + M + ';--marker-ink:' + (light ? '#1c1c18' : '#f7f7f5') + ';';
 	}
 	function buttonBody(B, P, I) {
-		var onPaper = P ? contrast(B, P) : 0, onInk = I ? contrast(B, I) : 0;
-		var writing = (P && I) ? (onPaper >= onInk ? P : I) : (lum(B) > 0.35 ? '#111111' : '#ffffff');
+		var writing = writingOn(B, P, I);
 		return '--button-colour:' + B + ';--button-contrast:' + writing + ';';
 	}
 	/* A COLOUR SET BY HAND LETS THE PRESET GO (2026-09-26, found with the Ground

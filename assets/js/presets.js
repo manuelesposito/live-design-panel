@@ -1912,9 +1912,13 @@
 	function accentCss(side, A, P, I) {
 		return sideRule(side, ':not([data-accent="off"])', '', accentBody(A, P, I));
 	}
+	function writingOn(X, P, I) {
+		if (!(P && I)) return lum(X) > 0.35 ? '#111111' : '#ffffff';
+		var onPaper = contrast(X, P), onInk = contrast(X, I);
+		return onInk >= 2.5 ? I : (onPaper >= onInk ? P : I);
+	}
 	function accentBody(A, P, I) {
-		var onPaper = P ? contrast(A, P) : 0, onInk = I ? contrast(A, I) : 0;
-		var contrastInk = (P && I) ? (onPaper >= onInk ? P : I) : (lum(A) > 0.35 ? '#111111' : '#ffffff');
+		var contrastInk = writingOn(A, P, I);
 		return '--accent:' + A + ';--accent-contrast:' + contrastInk + ';--accent-muted:color-mix(in oklab, ' + A + ', ' + (P || 'var(--surface-base)') + ' 78%);--focus:color-mix(in srgb, ' + A + ' 40%, transparent);';
 	}
 	function markerBody(M) {
@@ -1922,8 +1926,7 @@
 		return '--marker:' + M + ';--marker-ink:' + (light ? '#1c1c18' : '#f7f7f5') + ';';
 	}
 	function buttonBody(B, P, I) {
-		var onPaper = P ? contrast(B, P) : 0, onInk = I ? contrast(B, I) : 0;
-		var writing = (P && I) ? (onPaper >= onInk ? P : I) : (lum(B) > 0.35 ? '#111111' : '#ffffff');
+		var writing = writingOn(B, P, I);
 		return '--button-colour:' + B + ';--button-contrast:' + writing + ';';
 	}
 	
