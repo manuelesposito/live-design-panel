@@ -90,6 +90,9 @@ The readable source and the build scripts are at https://github.com/manuelesposi
 
 == Changelog ==
 
+= 0.56.10 =
+* Make Default moves the Default badge at once; the save follows.
+
 = 0.56.9 =
 * Pressing Undo several times in a row no longer closes the panel.
 

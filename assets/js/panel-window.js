@@ -628,7 +628,7 @@
 		if (a === 'customise') { if (x.host) s.duplicate(id); else s.choose(id); section = 'colour'; return; }
 		if (a === 'duplicate') { s.duplicate(id); done(t('Duplicated')); return; }
 		if (a === 'moveleft' || a === 'moveright') { moveBy(id, a === 'moveleft' ? -1 : 1); return; }
-		if (a === 'default') { s.makeDefault(id).then(function () { done(t('Made Default')); render(back); }, failed); return; }
+		if (a === 'default') { var madeDefault = s.makeDefault(id); Promise.resolve().then(function () { if (open) render(back); }); madeDefault.then(function () { done(t('Made Default')); render(back); }, failed); return; }
 		if (a === 'seen') { btnWrite(s.setSeen(id, !x.seen), back); return; }
 		if (a === 'reset') { if (id !== s.current()) s.choose(id); askRevertAll(x); return; }
 		if (a === 'rename') { asking = { title: t('Rename Style'), field: nm(x), go: t('Rename'), back: back, run: function (v) { return s.rename(id, v); } }; return; }
