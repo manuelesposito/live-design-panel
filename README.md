@@ -2,6 +2,8 @@
 
 A design panel built for AI. Tell your AI how your site should feel, and it styles the live page while you watch: colours, fonts, sizes, spacing, light and dark. When words are not enough, you turn the same dials yourself. A WordPress plugin by Elmastudio, live on [elmastudio.de](https://elmastudio.de/en/vibetiles/).
 
+![The Vibetiles panel, open on the Styles page](.github/panel.png)
+
 It works on block themes. Until you move a dial, the page is exactly what your theme draws, and the Original tile gives that back at any time. The site owner gets the full panel; readers get a small one: reading size, light and dark, and the styles the owner publishes.
 
 - **Connect your AI:** [Vibetiles Connector](https://github.com/manuelesposito/vibetiles-connector)
