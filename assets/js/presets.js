@@ -1914,8 +1914,9 @@
 	}
 	function writingOn(X, P, I) {
 		if (!(P && I)) return lum(X) > 0.35 ? '#111111' : '#ffffff';
-		var onPaper = contrast(X, P), onInk = contrast(X, I);
-		return onInk >= 2.5 ? I : (onPaper >= onInk ? P : I);
+		var darkFill = lum(X) <= 0.35, lighter = lum(P) >= lum(I) ? P : I, darker = lighter === P ? I : P;
+		var want = darkFill ? lighter : darker, other = want === P ? I : P;
+		return contrast(X, want) >= 2.5 ? want : other;
 	}
 	function accentBody(A, P, I) {
 		var contrastInk = writingOn(A, P, I);

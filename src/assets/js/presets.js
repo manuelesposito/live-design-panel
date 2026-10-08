@@ -3080,16 +3080,18 @@
 	function accentCss(side, A, P, I) {
 		return sideRule(side, ':not([data-accent="off"])', '', accentBody(A, P, I));
 	}
-	/* THE WRITING ON A FILLED COLOUR (2026-10-08). Paper or ink, by this order: the ink whenever it
-	   reads on the fill (a contrast of 2.5 or more), else the better of the two. Pure contrast had
-	   put the dark paper on Still's bright blue (4.6 against the soft white ink's 2.8), a look
-	   nobody sets by hand; white on a blue button is the common way. The floor is 2.5, not 3: a
-	   style's ink is seldom pure white or black (Still's is #f5f5f7), and a bold label on a
-	   filled pill reads well above it. */
+	/* THE WRITING ON A FILLED COLOUR (2026-10-08, twice). Paper or ink: on a dark fill the lighter
+	   of the two, on a light fill the darker, whenever that one reads on the fill (a contrast of
+	   2.5 or more); only below that the other. Pure contrast had put the dark paper on Still's
+	   bright blue (4.6 against the soft white ink's 2.8), a look nobody sets by hand. The first
+	   mend "prefer the ink" was wrong on a light page, where the ink is black: a dark blue button
+	   got black writing (0.56.1, Manuel: "those buttons look wrong"). The floor is 2.5, not 3,
+	   because a style's ink is seldom pure white or black (Still's is #f5f5f7). */
 	function writingOn(X, P, I) {
 		if (!(P && I)) return lum(X) > 0.35 ? '#111111' : '#ffffff';
-		var onPaper = contrast(X, P), onInk = contrast(X, I);
-		return onInk >= 2.5 ? I : (onPaper >= onInk ? P : I);
+		var darkFill = lum(X) <= 0.35, lighter = lum(P) >= lum(I) ? P : I, darker = lighter === P ? I : P;
+		var want = darkFill ? lighter : darker, other = want === P ? I : P;
+		return contrast(X, want) >= 2.5 ? want : other;
 	}
 	function accentBody(A, P, I) {
 		var contrastInk = writingOn(A, P, I);
