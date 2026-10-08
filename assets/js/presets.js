@@ -1869,7 +1869,13 @@
 			'--surface-inverse:' + I + ';--surface-inverse-subtle:' + mix(I, P, 10) + ';--text-inverse:' + P + ';--text-inverse-subtle:' + mix(P, I, 35) + ';--border-inverse:' + mix(I, P, 30) + ';' +
 			'--ink-alpha-weak:rgb(from ' + I + ' r g b / 0.06);--ink-alpha-soft:rgb(from ' + I + ' r g b / 0.12);--ink-alpha-medium:rgb(from ' + I + ' r g b / 0.24);--ink-alpha-strong:rgb(from ' + I + ' r g b / 0.48);' +
 			'--mode-swatch:' + P + ';' +
-			'--toggle-knob-ink:' + (dark ? I : 'var(--surface-raised)') + ';';
+			'--toggle-knob-ink:' + (dark ? I : 'var(--surface-raised)') + ';' +
+			'--lift-surface:' + (F || 'var(--surface-raised)') + ';' +
+			'--lift-rest:' + liftRest(F, P, I, dark) + ';';
+	}
+	function liftRest(F, P, I, dark) {
+		if (!F) return 'var(--surface-hover)';
+		return !dark && contrast(F, P) < 1.15 ? 'color-mix(in srgb, ' + P + ', ' + I + ' var(--step-surface-hover, 6%))' : F;
 	}
 	var LIFT_CARDS = ' :is(.support-box, .about-numbers, .release-panel, .release-archive-card, [data-quotes="box"] :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote)'; 
 	function pairCss(side, c) {
@@ -1882,12 +1888,13 @@
 				: '--groove-page:color-mix(in srgb, var(--interaction-surface, var(--surface-canvas)), var(--text-primary) var(--switch-groove, 10%));--chip-page:var(--surface-raised);');
 		if (c.accent) css += accentCss(side, c.accent, P, I);
 		
-		var B = F && !dark && contrast(F, P) < 1.15 ? 'color-mix(in srgb, ' + P + ', ' + I + ' var(--step-surface-hover, 6%))' : F;
+		
+		var B = 'var(--lift-rest)', LS = 'var(--lift-surface)', INK = 'var(--text-primary)';
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.post-link-card, .quire-search-field):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .quire-badge:not(.comments-count)):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
 		var NOT_PANEL = ':not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))';
-		var rung = function (step, from) { return 'background-color:color-mix(in srgb, ' + (from || F) + ', ' + I + ' var(' + step + '));'; };
+		var rung = function (step, from) { return 'background-color:color-mix(in srgb, ' + (from || B) + ', ' + INK + ' var(' + step + '));'; };
 		if (F) {
 			var LIFTED_CARD = ' :is(.post-link-card, .quire-search-field)';
 			var LIFTED = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .quire-badge:not(.comments-count), .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button)';
@@ -1904,9 +1911,10 @@
 			css += sideRule(side, ':not([data-fills="off"])', ON_CARD.replace(')' + NOT_PANEL, '):hover' + NOT_PANEL), rung('--step-surface-selected', B));
 			css += sideRule(side, ':not([data-fills="off"])', ON_CARD.replace(')' + NOT_PANEL, '):active' + NOT_PANEL), rung('--step-surface-pressed', B));
 		}
-		if (F) css += sideRule(side, ':not([data-fills="off"])', ' .single-post-article .wp-block-post-content .code-block', '--interaction-surface:' + F + ';');
-		if (F) css += sideRule(side, '', ' :is(.quire-menu, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .quire-tooltip-bubble):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + F + ';--interaction-surface:' + F + ';');
-		if (G) css += sideRule(side, '', ' .sidebar-column', '--text-subtle:' + mix(I, G, 45) + ';--text-muted:' + mix(I, G, 25) + ';');
+		if (F) css += sideRule(side, ':not([data-fills="off"])', ' .single-post-article .wp-block-post-content .code-block', '--interaction-surface:' + LS + ';');
+		if (F) css += sideRule(side, '', ' :is(.quire-menu, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .quire-tooltip-bubble):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + LS + ';--interaction-surface:' + LS + ';');
+		
+		if (G) css += sideRule(side, '', ' .sidebar-column', '--text-subtle:' + mix(INK, 'var(--surface-navigation)', 45) + ';--text-muted:' + mix(INK, 'var(--surface-navigation)', 25) + ';');
 		return css;
 	}
 	function accentCss(side, A, P, I) {

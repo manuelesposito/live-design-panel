@@ -3003,7 +3003,25 @@
 			'--surface-inverse:' + I + ';--surface-inverse-subtle:' + mix(I, P, 10) + ';--text-inverse:' + P + ';--text-inverse-subtle:' + mix(P, I, 35) + ';--border-inverse:' + mix(I, P, 30) + ';' +
 			'--ink-alpha-weak:rgb(from ' + I + ' r g b / 0.06);--ink-alpha-soft:rgb(from ' + I + ' r g b / 0.12);--ink-alpha-medium:rgb(from ' + I + ' r g b / 0.24);--ink-alpha-strong:rgb(from ' + I + ' r g b / 0.48);' +
 			'--mode-swatch:' + P + ';' +
-			'--toggle-knob-ink:' + (dark ? I : 'var(--surface-raised)') + ';';
+			'--toggle-knob-ink:' + (dark ? I : 'var(--surface-raised)') + ';' +
+			/* THE LIFT IS A TOKEN OF THE SET, NOT A COLOUR PAINTED FROM THE ROOT (Manuel,
+			   2026-10-08, the More menu on the inverted rail: the day's card colour under
+			   the ground's white words). The lift rules below (pairCss) used to write the
+			   side's card colour as a literal, keyed to the root's side, so a menu on a
+			   ground wearing another set still took the root's card. Every set says its
+			   own two lifts here, where the ground restates them (applyGround): the
+			   surface a menu or a code block stands on, and the rung a quiet button or a
+			   card rests on. A set without a card says the theme's own, so the rules
+			   paint nothing the theme would not. */
+			'--lift-surface:' + (F || 'var(--surface-raised)') + ';' +
+			'--lift-rest:' + liftRest(F, P, I, dark) + ';';
+	}
+	/* A LIFT TOO CLOSE TO THE PAPER IS NO BUTTON (2026-10-02; the cards too, 2026-10-08): where a
+	   light side's card stands within 1.15:1 of its paper, the buttons and the cards rest a rung
+	   into the paper instead. Without a card, the theme's own rest, the ground's hover rung. */
+	function liftRest(F, P, I, dark) {
+		if (!F) return 'var(--surface-hover)';
+		return !dark && contrast(F, P) < 1.15 ? 'color-mix(in srgb, ' + P + ', ' + I + ' var(--step-surface-hover, 6%))' : F;
 	}
 	/* The cards that wear a set's lift and are only read (pairCss). */
 	var LIFT_CARDS = ' :is(.support-box, .about-numbers, .release-panel, .release-archive-card, [data-quotes="box"] :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote)'; /* a quote post is a card only while Quotes says Filled (2026-10-05) */
@@ -3032,7 +3050,8 @@
 		   buttons (the same day: the collapse and comments squares stood grey
 		   beside a white search and contents square). */
 		/* A LIFT TOO CLOSE TO THE PAPER IS NO BUTTON (2026-10-02, the styles review; Manuel on Gallery: the share and .md buttons have "no background by default" and the hover "looks weird"). White on #f5f5f7 is 1.08:1, so the buttons looked bare and the pointer dropped them onto a grey darker than the paper. Where a light side's lift stands that close, the buttons and the corner squares rest a rung into the paper instead, the light grey a button on Apple's grey pages wears, and hover and press step on from there. THE CARDS TOO (2026-10-08, Manuel on Still: "the cards go away"): Still's white card on its #f2f2f4 paper is 1.08:1, so the link cards were all but gone at rest, and the hover, a rung mixed from that white, landed on the paper's own colour and the card vanished under the pointer. The link card, the field and the read-only cards now rest on the same rung as the buttons and step on from it. */
-		var B = F && !dark && contrast(F, P) < 1.15 ? 'color-mix(in srgb, ' + P + ', ' + I + ' var(--step-surface-hover, 6%))' : F;
+		/* READ AS TOKENS (2026-10-08): the set's own lifts, which a ground wearing another set restates (pairBody). */
+		var B = 'var(--lift-rest)', LS = 'var(--lift-surface)', INK = 'var(--text-primary)';
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.post-link-card, .quire-search-field):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .quire-badge:not(.comments-count)):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
 		/* The collapse square says aria-expanded="true" while the rail is out, which is its state and not a press, so the corner squares let go of the lift only under the pointer. */
@@ -3045,7 +3064,7 @@
 		   system's own rungs mixed from the lift instead of the paper, so white
 		   turns a light grey (half a rung, 3 %, could not be seen on white). */
 		var NOT_PANEL = ':not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))';
-		var rung = function (step, from) { return 'background-color:color-mix(in srgb, ' + (from || F) + ', ' + I + ' var(' + step + '));'; };
+		var rung = function (step, from) { return 'background-color:color-mix(in srgb, ' + (from || B) + ', ' + INK + ' var(' + step + '));'; };
 		if (F) {
 			var LIFTED_CARD = ' :is(.post-link-card, .quire-search-field)';
 			var LIFTED = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .quire-badge:not(.comments-count), .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button)';
@@ -3071,13 +3090,14 @@
 		   paper: the block was a darker green with teal and green code on it, hard
 		   to read). The block names its ground once (--interaction-surface) and its
 		   controls and its fade read it, so the lift goes there, not on the fill. */
-		if (F) css += sideRule(side, ':not([data-fills="off"])', ' .single-post-article .wp-block-post-content .code-block', '--interaction-surface:' + F + ';');
+		if (F) css += sideRule(side, ':not([data-fills="off"])', ' .single-post-article .wp-block-post-content .code-block', '--interaction-surface:' + LS + ';');
 		/* And the menus stand on it, as the reference's white bar stands on its
 		   green: their rows' hover, press and switches are mixed from it. */
-		if (F) css += sideRule(side, '', ' :is(.quire-menu, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .quire-tooltip-bubble):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + F + ';--interaction-surface:' + F + ';');
+		if (F) css += sideRule(side, '', ' :is(.quire-menu, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .quire-tooltip-bubble):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + LS + ';--interaction-surface:' + LS + ';');
 		/* THE RAIL'S QUIET WORDS ARE MIXED FROM ITS OWN GROUND: mixed from the
 		   paper they came out sand-grey on the green. */
-		if (G) css += sideRule(side, '', ' .sidebar-column', '--text-subtle:' + mix(I, G, 45) + ';--text-muted:' + mix(I, G, 25) + ';');
+		/* As tokens (2026-10-08): on an inverted rail the ground's own ink and ground, not the root side's. */
+		if (G) css += sideRule(side, '', ' .sidebar-column', '--text-subtle:' + mix(INK, 'var(--surface-navigation)', 45) + ';--text-muted:' + mix(INK, 'var(--surface-navigation)', 25) + ';');
 		return css;
 	}
 	function accentCss(side, A, P, I) {
