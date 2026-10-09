@@ -549,7 +549,7 @@ html.ldp-aiming, html.ldp-aiming * { cursor: crosshair !important; }
 #ldp-window.is-reader .ldpw-tiles.ldpw-styles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
 #ldp-window.is-reader .ldpw-bar .ldpw-blue { flex: none; }
 #ldp-window.is-reader .ldpw-scroll > .ldpw-hint { margin: 4px 2px 0; }
-#ldp-window { --ldpw-fill: rgb(118 118 128 / .24); --ldpw-hover: rgb(118 118 128 / .3); --ldpw-press: rgb(118 118 128 / .48); --ldpw-track: rgb(120 120 128 / .36); --ldpw-chip: #636366; }
+#ldp-window { --ldpw-fill: rgb(255 255 255 / .1); --ldpw-hover: rgb(255 255 255 / .12); --ldpw-press: rgb(255 255 255 / .2); --ldpw-track: rgb(255 255 255 / .14); --ldpw-chip: rgb(255 255 255 / .16); }
 @media (prefers-color-scheme: light) {
 	#ldp-window:not([data-ui="dark"]) { --ldpw-fill: rgb(118 118 128 / .12); --ldpw-hover: rgb(118 118 128 / .16); --ldpw-press: rgb(118 118 128 / .28); --ldpw-track: rgb(120 120 128 / .2); --ldpw-chip: #ffffff; }
 }
