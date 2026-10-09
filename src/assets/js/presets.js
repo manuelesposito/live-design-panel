@@ -3080,7 +3080,7 @@
 		var rung = function (step, from) { return 'background-color:color-mix(in srgb, ' + (from || B) + ', ' + INK + ' var(' + step + '));'; };
 		if (F) {
 			var LIFTED_CARD = ' :is(.post-link-card, .quire-search-field)';
-			var LIFTED = ' .quire-badge:not(.comments-count)';
+			var LIFTED = ' :is(a, button).quire-badge:not(.comments-count)'; /* a badge that is only a label (the comment's Author) has no hover, no press: only one that is a link or a button steps on from its lift */
 			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':hover' + NOT_PANEL, grayRung('--gray-step-hover', '--step-surface-selected'));
 			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':is([aria-expanded="true"], [aria-pressed="true"]):not(.rail-collapse-btn, .quire-icon-button)' + NOT_PANEL, grayRung('--gray-step-hover', '--step-surface-selected'));
 			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':active' + NOT_PANEL, grayRung('--gray-step-press', '--step-surface-pressed'));
@@ -3099,8 +3099,9 @@
 		if (F) {
 			var ON_CARD = ' :is(' + LIFT_CARDS + ', .single-post-article .wp-block-post-content .code-block, .quire-menu, .rail-more-menu, .rail-more-sub, .paper-stack-menu) :is(.quire-button:not(.primary, .ghost, .comments-pill), .quire-badge:not(.comments-count), .quire-search-field)' + NOT_PANEL;
 			css += sideRule(side, ':not([data-fills="off"])', ON_CARD, rung('--step-surface-hover', B));
-			css += sideRule(side, ':not([data-fills="off"])', ON_CARD.replace(')' + NOT_PANEL, '):hover' + NOT_PANEL), rung('--step-surface-selected', B));
-			css += sideRule(side, ':not([data-fills="off"])', ON_CARD.replace(')' + NOT_PANEL, '):active' + NOT_PANEL), rung('--step-surface-pressed', B));
+			var ON_CARD_PRESS = ON_CARD.replace('.quire-badge:not(.comments-count)', ':is(a, button).quire-badge:not(.comments-count)'); /* a label badge has no hover or press */
+			css += sideRule(side, ':not([data-fills="off"])', ON_CARD_PRESS.replace(')' + NOT_PANEL, '):hover' + NOT_PANEL), rung('--step-surface-selected', B));
+			css += sideRule(side, ':not([data-fills="off"])', ON_CARD_PRESS.replace(')' + NOT_PANEL, '):active' + NOT_PANEL), rung('--step-surface-pressed', B));
 		}
 		/* THE CODE BLOCK STANDS ON IT TOO (Manuel, 2026-09-26, Storybook's green
 		   paper: the block was a darker green with teal and green code on it, hard
