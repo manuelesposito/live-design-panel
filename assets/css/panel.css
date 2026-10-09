@@ -949,7 +949,7 @@ html:root[data-cap-face="title"] {
 :root[data-wide-figures="on"] .single-post-article .wp-block-post-content > :is(figure.wp-block-image, .wp-block-image):not(.alignleft, .alignright):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--wide-picture: max(100%, min(calc(100cqi - 2 * var(--space-8)), 1120px));
 	inline-size: var(--wide-picture); max-inline-size: none; margin-inline: calc((100% - var(--wide-picture)) / 2);
-	margin-block: var(--space-14);
+	margin-block: var(--space-16);
 }
 :root[data-wide-figures="on"] .single-post-article .wp-block-post-content > :is(figure.wp-block-image, .wp-block-image) img:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	inline-size: 100%; block-size: auto;
