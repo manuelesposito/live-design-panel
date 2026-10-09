@@ -1838,7 +1838,6 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 :root[data-lines="on"]:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--line-enclose: var(--border-width-default);
 	--line: color-mix(in srgb, var(--text-primary) 45%, transparent);
-	--card-edge: var(--line);
 	--chip-page: var(--text-primary);
 }
 :root[data-lines="on"] :is(.quire-menu, .quire-tooltip-bubble, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .reading-side-menu, .rail-newsletter-door, .jetpack-instant-search .jetpack-instant-search__search-results-wrapper):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
