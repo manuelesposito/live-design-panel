@@ -108,7 +108,7 @@
 		return !own || side === own;
 	}
 	var held = [], turned = [];
-	var TOKENS = ['--surface-base', '--surface-canvas', '--surface-raised', '--surface-floating', '--surface-hover', '--surface-selected', '--surface-pressed', '--text-primary', '--text-secondary', '--text-muted', '--border-control', '--border-default', '--line', '--accent', '--accent-contrast', '--reading-link-ink', '--focus'];
+	var TOKENS = ['--surface-base', '--surface-canvas', '--surface-raised', '--surface-floating', '--surface-hover', '--surface-selected', '--surface-pressed', '--text-primary', '--text-secondary', '--text-muted', '--border-control', '--border-default', '--line', '--accent', '--accent-contrast', '--accent-writing', '--reading-link-ink', '--focus'];
 	function otherSide() {
 		var was = root.getAttribute('data-theme'), room = was || 'neutral-light';
 		var other = /-dark$/.test(room) ? room.replace(/-dark$/, '-light') : room.replace(/-light$/, '') + '-dark';

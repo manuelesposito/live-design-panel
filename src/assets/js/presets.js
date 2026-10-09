@@ -3116,9 +3116,17 @@
 		var want = darkFill ? lighter : darker, other = want === P ? I : P;
 		return contrast(X, want) >= 2.5 ? want : other;
 	}
+	/* THE WRITING ON A HOVERED LINK (2026-10-09, Manuel on his mono style's pink links, "the link, when
+	   hovered, should have the most contrast ... white on the pink"): the wash and bold link marks fill
+	   with the accent under the pointer, and their words took the buttons' writing, the style's own ink
+	   or paper, which on his pink scored 2.6. Pure white on a dark fill, pure black on a light one, the
+	   fill's own darkness deciding at 0.35 as everywhere else. The buttons keep the ink and paper. */
+	function linkWriting(A) {
+		return lum(A) <= 0.35 ? '#ffffff' : '#000000';
+	}
 	function accentBody(A, P, I) {
 		var contrastInk = writingOn(A, P, I);
-		return '--accent:' + A + ';--accent-contrast:' + contrastInk + ';--accent-muted:color-mix(in oklab, ' + A + ', ' + (P || 'var(--surface-base)') + ' 78%);--focus:color-mix(in srgb, ' + A + ' 40%, transparent);';
+		return '--accent:' + A + ';--accent-contrast:' + contrastInk + ';--accent-writing:' + linkWriting(A) + ';--accent-muted:color-mix(in oklab, ' + A + ', ' + (P || 'var(--surface-base)') + ' 78%);--focus:color-mix(in srgb, ' + A + ' 40%, transparent);';
 	}
 	function markerBody(M) {
 		var light = lum(M) > 0.35;

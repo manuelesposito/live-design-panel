@@ -142,7 +142,7 @@
 	   another room for its previews: the look's own values for the other side
 	   are written on it, so its fields, buttons, links and dropdowns take the
 	   values that belong on that ground, the look's accent included. */
-	var TOKENS = ['--surface-base', '--surface-canvas', '--surface-raised', '--surface-floating', '--surface-hover', '--surface-selected', '--surface-pressed', '--text-primary', '--text-secondary', '--text-muted', '--border-control', '--border-default', '--line', '--accent', '--accent-contrast', '--reading-link-ink', '--focus'];
+	var TOKENS = ['--surface-base', '--surface-canvas', '--surface-raised', '--surface-floating', '--surface-hover', '--surface-selected', '--surface-pressed', '--text-primary', '--text-secondary', '--text-muted', '--border-control', '--border-default', '--line', '--accent', '--accent-contrast', '--accent-writing', '--reading-link-ink', '--focus'];
 	function otherSide() {
 		/* The look's own values for the other side, read with the side switched
 		   for the reading and switched back before anything is painted. */

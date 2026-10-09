@@ -1926,9 +1926,12 @@
 		var want = darkFill ? lighter : darker, other = want === P ? I : P;
 		return contrast(X, want) >= 2.5 ? want : other;
 	}
+	function linkWriting(A) {
+		return lum(A) <= 0.35 ? '#ffffff' : '#000000';
+	}
 	function accentBody(A, P, I) {
 		var contrastInk = writingOn(A, P, I);
-		return '--accent:' + A + ';--accent-contrast:' + contrastInk + ';--accent-muted:color-mix(in oklab, ' + A + ', ' + (P || 'var(--surface-base)') + ' 78%);--focus:color-mix(in srgb, ' + A + ' 40%, transparent);';
+		return '--accent:' + A + ';--accent-contrast:' + contrastInk + ';--accent-writing:' + linkWriting(A) + ';--accent-muted:color-mix(in oklab, ' + A + ', ' + (P || 'var(--surface-base)') + ' 78%);--focus:color-mix(in srgb, ' + A + ' 40%, transparent);';
 	}
 	function markerBody(M) {
 		var light = lum(M) > 0.35;
