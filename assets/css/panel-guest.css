@@ -86,33 +86,24 @@
 	.single-post-article .article-media img:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	:is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.quire-badge:not(.comments-count):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	:is(.release-panel, .release-archive-card):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.support-box:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.post-link-card .post-link-shot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.theme-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.theme-card img:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.theme-card .card-actions .quire-button.tonal:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	:is(.quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger:not([aria-expanded="true"])):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.rail-newsletter-door-picture:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.sidebar-column .rail-search .quire-icon-button:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	:is(.quire-menu, .quire-tooltip-bubble, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .reading-side-menu, .rail-newsletter-door, .jetpack-instant-search .jetpack-instant-search__search-results-wrapper):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	:is(.quire-menu, .quire-tooltip-bubble, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .reading-side-menu, .rail-newsletter-door, .site-search-room):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	:is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.post-ruler .ruler-label:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	:is(.quire-button:not(.primary, .comments-pill, .ghost), .comments-open-btn, .paper-stack-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .reading-stepper, .reading-side-btn, .reading-segment, .quire-segmented, .reading-back, .code-block-controls .quire-icon-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.reading-segment:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.reading-spot-map:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.reading-spot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before,
-	.reading-list:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	body .wp-block-post-content .wp-lightbox-container button.lightbox-trigger:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	body .wp-block-post-content .wp-lightbox-container button.lightbox-trigger:focus:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.reading-hsl:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::-webkit-slider-thumb,
-	.reading-hsl:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::-moz-range-thumb,
-	.jetpack-instant-search .jetpack-instant-search__search-results-wrapper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.jetpack-instant-search__box-label:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	.post-neighbour:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	.support-box:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.readers-note-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.release-panel:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.release-archive-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	.single-post-article .wp-block-post-content .release-route:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	.theme-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.theme-switch:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dashed;
@@ -158,7 +149,8 @@
 	border-style: dashed;
 }
 :root[data-lines="on"][data-line-style="dashed"][data-quotes="box"] :is(
-	:is(#ldp-lv, .single-post-article .wp-block-post-content blockquote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+	body:not(.single-format-quote) :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	:is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dashed;
 }
@@ -173,15 +165,13 @@
 	border-style: dashed;
 }
 :root[data-lines="on"][data-line-style="dashed"] :is(
-	.sidebar-column .sidebar-logo-section:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.jetpack-instant-search__search-results-controls:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+	.sidebar-column .sidebar-logo-section:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-block-end-style: dashed;
 }
 :root[data-lines="on"][data-line-style="dashed"] :is(
 	.sidebar-column .rail-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.mobile-panel-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.jetpack-instant-search__search-results-controls:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after
+	.mobile-panel-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-block-start-style: dashed;
 }
@@ -195,8 +185,17 @@
 	border-bottom-style: dashed;
 }
 :root[data-lines="on"][data-line-style="dashed"] :is(
-	.single-post-article .wp-block-post-content blockquote:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.post-share-split .post-share-more-btn:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-inline-start-style: dashed;
+}
+:root[data-lines="on"][data-line-style="dashed"]:not([data-quotes]) :is(
+	:is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-inline-start-style: dashed;
+}
+:root[data-lines="on"][data-line-style="dashed"][data-quotes="line"] :is(
+	:is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-inline-start-style: dashed;
 }
@@ -204,16 +203,11 @@
 	.about-numbers-row + .about-numbers-row:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.comments-fold-seam:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.comments-fold-body .comment-respond:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.jetpack-instant-search__search-result-minimal + .jetpack-instant-search__search-result-minimal:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
+	.site-search-head:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after,
+	.site-search-group + .site-search-group:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before,
+	.site-search-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
 ) {
 	border-top-style: dashed;
-}
-@media (hover: hover) {
-	:root[data-lines="on"][data-line-style="dashed"] :is(
-	body .wp-block-post-content .wp-lightbox-container button.lightbox-trigger:hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
-) {
-		border-style: dashed;
-	}
 }
 @media (max-width: 1009px) {
 	:root[data-lines="on"][data-line-style="dashed"] :is(
@@ -284,33 +278,24 @@
 	.single-post-article .article-media img:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	:is(.single-post-article, .post-card.format-link .post-format-body) .wp-block-post-content img:not(.emoji, .wp-smiley, .post-link-shot):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.quire-badge:not(.comments-count):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	:is(.release-panel, .release-archive-card):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.support-box:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.post-link-card .post-link-shot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.theme-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.theme-card img:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.theme-card .card-actions .quire-button.tonal:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	:is(.quire-button.primary, .wp-block-post-content .wp-block-button:not(.is-style-outline) > .wp-block-button__link, .rail-newsletter-trigger:not([aria-expanded="true"])):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.rail-newsletter-door-picture:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.sidebar-column .rail-search .quire-icon-button:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	:is(.quire-menu, .quire-tooltip-bubble, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .reading-side-menu, .rail-newsletter-door, .jetpack-instant-search .jetpack-instant-search__search-results-wrapper):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	:is(.quire-menu, .quire-tooltip-bubble, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .reading-side-menu, .rail-newsletter-door, .site-search-room):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	body.has-frame .frame-paper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	:is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.post-ruler .ruler-label:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	:is(.quire-button:not(.primary, .comments-pill, .ghost), .comments-open-btn, .paper-stack-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button, .reading-stepper, .reading-side-btn, .reading-segment, .quire-segmented, .reading-back, .code-block-controls .quire-icon-button):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.reading-segment:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.reading-spot-map:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.reading-spot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before,
-	.reading-list:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	body .wp-block-post-content .wp-lightbox-container button.lightbox-trigger:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	body .wp-block-post-content .wp-lightbox-container button.lightbox-trigger:focus:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.reading-hsl:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::-webkit-slider-thumb,
-	.reading-hsl:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::-moz-range-thumb,
-	.jetpack-instant-search .jetpack-instant-search__search-results-wrapper:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.jetpack-instant-search__box-label:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	.post-neighbour:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	.support-box:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.readers-note-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.release-panel:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.release-archive-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	.single-post-article .wp-block-post-content .release-route:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	.theme-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.theme-switch:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dotted;
@@ -356,7 +341,8 @@
 	border-style: dotted;
 }
 :root[data-lines="on"][data-line-style="dotted"][data-quotes="box"] :is(
-	:is(#ldp-lv, .single-post-article .wp-block-post-content blockquote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+	body:not(.single-format-quote) :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
+	:is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-style: dotted;
 }
@@ -371,15 +357,13 @@
 	border-style: dotted;
 }
 :root[data-lines="on"][data-line-style="dotted"] :is(
-	.sidebar-column .sidebar-logo-section:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.jetpack-instant-search__search-results-controls:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+	.sidebar-column .sidebar-logo-section:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-block-end-style: dotted;
 }
 :root[data-lines="on"][data-line-style="dotted"] :is(
 	.sidebar-column .rail-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.mobile-panel-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.jetpack-instant-search__search-results-controls:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after
+	.mobile-panel-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-block-start-style: dotted;
 }
@@ -393,8 +377,17 @@
 	border-bottom-style: dotted;
 }
 :root[data-lines="on"][data-line-style="dotted"] :is(
-	.single-post-article .wp-block-post-content blockquote:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.post-share-split .post-share-more-btn:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-inline-start-style: dotted;
+}
+:root[data-lines="on"][data-line-style="dotted"]:not([data-quotes]) :is(
+	:is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
+) {
+	border-inline-start-style: dotted;
+}
+:root[data-lines="on"][data-line-style="dotted"][data-quotes="line"] :is(
+	:is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
 ) {
 	border-inline-start-style: dotted;
 }
@@ -402,16 +395,11 @@
 	.about-numbers-row + .about-numbers-row:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.comments-fold-seam:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
 	.comments-fold-body .comment-respond:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)),
-	.jetpack-instant-search__search-result-minimal + .jetpack-instant-search__search-result-minimal:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
+	.site-search-head:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::after,
+	.site-search-group + .site-search-group:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before,
+	.site-search-foot:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))::before
 ) {
 	border-top-style: dotted;
-}
-@media (hover: hover) {
-	:root[data-lines="on"][data-line-style="dotted"] :is(
-	body .wp-block-post-content .wp-lightbox-container button.lightbox-trigger:hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))
-) {
-		border-style: dotted;
-	}
 }
 @media (max-width: 1009px) {
 	:root[data-lines="on"][data-line-style="dotted"] :is(
@@ -1639,8 +1627,8 @@ html:root[data-cap-face="fraunces"] {
 :root[data-lines="on"]:not([data-rail-collapsed]) body.has-frame .sidebar-column .rail-more-menu:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	inset-inline: var(--frame-gap);
 }
-:root[data-lines="on"] .jetpack-instant-search__search-results-controls:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border-block-end-color: var(--line);
+:root[data-lines="on"] .site-search-head::after {
+	border-top-color: var(--line);
 }
 :root[data-fills="off"] :is(.release-panel, .release-archive-card):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--panel-ground: var(--surface-base);
@@ -1843,7 +1831,7 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 	--line: color-mix(in srgb, var(--text-primary) 45%, transparent);
 	--chip-page: var(--text-primary);
 }
-:root[data-lines="on"] :is(.quire-menu, .quire-tooltip-bubble, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .reading-side-menu, .rail-newsletter-door, .jetpack-instant-search .jetpack-instant-search__search-results-wrapper):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-lines="on"] :is(.quire-menu, .quire-tooltip-bubble, .rail-more-menu, .rail-more-sub, .paper-stack-menu, .reading-side-menu, .rail-newsletter-door, .site-search-room):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--surface-floating);
 	border: var(--border-width-default) solid var(--line);
 	box-shadow: none;
@@ -2008,10 +1996,10 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 	--tile-ring-gap: var(--surface-base);
 }
 @media (hover: hover) {
-	:root[data-lines="on"][data-fills="off"] :is(.quire-menu-item.is-open, .quire-menu-item:hover, .quire-nav-item:hover, .wp-block-navigation-item__content:hover, .jetpack-instant-search .jetpack-instant-search__search-result-minimal:hover, .jetpack-instant-search .jetpack-instant-search__search-result-minimal:focus-within, .index-pagination a.page-numbers:hover, .reading-stepper button:hover, .rail-more-trigger:hover, button.reading-row:hover, .comments-pill:hover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-lines="on"][data-fills="off"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navigation-item__content, .wp-block-pages-list__item__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-lines="on"][data-fills="off"] :is(.quire-menu-item.is-open, .quire-menu-item:hover, .quire-nav-item:hover, .wp-block-navigation-item__content:hover, .site-search-row.is-active, .index-pagination a.page-numbers:hover, .reading-stepper button:hover, .rail-more-trigger:hover, button.reading-row:hover, .comments-pill:hover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-lines="on"][data-fills="off"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navigation-item__content, .wp-block-pages-list__item__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		box-shadow: inset 0 0 0 var(--border-width-default) var(--line);
 	}
-	:root[data-lines="on"][data-fills="off"] :is(.quire-menu-item.is-open, .quire-menu-item:hover, .quire-nav-item:hover, .wp-block-navigation-item__content:hover, .jetpack-instant-search .jetpack-instant-search__search-result-minimal:hover, .jetpack-instant-search .jetpack-instant-search__search-result-minimal:focus-within, .index-pagination a.page-numbers:hover, .reading-stepper button:hover, .rail-more-trigger:hover, button.reading-row:hover, .comments-pill:hover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-lines="on"][data-fills="off"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navigation-item__content, .wp-block-pages-list__item__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+	:root[data-lines="on"][data-fills="off"] :is(.quire-menu-item.is-open, .quire-menu-item:hover, .quire-nav-item:hover, .wp-block-navigation-item__content:hover, .site-search-row.is-active, .index-pagination a.page-numbers:hover, .reading-stepper button:hover, .rail-more-trigger:hover, button.reading-row:hover, .comments-pill:hover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-lines="on"][data-fills="off"] :is(.sidebar-column, .mobile-panel) :is(.wp-block-navigation-item__content, .wp-block-pages-list__item__link):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 		background: var(--ink-alpha-weak);
 	}
 	:root[data-lines="on"][data-fills="off"] :is(.quire-button:not(.primary, .comments-pill):hover, .paper-stack-btn:hover, .reading-side-btn:hover, .reading-back:hover, .rail-collapse-corner .quire-icon-button:hover, .rail-expand .quire-icon-button:hover, .rail-expand-search .quire-icon-button:hover, .code-block-controls .quire-icon-button:hover):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -2049,12 +2037,12 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 		box-shadow: 0 0 0 var(--border-width-default) var(--text-primary);
 	}
 }
-:root[data-lines="on"] :is(.quire-menu-item.is-selected, .quire-menu-item[aria-checked="true"], .quire-nav-item[aria-current], .current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"], .quire-segmented :is(button, a).is-active, .reading-segment button[aria-checked="true"], .jetpack-instant-search .jetpack-instant-search__search-result-minimal:has(.is-pressed), .index-pagination .page-numbers.current, button.reading-row[aria-checked="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-lines="on"][data-fills="off"] :is(.quire-menu-item:active, .quire-nav-item:active, .wp-block-navigation-item__content:active, .quire-button:not(.primary):active, .paper-stack-btn:active, .rail-collapse-corner .quire-icon-button:active, .rail-expand .quire-icon-button:active, .rail-expand-search .quire-icon-button:active, .sidebar-column .rail-search .quire-icon-button:active, .rail-more-trigger:active, .reading-stepper button:active, .jetpack-instant-search .jetpack-instant-search__search-result-minimal:active, .index-pagination a.page-numbers:active, button.reading-row:active, .reading-back:active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-lines="on"] :is(.quire-menu-item.is-selected, .quire-menu-item[aria-checked="true"], .quire-nav-item[aria-current], .current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"], .quire-segmented :is(button, a).is-active, .reading-segment button[aria-checked="true"], .site-search-row:active, .index-pagination .page-numbers.current, button.reading-row[aria-checked="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)), :root[data-lines="on"][data-fills="off"] :is(.quire-menu-item:active, .quire-nav-item:active, .wp-block-navigation-item__content:active, .quire-button:not(.primary):active, .paper-stack-btn:active, .rail-collapse-corner .quire-icon-button:active, .rail-expand .quire-icon-button:active, .rail-expand-search .quire-icon-button:active, .sidebar-column .rail-search .quire-icon-button:active, .rail-more-trigger:active, .reading-stepper button:active, .site-search-row:active, .index-pagination a.page-numbers:active, button.reading-row:active, .reading-back:active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--text-primary);
 	color: var(--surface-base);
 	box-shadow: none;
 }
-:root[data-lines="on"]:not([data-fills="off"]) :is(.quire-menu-item:active, .quire-nav-item:active, .wp-block-navigation-item__content:active, .quire-button:not(.primary):active, .paper-stack-btn:active, .rail-collapse-corner .quire-icon-button:active, .rail-expand .quire-icon-button:active, .rail-expand-search .quire-icon-button:active, .sidebar-column .rail-search .quire-icon-button:active, .rail-more-trigger:active, .reading-stepper button:active, .jetpack-instant-search .jetpack-instant-search__search-result-minimal:active, .index-pagination a.page-numbers:active, button.reading-row:active, .reading-back:active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
+:root[data-lines="on"]:not([data-fills="off"]) :is(.quire-menu-item:active, .quire-nav-item:active, .wp-block-navigation-item__content:active, .quire-button:not(.primary):active, .paper-stack-btn:active, .rail-collapse-corner .quire-icon-button:active, .rail-expand .quire-icon-button:active, .rail-expand-search .quire-icon-button:active, .sidebar-column .rail-search .quire-icon-button:active, .rail-more-trigger:active, .reading-stepper button:active, .site-search-row:active, .index-pagination a.page-numbers:active, button.reading-row:active, .reading-back:active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--surface-pressed);
 	color: var(--text-primary);
 	box-shadow: none;
@@ -2587,7 +2575,7 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 :root[data-small-leading] .single-post-article .wp-block-post-content blockquote cite, :root[data-small-leading] :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote cite {
 	line-height: calc(var(--text-base-line-height) * var(--small-leading, 1));
 }
-:root[data-ui-weight] :is(.index-pagination .page-numbers, .quire-tooltip-bubble, .rail-newsletter-door:not(.is-page, .is-simple) :is(.rail-newsletter-door-title, .rail-newsletter-door-sub, .rail-newsletter-door-words, .rail-newsletter-door-count), .rail-newsletter-door:not(.is-simple) .rail-newsletter-door-hint, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title, .arch-row-title, .about-numbers, .related-list, .theme-card .card-title, .post-ruler .ruler-label, .post-link-card .card-name), :root[data-ui-weight] :is(.sidebar-column, .mobile-panel) .rail-language a {
+:root[data-ui-weight] :is(.index-pagination .page-numbers, .quire-tooltip-bubble, .rail-newsletter-door:not(.is-page, .is-simple) :is(.rail-newsletter-door-title, .rail-newsletter-door-sub, .rail-newsletter-door-words, .rail-newsletter-door-count), .rail-newsletter-door:not(.is-simple) .rail-newsletter-door-hint, .site-search-title, .arch-row-title, .about-numbers, .related-list, .theme-card .card-title, .post-ruler .ruler-label, .post-link-card .card-name), :root[data-ui-weight] :is(.sidebar-column, .mobile-panel) .rail-language a {
 	font-weight: var(--ui-weight);
 }
 :root[data-ui-size] .index-pagination .page-numbers {
@@ -2608,7 +2596,7 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 :root[data-ui-size] .rail-newsletter-door:not(.is-simple) .rail-newsletter-door-form :is(.quire-input, .mailpoet_text, label, .mailpoet_message) {
 	font-size: max(var(--text-floor-ui), calc(var(--text-sm-contextual) * var(--ui-size)));
 }
-:root:is([data-ui-size], [data-ui-members]) .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title {
+:root:is([data-ui-size], [data-ui-members]) .site-search-title {
 	font-size: max(var(--text-floor-ui), calc(var(--text-base) * var(--ui-size-cards, var(--ui-size, 1))));
 }
 :root[data-ui-size] :is(.sidebar-column, .mobile-panel) .rail-language a {
@@ -2623,7 +2611,7 @@ body :root[data-fills="off"] .theme-card:active, :root[data-fills="off"] .theme-
 :root:is([data-ui-size], [data-ui-members]) .about-numbers dt {
 	gap: calc(var(--space-2) * var(--ui-size-cards, var(--ui-size, 1)));
 }
-:root[data-ui-leading] :is(.index-pagination .page-numbers, .quire-tooltip-bubble, .rail-newsletter-door-hint, .rail-newsletter-door-form label, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title, .arch-row-title, .about-numbers, .related-list, .theme-card .card-title, .post-ruler .ruler-label) {
+:root[data-ui-leading] :is(.index-pagination .page-numbers, .quire-tooltip-bubble, .rail-newsletter-door-hint, .rail-newsletter-door-form label, .site-search-title, .arch-row-title, .about-numbers, .related-list, .theme-card .card-title, .post-ruler .ruler-label) {
 	line-height: calc(var(--text-base-line-height) * var(--ui-leading, 1));
 }
 :root[data-ui-weight] :is(.quire-search-field input, .quire-segmented :is(button, a), .quire-textarea, .quire-badge, .quire-avatar):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
@@ -2797,22 +2785,22 @@ html:root[data-interface-colour] :is(.sidebar-column, .mobile-panel) :is(.wp-blo
 :root[data-comment-weight] .comments-section :is(.wp-block-comment-reply-link a, .form-submit .quire-button, .form-submit input[type="submit"], #submit) {
 	font-weight: var(--comment-weight);
 }
-:root[data-ui-m-cards-weight] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title) {
+:root[data-ui-m-cards-weight] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .site-search-title) {
 	--ui-weight: var(--ui-weight-cards);
 }
-:root[data-ui-m-cards-caps] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title) {
+:root[data-ui-m-cards-caps] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .site-search-title) {
 	--ui-case: var(--ui-case-cards);
 }
-:root[data-ui-m-cards-tracking] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title) {
+:root[data-ui-m-cards-tracking] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .site-search-title) {
 	--ui-tracking: var(--ui-tracking-cards);
 }
-:root[data-ui-m-cards-weight][data-ui-m-cards-weight] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title) {
+:root[data-ui-m-cards-weight][data-ui-m-cards-weight] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .site-search-title) {
 	font-weight: var(--ui-weight-cards);
 }
-:root[data-ui-m-cards-caps][data-ui-m-cards-caps] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title) {
+:root[data-ui-m-cards-caps][data-ui-m-cards-caps] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .site-search-title) {
 	text-transform: var(--ui-case-cards);
 }
-:root[data-ui-m-cards-tracking][data-ui-m-cards-tracking] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .jetpack-instant-search .jetpack-instant-search__search-result-minimal-title) {
+:root[data-ui-m-cards-tracking][data-ui-m-cards-tracking] :is(.arch-row-title, .about-numbers, .related-list, .post-ruler .ruler-label, .post-link-card .card-name, .site-search-title) {
 	letter-spacing: var(--ui-tracking-cards);
 }
 :root[data-ui-m-linkcard-weight] :is(.post-link-card .card-title, .theme-card .card-title) {

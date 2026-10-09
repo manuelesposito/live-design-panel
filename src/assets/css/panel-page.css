@@ -641,7 +641,14 @@
    its own title. The box that holds the text holds the rest of the article
    (on a single post: title, picture, byline, tags, comments; on the blog page:
    each entry's title and picture), and it takes the measure too. */
-:root[data-panel-measure] :is(.wp-block-post-content, .entry-content, :has(> :is(.wp-block-post-content, .entry-content))) {
+/* AND POSTS ONLY, NEVER A PAGE (Manuel, 2026-10-09, Twenty Twenty-Five's
+   "Business homepage" under a look: "why is Business Homepage not centred?").
+   The theme left-aligns a page's title in its own content column; the measure
+   narrowed that column and centred it, so the title's left edge moved in
+   while the full-width pattern below stayed centred. A page is the theme's
+   (its title, its width, its patterns); the reading measure is for the posts,
+   where there is an article to read. `body.page` is core's own class. */
+:root[data-panel-measure] body:not(.page) :is(.wp-block-post-content, .entry-content, :has(> :is(.wp-block-post-content, .entry-content))) {
 	--wp--style--global--content-size: min(var(--panel-measure), var(--wp--style--global--wide-size, 100%)) !important;
 }
 /* A DESIGNED SECTION KEEPS ITS THEME'S WIDTH AND LINE SPACING (guest-size.js,

@@ -502,7 +502,7 @@ SITE_CLASSES = (
     "rail-newsletter", "rail-promo", "nl-confetti", "about-numbers", "page-faces",
     "post-origin-note", "rail-more-language", "rail-language", "mobile-panel-language",
     "readers-note", "related-list", "related-row", "release-archive", "release-checked",
-    "support-box", "mailpoet", "falling-light",
+    "support-box", "mailpoet", "falling-light", "site-search",
 )
 SITE_ATTRS = ("data-newsletter-done", "data-ground")
 SITE_NAME = re.compile(r"\.(" + "|".join(re.escape(c) for c in SITE_CLASSES) + r")(?![a-z0-9_])|\.(" + "|".join(re.escape(c) for c in SITE_CLASSES) + r")[-_]|\[\s*(" + "|".join(SITE_ATTRS) + r")\b")
