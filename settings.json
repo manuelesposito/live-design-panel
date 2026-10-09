@@ -877,7 +877,7 @@
       ],
       "def": "both",
       "attr": "data-links",
-      "means": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent, underlined only under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
+      "means": "How links in the text are marked: both (the rest: the accent and an underline), coloured (the accent alone, no underline even under the pointer), underlined (the ink with a quiet underline), bold (the ink on a thick underline in the accent, filled with the accent under the pointer) or wash (the ink on a pale wash of the accent, as a highlighter lays it, filled with the accent under the pointer). Not set, a style with soft marks them underlined, and an export leaves it out.",
       "label": "Links",
       "page": "Buttons",
       "section": "buttons",

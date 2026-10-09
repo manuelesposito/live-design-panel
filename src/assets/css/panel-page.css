@@ -605,10 +605,10 @@
 	text-underline-offset: 0.2em !important;
 }
 /* HOW LINKS ARE MARKED (2026-09-27, the text marks, PICKS `links`): Coloured
-   takes the underline off until the pointer or the keyboard reaches the link;
-   with the accent off the colour would say nothing, so it stays there.
+   takes the underline off, under the pointer too (2026-10-09); keyboard focus
+   alone draws it; with the accent off the colour would say nothing, so it stays there.
    Underlined is the ink, from the theme's own rule (--reading-link-ink). */
-:root[data-chosen][data-links="coloured"]:not([data-accent="off"]) :is(.wp-block-post-content, .entry-content) a:not(.wp-block-button__link, .wp-element-button):not(:hover, :focus-visible):not(:where([data-ldp-layout] *, [data-ldp-designed] *)) {
+:root[data-chosen][data-links="coloured"]:not([data-accent="off"]) :is(.wp-block-post-content, .entry-content) a:not(.wp-block-button__link, .wp-element-button):not(:focus-visible):not(:where([data-ldp-layout] *, [data-ldp-designed] *)) {
 	text-decoration-line: none !important;
 }
 /* Bold line (2026-10-06, the panel sweep): the rule above every link says the font's own thin underline with
@@ -1325,6 +1325,8 @@
 :root[data-chosen][data-chosen-item="filled"] :is(#ldp-lv, .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"]):not(:where(.reading-panel *, #wpadminbar *)) { background-color: var(--lv-fill) !important; color: var(--lv-on) !important; border-radius: var(--radius-control) !important; padding-inline: 0.5em !important; }
 :root[data-chosen][data-chosen-item="outlined"] :is(#ldp-lv, .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"]):not(:where(.reading-panel *, #wpadminbar *)) { background-color: transparent !important; color: var(--lv-fill) !important; box-shadow: inset 0 0 0 1.5px var(--lv-fill) !important; border-radius: var(--radius-control) !important; padding-inline: 0.5em !important; }
 :root[data-chosen][data-chosen-item="bold"] :is(#ldp-lv, .wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"]):not(:where(.reading-panel *, #wpadminbar *)) { font-weight: 700 !important; text-decoration: underline !important; text-decoration-thickness: var(--border-width-thick, 2px) !important; text-underline-offset: 0.35em !important; }
+/* The underline is drawn on the label, and a theme that clips the label for an ellipsis cuts it off (Architrave did, 2026-10-09): room below, taken back by the margin. */
+:root[data-chosen][data-chosen-item="bold"] :is(.wp-block-navigation-item.current-menu-item > .wp-block-navigation-item__content, .wp-block-navigation-item__content[aria-current="page"]) > .wp-block-navigation-item__label:not(:where(.reading-panel *, #wpadminbar *)) { padding-bottom: 0.5em !important; margin-bottom: -0.5em !important; }
 
 /* SURFACES ON ANOTHER THEME (2026-09-28, style.css SURFACES): the post's quotes,
    its coloured boxes and the search and comment fields take the looks. At the
