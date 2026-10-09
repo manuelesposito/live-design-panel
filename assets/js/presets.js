@@ -1871,7 +1871,14 @@
 			'--mode-swatch:' + P + ';' +
 			'--toggle-knob-ink:' + (dark ? I : 'var(--surface-raised)') + ';' +
 			'--lift-surface:' + (F || 'var(--surface-raised)') + ';' +
-			'--lift-rest:' + liftRest(F, P, I, dark) + ';';
+			'--lift-rest:' + liftRest(F, P, I, dark) + ';' +
+			graySteps(P, dark);
+	}
+	function graySteps(P, dark) {
+		var L = hexToOklch(P).L;
+		if (!dark || L >= 0.18) return '';
+		var r = Math.round(rise(P, 0.06, 0.14) * 100);
+		return '--gray-step:' + r + '%;--gray-step-hover:' + (r + 4) + '%;--gray-step-press:' + (r + 10) + '%;';
 	}
 	function liftRest(F, P, I, dark) {
 		if (!F) return 'var(--surface-hover)';
@@ -1891,13 +1898,20 @@
 		
 		var B = 'var(--lift-rest)', LS = 'var(--lift-surface)', INK = 'var(--text-primary)';
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.post-link-card, .quire-search-field):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
-		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .quire-badge:not(.comments-count)):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
-		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
+		if (F) css += sideRule(side, ':not([data-fills="off"])', ' .quire-badge:not(.comments-count):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
+		var GROUND = 'var(--interaction-surface, var(--surface-base))';
+		var GRAY = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button)';
+		var grayRung = function (step, fall) { return 'background-color:color-mix(in srgb, ' + GROUND + ', var(--text-primary) var(' + step + ', var(' + fall + ')));'; };
+		if (F) css += sideRule(side, ':not([data-fills="off"])', GRAY + ':not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
+		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
 		var NOT_PANEL = ':not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))';
 		var rung = function (step, from) { return 'background-color:color-mix(in srgb, ' + (from || B) + ', ' + INK + ' var(' + step + '));'; };
 		if (F) {
 			var LIFTED_CARD = ' :is(.post-link-card, .quire-search-field)';
-			var LIFTED = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .quire-badge:not(.comments-count), .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button)';
+			var LIFTED = ' .quire-badge:not(.comments-count)';
+			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':hover' + NOT_PANEL, grayRung('--gray-step-hover', '--step-surface-selected'));
+			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':is([aria-expanded="true"], [aria-pressed="true"]):not(.rail-collapse-btn, .quire-icon-button)' + NOT_PANEL, grayRung('--gray-step-hover', '--step-surface-selected'));
+			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':active' + NOT_PANEL, grayRung('--gray-step-press', '--step-surface-pressed'));
 			[[LIFTED_CARD, B], [LIFTED, B]].forEach(function (g) {
 				css += sideRule(side, ':not([data-fills="off"])', g[0] + ':hover' + NOT_PANEL, rung('--step-surface-hover', g[1]));
 				css += sideRule(side, ':not([data-fills="off"])', g[0] + ':is([aria-expanded="true"], [aria-pressed="true"]):not(.rail-collapse-btn, .quire-icon-button)' + NOT_PANEL, rung('--step-surface-selected', g[1]));

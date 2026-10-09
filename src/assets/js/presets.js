@@ -3014,7 +3014,15 @@
 			   card rests on. A set without a card says the theme's own, so the rules
 			   paint nothing the theme would not. */
 			'--lift-surface:' + (F || 'var(--surface-raised)') + ';' +
-			'--lift-rest:' + liftRest(F, P, I, dark) + ';';
+			'--lift-rest:' + liftRest(F, P, I, dark) + ';' +
+			graySteps(P, dark);
+	}
+	/* THE GRAY BUTTON'S OWN STEPS (0.56.15). A Gray button is a rung of its ground, never the Cards colour (below, THE GRAY BUTTON LEAVES THE CARDS). The rung is the system's 6 %, and on a paper near black it climbs the way a card does (rise): 6 % of white on black is no button. Hover and press keep their distance above the rest. */
+	function graySteps(P, dark) {
+		var L = hexToOklch(P).L;
+		if (!dark || L >= 0.18) return '';
+		var r = Math.round(rise(P, 0.06, 0.14) * 100);
+		return '--gray-step:' + r + '%;--gray-step-hover:' + (r + 4) + '%;--gray-step-press:' + (r + 10) + '%;';
 	}
 	/* A LIFT TOO CLOSE TO THE PAPER IS NO BUTTON (2026-10-02; the cards too, 2026-10-08): where a
 	   light side's card stands within 1.15:1 of its paper, the buttons and the cards rest a rung
@@ -3053,9 +3061,14 @@
 		/* READ AS TOKENS (2026-10-08): the set's own lifts, which a ground wearing another set restates (pairBody). */
 		var B = 'var(--lift-rest)', LS = 'var(--lift-surface)', INK = 'var(--text-primary)';
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.post-link-card, .quire-search-field):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
-		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .quire-badge:not(.comments-count)):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
-		/* The collapse square says aria-expanded="true" while the rail is out, which is its state and not a press, so the corner squares let go of the lift only under the pointer. */
-		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
+		if (F) css += sideRule(side, ':not([data-fills="off"])', ' .quire-badge:not(.comments-count):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
+		/* THE GRAY BUTTON LEAVES THE CARDS (0.56.15; Manuel, 2026-10-09, his mono style with a deep blue Cards colour on the themes archive: "by changing the card's color, it changes the buttons on that side. Something's wrong"). Since the lift the quiet buttons and the corner squares rested on the Cards colour, so a saturated card painted every Info, Demo and GitHub button and the squares in the corners, while the archive's cards, a rung of the paper, stayed grey. A Gray button is a rung of whatever it stands on (DS-365): the paper, or the card under it. So it rests on its ground's hover rung and steps on from there, as the theme's own rule says, and the Cards colour keeps the cards, the menus, the fields and the badges. The ground is read where the button stands, so a button on the archive card steps from the card. */
+		var GROUND = 'var(--interaction-surface, var(--surface-base))';
+		var GRAY = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button)';
+		var grayRung = function (step, fall) { return 'background-color:color-mix(in srgb, ' + GROUND + ', var(--text-primary) var(' + step + ', var(' + fall + ')));'; };
+		if (F) css += sideRule(side, ':not([data-fills="off"])', GRAY + ':not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
+		/* The collapse square says aria-expanded="true" while the rail is out, which is its state and not a press, so the corner squares keep their rest until the pointer. */
+		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
 		/* THE HOVER STAYS ON THE LIFT (Manuel, 2026-09-26, the link card and the
 		   corner squares on Storybook's green: "that feels a little bit intense,
 		   that hover"; A, "white cards", a very light grey under the pointer).
@@ -3067,7 +3080,10 @@
 		var rung = function (step, from) { return 'background-color:color-mix(in srgb, ' + (from || B) + ', ' + INK + ' var(' + step + '));'; };
 		if (F) {
 			var LIFTED_CARD = ' :is(.post-link-card, .quire-search-field)';
-			var LIFTED = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .quire-badge:not(.comments-count), .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button)';
+			var LIFTED = ' .quire-badge:not(.comments-count)';
+			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':hover' + NOT_PANEL, grayRung('--gray-step-hover', '--step-surface-selected'));
+			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':is([aria-expanded="true"], [aria-pressed="true"]):not(.rail-collapse-btn, .quire-icon-button)' + NOT_PANEL, grayRung('--gray-step-hover', '--step-surface-selected'));
+			css += sideRule(side, ':not([data-fills="off"])', GRAY + ':active' + NOT_PANEL, grayRung('--gray-step-press', '--step-surface-pressed'));
 			[[LIFTED_CARD, B], [LIFTED, B]].forEach(function (g) {
 				css += sideRule(side, ':not([data-fills="off"])', g[0] + ':hover' + NOT_PANEL, rung('--step-surface-hover', g[1]));
 				css += sideRule(side, ':not([data-fills="off"])', g[0] + ':is([aria-expanded="true"], [aria-pressed="true"]):not(.rail-collapse-btn, .quire-icon-button)' + NOT_PANEL, rung('--step-surface-selected', g[1]));
