@@ -4221,6 +4221,7 @@
 			applyColours(); mark();
 		},
 		contrast: contrast,
+		writingOn: writingOn, /* the writing on a filled button, the panel's level cards draw it the same way (2026-10-09) */
 		paperOf: paperOf,
 		setColour: function (side, key, hex) {
 			key = colourKey(key); /* the engine's old names are read as the seven's (paper is background …) */

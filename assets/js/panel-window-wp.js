@@ -165,6 +165,7 @@
 			return list.map(function (x) { return { label: x.label, hex: String(x[one || sd] || '').toLowerCase() }; }).filter(function (x) { return isHex(x.hex); });
 		},
 		contrast: function (a, b) { var s = S(); return s && s.contrast && isHex(a) && isHex(b) ? s.contrast(a, b) : 0; },
+		writingOn: function (x, p, i) { var s = S(); return s && s.writingOn && isHex(x) && isHex(p) && isHex(i) ? s.writingOn(x, p, i) : null; },
 		
 		type: function (id) { var s = S(); return s && s.type ? s.type(id) : {}; },
 		setType: function (id, dial, v) { var s = S(); if (s && s.setType) s.setType(id, dial, v); },

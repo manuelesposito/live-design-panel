@@ -492,7 +492,11 @@
 	function lookColours() {
 		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('buttonColour');
 		var btn = who === 'text' ? ink : who === 'own' ? s.colour('button') : accent;
-		var on = s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink;
+		/* THE CARD WRITES LIKE THE BUTTON (2026-10-09, Manuel: "on the button the text is white but on the little image in the
+		   panel it's dark on blue"): the real button's writing follows presets.js writingOn since 0.56.2 (lighter of paper/ink
+		   on a dark fill, darker on a light one); the Filled card kept the older whichever-contrasts-more rule, which put the
+		   dark paper on Still's blue. One rule now; the old one stays only where the host has none. */
+		var on = (s.writingOn && s.writingOn(btn, paper, ink)) || (s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink);
 		/* --ll: THE PAGE'S OWN LINE GREY (2026-10-06, Manuel: the quote's side line was purple here and grey on the site):
 		   the theme draws a quote's side line in --border-strong; a theme without it gets ink a third into the paper */
 		var line = getComputedStyle(document.documentElement).getPropertyValue('--border-strong').trim() || 'color-mix(in oklab, ' + ink + ' 32%, ' + paper + ')';

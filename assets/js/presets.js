@@ -2680,6 +2680,7 @@
 			applyColours(); mark();
 		},
 		contrast: contrast,
+		writingOn: writingOn, 
 		paperOf: paperOf,
 		setColour: function (side, key, hex) {
 			key = colourKey(key); 

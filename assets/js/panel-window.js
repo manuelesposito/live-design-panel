@@ -436,7 +436,7 @@
 	function lookColours() {
 		var s = St(), ink = s.colour('ink'), paper = s.colour('paper'), accent = s.colour('accent'), who = s.get('buttonColour');
 		var btn = who === 'text' ? ink : who === 'own' ? s.colour('button') : accent;
-		var on = s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink;
+		var on = (s.writingOn && s.writingOn(btn, paper, ink)) || (s.contrast(btn, paper) >= s.contrast(btn, ink) ? paper : ink);
 		var line = getComputedStyle(document.documentElement).getPropertyValue('--border-strong').trim() || 'color-mix(in oklab, ' + ink + ' 32%, ' + paper + ')';
 		return '--lp:' + paper + ';--li:' + ink + ';--la:' + accent + ';--lb:' + btn + ';--lo:' + on + ';--ll:' + line;
 	}
