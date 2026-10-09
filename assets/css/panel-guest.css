@@ -3,9 +3,6 @@
 :root[data-theme="paper-dark"] {
 	--text-primary: rgb(from var(--ink-alpha-strong) r g b / 1);
 }
-:root[data-lines="on"] body :is(.quire-input, .quire-textarea, input.mailpoet_text, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"]), .quire-search-field):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border-color: var(--line);
-}
 :root[data-fills="off"] body :is(.quire-input, .quire-textarea, input.mailpoet_text, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"]), .quire-search-field):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: transparent;
 }
@@ -852,12 +849,9 @@
 }
 :root[data-quotes="box"] body:not(.single-format-quote) :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	padding: var(--space-4) var(--space-6);
-	border: max(1px, var(--border-width-default)) solid var(--line);
+	border: max(1px, var(--border-width-default)) solid transparent;
 	border-radius: var(--radius-lg);
 	background: var(--surface-hover);
-}
-:root[data-quotes="box"]:not([data-lines="on"]) body:not(.single-format-quote) :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border-color: transparent;
 }
 :root[data-quotes="line"] :is(#ldp-lv, .single-post-article .wp-block-post-content blockquote, :is(.post-card.format-quote, .single-format-quote .single-post-article .wp-block-post-content) blockquote.wp-block-quote):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-inline-start: var(--border-width-thick) solid var(--border-strong);
@@ -1644,25 +1638,13 @@ html:root[data-cap-face="fraunces"] {
 :root[data-lines="on"] .jetpack-instant-search__search-results-controls:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	border-block-end-color: var(--line);
 }
-:root[data-lines="on"] :is(.release-panel, .release-archive-card):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border: var(--border-width-default) solid var(--line);
-	box-shadow: none;
-}
 :root[data-fills="off"] :is(.release-panel, .release-archive-card):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	--panel-ground: var(--surface-base);
 	--picture-box-mat: initial;
 	background: var(--surface-base);
 }
-:root[data-lines="on"] .support-box:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border: var(--border-width-default) solid var(--line);
-	box-shadow: none;
-}
 :root[data-fills="off"] .support-box:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--surface-base);
-}
-:root[data-lines="on"] .post-link-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border: var(--border-width-default) solid var(--line);
-	box-shadow: none;
 }
 :root[data-fills="off"] .post-link-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--surface-base);
@@ -1678,10 +1660,6 @@ html:root[data-cap-face="fraunces"] {
 }
 :root[data-lines="on"][data-fills="off"] .post-link-card:active *:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	color: var(--surface-base);
-}
-:root[data-lines="on"] .about-numbers:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border: var(--border-width-default) solid var(--line);
-	box-shadow: none;
 }
 :root[data-fills="off"] .about-numbers:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--surface-base);
@@ -1701,10 +1679,6 @@ html:root[data-cap-face="fraunces"] {
 :root[data-lines="on"] :is(.author-box img, .wp-block-avatar img, img.avatar, .page-faces img, .comments-side img):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	outline: var(--border-width-default) solid var(--line);
 	outline-offset: calc(-1 * var(--border-width-default));
-}
-:root[data-lines="on"] .theme-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-	border: var(--border-width-default) solid var(--line);
-	box-shadow: none;
 }
 :root[data-fills="off"] .theme-card:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
 	background: var(--surface-base);

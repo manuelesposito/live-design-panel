@@ -1041,7 +1041,7 @@ function live_design_window_words() {
 		'A large first letter' => __( 'A large first letter', 'vibetiles' ),
 		'A mat around each picture' => __( 'A mat around each picture', 'vibetiles' ),
 		'A title and the line under it, a button’s padding' => __( 'A title and the line under it, a button’s padding', 'vibetiles' ),
-		'Around cards, buttons and fields' => __( 'Around cards, buttons and fields', 'vibetiles' ),
+		'Rows, buttons and outlined boxes' => __( 'Rows, buttons and outlined boxes', 'vibetiles' ),
 		'Article' => __( 'Article', 'vibetiles' ),
 		'Between paragraphs' => __( 'Between paragraphs', 'vibetiles' ),
 		'Copy as theme.json' => __( 'Copy as theme.json', 'vibetiles' ),

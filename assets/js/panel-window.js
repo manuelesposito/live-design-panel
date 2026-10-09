@@ -498,7 +498,7 @@
 	
 	function linesSlider() {
 		var s = St(), stops = [{ id: 'none', label: t('None') }, { id: 'hairline', label: t('Hairline') }].concat(['1', '2', '3', '5'].map(function (id) { return { id: id, label: id + ' px' }; }));
-		return stepSlider('borderWidth', t('Lines'), stops, s.get('borderWidth'), function (id) { s.set('borderWidth', id); }, 'none', t('Around cards, buttons and fields'));
+		return stepSlider('borderWidth', t('Lines'), stops, s.get('borderWidth'), function (id) { s.set('borderWidth', id); }, 'none', t('Rows, buttons and outlined boxes'));
 	}
 	function cornersSlider() {
 		var s = St(), words = PICK_WORD.corners;
