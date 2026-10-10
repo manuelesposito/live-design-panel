@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /* Quire Design System — quire-icons.php
  * GENERATED FILE — do not edit.
  *
- * version 0.75.14
+ * version 0.75.17
  * build   a366436454a8
  *
  * Source:  design-system/tokens/icons.json

@@ -346,10 +346,11 @@
 	gap: var(--layout-row-stack-gap);
 	min-width: var(--layout-menu-min-width);
 	margin: 0;
-	padding: var(--layout-menu-padding);
 	list-style: none;
 	background: var(--surface-raised);
-	border-radius: calc(var(--layout-menu-padding) + var(--radius-control-base));
+	--card-padding: var(--layout-menu-padding);
+	padding: var(--card-padding);
+	border-radius: calc(var(--card-padding) + var(--radius-control-base));
 	box-shadow: var(--elevation-floating);
 }
 :not(#live-design-panel-guard) .quire-menu[hidden] {

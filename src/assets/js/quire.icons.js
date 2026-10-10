@@ -1,7 +1,7 @@
 /* Quire Design System — quire.icons.js
  * GENERATED FILE — do not edit.
  *
- * version 0.75.14
+ * version 0.75.17
  * build   215436735861
  *
  * Source:  design-system/tokens/icons.json

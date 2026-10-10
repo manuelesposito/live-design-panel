@@ -33,7 +33,6 @@
 	--radius-xl: 12px;
 	--radius-full: 9999px;
 	--radius-control: var(--radius-lg);
-	--radius-control-base: var(--radius-lg);
 	--radius-control-action: var(--radius-control);
 	--radius-overlay: var(--radius-xl);
 	--icon-2xs: 14px;
@@ -144,6 +143,7 @@
 	--surface: var(--surface-base);
 	--border: var(--line);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-lg);
 	--text: var(--text-primary);
 	--elevation-control: 0 1px 1px rgb(0 0 0 / 0.1);
 	--elevation-floating: 0 0 1px rgb(0 0 0 / 0.2), 0 12px 32px rgb(0 0 0 / 0.18);
@@ -325,6 +325,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -371,6 +372,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -417,6 +419,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -463,6 +466,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -509,6 +513,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -555,6 +560,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -675,6 +681,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -721,6 +728,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -767,6 +775,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -814,6 +823,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -955,6 +965,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -1002,6 +1013,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -1049,6 +1061,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -1095,6 +1108,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -1141,6 +1155,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);
@@ -1188,6 +1203,7 @@
 	--surface: var(--surface-base);
 	--border: var(--border-default);
 	--scrim: rgb(0 0 0 / var(--opacity-scrim));
+	--radius-control-base: var(--radius-control);
 	--text: var(--text-primary);
 	--elevation-control: 0 0.5px 0.5px var(--elevation-contact-color);
 	--elevation-floating: 0 4px 12px var(--elevation-contact-color), 0 12px 32px var(--elevation-ambient-color);

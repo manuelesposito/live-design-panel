@@ -1900,10 +1900,10 @@
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.post-link-card, .quire-search-field):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' .quire-badge:not(.comments-count):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
 		var GROUND = 'var(--interaction-surface, var(--surface-base))';
-		var GRAY = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button)';
+		var GRAY = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button)';
 		var grayRung = function (step, fall) { return 'background-color:color-mix(in srgb, ' + GROUND + ', var(--text-primary) var(' + step + ', var(' + fall + ')));'; };
 		if (F) css += sideRule(side, ':not([data-fills="off"])', GRAY + ':not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
-		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
+		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
 		var NOT_PANEL = ':not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))';
 		var rung = function (step, from) { return 'background-color:color-mix(in srgb, ' + (from || B) + ', ' + INK + ' var(' + step + '));'; };
 		if (F) {
@@ -2150,7 +2150,7 @@
 		wear(body, night, 'ground-dark');
 		Array.prototype.forEach.call(document.querySelectorAll(ON_PAPER), function (el) { wear(el, day, 'ground-light'); });
 	}
-	var ON_PAPER = '.frame-paper, .paper-stack, .rail-collapse-corner, .rail-expand, .rail-expand-search, .comments-open';
+	var ON_PAPER = '.frame-paper, .paper-stack, .rail-collapse-corner, .rail-expand, .comments-open';
 	(function () {
 		var go = function () {
 			applyGround();

@@ -1,7 +1,7 @@
 /* Quire Design System — quire.reading.js
  * GENERATED FILE — do not edit.
  *
- * version 0.75.11
+ * version 0.75.17
  * build   00561d714844
  *
  * Source:  design-system/tokens/quire.tokens.json

@@ -3064,11 +3064,11 @@
 		if (F) css += sideRule(side, ':not([data-fills="off"])', ' .quire-badge:not(.comments-count):not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', 'background-color:' + B + ';');
 		/* THE GRAY BUTTON LEAVES THE CARDS (0.56.15; Manuel, 2026-10-09, his mono style with a deep blue Cards colour on the themes archive: "by changing the card's color, it changes the buttons on that side. Something's wrong"). Since the lift the quiet buttons and the corner squares rested on the Cards colour, so a saturated card painted every Info, Demo and GitHub button and the squares in the corners, while the archive's cards, a rung of the paper, stayed grey. A Gray button is a rung of whatever it stands on (DS-365): the paper, or the card under it. So it rests on its ground's hover rung and steps on from there, as the theme's own rule says, and the Cards colour keeps the cards, the menus, the fields and the badges. The ground is read where the button stands, so a button on the archive card steps from the card. */
 		var GROUND = 'var(--interaction-surface, var(--surface-base))';
-		var GRAY = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button)';
+		var GRAY = ' :is(.quire-button:not(.primary, .ghost, .comments-pill), .comments-open-btn, .paper-stack-btn, .rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button)';
 		var grayRung = function (step, fall) { return 'background-color:color-mix(in srgb, ' + GROUND + ', var(--text-primary) var(' + step + ', var(' + fall + ')));'; };
 		if (F) css += sideRule(side, ':not([data-fills="off"])', GRAY + ':not(:hover, :active, [aria-expanded="true"], [aria-pressed="true"]):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
 		/* The collapse square says aria-expanded="true" while the rail is out, which is its state and not a press, so the corner squares keep their rest until the pointer. */
-		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button, .rail-expand-search .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
+		if (F) css += sideRule(side, ':not([data-fills="off"])', ' :is(.rail-collapse-btn, .rail-collapse-corner .quire-icon-button, .rail-expand .quire-icon-button):not(:hover, :active):not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener))', grayRung('--gray-step', '--step-surface-hover'));
 		/* THE HOVER STAYS ON THE LIFT (Manuel, 2026-09-26, the link card and the
 		   corner squares on Storybook's green: "that feels a little bit intense,
 		   that hover"; A, "white cards", a very light grey under the pointer).
@@ -3443,7 +3443,7 @@
 	   while the rail is away, the expand square and its search: shut, they
 	   stood in the night's colours on a day paper. Any new square pinned on
 	   the paper goes on this list, or it wears the ground. */
-	var ON_PAPER = '.frame-paper, .paper-stack, .rail-collapse-corner, .rail-expand, .rail-expand-search, .comments-open';
+	var ON_PAPER = '.frame-paper, .paper-stack, .rail-collapse-corner, .rail-expand, .comments-open';
 	(function () {
 		var go = function () {
 			applyGround();
