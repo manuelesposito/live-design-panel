@@ -772,6 +772,24 @@
 			panel.style.transformOrigin = 'right bottom';
 			return;
 		}
+		/* FROM THE RAIL'S FOOT (1.4.84): the square stands beside More since
+		   1.4.82, so the panel rises above the foot, its left edge on the
+		   rail's, and may grow up to the paper's head that is shown. Its width
+		   is read while it is shown, the sheet's own number before that. */
+		var foot = trigger.closest('.rail-foot');
+		if (foot) {
+			var cornerF = Array.prototype.filter.call(document.querySelectorAll('.rail-collapse-corner, .rail-expand'), function (c) { var b = c.getBoundingClientRect(); return b.width > 0 && b.height > 0; })[0];
+			var paperF = document.querySelector('.frame-paper'), barF = document.getElementById('wpadminbar');
+			var headTopF = Math.max(16, cornerF ? cornerF.getBoundingClientRect().top : 0, paperF ? paperF.getBoundingClientRect().top + 8 : 0, barF ? barF.getBoundingClientRect().bottom + 8 : 0);
+			var fb = foot.getBoundingClientRect();
+			var wF = panel.offsetWidth || parseFloat(getComputedStyle(panel).width) || 360;
+			panel.classList.add('is-above');
+			panel.style.setProperty('--panel-anchor-bottom', Math.round(window.innerHeight - fb.top + 8) + 'px');
+			panel.style.setProperty('--panel-anchor-max', Math.round(fb.top - 8 - headTopF) + 'px');
+			panel.style.setProperty('--panel-anchor-right', Math.round(window.innerWidth - (fb.left + wF)) + 'px');
+			panel.style.transformOrigin = 'left bottom';
+			return;
+		}
 		if (stack && stack.getBoundingClientRect().width > stack.getBoundingClientRect().height) {
 			/* THE STACK IS A ROW ALONG THE PAPER'S TOP (2026-09-19): the panel
 			   hangs under its square, its right edge on the square's, and may

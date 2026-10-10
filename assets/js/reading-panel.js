@@ -544,6 +544,20 @@
 			panel.style.transformOrigin = 'right bottom';
 			return;
 		}
+		var foot = trigger.closest('.rail-foot');
+		if (foot) {
+			var cornerF = Array.prototype.filter.call(document.querySelectorAll('.rail-collapse-corner, .rail-expand'), function (c) { var b = c.getBoundingClientRect(); return b.width > 0 && b.height > 0; })[0];
+			var paperF = document.querySelector('.frame-paper'), barF = document.getElementById('wpadminbar');
+			var headTopF = Math.max(16, cornerF ? cornerF.getBoundingClientRect().top : 0, paperF ? paperF.getBoundingClientRect().top + 8 : 0, barF ? barF.getBoundingClientRect().bottom + 8 : 0);
+			var fb = foot.getBoundingClientRect();
+			var wF = panel.offsetWidth || parseFloat(getComputedStyle(panel).width) || 360;
+			panel.classList.add('is-above');
+			panel.style.setProperty('--panel-anchor-bottom', Math.round(window.innerHeight - fb.top + 8) + 'px');
+			panel.style.setProperty('--panel-anchor-max', Math.round(fb.top - 8 - headTopF) + 'px');
+			panel.style.setProperty('--panel-anchor-right', Math.round(window.innerWidth - (fb.left + wF)) + 'px');
+			panel.style.transformOrigin = 'left bottom';
+			return;
+		}
 		if (stack && stack.getBoundingClientRect().width > stack.getBoundingClientRect().height) {
 			var sr = stack.getBoundingClientRect(), topR = Math.round(sr.bottom + 8);
 			panel.classList.remove('is-above');
