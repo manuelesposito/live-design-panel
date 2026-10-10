@@ -145,7 +145,7 @@
 		if (!docked) return;
 		home.parentNode.insertBefore(pill, home.nextSibling);
 		if (menuItem) { menuItem.remove(); menuItem = null; }
-		pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded');
+		pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded'); pill.removeAttribute('data-away');
 		pill.setAttribute('data-match', S.match); /* out of the row it wears what its place says again */
 		if (twin) { pill.setAttribute('aria-expanded', twin.getAttribute('aria-expanded') || 'false'); twin.removeAttribute('data-live-design-twin'); twin.removeAttribute('data-docked'); pill.removeAttribute('data-twin'); twin = null; }
 		DOCK.forEach(function (p) { pill.style.removeProperty(p); });
@@ -322,6 +322,14 @@
 		pill.setAttribute('data-match', 'true'); /* before it is measured in the row: a square beside a menu is drawn by the row's rules, and measured by hand's it came out wide and was folded into the menu */
 		if ((byHand ? toSlot(true) || (phone() && toMenu()) : toSlot() || toMenu()) && (shown(twin || pill) || pill.hasAttribute('data-folded'))) return; /* folded into a phone's menu it is out of sight until the menu opens, and still home */
 		undock();
+		/* A THEME'S SPOT OUT OF SIGHT KEEPS THE DOOR AWAY (0.56.27; Manuel, 2026-10-10,
+		   Architrave's spot moved into the rail's foot beside More, which a folded rail
+		   takes along: "I don't mind if the button is not visible when the rail is
+		   collapsed. If someone wants it permanently visible ... he could choose one of
+		   the locations"). On Automatic, where the theme names a spot and none of them
+		   is on screen, the door stays away instead of floating over the page; a Place
+		   picked by hand still floats where it says. Phones keep their bar. */
+		if (!byHand && !phone() && !window.architravePanelGuest && document.querySelector('[data-live-design-slot]')) { pill.setAttribute('data-away', ''); docked = 'away'; return; }
 		pill.setAttribute('data-match', S.match);
 	}
 	var SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';

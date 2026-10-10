@@ -85,7 +85,7 @@
 		if (!docked) return;
 		home.parentNode.insertBefore(pill, home.nextSibling);
 		if (menuItem) { menuItem.remove(); menuItem = null; }
-		pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded');
+		pill.removeAttribute('data-docked'); pill.removeAttribute('data-folded'); pill.removeAttribute('data-away');
 		pill.setAttribute('data-match', S.match); 
 		if (twin) { pill.setAttribute('aria-expanded', twin.getAttribute('aria-expanded') || 'false'); twin.removeAttribute('data-live-design-twin'); twin.removeAttribute('data-docked'); pill.removeAttribute('data-twin'); twin = null; }
 		DOCK.forEach(function (p) { pill.style.removeProperty(p); });
@@ -193,6 +193,7 @@
 		pill.setAttribute('data-match', 'true'); 
 		if ((byHand ? toSlot(true) || (phone() && toMenu()) : toSlot() || toMenu()) && (shown(twin || pill) || pill.hasAttribute('data-folded'))) return; 
 		undock();
+		if (!byHand && !phone() && !window.architravePanelGuest && document.querySelector('[data-live-design-slot]')) { pill.setAttribute('data-away', ''); docked = 'away'; return; }
 		pill.setAttribute('data-match', S.match);
 	}
 	var SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';

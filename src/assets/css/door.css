@@ -358,6 +358,8 @@
 	/* AND WHERE THE ROW HAS ITS OWN SQUARE FOR THE PANEL, THAT SQUARE IS THE BUTTON
 	   (panel-opener.js toSlot): the door waits in the slot, out of sight. */
 	.architrave-panel-opener[data-twin] { display: none !important; }
+	/* And where the theme's spot is off screen (a folded rail), the door waits away (panel-opener.js dockNow, 0.56.27). */
+	.architrave-panel-opener[data-away] { display: none !important; }
 	.architrave-panel-opener[data-docked="slot"] .opener-word { display: none; }
 	/* THE SQUARE ANSWERS AS ITS NEIGHBOUR DOES (Manuel, 2026-09-26, on Storybook:
 	   the door "would have the same hover or click as the button next to it").
