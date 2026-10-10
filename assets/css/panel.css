@@ -877,7 +877,6 @@
 }
 @media (hover: hover) {
 	:root[data-fields="box"] body :is(#ldp-lv, .quire-input, .quire-textarea, input.mailpoet_text, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"]), .quire-search-field):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
-		background: color-mix(in srgb, var(--interaction-surface, var(--surface-base)), var(--text-primary) var(--gray-step, var(--step-surface-hover)));
 		box-shadow: inset 0 0 0 max(1px, var(--border-width-default)) color-mix(in srgb, var(--line), var(--text-primary) 25%);
 	}
 	:root[data-fields="raised"] body :is(#ldp-lv, .quire-input, .quire-textarea, input.mailpoet_text, .comment-form textarea, .comment-form input:not([type="submit"]):not([type="checkbox"]), .quire-search-field):hover:not(:where(.reading-panel, .reading-panel *, .architrave-panel-opener)) {
